@@ -1,3 +1,6 @@
 [submodule "vendor/sqrl"]
 	path = vendor/sqrl
 	url = https://github.com/trianglman/sqrl
+[submodule "vendor/qr-code"]
+	path = vendor/qr-code
+	url = https://github.com/endroid/qr-code.git
