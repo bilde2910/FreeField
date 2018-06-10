@@ -1,0 +1,3 @@
+[submodule "vendor/sqrl"]
+	path = vendor/sqrl
+	url = https://github.com/trianglman/sqrl
