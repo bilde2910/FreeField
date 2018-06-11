@@ -10,3 +10,6 @@
 [submodule "vendor/sparrow"]
 	path = vendor/sparrow
 	url = https://github.com/mikecao/sparrow.git
+[submodule "vendor/oauth2-discord-new"]
+	path = vendor/oauth2-discord-new
+	url = https://github.com/wohali/oauth2-discord-new.git
