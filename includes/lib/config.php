@@ -19,6 +19,9 @@ function getDefaultConfig($path) {
     $defaults = array(
         "access/require-login" => false
     );
+    
+    if (isset($defaults[$path])) return $defaults[$path];
+    return null;
 }
 
 ?>
