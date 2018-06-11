@@ -7,3 +7,6 @@
 [submodule "vendor/geoPHP"]
 	path = vendor/geoPHP
 	url = https://github.com/phayes/geoPHP.git
+[submodule "vendor/sparrow"]
+	path = vendor/sparrow
+	url = https://github.com/mikecao/sparrow.git
