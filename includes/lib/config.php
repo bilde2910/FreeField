@@ -6,7 +6,7 @@ class Config {
     public static function get($path) {
         if (self::$config === false) self::loadConfig();
         
-        $conf = self::config;
+        $conf = clone self::config;
         
         $segments = explode("/", $path);
         foreach ($segments as $segment) {
@@ -20,6 +20,13 @@ class Config {
     public static function getDefault($path) {
         $defaults = array(
             "access/require-login" => false,
+            "database/host" => "localhost",
+            "database/database" => "fieldfree",
+            "database/password" => "fieldfree",
+            "database/port" => -1,
+            "database/table-prefix" => "ffield_",
+            "database/type" => "mysqli",
+            "database/username" => "fieldfree",
             "security/validate-lang" => true,
             "security/validate-ua" => true
         );

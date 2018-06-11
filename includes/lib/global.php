@@ -3,10 +3,13 @@
 function __require($require) {
     switch ($require) {
         case "config":
-            require_once(__DIR__."/config.php");
+            include_once(__DIR__."/config.php");
             break;
         case "auth":
-            require_once(__DIR__."/auth.php");
+            include_once(__DIR__."/auth.php");
+            break;
+        case "db":
+            include_once(__DIR__."/db.php");
             break;
         case "vendor/geophp":
             include_once(__DIR__."/../../vendor/geoPHP/geoPHP.inc");
