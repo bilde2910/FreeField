@@ -95,12 +95,12 @@ class Auth {
             if ($session[$selector] != $expectedValue) return null;
         }
         
-        $user = dbSelect("*", "users",
-            array(
-                "id" => $session["id"],
-                "token" => $session["token"]
-            )
-        );
+        $db = Database::getSparrow();
+        $user = $db
+            ->from(Database::getTable("users"))
+            ->where("id", $session["id"])
+            ->where("token", $session["token"])
+            ->one();
         
         self::$authSessionCache = $user;
         return $user;

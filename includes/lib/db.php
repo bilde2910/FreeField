@@ -26,6 +26,10 @@ class Database {
         
         return $db;
     }
+    
+    public static function getTable($table) {
+        return Config::get("database/table-prefix").$table;
+    }
 }
 
 ?>
