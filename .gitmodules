@@ -10,3 +10,6 @@
 [submodule "vendor/sparrow"]
 	path = vendor/sparrow
 	url = https://github.com/mikecao/sparrow.git
+[submodule "vendor/oauth2-discord"]
+	path = vendor/oauth2-discord
+	url = https://github.com/teamreflex/oauth2-discord.git
