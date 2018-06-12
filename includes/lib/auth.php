@@ -33,13 +33,34 @@ class Auth {
     public static function getPermissionLevel() {
         $session = self::getAuthenticatedSession();
         if ($session === null) return 0;
-        return $session["permission"];
+        return $session["level"];
     }
     
     // Checks whether the user has the given permission.
     public static function hasPermission($permission) {
-        $perm = Config::get("permissions/{$permission}");
-        return getPermissionLevel() >= $perm;
+        $session = self::getAuthenticatedSession();
+        if ($session !== null) {
+            $explperms = explode(",", $session["overrides"]);
+            foreach ($explperms as $perm) {
+                if (substr($perm, 1) == $permission) {
+                    if (substr($perm, 0, 1) == "+") return true;
+                    if (substr($perm, 0, 1) == "-") return false;
+                }
+            }
+        }
+        $perm = Config::get("permissions/level/{$permission}");
+        return ($session === null ? 0 : $session["level"]) >= $perm;
+    }
+    
+    // Checks whether the user has a user-level override for the given permission.
+    public static function hasExplicitRights($permission) {
+        $session = self::getAuthenticatedSession();
+        if ($session === null) return false;
+        $explperms = explode(",", $session["overrides"]);
+        foreach ($explperms as $perm) {
+            if (substr($perm, 1) == $permission) return true;
+        }
+        return false;
     }
 
     // Gets the raw, unauthenticated session array from cookie data.
