@@ -82,7 +82,7 @@ class Auth {
     }
 
     // Authenticates the current cookie session data against the user database.
-    private static function getAuthenticatedSession() {
+    private static function getCurrentUser() {
         if (self::$authSessionCache !== null) return self::$authSessionCache;
         
         $session = self::getSession();
@@ -116,7 +116,7 @@ class Auth {
     
     // Returns whether or not the user is authenticated
     public static function isAuthenticated() {
-        return self::getAuthenticatedSession()->exists();
+        return self::getCurrentUser()->exists();
     }
 }
 
