@@ -15,7 +15,7 @@ function __require($require) {
             require_once(__DIR__."/../../vendor/autoload.php");
             break;
         case "vendor/sparrow":
-            include_once(__DIR__"./../../vendor/mikecao/sparrow/sparrow.php");
+            include_once(__DIR__."./../../vendor/mikecao/sparrow/sparrow.php");
             break;
     }
 }

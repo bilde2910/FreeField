@@ -113,7 +113,7 @@ class Config {
                 "auth/session-length" => array(
                     "default" => 315576000, // 10 years of 365.25 days
                     "options" => "int"
-                )
+                ),
                 "security/validate-ua" => array(
                     "default" => "lenient",
                     "options" => array("no", "lenient", "strict")
