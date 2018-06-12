@@ -28,6 +28,19 @@ class Auth {
         if ($session === null) return null;
         return $session["id"];
     }
+    
+    // Gets the current user permission level.
+    public static function getPermissionLevel() {
+        $session = self::getAuthenticatedSession();
+        if ($session === null) return 0;
+        return $session["permission"];
+    }
+    
+    // Checks whether the user has the given permission.
+    public static function hasPermission($permission) {
+        $perm = Config::get("permissions/{$permission}");
+        return getPermissionLevel() >= $perm;
+    }
 
     // Gets the raw, unauthenticated session array from cookie data.
     private static function getSession() {
@@ -52,14 +65,20 @@ class Auth {
     
     // Writes authenticated session and validation data to a cookie. Called from auth providers.
     public static function setAuthenticatedSession($id, $expire) {
-        $user = dbSelect("token", "users",
-            array(
-                "id" => $id
-            )
-        );
+        $db = Database::getSparrow();
+        $token = $db
+            ->from(Database::getTable("users"))
+            ->where("id", $id)
+            ->value("token");
+        
+        if ($token === null) {
+            // New user
+            
+        }
+        
         $session = array(
             "id" => $id,
-            "token" => $user["token"],
+            "token" => $token,
             "expire" => time() + $expire
         );
         
@@ -104,6 +123,11 @@ class Auth {
         
         self::$authSessionCache = $user;
         return $user;
+    }
+    
+    // Returns whether or not the user is authenticated
+    public static function isAuthenticated() {
+        return getAuthenticatedSession() !== null;
     }
 }
 
