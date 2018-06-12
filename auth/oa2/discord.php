@@ -9,7 +9,7 @@ $require_config = array(
     "auth/provider/{$service}/client-id",
     "auth/provider/{$service}/client-secret"
 );
-if (Config::ifAny($require_config, null)) {
+if (!Config::get("auth/provider/{$service}/enabled") || Config::ifAny($require_config, null)) {
     header("HTTP/1.1 307 Temporary Redirect");
     header("Location: ".Config::getEndpointUri("/auth/login.php"));
     exit;
@@ -46,7 +46,9 @@ if (!isset($_GET["code"])) {
         
         __require("auth");
         Auth::setAuthenticatedSession($user->getId(), Config::get("auth/session-length"));
+        
         header("HTTP/1.1 303 See Other")
+        setcookie("oa2-{$service}-state", "", time() - 3600, $_SERVER["REQUEST_URI"]);
         header("Location: ".Config::getEndpointUri("/"));
         
     } catch (Exception $e) {
