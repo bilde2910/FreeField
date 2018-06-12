@@ -1,5 +1,7 @@
 <?php
 
+$__vendor_included = false;
+
 function __require($require) {
     switch ($require) {
         case "config":
@@ -12,7 +14,11 @@ function __require($require) {
             include_once(__DIR__."/db.php");
             break;
         case "vendor":
+            $__vendor_included = true;
             require_once(__DIR__."/../../vendor/autoload.php");
+            break;
+        case "vendor/sparrow":
+            if (!$__vendor_included) include_once(__DIR__"./../../vendor/mikecao/sparrow/sparrow.php");
             break;
     }
 }
