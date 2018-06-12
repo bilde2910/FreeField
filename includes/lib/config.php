@@ -190,6 +190,22 @@ class Config {
         return null;
     }
     
+    public static function getSettingI18N($path) {
+        return new ConfigSettingI18N($path, self::getFlatTree()[$path]);
+    }
+    
+    public static function getSectionI18N($domain, $section) {
+        return new ConfigSectionI18N($domain, $section);
+    }
+    
+    public static function getDomainI18N($domain) {
+        return new ConfigDomainI18N($domain);
+    }
+    
+    public static function translatePathI18N($path) {
+        return str_replace("/", ".", str_replace($path, "-", "_"));
+    }
+    
     public static function getEndpointUri($endpoint) {
         $basepath = self::get("setup/uri");
         return (substr($basepath, 0, 1) == "/" ? substr($basepath, 1) : $basepath).$endpoint;
@@ -200,6 +216,66 @@ class Config {
         
         if (!file_exists($configLocation)) return self::getDefaultConfig($path);
         self::$config = json_decode(file_get_contents($configLocation), true);
+    }
+}
+
+class ConfigSettingI18N {
+    private $path = null;
+    private $setting = null;
+    
+    function __construct($path, $setting) {
+        $this->path = $path;
+        $this->setting = $setting;
+    }
+    
+    public function getName() {
+        return "setting.".Config::translatePathI18N(self::$path).".name";
+    }
+    
+    public function getDescription() {
+        return "setting.".Config::translatePathI18N(self::$path).".desc";
+    }
+    
+    public function getOption($option) {
+        return "setting.".Config::translatePathI18N(self::$path).".option.".Config::translatePathI18N($option);
+    }
+}
+
+class ConfigSectionI18N {
+    private $domain = null;
+    private $section = null;
+    
+    function __construct($domain, $section) {
+        $this->domain = $domain;
+        $this->section = $section;
+    }
+    
+    public function getName() {
+        return "admin.section.".Config::translatePathI18N(self::$domain).".".Config::translatePathI18N(self::$section).".name";
+    }
+    
+    public function getDescription() {
+        return "admin.section.".Config::translatePathI18N(self::$domain).".".Config::translatePathI18N(self::$section).".desc";
+    }
+}
+
+class ConfigDomainI18N {
+    private $domain = null;
+    
+    function __construct($domain) {
+        $this->domain = $domain;
+    }
+    
+    public function getName() {
+        return "admin.domain.".Config::translatePathI18N(self::$domain).".name";
+    }
+    
+    public function getDescription() {
+        return "admin.domain.".Config::translatePathI18N(self::$domain).".desc";
+    }
+    
+    public function getSection($section) {
+        return new ConfigSectionI18N(self::$domain, $section);
     }
 }
 
