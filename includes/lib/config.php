@@ -128,7 +128,7 @@ class Config {
             "discord" => array(
                 "auth/provider/discord/enabled" => array(
                     "default" => false,
-                    "options" => bool
+                    "options" => "bool"
                 ),
                 "auth/provider/discord/client-id" => array(
                     "default" => null,
@@ -145,14 +145,13 @@ class Config {
     public static function get($path) {
         if (self::$config === false) self::loadConfig();
         
-        $conf = clone self::config;
+        $conf = self::$config;
         
         $segments = explode("/", $path);
         foreach ($segments as $segment) {
-            if (!isset($conf[$segment])) return self::getDefaultConfig($path);
+            if (!isset($conf[$segment])) return self::getDefault($path);
             $conf = $conf[$segment];
         }
-        
         return $conf;
     }
     
@@ -203,7 +202,7 @@ class Config {
     }
     
     public static function translatePathI18N($path) {
-        return str_replace("/", ".", str_replace($path, "-", "_"));
+        return str_replace("/", ".", str_replace("-", "_", $path));
     }
     
     public static function getEndpointUri($endpoint) {
@@ -214,8 +213,11 @@ class Config {
     private static function loadConfig() {
         $configLocation = __DIR__."/../config.json";
         
-        if (!file_exists($configLocation)) return self::getDefaultConfig($path);
-        self::$config = json_decode(file_get_contents($configLocation), true);
+        if (!file_exists($configLocation)) {
+            self::$config = array();
+        } else {
+            self::$config = json_decode(file_get_contents($configLocation), true);
+        }
     }
 }
 
@@ -229,15 +231,19 @@ class ConfigSettingI18N {
     }
     
     public function getName() {
-        return "setting.".Config::translatePathI18N(self::$path).".name";
+        return "setting.".Config::translatePathI18N($this->path).".name";
     }
     
     public function getDescription() {
-        return "setting.".Config::translatePathI18N(self::$path).".desc";
+        return "setting.".Config::translatePathI18N($this->path).".desc";
     }
     
     public function getOption($option) {
-        return "setting.".Config::translatePathI18N(self::$path).".option.".Config::translatePathI18N($option);
+        return "setting.".Config::translatePathI18N($this->path).".option.".Config::translatePathI18N($option);
+    }
+    
+    public function getLabel() {
+        return "setting.".Config::translatePathI18N($this->path).".label";
     }
 }
 
@@ -251,11 +257,11 @@ class ConfigSectionI18N {
     }
     
     public function getName() {
-        return "admin.section.".Config::translatePathI18N(self::$domain).".".Config::translatePathI18N(self::$section).".name";
+        return "admin.section.".Config::translatePathI18N($this->domain).".".Config::translatePathI18N($this->section).".name";
     }
     
     public function getDescription() {
-        return "admin.section.".Config::translatePathI18N(self::$domain).".".Config::translatePathI18N(self::$section).".desc";
+        return "admin.section.".Config::translatePathI18N($this->domain).".".Config::translatePathI18N($this->section).".desc";
     }
 }
 
@@ -267,15 +273,15 @@ class ConfigDomainI18N {
     }
     
     public function getName() {
-        return "admin.domain.".Config::translatePathI18N(self::$domain).".name";
+        return "admin.domain.".Config::translatePathI18N($this->domain).".name";
     }
     
     public function getDescription() {
-        return "admin.domain.".Config::translatePathI18N(self::$domain).".desc";
+        return "admin.domain.".Config::translatePathI18N($this->domain).".desc";
     }
     
     public function getSection($section) {
-        return new ConfigSectionI18N(self::$domain, $section);
+        return new ConfigSectionI18N($this->domain, $section);
     }
 }
 
