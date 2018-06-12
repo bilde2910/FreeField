@@ -1,0 +1,25 @@
+{
+    "autoload": {
+        "files": [
+            "vendor/mikecao/sparrow/sparrow.php"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "mikecao/sparrow",
+                "version": "0.1",
+                "dist": {
+                    "url": "https://github.com/mikecao/sparrow/archive/v0.1.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ],
+    "require": {
+        "phayes/geophp": "1.2",
+        "wohali/oauth2-discord-new": "^1.0",
+        "mikecao/sparrow": "0.1"
+    }
+}
