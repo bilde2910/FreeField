@@ -5,6 +5,9 @@ function __require($require) {
         case "config":
             include_once(__DIR__."/config.php");
             break;
+        case "i18n":
+            include_once(__DIR__."/i18n.php");
+            break;
         case "auth":
             include_once(__DIR__."/auth.php");
             break;
