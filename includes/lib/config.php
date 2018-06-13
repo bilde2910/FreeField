@@ -1,6 +1,8 @@
 <?php
 
 class Config {
+    private const CONFIG_LOCATION = __DIR__."/../config.json";
+    
     private static $config = false;
     private static $flattree = null;
     
@@ -167,6 +169,86 @@ class Config {
         return $conf;
     }
     
+    public static function set($options) {
+        if (self::$config === false) self::loadConfig();
+        $flat = self::getFlatTree();
+        
+        foreach ($options as $option => $value_raw) {
+            if (!isset($flat[$option])) continue;
+            $values = $flat[$option];
+            
+            $value = null;
+            
+            if (is_array($values["options"])) {
+                $type = gettype($values["options"][0]);
+                switch ($type) {
+                    case "string":
+                        $value = $value_raw;
+                        break;
+                    case "integer":
+                        $value = intval($value_raw);
+                        break;
+                }
+            } elseif (preg_match('/^int,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
+                $min = intval($matches[1]);
+                $max = intval($matches[2]);
+                $value = intval($value_raw);
+                if ($value < $min) $value = $min;
+                if ($value > $max) $value = $max;
+            } else {
+                switch ($values["options"]) {
+                    case "string":
+                        $value = $value_raw;
+                        break;
+                    case "password":
+                        $value = $value_raw;
+                        break;
+                    case "int":
+                        $value = intval($value_raw);
+                        break;
+                    case "bool":
+                        $value = ($value_raw == "on");
+                        break;
+                }
+            }
+            
+            $s = explode("/", $option);
+            switch (count($s)) {
+                case 1:
+                    self::$config[$s[0]] = $value;
+                    break;
+                case 2:
+                    self::$config[$s[0]][$s[1]] = $value;
+                    break;
+                case 3:
+                    self::$config[$s[0]][$s[1]][$s[2]] = $value;
+                    break;
+                case 4:
+                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]] = $value;
+                    break;
+                case 5:
+                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]] = $value;
+                    break;
+                case 6:
+                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]] = $value;
+                    break;
+                case 7:
+                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]][$s[6]] = $value;
+                    break;
+                case 8:
+                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]][$s[6]][$s[7]] = $value;
+                    break;
+                case 9:
+                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]][$s[6]][$s[7]][$s[8]] = $value;
+                    break;
+                case 10:
+                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]][$s[6]][$s[7]][$s[8]][$s[9]] = $value;
+                    break;
+            }
+        }
+        self::saveConfig();
+    }
+    
     public static function ifAny($paths, $value) {
         foreach ($paths as $path) {
             if (self::get($path) === $value) return true;
@@ -223,13 +305,15 @@ class Config {
     }
     
     private static function loadConfig() {
-        $configLocation = __DIR__."/../config.json";
-        
-        if (!file_exists($configLocation)) {
+        if (!file_exists(self::CONFIG_LOCATION)) {
             self::$config = array();
         } else {
-            self::$config = json_decode(file_get_contents($configLocation), true);
+            self::$config = json_decode(file_get_contents(self::CONFIG_LOCATION), true);
         }
+    }
+    
+    private static function saveConfig() {
+        file_put_contents(self::CONFIG_LOCATION, json_encode(self::$config, JSON_PRETTY_PRINT));
     }
 }
 
