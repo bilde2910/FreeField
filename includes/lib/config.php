@@ -29,7 +29,14 @@ class Config {
         I18N is handled with setting.<setting>.name and setting.<setting>.desc.
         For domains and sections, it's handled with admin.domain.<domain>.name and
         admin.domain.<domain>.desc, and admin.section.<domain>.<section>.name and
-        admin.section.<domain>.<section>.desc respectively.
+        admin.section.<domain>.<section>.desc respectively. Sections only have a
+        description if __hasdesc is set. If __hasdesc is not true,
+        admin.section.<domain>.<section>.desc is ignored. Section descriptions can
+        be formatted similar to sprintf() with __descsprintf (optional). Example:
+        
+        Example I18N'd string: "Please set up {%1} authentication first!"
+        If __descsprintf = array("Discord"); the string would be:
+        "Please set up Discord authentication first!"
         
         Selection box contents are I18N'd with setting.<setting>.option.<option>.
         Dashes in all parts of the I18N string are replaced with underscores and
@@ -126,6 +133,11 @@ class Config {
         ),
         "auth" => array(
             "discord" => array(
+                "__hasdesc" => true,
+                "__descsprintf" => array(
+                    '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Discord">',
+                    '</a>'
+                ),
                 "auth/provider/discord/enabled" => array(
                     "default" => false,
                     "options" => "bool"
@@ -169,7 +181,7 @@ class Config {
         foreach (self::$configtree as $domain => $sections) {
             foreach ($sections as $section => $paths) {
                 foreach ($paths as $path => $values) {
-                    self::$flattree[$path] = $values;
+                    if (substr($path, 0, 2) !== "__") self::$flattree[$path] = $values;
                 }
             }
         }
