@@ -15,6 +15,7 @@ class I18N {
     
     public static function resolveArgs($token, ...$args) {
         $string = self::resolve($token);
+        if (is_array($args[0])) $args = $args[0];
         for ($i = 0; $i < count($args); $i++) {
             $string = str_replace('{%'.($i+1).'}', $args[$i], $string);
         }
