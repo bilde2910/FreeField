@@ -1,0 +1,34 @@
+body {
+    background-color: #111;
+    color: #888;
+}
+
+.header {
+    color: #ccc;
+    border-bottom: 1px solid #222;
+}
+
+.header h2 {
+    color: #444;
+}
+
+.content-subhead {
+    color: #777;
+}
+
+.button-submit {
+    background-color: #0f466b;
+}
+
+.tooltip span {
+    background-color: black;
+}
+
+.tooltip span::after {
+    border-color: black transparent transparent transparent;
+}
+
+input[type=text], input[type=password], input[type=number], select {
+    background-color: #000;
+    border: 1px solid #555;
+}

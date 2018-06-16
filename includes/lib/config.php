@@ -174,6 +174,12 @@ class Config {
             )
         ),
         "themes" => array(
+            "color" => array(
+                "themes/color/admin" => array(
+                    "default" => "light",
+                    "options" => array("light", "dark")
+                )
+            ),
             "icons" => array(
                 "themes/icons/default" => array(
                     "default" => "freefield-3d-compass",

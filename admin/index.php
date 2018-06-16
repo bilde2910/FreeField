@@ -116,7 +116,7 @@ class CustomControls {
                                 
                                 if (tdata.hasOwnProperty("logo")) {
                                     var logo = document.createElement("img");
-                                    logo.src = "../themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("light");
+                                    logo.src = "../themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("'.Config::get("themes/color/admin").'");
                                     logo.style.width = "400px";
                                     logo.style.maxWidth = "100%";
                                     logo.marginTop = "20px";
@@ -125,7 +125,7 @@ class CustomControls {
                                 
                                 var name = document.createElement("h2");
                                 name.innerText = tdata.name;
-                                name.style.color = "#333";
+                                name.style.color = "#'.(Config::get("themes/color/admin") == "dark" ? "ccc" : "333").'";
                                 name.style.marginBottom = "0";
                                 box.appendChild(name);
                                 
@@ -168,6 +168,7 @@ class CustomControls {
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         <link rel="stylesheet" href="./css/main.css">
+        <link rel="stylesheet" href="./css/<?php echo Config::get("themes/color/admin"); ?>.css">
         
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
@@ -290,6 +291,8 @@ class CustomControls {
                             <?php } ?>
                             <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("admin.button.save"); ?>"></p>
                         </form>
+                    <?php } elseif ($domain == "users") { ?>
+                    
                     <?php } ?>
                 </div>
             </div>

@@ -1,0 +1,28 @@
+body {
+    color: #777;
+}
+
+.header {
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.header h2 {
+    color: #ccc;
+}
+
+.content-subhead {
+    color: #888;
+}
+
+.button-submit {
+    background-color: #1f8dd6;
+}
+
+.tooltip span {
+    background-color: black;
+}
+
+.tooltip span::after {
+    border-color: black transparent transparent transparent;
+}
