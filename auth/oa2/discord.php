@@ -1,6 +1,6 @@
 <?php
 
-require_once("./includes/lib/global.php");
+require_once("../../includes/lib/global.php");
 __require("config");
 
 $service = "discord";
@@ -45,9 +45,9 @@ if (!isset($_GET["code"])) {
         $user = $provider->getResourceOwner($token);
         
         __require("auth");
-        Auth::setAuthenticatedSession("discord:"$user->getId(), Config::get("auth/session-length"));
+        Auth::setAuthenticatedSession("{$service}:".$user->getId(), Config::get("auth/session-length"));
         
-        header("HTTP/1.1 303 See Other")
+        header("HTTP/1.1 303 See Other");
         setcookie("oa2-{$service}-state", "", time() - 3600, $_SERVER["REQUEST_URI"]);
         header("Location: ".Config::getEndpointUri("/"));
         

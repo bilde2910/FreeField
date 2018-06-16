@@ -320,7 +320,7 @@ class Config {
     
     public static function getEndpointUri($endpoint) {
         $basepath = self::get("setup/uri");
-        return (substr($basepath, 0, 1) == "/" ? substr($basepath, 1) : $basepath).$endpoint;
+        return (substr($basepath, -1) == "/" ? substr($basepath, 0, -1) : $basepath).$endpoint;
     }
     
     private static function loadConfig() {
