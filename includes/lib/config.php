@@ -152,6 +152,25 @@ class Config {
                     "default" => null,
                     "options" => "string"
                 )
+            ),
+            "telegram" => array(
+                "__hasdesc" => true,
+                "__descsprintf" => array(
+                    '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Telegram">',
+                    '</a>'
+                ),
+                "auth/provider/telegram/enabled" => array(
+                    "default" => false,
+                    "options" => "bool"
+                ),
+                "auth/provider/telegram/bot-username" => array(
+                    "default" => null,
+                    "options" => "string"
+                ),
+                "auth/provider/telegram/bot-token" => array(
+                    "default" => null,
+                    "options" => "string"
+                )
             )
         )
     );
