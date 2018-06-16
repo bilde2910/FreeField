@@ -55,6 +55,9 @@
 .tooltip:hover span {
     visibility: visible;
 }
+input[type=text], input[type=password], input[type=number], select {
+    padding: 4px;
+}
 @media all and (min-width: 48em) {
     .only-mobile {
         display: none;
