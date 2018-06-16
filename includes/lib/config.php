@@ -176,11 +176,11 @@ class Config {
         "themes" => array(
             "color" => array(
                 "themes/color/admin" => array(
-                    "default" => "light",
+                    "default" => "dark",
                     "options" => array("light", "dark")
                 ),
                 "themes/color/user-settings/theme" => array(
-                    "default" => "light",
+                    "default" => "dark",
                     "options" => array("light", "dark")
                 ),
                 "themes/color/user-settings/allow-personalization" => array(
