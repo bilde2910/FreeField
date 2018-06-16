@@ -68,11 +68,20 @@ if ($verify !== $hash || time() - intval($_GET["auth_date"]) > 600) {
 
 $userid = $_GET["id"];
 
-__require("auth");
-Auth::setAuthenticatedSession("{$service}:".$userid, Config::get("auth/session-length"));
+try {
+    __require("auth");
+    Auth::setAuthenticatedSession("{$service}:".$userid, Config::get("auth/session-length"));
+    
+    header("HTTP/1.1 303 See Other");
+    header("Location: ".Config::getEndpointUri("/"));
+    exit;
+} catch (Exception $e) {
+    header("303 See Other");
+    header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+    exit;
+}
 
-header("HTTP/1.1 303 See Other");
-header("Location: ".Config::getEndpointUri("/"));
-exit;
+
+
 
 ?>

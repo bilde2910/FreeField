@@ -20,12 +20,11 @@ __require("vendor");
 $provider = new \Wohali\OAuth2\Client\Provider\Discord([
     "clientId" => Config::get("auth/provider/{$service}/client-id"),
     "clientSecret" => Config::get("auth/provider/{$service}/client-secret"),
-    "redirectUri" => Config::getEndpointUri("/auth/{$service}.php")
+    "redirectUri" => Config::getEndpointUri("/auth/oa2/{$service}.php")
 ]);
 
 if (!isset($_GET["code"])) {
     $authUrl = $provider->getAuthorizationUrl(array(
-        "state" => "OPTIONAL_CUSTOM_CONFIGURED_STATE",
         "scope" => array("identify")
     ));
     header("HTTP/1.1 307 Temporary Redirect");
@@ -50,7 +49,6 @@ if (!isset($_GET["code"])) {
         header("HTTP/1.1 303 See Other");
         setcookie("oa2-{$service}-state", "", time() - 3600, $_SERVER["REQUEST_URI"]);
         header("Location: ".Config::getEndpointUri("/"));
-        
     } catch (Exception $e) {
         header("303 See Other");
         setcookie("oa2-{$service}-state", "", time() - 3600, $_SERVER["REQUEST_URI"]);
