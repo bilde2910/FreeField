@@ -178,6 +178,22 @@ class Config {
                 "themes/color/admin" => array(
                     "default" => "light",
                     "options" => array("light", "dark")
+                ),
+                "themes/color/user-settings/theme" => array(
+                    "default" => "light",
+                    "options" => array("light", "dark")
+                ),
+                "themes/color/user-settings/allow-personalization" => array(
+                    "default" => true,
+                    "options" => "bool"
+                ),
+                "themes/color/map/theme" => array(
+                    "default" => "light",
+                    "options" => array("light", "dark")
+                ),
+                "themes/color/map/allow-personalization" => array(
+                    "default" => true,
+                    "options" => "bool"
                 )
             ),
             "icons" => array(
