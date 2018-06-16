@@ -172,6 +172,19 @@ class Config {
                     "options" => "string"
                 )
             )
+        ),
+        "themes" => array(
+            "icons" => array(
+                "themes/icons/default" => array(
+                    "default" => "freefield-3d-compass",
+                    "options" => "string",
+                    "custom" => "icon-selector"
+                ),
+                "themes/icons/allow-personalization" => array(
+                    "default" => true,
+                    "options" => "bool"
+                )
+            )
         )
     );
     

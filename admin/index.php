@@ -15,7 +15,7 @@ if (!isset($_GET["d"])) {
 }
 
 $domain = $_GET["d"];
-$domains = array("main", "perms", "security", "auth");
+$domains = array("main", "perms", "security", "auth", "themes");
 $pages_icons = array(
     "main" => "cog",
     "users" => "users",
@@ -23,6 +23,7 @@ $pages_icons = array(
     "perms" => "check-square",
     "security" => "shield-alt",
     "auth" => "lock",
+    "themes" => "palette",
     "hooks" => "link"
 );
 
@@ -35,6 +36,125 @@ if (!isset($_GET["d"])) {
 $di18n = Config::getDomainI18N($domain);
 if (in_array($domain, $domains)) {
     $sections = Config::getTreeDomain($domain);
+}
+
+class CustomControls {
+    /*
+        For rendering custom controls. $control can be:
+        - field: The input field area.
+        - after: A dedicated area below the configurator.
+    */
+    public static function getControl($control, $path, $current, $section) {
+        switch ($control) {
+            case "icon-selector":
+                global $control_iconSelectorID;
+                if ($section == "field") {
+                    $themepath = __DIR__."/../themes/icons";
+                    $themes = array_diff(scandir($themepath), array('..', '.'));
+                    $options = "";
+                    $themedata = array();
+                    $control_iconSelectorID = bin2hex(openssl_random_pseudo_bytes(4));
+                    foreach ($themes as $theme) {
+                        if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
+                        $data = parse_ini_file("{$themepath}/{$theme}/pack.ini", true);
+                        $themedata[$theme] = $data;
+                        $options .= '<option id="iconselector-'.$control_iconSelectorID.'" value="'.$theme.'"'.($current == $theme ? ' selected' : '').'>'.$data["name"].' (by '.$data["author"].')</option>';
+                    }
+                    return '
+                        <select class="pure-u-5-5" name="'.$path.'">'.$options.'</select>
+                        <script type="text/javascript">
+                            var themedata = '.json_encode($themedata, JSON_PRETTY_PRINT).';
+                            
+                            function viewTheme_'.$control_iconSelectorID.'(theme) {
+                                var box = document.getElementById("iconviewer-'.$control_iconSelectorID.'");
+                                box.innerHTML = "";
+                                
+                                var variants = ["light", "dark"];
+                                var varbox = {};
+                                
+                                for (var i = 0; i < variants.length; i++) {
+                                    varbox[variants[i]] = document.createElement("div");
+                                    varbox[variants[i]].style.width = "calc(100% - 20px)";
+                                    varbox[variants[i]].style.padding = "10px";
+                                }
+                                
+                                varbox["light"].style.backgroundColor = "#ccc";
+                                varbox["dark"].style.backgroundColor = "#333";
+                                
+                                var tdata = themedata[theme];
+                                
+                                var icons = [
+                                    "potion", "super_potion", "hyper_potion", "max_potion",
+                                    "revive", "max_revive",
+                                    "fast_tm", "charged_tm",
+                                    "stardust", "rare_candy", "encounter",
+                                    "battle", "raid",
+                                    "catch", "throwing_skill", "hatch",
+                                    "power_up", "evolve",
+                                    "unknown"
+                                ];
+                                
+                                for (var i = 0; i < icons.length; i++) {
+                                    var uri = "../themes/icons/" + theme + "/";
+                                    if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
+                                        uri += tdata["vector"][icons[i]];
+                                    } else if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
+                                        uri += tdata["raster"][icons[i]];
+                                    } else {
+                                        uri = "about:blank";
+                                    }
+                                    
+                                    for (var j = 0; j < variants.length; j++) {
+                                        var icobox = document.createElement("img");
+                                        icobox.src = uri.split("{%variant%}").join(variants[j]);
+                                        icobox.style.width = "68px";
+                                        icobox.style.height = "68px";
+                                        icobox.style.margin = "5px";
+                                        varbox[variants[j]].appendChild(icobox);
+                                    }
+                                }
+                                
+                                if (tdata.hasOwnProperty("logo")) {
+                                    var logo = document.createElement("img");
+                                    logo.src = "../themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("light");
+                                    logo.style.width = "400px";
+                                    logo.style.maxWidth = "100%";
+                                    logo.marginTop = "20px";
+                                    box.appendChild(logo);
+                                }
+                                
+                                var name = document.createElement("h2");
+                                name.innerText = tdata.name;
+                                name.style.color = "#333";
+                                name.style.marginBottom = "0";
+                                box.appendChild(name);
+                                
+                                var author = document.createElement("p");
+                                author.innerText = "Authored by " + tdata.author;
+                                box.appendChild(author);
+                                
+                                for (var i = 0; i < variants.length; i++) {
+                                    box.appendChild(varbox[variants[i]]);
+                                }
+
+                            }
+                        </script>
+                    ';
+                } elseif ($section == "after") {
+                    return '
+                        <div style="width: 100%;" id="iconviewer-'.$control_iconSelectorID.'"></div>
+                        <script type="text/javascript">
+                            var selector_'.$control_iconSelectorID.' = document.getElementById("iconselector-'.$control_iconSelectorID.'");
+                            viewTheme_'.$control_iconSelectorID.'(selector_'.$control_iconSelectorID.'.value);
+                            selector_'.$control_iconSelectorID.'.addEventListener("select", function() {
+                                viewTheme_'.$control_iconSelectorID.'(selector_'.$control_iconSelectorID.'.value);
+                            });
+                        </script>
+                    ';
+                }
+        }
+        return null;
+    }
 }
 
 ?>
@@ -120,39 +240,52 @@ if (in_array($domain, $domains)) {
                                         <div class="pure-u-2-3 full-on-mobile">
                                             <p>
                                                 <?php
-                                                    $matches = array();
-                                                    if (is_array($values["options"])) {
-                                                        echo '<select class="pure-u-5-5" name="'.$setting.'">';
+                                                    if (isset($values["custom"])) {
                                                         $value = Config::get($setting);
-                                                        foreach ($values["options"] as $option) {
-                                                            echo '<option value="'.$option.'"'.($value == $option ? ' selected' : '').'>'.I18N::resolve($si18n->getOption($option)).'</option>';
-                                                        }
-                                                        echo '</select>';
-                                                        
-                                                    } elseif (preg_match('/^int,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
-                                                        echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" value="'.Config::get($setting).'">';
-                                                        
+                                                        echo CustomControls::getControl($values["custom"], $setting, $value, "field");
                                                     } else {
-                                                        switch ($values["options"]) {
-                                                            case "string":
-                                                                echo '<input type="text" class="pure-u-5-5" name="'.$setting.'" value="'.Config::get($setting).'">';
-                                                                break;
-                                                            case "password":
-                                                                echo '<input type="password" class="pure-u-5-5" name="'.$setting.'" value="'.Config::get($setting).'">';
-                                                                break;
-                                                            case "int":
-                                                                echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" value="'.Config::get($setting).'">';
-                                                                break;
-                                                            case "bool":
-                                                                echo '<input type="hidden" name="'.$setting.'" value="off">'; // Detect unchecked checkbox - unchecked checkboxes aren't POSTed!
-                                                                echo '<input type="checkbox" id="'.$setting.'" name="'.$setting.'"'.(Config::get($setting) ? ' checked' : '').'> <label for="'.$setting.'">'.I18N::resolve($si18n->getLabel()).'</label>';
-                                                                break;
+                                                        $matches = array();
+                                                        if (is_array($values["options"])) {
+                                                            echo '<select class="pure-u-5-5" name="'.$setting.'">';
+                                                            $value = Config::get($setting);
+                                                            foreach ($values["options"] as $option) {
+                                                                echo '<option value="'.$option.'"'.($value == $option ? ' selected' : '').'>'.I18N::resolve($si18n->getOption($option)).'</option>';
+                                                            }
+                                                            echo '</select>';
+                                                            
+                                                        } elseif (preg_match('/^int,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
+                                                            echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" value="'.Config::get($setting).'">';
+                                                            
+                                                        } else {
+                                                            switch ($values["options"]) {
+                                                                case "string":
+                                                                    echo '<input type="text" class="pure-u-5-5" name="'.$setting.'" value="'.Config::get($setting).'">';
+                                                                    break;
+                                                                case "password":
+                                                                    echo '<input type="password" class="pure-u-5-5" name="'.$setting.'" value="'.Config::get($setting).'">';
+                                                                    break;
+                                                                case "int":
+                                                                    echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" value="'.Config::get($setting).'">';
+                                                                    break;
+                                                                case "bool":
+                                                                    echo '<input type="hidden" name="'.$setting.'" value="off">'; // Detect unchecked checkbox - unchecked checkboxes aren't POSTed!
+                                                                    echo '<input type="checkbox" id="'.$setting.'" name="'.$setting.'"'.(Config::get($setting) ? ' checked' : '').'> <label for="'.$setting.'">'.I18N::resolve($si18n->getLabel()).'</label>';
+                                                                    break;
+                                                            }
                                                         }
                                                     }
                                                 ?>
                                             </p>
                                         </div>
                                     </div>
+                                    <?php
+                                        if (isset($values["custom"])) {
+                                            $control = CustomControls::getControl($values["custom"], $setting, $value, "after");
+                                            if ($control !== null) {
+                                                echo $control;
+                                            }
+                                        }
+                                    ?>
                                 <?php } ?>
                             <?php } ?>
                             <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("admin.button.save"); ?>"></p>
