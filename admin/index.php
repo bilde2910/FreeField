@@ -167,14 +167,14 @@ class CustomControls {
         <title>FreeField Admin | <?php echo I18N::resolve($di18n->getName()); ?></title>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-        <link rel="stylesheet" href="./css/main.css">
-        <link rel="stylesheet" href="./css/<?php echo Config::get("themes/color/admin"); ?>.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/admin"); ?>.css">
         
         <!--[if lte IE 8]>
-            <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
+            <link rel="stylesheet" href="../css/layouts/side-menu-old-ie.css">
         <![endif]-->
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="./css/layouts/side-menu.css">
+            <link rel="stylesheet" href="../css/layouts/side-menu.css">
         <!--<![endif]-->
     </head>
     <body>
@@ -297,6 +297,6 @@ class CustomControls {
                 </div>
             </div>
         </div>
-        <script src="js/ui.js"></script>
+        <script src="../js/ui.js"></script>
     </body>
 </html>
