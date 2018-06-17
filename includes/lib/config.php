@@ -67,7 +67,7 @@ class Config {
     private static $configtree = array(
         "main" => array(
             "access" => array(
-                "setup/uri" => array(
+                "site/uri" => array(
                     "default" => null,
                     "options" => "string"
                 )
