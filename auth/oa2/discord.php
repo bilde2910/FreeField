@@ -2,14 +2,11 @@
 
 require_once("../../includes/lib/global.php");
 __require("config");
+__require("auth");
 
 $service = "discord";
 
-$require_config = array(
-    "auth/provider/{$service}/client-id",
-    "auth/provider/{$service}/client-secret"
-);
-if (!Config::get("auth/provider/{$service}/enabled") || Config::ifAny($require_config, null)) {
+if (!Auth::isProviderEnabled($service)) {
     header("HTTP/1.1 307 Temporary Redirect");
     header("Location: ".Config::getEndpointUri("/auth/login.php"));
     exit;
@@ -42,8 +39,6 @@ if (!isset($_GET["code"])) {
     ));
     try {
         $user = $provider->getResourceOwner($token);
-        
-        __require("auth");
         Auth::setAuthenticatedSession("{$service}:".$user->getId(), Config::get("auth/session-length"));
         
         header("HTTP/1.1 303 See Other");

@@ -2,14 +2,11 @@
 
 require_once("../../includes/lib/global.php");
 __require("config");
+__require("auth");
 
 $service = "telegram";
 
-$require_config = array(
-    "auth/provider/{$service}/bot-username",
-    "auth/provider/{$service}/bot-token"
-);
-if (!Config::get("auth/provider/{$service}/enabled") || Config::ifAny($require_config, null)) {
+if (!Auth::isProviderEnabled($service)) {
     header("HTTP/1.1 307 Temporary Redirect");
     header("Location: ".Config::getEndpointUri("/auth/login.php"));
     exit;
@@ -22,6 +19,7 @@ if (!isset($_GET["hash"])) { ?>
     <head>
         <title>Authenticate with Telegram</title>
         <meta name="robots" content="noindex,nofollow">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style type="text/css">
             * {
                 font-family: sans-serif;
@@ -69,7 +67,6 @@ if ($verify !== $hash || time() - intval($_GET["auth_date"]) > 600) {
 $userid = $_GET["id"];
 
 try {
-    __require("auth");
     Auth::setAuthenticatedSession("{$service}:".$userid, Config::get("auth/session-length"));
     
     header("HTTP/1.1 303 See Other");

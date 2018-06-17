@@ -9,6 +9,47 @@ class Auth {
     // Cache for the current authenticated user to prevent unnecessary database lookups.
     private static $authSessionCache = null;
     
+    // Returns an array of authentication providers and their config requirements.
+    private static function getProviderRequirements() {
+        return array(
+            "discord" => ["client-id", "client-secret"],
+            "telegram" => ["bot-username", "bot-token"]
+        );
+    }
+    
+    // Returns whether the given provider satisfies all config requirements.
+    public static function isProviderEnabled($provider) {
+        $providerRequirements = self::getProviderRequirements();
+        
+        if (!isset($providerRequirements[$provider])) return false;
+        if (!Config::get("auth/provider/{$provider}/enabled")) return false;
+        
+        $conf = array();
+        foreach ($providerRequirements[$provider] as $req) {
+            $conf[] = "auth/provider/{$provider}/{$req}";
+        }
+        
+        if (Config::ifAny($conf, null)) return false;
+        
+        return true;
+    }
+    
+    // Returns a list of authentication providers.
+    public static function getAllProviders() {
+        return array_keys(self::getProviderRequirements());
+    }
+    
+    // Returns a list of enabled authentication providers.
+    public static function getEnabledProviders() {
+        $providers = self::getAllProviders();
+        for ($i = 0; $i < count($providers); $i++) {
+            if (!self::isProviderEnabled($providers[$i])) {
+                unset($providers[$i]);
+            }
+        }
+        return $providers;
+    }
+    
     // Gets the User-Agent without version numbers for identifying a specific browser type.
     private static function getUnversionedUserAgent() {
         if (!isset($_SERVER["HTTP_USER_AGENT"])) return "";
