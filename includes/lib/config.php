@@ -70,6 +70,10 @@ class Config {
                 "site/uri" => array(
                     "default" => null,
                     "options" => "string"
+                ),
+                "site/name" => array(
+                    "default" => "FreeField",
+                    "options" => "string"
                 )
             ),
             "database" => array(
