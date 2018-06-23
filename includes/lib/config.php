@@ -193,9 +193,9 @@ class Config {
                     "default" => true,
                     "options" => "bool"
                 ),
-                "themes/color/map/theme" => array(
-                    "default" => "light",
-                    "options" => array("light", "dark")
+                "themes/color/map/theme/mapbox" => array(
+                    "default" => "basic",
+                    "options" => array("basic", "streets", "bright", "light", "dark", "satellite")
                 ),
                 "themes/color/map/allow-personalization" => array(
                     "default" => true,
