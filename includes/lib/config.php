@@ -68,7 +68,7 @@ class Config {
         "main" => array(
             "access" => array(
                 "site/uri" => array(
-                    "default" => null,
+                    "default" => "",
                     "options" => "string"
                 ),
                 "site/name" => array(
@@ -149,11 +149,11 @@ class Config {
                     "options" => "bool"
                 ),
                 "auth/provider/discord/client-id" => array(
-                    "default" => null,
+                    "default" => "",
                     "options" => "string"
                 ),
                 "auth/provider/discord/client-secret" => array(
-                    "default" => null,
+                    "default" => "",
                     "options" => "string"
                 )
             ),
@@ -168,11 +168,11 @@ class Config {
                     "options" => "bool"
                 ),
                 "auth/provider/telegram/bot-username" => array(
-                    "default" => null,
+                    "default" => "",
                     "options" => "string"
                 ),
                 "auth/provider/telegram/bot-token" => array(
-                    "default" => null,
+                    "default" => "",
                     "options" => "string"
                 )
             )
