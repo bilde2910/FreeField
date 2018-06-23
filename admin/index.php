@@ -257,6 +257,9 @@ class CustomControls {
                                                         } elseif (preg_match('/^int,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
                                                             echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" value="'.Config::get($setting).'">';
                                                             
+                                                        } elseif (preg_match('/^float,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
+                                                            echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" step="0.00001" value="'.Config::get($setting).'">';
+                                                            
                                                         } else {
                                                             switch ($values["options"]) {
                                                                 case "string":
@@ -267,6 +270,9 @@ class CustomControls {
                                                                     break;
                                                                 case "int":
                                                                     echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" value="'.Config::get($setting).'">';
+                                                                    break;
+                                                                case "float":
+                                                                    echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" step="0.00001" value="'.Config::get($setting).'">';
                                                                     break;
                                                                 case "bool":
                                                                     echo '<input type="hidden" name="'.$setting.'" value="off">'; // Detect unchecked checkbox - unchecked checkboxes aren't POSTed!

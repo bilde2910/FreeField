@@ -24,6 +24,8 @@ class Config {
         - "password" for a password-type string
         - "int" for an integer
         - "int,x,y" for an integer between values x and y
+        - "float" for a floating-point value
+        - "float,x,y" for a floating-point value between values x and y
         - "permission" for a permission tier
         - "bool" for a boolean
         - array() for a selection box with the array contents as options
@@ -263,6 +265,9 @@ class Config {
                         break;
                     case "int":
                         $value = intval($value_raw);
+                        break;
+                    case "float":
+                        $value = floatval($value_raw);
                         break;
                     case "bool":
                         $value = ($value_raw == "on");
