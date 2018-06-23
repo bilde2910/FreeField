@@ -236,7 +236,7 @@ class Config {
                 ),
                 "map/default/zoom" => array(
                     "default" => 14,
-                    "options" => "int"
+                    "options" => "float,0,20"
                 )
             )
         )
