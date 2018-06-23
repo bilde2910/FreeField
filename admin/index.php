@@ -62,7 +62,7 @@ class CustomControls {
                         $options .= '<option id="iconselector-'.$control_iconSelectorID.'" value="'.$theme.'"'.($current == $theme ? ' selected' : '').'>'.$data["name"].' (by '.$data["author"].')</option>';
                     }
                     return '
-                        <select class="pure-u-5-5" name="'.$path.'">'.$options.'</select>
+                        <select name="'.$path.'">'.$options.'</select>
                         <script type="text/javascript">
                             var themedata = '.json_encode($themedata, JSON_PRETTY_PRINT).';
                             
@@ -248,7 +248,7 @@ class CustomControls {
                                                     } else {
                                                         $matches = array();
                                                         if (is_array($values["options"])) {
-                                                            echo '<select class="pure-u-5-5" name="'.$setting.'">';
+                                                            echo '<select name="'.$setting.'">';
                                                             $value = Config::get($setting);
                                                             foreach ($values["options"] as $option) {
                                                                 echo '<option value="'.$option.'"'.($value == $option ? ' selected' : '').'>'.I18N::resolve($si18n->getOption($option)).'</option>';
@@ -256,24 +256,24 @@ class CustomControls {
                                                             echo '</select>';
                                                             
                                                         } elseif (preg_match('/^int,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
-                                                            echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" value="'.Config::get($setting).'">';
+                                                            echo '<input type="number" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" value="'.Config::get($setting).'">';
                                                             
                                                         } elseif (preg_match('/^float,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
-                                                            echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" step="0.00001" value="'.Config::get($setting).'">';
+                                                            echo '<input type="number" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" step="0.00001" value="'.Config::get($setting).'">';
                                                             
                                                         } else {
                                                             switch ($values["options"]) {
                                                                 case "string":
-                                                                    echo '<input type="text" class="pure-u-5-5" name="'.$setting.'" value="'.Config::get($setting).'">';
+                                                                    echo '<input type="text" name="'.$setting.'" value="'.Config::get($setting).'">';
                                                                     break;
                                                                 case "password":
-                                                                    echo '<input type="password" class="pure-u-5-5" name="'.$setting.'" value="'.Config::get($setting).'">';
+                                                                    echo '<input type="password" name="'.$setting.'" value="'.Config::get($setting).'">';
                                                                     break;
                                                                 case "int":
-                                                                    echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" value="'.Config::get($setting).'">';
+                                                                    echo '<input type="number" name="'.$setting.'" value="'.Config::get($setting).'">';
                                                                     break;
                                                                 case "float":
-                                                                    echo '<input type="number" class="pure-u-5-5" name="'.$setting.'" step="0.00001" value="'.Config::get($setting).'">';
+                                                                    echo '<input type="number" name="'.$setting.'" step="0.00001" value="'.Config::get($setting).'">';
                                                                     break;
                                                                 case "bool":
                                                                     echo '<input type="hidden" name="'.$setting.'" value="off">'; // Detect unchecked checkbox - unchecked checkboxes aren't POSTed!

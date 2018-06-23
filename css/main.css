@@ -54,6 +54,7 @@
 }
 input[type=text], input[type=password], input[type=number], select {
     padding: 4px;
+    width: calc(100% - 8px);
 }
 @media all and (min-width: 48em) {
     .only-mobile {
