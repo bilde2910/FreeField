@@ -15,7 +15,7 @@ if (!isset($_GET["d"])) {
 }
 
 $domain = $_GET["d"];
-$domains = array("main", "perms", "security", "auth", "themes");
+$domains = array("main", "perms", "security", "auth", "themes", "map");
 $pages_icons = array(
     "main" => "cog",
     "users" => "users",
@@ -24,6 +24,7 @@ $pages_icons = array(
     "security" => "shield-alt",
     "auth" => "lock",
     "themes" => "palette",
+    "map" => "map",
     "hooks" => "link"
 );
 

@@ -213,6 +213,32 @@ class Config {
                     "options" => "bool"
                 )
             )
+        ),
+        "map" => array(
+            "provider" => array(
+                "map/provider/source" => array(
+                    "default" => "mapbox",
+                    "options" => array("mapbox")
+                ),
+                "map/provider/mapbox/access-token" => array(
+                    "default" => "",
+                    "options" => "string"
+                )
+            ),
+            "default" => array(
+                "map/default/center/latitude" => array(
+                    "default" => 0.0,
+                    "options" => "float,-90,90"
+                ),
+                "map/default/center/longitude" => array(
+                    "default" => 0.0,
+                    "options" => "float,-180,180"
+                ),
+                "map/default/zoom" => array(
+                    "default" => 14,
+                    "options" => "int"
+                )
+            )
         )
     );
     
@@ -253,6 +279,12 @@ class Config {
                 $min = intval($matches[1]);
                 $max = intval($matches[2]);
                 $value = intval($value_raw);
+                if ($value < $min) $value = $min;
+                if ($value > $max) $value = $max;
+            } elseif (preg_match('/^float,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
+                $min = floatval($matches[1]);
+                $max = floatval($matches[2]);
+                $value = floatval($value_raw);
                 if ($value < $min) $value = $min;
                 if ($value > $max) $value = $max;
             } else {
