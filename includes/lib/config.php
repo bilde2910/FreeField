@@ -395,7 +395,7 @@ class Config {
     }
     
     public static function getEndpointUri($endpoint) {
-        $basepath = self::get("setup/uri");
+        $basepath = self::get("site/uri");
         return (substr($basepath, -1) == "/" ? substr($basepath, 0, -1) : $basepath).$endpoint;
     }
     
