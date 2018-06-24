@@ -10,6 +10,9 @@ header('Content-Type: application/javascript');
 var i18n = <?php
     $entries = array(
         "objective.*",
+        "type.*",
+        "multi_catch.*",
+        "throw_bonus.*",
         "reward.*",
         "poi.*"
     );
