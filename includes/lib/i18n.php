@@ -22,6 +22,19 @@ class I18N {
         return $string;
     }
     
+    public static function resolveAll($tokenDomain) {
+        if (self::$i18ndata === null) self::loadI18Ndata();
+        if (substr($tokenDomain, -2) !== ".*") return array($tokenDomain => self::resolve($tokenDomain));
+        $tokens = array();
+        $domainlength = strlen($tokenDomain);
+        foreach (self::$i18ndefault as $key => $value) {
+            if (substr($key, 0, $domainlength - 1) == substr($tokenDomain, 0, -1)) {
+                $tokens[$key] = self::resolve($key);
+            }
+        }
+        return $tokens;
+    }
+    
     private static function loadI18Ndata() {
         $requested = self::getAcceptedLanguages();
         $available = self::getAvailableLanguages();
