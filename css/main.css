@@ -12,15 +12,35 @@
 .buttons {
     text-align: right;
 }
-.button-submit {
+.button-submit, .button-standard {
     display: inline-block;
     padding: 0.75em 1.5em;
     color: #fff;
     text-align: center;
     border: none;
+    cursor: pointer;
+    user-select: none;
+}
+span.button-submit, span.button-standard {
+    height: 1.5em;
+}
+input.button-submit, input.button-standard {
+    height: 3em;
 }
 .button-submit:active {
     background-color: #1971ab;
+}
+.button-standard:active {
+    background-color: #7f7f7f;
+}
+.split-button {
+    display: block;
+}
+.button-spaced.left {
+    margin: 5px 2.5px 5px 0;
+}
+.button-spaced.right {
+    margin: 5px 0 5px 2.5px;
 }
 .tooltip {
     position: relative;
@@ -65,7 +85,7 @@ input[type=text], input[type=password], input[type=number], select {
     .only-desktop {
         display: none;
     }
-    .button-submit {
+    .button-submit, .button-standard {
         display: block;
     }
     .tooltip {

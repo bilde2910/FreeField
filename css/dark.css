@@ -20,6 +20,10 @@ body {
     background-color: #0f466b;
 }
 
+.button-standard {
+    background-color: #555;
+}
+
 .tooltip span {
     background-color: black;
 }

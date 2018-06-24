@@ -19,6 +19,10 @@ body {
     background-color: #1f8dd6;
 }
 
+.button-standard {
+    background-color: #aaa;
+}
+
 .tooltip span {
     background-color: black;
 }
