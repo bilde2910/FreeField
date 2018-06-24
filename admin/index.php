@@ -87,7 +87,7 @@ class CustomControls {
                                 var icons = [
                                     "potion", "super_potion", "hyper_potion", "max_potion",
                                     "revive", "max_revive",
-                                    "fast_tm", "charged_tm",
+                                    "fast_tm", "charge_tm",
                                     "stardust", "rare_candy", "encounter",
                                     "battle", "raid",
                                     "catch", "throwing_skill", "hatch",
