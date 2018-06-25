@@ -10,23 +10,25 @@ class Database {
         if (Config::get("database/type") == "sqlite" || Config::get("database/type") == "sqlite3") {
             $db->setDb(Config::get("database/type")."://".Config::get("database/database"));
         } else {
-            $connarray = array(
-                "type" => Config::get("database/type"),
-                "hostname" => Config::get("database/hostname"),
-                "database" => Config::get("database/database"),
-                "username" => Config::get("database/username"),
-                "password" => Config::get("database/password"),
-            );
-            
-            if (Config::get("database/port") > 0)
-                $connarray["port"] = Config::get("database/port");
-            
-            $db->setDb($connarray);
+            $type = Config::get("database/type");
+            $host = Config::get("database/host");
+            $database = Config::get("database/database");
+            $user = Config::get("database/username");
+            $pass = Config::get("database/password");
+
+            if (Config::get("database/port") > 0) {
+                $port = Config::get("database/port");
+                $uri = "{$type}://{$user}:{$pass}@{$host}:{$port}/{$database}";
+            } else {
+                $uri = "{$type}://{$user}:{$pass}@{$host}/{$database}";
+            }
+
+            $db->setDb($uri);
         }
-        
+
         return $db;
     }
-    
+
     public static function getTable($table) {
         return Config::get("database/table-prefix").$table;
     }
