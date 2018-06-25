@@ -17,6 +17,9 @@ function __require($require) {
         case "db":
             include_once(__DIR__."/db.php");
             break;
+        case "xhr":
+            include_once(__DIR__."/xhr.php");
+            break;
         case "vendor":
             require_once(__DIR__."/../../vendor/autoload.php");
             break;
