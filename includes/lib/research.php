@@ -77,7 +77,7 @@
         array of strings.
 
 
-    INTERNATIONALIZATION GUIDE
+    ## INTERNATIONALIZATION GUIDE ##
 
     "categories" are internationalized as following:
         category.[objective|reward].<category_name>
