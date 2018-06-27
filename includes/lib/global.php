@@ -20,6 +20,9 @@ function __require($require) {
         case "xhr":
             include_once(__DIR__."/xhr.php");
             break;
+        case "research":
+            include_once(__DIR__."/research.php");
+            break;
         case "vendor":
             require_once(__DIR__."/../../vendor/autoload.php");
             break;

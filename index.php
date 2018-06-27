@@ -4,6 +4,7 @@ require_once("./includes/lib/global.php");
 __require("config");
 __require("i18n");
 __require("theme");
+__require("research");
 
 $provider = Config::get("map/provider/source");
 
@@ -69,6 +70,9 @@ $provider = Config::get("map/provider/source");
         </div>
 
         <script>
+            var objectives = <?php echo json_encode(Research::OBJECTIVES); ?>;
+            var rewards = <?php echo json_encode(Research::REWARDS); ?>;
+
             var defaults = {
                 iconSet: "<?php echo Config::get("themes/icons/default"); ?>",
                 mapProvider: "<?php echo $provider; ?>",
