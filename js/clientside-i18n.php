@@ -14,7 +14,8 @@ var i18n = <?php
         "multi_catch.*",
         "throw_bonus.*",
         "reward.*",
-        "poi.*"
+        "poi.*",
+        "xhr.*"
     );
 
     $i18nmap = array();
