@@ -52,30 +52,45 @@
     label identifying that the input box corresponds to the quantity of items
     awarded/required quantity of evolutions/catches etc.
 
-    The currently available research objective/reward parameters are:
+    The currently available research objective/reward parameters are defined in
+    the PARAMETERS array.
 
-    "min_tier"
-        Adds a number box to the field research box promoting the user for the
-        minimum raid level for the "level_raid" objective. This parameter is
-        currently only used for "level_raid". This parameter will be stored as
-        an integer in the parameters data in the database, as well as in network
-        traffic.
+    ## THE PARAMETERS ARRAY ##
 
-    "quantity"
-        Adds a number box to the field research box prompting the user for the
-        quantity of items awarded in a reward/quantity of catches required for
-        a catch quest, etc. This parameter is stored as an integer
+    The PARAMETERS array contains a list of all valid parameter types with code
+    that specifies how the parameter input should be rendered and processed by
+    the client. Each entry in the PARAMETERS array represents one parameter.
 
-    "species"
-        Adds a selection box prompting the user for up to three different
-        species (e.g. Bulbasaur, Charmander, Squirtle, Pikachu, etc.). This
-        paramtered is stored as an array of strings.
+    Each entry in the array points to a class name that defines how the
+    parameter should be processed. This class must contain the following
+    functions:
 
-    "type"
-        Adds a selection box prompting the user for up to three species types
-        (e.g. Water, Ice, Ground, Fire, etc.). This parameter is stored as an
-        array of strings.
+    getAvailable()
+        An array of scopes for the parameter type. Valid options are
+        "objective", "reward", or both. It makes no sense to specify "min_tier"
+        as a reward parameter, for example, so "min_tier" only lists
+        "objective". The "quantity" parameter, however, should be available for
+        use for both objectives and rewards and thus lists both scopes.
 
+    html($id)
+        How the input should be rendered in HTML. This will be used together
+        with a corresponding JavaScript processing function.
+
+    writeJS($id)
+        A JavaScript handler for writing the user data from the parameter to
+        an object or variable. The statement should return this object/variable.
+
+    parseJS($id)
+        A JavaScript handler for parsing "js_write" output into the form input
+        boxes. The variable `data` is passed containing the data object.
+
+    html(), writeJS() and parseJS() will be given an argument $id that should be
+    used to designate the ID of the input fields used in HTML and JavaScript and
+    is set aside for that parameter. $id is replaced with the correct ID at
+    runtime. Do not use HTML IDs that are not based on $id as multiple instances
+    of each parameter input may be available on the same page. If the HTML/JS
+    code requires multiple objects with unique IDs, consider using IDs such as
+    $id.'-1', $id.'-2', etc.
 
     ## INTERNATIONALIZATION GUIDE ##
 
@@ -89,7 +104,152 @@
         parameter.<param>.label
 */
 
+
+/*
+    Adds a number box to the field research box prompting the user for the
+    quantity of items awarded in a reward/quantity of catches required for
+    a catch quest, etc. This parameter is stored as an integer
+*/
+class ParamQuantity {
+    public function getAvailable() {
+        return array("objectives", "rewards");
+    }
+    public function html($id) {
+        return '<p><input id="'.$id.'" type="number" min="1"></p>';
+    }
+    public function writeJS($id) {
+        return 'return parseInt($("#'.$id.'").val());';
+    }
+    public function parseJS($id) {
+        return '$("#'.$id.'").val(data);';
+    }
+}
+/*
+    Adds a number box to the field research box promoting the user for the
+    minimum raid level for the "level_raid" objective. This parameter is
+    currently only used for "level_raid". This parameter will be stored as
+    an integer in the parameters data in the database, as well as in network
+    traffic.
+*/
+class ParamMinTier {
+    public function getAvailable() {
+        return array("objectives");
+    }
+    public function html($id) {
+        return '<p><input id="'.$id.'" type="number" min="1" max="5"></p>';
+    }
+    public function writeJS($id) {
+        return 'return parseInt($("#'.$id.'").val());';
+    }
+    public function parseJS($id) {
+        return '$("#'.$id.'").val(data);';
+    }
+}
+/*
+    Adds a selection box prompting the user for up to three different
+    species (e.g. Bulbasaur, Charmander, Squirtle, Pikachu, etc.). This
+    paramtered is stored as an array of strings.
+*/
+class ParamSpecies {
+    public function getAvailable() {
+        return array("objectives");
+    }
+    public function html($id) {
+        // TODO: List all species
+        return
+            '<p><select id="'.$id.'-1"></select></p>
+            <p><select id="'.$id.'-2"></select></p>
+            <p><select id="'.$id.'-3"></select></p>';
+    }
+    public function writeJS($id) {
+        return
+            'var out = [];
+            for (var i = 1; i <= 3; i++) {
+                var val = $("#'.$id.'-" + i).val();
+                if (val !== "none") {
+                    out.push(val);
+                }
+            }
+            return out;';
+    }
+    public function parseJS($id) {
+        return
+            'for (var i = 1; i <= 3; i++) {
+                if (data.length < i) {
+                    $("#'.$id.'-" + i).val("none");
+                } else {
+                    $("#'.$id.'-" + i).val(data[i - 1]);
+                }
+            }';
+    }
+}
+/*
+    Adds a selection box prompting the user for up to three species types
+    (e.g. Water, Ice, Ground, Fire, etc.). This parameter is stored as an
+    array of strings.
+*/
+class ParamType {
+    public function getAvailable() {
+        return array("objectives");
+    }
+    public function html($id) {
+        __require("i18n");
+        $types = array(
+            "normal", "fighting", "flying",
+            "poison", "ground", "rock",
+            "bug", "ghost", "steel",
+            "fire", "water", "grass",
+            "electric", "psychic", "ice",
+            "dragon", "dark", "fairy"
+        );
+
+        $output = "";
+        for ($i = 1; $i <= 3; $i++) {
+            $output .= '<p><select id="'.$id.'-'.$i.'">';
+            if ($i >= 2) {
+                $output .= '<option value="none">'.I18N::resolve("ui.dropdown.none_selected").'</option>';
+            }
+            foreach ($types as $type) {
+                $output .= '<option value="'.$type.'">'.I18N::resolve("type.{$type}").'</option>';
+            }
+            $output .='</select></p>';
+        }
+        return $output;
+    }
+    public function writeJS($id) {
+        return
+            'var out = [];
+            for (var i = 1; i <= 3; i++) {
+                var val = $("#'.$id.'-" + i).val();
+                if (val !== "none") {
+                    out.push(val);
+                }
+            }
+            return out;';
+    }
+    public function parseJS($id) {
+        return
+            'for (var i = 1; i <= 3; i++) {
+                if (data.length < i) {
+                    $("#'.$id.'-" + i).val("none");
+                } else {
+                    $("#'.$id.'-" + i).val(data[i - 1]);
+                }
+            }';
+    }
+}
+
 class Research {
+    public const PARAMETERS = array(
+
+        // CLass mappings for each parameter
+        "quantity" => "ParamQuantity",
+        "min_tier" => "ParamMinTier",
+        "species" => "ParamSpecies",
+        "type" => "ParamType"
+
+    );
+
     public const OBJECTIVES = array(
 
         // Gym objectives
