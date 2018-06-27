@@ -30,3 +30,11 @@ body {
 .tooltip span::after {
     border-color: black transparent transparent transparent;
 }
+
+.cover-box-inner {
+    background-color: #ddd;
+}
+
+.strong-color {
+    color: #333;
+}

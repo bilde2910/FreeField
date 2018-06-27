@@ -95,3 +95,92 @@ input[type=text], input[type=password], input[type=number], select {
         font-weight: bold;
     }
 }
+
+
+.banner {
+    position: absolute;
+    bottom: 10%;
+    left: 150px;
+    right: 0;
+    margin: auto;
+    z-index: 110;
+    width: calc(80% - 150px);
+    max-width: 600px;
+    background-color: #1f8dd6;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    display: none;
+}
+.banner.success {
+    background-color: #007f00;
+}
+.banner.failed {
+    background-color: #7f0000;
+}
+.banner-inner {
+    position: relative;
+    padding: 10px;
+    text-align: center;
+}
+.banner-inner a {
+    color: white;
+}
+.cover-box {
+    position: absolute;
+    top: 0;
+    left: 150px;
+    right: 0;
+    margin: auto;
+    z-index: 100;
+    width: calc(100% - 150px);
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.cover-box .header {
+    border-bottom: none;
+}
+.cover-box-inner {
+    width: 500px;
+    max-width: 90%;
+    max-height: 90%;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
+.cover-box-inner.tiny {
+    width: 200px;
+    max-width: 50%;
+    text-align: center;
+}
+.cover-box-content {
+    padding: 0 40px;
+    margin-top: 20px !important;
+    margin-bottom: 20px;
+}
+.loading-spinner {
+    display: inline-block;
+    animation: spin 1.5s linear infinite;
+}
+.loading-spinner.spinner-large {
+    font-size: 3em;
+}
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@media all and (max-width: 48em) {
+    .banner {
+        left: 0;
+        width: 80%;
+    }
+    .cover-box {
+        left: 0;
+        width: 100%;
+    }
+}
+

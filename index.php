@@ -51,6 +51,9 @@ $provider = Config::get("map/provider/source");
             </div>
 
             <div id="main">
+                <div id="dynamic-banner-container">
+
+                </div>
                 <div id='map' style='width: 100%; height: 100vh;'></div>
                 <script>
                     mapboxgl.accessToken = '<?php echo Config::get("map/provider/mapbox/access-token"); ?>';
