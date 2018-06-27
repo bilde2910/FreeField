@@ -296,7 +296,7 @@ class CustomControls {
                                     ?>
                                 <?php } ?>
                             <?php } ?>
-                            <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("admin.button.save"); ?>"></p>
+                            <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
                         </form>
                     <?php } elseif ($domain == "users") { ?>
                     
