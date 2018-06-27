@@ -1,6 +1,19 @@
 <?php
 
 class Theme {
+    public static function listIcons() {
+        return array(
+            "potion", "super_potion", "hyper_potion", "max_potion",
+            "revive", "max_revive",
+            "fast_tm", "charge_tm",
+            "stardust", "rare_candy", "encounter",
+            "battle", "raid",
+            "catch", "throwing_skill", "hatch",
+            "power_up", "evolve",
+            "unknown"
+        );
+    }
+    
     public static function listIconSets() {
         $themepath = __DIR__."/../../themes/icons";
         $themedirs = array_diff(scandir($themepath), array('..', '.'));
@@ -33,6 +46,14 @@ class IconSet {
         if (file_exists($packini)) {
             $this->data = parse_ini_file($packini, true);
         }
+    }
+    
+    public function getVariant() {
+        return $this->variant;
+    }
+    
+    public function setVariant($variant) {
+        $this->variant = $variant;
     }
     
     public function getIconUrl($icon) {
