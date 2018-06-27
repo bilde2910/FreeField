@@ -23,6 +23,8 @@ class Database {
                 $uri = "{$type}://{$user}:{$pass}@{$host}/{$database}";
             }
 
+            error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+
             $db->setDb($uri);
         }
 
