@@ -126,6 +126,9 @@ class ParamQuantity {
     public function parseJS($id) {
         return '$("#'.$id.'").val(data);';
     }
+    public function isValid($data) {
+        return is_int($data) && $data >= 1;
+    }
 }
 /*
     Adds a number box to the field research box promoting the user for the
@@ -146,6 +149,9 @@ class ParamMinTier {
     }
     public function parseJS($id) {
         return '$("#'.$id.'").val(data);';
+    }
+    public function isValid($data) {
+        return is_int($data) && $data >= 1 && $data <= 5;
     }
 }
 /*
@@ -185,6 +191,9 @@ class ParamSpecies {
                 }
             }';
     }
+    public function isValid($data) {
+        return false;
+    }
 }
 /*
     Adds a selection box prompting the user for up to three species types
@@ -192,19 +201,20 @@ class ParamSpecies {
     array of strings.
 */
 class ParamType {
+    private const TYPES = array(
+        "normal", "fighting", "flying",
+        "poison", "ground", "rock",
+        "bug", "ghost", "steel",
+        "fire", "water", "grass",
+        "electric", "psychic", "ice",
+        "dragon", "dark", "fairy"
+    );
+
     public function getAvailable() {
         return array("objectives");
     }
     public function html($id, $class) {
         __require("i18n");
-        $types = array(
-            "normal", "fighting", "flying",
-            "poison", "ground", "rock",
-            "bug", "ghost", "steel",
-            "fire", "water", "grass",
-            "electric", "psychic", "ice",
-            "dragon", "dark", "fairy"
-        );
 
         $output = "";
         for ($i = 1; $i <= 3; $i++) {
@@ -212,7 +222,7 @@ class ParamType {
             if ($i >= 2) {
                 $output .= '<option value="none">'.I18N::resolve("ui.dropdown.none_selected").'</option>';
             }
-            foreach ($types as $type) {
+            foreach (self::TYPES as $type) {
                 $output .= '<option value="'.$type.'">'.I18N::resolve("type.{$type}").'</option>';
             }
             $output .='</select></p>';
@@ -239,6 +249,17 @@ class ParamType {
                     $("#'.$id.'-" + i).val(data[i - 1]);
                 }
             }';
+    }
+    public function isValid($data) {
+        if (!is_array($data)) return false;
+        if (count($data) == 0) return false;
+        if (count($data) > 3) return false;
+
+        foreach ($data as $type) {
+            if (!in_array($type, self::TYPES)) return false;
+        }
+
+        return true;
     }
 }
 
