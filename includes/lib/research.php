@@ -72,7 +72,7 @@
         "objective". The "quantity" parameter, however, should be available for
         use for both objectives and rewards and thus lists both scopes.
 
-    html($id)
+    html($id, $class)
         How the input should be rendered in HTML. This will be used together
         with a corresponding JavaScript processing function.
 
@@ -91,6 +91,9 @@
     of each parameter input may be available on the same page. If the HTML/JS
     code requires multiple objects with unique IDs, consider using IDs such as
     $id.'-1', $id.'-2', etc.
+
+    html() is also passed a $class argument. This argument must be put in the
+    class parameter of all input fields in the outputted HTML.
 
     ## INTERNATIONALIZATION GUIDE ##
 
@@ -114,8 +117,8 @@ class ParamQuantity {
     public function getAvailable() {
         return array("objectives", "rewards");
     }
-    public function html($id) {
-        return '<p><input id="'.$id.'" type="number" min="1"></p>';
+    public function html($id, $class) {
+        return '<p><input id="'.$id.'" class="'.$class.'" type="number" min="1"></p>';
     }
     public function writeJS($id) {
         return 'return parseInt($("#'.$id.'").val());';
@@ -135,8 +138,8 @@ class ParamMinTier {
     public function getAvailable() {
         return array("objectives");
     }
-    public function html($id) {
-        return '<p><input id="'.$id.'" type="number" min="1" max="5"></p>';
+    public function html($id, $class) {
+        return '<p><input id="'.$id.'" class="'.$class.'" type="number" min="1" max="5"></p>';
     }
     public function writeJS($id) {
         return 'return parseInt($("#'.$id.'").val());';
@@ -154,12 +157,12 @@ class ParamSpecies {
     public function getAvailable() {
         return array("objectives");
     }
-    public function html($id) {
+    public function html($id, $class) {
         // TODO: List all species
         return
-            '<p><select id="'.$id.'-1"></select></p>
-            <p><select id="'.$id.'-2"></select></p>
-            <p><select id="'.$id.'-3"></select></p>';
+            '<p><select id="'.$id.'-1" class="'.$class.'"></select></p>
+            <p><select id="'.$id.'-2" class="'.$class.'"></select></p>
+            <p><select id="'.$id.'-3" class="'.$class.'"></select></p>';
     }
     public function writeJS($id) {
         return
@@ -192,7 +195,7 @@ class ParamType {
     public function getAvailable() {
         return array("objectives");
     }
-    public function html($id) {
+    public function html($id, $class) {
         __require("i18n");
         $types = array(
             "normal", "fighting", "flying",
@@ -205,7 +208,7 @@ class ParamType {
 
         $output = "";
         for ($i = 1; $i <= 3; $i++) {
-            $output .= '<p><select id="'.$id.'-'.$i.'">';
+            $output .= '<p><select id="'.$id.'-'.$i.'" class="'.$class.'">';
             if ($i >= 2) {
                 $output .= '<option value="none">'.I18N::resolve("ui.dropdown.none_selected").'</option>';
             }
