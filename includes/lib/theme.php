@@ -1,17 +1,23 @@
 <?php
 
+__require("research");
+
 class Theme {
     public static function listIcons() {
-        return array(
-            "potion", "super_potion", "hyper_potion", "max_potion",
-            "revive", "max_revive",
-            "fast_tm", "charge_tm",
-            "stardust", "rare_candy", "encounter",
-            "battle", "raid",
-            "catch", "throwing_skill", "hatch",
-            "power_up", "evolve",
-            "unknown"
-        );
+        $icons = array();
+        foreach (Research::OBJECTIVES as $objective => $data) {
+            $icons[] = $objective;
+            foreach ($data["categories"] as $category) {
+                $icons[] = $category;
+            }
+        }
+        foreach (Research::REWARDS as $reward => $data) {
+            $icons[] = $reward;
+            foreach ($data["categories"] as $category) {
+                $icons[] = $category;
+            }
+        }
+        return array_unique($icons);
     }
 
     public static function listIconSets() {
@@ -57,6 +63,18 @@ class IconSet {
     }
 
     public function getIconUrl($icon) {
+        $icarray = array($icon);
+        if (isset(Research::OBJECTIVES[$icon])) {
+            $icarray = array_merge($icarray, Research::OBJECTIVES[$icon]["categories"]);
+        }
+        $icarray[] = "default";
+        foreach ($icarray as $entry) {
+            $url = self::getExplicitIconUrl($entry);
+            if ($url !== null) return $url;
+        }
+    }
+
+    private function getExplicitIconUrl($icon) {
         if (isset($this->data["vector"][$icon])) {
             return $this->formatUrl($this->data["vector"][$icon]);
         } else {
@@ -65,6 +83,18 @@ class IconSet {
     }
 
     public function getRasterUrl($icon) {
+        $icarray = array($icon);
+        if (isset(Research::OBJECTIVES[$icon])) {
+            $icarray = array_merge($icarray, Research::OBJECTIVES[$icon]["categories"]);
+        }
+        $icarray[] = "default";
+        foreach ($icarray as $entry) {
+            $url = self::getExplicitRasterUrl($entry);
+            if ($url !== null) return $url;
+        }
+    }
+
+    private function getExplicitRasterUrl($icon) {
         if (isset($this->data["raster"][$icon])) {
             return $this->formatUrl($this->data["raster"][$icon]);
         } else {
