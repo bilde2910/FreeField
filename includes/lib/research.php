@@ -84,6 +84,10 @@
         A JavaScript handler for parsing "js_write" output into the form input
         boxes. The variable `data` is passed containing the data object.
 
+    toStringJS()
+        A JavaScript handler for outputting the parameter to a text string. The
+        variable `data` is passed containing the data object.
+
     isValid($data)
         A PHP function for server-side validation of user data. Should return
         true if $data is a valid instance of the given parameter, and false
@@ -131,6 +135,9 @@ class ParamQuantity {
     public function parseJS($id) {
         return '$("#'.$id.'").val(data);';
     }
+    public function toStringJS() {
+        return 'return data.toString();';
+    }
     public function isValid($data) {
         return is_int($data) && $data >= 1;
     }
@@ -154,6 +161,9 @@ class ParamMinTier {
     }
     public function parseJS($id) {
         return '$("#'.$id.'").val(data);';
+    }
+    public function toStringJS() {
+        return 'return data.toString();';
     }
     public function isValid($data) {
         return is_int($data) && $data >= 1 && $data <= 5;
@@ -194,6 +204,18 @@ class ParamSpecies {
                 } else {
                     $("#'.$id.'-" + i).val(data[i - 1]);
                 }
+            }';
+    }
+    public function toStringJS() {
+        return
+            'if (data.length == 1) {
+                return data[0];
+            } else if (data.length == 2) {
+                return resolveI18N("multi.catch.double", data[0], data[1]);
+            } else if (data.length == 3) {
+                return resolveI18N("multi.catch.triple", data[0], data[1], data[2]);
+            } else {
+                return data.toString();
             }';
     }
     public function isValid($data) {
@@ -253,6 +275,18 @@ class ParamType {
                 } else {
                     $("#'.$id.'-" + i).val(data[i - 1]);
                 }
+            }';
+    }
+    public function toStringJS() {
+        return
+            'console.log(data);if (data.length == 1) {
+                return resolveI18N("multi.type.single", resolveI18N("type." + data[0]));
+            } else if (data.length == 2) {
+                return resolveI18N("multi.type.double", resolveI18N("type." + data[0]), resolveI18N("type." + data[1]));
+            } else if (data.length == 3) {
+                return resolveI18N("multi.type.triple", resolveI18N("type." + data[0]), resolveI18N("type." + data[1]), resolveI18N("type." + data[2]));
+            } else {
+                return data.toString();
             }';
     }
     public function isValid($data) {
