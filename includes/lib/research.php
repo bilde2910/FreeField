@@ -84,6 +84,11 @@
         A JavaScript handler for parsing "js_write" output into the form input
         boxes. The variable `data` is passed containing the data object.
 
+    isValid($data)
+        A PHP function for server-side validation of user data. Should return
+        true if $data is a valid instance of the given parameter, and false
+        otherwise.
+
     html(), writeJS() and parseJS() will be given an argument $id that should be
     used to designate the ID of the input fields used in HTML and JavaScript and
     is set aside for that parameter. $id is replaced with the correct ID at
