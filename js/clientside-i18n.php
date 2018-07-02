@@ -11,7 +11,7 @@ var i18n = <?php
     $entries = array(
         "objective.*",
         "type.*",
-        "multi_catch.*",
+        "multi.*",
         "throw_bonus.*",
         "reward.*",
         "poi.*",
