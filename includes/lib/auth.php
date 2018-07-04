@@ -189,7 +189,7 @@ class User {
 
     // Gets the nickname of the current user.
     public function getNickname() {
-        if (!$this->exists()) return null;
+        if (!$this->exists()) return "<Anonymous>";
         return $this->data["nick"];
     }
 
