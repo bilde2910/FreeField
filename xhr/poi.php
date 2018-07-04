@@ -42,6 +42,69 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         XHR::exitWith(500, array("reason" => "xhr.failed.reason.database_error"));
     }
 
+} elseif ($_SERVER["REQUEST_METHOD"] === "PUT") {
+    // Add new POI
+    $reqfields = array("name", "lat", "lon");
+    $putdata = json_decode(file_get_contents("php://input"), true);
+
+    foreach ($reqfields as $field) {
+        if (!isset($putdata[$field])) {
+            XHR::exitWith(400, array("reason" => "xhr.failed.reason.missing_fields"));
+        }
+    }
+
+    $data = array(
+        "name" => $putdata["name"],
+        "latitude" => floatval($putdata["lat"]),
+        "longitude" => floatval($putdata["lon"]),
+        "updated_by" => "USERNAME", //TODO
+        "objective" => "unknown",
+        "obj_params" => json_encode(array()),
+        "reward" => "unknown",
+        "rew_params" => json_encode(array())
+    );
+
+    if ($data["name"] == "") {
+        XHR::exitWith(400, array("reason" => "poi.add.failed.reason.name_empty"));
+    }
+
+    // TODO: Geofencing
+
+    try {
+        $db = Database::getSparrow();
+        $db
+            ->from(Database::getTable("poi"))
+            ->insert($data)
+            ->execute();
+        $poi = $db
+            ->from(Database::getTable("poi"))
+            ->where($data)
+            ->one();
+
+        $poidata = array(
+            "id" => intval($poi["id"]),
+            "name" => $poi["name"],
+            "latitude" => floatval($poi["latitude"]),
+            "longitude" => floatval($poi["longitude"]),
+            "objective" => array(
+                "type" => $poi["objective"],
+                "params" => json_decode($poi["obj_params"], true)
+            ),
+            "reward" => array(
+                "type" => $poi["reward"],
+                "params" => json_decode($poi["rew_params"], true)
+            ),
+            "updated" => array(
+                "on" => strtotime($poi["last_updated"]),
+                "by" => $poi["updated_by"]
+            )
+        );
+
+        XHR::exitWith(201, array("poi" => $poidata));
+    } catch (Exception $e) {
+        XHR::exitWith(500, array("reason" => "xhr.failed.reason.database_error"));
+    }
+
 } elseif ($_SERVER["REQUEST_METHOD"] === "PATCH") {
     // Update research quest
     $reqfields = array("id", "objective", "reward");

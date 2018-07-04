@@ -1,3 +1,4 @@
+var addingPoi = false;
 var pois = [];
 
 var styleMap = {
@@ -9,6 +10,12 @@ var styleMap = {
         dark: "dark",
         satellite: "dark"
     }
+}
+
+function disableAddPOI(setFlag) {
+    map.off('click', getCoordsForPOI);
+    $("#add-poi-banner").fadeOut(150);
+    addingPoi = !setFlag;
 }
 
 function getCoordsForPOI(e) {
@@ -288,3 +295,57 @@ $(document).ready(function() {
     });
 });
 
+$("#add-poi-start").on("click", function() {
+    if (addingPoi) return;
+
+    addingPoi = true;
+    $("#add-poi-banner").fadeIn(150);
+    map.on('click', getCoordsForPOI);
+});
+
+$("#add-poi-banner-cancel").on("click", function() {
+    disableAddPOI(true);
+});
+
+$("#add-poi-cancel").on("click", function() {
+    disableAddPOI(true);
+    $("#add-poi-details").fadeOut();
+});
+
+$("#add-poi-submit").on("click", function() {
+    $("#add-poi-submit").prop("disabled", true);
+    var poiName = $("#add-poi-name").val();
+    var poiLat = parseFloat($("#add-poi-lat").val());
+    var poiLon = parseFloat($("#add-poi-lon").val());
+    $("#add-poi-working").fadeIn(150);
+    $.ajax({
+        url: "./xhr/poi.php",
+        type: "PUT",
+        dataType: "json",
+        data: JSON.stringify({
+            lat: poiLat,
+            lon: poiLon,
+            name: poiName
+        }),
+        statusCode: {
+            201: function(data) {
+                var markers = [data.poi];
+                addMarkers(markers);
+                addingPoi = false;
+                spawnBanner("success", resolveI18N("poi.add.success", poiName));
+                $("#add-poi-details").fadeOut(150);
+                $("#add-poi-working").fadeOut(150);
+            }
+        }
+    }).fail(function(xhr) {
+        var data = xhr.responseJSON;
+        var reason = "Unknown reason";
+        console.log(data);
+        if (data !== undefined && data.hasOwnProperty("reason")) {
+            reason = resolveI18N(data["reason"]);
+        }
+        spawnBanner("failed", resolveI18N("poi.add.failed.message", poiName, reason));
+        $("#add-poi-working").fadeOut(150);
+        $("#add-poi-submit").prop("disabled", false);
+    });
+});

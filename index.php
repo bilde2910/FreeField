@@ -48,6 +48,7 @@ $provider = Config::get("map/provider/source");
 
                     <ul class="pure-menu-list">
                         <li class="pure-menu-item"><a href="./auth/login.php" class="pure-menu-link"><i class="menu-fas fas fa-sign-in-alt"></i> Sign in</a></li>
+                        <li class="pure-menu-item"><a href="#" id="add-poi-start" class="pure-menu-link"><i class="menu-fas fas fa-plus"></i> Add POI</a></li>
                     </ul>
                 </div>
             </div>
@@ -55,6 +56,11 @@ $provider = Config::get("map/provider/source");
             <div id="main">
                 <div id="dynamic-banner-container">
 
+                </div>
+                <div id="add-poi-banner" class="banner">
+                    <div class="banner-inner">
+                        <?php echo I18N::resolveArgs("poi.add.instructions", '<a href="#" id="add-poi-cancel-banner">', '</a>'); ?>
+                    </div>
                 </div>
                 <div id="poi-details" class="cover-box">
                     <div class="cover-box-inner">
@@ -74,6 +80,32 @@ $provider = Config::get("map/provider/source");
                             <div class="pure-g">
                                 <div class="pure-u-1-2 right-align"><span type="button" id="poi-directions" class="button-standard split-button button-spaced left"><?php echo I18N::resolve("poi.directions"); ?></span></div>
                                 <div class="pure-u-1-2"><span type="button" id="poi-close" class="button-standard split-button button-spaced right"><?php echo I18N::resolve("ui.button.close"); ?></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="add-poi-details" class="cover-box">
+                    <div class="cover-box-inner">
+                        <div class="header">
+                            <h1><?php echo I18N::resolve("poi.add.title"); ?></h1>
+                        </div>
+                        <div class="cover-box-content content">
+                            <div class="pure-g">
+                                <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolve("poi.add.name"); ?>:</p></div>
+                                <div class="pure-u-2-3 full-on-mobile"><p><input type="text" id="add-poi-name"></p></div>
+                            </div>
+                            <div class="pure-g">
+                                <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolve("poi.add.latitude"); ?>:</p></div>
+                                <div class="pure-u-2-3 full-on-mobile"><p><input type="text" id="add-poi-lat" readonly></p></div>
+                            </div>
+                            <div class="pure-g">
+                                <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolve("poi.add.longitude"); ?>:</p></div>
+                                <div class="pure-u-2-3 full-on-mobile"><p><input type="text" id="add-poi-lon" readonly></p></div>
+                            </div>
+                            <div class="cover-button-spacer"></div>
+                            <div class="pure-g">
+                                <div class="pure-u-1-2 right-align"><span type="button" id="add-poi-cancel" class="button-standard split-button button-spaced left"><?php echo I18N::resolve("ui.button.cancel"); ?></span></div>
+                                <div class="pure-u-1-2"><span type="button" id="add-poi-submit" class="button-submit split-button button-spaced right"><?php echo I18N::resolve("poi.add.submit"); ?></span></div>
                             </div>
                         </div>
                     </div>
@@ -340,6 +372,14 @@ $provider = Config::get("map/provider/source");
                                 <div class="pure-u-1-2 right-align"><span type="button" id="update-poi-cancel" class="button-standard split-button button-spaced left"><?php echo I18N::resolve("ui.button.cancel"); ?></span></div>
                                 <div class="pure-u-1-2"><span type="button" id="update-poi-submit" class="button-submit split-button button-spaced right"><?php echo I18N::resolve("poi.update.submit"); ?></span></div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="add-poi-working" class="cover-box">
+                    <div class="cover-box-inner tiny">
+                        <div class="cover-box-content">
+                            <div><i class="fas fa-spinner loading-spinner spinner-large"></i></div>
+                            <p><?php echo I18N::resolve("poi.add.processing"); ?></p>
                         </div>
                     </div>
                 </div>
