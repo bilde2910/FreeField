@@ -8,6 +8,8 @@ require_once(__DIR__."/../sessionkey.php");
 class Auth {
     // Cache for the current authenticated user to prevent unnecessary database lookups.
     private static $authSessionCache = null;
+    // Cache for available permission groups, for the same purpose.
+    private static $groupsCache = null;
 
     // Returns an array of authentication providers and their config requirements.
     private static function getProviderRequirements() {
@@ -132,6 +134,7 @@ class Auth {
         $userdata = $db
             ->from(Database::getTable("user"))
             ->where("id", $session["id"])
+            ->leftJoin(Database::getTable("group"), array(Database::getTable("group").".level" => Database::getTable("user").".permission"))
             ->one();
 
         return new User($userdata);
@@ -159,6 +162,7 @@ class Auth {
             ->from(Database::getTable("user"))
             ->where("id", $session["id"])
             ->where("token", $session["token"])
+            ->leftJoin(Database::getTable("group"), array(Database::getTable("group").".level" => Database::getTable("user").".permission"))
             ->one();
 
         return self::setReturnUser(new User($userdata));
@@ -173,6 +177,34 @@ class Auth {
     // Returns whether or not the user is authenticated
     public static function isAuthenticated() {
         return self::getCurrentUser()->exists();
+    }
+
+    // Returns a list of permission levels
+    public static function listPermissionLevels() {
+        if (self::$groupsCache !== null) return self::$groupsCache;
+        $db = Database::getSparrow();
+        $perms = $db
+            ->from(Database::getTable("group"))
+            ->many();
+
+        $perms = array_merge(array(array("level" => 0, "label" => self::resolvePermissionLabelI18N("{group.level.anonymous}"), "color" => null)), $perms);
+        usort($perms, function($a, $b) {
+            if ($a["level"] == $b["level"]) return 0;
+            return $a["level"] > $b["level"] ? -1 : 1;
+        });
+        self::$groupsCache = $perms;
+        return $perms;
+    }
+
+    // Resolves the I18N string of a permission label
+    public static function resolvePermissionLabelI18N($label) {
+        if (substr($label, 0, 1) == "{" && substr($label, -1, 1) == "}") {
+            __require("i18n");
+            $query = substr($label, 1, -1);
+            return I18N::resolve($query);
+        } else {
+            return $label;
+        }
     }
 }
 
@@ -194,6 +226,13 @@ class User {
         return $this->data["nick"];
     }
 
+    // Gets the nickname for displaying in HTML with colors.
+    public function getNicknameHTML() {
+        if (!$this->exists()) return htmlencode("<Anonymous>");
+        $color = self::getColor();
+        return '<span'.($color !== null ? ' style="color: #'.$color.';"' : '').'>'.htmlentities(self::getNickname()).'</span>';
+    }
+
     public function getProviderIdentity() {
         if (!$this->exists()) return "<Anonymous>";
         return $this->data["provider_id"];
@@ -210,6 +249,12 @@ class User {
     public function getPermissionLevel() {
         if (!$this->exists()) return 0;
         return $this->data["permission"];
+    }
+
+    // Gets the color this users should display as due to their permission gruop.
+    public function getColor() {
+        if (!$this->exists()) return 0;
+        return $this->data["color"];
     }
 
     // Gets the authentication provider used by this user.
