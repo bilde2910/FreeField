@@ -25,12 +25,12 @@ if (!isset($_GET["code"])) {
         "scope" => array("identify")
     ));
     header("HTTP/1.1 307 Temporary Redirect");
-    setcookie("oa2-{$service}-state", $provider->getState(), 0, $_SERVER["REQUEST_URI"]);
+    setcookie("oa2-{$service}-state", $provider->getState(), 0, strtok($_SERVER["REQUEST_URI"], "?"));
     header("Location: {$authUrl}");
     exit;
 } elseif (empty($_GET["state"]) || !isset($_COOKIE["oa2-{$service}-state"]) || $_GET["state"] !== $_COOKIE["oa2-{$service}-state"]) {
     header("303 See Other");
-    setcookie("oa2-{$service}-state", "", time() - 3600, $_SERVER["REQUEST_URI"]);
+    setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
     header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
     exit;
 } else {
@@ -42,7 +42,7 @@ if (!isset($_GET["code"])) {
 
         $approved = Auth::setAuthenticatedSession("{$service}:".$user->getId(), Config::get("auth/session-length"), $user->getUsername());
         header("HTTP/1.1 303 See Other");
-        setcookie("oa2-{$service}-state", "", time() - 3600, $_SERVER["REQUEST_URI"]);
+        setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
         if ($approved) {
             header("Location: ".Config::getEndpointUri("/"));
         } else {
@@ -51,7 +51,7 @@ if (!isset($_GET["code"])) {
         exit;
     } catch (Exception $e) {
         header("303 See Other");
-        setcookie("oa2-{$service}-state", "", time() - 3600, $_SERVER["REQUEST_URI"]);
+        setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
         header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
         exit;
     }
