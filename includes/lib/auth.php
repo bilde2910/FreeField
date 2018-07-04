@@ -188,7 +188,7 @@ class User {
     // Gets the current user permission level.
     public function getPermissionLevel() {
         if (!$this->exists()) return 0;
-        return $this->data["level"];
+        return $this->data["permission"];
     }
 
     // Checks whether the user has the given permission.
@@ -203,7 +203,7 @@ class User {
             }
         }
         $perm = Config::get("permissions/level/{$permission}");
-        return ($this->data === null ? 0 : $this->data["level"]) >= $perm;
+        return ($this->data === null ? 0 : $this->data["permission"]) >= $perm;
     }
 
     // Checks whether the user has a user-level override for the given permission.
