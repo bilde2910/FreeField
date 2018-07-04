@@ -140,6 +140,21 @@ class Auth {
         return new User($userdata);
     }
 
+    // Get all users.
+    public static function listUsers() {
+        $db = Database::getSparrow();
+        $userdata = $db
+            ->from(Database::getTable("user"))
+            ->leftJoin(Database::getTable("group"), array(Database::getTable("group").".level" => Database::getTable("user").".permission"))
+            ->many();
+
+        $users = array();
+        foreach ($userdata as $data) {
+            $users[] = new User($data);
+        }
+        return $users;
+    }
+
     // Authenticates the current cookie session data against the user database.
     public static function getCurrentUser() {
         if (self::$authSessionCache !== null) return self::$authSessionCache;
