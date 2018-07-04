@@ -67,10 +67,17 @@ if ($verify !== $hash || time() - intval($_GET["auth_date"]) > 600) {
 $userid = $_GET["id"];
 
 try {
-    Auth::setAuthenticatedSession("{$service}:".$userid, Config::get("auth/session-length"));
-    
+    $user = (isset($_GET["username"]) ? $_GET["username"] : null);
+    if ($user === null) $user = (isset($_GET["first_name"]) ? $_GET["first_name"] : null);
+    if ($user === null) $user = "";
+
+    $approved = Auth::setAuthenticatedSession("{$service}:".$userid, Config::get("auth/session-length"), $user);
     header("HTTP/1.1 303 See Other");
-    header("Location: ".Config::getEndpointUri("/"));
+    if ($approved) {
+        header("Location: ".Config::getEndpointUri("/"));
+    } else {
+        header("Location: ".Config::getEndpointUri("/auth/approval.php"));
+    }
     exit;
 } catch (Exception $e) {
     header("303 See Other");

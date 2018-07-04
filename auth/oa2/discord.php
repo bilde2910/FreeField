@@ -39,11 +39,16 @@ if (!isset($_GET["code"])) {
     ));
     try {
         $user = $provider->getResourceOwner($token);
-        Auth::setAuthenticatedSession("{$service}:".$user->getId(), Config::get("auth/session-length"));
-        
+
+        $approved = Auth::setAuthenticatedSession("{$service}:".$user->getId(), Config::get("auth/session-length"), $user->getUsername());
         header("HTTP/1.1 303 See Other");
         setcookie("oa2-{$service}-state", "", time() - 3600, $_SERVER["REQUEST_URI"]);
-        header("Location: ".Config::getEndpointUri("/"));
+        if ($approved) {
+            header("Location: ".Config::getEndpointUri("/"));
+        } else {
+            header("Location: ".Config::getEndpointUri("/auth/approval.php"));
+        }
+        exit;
     } catch (Exception $e) {
         header("303 See Other");
         setcookie("oa2-{$service}-state", "", time() - 3600, $_SERVER["REQUEST_URI"]);

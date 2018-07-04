@@ -78,13 +78,14 @@ class Auth {
     }
 
     // Writes authenticated session and validation data to a cookie. Called from auth providers.
-    public static function setAuthenticatedSession($id, $expire) {
+    public static function setAuthenticatedSession($id, $expire, $suggestedNick) {
         $db = Database::getSparrow();
         $token = $db
             ->from(Database::getTable("user"))
             ->where("id", $id)
             ->value("token");
 
+        $approved = true;
         if ($token === null) {
             // New user
 
@@ -99,7 +100,8 @@ class Auth {
         if (Config::get("security/validate-ua")) $session["http-ua"] = self::getUnversionedUserAgent();
         if (Config::get("security/validate-lang")) $session["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) ? $_SERVER["HTTP_ACCEPT_LANGUAGE"] : "";
 
-        setSession($data, $expire);
+        self::setSession($data, $expire);
+        return $approved;
     }
 
     // Writes the raw session array to a cookie.
