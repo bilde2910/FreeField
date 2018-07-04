@@ -71,7 +71,16 @@ try {
     if ($user === null) $user = (isset($_GET["first_name"]) && isset($_GET["last_name"]) ? $_GET["first_name"]." ".$_GET["last_name"] : null);
     if ($user === null) $user = "";
 
-    $approved = Auth::setAuthenticatedSession("{$service}:".$userid, Config::get("auth/session-length"), $user);
+    $hid = (isset($_GET["first_name"]) ? "@".$_GET["username"] : null);
+    if ($hid === null) $hid = (isset($_GET["first_name"]) && isset($_GET["last_name"]) ? $_GET["first_name"]." ".$_GET["last_name"] : null);
+    if ($hid === null) $hid = $_GET["id"];
+
+    $approved = Auth::setAuthenticatedSession(
+        "{$service}:".$userid,
+        Config::get("auth/session-length"),
+        $hid,
+        $user
+    );
     header("HTTP/1.1 303 See Other");
     if ($approved) {
         header("Location: ".Config::getEndpointUri("/"));

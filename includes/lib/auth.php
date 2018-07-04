@@ -78,7 +78,7 @@ class Auth {
     }
 
     // Writes authenticated session and validation data to a cookie. Called from auth providers.
-    public static function setAuthenticatedSession($id, $expire, $suggestedNick) {
+    public static function setAuthenticatedSession($id, $expire, $humanId, $suggestedNick) {
         $db = Database::getSparrow();
         $token = $db
             ->from(Database::getTable("user"))
@@ -92,6 +92,7 @@ class Auth {
             $token = substr(base64_encode(openssl_random_pseudo_bytes(32)), 0, 32);
             $data = array(
                 "id" => $id,
+                "provider_id" => $humanId,
                 "nick" => $suggestedNick,
                 "token" => $token,
                 "permission" => Config::get("permissions/default-level"),
@@ -191,6 +192,12 @@ class User {
     public function getNickname() {
         if (!$this->exists()) return "<Anonymous>";
         return $this->data["nick"];
+    }
+
+    public function getProviderIdentity() {
+        if (!$this->exists()) return "<Anonymous>";
+        return $this->data["provider_id"];
+
     }
 
     // Gets the current user ID.

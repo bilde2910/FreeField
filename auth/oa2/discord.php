@@ -40,7 +40,12 @@ if (!isset($_GET["code"])) {
     try {
         $user = $provider->getResourceOwner($token);
 
-        $approved = Auth::setAuthenticatedSession("{$service}:".$user->getId(), Config::get("auth/session-length"), $user->getUsername());
+        $approved = Auth::setAuthenticatedSession(
+            "{$service}:".$user->getId(),
+            Config::get("auth/session-length"),
+            $user->getUsername()."#".$user->getDiscriminator(),
+            $user->getUsername()
+        );
         header("HTTP/1.1 303 See Other");
         setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
         if ($approved) {
