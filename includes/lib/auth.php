@@ -191,6 +191,11 @@ class User {
         return $this->data["permission"];
     }
 
+    // Checks whether the user has been approved by an administrator, if approval is required.
+    public function isApproved() {
+        return $this->data["approved"];
+    }
+
     // Checks whether the user has the given permission.
     public function hasPermission($permission) {
         if (!$this->exists()) {
@@ -203,7 +208,7 @@ class User {
             }
         }
         $perm = Config::get("permissions/level/{$permission}");
-        return ($this->data === null ? 0 : $this->data["permission"]) >= $perm;
+        return ($this->data === null || !self::isApproved() ? 0 : $this->data["permission"]) >= $perm;
     }
 
     // Checks whether the user has a user-level override for the given permission.
