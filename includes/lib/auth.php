@@ -88,7 +88,19 @@ class Auth {
         $approved = true;
         if ($token === null) {
             // New user
-
+            $approved = !Config::get("security/require-validation");
+            $token = substr(base64_encode(openssl_random_pseudo_bytes(32)), 0, 32);
+            $data = array(
+                "id" => $id,
+                "nick" => $suggestedNick,
+                "token" => $token,
+                "permission" => Config::get("permissions/default-level"),
+                "approved" => $approved
+            );
+            $db
+                ->from(Database::getTable("user"))
+                ->insert($data)
+                ->execute();
         }
 
         $session = array(

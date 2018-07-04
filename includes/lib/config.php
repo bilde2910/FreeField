@@ -111,6 +111,10 @@ class Config {
         ),
         "perms" => array(
             "permissions" => array(
+                "permissions/default-level" => array(
+                    "default" => 100,
+                    "options" => "int,0,255"
+                ),
                 "permissions/level/access" => array(
                     "default" => 0,
                     "options" => "permission"
