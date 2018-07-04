@@ -212,6 +212,16 @@ class User {
         return $this->data["permission"];
     }
 
+    // Gets the authentication provider used by this user.
+    public function getProvider() {
+        if (!$this->exists()) return null;
+        if (strpos($this->data["id"], ":") !== false) {
+            return substr($this->data["id"], 0, strpos($this->data["id"], ":"));
+        } else {
+            return null;
+        }
+    }
+
     // Checks whether the user has been approved by an administrator, if approval is required.
     public function isApproved() {
         return $this->data["approved"];
