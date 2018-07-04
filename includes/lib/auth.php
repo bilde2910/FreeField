@@ -112,7 +112,7 @@ class Auth {
         if (Config::get("security/validate-ua")) $session["http-ua"] = self::getUnversionedUserAgent();
         if (Config::get("security/validate-lang")) $session["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) ? $_SERVER["HTTP_ACCEPT_LANGUAGE"] : "";
 
-        self::setSession($data, $expire);
+        self::setSession($session, $expire);
         return $approved;
     }
 
@@ -122,7 +122,7 @@ class Auth {
         $ciph = openssl_encrypt(json_encode($data), "AES-256-CBC", AuthSession::getSessionKey(), OPENSSL_RAW_DATA, $iv);
         $hmac = hash_hmac("SHA256", $ciph, AuthSession::getSessionKey(), true);
         $session = base64_encode($iv.$hmac.$ciph);
-        setcookie("session", $session, time() + $expire);
+        setcookie("session", $session, time() + $expire, "/");
     }
 
     // Get user by ID.
@@ -137,7 +137,7 @@ class Auth {
     }
 
     // Authenticates the current cookie session data against the user database.
-    private static function getCurrentUser() {
+    public static function getCurrentUser() {
         if (self::$authSessionCache !== null) return self::$authSessionCache;
 
         $session = self::getSession();
@@ -149,7 +149,7 @@ class Auth {
         if (Config::get("security/validate-ua")) $selectors["http-ua"] = self::getUnversionedUserAgent();
         if (Config::get("security/validate-lang")) $selectors["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) ? $_SERVER["HTTP_ACCEPT_LANGUAGE"] : "";
 
-        foreach ($selectors as $selectors => $expectedValue) {
+        foreach ($selectors as $selector => $expectedValue) {
             if ($session[$selector] != $expectedValue) return self::setReturnUser(new User(null));
         }
 
