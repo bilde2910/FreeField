@@ -65,25 +65,25 @@ class CustomControls {
                         <select name="'.$path.'">'.$options.'</select>
                         <script type="text/javascript">
                             var themedata = '.json_encode($themedata, JSON_PRETTY_PRINT).';
-                            
+
                             function viewTheme_'.$control_iconSelectorID.'(theme) {
                                 var box = document.getElementById("iconviewer-'.$control_iconSelectorID.'");
                                 box.innerHTML = "";
-                                
+
                                 var variants = ["light", "dark"];
                                 var varbox = {};
-                                
+
                                 for (var i = 0; i < variants.length; i++) {
                                     varbox[variants[i]] = document.createElement("div");
                                     varbox[variants[i]].style.width = "calc(100% - 20px)";
                                     varbox[variants[i]].style.padding = "10px";
                                 }
-                                
+
                                 varbox["light"].style.backgroundColor = "#ccc";
                                 varbox["dark"].style.backgroundColor = "#333";
-                                
+
                                 var tdata = themedata[theme];
-                                
+
                                 var icons = [
                                     "potion", "super_potion", "hyper_potion", "max_potion",
                                     "revive", "max_revive",
@@ -94,7 +94,7 @@ class CustomControls {
                                     "power_up", "evolve",
                                     "unknown"
                                 ];
-                                
+
                                 for (var i = 0; i < icons.length; i++) {
                                     var uri = "../themes/icons/" + theme + "/";
                                     if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
@@ -104,7 +104,7 @@ class CustomControls {
                                     } else {
                                         uri = "about:blank";
                                     }
-                                    
+
                                     for (var j = 0; j < variants.length; j++) {
                                         var icobox = document.createElement("img");
                                         icobox.src = uri.split("{%variant%}").join(variants[j]);
@@ -114,7 +114,7 @@ class CustomControls {
                                         varbox[variants[j]].appendChild(icobox);
                                     }
                                 }
-                                
+
                                 if (tdata.hasOwnProperty("logo")) {
                                     var logo = document.createElement("img");
                                     logo.src = "../themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("'.Config::get("themes/color/admin").'");
@@ -123,17 +123,17 @@ class CustomControls {
                                     logo.marginTop = "20px";
                                     box.appendChild(logo);
                                 }
-                                
+
                                 var name = document.createElement("h2");
                                 name.innerText = tdata.name;
                                 name.style.color = "#'.(Config::get("themes/color/admin") == "dark" ? "ccc" : "333").'";
                                 name.style.marginBottom = "0";
                                 box.appendChild(name);
-                                
+
                                 var author = document.createElement("p");
                                 author.innerText = "Authored by " + tdata.author;
                                 box.appendChild(author);
-                                
+
                                 for (var i = 0; i < variants.length; i++) {
                                     box.appendChild(varbox[variants[i]]);
                                 }
@@ -170,7 +170,7 @@ class CustomControls {
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/admin"); ?>.css">
-        
+
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="../css/layouts/side-menu-old-ie.css">
         <![endif]-->
@@ -192,19 +192,19 @@ class CustomControls {
 
                     <ul class="pure-menu-list">
                         <?php
-                        
+
                         foreach ($pages_icons as $d => $icon) {
                             if ($d == $domain) {
                                 echo '<li class="pure-menu-item menu-item-divided pure-menu-selected">';
                             } else {
                                 echo '<li class="pure-menu-item">';
                             }
-                            
+
                             echo '<a href="./?d='.$d.'" class="pure-menu-link"><i class="menu-fas fas fa-'.$icon.'"></i> '.I18N::resolve(Config::getDomainI18N($d)->getName()).'</a></li>';
                         }
-                        
+
                         ?>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -254,13 +254,13 @@ class CustomControls {
                                                                 echo '<option value="'.$option.'"'.($value == $option ? ' selected' : '').'>'.I18N::resolve($si18n->getOption($option)).'</option>';
                                                             }
                                                             echo '</select>';
-                                                            
+
                                                         } elseif (preg_match('/^int,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
                                                             echo '<input type="number" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" value="'.Config::get($setting).'">';
-                                                            
+
                                                         } elseif (preg_match('/^float,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
                                                             echo '<input type="number" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" step="0.00001" value="'.Config::get($setting).'">';
-                                                            
+
                                                         } else {
                                                             switch ($values["options"]) {
                                                                 case "string":
@@ -299,7 +299,7 @@ class CustomControls {
                             <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
                         </form>
                     <?php } elseif ($domain == "users") { ?>
-                    
+
                     <?php } ?>
                 </div>
             </div>
