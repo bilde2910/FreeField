@@ -51,7 +51,7 @@ class Auth {
     }
 
     // Gets the User-Agent without version numbers for identifying a specific browser type.
-    private static function getUnversionedUserAgent() {
+    private static function getVersionlessUserAgent() {
         if (!isset($_SERVER["HTTP_USER_AGENT"])) return "";
         return preg_replace('@/[^ ]+@', "", $_SERVER["HTTP_USER_AGENT"]);
     }
@@ -109,7 +109,7 @@ class Auth {
             "expire" => time() + $expire
         );
 
-        if (Config::get("security/validate-ua")) $session["http-ua"] = self::getUnversionedUserAgent();
+        if (Config::get("security/validate-ua")) $session["http-ua"] = self::getVersionlessUserAgent();
         if (Config::get("security/validate-lang")) $session["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) ? $_SERVER["HTTP_ACCEPT_LANGUAGE"] : "";
 
         self::setSession($session, $expire);
@@ -146,7 +146,7 @@ class Auth {
 
         $selectors = array();
 
-        if (Config::get("security/validate-ua")) $selectors["http-ua"] = self::getUnversionedUserAgent();
+        if (Config::get("security/validate-ua")) $selectors["http-ua"] = self::getVersionlessUserAgent();
         if (Config::get("security/validate-lang")) $selectors["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) ? $_SERVER["HTTP_ACCEPT_LANGUAGE"] : "";
 
         foreach ($selectors as $selector => $expectedValue) {
