@@ -289,6 +289,12 @@ class User {
         return $this->data["color"];
     }
 
+    // Gets the date of the first login from this user.
+    public function getRegistrationDate() {
+        if (!$this->exists()) return null;
+        return $this->data["user_signup"];
+    }
+
     // Gets the authentication provider used by this user.
     public function getProvider() {
         if (!$this->exists()) return null;
