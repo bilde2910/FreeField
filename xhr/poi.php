@@ -209,7 +209,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
 
 } else {
-    XHR::exitWith(405, array("reason" => "Method not allowed"));
+    XHR::exitWith(405, array("reason" => "xhr.failed.reason.http_405"));
 }
 
 ?>
