@@ -81,7 +81,7 @@ class Auth {
     public static function setAuthenticatedSession($id, $expire) {
         $db = Database::getSparrow();
         $token = $db
-            ->from(Database::getTable("users"))
+            ->from(Database::getTable("user"))
             ->where("id", $id)
             ->value("token");
 
@@ -115,7 +115,7 @@ class Auth {
     public static function getUser($id) {
         $db = Database::getSparrow();
         $userdata = $db
-            ->from(Database::getTable("users"))
+            ->from(Database::getTable("user"))
             ->where("id", $session["id"])
             ->one();
 
@@ -141,7 +141,7 @@ class Auth {
 
         $db = Database::getSparrow();
         $userdata = $db
-            ->from(Database::getTable("users"))
+            ->from(Database::getTable("user"))
             ->where("id", $session["id"])
             ->where("token", $session["token"])
             ->one();
