@@ -217,7 +217,7 @@ class CustomControls {
 
                 <div class="content">
                     <?php if (in_array($domain, $domains)) { ?>
-                        <form action="apply-config.php?d=<?php echo $domain; ?>" method="POST" enctype="application/x-www-form-urlencoded">
+                        <form action="apply-config.php?d=<?php echo $domain; ?>" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
                             <?php foreach ($sections as $section => $settings) { ?>
                                 <h2 class="content-subhead"><?php echo I18N::resolve($di18n->getSection($section)->getName()); ?></h2>
                                 <?php
