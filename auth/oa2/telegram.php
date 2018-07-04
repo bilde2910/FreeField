@@ -68,7 +68,7 @@ $userid = $_GET["id"];
 
 try {
     $user = (isset($_GET["username"]) ? $_GET["username"] : null);
-    if ($user === null) $user = (isset($_GET["first_name"]) ? $_GET["first_name"] : null);
+    if ($user === null) $user = (isset($_GET["first_name"]) && isset($_GET["last_name"]) ? $_GET["first_name"]." ".$_GET["last_name"] : null);
     if ($user === null) $user = "";
 
     $approved = Auth::setAuthenticatedSession("{$service}:".$userid, Config::get("auth/session-length"), $user);
