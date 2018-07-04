@@ -13,8 +13,10 @@ class XHR {
         );
 
         header("HTTP/1.1 {$code} ".$codes[$code]);
-        header("Content-Type: application/json");
-        echo json_encode($data);
+        if ($data !== null) {
+            header("Content-Type: application/json");
+            echo json_encode($data, JSON_PRETTY_PRINT);
+        }
         exit;
     }
 }
