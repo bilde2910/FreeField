@@ -279,6 +279,9 @@ class CustomControls {
                                                                     echo '<input type="hidden" name="'.$setting.'" value="off">'; // Detect unchecked checkbox - unchecked checkboxes aren't POSTed!
                                                                     echo '<input type="checkbox" id="'.$setting.'" name="'.$setting.'"'.(Config::get($setting) ? ' checked' : '').'> <label for="'.$setting.'">'.I18N::resolve($si18n->getLabel()).'</label>';
                                                                     break;
+                                                                case "permission":
+                                                                    echo Auth::getPermissionSelector($setting, null, Config::get($setting));
+                                                                    break;
                                                             }
                                                         }
                                                     }

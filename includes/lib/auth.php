@@ -221,6 +221,23 @@ class Auth {
             return $label;
         }
     }
+
+    // Returns an HTML control for selecting permission levels
+    public static function getPermissionSelector($name, $id = null, $selectedLevel = 0) {
+        $perms = self::listPermissionLevels();
+        $opts = "";
+        $curperm = null;
+        foreach ($perms as $perm) {
+            if ($perm["level"] == $selectedLevel) $curperm = $perm;
+            $opts .= '<option value="'.$perm["level"].'"'.($perm["color"] !== null ? ' style="color: #'.$perm["color"].'"' : '').'>'.$perm["level"].' - '.self::resolvePermissionLabelI18N($perm["label"]).'</option>';
+        }
+        if ($curperm === null) {
+            $curopt = '<option value="'.$selectedLevel.'" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18N("{group.level.unknown}").'</option>';
+        } else {
+            $curopt = '<option value="'.$selectedLevel.'" style="color:" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18N($curperm["label"]).'</option>';
+        }
+        return '<select name="'.$name.'"'.($id !== null ? ' id="'.$id.'"' : '').'><optgroup label="Current group">'.$curopt.'</optgroup><optgroup label="Available groups">'.$opts.'</optgroup></select>';
+    }
 }
 
 class User {
