@@ -166,6 +166,7 @@ class CustomControls {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex,nofollow">
         <title>FreeField Admin | <?php echo I18N::resolve($di18n->getName()); ?></title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/main.css">
@@ -302,7 +303,85 @@ class CustomControls {
                             <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
                         </form>
                     <?php } elseif ($domain == "users") { ?>
-
+                        <form action="apply-users.php" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
+                            <?php
+                                $users = Auth::listUsers();
+                                usort($users, function($a, $b) {
+                                    if ($a->getPermissionLevel() == $b->getPermissionLevel()) return 0;
+                                    return $a->getPermissionLevel() > $b->getPermissionLevel() ? -1 : 1;
+                                });
+                            ?>
+                            <h2 class="content-subhead"><?php echo I18N::resolve("admin.section.users.require_approval.name"); ?></h2>
+                            <table class="pure-table force-fullwidth">
+                                <thead>
+                                    <tr>
+                                        <th>Provider identity</th><th>Provider</th><th>Auto-suggested nickname</th><th>Registered</th><th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        foreach ($users as $user) {
+                                            if ($user->isApproved()) continue;
+                                            $uid = $user->getUserID();
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $user->getProviderIdentity(); ?></td>
+                                                    <td><?php echo I18N::resolve("admin.section.auth.".$user->getProvider().".name"); ?></td>
+                                                    <td><?php echo htmlentities($user->getNickname()); ?></td>
+                                                    <td><?php echo $user->getRegistrationDate(); ?></td>
+                                                    <td><select class="account-actions" name="<?php echo $uid; ?>[action]"><option value="none" selected>(no action)</option><option value="approve">Approve account</option><option value="delete">Reject account</option></select></td>
+                                                </td>
+                                            <?php
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                            <h2 class="content-subhead"><?php echo I18N::resolve("admin.section.users.user_list.name"); ?></h2>
+                            <table class="pure-table force-fullwidth">
+                                <thead>
+                                    <tr>
+                                        <th>Provider identity</th><th>Provider</th><th>Nickname</th><!--<th>Last login</th>--><th>Group</th><th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        foreach ($users as $user) {
+                                            if (!$user->isApproved()) continue;
+                                            $uid = $user->getUserID();
+                                            ?>
+                                                <tr>
+                                                    <td<?php if ($user->getColor() !== null) echo ' style="color: #'.$user->getColor().';"'; ?>><?php echo $user->getProviderIdentity(); ?></td>
+                                                    <td><?php echo I18N::resolve("admin.section.auth.".$user->getProvider().".name"); ?></td>
+                                                    <td><input type="text" name="<?php echo $uid; ?>[nick]" value="<?php echo $user->getNickname(); ?>"<?php if ($user->getColor() !== null) echo ' style="color: #'.$user->getColor().'"'; ?>></td>
+                                                    <!--<td><?php /*echo $user->getLastLoginDate();*/ ?></td>-->
+                                                    <td><?php echo Auth::getPermissionSelector($uid."[group]", null, $user->getPermissionLevel()); ?></td>
+                                                    <td><select class="account-actions" name="<?php echo $uid; ?>[action]"><option value="none" selected>(no action)</option><option value="delete">Delete account</option></select></td>
+                                                </td>
+                                            <?php
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                            <script>
+                                $(".account-actions").on("change", function() {
+                                    if ($(this).val() == "delete") {
+                                        $(this).css("border", "1px solid red");
+                                        $(this).css("color", "red");
+                                        $(this).css("margin-right", "");
+                                    } else if ($(this).val() == "approve") {
+                                        var color = "<?php echo Config::get("themes/color/admin"); ?>" == "dark" ? "lime" : "green";
+                                        $(this).css("border", "1px solid " + color);
+                                        $(this).css("color", color);
+                                        $(this).css("margin-right", "");
+                                    } else {
+                                        $(this).css("border", "");
+                                        $(this).css("color", "");
+                                        $(this).css("margin-right", "");
+                                    }
+                                });
+                            </script>
+                            <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
+                        </form>
                     <?php } ?>
                 </div>
             </div>

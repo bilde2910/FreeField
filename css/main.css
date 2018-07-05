@@ -42,6 +42,23 @@ input.button-submit, input.button-standard {
 .button-spaced.right {
     margin: 5px 0 5px 2.5px;
 }
+table, thead, tbody {
+    width: 100%;
+}
+.force-fullwidth {
+    min-width: 800px !important;
+}
+.user-action {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+}
+.red {
+    color: red;
+}
+.green {
+    color: green;
+}
 .tooltip {
     position: relative;
     display: inline-block;
