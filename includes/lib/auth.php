@@ -202,7 +202,6 @@ class Auth {
             ->from(Database::getTable("group"))
             ->many();
 
-        $perms = array_merge(array(array("level" => 0, "label" => self::resolvePermissionLabelI18N("{group.level.anonymous}"), "color" => null)), $perms);
         usort($perms, function($a, $b) {
             if ($a["level"] == $b["level"]) return 0;
             return $a["level"] > $b["level"] ? -1 : 1;
