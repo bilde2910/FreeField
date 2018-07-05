@@ -231,7 +231,7 @@ class Auth {
             $opts .= '<option value="'.$perm["level"].'"'.($perm["color"] !== null ? ' style="color: #'.$perm["color"].'"' : '').'>'.$perm["level"].' - '.self::resolvePermissionLabelI18N($perm["label"]).'</option>';
         }
         if ($curperm === null) {
-            $curopt = '<option value="'.$selectedLevel.'" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18N("{group.level.unknown}").'</option>';
+            $curopt = '<option value="'.$selectedLevel.'" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18N("{i18n:group.level.unknown}").'</option>';
         } else {
             $curopt = '<option value="'.$selectedLevel.'" style="color:" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18N($curperm["label"]).'</option>';
         }
