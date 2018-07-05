@@ -212,9 +212,9 @@ class Auth {
 
     // Resolves the I18N string of a permission label
     public static function resolvePermissionLabelI18N($label) {
-        if (substr($label, 0, 1) == "{" && substr($label, -1, 1) == "}") {
+        if (substr($label, 0, 6) == "{i18n:" && substr($label, -1, 1) == "}") {
             __require("i18n");
-            $query = substr($label, 1, -1);
+            $query = substr($label, 6, -1);
             return I18N::resolve($query);
         } else {
             return $label;
