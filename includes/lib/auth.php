@@ -279,7 +279,8 @@ class User {
     // Gets the current user permission level.
     public function getPermissionLevel() {
         if (!$this->exists()) return 0;
-        return $this->data["permission"];
+        $perm = $this->data["permission"];
+        return $perm > 1000 ? $perm - 1000 : $perm;
     }
 
     // Gets the color this users should display as due to their permission gruop.
@@ -321,7 +322,7 @@ class User {
             }
         }
         $perm = Config::get("permissions/level/{$permission}");
-        return ($this->data === null || !self::isApproved() ? 0 : $this->data["permission"]) >= $perm;
+        return ($this->data === null || !self::isApproved() ? 0 : $this->getPermissionLevel()) >= $perm;
     }
 
     // Checks whether the user has a user-level override for the given permission.
