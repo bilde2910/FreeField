@@ -432,7 +432,7 @@ class CustomControls {
                                                         <input type="checkbox" id="g<?php echo $gid; ?>-usecolor" name="g<?php echo $gid; ?>[usecolor]"<?php if ($group["color"] !== null) echo ' checked'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                                         <input type="color" name="g<?php echo $gid; ?>[color]"<?php if ($group["color"] !== null) echo ' value="#'.$group["color"].'"'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                                     </td>
-                                                    <td><select class="group-actions" name="<?php echo $gid; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>><option value="none" selected>(no action)</option><option value="delete">Delete group</option></select></td>
+                                                    <td><select class="group-actions" name="g<?php echo $gid; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>><option value="none" selected>(no action)</option><option value="delete">Delete group</option></select></td>
                                                 </td>
                                             <?php
                                         }
