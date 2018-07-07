@@ -151,7 +151,7 @@ $provider = Config::get("map/provider/source");
                         <div class="header">
                             <h1><?php echo I18N::resolve("poi.add.title"); ?></h1>
                         </div>
-                        <div class="cover-box-content content">
+                        <div class="cover-box-content content pure-form">
                             <div class="pure-g">
                                 <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolve("poi.add.name"); ?>:</p></div>
                                 <div class="pure-u-2-3 full-on-mobile"><p><input type="text" id="add-poi-name"></p></div>
@@ -177,7 +177,7 @@ $provider = Config::get("map/provider/source");
                         <div class="header">
                             <h1><?php echo I18N::resolve("poi.update.title"); ?></h1>
                         </div>
-                        <div class="cover-box-content content">
+                        <div class="cover-box-content content pure-form">
                             <div class="pure-g">
                                 <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolve("poi.update.name"); ?>:</p></div>
                                 <div class="pure-u-2-3 full-on-mobile"><p><input type="text" id="update-poi-name" readonly></p></div>
