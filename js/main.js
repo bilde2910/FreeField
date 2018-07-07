@@ -111,7 +111,7 @@ function openMarker(popup, id) {
     $("#poi-objective").text(resolveObjective(poiObj.objective));
     $("#poi-reward").text(resolveReward(poiObj.reward));
     $("#poi-directions").on("click", function() {
-        window.open("https://www.google.com/maps/dir/?api=1&destination=" + encodeURI(poiObj.lat + "," + poiObj.lon));
+        window.open("https://www.google.com/maps/dir/?api=1&destination=" + encodeURI(poiObj.latitude + "," + poiObj.longitude));
     });
     $("#poi-close").on("click", function() {
         popup._onClickClose();
@@ -213,8 +213,8 @@ function openMarker(popup, id) {
                 204: function(data) {
                     var oldObjective = poiObj.objective.type;
                     var oldReward = poiObj.reward.type;
-                    if ($(poiObj.element).hasClass(oldObjective)) $(poiObj.element).removeClass(oldObjective).addClass(objective);
                     if ($(poiObj.element).hasClass(oldReward)) $(poiObj.element).removeClass(oldReward).addClass(reward);
+                    if ($(poiObj.element).hasClass(oldObjective)) $(poiObj.element).removeClass(oldObjective).addClass(objective);
                     poiObj.objective = {
                         type: objective,
                         params: objParams
@@ -312,7 +312,7 @@ $("#add-poi-start").on("click", function() {
     map.on('click', getCoordsForPOI);
 });
 
-$("#add-poi-banner-cancel").on("click", function() {
+$("#add-poi-cancel-banner").on("click", function() {
     disableAddPOI(true);
 });
 
