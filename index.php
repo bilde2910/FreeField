@@ -94,8 +94,23 @@ $provider = Config::get("map/provider/source");
                     <a class="pure-menu-heading" href=".">FreeField</a>
 
                     <ul class="pure-menu-list">
-                        <li class="pure-menu-item"><a href="./auth/login.php" class="pure-menu-link"><i class="menu-fas fas fa-sign-in-alt"></i> Sign in</a></li>
-                        <li class="pure-menu-item"><a href="#" id="add-poi-start" class="pure-menu-link"><i class="menu-fas fas fa-plus"></i> Add POI</a></li>
+                        <?php if (Auth::isAuthenticated()) { ?>
+                            <div class="menu-user-box">
+                                <span class="user-box-small"><?php echo I18N::resolve("sidebar.signed_in_as"); ?></span><br>
+                                <span class="user-box-nick"><?php echo Auth::getCurrentUser()->getNicknameHTML(); ?></span><br />
+                                <span class="user-box-small"><?php echo Auth::getCurrentUser()->getProviderIdentityHTML(); ?></span><br>
+                            </div>
+                            <li class="pure-menu-item"><a href="./auth/logout.php" class="pure-menu-link"><i class="menu-fas fas fa-sign-in-alt"></i> <?php echo I18N::resolve("sidebar.logout"); ?></a></li>
+                        <?php } else { ?>
+                            <li class="pure-menu-item"><a href="./auth/login.php" class="pure-menu-link"><i class="menu-fas fas fa-sign-in-alt"></i> <?php echo I18N::resolve("sidebar.login"); ?></a></li>
+                        <?php } ?>
+                        <div class="menu-spacer"></div>
+                        <?php if (Auth::getCurrentUser()->hasPermission("submit-poi")) { ?>
+                            <li class="pure-menu-item"><a href="#" id="add-poi-start" class="pure-menu-link"><i class="menu-fas fas fa-plus"></i> <?php echo I18N::resolve("sidebar.add_poi"); ?></a></li>
+                        <?php } ?>
+                        <?php if (Auth::getCurrentUser()->hasPermission("admin/?/general")) { ?>
+                            <li class="pure-menu-item"><a href="./admin/" class="pure-menu-link"><i class="menu-fas fas fa-angle-double-right"></i> <?php echo I18N::resolve("sidebar.manage_site"); ?></a></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>

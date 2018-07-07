@@ -203,6 +203,13 @@ class CustomControls {
                     <a class="pure-menu-heading" href="..">Freefield</a>
 
                     <ul class="pure-menu-list">
+                        <div class="menu-user-box">
+                            <span class="user-box-small"><?php echo I18N::resolve("sidebar.signed_in_as"); ?></span><br>
+                            <span class="user-box-nick"><?php echo Auth::getCurrentUser()->getNicknameHTML(); ?></span><br />
+                            <span class="user-box-small"><?php echo Auth::getCurrentUser()->getProviderIdentityHTML(); ?></span><br>
+                        </div>
+                        <li class="pure-menu-item"><a href="./auth/logout.php" class="pure-menu-link"><i class="menu-fas fas fa-sign-in-alt"></i> <?php echo I18N::resolve("sidebar.logout"); ?></a></li>
+                        <div class="menu-spacer"></div>
                         <?php
 
                         foreach ($pages_icons as $d => $icon) {
@@ -218,6 +225,8 @@ class CustomControls {
 
                         ?>
 
+                        <div class="menu-spacer"></div>
+                        <li class="pure-menu-item"><a href=".." class="pure-menu-link"><i class="menu-fas fas fa-angle-double-left"></i> <?php echo I18N::resolve("sidebar.return"); ?></a></li>
                     </ul>
                 </div>
             </div>

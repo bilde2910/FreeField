@@ -4,6 +4,22 @@
     margin-right: 3px;
     text-align: center;
 }
+.menu-user-box {
+    max-width: calc(100% - 20px);
+    padding: 10px 10px 5px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.user-box-small {
+    font-size: 0.8em;
+}
+.user-box-nick {
+    font-weight: bold;
+}
+.menu-spacer {
+    height: 1em;
+}
 .content-fas {
     display: inline-block;
     width: 20px;

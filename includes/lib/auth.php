@@ -268,7 +268,20 @@ class User {
     public function getProviderIdentity() {
         if (!$this->exists()) return "<Anonymous>";
         return $this->data["provider_id"];
+    }
 
+    public function getProviderIdentityHTML() {
+        $providerAppearance = array(
+            "discord" => array(
+                "fa-icon" => "discord",
+                "color" => "#7289DA"
+            ),
+            "telegram" => array(
+                "fa-icon" => "telegram-plane",
+                "color" => "#0088CC"
+            )
+        );
+        return '<span><i style="color: '.$providerAppearance[$this->getProvider()]["color"].'" class="fab fa-'.$providerAppearance[$this->getProvider()]["fa-icon"].'"></i> '.htmlentities($this->getProviderIdentity()).'</span>';
     }
 
     // Gets the current user ID.
@@ -322,8 +335,42 @@ class User {
                 }
             }
         }
-        $perm = Config::get("permissions/level/{$permission}");
-        return ($this->data === null || !self::isApproved() ? 0 : $this->getPermissionLevel()) >= $perm;
+
+        $userperm = ($this->data === null || !self::isApproved() ? 0 : $this->getPermissionLevel());
+
+        if (strpos($permission, "?") !== FALSE) {
+            // Match any permission in set
+            $root = trim(strtok($permission, "?"), "/");
+            $tree = Config::get("permissions/level/{$root}");
+            $tail = trim(substr($permission, strpos($permission, "?") + 1), "/");
+
+            foreach ($tree as $domain => $sections) {
+                foreach ($sections as $section => $perm) {
+                    if ($section !== $tail) continue;
+                    if ($userperm >= $perm) return true;
+                }
+            }
+
+            return false;
+        } elseif (strpos($permission, "*") !== FALSE) {
+            // Match all permissions in set
+            $root = trim(strtok($permission, "?"), "/");
+            $tree = Config::get("permissions/level/{$root}");
+            $tail = trim(substr($permission, strpos($permission, "?") + 1), "/");
+
+            foreach ($tree as $domain => $sections) {
+                foreach ($sections as $section => $perm) {
+                    if ($section !== $tail) continue;
+                    if ($userperm < $perm) return false;
+                }
+            }
+
+            return true;
+        } else {
+            // Match specific permission
+            $perm = Config::get("permissions/level/{$permission}");
+            return $userperm >= $perm;
+        }
     }
 
     // Checks whether the current user is authorized to make changes to an object that requires the given permission level.
