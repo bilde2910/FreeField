@@ -463,6 +463,13 @@ $provider = Config::get("map/provider/source");
                         zoom: <?php echo Config::get("map/default/zoom"); ?>
                     });
                     map.addControl(new mapboxgl.NavigationControl());
+                    map.addControl(new mapboxgl.GeolocateControl({
+                        positionOptions: {
+                            enableHighAccuracy: false,
+                            timeout: 5000
+                        },
+                        trackUserLocation: true
+                    }));
                 </script>
             </div>
         </div>
