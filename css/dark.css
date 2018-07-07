@@ -38,6 +38,12 @@ body {
     box-shadow: inset 0 1px 3px #222;
 }
 
+.pure-form input:not([type])[disabled], .pure-form input[type=password][disabled], .pure-form input[type=email][disabled], .pure-form input[type=url][disabled], .pure-form input[type=date][disabled], .pure-form input[type=month][disabled], .pure-form input[type=time][disabled], .pure-form input[type=datetime][disabled], .pure-form input[type=datetime-local][disabled], .pure-form input[type=week][disabled], .pure-form input[type=tel][disabled], .pure-form input[type=color][disabled], .pure-form input[type=number][disabled], .pure-form input[type=search][disabled], .pure-form input[type=text][disabled], .pure-form select[disabled], .pure-form textarea[disabled] {
+    cursor: not-allowed;
+    background-color: #151717;
+    color: #353c3c;
+}
+
 .pure-table {
     border: 1px solid #343434;
 }

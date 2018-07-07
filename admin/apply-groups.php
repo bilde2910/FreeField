@@ -5,15 +5,19 @@ __require("config");
 __require("auth");
 __require("db");
 
-// TODO: Kick users out of this page if they don't have admin perms
+$returnpath = "./?d=groups";
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+if (!Auth::getCurrentUser()->hasPermission("admin/groups/general")) {
     header("HTTP/1.1 303 See Other");
-    header("Location: ./?d=groups");
+    header("Location: {$returnpath}");
     exit;
 }
 
-$returnpath = "./?d=groups";
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("HTTP/1.1 303 See Other");
+    header("Location: {$returnpath}");
+    exit;
+}
 
 $grouplist = Auth::listPermissionLevels();
 $groups_assoc = array();
@@ -30,6 +34,11 @@ $levelchanges = array();
 foreach ($_POST as $group => $data) {
     if (strlen($group) < 1 || substr($group, 0, 1) !== "g") continue;
     $gid = substr($group, 1);
+
+    if (!Auth::getCurrentUser()->canChangeAtPermission($groups_assoc[$gid]["level"])) {
+        continue;
+    }
+
     if ($data["action"] === "delete") {
         $deletes[] = $gid;
         continue;
@@ -38,8 +47,13 @@ foreach ($_POST as $group => $data) {
         $updates[$gid]["label"] = $data["label"];
     }
     if ($groups_assoc[$gid]["level"] != $data["level"]) {
-        // Level changes are treated separately, see below
-        $levelchanges[intval($groups_assoc[$gid]["level"])] = intval($data["level"]);
+        // Level changes are applied separately, see below
+        $old = intval($groups_assoc[$gid]["level"]);
+        $new = intval($data["level"]);
+        $max = max($old, $new);
+        if (Auth::getCurrentUser()->canChangeAtPermission($max)) {
+            $levelchanges[$old] = $new;
+        }
     }
     if (isset($data["usecolor"]) && $groups_assoc[$gid]["color"] !== substr($data["color"], -6)) {
         $updates[$gid]["color"] = substr($data["color"], -6);

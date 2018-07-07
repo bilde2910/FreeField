@@ -3,11 +3,13 @@
 require_once("../includes/lib/global.php");
 __require("xhr");
 __require("db");
-
-// TODO: Permissions
+__require("auth");
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     // List POIs
+    if (!Auth::getCurrentUser()->hasPermission("access")) {
+        XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
+    }
     try {
         $db = Database::getSparrow();
         $pois = $db
@@ -37,13 +39,16 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             );
         }
 
-        xhr::exitWith(200, array("pois" => $poidata));
+        XHR::exitWith(200, array("pois" => $poidata));
     } catch (Exception $e) {
         XHR::exitWith(500, array("reason" => "xhr.failed.reason.database_error"));
     }
 
 } elseif ($_SERVER["REQUEST_METHOD"] === "PUT") {
     // Add new POI
+    if (!Auth::getCurrentUser()->hasPermission("submit-poi")) {
+        XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
+    }
     $reqfields = array("name", "lat", "lon");
     $putdata = json_decode(file_get_contents("php://input"), true);
 
@@ -107,10 +112,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
 } elseif ($_SERVER["REQUEST_METHOD"] === "PATCH") {
     // Update research quest
+    if (!Auth::getCurrentUser()->hasPermission("report-research")) {
+        XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
+    }
+
+    // Check that required data is present
     $reqfields = array("id", "objective", "reward");
     $patchdata = json_decode(file_get_contents("php://input"), true);
 
-    // Check that required data is present
     foreach ($reqfields as $field) {
         if (!isset($patchdata[$field])) {
             XHR::exitWith(400, array("reason" => "xhr.failed.reason.missing_fields"));
@@ -197,7 +206,19 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     try {
         $db = Database::getSparrow();
-        $userdata = $db
+        $poidata = $db
+            ->from(Database::getTable("poi"))
+            ->where("id", $patchdata["id"])
+            ->one();
+
+        // TODO: Check if research was submitted earlier than today and allow if so
+        if ($poidata["objective"] !== "unknown" || $poidata["reward"] !== "unknown") {
+            if (!Auth::getCurrentUser()->hasPermission("overwrite-research")) {
+                XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
+            }
+        }
+
+        $db
             ->from(Database::getTable("poi"))
             ->where("id", $patchdata["id"])
             ->update($data)

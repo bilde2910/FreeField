@@ -1,8 +1,55 @@
 <?php
 
 require_once("./includes/lib/global.php");
-__require("config");
+__require("auth");
 __require("i18n");
+
+if (!Auth::getCurrentUser()->hasPermission("access")) {
+    if (!Auth::isAuthenticated()) {
+        header("HTTP/1.1 307 Temporary Redirect");
+        header("Location: ".Config::getEndpointUri("/auth/login.php"));
+        exit;
+    } else {
+        ?>
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <meta name="robots" content="noindex,nofollow">
+                    <title><?php echo Config::get("site/name"); ?> | <?php echo I18N::resolve("login.title"); ?></title>
+                    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+                    <link rel="stylesheet" href="./css/main.css">
+                    <link rel="stylesheet" href="./css/<?php echo Config::get("themes/color/user-settings/theme"); ?>.css">
+
+                    <!--[if lte IE 8]>
+                        <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
+                    <![endif]-->
+                    <!--[if gt IE 8]><!-->
+                        <link rel="stylesheet" href="./css/layouts/side-menu.css">
+                    <!--<![endif]-->
+                </head>
+                <body>
+                    <div id="main">
+                        <div class="header" style="border-bottom: none; margin-bottom: 50px;">
+                            <h1 class="red"><?php echo I18N::resolve("access_denied.title"); ?></h1>
+                            <h2><?php echo I18N::resolve("access_denied.desc"); ?></h2>
+                        </div>
+
+                        <div class="content">
+                            <p><?php echo I18N::resolveArgs("access_denied.info", Auth::getCurrentUser()->getProviderIdentity()); ?></p>
+                        </div>
+                    </div>
+                    <script src="./js/ui.js"></script>
+                </body>
+            </html>
+        <?php
+        exit;
+    }
+}
+
+__require("config");
 __require("theme");
 __require("research");
 
@@ -432,6 +479,16 @@ $provider = Config::get("map/provider/source");
             };
 
             var settings = defaults;
+
+            var permissions = {
+                <?php
+                    $clientside_perms = array("report-research", "overwrite-research", "submit-poi");
+                    for ($i = 0; $i < count($clientside_perms); $i++) {
+                        $clientside_perms[$i] = '"'.$clientside_perms[$i].'": '.(Auth::getCurrentUser()->hasPermission($clientside_perms[$i]) ? "true" : "false");
+                    }
+                    echo implode(", ", $clientside_perms);
+                ?>
+            }
 
             var iconSets = {
                 <?php

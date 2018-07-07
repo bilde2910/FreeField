@@ -110,16 +110,77 @@ class Config {
             )
         ),
         "perms" => array(
-            "permissions" => array(
+            "default" => array(
                 "permissions/default-level" => array(
                     "default" => 80,
                     "options" => "permission"
-                ),
+                )
+            ),
+            "map-access" => array(
+                // TODO:
                 "permissions/level/access" => array(
                     "default" => 0,
                     "options" => "permission"
+                ),
+                "permissions/level/report-research" => array(
+                    "default" => 80,
+                    "options" => "permission"
+                ),
+                "permissions/level/overwrite-research" => array(
+                    "default" => 80,
+                    "options" => "permission"
+                ),
+                "permissions/level/submit-poi" => array(
+                    "default" => 120,
+                    "options" => "permission"
                 )
             ),
+            "admin" => array(
+                "permissions/level/admin/main/general" => array(
+                    "default" => 250,
+                    "options" => "permission"
+                ),
+                "permissions/level/admin/users/general" => array(
+                    "default" => 160,
+                    "options" => "permission"
+                ),
+                "permissions/level/admin/groups/general" => array(
+                    "default" => 200,
+                    "options" => "permission"
+                ),
+                "permissions/level/admin/users/groups" => array(
+                    "default" => 160,
+                    "options" => "permission"
+                ),
+                "permissions/level/admin/groups/self-manage" => array(
+                    "default" => 250,
+                    "options" => "permission"
+                ),
+                "permissions/level/admin/perms/general" => array(
+                    "default" => 200,
+                    "options" => "permission"
+                ),
+                "permissions/level/admin/security/general" => array(
+                    "default" => 200,
+                    "options" => "permission"
+                ),
+                "permissions/level/admin/auth/general" => array(
+                    "default" => 250,
+                    "options" => "permission"
+                ),
+                "permissions/level/admin/themes/general" => array(
+                    "default" => 200,
+                    "options" => "permission"
+                ),
+                "permissions/level/admin/map/general" => array(
+                    "default" => 250,
+                    "options" => "permission"
+                ),
+                "permissions/level/admin/hooks/general" => array(
+                    "default" => 200,
+                    "options" => "permission"
+                )
+            )
         ),
         "security" => array(
             "user-creation" => array(
@@ -259,11 +320,44 @@ class Config {
         return $conf;
     }
 
-    public static function set($options) {
+    public static function set($options, $validatePermissions = false) {
         if (self::$config === false) self::loadConfig();
         $flat = self::getFlatTree();
 
+        if ($validatePermissions) {
+            __require("auth");
+            $permissionsAssoc = array();
+            foreach (self::$configtree as $domain => $sdata) {
+                foreach ($sdata as $section => $perms) {
+                    foreach ($perms as $perm => $data) {
+                        $permissionsAssoc[$perm] = $domain;
+                    }
+                }
+            }
+        }
+
+        $optDeny = array();
         foreach ($options as $option => $value_raw) {
+            if ($validatePermissions) {
+                $perm = "admin/".$permissionsAssoc[$option]."/general";
+                if (!Auth::getCurrentUser()->hasPermission($perm)) {
+                    $optDeny[] = $option;
+                }
+                $values = $flat[$option];
+                if ($values["options"] == "permission") {
+                    $old = self::get($option);
+                    $new = intval($value_raw);
+                    $max = max($old, $new);
+                    if (!Auth::getCurrentUser()->canChangeAtPermission($max)) {
+                        $optDeny[] = $option;
+                    }
+                }
+            }
+        }
+
+        foreach ($options as $option => $value_raw) {
+            if (in_array($option, $optDeny)) continue;
+
             if (!isset($flat[$option])) continue;
             $values = $flat[$option];
 
@@ -307,6 +401,11 @@ class Config {
                         break;
                     case "bool":
                         $value = ($value_raw == "on");
+                        break;
+                    case "permission":
+                        $value = intval($value_raw);
+                        if ($value < 0) $value = 0;
+                        if ($value > 250) $value = 250;
                         break;
                 }
             }

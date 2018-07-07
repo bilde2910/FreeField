@@ -23,7 +23,7 @@ foreach ($_POST as $key => $value) {
     }
 }
 
-Config::set($_POST);
+Config::set($_POST, true);
 
 header("HTTP/1.1 303 See Other");
 header("Location: {$returnpath}");

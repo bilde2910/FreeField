@@ -223,19 +223,20 @@ class Auth {
 
     // Returns an HTML control for selecting permission levels
     public static function getPermissionSelector($name, $id = null, $selectedLevel = 0) {
+        $user = self::getCurrentUser();
         $perms = self::listPermissionLevels();
         $opts = "";
         $curperm = null;
         foreach ($perms as $perm) {
             if ($perm["level"] == $selectedLevel) $curperm = $perm;
-            $opts .= '<option value="'.$perm["level"].'"'.($perm["color"] !== null ? ' style="color: #'.$perm["color"].'"' : '').'>'.$perm["level"].' - '.self::resolvePermissionLabelI18N($perm["label"]).'</option>';
+            $opts .= '<option value="'.$perm["level"].'"'.($perm["color"] !== null ? ' style="color: #'.$perm["color"].'"' : '').($user->canChangeAtPermission($perm["level"]) ? '' : ' disabled').'>'.$perm["level"].' - '.self::resolvePermissionLabelI18N($perm["label"]).'</option>';
         }
         if ($curperm === null) {
             $curopt = '<option value="'.$selectedLevel.'" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18N("{i18n:group.level.unknown}").'</option>';
         } else {
             $curopt = '<option value="'.$selectedLevel.'" style="color:" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18N($curperm["label"]).'</option>';
         }
-        return '<select name="'.$name.'"'.($id !== null ? ' id="'.$id.'"' : '').'><optgroup label="Current group">'.$curopt.'</optgroup><optgroup label="Available groups">'.$opts.'</optgroup></select>';
+        return '<select name="'.$name.'"'.($id !== null ? ' id="'.$id.'"' : '').($user->canChangeAtPermission($selectedLevel) ? '' : ' disabled').'><optgroup label="Current group">'.$curopt.'</optgroup><optgroup label="Available groups">'.$opts.'</optgroup></select>';
     }
 }
 
@@ -323,6 +324,17 @@ class User {
         }
         $perm = Config::get("permissions/level/{$permission}");
         return ($this->data === null || !self::isApproved() ? 0 : $this->getPermissionLevel()) >= $perm;
+    }
+
+    // Checks whether the current user is authorized to make changes to an object that requires the given permission level.
+    public function canChangeAtPermission($level) {
+        if ($level < $this->getPermissionLevel()) {
+            return true;
+        }
+        if ($this->hasPermission("admin/groups/self-manage") && $level <= $this->getPermissionLevel()) {
+            return true;
+        }
+        return false;
     }
 
     // Checks whether the user has a user-level override for the given permission.

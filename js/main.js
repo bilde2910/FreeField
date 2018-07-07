@@ -116,38 +116,47 @@ function openMarker(popup, id) {
     $("#poi-close").on("click", function() {
         popup._onClickClose();
     });
-    $("#poi-add-report").on("click", function() {
-        // Reset the report form
-        $("input.parameter").val(null);
-        $("select.parameter").each(function() {
-            $(this)[0].selectedIndex = 0;
+    var displayAddPoi = permissions["report-research"];
+    if (displayAddPoi && (poiObj.objective.type != "unknown" || poiObj.reward.type != "unknown")) {
+        displayAddPoi = permissions["overwrite-research"];
+    }
+    if (displayAddPoi) {
+        $("#poi-add-report").on("click", function() {
+            // Reset the report form
+            $("input.parameter").val(null);
+            $("select.parameter").each(function() {
+                $(this)[0].selectedIndex = 0;
+            });
+
+            // Set the current research objective
+            $("#update-poi-objective").val(poiObj.objective.type == "unknown" ? null : poiObj.objective.type);
+            if (poiObj.objective.type !== "unknown") {
+                $("#update-poi-objective").trigger("change");
+                var params = objectives[poiObj.objective.type].params;
+                for (var i = 0; i < params.length; i++) {
+                    parseObjectiveParameter(params[i], poiObj.objective.params[params[i]]);
+                }
+            } else {
+                $(".objective-parameter").hide();
+            }
+            $("#update-poi-reward").val(poiObj.reward.type == "unknown" ? null : poiObj.reward.type);
+            if (poiObj.reward.type !== "unknown") {
+                $("#update-poi-reward").trigger("change");
+                var params = rewards[poiObj.reward.type].params;
+                for (var i = 0; i < params.length; i++) {
+                    parseRewardParameter(params[i], poiObj.reward.params[params[i]]);
+                }
+            } else {
+                $(".reward-parameter").hide();
+            }
+
+            $("#poi-details").hide();
+            $("#update-poi-details").show();
         });
-
-        // Set the current research objective
-        $("#update-poi-objective").val(poiObj.objective.type == "unknown" ? null : poiObj.objective.type);
-        if (poiObj.objective.type !== "unknown") {
-            $("#update-poi-objective").trigger("change");
-            var params = objectives[poiObj.objective.type].params;
-            for (var i = 0; i < params.length; i++) {
-                parseObjectiveParameter(params[i], poiObj.objective.params[params[i]]);
-            }
-        } else {
-            $(".objective-parameter").hide();
-        }
-        $("#update-poi-reward").val(poiObj.reward.type == "unknown" ? null : poiObj.reward.type);
-        if (poiObj.reward.type !== "unknown") {
-            $("#update-poi-reward").trigger("change");
-            var params = rewards[poiObj.reward.type].params;
-            for (var i = 0; i < params.length; i++) {
-                parseRewardParameter(params[i], poiObj.reward.params[params[i]]);
-            }
-        } else {
-            $(".reward-parameter").hide();
-        }
-
-        $("#poi-details").hide();
-        $("#update-poi-details").show();
-    });
+        $("#poi-add-report").show();
+    } else {
+        $("#poi-add-report").hide();
+    }
     $("#update-poi-submit").on("click", function() {
         var objective = $("#update-poi-objective").val();
         if (objective == null) {

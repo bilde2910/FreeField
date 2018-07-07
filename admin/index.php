@@ -5,8 +5,7 @@ __require("config");
 __require("auth");
 __require("i18n");
 
-// TODO: Kick users out of this page if they don't have admin perms
-// TODO: User, groups, permissions, webhooks
+// TODO: Webhooks
 
 if (!isset($_GET["d"])) {
     header("HTTP/1.1 307 Temporary Redirect");
@@ -14,7 +13,6 @@ if (!isset($_GET["d"])) {
     exit;
 }
 
-$domain = $_GET["d"];
 $domains = array("main", "perms", "security", "auth", "themes", "map");
 $pages_icons = array(
     "main" => "cog",
@@ -28,11 +26,24 @@ $pages_icons = array(
     "hooks" => "link"
 );
 
-if (!isset($_GET["d"])) {
+if (!isset($_GET["d"]) || !in_array($_GET["d"], array_keys($pages_icons)) || !Auth::getCurrentUser()->hasPermission("admin/{$_GET[d]}/general")) {
+    $firstAuthorized = null;
+    foreach ($pages_icons as $page => $icon) {
+        if (Auth::getCurrentUser()->hasPermission("admin/{$page}/general")) {
+            $firstAuthorized = $page;
+            break;
+        }
+    }
     header("HTTP/1.1 307 Temporary Redirect");
-    header("Location: ./?d=main");
+    if ($firstAuthorized == null) {
+        header("Location: ".Config::getEndpointUri("/"));
+    } else {
+        header("Location: ./?d={$firstAuthorized}");
+    }
     exit;
 }
+
+$domain = $_GET["d"];
 
 $di18n = Config::getDomainI18N($domain);
 if (in_array($domain, $domains)) {
@@ -195,6 +206,7 @@ class CustomControls {
                         <?php
 
                         foreach ($pages_icons as $d => $icon) {
+                            if (!Auth::getCurrentUser()->hasPermission("admin/{$d}/general")) continue;
                             if ($d == $domain) {
                                 echo '<li class="pure-menu-item menu-item-divided pure-menu-selected">';
                             } else {
@@ -352,10 +364,10 @@ class CustomControls {
                                                 <tr>
                                                     <td<?php if ($user->getColor() !== null) echo ' style="color: #'.$user->getColor().';"'; ?>><?php echo $user->getProviderIdentity(); ?></td>
                                                     <td><?php echo I18N::resolve("admin.section.auth.".$user->getProvider().".name"); ?></td>
-                                                    <td><input type="text" name="<?php echo $uid; ?>[nick]" value="<?php echo $user->getNickname(); ?>"<?php if ($user->getColor() !== null) echo ' style="color: #'.$user->getColor().'"'; ?>></td>
+                                                    <td><input type="text" name="<?php echo $uid; ?>[nick]" value="<?php echo $user->getNickname(); ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>></td>
                                                     <!--<td><?php /*echo $user->getLastLoginDate();*/ ?></td>-->
                                                     <td><?php echo Auth::getPermissionSelector($uid."[group]", null, $user->getPermissionLevel()); ?></td>
-                                                    <td><select class="account-actions" name="<?php echo $uid; ?>[action]"><option value="none" selected>(no action)</option><option value="delete">Delete account</option></select></td>
+                                                    <td><select class="account-actions" name="<?php echo $uid; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>><option value="none" selected>(no action)</option><option value="delete">Delete account</option></select></td>
                                                 </td>
                                             <?php
                                         }
@@ -405,13 +417,13 @@ class CustomControls {
                                             ?>
                                                 <tr>
                                                     <td<?php if ($group["color"] !== null) echo ' style="color: #'.$group["color"].';"'; ?>><?php echo Auth::resolvePermissionLabelI18N($group["label"]); ?></td>
-                                                    <td><input type="text" name="g<?php echo $gid; ?>[label]" value="<?php echo $group["label"]; ?>"></td>
-                                                    <td><input type="number" min="0" max="250" name="g<?php echo $gid; ?>[level]" value="<?php echo $group["level"]; ?>"></td>
+                                                    <td><input type="text" name="g<?php echo $gid; ?>[label]" value="<?php echo $group["label"]; ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>></td>
+                                                    <td><input type="number" min="0" max="250" name="g<?php echo $gid; ?>[level]" value="<?php echo $group["level"]; ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>></td>
                                                     <td style="white-space: nowrap;" class="group-color-selector" data-id="g<?php echo $gid; ?>">
-                                                        <input type="checkbox" id="g<?php echo $gid; ?>-usecolor" name="g<?php echo $gid; ?>[usecolor]"<?php if ($group["color"] !== null) echo ' checked'; ?>>
-                                                        <input type="color" name="g<?php echo $gid; ?>[color]"<?php if ($group["color"] !== null) echo ' value="#'.$group["color"].'"'; ?>>
+                                                        <input type="checkbox" id="g<?php echo $gid; ?>-usecolor" name="g<?php echo $gid; ?>[usecolor]"<?php if ($group["color"] !== null) echo ' checked'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
+                                                        <input type="color" name="g<?php echo $gid; ?>[color]"<?php if ($group["color"] !== null) echo ' value="#'.$group["color"].'"'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                                     </td>
-                                                    <td><select class="group-actions" name="<?php echo $gid; ?>[action]"><option value="none" selected>(no action)</option><option value="delete">Delete group</option></select></td>
+                                                    <td><select class="group-actions" name="<?php echo $gid; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>><option value="none" selected>(no action)</option><option value="delete">Delete group</option></select></td>
                                                 </td>
                                             <?php
                                         }

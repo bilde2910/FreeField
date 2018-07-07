@@ -5,15 +5,19 @@ __require("config");
 __require("auth");
 __require("db");
 
-// TODO: Kick users out of this page if they don't have admin perms
+$returnpath = "./?d=users";
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+if (!Auth::getCurrentUser()->hasPermission("admin/users/general")) {
     header("HTTP/1.1 303 See Other");
-    header("Location: ./?d=users");
+    header("Location: {$returnpath}");
     exit;
 }
 
-$returnpath = "./?d=users";
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("HTTP/1.1 303 See Other");
+    header("Location: {$returnpath}");
+    exit;
+}
 
 $userlist = Auth::listUsers();
 $users_assoc = array();
@@ -26,6 +30,9 @@ $updates = array();
 $deletes = array();
 
 foreach ($_POST as $user => $data) {
+    if (!Auth::getCurrentUser()->canChangeAtPermission($users_assoc[$user]->getPermissionLevel())) {
+        continue;
+    }
     if ($data["action"] === "delete") {
         $deletes[] = $user;
         continue;
@@ -38,8 +45,11 @@ foreach ($_POST as $user => $data) {
     if ($users_assoc[$user]->getNickname() !== $data["nick"]) {
         $updates[$user]["nick"] = $data["nick"];
     }
-    if ($users_assoc[$user]->getPermissionLevel() !== $data["group"]) {
-        $updates[$user]["permission"] = $data["group"];
+    if ($users_assoc[$user]->getPermissionLevel() !== $data["group"] && Auth::getCurrentUser()->hasPermission("admin/users/groups")) {
+        $group = intval($data["group"]);
+        if (Auth::getCurrentUser()->canChangeAtPermission($group)) {
+            $updates[$user]["permission"] = $group;
+        }
     }
 }
 
