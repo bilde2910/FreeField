@@ -239,8 +239,8 @@ class CustomControls {
                     <h2><?php echo I18N::resolve($di18n->getDescription()); ?></h2>
                 </div>
 
-                <div class="content">
-                    <?php if (in_array($domain, $domains)) { ?>
+                <?php if (in_array($domain, $domains)) { ?>
+                    <div class="content">
                         <form action="apply-config.php?d=<?php echo $domain; ?>" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
                             <?php foreach ($sections as $section => $settings) { ?>
                                 <h2 class="content-subhead"><?php echo I18N::resolve($di18n->getSection($section)->getName()); ?></h2>
@@ -325,7 +325,9 @@ class CustomControls {
                             <?php } ?>
                             <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
                         </form>
-                    <?php } elseif ($domain == "users") { ?>
+                    </div>
+                <?php } elseif ($domain == "users") { ?>
+                    <div class="content wide-content">
                         <form action="apply-users.php" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
                             <?php
                                 $users = Auth::listUsers();
@@ -411,7 +413,9 @@ class CustomControls {
                             </script>
                             <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
                         </form>
-                    <?php } elseif ($domain == "groups") { ?>
+                    </div>
+                <?php } elseif ($domain == "groups") { ?>
+                    <div class="content wide-content">
                         <form action="apply-groups.php" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
                             <?php
                                 $groups = Auth::listPermissionLevels();
@@ -470,7 +474,9 @@ class CustomControls {
                             </script>
                             <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
                         </form>
-                    <?php } elseif ($domain == "pois") { ?>
+                    </div>
+                <?php } elseif ($domain == "pois") { ?>
+                    <div class="content wide-content">
                         <form action="apply-pois.php" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
                             <?php
                                 $pois = Geo::listPOIs();
@@ -527,8 +533,8 @@ class CustomControls {
                             </script>
                             <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
                         </form>
-                    <?php } ?>
-                </div>
+                    </div>
+                <?php } ?>
             </div>
         </div>
         <script src="../js/ui.js"></script>

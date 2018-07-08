@@ -62,7 +62,11 @@ table, thead, tbody {
     width: 100%;
 }
 .force-fullwidth {
+    width: 100%;
     min-width: 800px !important;
+}
+.wide-content {
+    max-width: 80% !important;
 }
 .user-action {
     cursor: pointer;
