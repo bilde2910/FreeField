@@ -333,32 +333,38 @@ class CustomControls {
                                     if ($a->getPermissionLevel() == $b->getPermissionLevel()) return 0;
                                     return $a->getPermissionLevel() > $b->getPermissionLevel() ? -1 : 1;
                                 });
+                                $usersWithoutApproval = false;
+                                foreach ($users as $user) {
+                                    if (!$user->isApproved()) $usersWithoutApproval = true;
+                                }
                             ?>
-                            <h2 class="content-subhead"><?php echo I18N::resolve("admin.section.users.require_approval.name"); ?></h2>
-                            <table class="pure-table force-fullwidth">
-                                <thead>
-                                    <tr>
-                                        <th>Provider identity</th><th>Provider</th><th>Auto-suggested nickname</th><th>Registered</th><th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        foreach ($users as $user) {
-                                            if ($user->isApproved()) continue;
-                                            $uid = $user->getUserID();
-                                            ?>
-                                                <tr>
-                                                    <td><?php echo $user->getProviderIdentity(); ?></td>
-                                                    <td><?php echo I18N::resolve("admin.section.auth.".$user->getProvider().".name"); ?></td>
-                                                    <td><?php echo htmlentities($user->getNickname()); ?></td>
-                                                    <td><?php echo $user->getRegistrationDate(); ?></td>
-                                                    <td><select class="account-actions" name="<?php echo $uid; ?>[action]"><option value="none" selected>(no action)</option><option value="approve">Approve account</option><option value="delete">Reject account</option></select></td>
-                                                </td>
-                                            <?php
-                                        }
-                                    ?>
-                                </tbody>
-                            </table>
+                            <?php if ($usersWithoutApproval) { ?>
+                                <h2 class="content-subhead"><?php echo I18N::resolve("admin.section.users.require_approval.name"); ?></h2>
+                                <table class="pure-table force-fullwidth">
+                                    <thead>
+                                        <tr>
+                                            <th>Provider identity</th><th>Provider</th><th>Auto-suggested nickname</th><th>Registered</th><th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            foreach ($users as $user) {
+                                                if ($user->isApproved()) continue;
+                                                $uid = $user->getUserID();
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $user->getProviderIdentity(); ?></td>
+                                                        <td><?php echo I18N::resolve("admin.section.auth.".$user->getProvider().".name"); ?></td>
+                                                        <td><?php echo htmlentities($user->getNickname()); ?></td>
+                                                        <td><?php echo $user->getRegistrationDate(); ?></td>
+                                                        <td><select class="account-actions" name="<?php echo $uid; ?>[action]"><option value="none" selected>(no action)</option><option value="approve">Approve account</option><option value="delete">Reject account</option></select></td>
+                                                    </td>
+                                                <?php
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            <?php } ?>
                             <h2 class="content-subhead"><?php echo I18N::resolve("admin.section.users.user_list.name"); ?></h2>
                             <table class="pure-table force-fullwidth">
                                 <thead>
