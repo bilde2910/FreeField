@@ -68,6 +68,9 @@ table, thead, tbody {
 .wide-content {
     max-width: 80% !important;
 }
+.no-wrap {
+    white-space: nowrap;
+}
 .user-action {
     cursor: pointer;
     display: inline-block;

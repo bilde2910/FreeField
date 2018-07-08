@@ -440,7 +440,7 @@ class CustomControls {
                                                     <td<?php if ($group["color"] !== null) echo ' style="color: #'.$group["color"].';"'; ?>><?php echo Auth::resolvePermissionLabelI18N($group["label"]); ?></td>
                                                     <td><input type="text" name="g<?php echo $gid; ?>[label]" value="<?php echo $group["label"]; ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>></td>
                                                     <td><input type="number" min="0" max="250" name="g<?php echo $gid; ?>[level]" value="<?php echo $group["level"]; ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>></td>
-                                                    <td style="white-space: nowrap;" class="group-color-selector" data-id="g<?php echo $gid; ?>">
+                                                    <td class="no-wrap group-color-selector" data-id="g<?php echo $gid; ?>">
                                                         <input type="checkbox" id="g<?php echo $gid; ?>-usecolor" name="g<?php echo $gid; ?>[usecolor]"<?php if ($group["color"] !== null) echo ' checked'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                                         <input type="color" name="g<?php echo $gid; ?>[color]"<?php if ($group["color"] !== null) echo ' value="#'.$group["color"].'"'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                                     </td>
@@ -502,7 +502,7 @@ class CustomControls {
                                                     <td><input type="text" name="p<?php echo $pid; ?>[name]" value="<?php echo $poi["name"]; ?>"></td>
                                                     <td><?php echo $poi["created_on"]; ?></td>
                                                     <td><?php echo $poi["nick"]; ?></td>
-                                                    <td><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi["latitude"].",".$poi["longitude"]); ?>"><?php echo Geo::getLocationString($poi["latitude"], $poi["longitude"]); ?></td>
+                                                    <td class="no-wrap"><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi["latitude"].",".$poi["longitude"]); ?>"><?php echo Geo::getLocationString($poi["latitude"], $poi["longitude"]); ?></td>
                                                     <td><select class="poi-actions" name="p<?php echo $pid; ?>[action]"><option value="none" selected>(no action)</option><option value="delete">Delete POI</option></select></td>
                                                 </td>
                                             <?php
