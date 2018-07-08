@@ -62,7 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         "name" => $putdata["name"],
         "latitude" => floatval($putdata["lat"]),
         "longitude" => floatval($putdata["lon"]),
-        "updated_by" => "USERNAME", //TODO
+        "created_by" => Auth::getCurrentUser()->getUserID(),
+        "updated_by" => Auth::getCurrentUser()->getUserID(),
         "objective" => "unknown",
         "obj_params" => json_encode(array()),
         "reward" => "unknown",
@@ -197,7 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     // Data is valid from here on
 
     $data = array(
-        "updated_by" => "USERNAME", //TODO
+        "updated_by" => Auth::getCurrentUser()->getUserID(),
         "objective" => $objective,
         "obj_params" => json_encode($objParams),
         "reward" => $reward,
