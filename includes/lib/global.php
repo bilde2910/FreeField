@@ -14,6 +14,9 @@ function __require($require) {
         case "auth":
             include_once(__DIR__."/auth.php");
             break;
+        case "geo":
+            include_once(__DIR__."/geo.php");
+            break;
         case "db":
             include_once(__DIR__."/db.php");
             break;

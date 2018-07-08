@@ -156,6 +156,10 @@ class Config {
                     "default" => 250,
                     "options" => "permission"
                 ),
+                "permissions/level/admin/pois/general" => array(
+                    "default" => 160,
+                    "options" => "permission"
+                ),
                 "permissions/level/admin/perms/general" => array(
                     "default" => 200,
                     "options" => "permission"

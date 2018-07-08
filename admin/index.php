@@ -4,6 +4,7 @@ require_once("../includes/lib/global.php");
 __require("config");
 __require("auth");
 __require("i18n");
+__require("geo");
 
 // TODO: Webhooks
 
@@ -18,6 +19,7 @@ $pages_icons = array(
     "main" => "cog",
     "users" => "users",
     "groups" => "user-shield",
+    "pois" => "map-marker-alt",
     "perms" => "check-square",
     "security" => "shield-alt",
     "auth" => "lock",
@@ -441,6 +443,63 @@ class CustomControls {
                             </table>
                             <script>
                                 $(".group-actions").on("change", function() {
+                                    if ($(this).val() == "delete") {
+                                        $(this).css("border", "1px solid red");
+                                        $(this).css("color", "red");
+                                        $(this).css("margin-right", "");
+                                    } else {
+                                        $(this).css("border", "");
+                                        $(this).css("color", "");
+                                        $(this).css("margin-right", "");
+                                    }
+                                });
+                                $(".group-color-selector > input[type=color]").on("change", function() {
+                                    $(this).parent().find("input[type=checkbox]").prop("checked", true);
+                                });
+                                $(".group-color-selector > input[type=checkbox]").on("change", function() {
+                                    if (!$(this).is(":checked")) {
+                                        $(this).parent().find("input[type=color]").val("#000000");
+                                    }
+                                });
+                            </script>
+                            <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
+                        </form>
+                    <?php } elseif ($domain == "pois") { ?>
+                        <form action="apply-pois.php" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
+                            <?php
+                                $pois = Geo::listPOIs();
+
+                                usort($pois, function($a, $b) {
+                                    if ($a["name"] == $b["name"]) return 0;
+                                    return strcmp($a["name"], $b["name"]) < 0 ? -1 : 1;
+                                });
+                            ?>
+                            <h2 class="content-subhead"><?php echo I18N::resolve("admin.section.pois.poi_list.name"); ?></h2>
+                            <table class="pure-table force-fullwidth">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th><th>Submitted on</th><th>Submitted by</th><th>Location</th><th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        foreach ($pois as $poi) {
+                                            $pid = $poi["id"];
+                                            ?>
+                                                <tr>
+                                                    <td><input type="text" name="p<?php echo $pid; ?>[name]" value="<?php echo $poi["name"]; ?>"></td>
+                                                    <td><?php echo $poi["created_on"]; ?></td>
+                                                    <td><?php echo $poi["nick"]; ?></td>
+                                                    <td><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi["latitude"].",".$poi["longitude"]); ?>"><?php echo Geo::getLocationString($poi["latitude"], $poi["longitude"]); ?></td>
+                                                    <td><select class="poi-actions" name="p<?php echo $pid; ?>[action]"><option value="none" selected>(no action)</option><option value="delete">Delete POI</option></select></td>
+                                                </td>
+                                            <?php
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                            <script>
+                                $(".poi-actions").on("change", function() {
                                     if ($(this).val() == "delete") {
                                         $(this).css("border", "1px solid red");
                                         $(this).css("color", "red");
