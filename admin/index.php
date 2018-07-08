@@ -497,11 +497,17 @@ class CustomControls {
                                     <?php
                                         foreach ($pois as $poi) {
                                             $pid = $poi["id"];
+                                            $pu = new User(array(
+                                                "id" => $poi["created_by"],
+                                                "provider_id" => $poi["user_provider_id"],
+                                                "nick" => $poi["user_nick"],
+                                                "color" => $poi["user_color"]
+                                            ));
                                             ?>
                                                 <tr>
                                                     <td><input type="text" name="p<?php echo $pid; ?>[name]" value="<?php echo $poi["name"]; ?>"></td>
                                                     <td><?php echo $poi["created_on"]; ?></td>
-                                                    <td><?php echo $poi["nick"]; ?></td>
+                                                    <td style="line-height: 1.2em;"><?php echo $pu->getNicknameHTML(); ?><br /><span class="user-box-small no-wrap"><?php echo $pu->getProviderIdentityHTML(); ?></span></td>
                                                     <td class="no-wrap"><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi["latitude"].",".$poi["longitude"]); ?>"><?php echo Geo::getLocationString($poi["latitude"], $poi["longitude"]); ?></td>
                                                     <td><select class="poi-actions" name="p<?php echo $pid; ?>[action]"><option value="none" selected>(no action)</option><option value="delete">Delete POI</option></select></td>
                                                 </td>

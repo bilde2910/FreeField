@@ -26,9 +26,12 @@ class Geo {
         return $db
             ->from(Database::getTable("poi"))
             ->leftJoin(Database::getTable("user"), array(Database::getTable("poi").".created_by" => Database::getTable("user").".id"))
+            ->leftJoin(Database::getTable("group"), array(Database::getTable("user").".permission" => Database::getTable("group").".level"))
             ->select(array(
                 Database::getTable("poi").".*",
-                Database::getTable("user").".nick"
+                Database::getTable("user").".provider_id user_provider_id",
+                Database::getTable("user").".nick user_nick",
+                Database::getTable("group").".color user_color"
               ))
             ->many();
     }
