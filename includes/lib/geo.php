@@ -19,6 +19,35 @@ class Geo {
         return I18N::resolveArgs("geo.location.string", I18N::resolveArgs($ns, round($lat, $precision)), I18N::resolveArgs($ew, round($lon, $precision)));
     }
 
+    public static function getPOI($id) {
+        __require("db");
+
+        $db = Database::getSparrow();
+        $poi = $db
+            ->from(Database::getTable("poi"))
+
+            // User who created POI
+            ->leftJoin(Database::getTable("user c_user"), array(Database::getTable("poi").".created_by" => "c_user.id"))
+            ->leftJoin(Database::getTable("group c_group"), array("c_user.permission" => "c_group.level"))
+            // User who last updated POI
+            ->leftJoin(Database::getTable("user u_user"), array(Database::getTable("poi").".updated_by" => "u_user.id"))
+            ->leftJoin(Database::getTable("group u_group"), array("u_user.permission" => "u_group.level"))
+
+            ->where(Database::getTable("poi").".id", $id)
+            ->select(array(
+                Database::getTable("poi").".*",
+                "c_user.provider_id creator_provider_id",
+                "c_user.nick creator_nick",
+                "c_group.color creator_color",
+                "u_user.provider_id updater_provider_id",
+                "u_user.nick updater_nick",
+                "u_group.color updater_color"
+              ))
+            ->one();
+
+        return new POI($poi);
+    }
+
     public static function listPOIs() {
         __require("db");
 

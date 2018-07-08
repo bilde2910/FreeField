@@ -4,6 +4,7 @@ require_once("../includes/lib/global.php");
 __require("xhr");
 __require("db");
 __require("auth");
+__require("geo");
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     // List POIs
@@ -207,19 +208,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     );
 
     try {
-        $db = Database::getSparrow();
-        $poidata = $db
-            ->from(Database::getTable("poi"))
-            ->where("id", $patchdata["id"])
-            ->one();
-
-        // TODO: Check if research was submitted earlier than today and allow if so
-        if ($poidata["objective"] !== "unknown" || $poidata["reward"] !== "unknown") {
+        $poi = Geo::getPOI($patchdata["id"]);
+        if ($poi->isUpdatedToday() && !$poi->isResearchUnknown()) {
             if (!Auth::getCurrentUser()->hasPermission("overwrite-research")) {
                 XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
             }
         }
 
+        $db = Database::getSparrow();
         $db
             ->from(Database::getTable("poi"))
             ->where("id", $patchdata["id"])
