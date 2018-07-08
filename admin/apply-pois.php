@@ -37,7 +37,7 @@ foreach ($_POST as $poi => $data) {
         $deletes[] = $pid;
         continue;
     } elseif ($data["action"] === "clear") {
-        if ($poi->isObjectiveUnknown() || $poi->isRewardUnknown()) {
+        if (!$pois_assoc[$pid]->isObjectiveUnknown() || !$pois_assoc[$pid]->isRewardUnknown()) {
             $updates[$pid]["objective"] = "unknown";
             $updates[$pid]["reward"] = "unknown";
             $updates[$pid]["obj_params"] = json_encode(array());
