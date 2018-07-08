@@ -46,6 +46,7 @@ foreach ($_POST as $poi => $data) {
 
     if ($pois_assoc[$pid]["name"] !== $data["name"]) {
         $updates[$pid]["name"] = $data["name"];
+        $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
     }
 }
 
