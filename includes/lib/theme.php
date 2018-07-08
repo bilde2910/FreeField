@@ -78,7 +78,7 @@ class IconSet {
         if (isset($this->data["vector"][$icon])) {
             return $this->formatUrl($this->data["vector"][$icon]);
         } else {
-            return $this->getRasterUrl($icon);
+            return $this->getExplicitRasterUrl($icon);
         }
     }
 
