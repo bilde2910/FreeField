@@ -483,38 +483,34 @@ class CustomControls {
                                 $pois = Geo::listPOIs();
 
                                 usort($pois, function($a, $b) {
-                                    if ($a["name"] == $b["name"]) return 0;
-                                    return strcmp($a["name"], $b["name"]) < 0 ? -1 : 1;
+                                    if ($a->getName() == $b->getName()) return 0;
+                                    return strcmp($a->getName(), $b->getName()) < 0 ? -1 : 1;
                                 });
                             ?>
                             <h2 class="content-subhead"><?php echo I18N::resolve("admin.section.pois.poi_list.name"); ?></h2>
                             <table class="pure-table force-fullwidth">
                                 <thead>
                                     <tr>
-                                        <th>Name</th><th>Created on</th><th>Created by</th><th>Current research</th><th>Location</th><th>Actions</th>
+                                        <th>Name</th><th>Created</th><th>Created by</th><th>Current research</th><th>Last updated</th><th>Updated by</th><th>Location</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                         foreach ($pois as $poi) {
-                                            $pid = $poi["id"];
-                                            $pu = new User(array(
-                                                "id" => $poi["created_by"],
-                                                "provider_id" => $poi["user_provider_id"],
-                                                "nick" => $poi["user_nick"],
-                                                "color" => $poi["user_color"]
-                                            ));
+                                            $pid = $poi->getID();
                                             $icons = Theme::getIconSet(null, Config::get("themes/color/admin"));
                                             ?>
                                                 <tr>
-                                                    <td><input type="text" name="p<?php echo $pid; ?>[name]" value="<?php echo $poi["name"]; ?>"></td>
-                                                    <td><?php echo $poi["created_on"]; ?></td>
-                                                    <td style="line-height: 1.2em;"><?php echo $pu->getNicknameHTML(); ?><br /><span class="user-box-small no-wrap"><?php echo $pu->getProviderIdentityHTML(); ?></span></td>
+                                                    <td><input type="text" name="p<?php echo $pid; ?>[name]" value="<?php echo $poi->getName(); ?>"></td>
+                                                    <td><?php echo $poi->getTimeCreatedString(); ?></td>
+                                                    <td style="line-height: 1.2em;"><?php echo $poi->getCreator()->getNicknameHTML(); ?><br /><span class="user-box-small no-wrap"><?php echo $poi->getCreator()->getProviderIdentityHTML(); ?></span></td>
                                                     <td class="no-wrap">
-                                                        <img class="poi-table-marker" src="<?php echo $icons->getIconUrl($poi["objective"]); ?>">
-                                                        <img class="poi-table-marker" src="<?php echo $icons->getIconUrl($poi["reward"]); ?>">
+                                                        <img class="poi-table-marker" src="<?php echo $icons->getIconUrl($poi->getCurrentObjective()["type"]); ?>">
+                                                        <img class="poi-table-marker" src="<?php echo $icons->getIconUrl($poi->getCurrentReward()["type"]); ?>">
                                                     </td>
-                                                    <td class="no-wrap"><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi["latitude"].",".$poi["longitude"]); ?>"><?php echo Geo::getLocationString($poi["latitude"], $poi["longitude"]); ?></td>
+                                                    <td><?php echo $poi->getLastUpdatedString(); ?></td>
+                                                    <td style="line-height: 1.2em;"><?php echo $poi->getLastUser()->getNicknameHTML(); ?><br /><span class="user-box-small no-wrap"><?php echo $poi->getLastUser()->getProviderIdentityHTML(); ?></span></td>
+                                                    <td><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi->getLatitude().",".$poi->getLongitude()); ?>"><?php echo Geo::getLocationString($poi->getLatitude(), $poi->getLongitude()); ?></td>
                                                     <td><select class="poi-actions" name="p<?php echo $pid; ?>[action]">
                                                         <option value="none" selected>(no action)</option>
                                                         <option value="clear">Clear research task</option>

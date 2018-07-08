@@ -23,7 +23,7 @@ $poilist = Geo::listPOIs();
 $pois_assoc = array();
 
 foreach ($poilist as $poi) {
-    $pois_assoc[$poi["id"]] = $poi;
+    $pois_assoc[$poi->getID()] = $poi;
 }
 
 $updates = array();
@@ -37,14 +37,16 @@ foreach ($_POST as $poi => $data) {
         $deletes[] = $pid;
         continue;
     } elseif ($data["action"] === "clear") {
-        $updates[$pid]["objective"] = "unknown";
-        $updates[$pid]["reward"] = "unknown";
-        $updates[$pid]["obj_params"] = json_encode(array());
-        $updates[$pid]["rew_params"] = json_encode(array());
-        $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
+        if ($poi->isObjectiveUnknown() || $poi->isRewardUnknown()) {
+            $updates[$pid]["objective"] = "unknown";
+            $updates[$pid]["reward"] = "unknown";
+            $updates[$pid]["obj_params"] = json_encode(array());
+            $updates[$pid]["rew_params"] = json_encode(array());
+            $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
+        }
     }
 
-    if ($pois_assoc[$pid]["name"] !== $data["name"]) {
+    if ($pois_assoc[$pid]->getName() !== $data["name"]) {
         $updates[$pid]["name"] = $data["name"];
         $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
     }
