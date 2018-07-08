@@ -26,7 +26,7 @@ $pages_icons = array(
     "hooks" => "link"
 );
 
-if (!isset($_GET["d"]) || !in_array($_GET["d"], array_keys($pages_icons)) || !Auth::getCurrentUser()->hasPermission("admin/{$_GET[d]}/general")) {
+if (!isset($_GET["d"]) || !in_array($_GET["d"], array_keys($pages_icons)) || !Auth::getCurrentUser()->hasPermission("admin/".$_GET["d"]."/general")) {
     $firstAuthorized = null;
     foreach ($pages_icons as $page => $icon) {
         if (Auth::getCurrentUser()->hasPermission("admin/{$page}/general")) {
