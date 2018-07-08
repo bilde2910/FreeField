@@ -346,7 +346,11 @@ class CustomControls {
                                 <table class="pure-table force-fullwidth">
                                     <thead>
                                         <tr>
-                                            <th>Provider identity</th><th>Provider</th><th>Auto-suggested nickname</th><th>Registered</th><th>Actions</th>
+                                            <th><?php echo I18N::resolve("admin.table.users.user_list.column.provider_identity.name"); ?></th>
+                                            <th><?php echo I18N::resolve("admin.table.users.user_list.column.provider.name"); ?></th>
+                                            <th><?php echo I18N::resolve("admin.table.users.user_list.column.auto_nickname.name"); ?></th>
+                                            <th><?php echo I18N::resolve("admin.table.users.user_list.column.registered.name"); ?></th>
+                                            <th><?php echo I18N::resolve("admin.table.users.user_list.column.actions.name"); ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -360,7 +364,11 @@ class CustomControls {
                                                         <td><?php echo I18N::resolve("admin.section.auth.".$user->getProvider().".name"); ?></td>
                                                         <td><?php echo htmlentities($user->getNickname()); ?></td>
                                                         <td><?php echo $user->getRegistrationDate(); ?></td>
-                                                        <td><select class="account-actions" name="<?php echo $uid; ?>[action]"><option value="none" selected>(no action)</option><option value="approve">Approve account</option><option value="delete">Reject account</option></select></td>
+                                                        <td><select class="account-actions" name="<?php echo $uid; ?>[action]">
+                                                            <option value="none" selected><?php echo I18N::resolve("admin.section.users.user_list.action.none"); ?></option>
+                                                            <option value="approve"><?php echo I18N::resolve("admin.section.users.user_list.action.approve"); ?></option>
+                                                            <option value="delete"><?php echo I18N::resolve("admin.section.users.user_list.action.reject"); ?></option>
+                                                        </select></td>
                                                     </td>
                                                 <?php
                                             }
@@ -372,7 +380,12 @@ class CustomControls {
                             <table class="pure-table force-fullwidth">
                                 <thead>
                                     <tr>
-                                        <th>Provider identity</th><th>Provider</th><th>Nickname</th><!--<th>Last login</th>--><th>Group</th><th>Actions</th>
+                                        <th><?php echo I18N::resolve("admin.table.users.user_list.column.provider_identity.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.users.user_list.column.provider.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.users.user_list.column.nickname.name"); ?></th>
+                                        <!--<th>Last login</th>-->
+                                        <th><?php echo I18N::resolve("admin.table.users.user_list.column.group.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.users.user_list.column.actions.name"); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -387,7 +400,10 @@ class CustomControls {
                                                     <td><input type="text" name="<?php echo $uid; ?>[nick]" value="<?php echo $user->getNickname(); ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>></td>
                                                     <!--<td><?php /*echo $user->getLastLoginDate();*/ ?></td>-->
                                                     <td><?php echo Auth::getPermissionSelector($uid."[group]", null, $user->getPermissionLevel()); ?></td>
-                                                    <td><select class="account-actions" name="<?php echo $uid; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>><option value="none" selected>(no action)</option><option value="delete">Delete account</option></select></td>
+                                                    <td><select class="account-actions" name="<?php echo $uid; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>>
+                                                        <option value="none" selected><?php echo I18N::resolve("admin.section.users.user_list.action.none"); ?></option>
+                                                        <option value="delete"><?php echo I18N::resolve("admin.section.users.user_list.action.delete"); ?></option>
+                                                    </select></td>
                                                 </td>
                                             <?php
                                         }
@@ -429,7 +445,11 @@ class CustomControls {
                             <table class="pure-table force-fullwidth">
                                 <thead>
                                     <tr>
-                                        <th>Group</th><th>Change name</th><th>Permission level</th><th>Color</th><th>Actions</th>
+                                        <th><?php echo I18N::resolve("admin.table.groups.group_list.column.group_name.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.groups.group_list.column.change_name.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.groups.group_list.column.permission.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.groups.group_list.column.color.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.groups.group_list.column.actions.name"); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -445,7 +465,10 @@ class CustomControls {
                                                         <input type="checkbox" id="g<?php echo $gid; ?>-usecolor" name="g<?php echo $gid; ?>[usecolor]"<?php if ($group["color"] !== null) echo ' checked'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                                         <input type="color" name="g<?php echo $gid; ?>[color]"<?php if ($group["color"] !== null) echo ' value="#'.$group["color"].'"'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                                     </td>
-                                                    <td><select class="group-actions" name="g<?php echo $gid; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>><option value="none" selected>(no action)</option><option value="delete">Delete group</option></select></td>
+                                                    <td><select class="group-actions" name="g<?php echo $gid; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
+                                                        <option value="none" selected><?php echo I18N::resolve("admin.section.groups.group_list.action.none"); ?></option>
+                                                        <option value="delete"><?php echo I18N::resolve("admin.section.groups.group_list.action.delete"); ?></option>
+                                                    </select></td>
                                                 </td>
                                             <?php
                                         }
@@ -491,7 +514,14 @@ class CustomControls {
                             <table class="pure-table force-fullwidth">
                                 <thead>
                                     <tr>
-                                        <th>Name</th><th>Created</th><th>Created by</th><th>Current research</th><th>Last updated</th><th>Updated by</th><th>Location</th><th>Actions</th>
+                                        <th><?php echo I18N::resolve("admin.table.pois.poi_list.column.poi_name.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.pois.poi_list.column.created_time.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.pois.poi_list.column.created_by.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.pois.poi_list.column.current_research.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.pois.poi_list.column.last_updated_time.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.pois.poi_list.column.last_updated_by.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.pois.poi_list.column.location.name"); ?></th>
+                                        <th><?php echo I18N::resolve("admin.table.pois.poi_list.column.actions.name"); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -512,9 +542,9 @@ class CustomControls {
                                                     <td style="line-height: 1.2em;"><?php echo $poi->getLastUser()->getNicknameHTML(); ?><br /><span class="user-box-small no-wrap"><?php echo $poi->getLastUser()->getProviderIdentityHTML(); ?></span></td>
                                                     <td><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi->getLatitude().",".$poi->getLongitude()); ?>"><?php echo Geo::getLocationString($poi->getLatitude(), $poi->getLongitude()); ?></td>
                                                     <td><select class="poi-actions" name="p<?php echo $pid; ?>[action]">
-                                                        <option value="none" selected>(no action)</option>
-                                                        <option value="clear">Clear research task</option>
-                                                        <option value="delete">Delete POI</option>
+                                                        <option value="none" selected><?php echo I18N::resolve("admin.section.pois.poi_list.action.none"); ?></option>
+                                                        <option value="clear"><?php echo I18N::resolve("admin.section.pois.poi_list.action.clear"); ?></option>
+                                                        <option value="delete"><?php echo I18N::resolve("admin.section.pois.poi_list.action.delete"); ?></option>
                                                     </select></td>
                                                 </td>
                                             <?php
