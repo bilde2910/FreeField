@@ -199,6 +199,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     $data = array(
         "updated_by" => Auth::getCurrentUser()->getUserID(),
+        "last_updated" => date("Y-m-d H:i:s"),
         "objective" => $objective,
         "obj_params" => json_encode($objParams),
         "reward" => $reward,

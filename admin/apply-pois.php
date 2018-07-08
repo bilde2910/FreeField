@@ -43,12 +43,12 @@ foreach ($_POST as $poi => $data) {
             $updates[$pid]["obj_params"] = json_encode(array());
             $updates[$pid]["rew_params"] = json_encode(array());
             $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
+            $updates[$pid]["last_updated"] = date("Y-m-d H:i:s");
         }
     }
 
     if ($pois_assoc[$pid]->getName() !== $data["name"]) {
         $updates[$pid]["name"] = $data["name"];
-        $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
     }
 }
 
