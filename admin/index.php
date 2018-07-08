@@ -5,6 +5,7 @@ __require("config");
 __require("auth");
 __require("i18n");
 __require("geo");
+__require("theme");
 
 // TODO: Webhooks
 
@@ -490,7 +491,7 @@ class CustomControls {
                             <table class="pure-table force-fullwidth">
                                 <thead>
                                     <tr>
-                                        <th>Name</th><th>Submitted on</th><th>Submitted by</th><th>Location</th><th>Actions</th>
+                                        <th>Name</th><th>Created on</th><th>Created by</th><th>Current research</th><th>Location</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -503,11 +504,16 @@ class CustomControls {
                                                 "nick" => $poi["user_nick"],
                                                 "color" => $poi["user_color"]
                                             ));
+                                            $icons = Theme::getIconSet(null, Config::get("themes/color/admin"));
                                             ?>
                                                 <tr>
                                                     <td><input type="text" name="p<?php echo $pid; ?>[name]" value="<?php echo $poi["name"]; ?>"></td>
                                                     <td><?php echo $poi["created_on"]; ?></td>
                                                     <td style="line-height: 1.2em;"><?php echo $pu->getNicknameHTML(); ?><br /><span class="user-box-small no-wrap"><?php echo $pu->getProviderIdentityHTML(); ?></span></td>
+                                                    <td class="no-wrap">
+                                                        <img class="poi-table-marker" src="<?php echo $icons->getIconUrl($poi["objective"]); ?>">
+                                                        <img class="poi-table-marker" src="<?php echo $icons->getIconUrl($poi["reward"]); ?>">
+                                                    </td>
                                                     <td class="no-wrap"><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi["latitude"].",".$poi["longitude"]); ?>"><?php echo Geo::getLocationString($poi["latitude"], $poi["longitude"]); ?></td>
                                                     <td><select class="poi-actions" name="p<?php echo $pid; ?>[action]"><option value="none" selected>(no action)</option><option value="delete">Delete POI</option></select></td>
                                                 </td>
