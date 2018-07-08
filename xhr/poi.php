@@ -12,30 +12,21 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
     }
     try {
-        $db = Database::getSparrow();
-        $pois = $db
-            ->from(Database::getTable("poi"))
-            ->many();
+        $pois = Geo::listPOIs();
 
         $poidata = array();
 
         foreach ($pois as $poi) {
             $poidata[] = array(
-                "id" => intval($poi["id"]),
-                "name" => $poi["name"],
-                "latitude" => floatval($poi["latitude"]),
-                "longitude" => floatval($poi["longitude"]),
-                "objective" => array(
-                    "type" => $poi["objective"],
-                    "params" => json_decode($poi["obj_params"], true)
-                ),
-                "reward" => array(
-                    "type" => $poi["reward"],
-                    "params" => json_decode($poi["rew_params"], true)
-                ),
+                "id" => intval($poi->getID()),
+                "name" => $poi->getName(),
+                "latitude" => $poi->getLatitude(),
+                "longitude" => $poi->getLongitude(),
+                "objective" => $poi->getCurrentObjective(),
+                "reward" => $poi->getCurrentReward(),
                 "updated" => array(
-                    "on" => strtotime($poi["last_updated"]),
-                    "by" => $poi["updated_by"]
+                    "on" => $poi->getLastUpdatedTime(),
+                    "by" => $poi->getLastUser()->getUserID()
                 )
             );
         }
