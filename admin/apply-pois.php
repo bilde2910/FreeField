@@ -36,6 +36,12 @@ foreach ($_POST as $poi => $data) {
     if ($data["action"] === "delete") {
         $deletes[] = $pid;
         continue;
+    } elseif ($data["action"] === "clear") {
+        $updates[$pid]["objective"] = "unknown";
+        $updates[$pid]["reward"] = "unknown";
+        $updates[$pid]["obj_params"] = json_encode(array());
+        $updates[$pid]["rew_params"] = json_encode(array());
+        $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
     }
 
     if ($pois_assoc[$pid]["name"] !== $data["name"]) {

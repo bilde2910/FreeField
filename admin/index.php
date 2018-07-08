@@ -515,7 +515,11 @@ class CustomControls {
                                                         <img class="poi-table-marker" src="<?php echo $icons->getIconUrl($poi["reward"]); ?>">
                                                     </td>
                                                     <td class="no-wrap"><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi["latitude"].",".$poi["longitude"]); ?>"><?php echo Geo::getLocationString($poi["latitude"], $poi["longitude"]); ?></td>
-                                                    <td><select class="poi-actions" name="p<?php echo $pid; ?>[action]"><option value="none" selected>(no action)</option><option value="delete">Delete POI</option></select></td>
+                                                    <td><select class="poi-actions" name="p<?php echo $pid; ?>[action]">
+                                                        <option value="none" selected>(no action)</option>
+                                                        <option value="clear">Clear research task</option>
+                                                        <option value="delete">Delete POI</option>
+                                                    </select></td>
                                                 </td>
                                             <?php
                                         }
@@ -527,6 +531,10 @@ class CustomControls {
                                     if ($(this).val() == "delete") {
                                         $(this).css("border", "1px solid red");
                                         $(this).css("color", "red");
+                                        $(this).css("margin-right", "");
+                                    } else if ($(this).val() == "clear") {
+                                        $(this).css("border", "1px solid darkorange");
+                                        $(this).css("color", "darkorange");
                                         $(this).css("margin-right", "");
                                     } else {
                                         $(this).css("border", "");
