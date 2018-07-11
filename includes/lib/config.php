@@ -603,10 +603,10 @@ class CustomControls {
                         if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
                         $data = parse_ini_file("{$themepath}/{$theme}/pack.ini", true);
                         $themedata[$theme] = $data;
-                        $options .= '<option id="iconselector-'.$control_iconSelectorID.'" value="'.$theme.'"'.($current == $theme ? ' selected' : '').'>'.$data["name"].' (by '.$data["author"].')</option>';
+                        $options .= '<option value="'.$theme.'"'.($current == $theme ? ' selected' : '').'>'.$data["name"].' (by '.$data["author"].')</option>';
                     }
                     return '
-                        <select name="'.$path.'"'.(count($attrs) > 0 ? ' '.implode(' ', $attrs) : '').'>'.$options.'</select>
+                        <select id="iconselector-'.$control_iconSelectorID.'" name="'.$path.'"'.(count($attrs) > 0 ? ' '.implode(' ', $attrs) : '').'>'.$options.'</select>
                         <script type="text/javascript">
                             var themedata = '.json_encode($themedata, JSON_PRETTY_PRINT).';
 
@@ -640,7 +640,7 @@ class CustomControls {
                                 ];
 
                                 for (var i = 0; i < icons.length; i++) {
-                                    var uri = "../themes/icons/" + theme + "/";
+                                    var uri = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/";
                                     if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
                                         uri += tdata["vector"][icons[i]];
                                     } else if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
@@ -661,7 +661,7 @@ class CustomControls {
 
                                 if (tdata.hasOwnProperty("logo")) {
                                     var logo = document.createElement("img");
-                                    logo.src = "../themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("'.Config::get("themes/color/admin").'");
+                                    logo.src = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("'.Config::get("themes/color/admin").'");
                                     logo.style.width = "400px";
                                     logo.style.maxWidth = "100%";
                                     logo.marginTop = "20px";
@@ -691,7 +691,7 @@ class CustomControls {
                         <script type="text/javascript">
                             var selector_'.$control_iconSelectorID.' = document.getElementById("iconselector-'.$control_iconSelectorID.'");
                             viewTheme_'.$control_iconSelectorID.'(selector_'.$control_iconSelectorID.'.value);
-                            selector_'.$control_iconSelectorID.'.addEventListener("select", function() {
+                            $("#iconselector-'.$control_iconSelectorID.'").on("change", function() {
                                 viewTheme_'.$control_iconSelectorID.'(selector_'.$control_iconSelectorID.'.value);
                             });
                         </script>
