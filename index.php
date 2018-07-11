@@ -71,7 +71,6 @@ $provider = Config::get("map/provider/source");
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         <link rel="stylesheet" href="./css/main.css?v=<?php echo time(); ?>">
-        <link rel="stylesheet" href="./css/<?php echo Config::get("themes/color/user-settings/theme"); ?>.css?v=<?php echo time(); ?>">
         <link rel="stylesheet" href="./css/map-markers.php">
 
         <!--[if lte IE 8]>
@@ -105,17 +104,25 @@ $provider = Config::get("map/provider/source");
                             <li class="pure-menu-item"><a href="./auth/login.php" class="pure-menu-link"><i class="menu-fas fas fa-sign-in-alt"></i> <?php echo I18N::resolve("sidebar.login"); ?></a></li>
                         <?php } ?>
                         <div class="menu-spacer"></div>
-                        <?php if (Auth::getCurrentUser()->hasPermission("submit-poi")) { ?>
-                            <li class="pure-menu-item"><a href="#" id="add-poi-start" class="pure-menu-link"><i class="menu-fas fas fa-plus"></i> <?php echo I18N::resolve("sidebar.add_poi"); ?></a></li>
-                        <?php } ?>
-                        <?php if (Auth::getCurrentUser()->hasPermission("admin/?/general")) { ?>
-                            <li class="pure-menu-item"><a href="./admin/" class="pure-menu-link"><i class="menu-fas fas fa-angle-double-right"></i> <?php echo I18N::resolve("sidebar.manage_site"); ?></a></li>
-                        <?php } ?>
+                        <div id="map-menu">
+                            <?php if (Auth::getCurrentUser()->hasPermission("submit-poi")) { ?>
+                                <li class="pure-menu-item"><a href="#" id="add-poi-start" class="pure-menu-link"><i class="menu-fas fas fa-plus"></i> <?php echo I18N::resolve("sidebar.add_poi"); ?></a></li>
+                            <?php } ?>
+                            <li class="pure-menu-item"><a href="#" id="menu-open-settings" class="pure-menu-link"><i class="menu-fas fas fa-wrench"></i> <?php echo I18N::resolve("sidebar.settings"); ?></a></li>
+                            <?php if (Auth::getCurrentUser()->hasPermission("admin/?/general")) { ?>
+                                <li class="pure-menu-item"><a href="./admin/" class="pure-menu-link"><i class="menu-fas fas fa-angle-double-right"></i> <?php echo I18N::resolve("sidebar.manage_site"); ?></a></li>
+                            <?php } ?>
+                        </div>
+                        <div id="settings-menu" class="hidden-by-default">
+                            <li class="pure-menu-item"><a href="#" id="menu-reset-settings" class="pure-menu-link"><i class="menu-fas fas fa-undo"></i> <?php echo I18N::resolve("sidebar.reset"); ?></a></li>
+                            <li class="pure-menu-item"><a href="#" id="menu-close-settings" class="pure-menu-link"><i class="menu-fas fas fa-angle-double-left"></i> <?php echo I18N::resolve("sidebar.cancel"); ?></a></li>
+                        </div>
                     </ul>
                 </div>
             </div>
 
             <div id="main">
+                <div id="map-container">
                 <div id="dynamic-banner-container">
 
                 </div>
@@ -453,24 +460,78 @@ $provider = Config::get("map/provider/source");
                         </div>
                     </div>
                 </div>
-                <script>
-                    mapboxgl.accessToken = '<?php echo Config::get("map/provider/mapbox/access-token"); ?>';
-                    var map = new mapboxgl.Map({
-                        container: 'map',
-                        style: 'mapbox://styles/mapbox/<?php echo Config::get("themes/color/map/theme/mapbox"); ?>-v9',
-                        center: [<?php echo Config::get("map/default/center/longitude"); ?>, <?php echo Config::get("map/default/center/latitude"); ?>],
-                        zoom: <?php echo Config::get("map/default/zoom"); ?>
-                    });
-                    map.addControl(new mapboxgl.NavigationControl());
-                    map.addControl(new mapboxgl.GeolocateControl({
-                        positionOptions: {
-                            enableHighAccuracy: false,
-                            timeout: 5000
-                        },
-                        trackUserLocation: true
-                    }));
-                </script>
                 <div id="map" class="full-container"></div>
+                </div>
+                <div id="settings-container" class="full-container hidden-by-default">
+                    <div class="header">
+                        <h1>Settings</h1>
+                        <h2>Personalize your experience</h2>
+                    </div>
+                    <div class="content pure-form">
+                        <h2 class="content-subhead">Appearance</h2>
+                        <?php
+                            if (Config::get("themes/color/user-settings/allow-personalization")) {
+                                ?>
+                                    <div class="pure-g">
+                                        <div class="pure-u-1-3 full-on-mobile">
+                                            <p class="setting-name"><?php echo I18N::resolve("user_setting.interface_theme.name"); ?>:</p>
+                                        </div>
+                                        <div class="pure-u-2-3 full-on-mobile">
+                                            <p><select class="user-setting" data-key="theme">
+                                                <option value=""><?php echo I18N::resolve("user_setting.value.default"); ?></option>
+                                                <option value="light"><?php echo I18N::resolve("setting.themes.color.user_settings.theme.option.light"); ?></option></option>
+                                                <option value="dark"><?php echo I18N::resolve("setting.themes.color.user_settings.theme.option.dark"); ?></option>
+                                            </select></p>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+                        ?>
+                        <?php
+                            if (Config::get("themes/color/map/allow-personalization")) {
+                                ?>
+                                    <div class="pure-g">
+                                        <div class="pure-u-1-3 full-on-mobile">
+                                            <p class="setting-name"><?php echo I18N::resolve("user_setting.map_theme.name"); ?>:</p>
+                                        </div>
+                                        <div class="pure-u-2-3 full-on-mobile">
+                                            <p><select class="user-setting" data-key="mapStyle/mapbox">
+                                                <option value=""><?php echo I18N::resolve("user_setting.value.default"); ?></option>
+                                                <option value="basic"><?php echo I18N::resolve("setting.themes.color.map.theme.mapbox.option.basic"); ?></option>
+                                                <option value="streets"><?php echo I18N::resolve("setting.themes.color.map.theme.mapbox.option.streets"); ?></option>
+                                                <option value="bright"><?php echo I18N::resolve("setting.themes.color.map.theme.mapbox.option.bright"); ?></option>
+                                                <option value="light"><?php echo I18N::resolve("setting.themes.color.map.theme.mapbox.option.light"); ?></option>
+                                                <option value="dark"><?php echo I18N::resolve("setting.themes.color.map.theme.mapbox.option.dark"); ?></option>
+                                                <option value="satellite"><?php echo I18N::resolve("setting.themes.color.map.theme.mapbox.option.satellite"); ?></option>
+                                            </select></p>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+                        ?>
+                        <?php
+                            if (Config::get("themes/icons/allow-personalization")) {
+                                ?>
+                                    <div class="pure-g">
+                                        <div class="pure-u-1-3 full-on-mobile">
+                                            <p class="setting-name"><?php echo I18N::resolve("user_setting.icons.name"); ?>:</p>
+                                        </div>
+                                        <div class="pure-u-2-3 full-on-mobile">
+                                            <p><?php echo CustomControls::getControl("icon-selector", "", null, "field", array('data-key="iconSet"')); ?></p>
+                                        </div>
+                                    </div>
+                                    <?php
+                                        $control = CustomControls::getControl("icon-selector", "", null, "after");
+                                        if ($control !== null) {
+                                            echo $control;
+                                        }
+                                    ?>
+                                <?php
+                            }
+                        ?>
+                        <p class="buttons"><input type="button" id="user-settings-save" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -496,11 +557,47 @@ $provider = Config::get("map/provider/source");
             var defaults = {
                 iconSet: "<?php echo Config::get("themes/icons/default"); ?>",
                 mapProvider: "<?php echo $provider; ?>",
-                mapStyle: "<?php echo Config::get("themes/color/map/theme/{$provider}"); ?>",
-                theme: "<?php echo Config::get("themes/color/user-settings/theme"); ?>"
+                mapStyle: {
+                    mapbox: "<?php echo Config::get("themes/color/map/theme/{$provider}"); ?>"
+                },
+                theme: "<?php echo Config::get("themes/color/user-settings/theme"); ?>",
+                center: {
+                    latitude: <?php echo Config::get("map/default/center/latitude"); ?>,
+                    longitude: <?php echo Config::get("map/default/center/longitude"); ?>
+                },
+                zoom: <?php echo Config::get("map/default/zoom"); ?>
             };
 
-            var settings = defaults;
+            var forceDefaults = [
+                <?php
+                    $forced = array();
+                    if (!Config::get("themes/color/user-settings/allow-personalization")) $forced[] = '"theme"';
+                    if (!Config::get("themes/color/map/allow-personalization")) $forced[] = '"mapStyle/mapbox"';
+                    echo implode(', ', $forced);
+                ?>
+            ];
+
+            var settings = $.extend(true, {}, defaults);
+            settings.theme = "";
+            settings.mapStyle.mapbox = "";
+            settings.get = function(key, ignoreDefault) {
+                ignoreDefault = ignoreDefault || false;
+
+                var tree = key.split("/");
+                var value = settings;
+                for (var i = 0; i < tree.length; i++) {
+                    value = value[tree[i]];
+                }
+
+                if (forceDefaults.indexOf(key) >= 0 || (!ignoreDefault && value == "")) {
+                    value = defaults;
+                    for (var i = 0; i < tree.length; i++) {
+                        value = value[tree[i]];
+                    }
+                }
+                return value;
+            };
+
 
             var permissions = {
                 <?php
@@ -538,5 +635,49 @@ $provider = Config::get("map/provider/source");
         </script>
         <script src="./js/ui.js"></script>
         <script src="./js/main.js?t="<?php echo time(); ?>></script>
+        <script>
+            if (hasLocalStorageSupport()) {
+                var storedSettings = JSON.parse(localStorage.getItem("settings"));
+                if (storedSettings !== null) {
+                    var keys = Object.keys(storedSettings);
+                    for (var i = 0; i < keys.length; i++) {
+                        settings[keys[i]] = storedSettings[keys[i]];
+                    }
+                }
+            }
+
+            $("head").append('<link rel="stylesheet" type="text/css" href="./css/' + settings.get("theme") + '.css?v=<?php echo time(); ?>">');
+
+            mapboxgl.accessToken = '<?php echo Config::get("map/provider/mapbox/access-token"); ?>';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/' + (settings.get("mapStyle/mapbox")) + '-v9',
+                center: [settings.center.longitude, settings.center.latitude],
+                zoom: settings.zoom
+            });
+            map.addControl(new mapboxgl.NavigationControl());
+            map.addControl(new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: false,
+                    timeout: 5000
+                },
+                trackUserLocation: true
+            }));
+
+            var lastCenter = map.getCenter();
+            var lastZoom = map.getZoom();
+            setInterval(function() {
+                var center = map.getCenter();
+                var zoom = map.getZoom();
+                if (center != lastCenter || zoom != lastZoom) {
+                    lastCenter = center;
+                    lastZoom = zoom;
+                    settings.center.longitude = center.lng;
+                    settings.center.latitude = center.lat;
+                    settings.zoom = zoom;
+                    saveSettings();
+                }
+            }, 1000);
+        </script>
     </body>
 </html>

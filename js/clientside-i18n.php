@@ -15,7 +15,8 @@ var i18n = <?php
         "throw_bonus.*",
         "reward.*",
         "poi.*",
-        "xhr.*"
+        "xhr.*",
+        "user_settings.*"
     );
 
     $i18nmap = array();

@@ -231,6 +231,9 @@ input[type=text], input[type=password], input[type=number], select {
     height: 100vh;
     width: 100%;
 }
+.hidden-by-default {
+    display: none;
+}
 
 
 h1.head-small {

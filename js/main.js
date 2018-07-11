@@ -264,15 +264,15 @@ $("#update-poi-cancel").on("click", function() {
 });
 
 function resolveIconUrl(icon) {
-    var variant = settings.theme;
-    var url = iconSets[settings.iconSet][icon].split("{%variant%}").join(variant);
+    var variant = settings.get("theme");
+    var url = iconSets[settings.get("iconSet")][icon].split("{%variant%}").join(variant);
     return url;
 }
 
 function addMarkers(markers) {
     markers.forEach(function(marker) {
         var e = document.createElement("div");
-        e.className = "marker " + marker.reward.type + " " + styleMap[settings.mapProvider][settings.mapStyle] + " " + settings.iconSet;
+        e.className = "marker " + marker.reward.type + " " + styleMap[settings.get("mapProvider")][settings.get("mapStyle/"+settings.get("mapProvider"))] + " " + settings.get("iconSet");
 
         marker["element"] = e;
         pois[marker.id] = marker;
@@ -293,6 +293,25 @@ function addMarkers(markers) {
             .setPopup(popup)
             .addTo(map);
     });
+}
+
+function hasLocalStorageSupport() {
+    try {
+        localStorage.setItem("featureTest", "featureTest");
+        localStorage.removeItem("featureTest");
+        return true;
+    } catch (ex) {
+        return false;
+    }
+}
+
+var localStorageSupport = hasLocalStorageSupport();
+
+function saveSettings() {
+    if (localStorageSupport) {
+        localStorage.setItem("settings", JSON.stringify(settings));
+        console.log("Saved!");
+    }
 }
 
 $(document).ready(function() {
@@ -357,4 +376,78 @@ $("#add-poi-submit").on("click", function() {
         $("#add-poi-working").fadeOut(150);
         $("#add-poi-submit").prop("disabled", false);
     });
+});
+
+$("#menu-open-settings").on("click", function() {
+    $(".user-setting").each(function() {
+        var key = $(this).attr("data-key");
+        var value = settings.get(key, true);
+        $(this).val(value);
+    });
+
+    $("#map-menu").hide();
+    $("#map-container").hide();
+    $("#settings-container").show();
+    $("#settings-menu").show();
+    return false;
+});
+
+$("#menu-close-settings").on("click", function() {
+    $("#settings-menu").hide();
+    $("#settings-container").hide();
+    $("#map-container").show();
+    $("#map-menu").show();
+    return false;
+});
+
+$("#user-settings-save").on("click", function() {
+    $(".user-setting").each(function() {
+        var key = $(this).attr("data-key");
+        var value = $(this).val();
+
+        var tree = key.split("/");
+        switch (tree.length) {
+            case 1:
+                settings[tree[0]] = value;
+                break;
+            case 2:
+                settings[tree[0]][tree[1]] = value;
+                break;
+            case 3:
+                settings[tree[0]][tree[1]][tree[2]] = value;
+                break;
+            case 4:
+                settings[tree[0]][tree[1]][tree[2]][tree[3]] = value;
+                break;
+            case 5:
+                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]] = value;
+                break;
+            case 6:
+                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]][tree[5]] = value;
+                break;
+            case 7:
+                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]][tree[5]][tree[6]] = value;
+                break;
+            case 8:
+                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]][tree[5]][tree[6]][tree[7]] = value;
+                break;
+            case 9:
+                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]][tree[5]][tree[6]][tree[7]][tree[8]] = value;
+                break;
+            case 10:
+                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]][tree[5]][tree[6]][tree[7]][tree[8]][tree[9]] = value;
+                break;
+        }
+    });
+    saveSettings();
+    location.reload();
+});
+
+$("#menu-reset-settings").on("click", function() {
+    if (confirm(resolveI18N("user_settings.reset.confirm"))) {
+        if (localStorageSupport) {
+            localStorage.removeItem("settings");
+            location.reload();
+        }
+    }
 });
