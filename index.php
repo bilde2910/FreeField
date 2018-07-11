@@ -453,7 +453,6 @@ $provider = Config::get("map/provider/source");
                         </div>
                     </div>
                 </div>
-                <div id='map' style='width: 100%; height: 100vh;'></div>
                 <script>
                     mapboxgl.accessToken = '<?php echo Config::get("map/provider/mapbox/access-token"); ?>';
                     var map = new mapboxgl.Map({
@@ -471,6 +470,7 @@ $provider = Config::get("map/provider/source");
                         trackUserLocation: true
                     }));
                 </script>
+                <div id="map" class="full-container"></div>
             </div>
         </div>
 

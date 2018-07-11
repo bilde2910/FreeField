@@ -297,7 +297,7 @@ function addMarkers(markers) {
 
 $(document).ready(function() {
     var screenHeight = $(window).height();
-    $('div#map').css('height', screenHeight + 'px');
+    $('.full-container').css('height', screenHeight + 'px');
 
     $.getJSON("./xhr/poi.php", function(data) {
         addMarkers(data["pois"]);
