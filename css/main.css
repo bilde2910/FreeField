@@ -10,6 +10,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #999;
 }
 .user-box-small {
     font-size: 0.8em;
