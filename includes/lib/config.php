@@ -814,6 +814,9 @@ class IconPackOption extends DefaultOption {
         }
 
         $html = '<select'.$attrs.'>';
+        if ($this->includeDefault) {
+            $html .= '<option value="">'.I18N::resolveArgs("user_settings.value.default").'</option>';
+        }
         foreach (self::$packs as $pack => $data) {
             $html .= '<option value="'.$pack.'"';
             if ($pack == $current) $html .= ' selected';
@@ -834,6 +837,8 @@ class IconPackOption extends DefaultOption {
                 function viewTheme(selectorID, theme) {
                     var box = document.getElementById("iconviewer-" + selectorID);
                     box.innerHTML = "";
+
+                    if (theme === "") return;
 
                     var variants = ["light", "dark"];
                     var varbox = {};

@@ -535,7 +535,7 @@ $provider = Config::get("map/provider/source");
                                             <p class="setting-name"><?php echo I18N::resolve("user_setting.icons.name"); ?>:</p>
                                         </div>
                                         <div class="pure-u-2-3 full-on-mobile">
-                                            <p><?php echo $opt->getControl(null, null, "icon-selector", array("data-key" => "iconSet")); ?></p>
+                                            <p><?php echo $opt->getControl(null, null, "icon-selector", array("data-key" => "iconSet", "class" => "user-setting")); ?></p>
                                         </div>
                                     </div>
                                     <?php
@@ -589,6 +589,7 @@ $provider = Config::get("map/provider/source");
                     $forced = array();
                     if (!Config::get("themes/color/user-settings/allow-personalization")) $forced[] = '"theme"';
                     if (!Config::get("themes/color/map/allow-personalization")) $forced[] = '"mapStyle/mapbox"';
+                    if (!Config::get("themes/icons/allow-personalization")) $forced[] = '"iconSet"';
                     echo implode(', ', $forced);
                 ?>
             ];
