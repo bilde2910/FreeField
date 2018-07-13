@@ -111,7 +111,26 @@ function openMarker(popup, id) {
     $("#poi-objective").text(resolveObjective(poiObj.objective));
     $("#poi-reward").text(resolveReward(poiObj.reward));
     $("#poi-directions").on("click", function() {
-        window.open("https://www.google.com/maps/dir/?api=1&destination=" + encodeURI(poiObj.latitude + "," + poiObj.longitude));
+        switch (settings.get("naviProvider")) {
+            case "bing":
+                window.open("https://www.bing.com/maps?rtp=~pos." + encodeURI(poiObj.latitude + "_" + poiObj.longitude + "_" + poiObj.name));
+                break;
+            case "google":
+                window.open("https://www.google.com/maps/dir/?api=1&destination=" + encodeURI(poiObj.latitude + "," + poiObj.longitude));
+                break;
+            case "here":
+                window.open("https://share.here.com/r/mylocation/" + encodeURI(poiObj.latitude + "," + poiObj.longitude) + "?m=d&t=normal");
+                break;
+            case "mapquest":
+                window.open("https://www.mapquest.com/directions/to/near-" + encodeURI(poiObj.latitude + "," + poiObj.longitude));
+                break;
+            case "waze":
+                window.open("https://waze.com/ul?ll=" + encodeURI(poiObj.latitude + "," + poiObj.longitude) + "&navigate=yes");
+                break;
+            case "yandex":
+                window.open("https://yandex.ru/maps?rtext=~" + encodeURI(poiObj.latitude + "," + poiObj.longitude));
+                break;
+        }
     });
     $("#poi-close").on("click", function() {
         popup._onClickClose();

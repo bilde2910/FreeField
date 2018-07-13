@@ -468,6 +468,23 @@ $provider = Config::get("map/provider/source");
                         <h2>Personalize your experience</h2>
                     </div>
                     <div class="content pure-form">
+                        <h2 class="content-subhead">Map providers</h2>
+                            <div class="pure-g">
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p class="setting-name"><?php echo I18N::resolve("user_setting.directions_provider.name"); ?>:</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile">
+                                    <p><select class="user-setting" data-key="naviProvider">
+                                        <option value=""><?php echo I18N::resolve("user_setting.value.default"); ?></option>
+                                        <option value="bing"><?php echo I18N::resolve("setting.map.provider.directions.option.bing"); ?></option>
+                                        <option value="google"><?php echo I18N::resolve("setting.map.provider.directions.option.google"); ?></option>
+                                        <option value="here"><?php echo I18N::resolve("setting.map.provider.directions.option.here"); ?></option>
+                                        <option value="mapquest"><?php echo I18N::resolve("setting.map.provider.directions.option.mapquest"); ?></option>
+                                        <option value="waze"><?php echo I18N::resolve("setting.map.provider.directions.option.waze"); ?></option>
+                                        <option value="yandex"><?php echo I18N::resolve("setting.map.provider.directions.option.yandex"); ?></option>
+                                    </select></p>
+                                </div>
+                            </div>
                         <h2 class="content-subhead">Appearance</h2>
                         <?php
                             if (Config::get("themes/color/user-settings/allow-personalization")) {
@@ -479,7 +496,7 @@ $provider = Config::get("map/provider/source");
                                         <div class="pure-u-2-3 full-on-mobile">
                                             <p><select class="user-setting" data-key="theme">
                                                 <option value=""><?php echo I18N::resolve("user_setting.value.default"); ?></option>
-                                                <option value="light"><?php echo I18N::resolve("setting.themes.color.user_settings.theme.option.light"); ?></option></option>
+                                                <option value="light"><?php echo I18N::resolve("setting.themes.color.user_settings.theme.option.light"); ?></option>
                                                 <option value="dark"><?php echo I18N::resolve("setting.themes.color.user_settings.theme.option.dark"); ?></option>
                                             </select></p>
                                         </div>
@@ -555,6 +572,7 @@ $provider = Config::get("map/provider/source");
             var defaults = {
                 iconSet: "<?php echo Config::get("themes/icons/default"); ?>",
                 mapProvider: "<?php echo $provider; ?>",
+                naviProvider: "<?php echo Config::get("map/provider/directions"); ?>",
                 mapStyle: {
                     mapbox: "<?php echo Config::get("themes/color/map/theme/{$provider}"); ?>"
                 },

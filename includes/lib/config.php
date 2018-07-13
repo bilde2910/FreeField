@@ -294,6 +294,10 @@ class Config {
                     "map/provider/mapbox/access-token" => array(
                         "default" => "",
                         "option" => new StringOption()
+                    ),
+                    "map/provider/directions" => array(
+                        "default" => "google",
+                        "option" => new SelectOption(array("bing", "google", "here", "mapquest", "waze", "yandex"))
                     )
                 ),
                 "default" => array(
