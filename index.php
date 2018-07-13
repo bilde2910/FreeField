@@ -511,20 +511,18 @@ $provider = Config::get("map/provider/source");
                         ?>
                         <?php
                             if (Config::get("themes/icons/allow-personalization")) {
+                                $opt = new IconPackOption(true);
                                 ?>
                                     <div class="pure-g">
                                         <div class="pure-u-1-3 full-on-mobile">
                                             <p class="setting-name"><?php echo I18N::resolve("user_setting.icons.name"); ?>:</p>
                                         </div>
                                         <div class="pure-u-2-3 full-on-mobile">
-                                            <p><?php echo CustomControls::getControl("icon-selector", "", null, "field", array('data-key="iconSet"')); ?></p>
+                                            <p><?php echo $opt->getControl(null, null, "icon-selector", array("data-key" => "iconSet")); ?></p>
                                         </div>
                                     </div>
                                     <?php
-                                        $control = CustomControls::getControl("icon-selector", "", null, "after");
-                                        if ($control !== null) {
-                                            echo $control;
-                                        }
+                                        echo $opt->getFollowingBlock();
                                     ?>
                                 <?php
                             }

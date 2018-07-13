@@ -222,7 +222,7 @@ class Auth {
     }
 
     // Returns an HTML control for selecting permission levels
-    public static function getPermissionSelector($name, $id = null, $selectedLevel = 0) {
+    public static function getPermissionSelector($name = null, $id = null, $selectedLevel = 0) {
         $user = self::getCurrentUser();
         $perms = self::listPermissionLevels();
         $opts = "";
@@ -236,7 +236,7 @@ class Auth {
         } else {
             $curopt = '<option value="'.$selectedLevel.'" style="color:" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18N($curperm["label"]).'</option>';
         }
-        return '<select name="'.$name.'"'.($id !== null ? ' id="'.$id.'"' : '').($user->canChangeAtPermission($selectedLevel) ? '' : ' disabled').'><optgroup label="Current group">'.$curopt.'</optgroup><optgroup label="Available groups">'.$opts.'</optgroup></select>';
+        return '<select'.($name !== null ? ' name="'.$name.'"' : '').($id !== null ? ' id="'.$id.'"' : '').($user->canChangeAtPermission($selectedLevel) ? '' : ' disabled').'><optgroup label="Current group">'.$curopt.'</optgroup><optgroup label="Available groups">'.$opts.'</optgroup></select>';
     }
 }
 

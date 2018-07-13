@@ -66,250 +66,253 @@ class Config {
         - admin.section.main.database.desc
     */
 
-    private static $configtree = array(
-        "main" => array(
-            "access" => array(
-                "site/uri" => array(
-                    "default" => "",
-                    "options" => "string"
+    private static $configtree = null;
+
+    public static function loadTree() {
+        self::$configtree = array(
+            "main" => array(
+                "access" => array(
+                    "site/uri" => array(
+                        "default" => "",
+                        "option" => new StringOption()
+                    ),
+                    "site/name" => array(
+                        "default" => "FreeField",
+                        "option" => new StringOption()
+                    )
                 ),
-                "site/name" => array(
-                    "default" => "FreeField",
-                    "options" => "string"
+                "database" => array(
+                    "database/type" => array(
+                        "default" => "mysqli",
+                        "option" => new SelectOption(array("mysql", "mysqli", "pgsql", "sqlite", "sqlite3"))
+                    ),
+                    "database/host" => array(
+                        "default" => "localhost",
+                        "option" => new StringOption()
+                    ),
+                    "database/port" => array(
+                        "default" => -1,
+                        "option" => new IntegerOption(-1, 65535)
+                    ),
+                    "database/username" => array(
+                        "default" => "fieldfree",
+                        "option" => new StringOption()
+                    ),
+                    "database/password" => array(
+                        "default" => "fieldfree",
+                        "option" => new PasswordOption()
+                    ),
+                    "database/database" => array(
+                        "default" => "fieldfree",
+                        "option" => new StringOption()
+                    ),
+                    "database/table-prefix" => array(
+                        "default" => "ffield_",
+                        "option" => new StringOption()
+                    )
                 )
             ),
-            "database" => array(
-                "database/type" => array(
-                    "default" => "mysqli",
-                    "options" => ["mysql", "mysqli", "pgsql", "sqlite", "sqlite3"]
+            "perms" => array(
+                "default" => array(
+                    "permissions/default-level" => array(
+                        "default" => 80,
+                        "option" => new PermissionOption()
+                    )
                 ),
-                "database/host" => array(
-                    "default" => "localhost",
-                    "options" => "string"
+                "map-access" => array(
+                    // TODO:
+                    "permissions/level/access" => array(
+                        "default" => 0,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/report-research" => array(
+                        "default" => 80,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/overwrite-research" => array(
+                        "default" => 80,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/submit-poi" => array(
+                        "default" => 120,
+                        "option" => new PermissionOption()
+                    )
                 ),
-                "database/port" => array(
-                    "default" => -1,
-                    "options" => "int,-1,65535"
+                "admin" => array(
+                    "permissions/level/admin/main/general" => array(
+                        "default" => 250,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/users/general" => array(
+                        "default" => 160,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/groups/general" => array(
+                        "default" => 200,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/users/groups" => array(
+                        "default" => 160,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/groups/self-manage" => array(
+                        "default" => 250,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/pois/general" => array(
+                        "default" => 160,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/perms/general" => array(
+                        "default" => 200,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/security/general" => array(
+                        "default" => 200,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/auth/general" => array(
+                        "default" => 250,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/themes/general" => array(
+                        "default" => 200,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/map/general" => array(
+                        "default" => 250,
+                        "option" => new PermissionOption()
+                    ),
+                    "permissions/level/admin/hooks/general" => array(
+                        "default" => 200,
+                        "option" => new PermissionOption()
+                    )
+                )
+            ),
+            "security" => array(
+                "user-creation" => array(
+                    "security/require-validation" => array(
+                        "default" => false,
+                        "option" => new BooleanOption()
+                    )
                 ),
-                "database/username" => array(
-                    "default" => "fieldfree",
-                    "options" => "string"
+                "sessions" => array(
+                    "auth/session-length" => array(
+                        "default" => 315619200, // 10 years
+                        "option" => new SelectOption(array(86400, 604800, 2592000, 7776000, 15811200, 31536000, 63072000, 157766400, 315619200), "int")
+                    ),
+                    "security/validate-ua" => array(
+                        "default" => "lenient",
+                        "option" => new SelectOption(array("no", "lenient", "strict"))
+                    ),
+                    "security/validate-lang" => array(
+                        "default" => true,
+                        "option" => new BooleanOption()
+                    )
+                )
+            ),
+            "auth" => array(
+                "discord" => array(
+                    "__hasdesc" => true,
+                    "__descsprintf" => array(
+                        '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Discord">',
+                        '</a>'
+                    ),
+                    "auth/provider/discord/enabled" => array(
+                        "default" => false,
+                        "option" => new BooleanOption()
+                    ),
+                    "auth/provider/discord/client-id" => array(
+                        "default" => "",
+                        "option" => new StringOption()
+                    ),
+                    "auth/provider/discord/client-secret" => array(
+                        "default" => "",
+                        "option" => new StringOption()
+                    )
                 ),
-                "database/password" => array(
-                    "default" => "fieldfree",
-                    "options" => "password"
+                "telegram" => array(
+                    "__hasdesc" => true,
+                    "__descsprintf" => array(
+                        '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Telegram">',
+                        '</a>'
+                    ),
+                    "auth/provider/telegram/enabled" => array(
+                        "default" => false,
+                        "option" => new BooleanOption()
+                    ),
+                    "auth/provider/telegram/bot-username" => array(
+                        "default" => "",
+                        "option" => new StringOption()
+                    ),
+                    "auth/provider/telegram/bot-token" => array(
+                        "default" => "",
+                        "option" => new StringOption()
+                    )
+                )
+            ),
+            "themes" => array(
+                "color" => array(
+                    "themes/color/admin" => array(
+                        "default" => "dark",
+                        "option" => new SelectOption(array("light", "dark"))
+                    ),
+                    "themes/color/user-settings/theme" => array(
+                        "default" => "dark",
+                        "option" => new SelectOption(array("light", "dark"))
+                    ),
+                    "themes/color/user-settings/allow-personalization" => array(
+                        "default" => true,
+                        "option" => new BooleanOption()
+                    ),
+                    "themes/color/map/theme/mapbox" => array(
+                        "default" => "basic",
+                        "option" => new SelectOption(array("basic", "streets", "bright", "light", "dark", "satellite"))
+                    ),
+                    "themes/color/map/allow-personalization" => array(
+                        "default" => true,
+                        "option" => new BooleanOption()
+                    )
                 ),
-                "database/database" => array(
-                    "default" => "fieldfree",
-                    "options" => "string"
+                "icons" => array(
+                    "themes/icons/default" => array(
+                        "default" => "freefield-3d-compass",
+                        "option" => new IconPackOption()
+                    ),
+                    "themes/icons/allow-personalization" => array(
+                        "default" => true,
+                        "option" => new BooleanOption()
+                    )
+                )
+            ),
+            "map" => array(
+                "provider" => array(
+                    "map/provider/source" => array(
+                        "default" => "mapbox",
+                        "option" => new SelectOption(array("mapbox"))
+                    ),
+                    "map/provider/mapbox/access-token" => array(
+                        "default" => "",
+                        "option" => new StringOption()
+                    )
                 ),
-                "database/table-prefix" => array(
-                    "default" => "ffield_",
-                    "options" => "string"
+                "default" => array(
+                    "map/default/center/latitude" => array(
+                        "default" => 0.0,
+                        "option" => new FloatOption(-90.0, 90.0)
+                    ),
+                    "map/default/center/longitude" => array(
+                        "default" => 0.0,
+                        "option" => new FloatOption(-180.0, 180.0)
+                    ),
+                    "map/default/zoom" => array(
+                        "default" => 14.0,
+                        "option" => new FloatOption(0.0, 20.0)
+                    )
                 )
             )
-        ),
-        "perms" => array(
-            "default" => array(
-                "permissions/default-level" => array(
-                    "default" => 80,
-                    "options" => "permission"
-                )
-            ),
-            "map-access" => array(
-                // TODO:
-                "permissions/level/access" => array(
-                    "default" => 0,
-                    "options" => "permission"
-                ),
-                "permissions/level/report-research" => array(
-                    "default" => 80,
-                    "options" => "permission"
-                ),
-                "permissions/level/overwrite-research" => array(
-                    "default" => 80,
-                    "options" => "permission"
-                ),
-                "permissions/level/submit-poi" => array(
-                    "default" => 120,
-                    "options" => "permission"
-                )
-            ),
-            "admin" => array(
-                "permissions/level/admin/main/general" => array(
-                    "default" => 250,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/users/general" => array(
-                    "default" => 160,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/groups/general" => array(
-                    "default" => 200,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/users/groups" => array(
-                    "default" => 160,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/groups/self-manage" => array(
-                    "default" => 250,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/pois/general" => array(
-                    "default" => 160,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/perms/general" => array(
-                    "default" => 200,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/security/general" => array(
-                    "default" => 200,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/auth/general" => array(
-                    "default" => 250,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/themes/general" => array(
-                    "default" => 200,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/map/general" => array(
-                    "default" => 250,
-                    "options" => "permission"
-                ),
-                "permissions/level/admin/hooks/general" => array(
-                    "default" => 200,
-                    "options" => "permission"
-                )
-            )
-        ),
-        "security" => array(
-            "user-creation" => array(
-                "security/require-validation" => array(
-                    "default" => false,
-                    "options" => "bool"
-                )
-            ),
-            "sessions" => array(
-                "auth/session-length" => array(
-                    "default" => 315619200, // 10 years
-                    "options" => array(86400, 604800, 2592000, 7776000, 15811200, 31536000, 63072000, 157766400, 315619200)
-                ),
-                "security/validate-ua" => array(
-                    "default" => "lenient",
-                    "options" => array("no", "lenient", "strict")
-                ),
-                "security/validate-lang" => array(
-                    "default" => true,
-                    "options" => "bool"
-                )
-            )
-        ),
-        "auth" => array(
-            "discord" => array(
-                "__hasdesc" => true,
-                "__descsprintf" => array(
-                    '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Discord">',
-                    '</a>'
-                ),
-                "auth/provider/discord/enabled" => array(
-                    "default" => false,
-                    "options" => "bool"
-                ),
-                "auth/provider/discord/client-id" => array(
-                    "default" => "",
-                    "options" => "string"
-                ),
-                "auth/provider/discord/client-secret" => array(
-                    "default" => "",
-                    "options" => "string"
-                )
-            ),
-            "telegram" => array(
-                "__hasdesc" => true,
-                "__descsprintf" => array(
-                    '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Telegram">',
-                    '</a>'
-                ),
-                "auth/provider/telegram/enabled" => array(
-                    "default" => false,
-                    "options" => "bool"
-                ),
-                "auth/provider/telegram/bot-username" => array(
-                    "default" => "",
-                    "options" => "string"
-                ),
-                "auth/provider/telegram/bot-token" => array(
-                    "default" => "",
-                    "options" => "string"
-                )
-            )
-        ),
-        "themes" => array(
-            "color" => array(
-                "themes/color/admin" => array(
-                    "default" => "dark",
-                    "options" => array("light", "dark")
-                ),
-                "themes/color/user-settings/theme" => array(
-                    "default" => "dark",
-                    "options" => array("light", "dark")
-                ),
-                "themes/color/user-settings/allow-personalization" => array(
-                    "default" => true,
-                    "options" => "bool"
-                ),
-                "themes/color/map/theme/mapbox" => array(
-                    "default" => "basic",
-                    "options" => array("basic", "streets", "bright", "light", "dark", "satellite")
-                ),
-                "themes/color/map/allow-personalization" => array(
-                    "default" => true,
-                    "options" => "bool"
-                )
-            ),
-            "icons" => array(
-                "themes/icons/default" => array(
-                    "default" => "freefield-3d-compass",
-                    "options" => "string",
-                    "custom" => "icon-selector"
-                ),
-                "themes/icons/allow-personalization" => array(
-                    "default" => true,
-                    "options" => "bool"
-                )
-            )
-        ),
-        "map" => array(
-            "provider" => array(
-                "map/provider/source" => array(
-                    "default" => "mapbox",
-                    "options" => array("mapbox")
-                ),
-                "map/provider/mapbox/access-token" => array(
-                    "default" => "",
-                    "options" => "string"
-                )
-            ),
-            "default" => array(
-                "map/default/center/latitude" => array(
-                    "default" => 0.0,
-                    "options" => "float,-90,90"
-                ),
-                "map/default/center/longitude" => array(
-                    "default" => 0.0,
-                    "options" => "float,-180,180"
-                ),
-                "map/default/zoom" => array(
-                    "default" => 14,
-                    "options" => "float,0,20"
-                )
-            )
-        )
-    );
+        );
+    }
 
     public static function get($path) {
         if (self::$config === false) self::loadConfig();
@@ -348,7 +351,7 @@ class Config {
                     $optDeny[] = $option;
                 }
                 $values = $flat[$option];
-                if ($values["options"] == "permission") {
+                if (get_class($values["option"]) == "PermissionOption") {
                     $old = self::get($option);
                     $new = intval($value_raw);
                     $max = max($old, $new);
@@ -364,55 +367,10 @@ class Config {
 
             if (!isset($flat[$option])) continue;
             $values = $flat[$option];
+            $opt = $values["option"];
 
-            $value = null;
-
-            if (is_array($values["options"])) {
-                $type = gettype($values["options"][0]);
-                switch ($type) {
-                    case "string":
-                        $value = $value_raw;
-                        break;
-                    case "integer":
-                        $value = intval($value_raw);
-                        break;
-                }
-            } elseif (preg_match('/^int,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
-                $min = intval($matches[1]);
-                $max = intval($matches[2]);
-                $value = intval($value_raw);
-                if ($value < $min) $value = $min;
-                if ($value > $max) $value = $max;
-            } elseif (preg_match('/^float,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
-                $min = floatval($matches[1]);
-                $max = floatval($matches[2]);
-                $value = floatval($value_raw);
-                if ($value < $min) $value = $min;
-                if ($value > $max) $value = $max;
-            } else {
-                switch ($values["options"]) {
-                    case "string":
-                        $value = $value_raw;
-                        break;
-                    case "password":
-                        $value = $value_raw;
-                        break;
-                    case "int":
-                        $value = intval($value_raw);
-                        break;
-                    case "float":
-                        $value = floatval($value_raw);
-                        break;
-                    case "bool":
-                        $value = ($value_raw == "on");
-                        break;
-                    case "permission":
-                        $value = intval($value_raw);
-                        if ($value < 0) $value = 0;
-                        if ($value > 250) $value = 250;
-                        break;
-                }
-            }
+            $value = $opt->parseValue($value_raw);
+            if (!$opt->isValid($value)) continue;
 
             $s = explode("/", $option);
             switch (count($s)) {
@@ -519,6 +477,8 @@ class Config {
     }
 }
 
+Config::loadTree();
+
 class ConfigSettingI18N {
     private $path = null;
     private $setting = null;
@@ -583,122 +543,378 @@ class ConfigDomainI18N {
     }
 }
 
-class CustomControls {
-    /*
-        For rendering custom controls. $control can be:
-        - field: The input field area.
-        - after: A dedicated area below the configurator.
-    */
-    public static function getControl($control, $path, $current, $section, $attrs = array()) {
-        switch ($control) {
-            case "icon-selector":
-                global $control_iconSelectorID;
-                if ($section == "field") {
-                    $themepath = __DIR__."/../../themes/icons";
-                    $themes = array_diff(scandir($themepath), array('..', '.'));
-                    $options = "";
-                    $themedata = array();
-                    $control_iconSelectorID = bin2hex(openssl_random_pseudo_bytes(4));
-                    foreach ($themes as $theme) {
-                        if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
-                        $data = parse_ini_file("{$themepath}/{$theme}/pack.ini", true);
-                        $themedata[$theme] = $data;
-                        $options .= '<option value="'.$theme.'"'.($current == $theme ? ' selected' : '').'>'.$data["name"].' (by '.$data["author"].')</option>';
-                    }
-                    return '
-                        <select id="iconselector-'.$control_iconSelectorID.'" name="'.$path.'"'.(count($attrs) > 0 ? ' '.implode(' ', $attrs) : '').'>'.$options.'</select>
-                        <script type="text/javascript">
-                            var themedata = '.json_encode($themedata, JSON_PRETTY_PRINT).';
+class DefaultOption {
+    public function parseValue($data) {
+        return $data;
+    }
 
-                            function viewTheme_'.$control_iconSelectorID.'(theme) {
-                                var box = document.getElementById("iconviewer-'.$control_iconSelectorID.'");
-                                box.innerHTML = "";
+    public function isValid($data) {
+        return true;
+    }
 
-                                var variants = ["light", "dark"];
-                                var varbox = {};
+    public function getFollowingBlock() {
+        return "";
+    }
+}
 
-                                for (var i = 0; i < variants.length; i++) {
-                                    varbox[variants[i]] = document.createElement("div");
-                                    varbox[variants[i]].style.width = "calc(100% - 20px)";
-                                    varbox[variants[i]].style.padding = "10px";
-                                }
+class StringOption extends DefaultOption {
+    public function getControl($current = null, $name = null, $id = null) {
+        $attrs = "";
+        if ($name !== null) $attrs .= ' name="'.$name.'"';
+        if ($id !== null) $attrs .= ' id="'.$id.'"';
+        if ($current !== null) $attrs .= ' value="'.$current.'"';
+        return '<input type="text"'.$attrs.'>';
+    }
 
-                                varbox["light"].style.backgroundColor = "#ccc";
-                                varbox["dark"].style.backgroundColor = "#333";
+    public function parseValue($data) {
+        return strval($data);
+    }
 
-                                var tdata = themedata[theme];
+    public function isValid($data) {
+        if (is_array($data)) return false;
+        return true;
+    }
+}
 
-                                var icons = [
-                                    "potion", "super_potion", "hyper_potion", "max_potion",
-                                    "revive", "max_revive",
-                                    "fast_tm", "charge_tm",
-                                    "stardust", "rare_candy", "encounter",
-                                    "battle", "raid",
-                                    "catch", "throwing_skill", "hatch",
-                                    "power_up", "evolve",
-                                    "unknown"
-                                ];
+class PasswordOption extends DefaultOption {
+    public function getControl($current = null, $name = null, $id = null) {
+        $attrs = "";
+        if ($name !== null) $attrs .= ' name="'.$name.'"';
+        if ($id !== null) $attrs .= ' id="'.$id.'"';
+        if ($current !== null) $attrs .= ' value="'.$current.'"';
+        return '<input type="password"'.$attrs.'>';
+    }
 
-                                for (var i = 0; i < icons.length; i++) {
-                                    var uri = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/";
-                                    if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
-                                        uri += tdata["vector"][icons[i]];
-                                    } else if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
-                                        uri += tdata["raster"][icons[i]];
-                                    } else {
-                                        uri = "about:blank";
-                                    }
+    public function parseValue($data) {
+        return strval($data);
+    }
 
-                                    for (var j = 0; j < variants.length; j++) {
-                                        var icobox = document.createElement("img");
-                                        icobox.src = uri.split("{%variant%}").join(variants[j]);
-                                        icobox.style.width = "68px";
-                                        icobox.style.height = "68px";
-                                        icobox.style.margin = "5px";
-                                        varbox[variants[j]].appendChild(icobox);
-                                    }
-                                }
+    public function isValid($data) {
+        if (is_array($data)) return false;
+        return true;
+    }
+}
 
-                                if (tdata.hasOwnProperty("logo")) {
-                                    var logo = document.createElement("img");
-                                    logo.src = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("'.Config::get("themes/color/admin").'");
-                                    logo.style.width = "400px";
-                                    logo.style.maxWidth = "100%";
-                                    logo.marginTop = "20px";
-                                    box.appendChild(logo);
-                                }
+class BooleanOption extends DefaultOption {
+    public function getControl($current = null, $name = null, $id = null, $i18ntoken = null) {
+        __require("i18n");
 
-                                var name = document.createElement("h2");
-                                name.innerText = tdata.name;
-                                name.style.color = "#'.(Config::get("themes/color/admin") == "dark" ? "ccc" : "333").'";
-                                name.style.marginBottom = "0";
-                                box.appendChild(name);
+        $attrs = "";
+        if ($name !== null) $attrs .= ' name="'.$name.'"';
+        if ($id !== null) $attrs .= ' id="'.$id.'"';
+        if ($current === true) $attrs .= ' checked';
 
-                                var author = document.createElement("p");
-                                author.innerText = "Authored by " + tdata.author;
-                                box.appendChild(author);
+        $labelAttrs = "";
+        if ($id !== null) $labelAttrs .= ' for="'.$id.'"';
 
-                                for (var i = 0; i < variants.length; i++) {
-                                    box.appendChild(varbox[variants[i]]);
-                                }
+        $fallbackAttrs = "";
+        if ($name !== null) $fallbackAttrs .= ' name="'.$name.'"';
 
-                            }
-                        </script>
-                    ';
-                } elseif ($section == "after") {
-                    return '
-                        <div style="width: 100%;" id="iconviewer-'.$control_iconSelectorID.'"></div>
-                        <script type="text/javascript">
-                            var selector_'.$control_iconSelectorID.' = document.getElementById("iconselector-'.$control_iconSelectorID.'");
-                            viewTheme_'.$control_iconSelectorID.'(selector_'.$control_iconSelectorID.'.value);
-                            $("#iconselector-'.$control_iconSelectorID.'").on("change", function() {
-                                viewTheme_'.$control_iconSelectorID.'(selector_'.$control_iconSelectorID.'.value);
-                            });
-                        </script>
-                    ';
-                }
+        if ($i18ntoken !== null) {
+            $label = I18N::resolve($i18ntoken);
+        } elseif ($name !== null) {
+            $label = I18N::resolve("setting.".str_replace("-", "_", str_replace("/", ".", $name)).".label");
+        } elseif ($id !== null) {
+            $label = I18N::resolve("setting.".str_replace("-", "_", $id).".label");
+        } else {
+            $label = $item;
         }
-        return null;
+
+        $html = '<input type="hidden" value="off"'.$fallbackAttrs.'>'; // Detect unchecked checkbox - unchecked checkboxes aren't POSTed!
+        $html .= '<label'.$labelAttrs.'><input type="checkbox"'.$attrs.'> '.$label.'</label>';
+        return $html;
+    }
+
+    public function parseValue($data) {
+        if ($data == "on") return true;
+        if ($data == "off") return false;
+        return boolval($data);
+    }
+
+    public function isValid($data) {
+        if (is_bool($data)) return true;
+        return false;
+    }
+}
+
+class IntegerOption extends DefaultOption {
+    private $min;
+    private $max;
+
+    public function __construct($min = null, $max = null) {
+        $this->min = $min;
+        $this->max = $max;
+    }
+
+    public function getControl($current = null, $name = null, $id = null) {
+        $attrs = "";
+        if ($name !== null) $attrs .= ' name="'.$name.'"';
+        if ($id !== null) $attrs .= ' id="'.$id.'"';
+        if ($current !== null) $attrs .= ' value="'.$current.'"';
+        return '<input type="number"'.$attrs.'>';
+    }
+
+    public function parseValue($data) {
+        return intval($data);
+    }
+
+    public function isValid($data) {
+        if (!is_int($data)) return false;
+        if ($this->min !== null && $data < $this->min) return false;
+        if ($this->max !== null && $data > $this->max) return false;
+        return true;
+    }
+}
+
+class FloatOption extends DefaultOption {
+    private $min;
+    private $max;
+
+    public function __construct($min = null, $max = null) {
+        $this->min = $min;
+        $this->max = $max;
+    }
+
+    public function getControl($current = null, $name = null, $id = null, $decimals = 5) {
+        $attrs = "";
+        if ($name !== null) $attrs .= ' name="'.$name.'"';
+        if ($id !== null) $attrs .= ' id="'.$id.'"';
+        if ($current !== null) $attrs .= ' value="'.$current.'"';
+        if ($decimals >= 1) {
+            $attrs .= ' step="0.'.str_repeat("0", $decimals - 1).'"';
+        }
+        return '<input type="number"'.$attrs.'>';
+    }
+
+    public function parseValue($data) {
+        return floatval($data);
+    }
+
+    public function isValid($data) {
+        if (!is_float($data)) return false;
+        if ($this->min !== null && $data < $this->min) return false;
+        if ($this->max !== null && $data > $this->max) return false;
+        return true;
+    }
+}
+
+class SelectOption extends DefaultOption {
+    private $items;
+    private $type;
+
+    public function __construct($items, $type = "string") {
+        $this->items = $items;
+        $this->type = $type;
+    }
+
+    public function getControl($current = null, $name = null, $id = null, $i18ndomain = null) {
+        __require("i18n");
+
+        $attrs = "";
+        if ($name !== null) $attrs .= ' name="'.$name.'"';
+        if ($id !== null) $attrs .= ' id="'.$id.'"';
+
+        $html = '<select'.$attrs.'>';
+        $selected = false;
+        foreach ($this->items as $item) {
+            $html .= '<option value="'.$item.'"';
+            if ($item == $current) {
+                $selected = true;
+                $html .= ' selected';
+            }
+            if ($i18ndomain !== null) {
+                $label = I18N::resolve("{$i18ndomain}.{$item}");
+            } elseif ($name !== null) {
+                $label = I18N::resolve("setting.".str_replace("-", "_", str_replace("/", ".", $name)).".option.{$item}");
+            } elseif ($id !== null) {
+                $label = I18N::resolve("setting.".str_replace("-", "_", $id).".option.{$item}");
+            } else {
+                $label = $item;
+            }
+            $html .= '>'.$label.'</option>';
+        }
+        $html .= '</select>';
+
+        return $html;
+    }
+
+    public function parseValue($data) {
+        switch ($this->type) {
+            case "string":
+                return strval($data);
+            case "int":
+                return intval($data);
+        }
+    }
+
+    public function isValid($data) {
+        return in_array($data, $this->items);
+    }
+}
+
+class PermissionOption extends DefaultOption {
+    public function getControl($current = 0, $name = null, $id = null) {
+        __require("auth");
+
+        return Auth::getPermissionSelector($name, $id, $current);
+    }
+
+    public function parseValue($data) {
+        return intval($data);
+    }
+
+    public function isValid($data) {
+        if (!is_int($data)) return false;
+        if ($data > 250 || $data < 0) return false;
+
+        __require("auth");
+        if (!Auth::getCurrentUser()->canChangeAtPermission($data)) return false;
+
+        return true;
+    }
+}
+
+class IconPackOption extends DefaultOption {
+    private static $packs = null;
+    private static $firstOnPage = true;
+
+    private $includeDefault;
+
+    private $id;
+
+    public function __construct($includeDefault = false) {
+        $this->includeDefault = $includeDefault;
+
+        if (self::$packs === null) {
+            self::$packs = array();
+            $themepath = __DIR__."/../../themes/icons";
+            $themes = array_diff(scandir($themepath), array('..', '.'));
+            foreach ($themes as $theme) {
+                if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
+                $data = parse_ini_file("{$themepath}/{$theme}/pack.ini", true);
+                self::$packs[$theme] = $data;
+            }
+        }
+    }
+
+    public function getControl($current = null, $name = null, $id = null, $attributes = array()) {
+        __require("i18n");
+
+        $this->id = $id;
+        $attrs = "";
+        if ($name !== null) $attrs .= ' name="'.$name.'"';
+        if ($id !== null) $attrs .= ' id="'.$id.'"';
+
+        foreach ($attributes as $attr => $value) {
+            $attrs .= ' '.$attr.'="'.$value.'"';
+        }
+
+        $html = '<select'.$attrs.'>';
+        foreach (self::$packs as $pack => $data) {
+            $html .= '<option value="'.$pack.'"';
+            if ($pack == $current) $html .= ' selected';
+            $html .= '>'.I18N::resolveArgs("theme.name_label", $data["name"], $data["author"]).'</option>';
+        }
+        $html .= '</select>';
+        return $html;
+    }
+
+    public function getFollowingBlock() {
+        if (self::$firstOnPage) {
+            __require("theme");
+
+            self::$firstOnPage = false;
+            $script = '<script type="text/javascript">
+                var themedata = '.json_encode(self::$packs, JSON_PRETTY_PRINT).';
+
+                function viewTheme(selectorID, theme) {
+                    var box = document.getElementById("iconviewer-" + selectorID);
+                    box.innerHTML = "";
+
+                    var variants = ["light", "dark"];
+                    var varbox = {};
+
+                    for (var i = 0; i < variants.length; i++) {
+                        varbox[variants[i]] = document.createElement("div");
+                        varbox[variants[i]].style.width = "calc(100% - 20px)";
+                        varbox[variants[i]].style.padding = "10px";
+                    }
+
+                    varbox["light"].style.backgroundColor = "#ccc";
+                    varbox["dark"].style.backgroundColor = "#333";
+
+                    var tdata = themedata[theme];
+
+                    var icons = ["'.implode('", "', Theme::listIcons()).'"];
+
+                    for (var i = 0; i < icons.length; i++) {
+                        var uri = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/";
+                        if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
+                            uri += tdata["vector"][icons[i]];
+                        } else if (tdata.hasOwnProperty("raster") && tdata["raster"].hasOwnProperty(icons[i])) {
+                            uri += tdata["raster"][icons[i]];
+                        } else {
+                            uri = null;
+                        }
+
+                        if (uri != null) {
+                            for (var j = 0; j < variants.length; j++) {
+                                var icobox = document.createElement("img");
+                                icobox.src = uri.split("{%variant%}").join(variants[j]);
+                                icobox.style.width = "68px";
+                                icobox.style.height = "68px";
+                                icobox.style.margin = "5px";
+                                varbox[variants[j]].appendChild(icobox);
+                            }
+                        }
+                    }
+
+                    if (tdata.hasOwnProperty("logo")) {
+                        var logo = document.createElement("img");
+                        logo.src = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("'.Config::get("themes/color/admin").'");
+                        logo.style.width = "400px";
+                        logo.style.maxWidth = "100%";
+                        logo.marginTop = "20px";
+                        box.appendChild(logo);
+                    }
+
+                    var name = document.createElement("h2");
+                    name.innerText = tdata.name;
+                    name.style.color = "#'.(Config::get("themes/color/admin") == "dark" ? "ccc" : "333").'";
+                    name.style.marginBottom = "0";
+                    box.appendChild(name);
+
+                    var author = document.createElement("p");
+                    author.innerText = "Authored by " + tdata.author;
+                    box.appendChild(author);
+
+                    for (var i = 0; i < variants.length; i++) {
+                        box.appendChild(varbox[variants[i]]);
+                    }
+
+                }
+            </script>';
+            echo $script;
+        }
+
+        if ($this->id !== null) {
+            $html = '<div style="width: 100%;" id="iconviewer-'.$this->id.'"></div>
+            <script type="text/javascript">
+                viewTheme("'.$this->id.'", document.getElementById("'.$this->id.'").value);
+                document.getElementById("'.$this->id.'").addEventListener("change", function() {
+                    viewTheme("'.$this->id.'", document.getElementById("'.$this->id.'").value);
+                });
+            </script>';
+            echo $html;
+        }
+    }
+
+    public function parseValue($data) {
+        return strval($data);
+    }
+
+    public function isValid($data) {
+        return isset(self::$packs[$data]);
     }
 }
 

@@ -139,6 +139,8 @@ if (in_array($domain, $domains)) {
                                     <?php
                                         if (substr($setting, 0, 2) === "__") continue;
                                         $si18n = Config::getSettingI18N($setting);
+                                        $option = $values["option"];
+                                        $value = Config::get($setting);
                                     ?>
                                     <div class="pure-g">
                                         <div class="pure-u-1-3 full-on-mobile">
@@ -148,60 +150,13 @@ if (in_array($domain, $domains)) {
                                         <div class="pure-u-2-3 full-on-mobile">
                                             <p>
                                                 <?php
-                                                    if (isset($values["custom"])) {
-                                                        $value = Config::get($setting);
-                                                        echo CustomControls::getControl($values["custom"], $setting, $value, "field");
-                                                    } else {
-                                                        $matches = array();
-                                                        if (is_array($values["options"])) {
-                                                            echo '<select name="'.$setting.'">';
-                                                            $value = Config::get($setting);
-                                                            foreach ($values["options"] as $option) {
-                                                                echo '<option value="'.$option.'"'.($value == $option ? ' selected' : '').'>'.I18N::resolve($si18n->getOption($option)).'</option>';
-                                                            }
-                                                            echo '</select>';
-
-                                                        } elseif (preg_match('/^int,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
-                                                            echo '<input type="number" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" value="'.Config::get($setting).'">';
-
-                                                        } elseif (preg_match('/^float,([\d-]+),([\d-]+)$/', $values["options"], $matches)) {
-                                                            echo '<input type="number" name="'.$setting.'" min="'.$matches[1].'" max="'.$matches[2].'" step="0.00001" value="'.Config::get($setting).'">';
-
-                                                        } else {
-                                                            switch ($values["options"]) {
-                                                                case "string":
-                                                                    echo '<input type="text" name="'.$setting.'" value="'.Config::get($setting).'">';
-                                                                    break;
-                                                                case "password":
-                                                                    echo '<input type="password" name="'.$setting.'" value="'.Config::get($setting).'">';
-                                                                    break;
-                                                                case "int":
-                                                                    echo '<input type="number" name="'.$setting.'" value="'.Config::get($setting).'">';
-                                                                    break;
-                                                                case "float":
-                                                                    echo '<input type="number" name="'.$setting.'" step="0.00001" value="'.Config::get($setting).'">';
-                                                                    break;
-                                                                case "bool":
-                                                                    echo '<input type="hidden" name="'.$setting.'" value="off">'; // Detect unchecked checkbox - unchecked checkboxes aren't POSTed!
-                                                                    echo '<input type="checkbox" id="'.$setting.'" name="'.$setting.'"'.(Config::get($setting) ? ' checked' : '').'> <label for="'.$setting.'">'.I18N::resolve($si18n->getLabel()).'</label>';
-                                                                    break;
-                                                                case "permission":
-                                                                    echo Auth::getPermissionSelector($setting, null, Config::get($setting));
-                                                                    break;
-                                                            }
-                                                        }
-                                                    }
+                                                    echo $option->getControl($value, $setting, $setting);
                                                 ?>
                                             </p>
                                         </div>
                                     </div>
                                     <?php
-                                        if (isset($values["custom"])) {
-                                            $control = CustomControls::getControl($values["custom"], $setting, $value, "after");
-                                            if ($control !== null) {
-                                                echo $control;
-                                            }
-                                        }
+                                        echo $option->getFollowingBlock();
                                     ?>
                                 <?php } ?>
                             <?php } ?>
