@@ -475,7 +475,7 @@ $provider = Config::get("map/provider/source");
                                 </div>
                                 <div class="pure-u-2-3 full-on-mobile">
                                     <p><select class="user-setting" data-key="naviProvider">
-                                        <option value=""><?php echo I18N::resolve("user_setting.value.default"); ?></option>
+                                        <option value=""><?php echo I18N::resolve("user_settings.value.default"); ?></option>
                                         <option value="bing"><?php echo I18N::resolve("setting.map.provider.directions.option.bing"); ?></option>
                                         <option value="google"><?php echo I18N::resolve("setting.map.provider.directions.option.google"); ?></option>
                                         <option value="here"><?php echo I18N::resolve("setting.map.provider.directions.option.here"); ?></option>
@@ -495,7 +495,7 @@ $provider = Config::get("map/provider/source");
                                         </div>
                                         <div class="pure-u-2-3 full-on-mobile">
                                             <p><select class="user-setting" data-key="theme">
-                                                <option value=""><?php echo I18N::resolve("user_setting.value.default"); ?></option>
+                                                <option value=""><?php echo I18N::resolve("user_settings.value.default"); ?></option>
                                                 <option value="light"><?php echo I18N::resolve("setting.themes.color.user_settings.theme.option.light"); ?></option>
                                                 <option value="dark"><?php echo I18N::resolve("setting.themes.color.user_settings.theme.option.dark"); ?></option>
                                             </select></p>
@@ -513,7 +513,7 @@ $provider = Config::get("map/provider/source");
                                         </div>
                                         <div class="pure-u-2-3 full-on-mobile">
                                             <p><select class="user-setting" data-key="mapStyle/mapbox">
-                                                <option value=""><?php echo I18N::resolve("user_setting.value.default"); ?></option>
+                                                <option value=""><?php echo I18N::resolve("user_settings.value.default"); ?></option>
                                                 <option value="basic"><?php echo I18N::resolve("setting.themes.color.map.theme.mapbox.option.basic"); ?></option>
                                                 <option value="streets"><?php echo I18N::resolve("setting.themes.color.map.theme.mapbox.option.streets"); ?></option>
                                                 <option value="bright"><?php echo I18N::resolve("setting.themes.color.map.theme.mapbox.option.bright"); ?></option>
