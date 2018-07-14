@@ -51,58 +51,6 @@ function spawnBanner(type, message) {
     }, 5000);
 }
 
-function resolveObjective(objective) {
-    var objdef = {
-        "categories": null,
-        "params": []
-    };
-    if (objectives.hasOwnProperty(objective.type)) {
-        objdef = objectives[objective.type];
-    }
-
-    var i18nstring = resolveI18N("objective." + objective.type);
-    if (objective.params.hasOwnProperty("quantity")) {
-        if (objective.params.quantity == 1) {
-            i18nstring = resolveI18N("objective." + objective.type + ".singular");
-        } else {
-            i18nstring = resolveI18N("objective." + objective.type + ".plural");
-        }
-    }
-    if (objective.params.constructor !== Array) {
-        for (var i = 0; i < objdef.params.length; i++) {
-            var param = objdef.params[i];
-            i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(parameterToString(param, objective.params[param]));
-        }
-    }
-    return i18nstring;
-}
-
-function resolveReward(reward) {
-    var rewdef = {
-        "categories": null,
-        "params": []
-    };
-    if (rewards.hasOwnProperty(reward.type)) {
-        rewdef = rewards[reward.type];
-    }
-
-    var i18nstring = resolveI18N("reward." + reward.type);
-    if (reward.params.hasOwnProperty("quantity")) {
-        if (reward.params.quantity == 1) {
-            i18nstring = resolveI18N("reward." + reward.type + ".singular");
-        } else {
-            i18nstring = resolveI18N("reward." + reward.type + ".plural");
-        }
-    }
-    if (reward.params.constructor !== Array) {
-        for (var i = 0; i < rewdef.params.length; i++) {
-            var param = rewdef.params[i];
-            i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(parameterToString(param, reward.params[param]));
-        }
-    }
-    return i18nstring;
-}
-
 function openMarker(popup, id) {
     var poiObj = pois[id];
     $("#poi-name").text(poiObj.name);

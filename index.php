@@ -551,21 +551,6 @@ $provider = Config::get("map/provider/source");
         </div>
 
         <script>
-            function parameterToString(param, data) {
-                switch (param) {
-                    <?php
-                        foreach (Research::PARAMETERS as $param => $class) {
-                            $inst = new $class();
-                                echo "case '{$param}':\n";
-                                echo $inst->toStringJS()."\n";
-                                echo "break;\n";
-                        }
-                    ?>
-                }
-                return data.toString();
-            }
-        </script>
-        <script>
             var objectives = <?php echo json_encode(Research::OBJECTIVES); ?>;
             var rewards = <?php echo json_encode(Research::REWARDS); ?>;
 
