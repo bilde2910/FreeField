@@ -540,6 +540,68 @@ class Research {
             "params" => array("quantity")
         )
     );
+
+    public static function isObjectiveValid($type, $params) {
+        if (isset(self::OBJECTIVES[$type])) {
+            $validParams = self::OBJECTIVES[$type]["params"];
+
+            // Check that all required parameters are present
+            foreach ($validParams as $param) {
+                if (!isset($params[$param])) {
+                    return false;
+                }
+            }
+            // Check that all present parameters are acceptable
+            foreach ($params as $param => $data) {
+                if (!in_array($param, $validParams)) {
+                    return false;
+                }
+            }
+            // Check validity of parameters
+            foreach ($params as $param => $data) {
+                $class = self::PARAMETERS[$param];
+                $inst = new $class();
+                if (!in_array("objectives", $inst->getAvailable()) || !$inst->isValid($data)) {
+                    return false;
+                }
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function isRewardValid($type, $params) {
+        if (isset(self::REWARDS[$type])) {
+            $validParams = self::REWARDS[$type]["params"];
+
+            // Check that all required parameters are present
+            foreach ($validParams as $param) {
+                if (!isset($params[$param])) {
+                    return false;
+                }
+            }
+            // Check that all present parameters are acceptable
+            foreach ($params as $param => $data) {
+                if (!in_array($param, $validParams)) {
+                    return false;
+                }
+            }
+            // Check validity of parameters
+            foreach ($params as $param => $data) {
+                $class = self::PARAMETERS[$param];
+                $inst = new $class();
+                if (!in_array("rewards", $inst->getAvailable()) || !$inst->isValid($data)) {
+                    return false;
+                }
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>

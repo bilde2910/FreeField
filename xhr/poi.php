@@ -127,63 +127,16 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     // Check validity of data
     __require("research");
-    if (isset(Research::OBJECTIVES[$patchdata["objective"]["type"]])) {
-        $objective = $patchdata["objective"]["type"];
-        $params = $patchdata["objective"]["params"];
-        $validParams = Research::OBJECTIVES[$objective]["params"];
 
-        // Check that all required parameters are present
-        foreach ($validParams as $param) {
-            if (!isset($params[$param])) {
-                XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
-            }
-        }
-        // Check that all present parameters are acceptable
-        foreach ($params as $param => $data) {
-            if (!in_array($param, $validParams)) {
-                XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
-            }
-        }
-        // Check validity of parameters
-        foreach ($params as $param => $data) {
-            $class = Research::PARAMETERS[$param];
-            $inst = new $class();
-            if (!in_array("objectives", $inst->getAvailable()) || !$inst->isValid($data)) {
-                XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
-            }
-        }
-        $objParams = $params;
-    } else {
+    $objective = $patchdata["objective"]["type"];
+    $objParms = $patchdata["objective"]["params"];
+    if (!Research::isObjectiveValid($objective, $objParms)) {
         XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
     }
 
-    if (isset(Research::REWARDS[$patchdata["reward"]["type"]])) {
-        $reward = $patchdata["reward"]["type"];
-        $params = $patchdata["reward"]["params"];
-        $validParams = Research::REWARDS[$reward]["params"];
-
-        // Check that all required parameters are present
-        foreach ($validParams as $param) {
-            if (!isset($params[$param])) {
-                XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
-            }
-        }
-        // Check that all present parameters are acceptable
-        foreach ($params as $param => $data) {
-            if (!in_array($param, $validParams)) {
-                XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
-            }
-        }
-        // Check validity of parameters
-        foreach ($params as $param => $data) {
-            $class = Research::PARAMETERS[$param];
-            $inst = new $class();
-            if (!in_array("rewards", $inst->getAvailable()) || !$inst->isValid($data)) {
-                XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
-            }
-        }
-        $rewParams = $params;
-    } else {
+    $reward = $patchdata["reward"]["type"];
+    $rewParams = $patchdata["reward"]["params"];
+    if (!Research::isRewardValid($reward, $rewParams)) {
         XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
     }
 
