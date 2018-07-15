@@ -350,6 +350,10 @@ class Config {
         $optDeny = array();
         foreach ($options as $option => $value_raw) {
             if ($validatePermissions) {
+                if (is_array($option)) {
+                    throw new Exception("Cannot verify permissions when setting an array as value for a configuration path!");
+                    exit;
+                }
                 $perm = "admin/".$permissionsAssoc[$option]."/general";
                 if (!Auth::getCurrentUser()->hasPermission($perm)) {
                     $optDeny[] = $option;
@@ -369,12 +373,16 @@ class Config {
         foreach ($options as $option => $value_raw) {
             if (in_array($option, $optDeny)) continue;
 
-            if (!isset($flat[$option])) continue;
-            $values = $flat[$option];
-            $opt = $values["option"];
+            if (is_array($value_raw)) {
+                $value = $value_raw;
+            } else {
+                if (!isset($flat[$option])) continue;
+                $values = $flat[$option];
+                $opt = $values["option"];
 
-            $value = $opt->parseValue($value_raw);
-            if (!$opt->isValid($value)) continue;
+                $value = $opt->parseValue($value_raw);
+                if (!$opt->isValid($value)) continue;
+            }
 
             $s = explode("/", $option);
             switch (count($s)) {
