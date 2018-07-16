@@ -84,6 +84,10 @@
         A JavaScript handler for parsing "js_write" output into the form input
         boxes. The variable `data` is passed containing the data object.
 
+    toString($data)
+        A PHP handler for outputting the parameter to a text string. The
+        variable `$data` is passed containing the data object.
+
     toStringJS()
         A JavaScript handler for outputting the parameter to a text string. The
         variable `data` is passed containing the data object.
@@ -135,6 +139,9 @@ class ParamQuantity {
     public function parseJS($id) {
         return '$("#'.$id.'").val(data);';
     }
+    public function toString($data) {
+        return strval($data);
+    }
     public function toStringJS() {
         return 'return data.toString();';
     }
@@ -161,6 +168,9 @@ class ParamMinTier {
     }
     public function parseJS($id) {
         return '$("#'.$id.'").val(data);';
+    }
+    public function toString($data) {
+        return strval($data);
     }
     public function toStringJS() {
         return 'return data.toString();';
@@ -205,6 +215,19 @@ class ParamSpecies {
                     $("#'.$id.'-" + i).val(data[i - 1]);
                 }
             }';
+    }
+    public function toString($data) {
+        __require("i18n");
+
+        if (count($data) == 1) {
+            return $data[0];
+        } elseif (count($data) == 2) {
+            return I18N::resolveArgs("multi.catch.double", $data[0], $data[1]);
+        } elseif (count($data) == 3) {
+            return I18N::resolveArgs("multi.catch.triple", $data[0], $data[1], $data[2]);
+        } else {
+            return strval($data);
+        }
     }
     public function toStringJS() {
         return
@@ -276,6 +299,19 @@ class ParamType {
                     $("#'.$id.'-" + i).val(data[i - 1]);
                 }
             }';
+    }
+    public function toString($data) {
+        __require("i18n");
+
+        if (count($data) == 1) {
+            return I18N::resolveArgs("multi.type.single", I18N::resolve("type.".$data[0]));
+        } elseif (count($data) == 2) {
+            return I18N::resolveArgs("multi.type.double", I18N::resolve("type.".$data[0]), I18N::resolve("type.".$data[1]));
+        } elseif (count($data) == 3) {
+            return I18N::resolveArgs("multi.type.triple", I18N::resolve("type.".$data[0]), I18N::resolve("type.".$data[1]), I18N::resolve("type.".$data[2]));
+        } else {
+            return strval($data);
+        }
     }
     public function toStringJS() {
         return
