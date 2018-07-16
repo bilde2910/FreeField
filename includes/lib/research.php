@@ -279,7 +279,7 @@ class ParamType {
     }
     public function toStringJS() {
         return
-            'console.log(data);if (data.length == 1) {
+            'if (data.length == 1) {
                 return resolveI18N("multi.type.single", resolveI18N("type." + data[0]));
             } else if (data.length == 2) {
                 return resolveI18N("multi.type.double", resolveI18N("type." + data[0]), resolveI18N("type." + data[1]));
