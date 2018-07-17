@@ -1,7 +1,7 @@
 <?php
 
 class Geo {
-    public static function getLocationString($lat, $lon, $precision = 4) {
+    public static function getLocationString($lat, $lon, $precision = 5) {
         __require("i18n");
 
         if (is_string($lat)) $lat = floatval($lat);
