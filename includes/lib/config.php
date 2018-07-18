@@ -794,7 +794,7 @@ class IconPackOption extends DefaultOption {
 
     private $id;
 
-    public function __construct($includeDefault = false) {
+    public function __construct($includeDefault = null) {
         $this->includeDefault = $includeDefault;
 
         if (self::$packs === null) {
@@ -822,8 +822,8 @@ class IconPackOption extends DefaultOption {
         }
 
         $html = '<select'.$attrs.'>';
-        if ($this->includeDefault) {
-            $html .= '<option value="">'.I18N::resolveArgs("user_settings.value.default").'</option>';
+        if ($this->includeDefault !== null) {
+            $html .= '<option value="">'.I18N::resolveArgs($this->includeDefault).'</option>';
         }
         foreach (self::$packs as $pack => $data) {
             $html .= '<option value="'.$pack.'"';
