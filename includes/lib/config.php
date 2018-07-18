@@ -834,96 +834,110 @@ class IconPackOption extends DefaultOption {
         return $html;
     }
 
-    public function getFollowingBlock() {
+    public function getFollowingBlock($includeMainScript = true, $includeSelectorScript = true) {
+        $out = "";
+
         if (self::$firstOnPage) {
-            __require("theme");
-
             self::$firstOnPage = false;
-            $script = '<script type="text/javascript">
-                var themedata = '.json_encode(self::$packs, JSON_PRETTY_PRINT).';
-
-                function viewTheme(selectorID, theme) {
-                    var box = document.getElementById("iconviewer-" + selectorID);
-                    box.innerHTML = "";
-
-                    if (theme === "") return;
-
-                    var variants = ["light", "dark"];
-                    var varbox = {};
-
-                    for (var i = 0; i < variants.length; i++) {
-                        varbox[variants[i]] = document.createElement("div");
-                        varbox[variants[i]].style.width = "calc(100% - 20px)";
-                        varbox[variants[i]].style.padding = "10px";
-                    }
-
-                    varbox["light"].style.backgroundColor = "#ccc";
-                    varbox["dark"].style.backgroundColor = "#333";
-
-                    var tdata = themedata[theme];
-
-                    var icons = ["'.implode('", "', Theme::listIcons()).'"];
-
-                    for (var i = 0; i < icons.length; i++) {
-                        var uri = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/";
-                        if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
-                            uri += tdata["vector"][icons[i]];
-                        } else if (tdata.hasOwnProperty("raster") && tdata["raster"].hasOwnProperty(icons[i])) {
-                            uri += tdata["raster"][icons[i]];
-                        } else {
-                            uri = null;
-                        }
-
-                        if (uri != null) {
-                            for (var j = 0; j < variants.length; j++) {
-                                var icobox = document.createElement("img");
-                                icobox.src = uri.split("{%variant%}").join(variants[j]);
-                                icobox.style.width = "68px";
-                                icobox.style.height = "68px";
-                                icobox.style.margin = "5px";
-                                varbox[variants[j]].appendChild(icobox);
-                            }
-                        }
-                    }
-
-                    if (tdata.hasOwnProperty("logo")) {
-                        var logo = document.createElement("img");
-                        logo.src = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("'.Config::get("themes/color/admin").'");
-                        logo.style.width = "400px";
-                        logo.style.maxWidth = "100%";
-                        logo.marginTop = "20px";
-                        box.appendChild(logo);
-                    }
-
-                    var name = document.createElement("h2");
-                    name.innerText = tdata.name;
-                    name.style.color = "#'.(Config::get("themes/color/admin") == "dark" ? "ccc" : "333").'";
-                    name.style.marginBottom = "0";
-                    box.appendChild(name);
-
-                    var author = document.createElement("p");
-                    author.innerText = "Authored by " + tdata.author;
-                    box.appendChild(author);
-
-                    for (var i = 0; i < variants.length; i++) {
-                        box.appendChild(varbox[variants[i]]);
-                    }
-
-                }
-            </script>';
-            echo $script;
+            if ($includeMainScript) {
+                $script = self::getScript();
+                $out .= $script;
+            }
         }
 
         if ($this->id !== null) {
-            $html = '<div style="width: 100%;" id="iconviewer-'.$this->id.'"></div>
-            <script type="text/javascript">
-                viewTheme("'.$this->id.'", document.getElementById("'.$this->id.'").value);
-                document.getElementById("'.$this->id.'").addEventListener("change", function() {
-                    viewTheme("'.$this->id.'", document.getElementById("'.$this->id.'").value);
-                });
-            </script>';
-            echo $html;
+            $html = '<div style="width: 100%;" id="iconviewer-'.$this->id.'"></div>';
+            if ($includeSelectorScript) $html .= '
+            <script type="text/javascript">'.$this->getSelectorScript().'</script>';
+            $out .= $html;
         }
+
+        return $out;
+    }
+
+    public function getSelectorScript() {
+        return 'viewTheme("'.$this->id.'", document.getElementById("'.$this->id.'").value);
+        document.getElementById("'.$this->id.'").addEventListener("change", function() {
+            viewTheme("'.$this->id.'", document.getElementById("'.$this->id.'").value);
+        });';
+    }
+
+    public static function getScript() {
+        __require("theme");
+
+        $script = '<script type="text/javascript">
+            var themedata = '.json_encode(self::$packs, JSON_PRETTY_PRINT).';
+
+            function viewTheme(selectorID, theme) {
+                var box = document.getElementById("iconviewer-" + selectorID);
+                box.innerHTML = "";
+
+                if (theme === "") return;
+
+                var variants = ["light", "dark"];
+                var varbox = {};
+
+                for (var i = 0; i < variants.length; i++) {
+                    varbox[variants[i]] = document.createElement("div");
+                    varbox[variants[i]].style.width = "calc(100% - 20px)";
+                    varbox[variants[i]].style.padding = "10px";
+                }
+
+                varbox["light"].style.backgroundColor = "#ccc";
+                varbox["dark"].style.backgroundColor = "#333";
+
+                var tdata = themedata[theme];
+
+                var icons = ["'.implode('", "', Theme::listIcons()).'"];
+
+                for (var i = 0; i < icons.length; i++) {
+                    var uri = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/";
+                    if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
+                        uri += tdata["vector"][icons[i]];
+                    } else if (tdata.hasOwnProperty("raster") && tdata["raster"].hasOwnProperty(icons[i])) {
+                        uri += tdata["raster"][icons[i]];
+                    } else {
+                        uri = null;
+                    }
+
+                    if (uri != null) {
+                        for (var j = 0; j < variants.length; j++) {
+                            var icobox = document.createElement("img");
+                            icobox.src = uri.split("{%variant%}").join(variants[j]);
+                            icobox.style.width = "68px";
+                            icobox.style.height = "68px";
+                            icobox.style.margin = "5px";
+                            varbox[variants[j]].appendChild(icobox);
+                        }
+                    }
+                }
+
+                if (tdata.hasOwnProperty("logo")) {
+                    var logo = document.createElement("img");
+                    logo.src = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("'.Config::get("themes/color/admin").'");
+                    logo.style.width = "400px";
+                    logo.style.maxWidth = "100%";
+                    logo.marginTop = "20px";
+                    box.appendChild(logo);
+                }
+
+                var name = document.createElement("h2");
+                name.innerText = tdata.name;
+                name.style.color = "#'.(Config::get("themes/color/admin") == "dark" ? "ccc" : "333").'";
+                name.style.marginBottom = "0";
+                box.appendChild(name);
+
+                var author = document.createElement("p");
+                author.innerText = "Authored by " + tdata.author;
+                box.appendChild(author);
+
+                for (var i = 0; i < variants.length; i++) {
+                    box.appendChild(varbox[variants[i]]);
+                }
+
+            }
+        </script>';
+        return $script;
     }
 
     public function parseValue($data) {
