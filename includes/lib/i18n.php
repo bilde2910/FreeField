@@ -91,6 +91,16 @@ class I18N {
         }
         return $files;
     }
+
+    public static function getAvailableLanguagesWithNames() {
+        $langs = self::getAvailableLanguages();
+        $assoc = array();
+        foreach ($langs as $lang) {
+            $data = parse_ini_file(__DIR__."/../i18n/$lang.ini");
+            $assoc[$lang] = $data["language.name_native"];
+        }
+        return $assoc;
+    }
 }
 
 ?>
