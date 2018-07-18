@@ -1,0 +1,29 @@
+{
+    "embeds": [{
+        "title": "<%I18N(webhook.report_title)%>",
+        "thumbnail": {
+            "url": "<%REWARD_ICON(raster,dark)%>"
+        },
+        "fields": [
+            {
+                "name": ":large_blue_diamond: <%I18N(webhook.poi)%>",
+                "value": "**<%POI%>**\n<%COORDS%>\n[<%I18N(webhook.click_for_directions)%>](<%NAVURL%>)",
+                "inline": false
+            },
+            {
+                "name": ":clipboard: <%I18N(webhook.objective)%>",
+                "value": "<%OBJECTIVE%>",
+                "inline": true
+            },
+            {
+                "name": ":gift: <%I18N(webhook.reward)%>",
+                "value": "<%REWARD%>",
+                "inline": true
+            }
+        ],
+        "footer": {
+            "text": "<%I18N(webhook.reported_by,<%REPORTER%>)%>"
+        },
+        "timestamp": "<%TIME(c)%>"
+    }]
+}
