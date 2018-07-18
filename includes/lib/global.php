@@ -1,5 +1,7 @@
 <?php
 
+const FF_VERSION = "0.99.1-dev";
+
 function __require($require) {
     switch ($require) {
         case "config":
