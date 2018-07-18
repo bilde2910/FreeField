@@ -192,6 +192,7 @@ function openMarker(popup, id) {
                     };
                     console.log(poiObj.element);
                     spawnBanner("success", resolveI18N("poi.update.success", poiObj.name));
+                    popup._onClickClose();
                     $("#update-poi-details").fadeOut(150);
                     $("#update-poi-working").fadeOut(150);
                 }
