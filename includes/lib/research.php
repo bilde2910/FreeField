@@ -647,6 +647,64 @@ class Research {
         }
         return true;
     }
+
+    public static function resolveObjective($type, $params) {
+        __require("i18n");
+
+        $objdef = array(
+            "categories" => null,
+            "params" => array()
+        );
+        if (isset(self::OBJECTIVES[$type])) {
+            $objdef = self::OBJECTIVES[$type];
+        }
+
+        $i18nstring = I18N::resolve("objective.{$type}");
+        if (isset($params["quantity"])) {
+            if ($params["quantity"] == 1) {
+                $i18nstring = I18N::resolve("objective.{$type}.singular");
+            } else {
+                $i18nstring = I18N::resolve("objective.{$type}.plural");
+            }
+        }
+        for ($i = 0; $i < count($objdef["params"]); $i++) {
+            $param = $objdef["params"][$i];
+            $i18nstring = str_replace("{%" . ($i + 1) . "}", self::parameterToString($param, $params[$param]), $i18nstring);
+        }
+        return $i18nstring;
+    }
+
+    public static function resolveReward($type, $params) {
+        __require("i18n");
+
+        $rewdef = array(
+            "categories" => null,
+            "params" => array()
+        );
+        if (isset(self::REWARDS[$type])) {
+            $rewdef = self::REWARDS[$type];
+        }
+
+        $i18nstring = I18N::resolve("reward.{$type}");
+        if (isset($params["quantity"])) {
+            if ($params["quantity"] == 1) {
+                $i18nstring = I18N::resolve("reward.{$type}.singular");
+            } else {
+                $i18nstring = I18N::resolve("reward.{$type}.plural");
+            }
+        }
+        for ($i = 0; $i < count($rewdef["params"]); $i++) {
+            $param = $rewdef["params"][$i];
+            $i18nstring = str_replace("{%" . ($i + 1) . "}", self::parameterToString($param, $params[$param]), $i18nstring);
+        }
+        return $i18nstring;
+    }
+
+    private static function parameterToString($param, $data) {
+        $class = self::PARAMETERS[$param];
+        $inst = new $class();
+        return $inst->toString($data);
+    }
 }
 
 ?>
