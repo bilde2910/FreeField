@@ -129,8 +129,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     __require("research");
 
     $objective = $patchdata["objective"]["type"];
-    $objParms = $patchdata["objective"]["params"];
-    if (!Research::isObjectiveValid($objective, $objParms)) {
+    $objParams = $patchdata["objective"]["params"];
+    if (!Research::isObjectiveValid($objective, $objParams)) {
         XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
     }
 
