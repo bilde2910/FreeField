@@ -6,6 +6,88 @@ __require("db");
 __require("auth");
 __require("geo");
 
+function replaceWebhookFields($time, $theme, $body) {
+    __require("research");
+    __require("config");
+
+    global $poidata;
+    global $objective;
+    global $objParams;
+    global $reward;
+    global $rewParams;
+
+    $replaces = array(
+        "POI" => $poidata["name"],
+        "LAT" => $poidata["latitude"],
+        "LNG" => $poidata["longitude"],
+        "COORDS" => Geo::getLocationString($poidata["latitude"], $poidata["longitude"]),
+        "OBJECTIVE" => Research::resolveObjective($objective, $objParams),
+        "REWARD" => Research::resolveReward($reward, $rewParams),
+        "REPORTER" => Auth::getCurrentUser()->getNickname()
+    );
+
+    $variants = array("dark", "light");
+    foreach ($variants as $variant) {
+        $theme->setVariant($variant);
+        $icons = array(
+            "OBJECTIVE_ICON(vector,{$variant})" => $theme->getIconUrl($objective),
+            "OBJECTIVE_ICON(raster,{$variant})" => $theme->getRasterUrl($objective),
+            "REWARD_ICON(vector,{$variant})" => $theme->getIconUrl($reward),
+            "REWARD_ICON(raster,{$variant})" => $theme->getRasterUrl($reward),
+        );
+        $replaces = array_merge($replaces, $icons);
+    }
+
+    switch (Config::get("map/provider/directions")) {
+        case "bing":
+            $replaces["NAVURL"] = "https://www.bing.com/maps?rtp=~pos." . urlencode($poidata["latitude"] . "_" . $poidata["longitude"] . "_" . $poidata["name"]);
+            break;
+        case "google":
+            $replaces["NAVURL"] = "https://www.google.com/maps/dir/?api=1&destination=" . urlencode($poidata["latitude"] . "," . $poidata["longitude"]);
+            break;
+        case "here":
+            $replaces["NAVURL"] = "https://share.here.com/r/mylocation/" . urlencode($poidata["latitude"] . "," . $poidata["longitude"]) . "?m=d&t=normal";
+            break;
+        case "mapquest":
+            $replaces["NAVURL"] = "https://www.mapquest.com/directions/to/near-" . urlencode($poidata["latitude"] . "," . $poidata["longitude"]);
+            break;
+        case "waze":
+            $replaces["NAVURL"] = "https://waze.com/ul?ll=" . urlencode($poidata["latitude"] . "," . $poidata["longitude"]) . "&navigate=yes";
+            break;
+        case "yandex":
+            $replaces["NAVURL"] = "https://yandex.ru/maps?rtext=~" . urlencode($poidata["latitude"] . "," . $poidata["longitude"]);
+            break;
+    }
+
+    // <%TIME(format)%>
+    $matches = array();
+    preg_match_all('/<%TIME\(([^\)]+)\)%>/', $body, $matches, PREG_SET_ORDER);
+    for ($i = 0; $i < count($matches); $i++) {
+        $body = preg_replace('/<%TIME\('.$matches[$i][1].'\)%>/', date($matches[$i][1], $time), $body, 1);
+    }
+
+    // <%I18N(token,arg1,arg2,...)%>
+    $matches = array();
+    preg_match_all('/<%I18N\(([^\),]+)(,([^\)]+))?\)%>/', $body, $matches, PREG_SET_ORDER);
+    for ($i = 0; $i < count($matches); $i++) {
+        if (count($matches[$i]) >= 4) {
+            $args = array_merge(
+                array($matches[$i][1]),
+                explode(",", $matches[$i][3])
+            );
+            $body = preg_replace('/<%I18N\('.$matches[$i][1].$matches[$i][2].'\)%>/', call_user_func_array("I18N::resolveArgs", $args), $body, 1);
+        } else {
+            $body = preg_replace('/<%I18N\('.$matches[$i][1].'\)%>/', call_user_func_array("I18N::resolve", array($matches[$i][1])), $body, 1);
+        }
+    }
+
+    foreach ($replaces as $key => $value) {
+        $body = str_replace("<%{$key}%>", $value, $body);
+    }
+
+    return $body;
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     // List POIs
     if (!Auth::getCurrentUser()->hasPermission("access")) {
@@ -109,6 +191,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
     }
 
+    $reportedTime = time();
+
     // Check that required data is present
     $reqfields = array("id", "objective", "reward");
     $patchdata = json_decode(file_get_contents("php://input"), true);
@@ -166,11 +250,67 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             ->update($data)
             ->execute();
 
-        XHR::exitWith(204, null);
+        $poidata = $db
+            ->from(Database::getTable("poi"))
+            ->where("id", $patchdata["id"])
+            ->one();
+
     } catch (Exception $e) {
         XHR::exitWith(500, array("reason" => "xhr.failed.reason.database_error"));
     }
 
+    // Call webhooks
+    __require("config");
+    __require("theme");
+    __require("research");
+
+    $hooks = Config::get("webhooks");
+    if ($hooks === null) $hooks = array();
+
+    foreach ($hooks as $hook) {
+        if (!$hook["active"]) continue;
+
+        foreach ($hook["objectives"] as $req) {
+            $eq = $hook["filter-mode"]["objectives"] == "blacklist";
+            if (Research::matches($objective, $objParams, $req["type"], $req["params"]) === $eq) {
+                continue 2;
+            }
+        }
+        foreach ($hook["rewards"] as $req) {
+            $eq = $hook["filter-mode"]["rewards"] == "blacklist";
+            if (Research::matches($reward, $rewParams, $req["type"], $req["params"]) === $eq) {
+                continue 2;
+            }
+        }
+
+        if ($hook["icons"] !== "") {
+            $theme = Theme::getIconSet($hook["icons"]);
+        } else {
+            $theme = Theme::getIconSet();
+        }
+
+        try {
+            switch ($hook["type"]) {
+                case "json":
+                    $body = replaceWebhookFields($reportedTime, $theme, $hook["body"]);
+                    $opts = array(
+                        "http" => array(
+                            "method" => "POST",
+                            "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()."\r\n".
+                                        "Content-Type: application/json\r\n".
+                                        "Content-Length: ".strlen($body),
+                            "content" => $body
+                        )
+                    );
+                    $context = stream_context_create($opts);
+                    file_get_contents($hook["target"], false, $context);
+            }
+        } catch (Exception $e) {
+
+        }
+    }
+
+    XHR::exitWith(204, null);
 } else {
     XHR::exitWith(405, array("reason" => "xhr.failed.reason.http_405"));
 }

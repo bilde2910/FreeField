@@ -1,0 +1,70 @@
+.hook-instance {
+    margin-top: 15px;
+}
+.hook-head {
+    width: calc(100% - 20px);
+    padding: 10px;
+    cursor: pointer;
+}
+.hook-action {
+    font-weight: bold;
+}
+.hook-domain {
+    color: #1f8dd6;
+}
+.hook-head-objective-text, .hook-head-reward-text {
+    font-weight: bold;
+}
+.hook-body {
+    width: calc(100% - 30px);
+    padding: 20px 15px;
+}
+.hook-body p {
+    margin: 0.5em 0;
+}
+.hook-payload {
+    width: calc(100% - 8px);
+    font-family: monospace;
+    line-height: 135%;
+}
+.hook-syntax-help {
+    margin-bottom: 1em;
+}
+.hook-syntax-help code {
+    padding: 0 5px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.hook-syntax-block {
+    float: left;
+    width: 50%;
+}
+.hook-syntax-clear {
+    clear: both;
+}
+.hook-filter {
+    width: calc(100% - 24px);
+    padding: 7px;
+    margin: 5px 0;
+}
+.hook-filter-actions {
+    float: right;
+}
+.hook-filter-actions > i {
+    cursor: pointer;
+}
+.hook-filter-add {
+    text-decoration: none;
+}
+.hook-edit {
+    color: goldenrod;
+}
+.hook-delete {
+    color: red;
+}
+.admin-cover-box {
+    height: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+}

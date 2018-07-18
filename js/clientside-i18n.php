@@ -10,6 +10,7 @@ header('Content-Type: application/javascript');
 
 var i18n = <?php
     $entries = array(
+        "admin.clientside.*",
         "objective.*",
         "type.*",
         "multi.*",

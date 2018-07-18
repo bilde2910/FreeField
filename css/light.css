@@ -38,3 +38,20 @@ body {
 .strong-color {
     color: #333;
 }
+
+.hook-head {
+    background-color: #d7d7d7;
+}
+.hook-action {
+    color: #333;
+}
+.hook-body {
+    background-color: #e3e3e3;
+}
+.hook-syntax-help code {
+    background-color: #fff;
+    border: 1px solid #bbb;
+}
+.hook-filter {
+    background-color: #fff;
+}

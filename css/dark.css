@@ -68,3 +68,20 @@ a {
 .strong-color {
     color: #ccc;
 }
+
+.hook-head {
+    background-color: #282828;
+}
+.hook-action {
+    color: #ccc;
+}
+.hook-body {
+    background-color: #1c1c1c;
+}
+.hook-syntax-help code {
+    background-color: #000;
+    border: 1px solid #444;
+}
+.hook-filter {
+    background-color: #000;
+}
