@@ -638,6 +638,15 @@ class Research {
             return false;
         }
     }
+
+    public static function matches($type1, $params1, $type2, $params2) {
+        if ($type1 !== $type2) return false;
+        foreach ($params2 as $param => $value) {
+            if (!isset($params1[$param])) return false;
+            if ($params1[$param] !== $value) return false;
+        }
+        return true;
+    }
 }
 
 ?>
