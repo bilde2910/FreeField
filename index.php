@@ -528,7 +528,7 @@ $provider = Config::get("map/provider/source");
                         ?>
                         <?php
                             if (Config::get("themes/icons/allow-personalization")) {
-                                $opt = new IconPackOption(true);
+                                $opt = new IconPackOption("user_settings.value.default");
                                 ?>
                                     <div class="pure-g">
                                         <div class="pure-u-1-3 full-on-mobile">
