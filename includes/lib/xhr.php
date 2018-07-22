@@ -9,7 +9,9 @@ class XHR {
             400 => "Bad Request",
             403 => "Forbidden",
             405 => "Method Not Allowed",
-            500 => "Internal Server Error"
+            500 => "Internal Server Error",
+            502 => "Bad Gateway",
+            504 => "Gateway Timeout"
         );
 
         header("HTTP/1.1 {$code} ".$codes[$code]);

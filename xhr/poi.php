@@ -296,10 +296,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $theme = Theme::getIconSet();
         }
 
+        $body = replaceWebhookFields($reportedTime, $theme, $hook["body"]);
+
         try {
             switch ($hook["type"]) {
                 case "json":
-                    $body = replaceWebhookFields($reportedTime, $theme, $hook["body"]);
                     $opts = array(
                         "http" => array(
                             "method" => "POST",
@@ -311,6 +312,37 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                     );
                     $context = stream_context_create($opts);
                     file_get_contents($hook["target"], false, $context);
+                    break;
+                case "telegram":
+                    $matches = array();
+                    preg_match('/^tg:\/\/send\?to=(-\d+)$/', $hook["target"], $matches);
+                    $postArray = array(
+                        "chat_id" => $matches[1],
+                        "text" => $body,
+                        "disable_web_page_preview" => $hook["options"]["disable-web-page-preview"],
+                        "disable_notification" => $hook["options"]["disable-notification"]
+                    );
+                    switch ($hook["options"]["parse-mode"]) {
+                        case "md":
+                            $postArray["parse_mode"] = "Markdown";
+                            break;
+                        case "html":
+                            $postArray["parse_mode"] = "HTML";
+                            break;
+                    }
+                    $postdata = json_encode($postArray);
+                    $opts = array(
+                        "http" => array(
+                            "method" => "POST",
+                            "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()."\r\n".
+                                        "Content-Type: application/json\r\n".
+                                        "Content-Length: ".strlen($postdata),
+                            "content" => $postdata
+                        )
+                    );
+                    $context = stream_context_create($opts);
+                    file_get_contents("https://api.telegram.org/bot".urlencode($hook["options"]["bot-token"])."/sendMessage", false, $context);
+                    break;
             }
         } catch (Exception $e) {
 

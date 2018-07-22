@@ -29,7 +29,7 @@ foreach ($hooklist as $hook) {
 }
 
 $filterModes = array("whitelist", "blacklist");
-$hookTypes = array("json");
+$hookTypes = array("json", "telegram");
 
 foreach ($_POST as $postid => $data) {
     if (strlen($postid) < 1 || substr($postid, 0, 5) !== "hook_") continue;
@@ -68,14 +68,22 @@ foreach ($_POST as $postid => $data) {
         $type = $data["type"];
         if (in_array($type, $hookTypes)) {
             $hook["type"] = $type;
+        } else {
+            continue;
         }
     }
 
     if ($hook["target"] !== $data["target"]) {
         $url = $data["target"];
 
-        if (preg_match("/^https?\:\/\/?/", $url)) {
-            $hook["target"] = $url;
+        if ($hook["type"] === "telegram") {
+            if (preg_match("/^tg\:\/\/send\?to=?/", $url)) {
+                $hook["target"] = $url;
+            }
+        } else {
+            if (preg_match("/^https?\:\/\/?/", $url)) {
+                $hook["target"] = $url;
+            }
         }
     }
 
@@ -88,14 +96,36 @@ foreach ($_POST as $postid => $data) {
 
     if ($hook["body"] !== $data["body"]) {
         $body = $data["body"];
-        $bodyjson = json_decode($body);
-        if (json_last_error() === JSON_ERROR_NONE) {
-            $hook["body"] = $body;
-        }
+        $hook["body"] = $body;
     }
 
     if ($hook["icons"] !== $data["iconSet"]) {
         $hook["icons"] = $data["iconSet"];
+    }
+
+    $type = $data["type"];
+    if ($type == "telegram") {
+        if (!isset($hook["options"])) {
+            $hook["options"] = array(
+                "bot-token" => "",
+                "parse-mode" => "text",
+                "disable-web-page-preview" => false,
+                "disable-notification" => false
+            );
+        }
+
+        $hook["options"]["disable-web-page-preview"] = isset($data["tg"]["disable_web_page_preview"]);
+        $hook["options"]["disable-notification"] = isset($data["tg"]["disable_notification"]);
+
+        if ($hook["options"]["bot-token"] !== $data["tg"]["bot_token"]) {
+            $botToken = $data["tg"]["bot_token"];
+            $hook["options"]["bot-token"] = $botToken;
+        }
+
+        if ($hook["options"]["parse-mode"] !== $data["tg"]["parse_mode"]) {
+            $parseMode = $data["tg"]["parse_mode"];
+            $hook["options"]["parse-mode"] = $parseMode;
+        }
     }
 
     if (isset($hook["filter-mode"]["objectives"]) && $hook["filter-mode"]["objectives"] !== $data["filterModeObjective"]) {

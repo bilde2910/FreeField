@@ -11,6 +11,7 @@ header('Content-Type: application/javascript');
 var i18n = <?php
     $entries = array(
         "admin.clientside.*",
+        "admin.section.hooks.body.*",
         "objective.*",
         "type.*",
         "multi.*",

@@ -665,6 +665,38 @@ if (in_array($domain, $domains)) {
                         </div>
                     </div>
 
+                    <div id="hooks-tg-groups-overlay" class="cover-box admin-cover-box">
+                        <div class="cover-box-inner">
+                            <div class="header">
+                                <h1><?php echo I18N::resolve("admin.hooks.popup.tg.select_group"); ?></h1>
+                            </div>
+                            <div class="cover-box-content content pure-form">
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p class="setting-name"><?php echo I18N::resolve("setting.hooks.tg.groups.select.name"); ?>:</p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><select id="select-tg-group-options"></select></p>
+                                    </div>
+                                </div>
+                                <div class="cover-button-spacer"></div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-2 right-align"><span type="button" id="select-tg-group-cancel" class="button-standard split-button button-spaced left"><?php echo I18N::resolve("ui.button.cancel"); ?></span></div>
+                                    <div class="pure-u-1-2"><span type="button" id="select-tg-group-submit" class="button-submit split-button button-spaced right"><?php echo I18N::resolve("ui.button.select"); ?></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="hooks-tg-groups-working" class="cover-box admin-cover-box">
+                        <div class="cover-box-inner tiny">
+                            <div class="cover-box-content">
+                                <div><i class="fas fa-spinner loading-spinner spinner-large"></i></div>
+                                <p><?php echo I18N::resolve("admin.hooks.popup.tg.searching_group"); ?></p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="hooks-add-overlay" class="cover-box admin-cover-box">
                         <div class="cover-box-inner">
                             <div class="header">
@@ -678,6 +710,7 @@ if (in_array($domain, $domains)) {
                                     <div class="pure-u-2-3 full-on-mobile">
                                         <p><select id="add-hook-type">
                                             <option value="json"><?php echo I18N::resolve("setting.hooks.add.type.option.json"); ?></option>
+                                            <option value="telegram"><?php echo I18N::resolve("setting.hooks.add.type.option.telegram"); ?></option>
                                         </select></p>
                                     </div>
                                 </div>
@@ -710,6 +743,22 @@ if (in_array($domain, $domains)) {
                                         </select></p>
                                     </div>
                                 </div>
+                                <div class="pure-g hook-add-type-conditional hook-add-type-telegram">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p class="setting-name"><?php echo I18N::resolve("setting.hooks.add.preset.name"); ?>:</p>
+                                    </div>
+
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><select id="add-hook-telegram-preset">
+                                            <option value="none"><?php echo I18N::resolve("setting.hooks.add.preset.option.none"); ?></option>
+                                            <?php
+                                                foreach ($presets["telegram"] as $name => $data) {
+                                                    echo '<option value="'.$name.'">'.$name.'</option>';
+                                                }
+                                            ?>
+                                        </select></p>
+                                    </div>
+                                </div>
                                 <div class="cover-button-spacer"></div>
                                 <div class="pure-g">
                                     <div class="pure-u-1-2 right-align"><span type="button" id="add-hook-cancel" class="button-standard split-button button-spaced left"><?php echo I18N::resolve("ui.button.cancel"); ?></span></div>
@@ -734,6 +783,10 @@ if (in_array($domain, $domains)) {
                             $("#hooks-add-overlay").fadeOut(150);
                         });
 
+                        $("#select-tg-group-cancel").on("click", function() {
+                            $("#hooks-tg-groups-overlay").fadeOut(150);
+                        });
+
                         $("#add-hook-submit").on("click", function() {
                             var type = $("#add-hook-type").val();
                             switch (type) {
@@ -754,6 +807,35 @@ if (in_array($domain, $domains)) {
                                     updateSummary(node);
                                     $("#active-hooks-list").append(node);
                                     node.find(".hook-target").trigger("input");
+
+                                    viewTheme(id + "-icon-selector", document.getElementById(id + "-icon-selector").value);
+                                    document.getElementById(id + "-icon-selector").addEventListener("change", function() {
+                                        viewTheme(id + "-icon-selector", document.getElementById(id + "-icon-selector").value);
+                                    });
+
+                                    break;
+                                case "telegram":
+                                    var preset = $("#add-hook-telegram-preset").val();
+                                    var body = "";
+
+                                    if (preset != "none") {
+                                        body = presets["telegram"][preset];
+                                    }
+
+                                    var id = getNewID();
+
+                                    var node = $(createHookNode("telegram", id));
+                                    node.find(".hook-payload").val(body);
+                                    if (preset != "none") {
+                                        var ext = preset.substr(preset.lastIndexOf(".") + 1);
+                                        node.find(".hook-tg-parse-mode").val(ext);
+                                    }
+                                    node.find("select.hook-actions > option[value=enable]").remove();
+
+                                    updateSummary(node);
+                                    $("#active-hooks-list").append(node);
+                                    node.find(".hook-target").trigger("input");
+                                    node.find(".hook-tg-parse-mode").trigger("input");
 
                                     viewTheme(id + "-icon-selector", document.getElementById(id + "-icon-selector").value);
                                     document.getElementById(id + "-icon-selector").addEventListener("change", function() {
@@ -1126,6 +1208,59 @@ if (in_array($domain, $domains)) {
                                     ';
                                     echo json_encode($node);
                                 ?>;
+                            } else if (type == "telegram") {
+                                html = <?php
+                                    $node = '
+                                        <div class="hook-instance" data-hook-id="{%ID%}">
+                                            <div class="hook-head">
+                                                <span class="hook-action">'.I18N::resolve("setting.hooks.add.type.option.telegram").'</span> &rarr; <span class="hook-domain">'.I18N::resolve("setting.hooks.hook_list.domain.unknown").'</span><br />
+                                                '.$hookSummary.'
+                                            </div>
+                                            <div class="hook-body hidden-by-default">
+                                                <input type="hidden" name="hook_{%ID%}[type]" value="telegram">
+                                                '.$hookActions.'
+                                                <h2>'.I18N::resolve("admin.section.hooks.settings.name").'</h2>
+                                                <div class="pure-g">
+                                                    <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolve("setting.hooks.hook_list.tg.bot_token.name").':</p></div>
+                                                    <div class="pure-u-2-3 full-on-mobile"><p><input type="text" class="hook-tg-bot-token" name="hook_{%ID%}[tg][bot_token]"></p></div>
+                                                </div>
+                                                <div class="pure-g">
+                                                    <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolve("setting.hooks.hook_list.webhook_url.name").':</p></div>
+                                                    <div class="pure-u-2-3 full-on-mobile"><p><select class="hook-target" name="hook_{%ID%}[target]" data-uri-scheme="tg">
+                                                        <optgroup label="'.I18N::resolve("setting.hooks.hook_list.tg.webhook_url.option.current").'" class="hook-target-current-group">
+                                                            <option value="" selected></option>
+                                                        </optgroup>
+                                                        <optgroup label="'.I18N::resolve("setting.hooks.hook_list.tg.webhook_url.option.other").'">
+                                                            <option value="_select">&lt; '.I18N::resolve("setting.hooks.hook_list.tg.webhook_url.option.select").' &gt;</option>
+                                                        </optgroup>
+                                                    </select></p></div>
+                                                </div>
+                                                <div class="pure-g">
+                                                    <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolve("setting.hooks.hook_list.tg.parse_mode.name").':</p></div>
+                                                    <div class="pure-u-2-3 full-on-mobile"><p><select class="hook-tg-parse-mode" name="hook_{%ID%}[tg][parse_mode]">
+                                                        <option value="text">'.I18N::resolve("setting.hooks.hook_list.tg.parse_mode.option.text").'</option>
+                                                        <option value="md">'.I18N::resolve("setting.hooks.hook_list.tg.parse_mode.option.md").'</option>
+                                                        <option value="html">'.I18N::resolve("setting.hooks.hook_list.tg.parse_mode.option.html").'</option>
+                                                    </select></p></div>
+                                                </div>
+                                                <div class="pure-g">
+                                                    <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolve("setting.hooks.hook_list.tg.disable_web_page_preview.name").':</p></div>
+                                                    <div class="pure-u-2-3 full-on-mobile"><p><label for="hook-bool-disable_web_page_preview-{%ID%}"><input type="checkbox" id="hook-bool-disable_web_page_preview-{%ID%}" class="hook-tg-disable-web-page-preview" name="hook_{%ID%}[tg][disable_web_page_preview]"> '.I18N::resolve("setting.hooks.hook_list.tg.disable_web_page_preview.label").'</label></p></div>
+                                                </div>
+                                                <div class="pure-g">
+                                                    <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolve("setting.hooks.hook_list.tg.disable_notification.name").':</p></div>
+                                                    <div class="pure-u-2-3 full-on-mobile"><p><label for="hook-bool-disable_notification-{%ID%}"><input type="checkbox" id="hook-bool-disable_notification-{%ID%}" class="hook-tg-disable-notification" name="hook_{%ID%}[tg][disable_notification]"> '.I18N::resolve("setting.hooks.hook_list.tg.disable_notification.label").'</label></p></div>
+                                                </div>
+                                                '.$hookCommonSettings.'
+                                                <h2 class="hook-body-header">'.I18N::resolve("admin.section.hooks.body.text.name").'</h2>
+                                                '.$hookSyntaxHelp.'
+                                                <textarea class="hook-payload" name="hook_{%ID%}[body]" rows="8"></textarea>
+                                                '.$hookFilters.'
+                                            </div>
+                                        </div>
+                                    ';
+                                    echo json_encode($node);
+                                ?>;
                             };
 
                             html = html.split("{%ID%}").join(id);
@@ -1163,6 +1298,54 @@ if (in_array($domain, $domains)) {
 
                             $(this).closest(".hook-instance").find(".hook-domain").text(url);
                             return true;
+                        });
+
+                        $(".hook-list").on("change", 'select[data-uri-scheme="tg"].hook-target', function() {
+                            if ($(this).val() == "_select") {
+                                $(this)[0].selectedIndex = 0;
+                                $(this).trigger("input");
+                                var token = $(this).closest(".hook-instance").find(".hook-tg-bot-token").val();
+                                if (token == "") {
+                                    alert(resolveI18N("admin.clientside.hooks.tg.xhr.groups.failed.empty_token"));
+                                    return;
+                                }
+                                $("#select-tg-group-submit").off();
+                                $("#hooks-tg-groups-working").fadeIn(150);
+                                var hook = $(this).closest(".hook-instance");
+                                $.getJSON("../xhr/tg-groups.php?token=" + encodeURI(token), function(data) {
+                                    $("#select-tg-group-options").empty();
+                                    var isEmpty = true;
+                                    for (var id in data.groups) {
+                                        if (data.groups.hasOwnProperty(id)) {
+                                            isEmpty = false;
+                                            $("#select-tg-group-options").append('<option value="tg://send?to=' + id + '">' + data.groups[id] + '</option>');
+                                        }
+                                    }
+                                    if (isEmpty) {
+                                        $("#hooks-tg-groups-working").fadeOut(150);
+                                        alert(resolveI18N("admin.clientside.hooks.tg.xhr.groups.failed.no_groups"));
+                                        return;
+                                    }
+                                    $("#select-tg-group-submit").on("click", function() {
+                                        var target = $("#select-tg-group-options").val();
+                                        hook.find(".hook-target-current-group").empty();
+                                        hook.find(".hook-target-current-group").append('<option value="' + target + '">' + target + '</option>');
+                                        hook.find(".hook-target").val(target);
+                                        hook.find(".hook-target").trigger("input");
+                                        $("#hooks-tg-groups-overlay").fadeOut(150);
+                                    });
+                                    $("#hooks-tg-groups-overlay").fadeIn(150);
+                                    $("#hooks-tg-groups-working").fadeOut(150);
+                                }).fail(function(xhr) {
+                                    $("#hooks-tg-groups-working").fadeOut(150);
+                                    var data = xhr.responseJSON;
+                                    alert(resolveI18N(data.reason));
+                                });
+                            }
+                        });
+
+                        $(".hook-list").on("change", '.hook-tg-parse-mode', function() {
+                            $(this).closest(".hook-instance").find(".hook-body-header").text(resolveI18N("admin.section.hooks.body." + $(this).val() + ".name"));
                         });
 
                         $(".hook-list").on("click", ".hook-show-help", function() {
@@ -1281,6 +1464,18 @@ if (in_array($domain, $domains)) {
                                 node.find("select.hook-actions > option[value=disable]").remove();
                             }
 
+                            if (hook.type === "telegram") {
+                                node.find(".hook-tg-bot-token").val(hook.options["bot-token"]);
+
+                                node.find(".hook-target-current-group").empty();
+                                node.find(".hook-target-current-group").append('<option value="' + hook.target + '">' + hook.target + '</option>');
+                                node.find(".hook-target").val(hook.target);
+
+                                node.find(".hook-tg-parse-mode").val(hook.options["parse-mode"]);
+                                node.find(".hook-tg-disable-web-page-preview").prop("checked", hook.options["disable-web-page-preview"]);
+                                node.find(".hook-tg-disable-notification").prop("checked", hook.options["disable-notification"]);
+                            }
+
                             for (var j = 0; j < hook.objectives.length; j++) {
                                 var filter = $(getObjectiveFilterNode(hook.id));
                                 filter.find("input[type=hidden].hook-objective-type").val(hook.objectives[j].type);
@@ -1308,6 +1503,11 @@ if (in_array($domain, $domains)) {
                             updateSummary(node);
                             $(hook.active ? "#active-hooks-list" : "#inactive-hooks-list").append(node);
                             node.find(".hook-target").trigger("input");
+
+                            if (hook.type === "telegram") {
+                                node.find(".hook-tg-parse-mode").trigger("change");
+                            }
+
                             viewTheme(hook.id + "-icon-selector", document.getElementById(hook.id + "-icon-selector").value);
                             document.getElementById(hook.id + "-icon-selector").addEventListener("change", function() {
                                 viewTheme(hook.id + "-icon-selector", document.getElementById(hook.id + "-icon-selector").value);
