@@ -66,6 +66,13 @@ function replaceWebhookFields($time, $theme, $body) {
         $body = preg_replace('/<%TIME\('.$matches[$i][1].'\)%>/', date($matches[$i][1], $time), $body, 1);
     }
 
+    // <%COORDS(precision)%>
+    $matches = array();
+    preg_match_all('/<%COORDS\((\d+)\)%>/', $body, $matches, PREG_SET_ORDER);
+    for ($i = 0; $i < count($matches); $i++) {
+        $body = preg_replace('/<%COORDS\('.$matches[$i][1].'\)%>/', Geo::getLocationString($poidata["latitude"], $poidata["longitude"], intval($matches[$i][1])), $body, 1);
+    }
+
     // <%I18N(token,arg1,arg2,...)%>
     $matches = array();
     preg_match_all('/<%I18N\(([^\),]+)(,([^\)]+))?\)%>/', $body, $matches, PREG_SET_ORDER);
