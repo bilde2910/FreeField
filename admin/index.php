@@ -696,12 +696,12 @@ if (in_array($domain, $domains)) {
                                 ?>
                                 <div class="pure-g hook-add-type-conditional hook-add-type-json">
                                     <div class="pure-u-1-3 full-on-mobile">
-                                        <p class="setting-name"><?php echo I18N::resolve("setting.hooks.add.json.preset.name"); ?>:</p>
+                                        <p class="setting-name"><?php echo I18N::resolve("setting.hooks.add.preset.name"); ?>:</p>
                                     </div>
 
                                     <div class="pure-u-2-3 full-on-mobile">
                                         <p><select id="add-hook-json-preset">
-                                            <option value="none"><?php echo I18N::resolve("setting.hooks.add.json.preset.option.none"); ?></option>
+                                            <option value="none"><?php echo I18N::resolve("setting.hooks.add.preset.option.none"); ?></option>
                                             <?php
                                                 foreach ($presets["json"] as $name => $data) {
                                                     echo '<option value="'.$name.'">'.$name.'</option>';
@@ -1117,7 +1117,7 @@ if (in_array($domain, $domains)) {
                                                     <div class="pure-u-2-3 full-on-mobile"><p><input type="text" class="hook-target" name="hook_{%ID%}[target]" data-uri-scheme="http"></p></div>
                                                 </div>
                                                 '.$hookCommonSettings.'
-                                                <h2>'.I18N::resolve("admin.section.hooks.json_body.name").'</h2>
+                                                <h2>'.I18N::resolve("admin.section.hooks.body.json.name").'</h2>
                                                 '.$hookSyntaxHelp.'
                                                 <textarea class="hook-payload" name="hook_{%ID%}[body]" rows="8"></textarea>
                                                 '.$hookFilters.'
