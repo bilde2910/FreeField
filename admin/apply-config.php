@@ -4,7 +4,11 @@ require_once("../includes/lib/global.php");
 __require("config");
 __require("auth");
 
-// TODO: Kick users out of this page if they don't have admin perms
+if (!Auth::getCurrentUser()->hasPermission("admin/?/general")) {
+    header("HTTP/1.1 303 See Other");
+    header("Location: ./");
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("HTTP/1.1 303 See Other");
