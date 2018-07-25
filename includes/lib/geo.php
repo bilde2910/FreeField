@@ -83,6 +83,27 @@ class Geo {
     public static function wasPoiUpdatedToday($date) {
         return date("Y-m-d", strtotime($date)) === date("Y-m-d");
     }
+
+    public static function isWithinGeofence($geofence, $lat, $lon) {
+        if ($geofence === null) return true;
+
+        $xVertices = array();
+        $yVertices = array();
+        $inside = false;
+        $count = count($geofence);
+        foreach ($geofence as $point) {
+            $xVertices[] = $point[0];
+            $yVertices[] = $point[1];
+        }
+        for ($cur = 0, $prev = $count - 1; $cur < $count; $prev = $cur++) {
+            if ($yVertices[$cur] > $lon != ($yVertices[$prev] > $lon)) {
+                if (($lat < ($xVertices[$prev] - $xVertices[$cur]) * ($lon - $yVertices[$cur]) / ($yVertices[$prev] - $yVertices[$cur]) + $xVertices[$cur])) {
+                    $inside = !$inside;
+                }
+            }
+        }
+        return $inside;
+    }
 }
 
 class POI {
@@ -106,6 +127,10 @@ class POI {
 
     public function getLongitude() {
         return floatval($this->data["longitude"]);
+    }
+
+    public function isWithinGeofence($geofence) {
+        return Geo::isWithinGeofence($geofence, $this->getLatitude(), $this->getLongitude());
     }
 
     public function getLastUpdatedString() {

@@ -313,6 +313,17 @@ class Config {
                         "default" => 14.0,
                         "option" => new FloatOption(0.0, 20.0)
                     )
+                ),
+                "geofence" => array(
+                    "__hasdesc" => true,
+                    "__descsprintf" => array(
+                        '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Geofencing">',
+                        '</a>'
+                    ),
+                    "map/geofence" => array(
+                        "default" => null,
+                        "option" => new GeofenceOption()
+                    )
                 )
             )
         );
@@ -706,6 +717,56 @@ class FloatOption extends DefaultOption {
         if (!is_float($data)) return false;
         if ($this->min !== null && $data < $this->min) return false;
         if ($this->max !== null && $data > $this->max) return false;
+        return true;
+    }
+}
+
+class GeofenceOption extends DefaultOption {
+    public function getControl($current = null, $name = null, $id = null) {
+        $attrs = "";
+        if ($name !== null) $attrs .= ' name="'.$name.'"';
+        if ($id !== null) $attrs .= ' id="'.$id.'"';
+
+        $value = "";
+        if ($current !== null) {
+            foreach ($current as $point) {
+                $value .= $point[0] . "," . $point[1] . "\n";
+            }
+        }
+
+        $value = trim($value);
+        return '<textarea'.$attrs.'>' . $value . '</textarea>';
+    }
+
+    public function parseValue($data) {
+        if ($data === "") return null;
+        $points = array();
+        $lines = preg_split('/\r\n?|\n\r?/', $data);
+        foreach ($lines as $line) {
+            if ($line === "") continue;
+            $point = explode(",", $line);
+            $entry = array();
+            foreach ($point as $dimension) {
+                $entry[] = floatval($dimension);
+            }
+            $points[] = $entry;
+        }
+        return count($points) > 0 ? $points : null;
+    }
+
+    public function isValid($data) {
+        if ($data === null) return true;
+        if (!is_array($data)) return false;
+        if (count($data) < 3) return false;
+        foreach ($data as $point) {
+            if (!is_array($point) || count($point) !== 2) return false;
+            $lat = $point[0];
+            $lon = $point[1];
+            if (!is_float($lat)) return false;
+            if (!is_float($lon)) return false;
+            if ($lat < -90 || $lat > 90) return false;
+            if ($lon < -180 || $lon > 180) return false;
+        }
         return true;
     }
 }

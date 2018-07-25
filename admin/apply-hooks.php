@@ -179,6 +179,16 @@ foreach ($_POST as $postid => $data) {
     $hook["objectives"] = $objectives;
     $hook["rewards"] = $rewards;
 
+    $fenceOpt = new GeofenceOption();
+    $fence = $fenceOpt->parseValue($data["geofence"]);
+    $valid = $fenceOpt->isValid($fence);
+
+    if (isset($hook["geofence"]) && $valid && $fence === null) {
+        unset($hook["geofence"]);
+    } elseif ($valid) {
+        $hook["geofence"] = $fence;
+    }
+
     $hooks[$hookid] = $hook;
 }
 

@@ -126,6 +126,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
 
 } elseif ($_SERVER["REQUEST_METHOD"] === "PUT") {
+    __require("config");
+
     // Add new POI
     if (!Auth::getCurrentUser()->hasPermission("submit-poi")) {
         XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
@@ -155,7 +157,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         XHR::exitWith(400, array("reason" => "poi.add.failed.reason.name_empty"));
     }
 
-    // TODO: Geofencing
+    if (!Geo::isWithinGeofence(Config::get("map/geofence"), $data["lat"], $data["lon"])) {
+        XHR::exitWith(400, array("reason" => "poi.add.failed.reason.invalid_location"));
+    }
 
     try {
         $db = Database::getSparrow();
@@ -276,6 +280,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     foreach ($hooks as $hook) {
         if (!$hook["active"]) continue;
+
+        if (isset($hook["geofence"])) {
+            if (!$poi->isWithinGeofence($hook["geofence"])) {
+                continue;
+            }
+        }
 
         foreach ($hook["objectives"] as $req) {
             $eq = $hook["filter-mode"]["objectives"] == "blacklist";

@@ -113,7 +113,7 @@ table, thead, tbody {
 .tooltip:hover span {
     visibility: visible;
 }
-input[type=text], input[type=password], input[type=number], select {
+input[type=text], input[type=password], input[type=number], select, textarea {
     padding: 4px;
     width: calc(100% - 8px);
 }

@@ -1129,7 +1129,13 @@ if (in_array($domain, $domains)) {
                                         <p>'.$opt->getControl(null, "hook_{%ID%}[iconSet]", "{%ID%}-icon-selector", array("class" => "hook-icon-set")).'</p>
                                     </div>
                                 </div>
-                                '.$opt->getFollowingBlock(false, false);
+                                '.$opt->getFollowingBlock(false, false).'
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolve("setting.hooks.hook_list.geofence.name").':</p></div>
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><textarea class="hook-geofence" name="hook_{%ID%}[geofence]"></textarea></p>
+                                    </div>
+                                </div>';
 
                                 $hookSyntaxHelp = '
                                 <p><a class="hook-show-help" href="#">'.I18N::resolve("admin.clientside.hooks.syntax.show").'</a></p>
@@ -1457,6 +1463,17 @@ if (in_array($domain, $domains)) {
                             node.find(".hook-payload").val(hook.body);
                             node.find(".hook-mode-objective").val(hook["filter-mode"].objectives);
                             node.find(".hook-mode-reward").val(hook["filter-mode"].rewards);
+
+                            if (hook.hasOwnProperty("geofence") && hook.geofence !== null) {
+                                var fenceStr = "";
+                                for (var i = 0; i < hook.geofence.length; i++) {
+                                    fenceStr += hook.geofence[i][0] + "," + hook.geofence[i][1] + "\n";
+                                }
+                                if (fenceStr.length > 0) {
+                                    fenceStr = fenceStr.substring(0, fenceStr.length - 1);
+                                }
+                                node.find(".hook-geofence").val(fenceStr);
+                            }
 
                             if (hook.active) {
                                 node.find("select.hook-actions > option[value=enable]").remove();
