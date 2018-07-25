@@ -120,7 +120,6 @@ class Config {
                     )
                 ),
                 "map-access" => array(
-                    // TODO:
                     "permissions/level/access" => array(
                         "default" => 0,
                         "option" => new PermissionOption()
