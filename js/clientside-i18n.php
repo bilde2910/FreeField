@@ -19,7 +19,8 @@ var i18n = <?php
         "reward.*",
         "poi.*",
         "xhr.*",
-        "user_settings.*"
+        "user_settings.*",
+        "species.*"
     );
 
     $i18nmap = array();

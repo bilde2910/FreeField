@@ -185,15 +185,65 @@ class ParamMinTier {
     paramtered is stored as an array of strings.
 */
 class ParamSpecies {
+
+    private const GENERATIONS_HIGHEST = array(151, 251, 386);
+
+    private static $highest_species = null;
+    private static $last_species = null;
+
+    public function __construct() {
+        if (self::$highest_species === null) {
+            self::$highest_species = self::GENERATIONS_HIGHEST[count(self::GENERATIONS_HIGHEST) - 1];
+        }
+    }
+
     public function getAvailable() {
         return array("objectives");
     }
     public function html($id, $class) {
-        // TODO: List all species
+        __require("i18n");
+
+        if (self::$last_species === null) {
+            __require("geo");
+            $pois = Geo::listPOIs();
+
+            $previous_species = array();
+            foreach ($pois as $poi) {
+                $task = $poi->getLastObjective();
+                if (isset($task["params"]["species"])) {
+                    $species = $task["params"]["species"];
+                    foreach ($species as $current) {
+                        $previous_species[] = $current;
+                    }
+                }
+            }
+            self::$last_species = array_unique($previous_species);
+            sort(self::$last_species);
+        }
+
+        $species_opts = '';
+        if (count(self::$last_species) > 0) {
+            $species_opts .= '<optgroup label="'.I18N::resolve("parameter.species.recent.label").'">';
+            foreach (self::$last_species as $species) {
+                $species_opts .= '<option value="'.$species.'">'.I18N::resolve("species.{$species}.name").'</option>';
+            }
+            $species_opts .= '</optgroup>';
+        }
+
+        $species_opts .= '<optgroup label="'.I18N::resolve("generation.1.label").'">';
+        $current_gen_idx = 0;
+        for ($i = 1; $i <= self::$highest_species; $i++) {
+            if ($i > self::GENERATIONS_HIGHEST[$current_gen_idx]) {
+                $current_gen_idx++;
+                $species_opts .= '</optgroup><optgroup label="'.I18N::resolve("generation.".($current_gen_idx + 1).".label").'">';
+            }
+            $species_opts .= '<option value="'.$i.'">'.I18N::resolve("species.{$i}.name").'</option>';
+        }
+        $species_opts .= '</optgroup>';
         return
-            '<p><select id="'.$id.'-1" class="'.$class.'"></select></p>
-            <p><select id="'.$id.'-2" class="'.$class.'"></select></p>
-            <p><select id="'.$id.'-3" class="'.$class.'"></select></p>';
+            '<p><select id="'.$id.'-1" class="'.$class.'">'.$species_opts.'</select></p>
+            <p><select id="'.$id.'-2" class="'.$class.'"><option value="none">'.I18N::resolve("ui.dropdown.none_selected").'</option>'.$species_opts.'</select></p>
+            <p><select id="'.$id.'-3" class="'.$class.'"><option value="none">'.I18N::resolve("ui.dropdown.none_selected").'</option>'.$species_opts.'</select></p>';
     }
     public function writeJS($id) {
         return
@@ -201,7 +251,7 @@ class ParamSpecies {
             for (var i = 1; i <= 3; i++) {
                 var val = $("#'.$id.'-" + i).val();
                 if (val !== "none") {
-                    out.push(val);
+                    out.push(parseInt(val));
                 }
             }
             return out;';
@@ -220,11 +270,11 @@ class ParamSpecies {
         __require("i18n");
 
         if (count($data) == 1) {
-            return $data[0];
+            return I18N::resolve("species.".$data[0].".name");
         } elseif (count($data) == 2) {
-            return I18N::resolveArgs("multi.catch.double", $data[0], $data[1]);
+            return I18N::resolveArgs("multi.species.double", I18N::resolve("species.".$data[0].".name"), I18N::resolve("species.".$data[1].".name"));
         } elseif (count($data) == 3) {
-            return I18N::resolveArgs("multi.catch.triple", $data[0], $data[1], $data[2]);
+            return I18N::resolveArgs("multi.species.triple", I18N::resolve("species.".$data[0].".name"), I18N::resolve("species.".$data[1].".name"), I18N::resolve("species.".$data[2].".name"));
         } else {
             return strval($data);
         }
@@ -232,17 +282,26 @@ class ParamSpecies {
     public function toStringJS() {
         return
             'if (data.length == 1) {
-                return data[0];
+                return resolveI18N("species." + data[0] + ".name");
             } else if (data.length == 2) {
-                return resolveI18N("multi.catch.double", data[0], data[1]);
+                return resolveI18N("multi.species.double", resolveI18N("species." + data[0] + ".name"), resolveI18N("species." + data[1] + ".name"));
             } else if (data.length == 3) {
-                return resolveI18N("multi.catch.triple", data[0], data[1], data[2]);
+                return resolveI18N("multi.species.triple", resolveI18N("species." + data[0] + ".name"), resolveI18N("species." + data[1] + ".name"), resolveI18N("species." + data[2] + ".name"));
             } else {
                 return data.toString();
             }';
     }
     public function isValid($data) {
-        return false;
+        if (!is_array($data)) return false;
+        if (count($data) == 0) return false;
+        if (count($data) > 3) return false;
+
+        foreach ($data as $species) {
+            if (!is_int($species)) return false;
+            if ($species < 1 || $species > self::$highest_species) return false;
+        }
+
+        return true;
     }
 }
 /*
