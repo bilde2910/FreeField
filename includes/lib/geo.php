@@ -156,7 +156,7 @@ class POI {
     public function getLastObjective() {
         return array(
             "type" => $this->data["objective"],
-            "params" => json_decode($this->data["obj_params"])
+            "params" => json_decode($this->data["obj_params"], true)
         );
     }
 
