@@ -1543,7 +1543,9 @@ if (in_array($domain, $domains)) {
             </div>
         </div>
         <script>
-            var validationFailedMessage = "<?php echo I18N::resolve("admin.invalid.validation_failed"); ?>";
+            var validationFailedMessage = "<?php echo I18N::resolve("admin.validation.validation_failed"); ?>";
+            var unsavedChangesMessage = "<?php echo I18N::resolve("admin.validation.unsaved_changes"); ?>";
+
             function validateInput(e) {
                 if (e.is("[data-validate-as]")) {
                     var type = e.attr("data-validate-as");
@@ -1594,6 +1596,16 @@ if (in_array($domain, $domains)) {
                 if (!valid) {
                     e.preventDefault();
                     alert(validationFailedMessage);
+                }
+            });
+
+            var unsavedChanges = false;
+            $("form").on("change", ":input", function() {
+                unsavedChanges = true;
+            });
+            $(window).on("beforeunload", function() {
+                if (unsavedChanges) {
+                    return unsavedChangesMessage;
                 }
             });
         </script>
