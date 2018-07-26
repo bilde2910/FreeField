@@ -13,23 +13,52 @@ if (!isset($_GET["d"])) {
     exit;
 }
 
-$domains = array("main", "perms", "security", "auth", "themes", "map");
-$pages_icons = array(
-    "main" => "cog",
-    "users" => "users",
-    "groups" => "user-shield",
-    "pois" => "map-marker-alt",
-    "perms" => "check-square",
-    "security" => "shield-alt",
-    "auth" => "lock",
-    "themes" => "palette",
-    "map" => "map",
-    "hooks" => "link"
+$domains = array(
+    "main" => array(
+        "icon" => "cog",
+        "custom-handler" => false
+    ),
+    "users" => array(
+        "icon" => "users",
+        "custom-handler" => true
+    ),
+    "groups" => array(
+        "icon" => "user-shield",
+        "custom-handler" => true
+    ),
+    "pois" => array(
+        "icon" => "map-marker-alt",
+        "custom-handler" => true
+    ),
+    "perms" => array(
+        "icon" => "check-square",
+        "custom-handler" => false
+    ),
+    "security" => array(
+        "icon" => "shield-alt",
+        "custom-handler" => false
+    ),
+    "auth" => array(
+        "icon" => "lock",
+        "custom-handler" => false
+    ),
+    "themes" => array(
+        "icon" => "palette",
+        "custom-handler" => false
+    ),
+    "map" => array(
+        "icon" => "map",
+        "custom-handler" => false
+    ),
+    "hooks" => array(
+        "icon" => "link",
+        "custom-handler" => true
+    )
 );
 
-if (!isset($_GET["d"]) || !in_array($_GET["d"], array_keys($pages_icons)) || !Auth::getCurrentUser()->hasPermission("admin/".$_GET["d"]."/general")) {
+if (!isset($_GET["d"]) || !in_array($_GET["d"], array_keys($domains)) || !Auth::getCurrentUser()->hasPermission("admin/".$_GET["d"]."/general")) {
     $firstAuthorized = null;
-    foreach ($pages_icons as $page => $icon) {
+    foreach ($domains as $page => $data) {
         if (Auth::getCurrentUser()->hasPermission("admin/{$page}/general")) {
             $firstAuthorized = $page;
             break;
@@ -47,7 +76,7 @@ if (!isset($_GET["d"]) || !in_array($_GET["d"], array_keys($pages_icons)) || !Au
 $domain = $_GET["d"];
 
 $di18n = Config::getDomainI18N($domain);
-if (in_array($domain, $domains)) {
+if (!$domains[$domain]["custom-handler"]) {
     $sections = Config::getTreeDomain($domain);
 }
 
@@ -95,7 +124,7 @@ if (in_array($domain, $domains)) {
                         <div class="menu-spacer"></div>
                         <?php
 
-                        foreach ($pages_icons as $d => $icon) {
+                        foreach ($domains as $d => $domaindata) {
                             if (!Auth::getCurrentUser()->hasPermission("admin/{$d}/general")) continue;
                             if ($d == $domain) {
                                 echo '<li class="pure-menu-item menu-item-divided pure-menu-selected">';
@@ -103,7 +132,7 @@ if (in_array($domain, $domains)) {
                                 echo '<li class="pure-menu-item">';
                             }
 
-                            echo '<a href="./?d='.$d.'" class="pure-menu-link"><i class="menu-fas fas fa-'.$icon.'"></i> '.I18N::resolve(Config::getDomainI18N($d)->getName()).'</a></li>';
+                            echo '<a href="./?d='.$d.'" class="pure-menu-link"><i class="menu-fas fas fa-'.$domaindata["icon"].'"></i> '.I18N::resolve(Config::getDomainI18N($d)->getName()).'</a></li>';
                         }
 
                         ?>
@@ -120,7 +149,7 @@ if (in_array($domain, $domains)) {
                     <h2><?php echo I18N::resolve($di18n->getDescription()); ?></h2>
                 </div>
 
-                <?php if (in_array($domain, $domains)) { ?>
+                <?php if (!$domains[$domain]["custom-handler"]) { ?>
                     <div class="content">
                         <form action="apply-config.php?d=<?php echo $domain; ?>" method="POST" class="pure-form require-validation" enctype="application/x-www-form-urlencoded">
                             <?php foreach ($sections as $section => $settings) { ?>
