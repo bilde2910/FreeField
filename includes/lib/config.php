@@ -601,6 +601,9 @@ class StringOption extends DefaultOption {
 
     public function isValid($data) {
         if (is_array($data)) return false;
+        if ($this->regex !== null) {
+            if (!preg_match('/'.$this->regex.'/', $data)) return false;
+        }
         return true;
     }
 }

@@ -81,7 +81,7 @@ foreach ($_POST as $postid => $data) {
                 $hook["target"] = $url;
             }
         } else {
-            if (preg_match("/^https?\:\/\/?/", $url)) {
+            if (preg_match("/^https?\:\/\//", $url)) {
                 $hook["target"] = $url;
             }
         }
