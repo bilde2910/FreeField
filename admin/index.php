@@ -1625,6 +1625,8 @@ if (!$domains[$domain]["custom-handler"]) {
                 if (!valid) {
                     e.preventDefault();
                     alert(validationFailedMessage);
+                } else {
+                    unsavedChanges = false;
                 }
             });
 
