@@ -122,7 +122,7 @@ if (in_array($domain, $domains)) {
 
                 <?php if (in_array($domain, $domains)) { ?>
                     <div class="content">
-                        <form action="apply-config.php?d=<?php echo $domain; ?>" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
+                        <form action="apply-config.php?d=<?php echo $domain; ?>" method="POST" class="pure-form require-validation" enctype="application/x-www-form-urlencoded">
                             <?php foreach ($sections as $section => $settings) { ?>
                                 <h2 class="content-subhead"><?php echo I18N::resolve($di18n->getSection($section)->getName()); ?></h2>
                                 <?php
@@ -417,7 +417,7 @@ if (in_array($domain, $domains)) {
                     </div>
                 <?php } elseif ($domain == "hooks") { ?>
                     <div class="content">
-                        <form action="apply-hooks.php" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
+                        <form action="apply-hooks.php" method="POST" class="pure-form require-validation" enctype="application/x-www-form-urlencoded">
                             <h2 class="content-subhead"><?php echo I18N::resolve("admin.section.hooks.active.name"); ?></h2>
                             <div class="hook-list" id="active-hooks-list">
 
@@ -1131,7 +1131,7 @@ if (in_array($domain, $domains)) {
                                 <div class="pure-g">
                                     <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolve("setting.hooks.hook_list.geofence.name").':</p></div>
                                     <div class="pure-u-2-3 full-on-mobile">
-                                        <p><textarea class="hook-geofence" name="hook_{%ID%}[geofence]"></textarea></p>
+                                        <p><textarea class="hook-geofence" name="hook_{%ID%}[geofence]" data-validate-as="geofence"></textarea></p>
                                     </div>
                                 </div>';
 
@@ -1200,12 +1200,12 @@ if (in_array($domain, $domains)) {
                                                 <h2>'.I18N::resolve("admin.section.hooks.settings.name").'</h2>
                                                 <div class="pure-g">
                                                     <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolve("setting.hooks.hook_list.webhook_url.name").':</p></div>
-                                                    <div class="pure-u-2-3 full-on-mobile"><p><input type="text" class="hook-target" name="hook_{%ID%}[target]" data-uri-scheme="http"></p></div>
+                                                    <div class="pure-u-2-3 full-on-mobile"><p><input type="text" class="hook-target" name="hook_{%ID%}[target]" data-uri-scheme="http" data-validate-as="http-uri"></p></div>
                                                 </div>
                                                 '.$hookCommonSettings.'
                                                 <h2>'.I18N::resolve("admin.section.hooks.body.json.name").'</h2>
                                                 '.$hookSyntaxHelp.'
-                                                <textarea class="hook-payload" name="hook_{%ID%}[body]" rows="8"></textarea>
+                                                <textarea class="hook-payload" name="hook_{%ID%}[body]" rows="8" data-validate-as="json"></textarea>
                                                 '.$hookFilters.'
                                             </div>
                                         </div>
@@ -1226,11 +1226,11 @@ if (in_array($domain, $domains)) {
                                                 <h2>'.I18N::resolve("admin.section.hooks.settings.name").'</h2>
                                                 <div class="pure-g">
                                                     <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolve("setting.hooks.hook_list.tg.bot_token.name").':</p></div>
-                                                    <div class="pure-u-2-3 full-on-mobile"><p><input type="text" class="hook-tg-bot-token" name="hook_{%ID%}[tg][bot_token]"></p></div>
+                                                    <div class="pure-u-2-3 full-on-mobile"><p><input type="text" class="hook-tg-bot-token" name="hook_{%ID%}[tg][bot_token]" data-validate-as="regex-string" data-validate-regex="^\d+:[A-Za-z\d]+$"></p></div>
                                                 </div>
                                                 <div class="pure-g">
                                                     <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolve("setting.hooks.hook_list.webhook_url.name").':</p></div>
-                                                    <div class="pure-u-2-3 full-on-mobile"><p><select class="hook-target" name="hook_{%ID%}[target]" data-uri-scheme="tg">
+                                                    <div class="pure-u-2-3 full-on-mobile"><p><select class="hook-target" name="hook_{%ID%}[target]" data-uri-scheme="tg" data-validate-as="tg-uri">
                                                         <optgroup label="'.I18N::resolve("setting.hooks.hook_list.tg.webhook_url.option.current").'" class="hook-target-current-group">
                                                             <option value="" selected></option>
                                                         </optgroup>
@@ -1350,6 +1350,16 @@ if (in_array($domain, $domains)) {
 
                         $(".hook-list").on("change", '.hook-tg-parse-mode', function() {
                             $(this).closest(".hook-instance").find(".hook-body-header").text(resolveI18N("admin.section.hooks.body." + $(this).val() + ".name"));
+                            var payload = $(this).closest(".hook-instance").find(".hook-payload");
+                            switch ($(this).val()) {
+                                case "html":
+                                    payload.attr("data-validate-as", "html");
+                                    break;
+                                default:
+                                    payload.attr("data-validate-as", "text");
+                                    break;
+                            }
+                            payload.trigger("input");
                         });
 
                         $(".hook-list").on("click", ".hook-show-help", function() {
@@ -1532,6 +1542,61 @@ if (in_array($domain, $domains)) {
                 <?php } ?>
             </div>
         </div>
+        <script>
+            var validationFailedMessage = "<?php echo I18N::resolve("admin.invalid.validation_failed"); ?>";
+            function validateInput(e) {
+                if (e.is("[data-validate-as]")) {
+                    var type = e.attr("data-validate-as");
+                    var value = e.val();
+                    switch (type) {
+                        case "json":
+                            try {
+                                JSON.parse(value);
+                            } catch (e) {
+                                return false;
+                            }
+                            return true;
+                        case "html":
+                            var div = document.createElement("div");
+                            var filtered = value.replace(/<%[^%\(]+(\([^\)]+\))?%>/g, "");
+                            div.innerHTML = filtered;
+                            return div.innerHTML === filtered;
+                        case "http-uri":
+                            return value.match(/^https?\:\/\//);
+                        case "tg-uri":
+                            return value.match(/^tg\:\/\/send\?to=?/);
+                        case "regex-string":
+                            return value.match(new RegExp(e.attr("data-validate-regex")));
+                        case "geofence":
+                            return value === "" || value.match(/^(\r\n?|\n\r?)*(-?(90|[1-8]?\d(\.\d+)?),-?(180|(1[0-7]\d|[1-9]?\d)(\.\d+)?)(\r\n?|\n\r?)*){3,}$/);
+                        case "text":
+                            return true;
+                    }
+                }
+            }
+            $("body").on("input", "[data-validate-as]", function() {
+                if (validateInput($(this))) {
+                    $(this).css("border", "");
+                } else {
+                    $(this).css("border", "1px solid red");
+                }
+            });
+            $("form.require-validation").on("submit", function(e) {
+                var valid = true;
+                $(this).find("[data-validate-as]").each(function() {
+                    if (validateInput($(this))) {
+                        $(this).css("border", "");
+                    } else {
+                        valid = false;
+                        $(this).css("border", "1px solid red");
+                    }
+                });
+                if (!valid) {
+                    e.preventDefault();
+                    alert(validationFailedMessage);
+                }
+            });
+        </script>
         <script src="../js/ui.js"></script>
     </body>
 </html>

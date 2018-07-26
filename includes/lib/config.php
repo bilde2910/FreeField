@@ -74,7 +74,7 @@ class Config {
                 "access" => array(
                     "site/uri" => array(
                         "default" => "",
-                        "option" => new StringOption()
+                        "option" => new StringOption('^https?\:\/\/')
                     ),
                     "site/name" => array(
                         "default" => "FreeField",
@@ -88,7 +88,7 @@ class Config {
                     ),
                     "database/host" => array(
                         "default" => "localhost",
-                        "option" => new StringOption()
+                        "option" => new StringOption('^[^\s]+$')
                     ),
                     "database/port" => array(
                         "default" => -1,
@@ -223,7 +223,7 @@ class Config {
                     ),
                     "auth/provider/discord/client-id" => array(
                         "default" => "",
-                        "option" => new StringOption()
+                        "option" => new StringOption('^\d+$')
                     ),
                     "auth/provider/discord/client-secret" => array(
                         "default" => "",
@@ -246,7 +246,7 @@ class Config {
                     ),
                     "auth/provider/telegram/bot-token" => array(
                         "default" => "",
-                        "option" => new StringOption()
+                        "option" => new StringOption('^\d+:[A-Za-z\d]+$')
                     )
                 )
             ),
@@ -580,11 +580,18 @@ class DefaultOption {
 }
 
 class StringOption extends DefaultOption {
+    private $regex;
+
+    public function __construct($regex = null) {
+        $this->regex = $regex;
+    }
+
     public function getControl($current = null, $name = null, $id = null) {
         $attrs = "";
         if ($name !== null) $attrs .= ' name="'.$name.'"';
         if ($id !== null) $attrs .= ' id="'.$id.'"';
         if ($current !== null) $attrs .= ' value="'.$current.'"';
+        if ($this->regex !== null) $attrs .= ' data-validate-as="regex-string" data-validate-regex="'.$this->regex.'"';
         return '<input type="text"'.$attrs.'>';
     }
 
@@ -734,7 +741,7 @@ class GeofenceOption extends DefaultOption {
         }
 
         $value = trim($value);
-        return '<textarea'.$attrs.'>' . $value . '</textarea>';
+        return '<textarea data-validate-as="geofence"'.$attrs.'>' . $value . '</textarea>';
     }
 
     public function parseValue($data) {
