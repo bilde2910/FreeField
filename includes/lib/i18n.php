@@ -13,6 +13,14 @@ class I18N {
         return $token;
     }
 
+    public static function resolveHTML($token) {
+        return htmlspecialchars(self::resolve($token), ENT_QUOTES);
+    }
+
+    public static function resolveJS($token) {
+        return json_encode($token);
+    }
+
     public static function resolveArgs($token, ...$args) {
         $string = self::resolve($token);
         if (is_array($args[0])) $args = $args[0];
@@ -20,6 +28,32 @@ class I18N {
             $string = str_replace('{%'.($i+1).'}', $args[$i], $string);
         }
         return $string;
+    }
+
+    public static function resolveArgsHTML($token, $deep, ...$args) {
+        if ($deep) {
+            return htmlspecialchars(call_user_func_array("I18N::resolveArgs", array_merge(array($token), $args)), ENT_QUOTES);
+        } else {
+            $string = self::resolveHTML($token);
+            if (is_array($args[0])) $args = $args[0];
+            for ($i = 0; $i < count($args); $i++) {
+                $string = str_replace('{%'.($i+1).'}', $args[$i], $string);
+            }
+            return $string;
+        }
+    }
+
+    public static function resolveArgsJS($token, $deep, ...$args) {
+        if ($deep) {
+            return json_encode(call_user_func_array("I18N::resolveArgs", array_merge(array($token), $args)));
+        } else {
+            $string = self::resolveJS($token);
+            if (is_array($args[0])) $args = $args[0];
+            for ($i = 0; $i < count($args); $i++) {
+                $string = str_replace('{%'.($i+1).'}', $args[$i], $string);
+            }
+            return $string;
+        }
     }
 
     public static function resolveAll($tokenDomain) {
@@ -33,6 +67,20 @@ class I18N {
             }
         }
         return $tokens;
+    }
+
+    public static function resolveAllHTML($tokenDomain) {
+        $tokens = self::resolveAll($tokenDomain);
+        foreach ($tokens as $token => $string) {
+            $tokens[$token] = htmlspecialchars($string, ENT_QUOTES);
+        }
+    }
+
+    public static function resolveAllJS($tokenDomain) {
+        $tokens = self::resolveAll($tokenDomain);
+        foreach ($tokens as $token => $string) {
+            $tokens[$token] = json_encode($string);
+        }
     }
 
     private static function loadI18Ndata() {

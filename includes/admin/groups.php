@@ -7,15 +7,15 @@
                 return $a["level"] > $b["level"] ? -1 : 1;
             });
         ?>
-        <h2 class="content-subhead"><?php echo I18N::resolve("admin.section.groups.group_list.name"); ?></h2>
+        <h2 class="content-subhead"><?php echo I18N::resolveHTML("admin.section.groups.group_list.name"); ?></h2>
         <table class="pure-table force-fullwidth">
             <thead>
                 <tr>
-                    <th><?php echo I18N::resolve("admin.table.groups.group_list.column.group_name.name"); ?></th>
-                    <th><?php echo I18N::resolve("admin.table.groups.group_list.column.change_name.name"); ?></th>
-                    <th><?php echo I18N::resolve("admin.table.groups.group_list.column.permission.name"); ?></th>
-                    <th><?php echo I18N::resolve("admin.table.groups.group_list.column.color.name"); ?></th>
-                    <th><?php echo I18N::resolve("admin.table.groups.group_list.column.actions.name"); ?></th>
+                    <th><?php echo I18N::resolveHTML("admin.table.groups.group_list.column.group_name.name"); ?></th>
+                    <th><?php echo I18N::resolveHTML("admin.table.groups.group_list.column.change_name.name"); ?></th>
+                    <th><?php echo I18N::resolveHTML("admin.table.groups.group_list.column.permission.name"); ?></th>
+                    <th><?php echo I18N::resolveHTML("admin.table.groups.group_list.column.color.name"); ?></th>
+                    <th><?php echo I18N::resolveHTML("admin.table.groups.group_list.column.actions.name"); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +24,7 @@
                         $gid = $group["group_id"];
                         ?>
                             <tr>
-                                <td<?php if ($group["color"] !== null) echo ' style="color: #'.$group["color"].';"'; ?>><?php echo Auth::resolvePermissionLabelI18N($group["label"]); ?></td>
+                                <td<?php if ($group["color"] !== null) echo ' style="color: #'.$group["color"].';"'; ?>><?php echo Auth::resolvePermissionLabelI18NHTML($group["label"]); ?></td>
                                 <td><input type="text" name="g<?php echo $gid; ?>[label]" value="<?php echo $group["label"]; ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>></td>
                                 <td><input type="number" min="0" max="250" name="g<?php echo $gid; ?>[level]" value="<?php echo $group["level"]; ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>></td>
                                 <td class="no-wrap group-color-selector" data-id="g<?php echo $gid; ?>">
@@ -32,8 +32,8 @@
                                     <input type="color" name="g<?php echo $gid; ?>[color]"<?php if ($group["color"] !== null) echo ' value="#'.$group["color"].'"'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                 </td>
                                 <td><select class="group-actions" name="g<?php echo $gid; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
-                                    <option value="none" selected><?php echo I18N::resolve("admin.section.groups.group_list.action.none"); ?></option>
-                                    <option value="delete"><?php echo I18N::resolve("admin.section.groups.group_list.action.delete"); ?></option>
+                                    <option value="none" selected><?php echo I18N::resolveHTML("admin.section.groups.group_list.action.none"); ?></option>
+                                    <option value="delete"><?php echo I18N::resolveHTML("admin.section.groups.group_list.action.delete"); ?></option>
                                 </select></td>
                             </td>
                         <?php
@@ -62,6 +62,6 @@
                 }
             });
         </script>
-        <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
+        <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolveHTML("ui.button.save"); ?>"></p>
     </form>
 </div>

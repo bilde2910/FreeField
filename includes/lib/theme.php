@@ -17,7 +17,7 @@ class Theme {
                 $icons[] = $category;
             }
         }
-        return array_unique($icons);
+        return array_values(array_unique($icons));
     }
 
     public static function listIconSets() {

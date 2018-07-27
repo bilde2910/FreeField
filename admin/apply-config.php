@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 $returnpath = "./";
 if (isset($_GET["d"])) {
-    $returnpath .= "?d=".$_GET["d"];
+    $returnpath .= "?d=".urlencode($_GET["d"]);
 }
 
 foreach ($_POST as $key => $value) {

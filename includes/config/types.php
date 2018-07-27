@@ -25,7 +25,7 @@ class StringOption extends DefaultOption {
         $attrs = "";
         if ($name !== null) $attrs .= ' name="'.$name.'"';
         if ($id !== null) $attrs .= ' id="'.$id.'"';
-        if ($current !== null) $attrs .= ' value="'.$current.'"';
+        if ($current !== null) $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
         if ($this->regex !== null) $attrs .= ' data-validate-as="regex-string" data-validate-regex="'.$this->regex.'"';
         return '<input type="text"'.$attrs.'>';
     }
@@ -48,7 +48,7 @@ class PasswordOption extends DefaultOption {
         $attrs = "";
         if ($name !== null) $attrs .= ' name="'.$name.'"';
         if ($id !== null) $attrs .= ' id="'.$id.'"';
-        if ($current !== null) $attrs .= ' value="'.$current.'"';
+        if ($current !== null) $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
         return '<input type="password"'.$attrs.'>';
     }
 
@@ -78,11 +78,11 @@ class BooleanOption extends DefaultOption {
         if ($name !== null) $fallbackAttrs .= ' name="'.$name.'"';
 
         if ($i18ntoken !== null) {
-            $label = I18N::resolve($i18ntoken);
+            $label = I18N::resolveHTML($i18ntoken);
         } elseif ($name !== null) {
-            $label = I18N::resolve("setting.".str_replace("-", "_", str_replace("/", ".", $name)).".label");
+            $label = I18N::resolveHTML("setting.".str_replace("-", "_", str_replace("/", ".", $name)).".label");
         } elseif ($id !== null) {
-            $label = I18N::resolve("setting.".str_replace("-", "_", $id).".label");
+            $label = I18N::resolveHTML("setting.".str_replace("-", "_", $id).".label");
         } else {
             $label = $item;
         }
@@ -117,7 +117,7 @@ class IntegerOption extends DefaultOption {
         $attrs = "";
         if ($name !== null) $attrs .= ' name="'.$name.'"';
         if ($id !== null) $attrs .= ' id="'.$id.'"';
-        if ($current !== null) $attrs .= ' value="'.$current.'"';
+        if ($current !== null) $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
         return '<input type="number"'.$attrs.'>';
     }
 
@@ -146,7 +146,7 @@ class FloatOption extends DefaultOption {
         $attrs = "";
         if ($name !== null) $attrs .= ' name="'.$name.'"';
         if ($id !== null) $attrs .= ' id="'.$id.'"';
-        if ($current !== null) $attrs .= ' value="'.$current.'"';
+        if ($current !== null) $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
         if ($decimals >= 1) {
             $attrs .= ' step="0.'.str_repeat("0", $decimals - 1).'"';
         }
@@ -240,11 +240,11 @@ class SelectOption extends DefaultOption {
                 $html .= ' selected';
             }
             if ($i18ndomain !== null) {
-                $label = I18N::resolve("{$i18ndomain}.{$item}");
+                $label = I18N::resolveHTML("{$i18ndomain}.{$item}");
             } elseif ($name !== null) {
-                $label = I18N::resolve("setting.".str_replace("-", "_", str_replace("/", ".", $name)).".option.{$item}");
+                $label = I18N::resolveHTML("setting.".str_replace("-", "_", str_replace("/", ".", $name)).".option.{$item}");
             } elseif ($id !== null) {
-                $label = I18N::resolve("setting.".str_replace("-", "_", $id).".option.{$item}");
+                $label = I18N::resolveHTML("setting.".str_replace("-", "_", $id).".option.{$item}");
             } else {
                 $label = $item;
             }
@@ -328,12 +328,12 @@ class IconPackOption extends DefaultOption {
 
         $html = '<select'.$attrs.'>';
         if ($this->includeDefault !== null) {
-            $html .= '<option value="">'.I18N::resolveArgs($this->includeDefault).'</option>';
+            $html .= '<option value="">'.I18N::resolveHTML($this->includeDefault).'</option>';
         }
         foreach (self::$packs as $pack => $data) {
             $html .= '<option value="'.$pack.'"';
             if ($pack == $current) $html .= ' selected';
-            $html .= '>'.I18N::resolveArgs("theme.name_label", $data["name"], $data["author"]).'</option>';
+            $html .= '>'.I18N::resolveArgsHTML("theme.name_label", true, $data["name"], $data["author"]).'</option>';
         }
         $html .= '</select>';
         return $html;
@@ -393,7 +393,7 @@ class IconPackOption extends DefaultOption {
 
                 var tdata = themedata[theme];
 
-                var icons = ["'.implode('", "', Theme::listIcons()).'"];
+                var icons = '.json_encode(Theme::listIcons()).';
 
                 for (var i = 0; i < icons.length; i++) {
                     var uri = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/";
@@ -419,7 +419,7 @@ class IconPackOption extends DefaultOption {
 
                 if (tdata.hasOwnProperty("logo")) {
                     var logo = document.createElement("img");
-                    logo.src = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join("'.Config::get("themes/color/admin").'");
+                    logo.src = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join('.Config::getJS("themes/color/admin").');
                     logo.style.width = "400px";
                     logo.style.maxWidth = "100%";
                     logo.marginTop = "20px";

@@ -223,27 +223,27 @@ class ParamSpecies {
 
         $species_opts = '';
         if (count(self::$last_species) > 0) {
-            $species_opts .= '<optgroup label="'.I18N::resolve("parameter.species.recent.label").'">';
+            $species_opts .= '<optgroup label="'.I18N::resolveHTML("parameter.species.recent.label").'">';
             foreach (self::$last_species as $species) {
-                $species_opts .= '<option value="'.$species.'">'.I18N::resolve("species.{$species}.name").'</option>';
+                $species_opts .= '<option value="'.$species.'">'.I18N::resolveHTML("species.{$species}.name").'</option>';
             }
             $species_opts .= '</optgroup>';
         }
 
-        $species_opts .= '<optgroup label="'.I18N::resolve("generation.1.label").'">';
+        $species_opts .= '<optgroup label="'.I18N::resolveHTML("generation.1.label").'">';
         $current_gen_idx = 0;
         for ($i = 1; $i <= self::$highest_species; $i++) {
             if ($i > self::GENERATIONS_HIGHEST[$current_gen_idx]) {
                 $current_gen_idx++;
-                $species_opts .= '</optgroup><optgroup label="'.I18N::resolve("generation.".($current_gen_idx + 1).".label").'">';
+                $species_opts .= '</optgroup><optgroup label="'.I18N::resolveHTML("generation.".($current_gen_idx + 1).".label").'">';
             }
-            $species_opts .= '<option value="'.$i.'">'.I18N::resolve("species.{$i}.name").'</option>';
+            $species_opts .= '<option value="'.$i.'">'.I18N::resolveHTML("species.{$i}.name").'</option>';
         }
         $species_opts .= '</optgroup>';
         return
             '<p><select id="'.$id.'-1" class="'.$class.'">'.$species_opts.'</select></p>
-            <p><select id="'.$id.'-2" class="'.$class.'"><option value="none">'.I18N::resolve("ui.dropdown.none_selected").'</option>'.$species_opts.'</select></p>
-            <p><select id="'.$id.'-3" class="'.$class.'"><option value="none">'.I18N::resolve("ui.dropdown.none_selected").'</option>'.$species_opts.'</select></p>';
+            <p><select id="'.$id.'-2" class="'.$class.'"><option value="none">'.I18N::resolveHTML("ui.dropdown.none_selected").'</option>'.$species_opts.'</select></p>
+            <p><select id="'.$id.'-3" class="'.$class.'"><option value="none">'.I18N::resolveHTML("ui.dropdown.none_selected").'</option>'.$species_opts.'</select></p>';
     }
     public function writeJS($id) {
         return
@@ -329,10 +329,10 @@ class ParamType {
         for ($i = 1; $i <= 3; $i++) {
             $output .= '<p><select id="'.$id.'-'.$i.'" class="'.$class.'">';
             if ($i >= 2) {
-                $output .= '<option value="none">'.I18N::resolve("ui.dropdown.none_selected").'</option>';
+                $output .= '<option value="none">'.I18N::resolveHTML("ui.dropdown.none_selected").'</option>';
             }
             foreach (self::TYPES as $type) {
-                $output .= '<option value="'.$type.'">'.I18N::resolve("type.{$type}").'</option>';
+                $output .= '<option value="'.$type.'">'.I18N::resolveHTML("type.{$type}").'</option>';
             }
             $output .='</select></p>';
         }

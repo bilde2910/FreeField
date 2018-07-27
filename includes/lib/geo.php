@@ -121,6 +121,10 @@ class POI {
         return $this->data["name"];
     }
 
+    public function getNameHTML() {
+        return htmlspecialchars($this->getName(), ENT_QUOTES);
+    }
+
     public function getLatitude() {
         return floatval($this->data["latitude"]);
     }

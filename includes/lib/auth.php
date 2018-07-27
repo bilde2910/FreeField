@@ -221,6 +221,11 @@ class Auth {
         }
     }
 
+    // Resolves the I18N string of a permission label
+    public static function resolvePermissionLabelI18NHTML($label) {
+        return htmlspecialchars(self::resolvePermissionLabelI18N($label), ENT_QUOTES);
+    }
+
     // Returns an HTML control for selecting permission levels
     public static function getPermissionSelector($name = null, $id = null, $selectedLevel = 0) {
         $user = self::getCurrentUser();
@@ -229,12 +234,12 @@ class Auth {
         $curperm = null;
         foreach ($perms as $perm) {
             if ($perm["level"] == $selectedLevel) $curperm = $perm;
-            $opts .= '<option value="'.$perm["level"].'"'.($perm["color"] !== null ? ' style="color: #'.$perm["color"].'"' : '').($user->canChangeAtPermission($perm["level"]) ? '' : ' disabled').'>'.$perm["level"].' - '.self::resolvePermissionLabelI18N($perm["label"]).'</option>';
+            $opts .= '<option value="'.$perm["level"].'"'.($perm["color"] !== null ? ' style="color: #'.$perm["color"].'"' : '').($user->canChangeAtPermission($perm["level"]) ? '' : ' disabled').'>'.$perm["level"].' - '.self::resolvePermissionLabelI18NHTML($perm["label"]).'</option>';
         }
         if ($curperm === null) {
-            $curopt = '<option value="'.$selectedLevel.'" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18N("{i18n:group.level.unknown}").'</option>';
+            $curopt = '<option value="'.$selectedLevel.'" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18NHTML("{i18n:group.level.unknown}").'</option>';
         } else {
-            $curopt = '<option value="'.$selectedLevel.'" style="color:" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18N($curperm["label"]).'</option>';
+            $curopt = '<option value="'.$selectedLevel.'" style="color:" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18NHTML($curperm["label"]).'</option>';
         }
         return '<select'.($name !== null ? ' name="'.$name.'"' : '').($id !== null ? ' id="'.$id.'"' : '').($user->canChangeAtPermission($selectedLevel) ? '' : ' disabled').'><optgroup label="Current group">'.$curopt.'</optgroup><optgroup label="Available groups">'.$opts.'</optgroup></select>';
     }
@@ -260,9 +265,9 @@ class User {
 
     // Gets the nickname for displaying in HTML with colors.
     public function getNicknameHTML() {
-        if (!$this->exists()) return htmlencode("<Anonymous>");
+        if (!$this->exists()) return htmlspecialchars("<Anonymous>", ENT_QUOTES);
         $color = self::getColor();
-        return '<span'.($color !== null ? ' style="color: #'.$color.';"' : '').'>'.htmlentities(self::getNickname()).'</span>';
+        return '<span'.($color !== null ? ' style="color: #'.$color.';"' : '').'>'.htmlspecialchars(self::getNickname(), ENT_QUOTES).'</span>';
     }
 
     public function getProviderIdentity() {
@@ -281,7 +286,7 @@ class User {
                 "color" => "#0088CC"
             )
         );
-        return '<span><i style="color: '.$providerAppearance[$this->getProvider()]["color"].'" class="fab fa-'.$providerAppearance[$this->getProvider()]["fa-icon"].'"></i> '.htmlentities($this->getProviderIdentity()).'</span>';
+        return '<span><i style="color: '.$providerAppearance[$this->getProvider()]["color"].'" class="fab fa-'.$providerAppearance[$this->getProvider()]["fa-icon"].'"></i> '.htmlspecialchars($this->getProviderIdentity(), ENT_QUOTES).'</span>';
     }
 
     // Gets the current user ID.

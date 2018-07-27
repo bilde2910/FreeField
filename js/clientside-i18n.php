@@ -28,11 +28,6 @@ var i18n = <?php
         $i18nmap = array_merge($i18nmap, I18N::resolveAll($entry));
     }
 
-    $i18nlist = array();
-    foreach ($i18nmap as $key => $value) {
-        $i18nlist[] = "'{$key}': ".json_encode($value);
-    }
-
     echo json_encode($i18nmap, JSON_PRETTY_PRINT);
 ?>
 

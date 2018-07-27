@@ -36,7 +36,7 @@ if (!isset($_GET["hash"])) { ?>
         <div>
             <h1>Authenticate with Telegram</h1>
             <p>Please click the button below to sign in using Telegram</p>
-            <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="<?php echo Config::get("auth/provider/{$service}/bot-username"); ?>" data-size="large" data-userpic="false" data-auth-url="<?php echo Config::getEndpointUri("/auth/oa2/telegram.php"); ?>"></script>
+            <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="<?php echo Config::getHTML("auth/provider/{$service}/bot-username"); ?>" data-size="large" data-userpic="false" data-auth-url="<?php echo Config::getEndpointUri("/auth/oa2/telegram.php"); ?>"></script>
         </div>
     </body>
 </html>

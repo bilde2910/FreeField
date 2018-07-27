@@ -25,6 +25,14 @@ class Config {
         return $conf;
     }
 
+    public static function getHTML($path) {
+        return htmlspecialchars(strval(self::get($path)), ENT_QUOTES);
+    }
+
+    public static function getJS($path) {
+        return json_encode(self::get($path));
+    }
+
     public static function set($options, $validatePermissions = false) {
         if (self::$config === false) self::loadConfig();
         $flat = self::getFlatTree();

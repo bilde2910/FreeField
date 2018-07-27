@@ -60,7 +60,7 @@ if (!isset($_GET["d"]) || !in_array($_GET["d"], array_keys($domains)) || !Auth::
     $firstAuthorized = null;
     foreach ($domains as $page => $data) {
         if (Auth::getCurrentUser()->hasPermission("admin/{$page}/general")) {
-            $firstAuthorized = $page;
+            $firstAuthorized = urlencode($page);
             break;
         }
     }
@@ -87,13 +87,13 @@ if (!$domains[$domain]["custom-handler"]) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex,nofollow">
-        <title>FreeField Admin | <?php echo I18N::resolve($di18n->getName()); ?></title>
+        <title>FreeField Admin | <?php echo I18N::resolveHTML($di18n->getName()); ?></title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/admin.css">
-        <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/admin"); ?>.css">
+        <link rel="stylesheet" href="../css/<?php echo Config::getHTML("themes/color/admin"); ?>.css">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="../css/layouts/side-menu-old-ie.css">
@@ -116,11 +116,11 @@ if (!$domains[$domain]["custom-handler"]) {
 
                     <ul class="pure-menu-list">
                         <div class="menu-user-box">
-                            <span class="user-box-small"><?php echo I18N::resolve("sidebar.signed_in_as"); ?></span><br>
+                            <span class="user-box-small"><?php echo I18N::resolveHTML("sidebar.signed_in_as"); ?></span><br>
                             <span class="user-box-nick"><?php echo Auth::getCurrentUser()->getNicknameHTML(); ?></span><br />
                             <span class="user-box-small"><?php echo Auth::getCurrentUser()->getProviderIdentityHTML(); ?></span><br>
                         </div>
-                        <li class="pure-menu-item"><a href="./auth/logout.php" class="pure-menu-link"><i class="menu-fas fas fa-sign-in-alt"></i> <?php echo I18N::resolve("sidebar.logout"); ?></a></li>
+                        <li class="pure-menu-item"><a href="./auth/logout.php" class="pure-menu-link"><i class="menu-fas fas fa-sign-in-alt"></i> <?php echo I18N::resolveHTML("sidebar.logout"); ?></a></li>
                         <div class="menu-spacer"></div>
                         <?php
 
@@ -132,36 +132,36 @@ if (!$domains[$domain]["custom-handler"]) {
                                 echo '<li class="pure-menu-item">';
                             }
 
-                            echo '<a href="./?d='.$d.'" class="pure-menu-link"><i class="menu-fas fas fa-'.$domaindata["icon"].'"></i> '.I18N::resolve(Config::getDomainI18N($d)->getName()).'</a></li>';
+                            echo '<a href="./?d='.$d.'" class="pure-menu-link"><i class="menu-fas fas fa-'.$domaindata["icon"].'"></i> '.I18N::resolveHTML(Config::getDomainI18N($d)->getName()).'</a></li>';
                         }
 
                         ?>
 
                         <div class="menu-spacer"></div>
-                        <li class="pure-menu-item"><a href=".." class="pure-menu-link"><i class="menu-fas fas fa-angle-double-left"></i> <?php echo I18N::resolve("sidebar.return"); ?></a></li>
+                        <li class="pure-menu-item"><a href=".." class="pure-menu-link"><i class="menu-fas fas fa-angle-double-left"></i> <?php echo I18N::resolveHTML("sidebar.return"); ?></a></li>
                     </ul>
                 </div>
             </div>
 
             <div id="main">
                 <div class="header">
-                    <h1><?php echo I18N::resolve($di18n->getName()); ?></h1>
-                    <h2><?php echo I18N::resolve($di18n->getDescription()); ?></h2>
+                    <h1><?php echo I18N::resolveHTML($di18n->getName()); ?></h1>
+                    <h2><?php echo I18N::resolveHTML($di18n->getDescription()); ?></h2>
                 </div>
 
                 <?php
                     if (!$domains[$domain]["custom-handler"]) {
                 ?>
                     <div class="content">
-                        <form action="apply-config.php?d=<?php echo $domain; ?>" method="POST" class="pure-form require-validation" enctype="application/x-www-form-urlencoded">
+                        <form action="apply-config.php?d=<?php echo urlencode($domain); ?>" method="POST" class="pure-form require-validation" enctype="application/x-www-form-urlencoded">
                             <?php foreach ($sections as $section => $settings) { ?>
-                                <h2 class="content-subhead"><?php echo I18N::resolve($di18n->getSection($section)->getName()); ?></h2>
+                                <h2 class="content-subhead"><?php echo I18N::resolveHTML($di18n->getSection($section)->getName()); ?></h2>
                                 <?php
                                     if (isset($settings["__hasdesc"]) && $settings["__hasdesc"]) {
                                         if (isset($settings["__descsprintf"])) {
-                                            echo '<p>'.I18N::resolveArgs($di18n->getSection($section)->getDescription(), $settings["__descsprintf"]).'</p>';
+                                            echo '<p>'.I18N::resolveArgsHTML($di18n->getSection($section)->getDescription(), false, $settings["__descsprintf"]).'</p>';
                                         } else {
-                                            echo '<p>'.I18N::resolve($di18n->getSection($section)->getDescription()).'</p>';
+                                            echo '<p>'.I18N::resolveHTML($di18n->getSection($section)->getDescription()).'</p>';
                                         }
                                     }
                                 ?>
@@ -174,8 +174,8 @@ if (!$domains[$domain]["custom-handler"]) {
                                     ?>
                                     <div class="pure-g">
                                         <div class="pure-u-1-3 full-on-mobile">
-                                            <p class="setting-name"><?php echo I18N::resolve($si18n->getName()); ?><span class="only-desktop">: <span class="tooltip"><i class="content-fas fas fa-question-circle"></i><span><?php echo I18N::resolve($si18n->getDescription()); ?></span></span></span></p>
-                                            <p class="only-mobile"><?php echo I18N::resolve($si18n->getDescription()); ?></p>
+                                            <p class="setting-name"><?php echo I18N::resolveHTML($si18n->getName()); ?><span class="only-desktop">: <span class="tooltip"><i class="content-fas fas fa-question-circle"></i><span><?php echo I18N::resolveHTML($si18n->getDescription()); ?></span></span></span></p>
+                                            <p class="only-mobile"><?php echo I18N::resolveHTML($si18n->getDescription()); ?></p>
                                         </div>
                                         <div class="pure-u-2-3 full-on-mobile">
                                             <p>
@@ -190,7 +190,7 @@ if (!$domains[$domain]["custom-handler"]) {
                                     ?>
                                 <?php } ?>
                             <?php } ?>
-                            <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolve("ui.button.save"); ?>"></p>
+                            <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolveHTML("ui.button.save"); ?>"></p>
                         </form>
                     </div>
                 <?php
@@ -201,8 +201,8 @@ if (!$domains[$domain]["custom-handler"]) {
             </div>
         </div>
         <script>
-            var validationFailedMessage = "<?php echo I18N::resolve("admin.validation.validation_failed"); ?>";
-            var unsavedChangesMessage = "<?php echo I18N::resolve("admin.validation.unsaved_changes"); ?>";
+            var validationFailedMessage = <?php echo I18N::resolveJS("admin.validation.validation_failed"); ?>;
+            var unsavedChangesMessage = <?php echo I18N::resolveJS("admin.validation.unsaved_changes"); ?>;
 
             function validateInput(e) {
                 if (e.is("[data-validate-as]")) {
