@@ -503,7 +503,7 @@
                             <div class="pure-g">
                                 <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.name").':</p></div>
                                 <div class="pure-u-2-3 full-on-mobile"><p><select class="hook-tg-parse-mode" name="hook_{%ID%}[tg][parse_mode]">
-                                    <option value="text">'.I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.option.text").'</option>
+                                    <option value="txt">'.I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.option.txt").'</option>
                                     <option value="md">'.I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.option.md").'</option>
                                     <option value="html">'.I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.option.html").'</option>
                                 </select></p></div>
@@ -517,7 +517,7 @@
                                 <div class="pure-u-2-3 full-on-mobile"><p><label for="hook-bool-disable_notification-{%ID%}"><input type="checkbox" id="hook-bool-disable_notification-{%ID%}" class="hook-tg-disable-notification" name="hook_{%ID%}[tg][disable_notification]"> '.I18N::resolveHTML("setting.hooks.hook_list.tg.disable_notification.label").'</label></p></div>
                             </div>
                             '.$hookCommonSettings.'
-                            <h2 class="hook-body-header">'.I18N::resolveHTML("admin.section.hooks.body.text.name").'</h2>
+                            <h2 class="hook-body-header">'.I18N::resolveHTML("admin.section.hooks.body.txt.name").'</h2>
                             '.$hookSyntaxHelp.'
                             <textarea class="hook-payload" name="hook_{%ID%}[body]" rows="8"></textarea>
                             '.$hookFilters.'

@@ -108,7 +108,7 @@ foreach ($_POST as $postid => $data) {
         if (!isset($hook["options"])) {
             $hook["options"] = array(
                 "bot-token" => "",
-                "parse-mode" => "text",
+                "parse-mode" => "txt",
                 "disable-web-page-preview" => false,
                 "disable-notification" => false
             );
