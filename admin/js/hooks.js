@@ -337,7 +337,7 @@ $(".hook-list").on("input", ".hook-target", function() {
             if (url.length >= 3) {
                 url = url[2];
             } else {
-                url = "?";
+                url = resolveI18N("admin.clientside.domain.unknown");
             }
             break;
         case "tg":
@@ -345,7 +345,7 @@ $(".hook-list").on("input", ".hook-target", function() {
             if (url.length >= 2) {
                 url = url[1];
             } else {
-                url = "?";
+                url = resolveI18N("admin.clientside.domain.unknown");
             }
             break;
     }

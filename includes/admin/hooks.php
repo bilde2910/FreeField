@@ -452,7 +452,7 @@
                 $node = '
                     <div class="hook-instance" data-hook-id="{%ID%}">
                         <div class="hook-head">
-                            <span class="hook-action">'.I18N::resolveHTML("setting.hooks.add.type.option.json").'</span> &rarr; <span class="hook-domain">'.I18N::resolveHTML("setting.hooks.hook_list.domain.unknown").'</span><br />
+                            <span class="hook-action">'.I18N::resolveHTML("setting.hooks.add.type.option.json").'</span> &rarr; <span class="hook-domain">'.I18N::resolveHTML("admin.clientside.domain.unknown").'</span><br />
                             '.$hookSummary.'
                         </div>
                         <div class="hook-body hidden-by-default">
@@ -478,7 +478,7 @@
                 $node = '
                     <div class="hook-instance" data-hook-id="{%ID%}">
                         <div class="hook-head">
-                            <span class="hook-action">'.I18N::resolveHTML("setting.hooks.add.type.option.telegram").'</span> &rarr; <span class="hook-domain">'.I18N::resolveHTML("setting.hooks.hook_list.domain.unknown").'</span><br />
+                            <span class="hook-action">'.I18N::resolveHTML("setting.hooks.add.type.option.telegram").'</span> &rarr; <span class="hook-domain">'.I18N::resolveHTML("admin.clientside.domain.unknown").'</span><br />
                             '.$hookSummary.'
                         </div>
                         <div class="hook-body hidden-by-default">
