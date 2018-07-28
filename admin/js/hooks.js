@@ -23,6 +23,9 @@ $("#add-hook-submit").on("click", function() {
             }
 
             var id = getNewID();
+            while ($(".hook-instance[data-hook-id=" + id + "]").length > 0) {
+                id = getNewID();
+            }
 
             var node = $(createHookNode("json", id));
             node.find(".hook-payload").val(body);
@@ -44,6 +47,9 @@ $("#add-hook-submit").on("click", function() {
             }
 
             var id = getNewID();
+            while ($(".hook-instance[data-hook-id=" + id + "]").length > 0) {
+                id = getNewID();
+            }
 
             var node = $(createHookNode("telegram", id));
             node.find(".hook-payload").val(body);
