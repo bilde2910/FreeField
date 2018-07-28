@@ -101,8 +101,8 @@ function editObjective(newObjective, caller) {
     } else {
         $("#hooks-update-objective-overlay-title").text(resolveI18N("admin.clientside.hooks.popup.edit_objective"));
         objective = {
-            type: caller.parent().parent().find("input[type=hidden].hook-objective-type").val(),
-            params: JSON.parse(caller.parent().parent().find("input[type=hidden].hook-objective-params").val())
+            type: caller.closest(".hook-filter").find("input[type=hidden].hook-objective-type").val(),
+            params: JSON.parse(caller.closest(".hook-filter").find("input[type=hidden].hook-objective-params").val())
         };
     }
 
@@ -148,7 +148,7 @@ function editObjective(newObjective, caller) {
         if (newObjective) {
             node = $(getObjectiveFilterNode(caller.closest(".hook-instance").attr("data-hook-id")));
         } else {
-            node = caller.parent().parent();
+            node = caller.closest(".hook-filter");
         }
 
         node.find("input[type=hidden].hook-objective-type").val(objective);
@@ -159,7 +159,7 @@ function editObjective(newObjective, caller) {
         }));
 
         if (newObjective) {
-            caller.parent().parent().append(node);
+            caller.closest(".hook-filter-objectives").append(node);
             node.parent().find(".hook-mode-objective").prop("disabled", false);
         }
 
@@ -193,8 +193,8 @@ function editReward(newReward, caller) {
     } else {
         $("#hooks-update-reward-overlay-title").text(resolveI18N("admin.clientside.hooks.popup.edit_reward"));
         reward = {
-            type: caller.parent().parent().find("input[type=hidden].hook-reward-type").val(),
-            params: JSON.parse(caller.parent().parent().find("input[type=hidden].hook-reward-params").val())
+            type: caller.closest(".hook-filter").find("input[type=hidden].hook-reward-type").val(),
+            params: JSON.parse(caller.closest(".hook-filter").find("input[type=hidden].hook-reward-params").val())
         };
     }
 
@@ -240,7 +240,7 @@ function editReward(newReward, caller) {
         if (newReward) {
             node = $(getRewardFilterNode(caller.closest(".hook-instance").attr("data-hook-id")));
         } else {
-            node = caller.parent().parent();
+            node = caller.closest(".hook-filter");
         }
 
         node.find("input[type=hidden].hook-reward-type").val(reward);
@@ -251,7 +251,7 @@ function editReward(newReward, caller) {
         }));
 
         if (newReward) {
-            caller.parent().parent().append(node);
+            caller.closest(".hook-filter-rewards").append(node);
             node.parent().find(".hook-mode-reward").prop("disabled", false);
         }
 
