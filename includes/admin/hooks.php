@@ -278,7 +278,7 @@
 <div id="hooks-add-overlay" class="cover-box admin-cover-box">
     <div class="cover-box-inner">
         <div class="header">
-            <h1><?php echo I18N::resolveHTML("admin.hooks.popup.add_webhook"); ?></h1>
+            <h1><?php echo I18N::resolveHTML("admin.clientside.hooks.popup.add_webhook"); ?></h1>
         </div>
         <div class="cover-box-content content pure-form">
             <div class="pure-g">
