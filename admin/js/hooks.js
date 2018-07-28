@@ -32,10 +32,7 @@ $("#add-hook-submit").on("click", function() {
             $("#active-hooks-list").append(node);
             node.find(".hook-target").trigger("input");
 
-            viewTheme(id + "-icon-selector", document.getElementById(id + "-icon-selector").value);
-            document.getElementById(id + "-icon-selector").addEventListener("change", function() {
-                viewTheme(id + "-icon-selector", document.getElementById(id + "-icon-selector").value);
-            });
+            viewTheme(id + "-icon-selector", $("#" + id + "-icon-selector").val());
 
             break;
         case "telegram":
@@ -61,10 +58,7 @@ $("#add-hook-submit").on("click", function() {
             node.find(".hook-target").trigger("input");
             node.find(".hook-tg-parse-mode").trigger("input");
 
-            viewTheme(id + "-icon-selector", document.getElementById(id + "-icon-selector").value);
-            document.getElementById(id + "-icon-selector").addEventListener("change", function() {
-                viewTheme(id + "-icon-selector", document.getElementById(id + "-icon-selector").value);
-            });
+            viewTheme(id + "-icon-selector", $("#" + id + "-icon-selector").val());
 
             break;
     }
@@ -406,6 +400,10 @@ $(".hook-list").on("change", '.hook-tg-parse-mode', function() {
     payload.trigger("input");
 });
 
+$(".hook-list").on("change", '.hook-icon-set', function() {
+    viewTheme($(this).attr("id"), $(this).val());
+});
+
 $(".hook-list").on("click", ".hook-show-help", function() {
     var help = $(this).closest(".hook-body").find(".hook-syntax-help");
     help.toggle();
@@ -543,8 +541,5 @@ for (var i = 0; i < hooks.length; i++) {
         node.find(".hook-tg-parse-mode").trigger("change");
     }
 
-    viewTheme(hook.id + "-icon-selector", document.getElementById(hook.id + "-icon-selector").value);
-    document.getElementById(hook.id + "-icon-selector").addEventListener("change", function() {
-        viewTheme(hook.id + "-icon-selector", document.getElementById(hook.id + "-icon-selector").value);
-    });
+    viewTheme(hook.id + "-icon-selector", $("#" + hook.id + "-icon-selector").val());
 }
