@@ -82,7 +82,10 @@ function getNewID() {
 
 function getObjectiveFilterNode(hook) {
     var no = getNewID();
-    var node = $.parseHTML('<div class="hook-filter"><span class="hook-objective-text"></span><input type="hidden" class="hook-objective-type" name="hook_' + hook + '[objective][' + no + '][type]" value="unknown"><input type="hidden" class="hook-objective-params" name="hook_' + hook + '[objective][' + no + '][params]" value="[]"><div class="hook-filter-actions"><i class="fas fa-edit hook-edit hook-objective-edit"></i> <i class="far fa-times-circle hook-delete hook-objective-delete"></i></div></div>');
+    while ($(".hook-filter[data-filter-id=" + no + "]").length > 0) {
+        no = getNewID();
+    }
+    var node = $.parseHTML('<div class="hook-filter" data-filter-id="' + no + '"><span class="hook-objective-text"></span><input type="hidden" class="hook-objective-type" name="hook_' + hook + '[objective][' + no + '][type]" value="unknown"><input type="hidden" class="hook-objective-params" name="hook_' + hook + '[objective][' + no + '][params]" value="[]"><div class="hook-filter-actions"><i class="fas fa-edit hook-edit hook-objective-edit"></i> <i class="far fa-times-circle hook-delete hook-objective-delete"></i></div></div>');
     return node;
 }
 
@@ -171,7 +174,10 @@ function editObjective(newObjective, caller) {
 
 function getRewardFilterNode(hook) {
     var no = getNewID();
-    var node = $.parseHTML('<div class="hook-filter"><span class="hook-reward-text"></span><input type="hidden" class="hook-reward-type" name="hook_' + hook + '[reward][' + no + '][type]" value="unknown"><input type="hidden" class="hook-reward-params" name="hook_' + hook + '[reward][' + no + '][params]" value="[]"><div class="hook-filter-actions"><i class="fas fa-edit hook-edit hook-reward-edit"></i> <i class="far fa-times-circle hook-delete hook-reward-delete"></i></div></div>');
+    while ($(".hook-filter[data-filter-id=" + no + "]").length > 0) {
+        no = getNewID();
+    }
+    var node = $.parseHTML('<div class="hook-filter" data-filter-id="' + no + '"><span class="hook-reward-text"></span><input type="hidden" class="hook-reward-type" name="hook_' + hook + '[reward][' + no + '][type]" value="unknown"><input type="hidden" class="hook-reward-params" name="hook_' + hook + '[reward][' + no + '][params]" value="[]"><div class="hook-filter-actions"><i class="fas fa-edit hook-edit hook-reward-edit"></i> <i class="far fa-times-circle hook-delete hook-reward-delete"></i></div></div>');
     return node;
 }
 
