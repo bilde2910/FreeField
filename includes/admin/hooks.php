@@ -294,7 +294,7 @@
             </div>
             <?php
                 $presets = array();
-                $path = __DIR__."/../includes/hook-presets";
+                $path = __DIR__."/../../includes/hook-presets";
                 $presetdirs = array_diff(scandir($path), array('..', '.'));
                 foreach ($presetdirs as $type) {
                     if (is_dir("{$path}/{$type}")) {
