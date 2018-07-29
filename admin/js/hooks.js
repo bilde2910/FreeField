@@ -494,8 +494,8 @@ for (var i = 0; i < hooks.length; i++) {
 
     if (hook.hasOwnProperty("geofence") && hook.geofence !== null) {
         var fenceStr = "";
-        for (var i = 0; i < hook.geofence.length; i++) {
-            fenceStr += hook.geofence[i][0] + "," + hook.geofence[i][1] + "\n";
+        for (var j = 0; j < hook.geofence.length; i++) {
+            fenceStr += hook.geofence[j][0] + "," + hook.geofence[j][1] + "\n";
         }
         if (fenceStr.length > 0) {
             fenceStr = fenceStr.substring(0, fenceStr.length - 1);
