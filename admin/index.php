@@ -7,12 +7,6 @@ __require("i18n");
 __require("geo");
 __require("theme");
 
-if (!isset($_GET["d"])) {
-    header("HTTP/1.1 307 Temporary Redirect");
-    header("Location: ./?d=main");
-    exit;
-}
-
 $domains = array(
     "main" => array(
         "icon" => "cog",
