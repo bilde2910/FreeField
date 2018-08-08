@@ -66,14 +66,6 @@
                     $(this).css("margin-right", "");
                 }
             });
-            $(".group-color-selector > input[type=color]").on("change", function() {
-                $(this).parent().find("input[type=checkbox]").prop("checked", true);
-            });
-            $(".group-color-selector > input[type=checkbox]").on("change", function() {
-                if (!$(this).is(":checked")) {
-                    $(this).parent().find("input[type=color]").val("#000000");
-                }
-            });
         </script>
         <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolveHTML("ui.button.save"); ?>"></p>
     </form>
