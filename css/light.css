@@ -31,6 +31,10 @@ body {
     border-color: black transparent transparent transparent;
 }
 
+a {
+    color: #0f466b;
+}
+
 .cover-box-inner {
     background-color: #ddd;
 }
