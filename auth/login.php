@@ -17,16 +17,12 @@ $providerAppearance = array(
     "discord" => array(
         "fa-icon" => "discord",
         "bg-color" => "#7289DA",
-        "color" => "#FFFFFF",
-        "width" => "40px",
-        "padding" => "0 0 5px 0"
+        "color" => "#FFFFFF"
     ),
     "telegram" => array(
         "fa-icon" => "telegram-plane",
         "bg-color" => "#0088CC",
-        "color" => "#FFFFFF",
-        "width" => "30px",
-        "padding" => "5px 5px 10px 5px",
+        "color" => "#FFFFFF"
     )
 );
 
