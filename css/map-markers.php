@@ -9,7 +9,6 @@ header("Content-Type: text/css");
 $icons = Theme::listIcons();
 
 $themes = Theme::listIconSets();
-$themejs = array();
 $restrictiveLoadThemes = array(
     Config::get("themes/icons/default")
 );
