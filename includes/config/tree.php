@@ -12,16 +12,7 @@
     - default is the default value of the object
     - options specifies the type of data to store.
 
-    Valid options:
-    - "string" for a string
-    - "password" for a password-type string
-    - "int" for an integer
-    - "int,x,y" for an integer between values x and y
-    - "float" for a floating-point value
-    - "float,x,y" for a floating-point value between values x and y
-    - "permission" for a permission tier
-    - "bool" for a boolean
-    - array() for a selection box with the array contents as options
+    Valid options are declared in /includes/config/types.php.
 
     I18N is handled with setting.<setting>.name and setting.<setting>.desc.
     For domains and sections, it's handled with admin.domain.<domain>.name and
