@@ -72,11 +72,6 @@ table, thead, tbody {
 .no-wrap {
     white-space: nowrap;
 }
-.user-action {
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 5px;
-}
 .red {
     color: red;
 }
@@ -255,18 +250,6 @@ h1.head-small {
 }
 .research-parameter {
     display: none;
-}
-.research-params {
-    /*background-color: #2a2a2a;
-    padding: 0 12px;*/
-}
-.objective-params {
-    /*border: 1px solid crimson;
-    background-color: #381920;*/
-}
-.reward-params {
-    /*border: 1px solid blue;
-    background-color: #191c38;*/
 }
 
 
