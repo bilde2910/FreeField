@@ -31,7 +31,7 @@ class Auth {
             $conf[] = "auth/provider/{$provider}/{$req}";
         }
 
-        if (Config::ifAny($conf, null)) return false;
+        if (Config::ifAny($conf, "")) return false;
 
         return true;
     }
