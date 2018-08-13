@@ -1,6 +1,6 @@
 <?php
 
-class DefaultOption {
+abstract class DefaultOption {
     public function parseValue($data) {
         return $data;
     }
