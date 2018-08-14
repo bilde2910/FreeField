@@ -52,13 +52,29 @@ class Config {
         $optDeny = array();
         foreach ($options as $option => $value_raw) {
             if ($validatePermissions) {
-                if (is_array($option)) {
-                    throw new Exception("Cannot verify permissions when setting an array as value for a configuration path!");
-                    exit;
-                }
+                /*
+                        _
+                       / \
+                      / | \
+                     /  |  \
+                    /___o___\
+
+                    !!! WARNING !!!
+
+                    If `$value_raw` is an array of settings, permissions will
+                    not be validated! If you're passing an array to this
+                    function, you are responsible for manually performing
+                    permissions validation!
+
+                    AN EXCEPTION WILL BE THROWN IF THIS WARNING IS NOT HEEDED
+                */
                 $perm = "admin/".$permissionsAssoc[$option]."/general";
                 if (!Auth::getCurrentUser()->hasPermission($perm)) {
                     $optDeny[] = $option;
+                }
+                if (!isset($flat[$option])) {
+                    throw new Exception("Cannot verify permissions when setting an array as value for a configuration path!");
+                    exit;
                 }
                 $values = $flat[$option];
                 if (get_class($values["option"]) == "PermissionOption") {
