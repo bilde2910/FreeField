@@ -98,7 +98,11 @@ class Config {
                 $values = $flat[$option];
                 $opt = $values["option"];
 
-                $value = $opt->parseValue($value_raw);
+                if (is_string($value_raw)) {
+                    $value = $opt->parseValue($value_raw);
+                } else {
+                    $value = $value_raw;
+                }
                 if (!$opt->isValid($value)) continue;
             }
 
