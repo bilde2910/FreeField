@@ -91,7 +91,7 @@ class Config {
         foreach ($options as $option => $value_raw) {
             if (in_array($option, $optDeny)) continue;
 
-            if (is_array($value_raw)) {
+            if (!isset($flat[$option]) && is_array($value_raw)) {
                 $value = $value_raw;
             } else {
                 if (!isset($flat[$option])) continue;
