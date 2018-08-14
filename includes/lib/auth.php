@@ -332,13 +332,15 @@ class User {
     // Checks whether the user has the given permission.
     public function hasPermission($permission) {
         if (!$this->exists()) {
-            $explperms = explode(",", $this->data["overrides"]);
+            // TODO: Permission overries
+
+            /*$explperms = explode(",", $this->data["overrides"]);
             foreach ($explperms as $perm) {
                 if (substr($perm, 1) == $permission) {
                     if (substr($perm, 0, 1) == "+") return true;
                     if (substr($perm, 0, 1) == "-") return false;
                 }
-            }
+            }*/
         }
 
         $userperm = ($this->data === null || !self::isApproved() ? 0 : $this->getPermissionLevel());
@@ -391,11 +393,12 @@ class User {
 
     // Checks whether the user has a user-level override for the given permission.
     public function hasExplicitRights($permission) {
-        if (!$this->exists()) return false;
+        // TODO: Implement
+        /*if (!$this->exists()) return false;
         $explperms = explode(",", $this->data["overrides"]);
         foreach ($explperms as $perm) {
             if (substr($perm, 1) == $permission) return true;
-        }
+        }*/
         return false;
     }
 }
