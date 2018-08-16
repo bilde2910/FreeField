@@ -178,7 +178,7 @@ class Config {
     }
 
     public static function getSettingI18N($path) {
-        return new ConfigSettingI18N($path, self::getFlatTree()[$path]);
+        return new ConfigSettingI18N($path);
     }
 
     public static function getSectionI18N($domain, $section) {
@@ -215,11 +215,9 @@ Config::loadTree();
 
 class ConfigSettingI18N {
     private $path = null;
-    private $setting = null;
 
-    function __construct($path, $setting) {
+    function __construct($path) {
         $this->path = $path;
-        $this->setting = $setting;
     }
 
     public function getName() {
