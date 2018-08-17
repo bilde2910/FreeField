@@ -157,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         XHR::exitWith(400, array("reason" => "poi.add.failed.reason.name_empty"));
     }
 
-    if (!Geo::isWithinGeofence(Config::get("map/geofence"), $data["lat"], $data["lon"])) {
+    if (!Geo::isWithinGeofence(Config::get("map/geofence"), $data["latitude"], $data["longitude"])) {
         XHR::exitWith(400, array("reason" => "poi.add.failed.reason.invalid_location"));
     }
 
