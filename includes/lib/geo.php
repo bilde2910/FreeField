@@ -152,7 +152,7 @@ class POI {
     }
 
     public function isUpdatedToday() {
-        return date("Y-m-d", $this->getLastUpdatedTime()) == date("Y-m-d");
+        return Geo::wasPoiUpdatedToday($this->getLastUpdatedString());
     }
 
     public function getLastObjective() {
