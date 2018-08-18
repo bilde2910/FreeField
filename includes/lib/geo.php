@@ -87,17 +87,15 @@ class Geo {
     public static function isWithinGeofence($geofence, $lat, $lon) {
         if ($geofence === null) return true;
 
-        $xVertices = array();
-        $yVertices = array();
         $inside = false;
         $count = count($geofence);
-        foreach ($geofence as $point) {
-            $xVertices[] = $point[0];
-            $yVertices[] = $point[1];
-        }
-        for ($cur = 0, $prev = $count - 1; $cur < $count; $prev = $cur++) {
-            if ($yVertices[$cur] > $lon != ($yVertices[$prev] > $lon)) {
-                if (($lat < ($xVertices[$prev] - $xVertices[$cur]) * ($lon - $yVertices[$cur]) / ($yVertices[$prev] - $yVertices[$cur]) + $xVertices[$cur])) {
+        for ($b = 0, $a = $count - 1; $b < $count; $a = $b++) {
+            $aLat = $geofence[$a][0];
+            $aLon = $geofence[$a][1];
+            $bLat = $geofence[$b][0];
+            $bLon = $geofence[$b][1];
+            if ($aLon > $lon != $bLon > $lon) {
+                if ($lat > ($aLat - $bLat) * ($lon - $bLon) / ($aLon - $bLon) + $bLat) {
                     $inside = !$inside;
                 }
             }
