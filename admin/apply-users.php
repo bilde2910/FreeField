@@ -95,7 +95,10 @@ foreach ($_POST as $user => $data) {
         $updates[$user]["nick"] = $data["nick"];
     }
 
-    if ($users_assoc[$user]->getPermissionLevel() !== $data["group"] && Auth::getCurrentUser()->hasPermission("admin/users/groups")) {
+    if (
+        $users_assoc[$user]->getPermissionLevel() !== $data["group"] &&
+        Auth::getCurrentUser()->hasPermission("admin/users/groups")
+    ) {
         $group = intval($data["group"]);
         /*
             If the group membership has changed, validation should be done to

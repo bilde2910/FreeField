@@ -45,7 +45,11 @@ class Geo {
             $ew = "geo.direction.deg_west";
         }
 
-        return I18N::resolveArgs("geo.location.string", I18N::resolveArgs($ns, round($lat, $precision)), I18N::resolveArgs($ew, round($lon, $precision)));
+        return I18N::resolveArgs(
+            "geo.location.string",
+            I18N::resolveArgs($ns, round($lat, $precision)),
+            I18N::resolveArgs($ew, round($lon, $precision))
+        );
     }
 
     /*
@@ -72,15 +76,23 @@ class Geo {
                 group membership of the user who created the POI
                 (`c_user.permission` matches `c_group.level`)
             */
-            ->leftJoin(Database::getTable("user c_user"), array(Database::getTable("poi").".created_by" => "c_user.id"))
-            ->leftJoin(Database::getTable("group c_group"), array("c_user.permission" => "c_group.level"))
+            ->leftJoin(Database::getTable("user c_user"), array(
+                Database::getTable("poi").".created_by" => "c_user.id"
+            ))
+            ->leftJoin(Database::getTable("group c_group"), array(
+                "c_user.permission" => "c_group.level"
+            ))
 
             /*
                 Do the same for the user who last updated the POI, with "u_"
                 aliases for "updated" rather than "c_" for "created"
             */
-            ->leftJoin(Database::getTable("user u_user"), array(Database::getTable("poi").".updated_by" => "u_user.id"))
-            ->leftJoin(Database::getTable("group u_group"), array("u_user.permission" => "u_group.level"))
+            ->leftJoin(Database::getTable("user u_user"), array(
+                Database::getTable("poi").".updated_by" => "u_user.id"
+            ))
+            ->leftJoin(Database::getTable("group u_group"), array(
+                "u_user.permission" => "u_group.level"
+            ))
 
             /*
                 Pick the POI that matches the ID passed to the function
@@ -163,15 +175,23 @@ class Geo {
                 group memberships of the users who created the POIs
                 (`c_user.permission` matches `c_group.level`)
             */
-            ->leftJoin(Database::getTable("user c_user"), array(Database::getTable("poi").".created_by" => "c_user.id"))
-            ->leftJoin(Database::getTable("group c_group"), array("c_user.permission" => "c_group.level"))
+            ->leftJoin(Database::getTable("user c_user"), array(
+                Database::getTable("poi").".created_by" => "c_user.id"
+            ))
+            ->leftJoin(Database::getTable("group c_group"), array(
+                "c_user.permission" => "c_group.level"
+            ))
 
             /*
                 Do the same for the users who last updated the POI, with "u_"
                 aliases for "updated" rather than "c_" for "created"
             */
-            ->leftJoin(Database::getTable("user u_user"), array(Database::getTable("poi").".updated_by" => "u_user.id"))
-            ->leftJoin(Database::getTable("group u_group"), array("u_user.permission" => "u_group.level"))
+            ->leftJoin(Database::getTable("user u_user"), array(
+                Database::getTable("poi").".updated_by" => "u_user.id"
+            ))
+            ->leftJoin(Database::getTable("group u_group"), array(
+                "u_user.permission" => "u_group.level"
+            ))
 
             ->select(array(
                 /*

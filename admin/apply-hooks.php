@@ -171,14 +171,20 @@ foreach ($_POST as $postid => $data) {
         the selection boxes for these are `disabled` on the client (happens when
         there are no objective/reward filters on a webhook).
     */
-    if (isset($hook["filter-mode"]["objectives"]) && $hook["filter-mode"]["objectives"] !== $data["filterModeObjective"]) {
+    if (
+        isset($hook["filter-mode"]["objectives"]) &&
+        $hook["filter-mode"]["objectives"] !== $data["filterModeObjective"]
+    ) {
         $mode = $data["filterModeObjective"];
         if (in_array($mode, $filterModes)) {
             $hook["filter-mode"]["objectives"] = $mode;
         }
     }
 
-    if (isset($hook["filter-mode"]["rewards"]) && $hook["filter-mode"]["rewards"] !== $data["filterModeReward"]) {
+    if (
+        isset($hook["filter-mode"]["rewards"]) &&
+        $hook["filter-mode"]["rewards"] !== $data["filterModeReward"]
+    ) {
         $mode = $data["filterModeReward"];
         if (in_array($mode, $filterModes)) {
             $hook["filter-mode"]["rewards"] = $mode;
@@ -209,10 +215,14 @@ foreach ($_POST as $postid => $data) {
         */
 
         // Whether or not link previews should be disabled
-        $hook["options"]["disable-web-page-preview"] = isset($data["tg"]["disable_web_page_preview"]);
+        $hook["options"]["disable-web-page-preview"] = isset(
+            $data["tg"]["disable_web_page_preview"]
+        );
 
         // Whether notifications should be pushed for messages by this webhook
-        $hook["options"]["disable-notification"] = isset($data["tg"]["disable_notification"]);
+        $hook["options"]["disable-notification"] = isset(
+            $data["tg"]["disable_notification"]
+        );
 
         // The Telegram bot token
         if ($hook["options"]["bot-token"] !== $data["tg"]["bot_token"]) {

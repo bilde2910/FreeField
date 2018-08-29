@@ -87,10 +87,18 @@ class StringOption extends DefaultOption {
 
     public function getControl($current = null, $name = null, $id = null) {
         $attrs = "";
-        if ($name !== null) $attrs .= ' name="'.$name.'"';
-        if ($id !== null) $attrs .= ' id="'.$id.'"';
-        if ($current !== null) $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
-        if ($this->regex !== null) $attrs .= ' data-validate-as="regex-string" data-validate-regex="'.$this->regex.'"';
+        if ($name !== null) {
+            $attrs .= ' name="'.$name.'"';
+        }
+        if ($id !== null) {
+            $attrs .= ' id="'.$id.'"';
+        }
+        if ($current !== null) {
+            $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
+        }
+        if ($this->regex !== null) {
+            $attrs .= ' data-validate-as="regex-string" data-validate-regex="'.$this->regex.'"';
+        }
         return '<input type="text"'.$attrs.'>';
     }
 
@@ -117,9 +125,15 @@ class StringOption extends DefaultOption {
 class PasswordOption extends DefaultOption {
     public function getControl($current = null, $name = null, $id = null) {
         $attrs = "";
-        if ($name !== null) $attrs .= ' name="'.$name.'"';
-        if ($id !== null) $attrs .= ' id="'.$id.'"';
-        if ($current !== null) $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
+        if ($name !== null) {
+            $attrs .= ' name="'.$name.'"';
+        }
+        if ($id !== null) {
+            $attrs .= ' id="'.$id.'"';
+        }
+        if ($current !== null) {
+            $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
+        }
         return '<input type="password"'.$attrs.'>';
     }
 
@@ -142,12 +156,20 @@ class BooleanOption extends DefaultOption {
         __require("i18n");
 
         $attrs = "";
-        if ($name !== null) $attrs .= ' name="'.$name.'"';
-        if ($id !== null) $attrs .= ' id="'.$id.'"';
-        if ($current === true) $attrs .= ' checked';
+        if ($name !== null) {
+            $attrs .= ' name="'.$name.'"';
+        }
+        if ($id !== null) {
+            $attrs .= ' id="'.$id.'"';
+        }
+        if ($current === true) {
+            $attrs .= ' checked';
+        }
 
         $labelAttrs = "";
-        if ($id !== null) $labelAttrs .= ' for="'.$id.'"';
+        if ($id !== null) {
+            $labelAttrs .= ' for="'.$id.'"';
+        }
 
         /*
             Since the checkbox should have a label next to it, the contents of
@@ -159,9 +181,17 @@ class BooleanOption extends DefaultOption {
         if ($i18ntoken !== null) {
             $label = I18N::resolveHTML($i18ntoken);
         } elseif ($name !== null) {
-            $label = I18N::resolveHTML("setting.".str_replace("-", "_", str_replace("/", ".", $name)).".label");
+            $label = I18N::resolveHTML(
+                "setting.".
+                str_replace("-", "_", str_replace("/", ".", $name)).
+                ".label"
+            );
         } elseif ($id !== null) {
-            $label = I18N::resolveHTML("setting.".str_replace("-", "_", $id).".label");
+            $label = I18N::resolveHTML(
+                "setting.".
+                str_replace("-", "_", $id).
+                ".label"
+            );
         } else {
             $label = $item;
         }
@@ -185,7 +215,9 @@ class BooleanOption extends DefaultOption {
             this behavior.
         */
         $fallbackAttrs = "";
-        if ($name !== null) $fallbackAttrs .= ' name="'.$name.'"';
+        if ($name !== null) {
+            $fallbackAttrs .= ' name="'.$name.'"';
+        }
 
         $html = '<input type="hidden" value="off"'.$fallbackAttrs.'>';
         $html .= '<label'.$labelAttrs.'><input type="checkbox"'.$attrs.'> '.$label.'</label>';
@@ -220,9 +252,15 @@ class IntegerOption extends DefaultOption {
 
     public function getControl($current = null, $name = null, $id = null) {
         $attrs = "";
-        if ($name !== null) $attrs .= ' name="'.$name.'"';
-        if ($id !== null) $attrs .= ' id="'.$id.'"';
-        if ($current !== null) $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
+        if ($name !== null) {
+            $attrs .= ' name="'.$name.'"';
+        }
+        if ($id !== null) {
+            $attrs .= ' id="'.$id.'"';
+        }
+        if ($current !== null) {
+            $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
+        }
         return '<input type="number"'.$attrs.'>';
     }
 
@@ -255,9 +293,15 @@ class FloatOption extends DefaultOption {
 
     public function getControl($current = null, $name = null, $id = null, $decimals = 5) {
         $attrs = "";
-        if ($name !== null) $attrs .= ' name="'.$name.'"';
-        if ($id !== null) $attrs .= ' id="'.$id.'"';
-        if ($current !== null) $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
+        if ($name !== null) {
+            $attrs .= ' name="'.$name.'"';
+        }
+        if ($id !== null) {
+            $attrs .= ' id="'.$id.'"';
+        }
+        if ($current !== null) {
+            $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
+        }
         if ($decimals >= 1) {
             $attrs .= ' step="0.'.str_repeat("0", $decimals - 1).'"';
         }
@@ -284,8 +328,12 @@ class FloatOption extends DefaultOption {
 class GeofenceOption extends DefaultOption {
     public function getControl($current = null, $name = null, $id = null) {
         $attrs = "";
-        if ($name !== null) $attrs .= ' name="'.$name.'"';
-        if ($id !== null) $attrs .= ' id="'.$id.'"';
+        if ($name !== null) {
+            $attrs .= ' name="'.$name.'"';
+        }
+        if ($id !== null) {
+            $attrs .= ' id="'.$id.'"';
+        }
 
         $value = "";
         if ($current !== null) {
@@ -396,8 +444,12 @@ class SelectOption extends DefaultOption {
         __require("i18n");
 
         $attrs = "";
-        if ($name !== null) $attrs .= ' name="'.$name.'"';
-        if ($id !== null) $attrs .= ' id="'.$id.'"';
+        if ($name !== null) {
+            $attrs .= ' name="'.$name.'"';
+        }
+        if ($id !== null) {
+            $attrs .= ' id="'.$id.'"';
+        }
 
         $html = '<select'.$attrs.'>';
         $selected = false;
@@ -421,9 +473,17 @@ class SelectOption extends DefaultOption {
             if ($i18ndomain !== null) {
                 $label = I18N::resolveHTML("{$i18ndomain}.{$item}");
             } elseif ($name !== null) {
-                $label = I18N::resolveHTML("setting.".str_replace("-", "_", str_replace("/", ".", $name)).".option.{$item}");
+                $label = I18N::resolveHTML(
+                    "setting.".
+                    str_replace("-", "_", str_replace("/", ".", $name)).
+                    ".option.{$item}"
+                );
             } elseif ($id !== null) {
-                $label = I18N::resolveHTML("setting.".str_replace("-", "_", $id).".option.{$item}");
+                $label = I18N::resolveHTML(
+                    "setting.".
+                    str_replace("-", "_", $id).
+                    ".option.{$item}"
+                );
             } else {
                 $label = $item;
             }
@@ -562,8 +622,12 @@ class IconPackOption extends DefaultOption {
 
         $this->id = $id;
         $attrs = "";
-        if ($name !== null) $attrs .= ' name="'.$name.'"';
-        if ($id !== null) $attrs .= ' id="'.$id.'"';
+        if ($name !== null) {
+            $attrs .= ' name="'.$name.'"';
+        }
+        if ($id !== null) {
+            $attrs .= ' id="'.$id.'"';
+        }
 
         foreach ($attributes as $attr => $value) {
             $attrs .= ' '.$attr.'="'.$value.'"';
@@ -571,7 +635,9 @@ class IconPackOption extends DefaultOption {
 
         $html = '<select'.$attrs.'>';
         if ($this->includeDefault !== null) {
-            $html .= '<option value="">'.I18N::resolveHTML($this->includeDefault).'</option>';
+            $html .= '<option value="">'.
+                     I18N::resolveHTML($this->includeDefault).
+                     '</option>';
         }
         foreach (self::$packs as $pack => $data) {
             /*
@@ -580,7 +646,12 @@ class IconPackOption extends DefaultOption {
             */
             $html .= '<option value="'.$pack.'"';
             if ($pack == $current) $html .= ' selected';
-            $html .= '>'.I18N::resolveArgsHTML("theme.name_label", true, $data["name"], $data["author"]).'</option>';
+            $html .= '>'.I18N::resolveArgsHTML(
+                "theme.name_label",
+                true,
+                $data["name"],
+                $data["author"]
+            ).'</option>';
         }
         $html .= '</select>';
         return $html;

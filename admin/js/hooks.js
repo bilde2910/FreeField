@@ -353,7 +353,17 @@ function getObjectiveFilterNode(hook) {
           - A button that allows users to remove the objective filter from the
             webhook
     */
-    var node = $.parseHTML('<div class="hook-filter" data-filter-id="' + no + '"><span class="hook-objective-text"></span><input type="hidden" class="hook-objective-type" name="hook_' + hook + '[objective][' + no + '][type]" value="unknown"><input type="hidden" class="hook-objective-params" name="hook_' + hook + '[objective][' + no + '][params]" value="[]"><div class="hook-filter-actions"><i class="fas fa-edit hook-edit hook-objective-edit"></i> <i class="far fa-times-circle hook-delete hook-objective-delete"></i></div></div>');
+    var node = $.parseHTML(
+        '<div class="hook-filter" data-filter-id="' + no + '">' +
+            '<span class="hook-objective-text"></span>' +
+            '<input type="hidden" class="hook-objective-type" name="hook_' + hook + '[objective][' + no + '][type]" value="unknown">' +
+            '<input type="hidden" class="hook-objective-params" name="hook_' + hook + '[objective][' + no + '][params]" value="[]">' +
+            '<div class="hook-filter-actions">' +
+                '<i class="fas fa-edit hook-edit hook-objective-edit"></i> ' +
+                '<i class="far fa-times-circle hook-delete hook-objective-delete"></i>' +
+            '</div>' +
+        '</div>'
+    );
     return node;
 }
 
@@ -383,7 +393,9 @@ function editObjective(newObjective, caller) {
             dialog box to reflect that. A new filter never has a defined
             objective, so we'll set it to the default "unknown" objective type.
         */
-        $("#hooks-update-objective-overlay-title").text(resolveI18N("admin.clientside.hooks.popup.add_objective"));
+        $("#hooks-update-objective-overlay-title").text(
+            resolveI18N("admin.clientside.hooks.popup.add_objective")
+        );
         objective = {
             type: "unknown",
             params: []
@@ -398,10 +410,14 @@ function editObjective(newObjective, caller) {
             stored in `hook-objective-params` as a JSON serialized object, and
             should be parsed first to turn it back into an object.
         */
-        $("#hooks-update-objective-overlay-title").text(resolveI18N("admin.clientside.hooks.popup.edit_objective"));
+        $("#hooks-update-objective-overlay-title").text(
+            resolveI18N("admin.clientside.hooks.popup.edit_objective")
+        );
         objective = {
             type: caller.closest(".hook-filter").find("input[type=hidden].hook-objective-type").val(),
-            params: JSON.parse(caller.closest(".hook-filter").find("input[type=hidden].hook-objective-params").val())
+            params: JSON.parse(
+                caller.closest(".hook-filter").find("input[type=hidden].hook-objective-params").val()
+            )
         };
     }
 
@@ -477,7 +493,10 @@ function editObjective(newObjective, caller) {
             selecting an objective), throw an error.
         */
         if (objective == null) {
-            alert(resolveI18N("admin.clientside.hooks.update.objective.failed.message", resolveI18N("poi.update.failed.reason.objective_null")));
+            alert(resolveI18N(
+                "admin.clientside.hooks.update.objective.failed.message",
+                resolveI18N("poi.update.failed.reason.objective_null")
+            ));
             return;
         }
 
@@ -504,7 +523,10 @@ function editObjective(newObjective, caller) {
         for (var i = 0; i < objDefinition.params.length; i++) {
             var paramData = getObjectiveParameter(objDefinition.params[i]);
             if (paramData == null || paramData == "") {
-                alert(resolveI18N("admin.clientside.hooks.update.objective.failed.message", resolveI18N("xhr.failed.reason.missing_fields")));
+                alert(resolveI18N(
+                    "admin.clientside.hooks.update.objective.failed.message",
+                    resolveI18N("xhr.failed.reason.missing_fields")
+                ));
                 return;
             }
             objParams[objDefinition.params[i]] = paramData;
@@ -605,7 +627,17 @@ function getRewardFilterNode(hook) {
           - A button that allows users to remove the reward filter from the
             webhook
     */
-    var node = $.parseHTML('<div class="hook-filter" data-filter-id="' + no + '"><span class="hook-reward-text"></span><input type="hidden" class="hook-reward-type" name="hook_' + hook + '[reward][' + no + '][type]" value="unknown"><input type="hidden" class="hook-reward-params" name="hook_' + hook + '[reward][' + no + '][params]" value="[]"><div class="hook-filter-actions"><i class="fas fa-edit hook-edit hook-reward-edit"></i> <i class="far fa-times-circle hook-delete hook-reward-delete"></i></div></div>');
+    var node = $.parseHTML(
+        '<div class="hook-filter" data-filter-id="' + no + '">' +
+            '<span class="hook-reward-text"></span>' +
+            '<input type="hidden" class="hook-reward-type" name="hook_' + hook + '[reward][' + no + '][type]" value="unknown">' +
+            '<input type="hidden" class="hook-reward-params" name="hook_' + hook + '[reward][' + no + '][params]" value="[]">' +
+            '<div class="hook-filter-actions">' +
+                '<i class="fas fa-edit hook-edit hook-reward-edit"></i> ' +
+                '<i class="far fa-times-circle hook-delete hook-reward-delete"></i>' +
+            '</div>' +
+        '</div>'
+    );
     return node;
 }
 
@@ -635,7 +667,9 @@ function editReward(newReward, caller) {
             dialog box to reflect that. A new filter never has a defined reward,
             so we'll set it to the default "unknown" reward type.
         */
-        $("#hooks-update-reward-overlay-title").text(resolveI18N("admin.clientside.hooks.popup.add_reward"));
+        $("#hooks-update-reward-overlay-title").text(
+            resolveI18N("admin.clientside.hooks.popup.add_reward")
+        );
         reward = {
             type: "unknown",
             params: []
@@ -650,10 +684,14 @@ function editReward(newReward, caller) {
             as a JSON serialized object, and should be parsed first to turn it
             back into an object.
         */
-        $("#hooks-update-reward-overlay-title").text(resolveI18N("admin.clientside.hooks.popup.edit_reward"));
+        $("#hooks-update-reward-overlay-title").text(
+            resolveI18N("admin.clientside.hooks.popup.edit_reward")
+        );
         reward = {
             type: caller.closest(".hook-filter").find("input[type=hidden].hook-reward-type").val(),
-            params: JSON.parse(caller.closest(".hook-filter").find("input[type=hidden].hook-reward-params").val())
+            params: JSON.parse(
+                caller.closest(".hook-filter").find("input[type=hidden].hook-reward-params").val()
+            )
         };
     }
 
@@ -729,7 +767,10 @@ function editReward(newReward, caller) {
             selecting a reward), throw an error.
         */
         if (reward == null) {
-            alert(resolveI18N("admin.clientside.hooks.update.reward.failed.message", resolveI18N("poi.update.failed.reason.reward_null")));
+            alert(resolveI18N(
+                "admin.clientside.hooks.update.reward.failed.message",
+                resolveI18N("poi.update.failed.reason.reward_null")
+            ));
             return;
         }
 
@@ -756,7 +797,10 @@ function editReward(newReward, caller) {
         for (var i = 0; i < rewDefinition.params.length; i++) {
             var paramData = getRewardParameter(rewDefinition.params[i]);
             if (paramData == null || paramData == "") {
-                alert(resolveI18N("admin.clientside.hooks.update.reward.failed.message", resolveI18N("xhr.failed.reason.missing_fields")));
+                alert(resolveI18N(
+                    "admin.clientside.hooks.update.reward.failed.message",
+                    resolveI18N("xhr.failed.reason.missing_fields")
+                ));
                 return;
             }
             rewParams[rewDefinition.params[i]] = paramData;
@@ -908,7 +952,9 @@ function updateSummary(node) {
         over any filter instances.
     */
     if (objText === null) {
-        objText = '<span class="hook-head-objective-text">' + encodeHTML(resolveI18N("admin.clientside.hooks.any_objective")) + '</span>';
+        objText = '<span class="hook-head-objective-text">'
+                + encodeHTML(resolveI18N("admin.clientside.hooks.any_objective"))
+                + '</span>';
     }
 
     /*
@@ -979,7 +1025,9 @@ function updateSummary(node) {
         filter instances.
     */
     if (rewText === null) {
-        rewText = '<span class="hook-head-reward-text">' + encodeHTML(resolveI18N("admin.clientside.hooks.any_reward")) + '</span>';
+        rewText = '<span class="hook-head-reward-text">'
+                + encodeHTML(resolveI18N("admin.clientside.hooks.any_reward"))
+                + '</span>';
     }
 
     /*
@@ -1109,7 +1157,9 @@ $(".hook-list").on("change", 'select[data-uri-scheme="tg"].hook-target', functio
         */
         var token = $(this).closest(".hook-instance").find(".hook-tg-bot-token").val();
         if (token == "") {
-            alert(resolveI18N("admin.clientside.hooks.tg.xhr.groups.failed.empty_token"));
+            alert(resolveI18N(
+                "admin.clientside.hooks.tg.xhr.groups.failed.empty_token"
+            ));
             return;
         }
 
@@ -1145,7 +1195,11 @@ $(".hook-list").on("change", 'select[data-uri-scheme="tg"].hook-target', functio
             for (var id in data.groups) {
                 if (data.groups.hasOwnProperty(id)) {
                     isEmpty = false;
-                    $("#select-tg-group-options").append('<option value="tg://send?to=' + id + '">' + data.groups[id] + '</option>');
+                    $("#select-tg-group-options").append(
+                        '<option value="tg://send?to=' + id + '">' +
+                        data.groups[id] +
+                        '</option>'
+                    );
                 }
             }
 
@@ -1158,7 +1212,9 @@ $(".hook-list").on("change", 'select[data-uri-scheme="tg"].hook-target', functio
             */
             if (isEmpty) {
                 $("#hooks-tg-groups-working").fadeOut(150);
-                alert(resolveI18N("admin.clientside.hooks.tg.xhr.groups.failed.no_groups"));
+                alert(resolveI18N(
+                    "admin.clientside.hooks.tg.xhr.groups.failed.no_groups"
+                ));
                 return;
             }
 
@@ -1174,7 +1230,9 @@ $(".hook-list").on("change", 'select[data-uri-scheme="tg"].hook-target', functio
             $("#select-tg-group-submit").on("click", function() {
                 var target = $("#select-tg-group-options").val();
                 hook.find(".hook-target-current-group").empty();
-                hook.find(".hook-target-current-group").append('<option value="' + target + '">' + target + '</option>');
+                hook.find(".hook-target-current-group").append(
+                    '<option value="' + target + '">' + target + '</option>'
+                );
                 hook.find(".hook-target").val(target);
                 hook.find(".hook-target").trigger("input");
                 $("#hooks-tg-groups-overlay").fadeOut(150);
@@ -1206,7 +1264,9 @@ $(".hook-list").on("change", 'select[data-uri-scheme="tg"].hook-target', functio
     Displays: on webhook body
 */
 $(".hook-list").on("change", '.hook-tg-parse-mode', function() {
-    $(this).closest(".hook-instance").find(".hook-body-header").text(resolveI18N("admin.section.hooks.body." + $(this).val() + ".name"));
+    $(this).closest(".hook-instance").find(".hook-body-header").text(
+        resolveI18N("admin.section.hooks.body." + $(this).val() + ".name")
+    );
     var payload = $(this).closest(".hook-instance").find(".hook-payload");
 
     /*
@@ -1513,15 +1573,20 @@ for (var i = 0; i < hooks.length; i++) {
             the currently selected webhook target instead.
         */
         node.find(".hook-target-current-group").empty();
-        node.find(".hook-target-current-group").append('<option value="' + hook.target + '">' + hook.target + '</option>');
+        node.find(".hook-target-current-group").append(
+            '<option value="' + hook.target + '">' + hook.target + '</option>'
+        );
         node.find(".hook-target").val(hook.target);
 
         // Message/body text parsing mode (txt/md/html)
-        node.find(".hook-tg-parse-mode").val(hook.options["parse-mode"]);
+        node.find(".hook-tg-parse-mode")
+            .val(hook.options["parse-mode"]);
         // Whether or not web previews should be disabled for posted messages
-        node.find(".hook-tg-disable-web-page-preview").prop("checked", hook.options["disable-web-page-preview"]);
+        node.find(".hook-tg-disable-web-page-preview")
+            .prop("checked", hook.options["disable-web-page-preview"]);
         // Whether or not posted messages should trigger notifications
-        node.find(".hook-tg-disable-notification").prop("checked", hook.options["disable-notification"]);
+        node.find(".hook-tg-disable-notification")
+            .prop("checked", hook.options["disable-notification"]);
     }
 
     for (var j = 0; j < hook.objectives.length; j++) {
@@ -1535,8 +1600,12 @@ for (var i = 0; i < hooks.length; i++) {
             idenfity the purpose of the filter.
         */
         var filter = $(getObjectiveFilterNode(hook.id));
-        filter.find("input[type=hidden].hook-objective-type").val(hook.objectives[j].type);
-        filter.find("input[type=hidden].hook-objective-params").val(JSON.stringify(hook.objectives[j].params));
+        filter.find("input[type=hidden].hook-objective-type").val(
+            hook.objectives[j].type
+        );
+        filter.find("input[type=hidden].hook-objective-params").val(
+            JSON.stringify(hook.objectives[j].params)
+        );
         filter.find("span.hook-objective-text").text(resolveObjective({
             type: hook.objectives[j].type,
             params: hook.objectives[j].params
@@ -1564,8 +1633,12 @@ for (var i = 0; i < hooks.length; i++) {
             purpose of the filter.
         */
         var filter = $(getRewardFilterNode(hook.id));
-        filter.find("input[type=hidden].hook-reward-type").val(hook.rewards[j].type);
-        filter.find("input[type=hidden].hook-reward-params").val(JSON.stringify(hook.rewards[j].params));
+        filter.find("input[type=hidden].hook-reward-type").val(
+            hook.rewards[j].type
+        );
+        filter.find("input[type=hidden].hook-reward-params").val(
+            JSON.stringify(hook.rewards[j].params)
+        );
         filter.find("span.hook-reward-text").text(resolveReward({
             type: hook.rewards[j].type,
             params: hook.rewards[j].params

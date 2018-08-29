@@ -28,8 +28,14 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
                     <meta name="viewport" content="width=device-width, initial-scale=1">
                     <meta name="robots" content="noindex,nofollow">
                     <title><?php echo Config::get("site/name"); ?> | <?php echo I18N::resolveI18N("login.title"); ?></title>
-                    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+                    <link rel="stylesheet"
+                          href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+                          integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+                          crossorigin="anonymous">
+                    <link rel="stylesheet"
+                          href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+                          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+                          crossorigin="anonymous">
                     <link rel="stylesheet" href="./css/main.css">
                     <link rel="stylesheet" href="./css/<?php echo Config::getHTML("themes/color/user-settings/theme"); ?>.css">
 
@@ -48,7 +54,13 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
                         </div>
 
                         <div class="content">
-                            <p><?php echo I18N::resolveArgsHTML("access_denied.info", true, Auth::getCurrentUser()->getProviderIdentity()); ?></p>
+                            <p>
+                                <?php echo I18N::resolveArgsHTML(
+                                    "access_denied.info",
+                                    true,
+                                    Auth::getCurrentUser()->getProviderIdentity()
+                                ); ?>
+                            </p>
                         </div>
                     </div>
                     <script src="./js/ui.js"></script>
@@ -78,11 +90,20 @@ $provider = Config::get("map/provider/source");
         <meta name="robots" content="noindex,nofollow">
         <title><?php echo Config::get("site/name"); ?></title>
         <script src="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                crossorigin="anonymous"></script>
         <script src="./js/clientside-i18n.php"></script>
-        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css">
-        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css">
+        <link rel="stylesheet"
+              href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+              integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+              crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+              integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+              crossorigin="anonymous">
         <link rel="stylesheet" href="./css/main.css?v=<?php echo time(); ?>">
         <link rel="stylesheet" href="./css/map-markers.php">
 
@@ -108,27 +129,73 @@ $provider = Config::get("map/provider/source");
                     <ul class="pure-menu-list">
                         <?php if (Auth::isAuthenticated()) { ?>
                             <div class="menu-user-box">
-                                <span class="user-box-small"><?php echo I18N::resolveHTML("sidebar.signed_in_as"); ?></span><br>
-                                <span class="user-box-nick"><?php echo Auth::getCurrentUser()->getNicknameHTML(); ?></span><br />
-                                <span class="user-box-small"><?php echo Auth::getCurrentUser()->getProviderIdentityHTML(); ?></span><br>
+                                <span class="user-box-small">
+                                    <?php echo I18N::resolveHTML("sidebar.signed_in_as"); ?>
+                                </span><br>
+                                <span class="user-box-nick">
+                                    <?php echo Auth::getCurrentUser()->getNicknameHTML(); ?>
+                                </span><br />
+                                <span class="user-box-small">
+                                    <?php echo Auth::getCurrentUser()->getProviderIdentityHTML(); ?>
+                                </span><br>
                             </div>
-                            <li class="pure-menu-item"><a href="./auth/logout.php" class="pure-menu-link"><i class="menu-fas fas fa-sign-in-alt"></i> <?php echo I18N::resolveHTML("sidebar.logout"); ?></a></li>
+                            <li class="pure-menu-item">
+                                <a href="./auth/logout.php" class="pure-menu-link">
+                                    <i class="menu-fas fas fa-sign-in-alt"></i>
+                                    <?php echo I18N::resolveHTML("sidebar.logout"); ?>
+                                </a>
+                            </li>
                         <?php } else { ?>
-                            <li class="pure-menu-item"><a href="./auth/login.php" class="pure-menu-link"><i class="menu-fas fas fa-sign-in-alt"></i> <?php echo I18N::resolveHTML("sidebar.login"); ?></a></li>
+                            <li class="pure-menu-item">
+                                <a href="./auth/login.php" class="pure-menu-link">
+                                    <i class="menu-fas fas fa-sign-in-alt"></i>
+                                    <?php echo I18N::resolveHTML("sidebar.login"); ?>
+                                </a>
+                            </li>
                         <?php } ?>
                         <div class="menu-spacer"></div>
                         <div id="map-menu">
                             <?php if (Auth::getCurrentUser()->hasPermission("submit-poi")) { ?>
-                                <li class="pure-menu-item"><a href="#" id="add-poi-start" class="pure-menu-link"><i class="menu-fas fas fa-plus"></i> <?php echo I18N::resolveHTML("sidebar.add_poi"); ?></a></li>
+                                <li class="pure-menu-item">
+                                    <a href="#" id="add-poi-start" class="pure-menu-link">
+                                        <i class="menu-fas fas fa-plus"></i>
+                                        <?php echo I18N::resolveHTML("sidebar.add_poi"); ?>
+                                    </a>
+                                </li>
                             <?php } ?>
-                            <li class="pure-menu-item"><a href="#" id="menu-open-settings" class="pure-menu-link"><i class="menu-fas fas fa-wrench"></i> <?php echo I18N::resolveHTML("sidebar.settings"); ?></a></li>
-                            <?php /* Check if user has permission to access any admin pages. */ if (Auth::getCurrentUser()->hasPermission("admin/?/general")) { ?>
-                                <li class="pure-menu-item"><a href="./admin/" class="pure-menu-link"><i class="menu-fas fas fa-angle-double-right"></i> <?php echo I18N::resolveHTML("sidebar.manage_site"); ?></a></li>
-                            <?php } ?>
+                            <li class="pure-menu-item">
+                                <a href="#" id="menu-open-settings" class="pure-menu-link">
+                                    <i class="menu-fas fas fa-wrench"></i>
+                                    <?php echo I18N::resolveHTML("sidebar.settings"); ?>
+                                </a>
+                            </li>
+                            <?php
+                                /* Check if user has permission to access any admin pages. */
+                                if (Auth::getCurrentUser()->hasPermission("admin/?/general")) {
+                                    ?>
+                                        <li class="pure-menu-item">
+                                            <a href="./admin/" class="pure-menu-link">
+                                                <i class="menu-fas fas fa-angle-double-right"></i>
+                                                <?php echo I18N::resolveHTML("sidebar.manage_site"); ?>
+                                            </a>
+                                        </li>
+                                    <?php
+                                }
+                            ?>
                         </div>
                         <div id="settings-menu" class="hidden-by-default">
-                            <li class="pure-menu-item"><a href="#" id="menu-reset-settings" class="pure-menu-link"><i class="menu-fas fas fa-undo"></i> <?php echo I18N::resolveHTML("sidebar.reset"); ?></a></li>
-                            <li class="pure-menu-item"><a href="#" id="menu-close-settings" class="pure-menu-link"><i class="menu-fas fas fa-angle-double-left"></i> <?php echo I18N::resolveHTML("sidebar.cancel"); ?></a></li>
+                            <li class="pure-menu-item">
+                                <a href="#" id="menu-reset-settings" class="pure-menu-link">
+                                    <i class="menu-fas fas fa-undo"></i>
+                                    <?php echo I18N::resolveHTML("sidebar.reset"); ?>
+                                </a>
+                            </li>
+                            <li class="pure-menu-item">
+                                <a href="#" id="menu-close-settings" class="pure-menu-link">
+                                    <i class="menu-fas fas fa-angle-double-left"></i>
+                                    <?php echo I18N::resolveHTML("sidebar.cancel"); ?>
+                                </a>
+                            </li>
                         </div>
                     </ul>
                 </div>
@@ -148,7 +215,12 @@ $provider = Config::get("map/provider/source");
                 -->
                 <div id="add-poi-banner" class="banner">
                     <div class="banner-inner">
-                        <?php echo I18N::resolveArgsHTML("poi.add.instructions", false, '<a href="#" id="add-poi-cancel-banner">', '</a>'); ?>
+                        <?php echo I18N::resolveArgsHTML(
+                            "poi.add.instructions",
+                            false,
+                            '<a href="#" id="add-poi-cancel-banner">',
+                            '</a>'
+                        ); ?>
                     </div>
                 </div>
                 <!--
@@ -166,17 +238,45 @@ $provider = Config::get("map/provider/source");
                         </div>
                         <div class="cover-box-content content">
                             <div class="pure-g">
-                                <div class="pure-u-1-2 right-align"><img id="poi-objective-icon" src="about:blank" class="bigmarker"></div>
-                                <div class="pure-u-1-2"><img id="poi-reward-icon" src="about:blank" class="bigmarker"></div>
+                                <div class="pure-u-1-2 right-align">
+                                    <img id="poi-objective-icon" src="about:blank" class="bigmarker">
+                                </div>
+                                <div class="pure-u-1-2">
+                                    <img id="poi-reward-icon" src="about:blank" class="bigmarker">
+                                </div>
                             </div>
-                            <p class="centered"><?php echo I18N::resolveArgsHTML("poi.objective_text", false, '<strong id="poi-objective" class="strong-color"></strong>', '<strong id="poi-reward" class="strong-color"></strong>'); ?></p>
+                            <p class="centered">
+                                <?php echo I18N::resolveArgsHTML(
+                                    "poi.objective_text",
+                                    false,
+                                    '<strong id="poi-objective" class="strong-color"></strong>',
+                                    '<strong id="poi-reward" class="strong-color"></strong>'
+                                ); ?>
+                            </p>
                             <div class="cover-button-spacer"></div>
                             <div class="pure-g">
-                                <div class="pure-u-1-1 right-align"><span type="button" id="poi-add-report" class="button-standard split-button"><?php echo I18N::resolveHTML("poi.report_research"); ?></span></div>
+                                <div class="pure-u-1-1 right-align">
+                                    <span type="button" id="poi-add-report"
+                                          class="button-standard split-button">
+                                        <?php echo I18N::resolveHTML("poi.report_research"); ?>
+                                    </span>
+                                </div>
                             </div>
                             <div class="pure-g">
-                                <div class="pure-u-1-2 right-align"><span type="button" id="poi-directions" class="button-standard split-button button-spaced left"><?php echo I18N::resolveHTML("poi.directions"); ?></span></div>
-                                <div class="pure-u-1-2"><span type="button" id="poi-close" class="button-standard split-button button-spaced right"><?php echo I18N::resolveHTML("ui.button.close"); ?></span></div>
+                                <div class="pure-u-1-2 right-align">
+                                    <span type="button"
+                                          id="poi-directions"
+                                          class="button-standard split-button button-spaced left">
+                                        <?php echo I18N::resolveHTML("poi.directions"); ?>
+                                    </span>
+                                </div>
+                                <div class="pure-u-1-2">
+                                    <span type="button"
+                                          id="poi-close"
+                                          class="button-standard split-button button-spaced right">
+                                        <?php echo I18N::resolveHTML("ui.button.close"); ?>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -195,21 +295,45 @@ $provider = Config::get("map/provider/source");
                         </div>
                         <div class="cover-box-content content pure-form">
                             <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolveHTML("poi.add.name"); ?>:</p></div>
-                                <div class="pure-u-2-3 full-on-mobile"><p><input type="text" id="add-poi-name"></p></div>
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p><?php echo I18N::resolveHTML("poi.add.name"); ?>:</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile">
+                                    <p><input type="text" id="add-poi-name"></p>
+                                </div>
                             </div>
                             <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolveHTML("poi.add.latitude"); ?>:</p></div>
-                                <div class="pure-u-2-3 full-on-mobile"><p><input type="text" id="add-poi-lat" readonly></p></div>
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p><?php echo I18N::resolveHTML("poi.add.latitude"); ?>:</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile">
+                                    <p><input type="text" id="add-poi-lat" readonly></p>
+                                </div>
                             </div>
                             <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolveHTML("poi.add.longitude"); ?>:</p></div>
-                                <div class="pure-u-2-3 full-on-mobile"><p><input type="text" id="add-poi-lon" readonly></p></div>
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p><?php echo I18N::resolveHTML("poi.add.longitude"); ?>:</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile">
+                                    <p><input type="text" id="add-poi-lon" readonly></p>
+                                </div>
                             </div>
                             <div class="cover-button-spacer"></div>
                             <div class="pure-g">
-                                <div class="pure-u-1-2 right-align"><span type="button" id="add-poi-cancel" class="button-standard split-button button-spaced left"><?php echo I18N::resolveHTML("ui.button.cancel"); ?></span></div>
-                                <div class="pure-u-1-2"><span type="button" id="add-poi-submit" class="button-submit split-button button-spaced right"><?php echo I18N::resolveHTML("poi.add.submit"); ?></span></div>
+                                <div class="pure-u-1-2 right-align">
+                                    <span type="button"
+                                          id="add-poi-cancel"
+                                          class="button-standard split-button button-spaced left">
+                                        <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
+                                    </span>
+                                </div>
+                                <div class="pure-u-1-2">
+                                    <span type="button"
+                                          id="add-poi-submit"
+                                          class="button-submit split-button button-spaced right">
+                                        <?php echo I18N::resolveHTML("poi.add.submit"); ?>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -225,12 +349,18 @@ $provider = Config::get("map/provider/source");
                 <div id="update-poi-details" class="cover-box">
                     <div class="cover-box-inner">
                         <div class="header">
-                            <h1><?php echo I18N::resolveHTML("poi.update.title"); ?></h1>
+                            <h1>
+                                <?php echo I18N::resolveHTML("poi.update.title"); ?>
+                            </h1>
                         </div>
                         <div class="cover-box-content content pure-form">
                             <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolveHTML("poi.update.name"); ?>:</p></div>
-                                <div class="pure-u-2-3 full-on-mobile"><p><input type="text" id="update-poi-name" readonly></p></div>
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p><?php echo I18N::resolveHTML("poi.update.name"); ?>:</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile">
+                                    <p><input type="text" id="update-poi-name" readonly></p>
+                                </div>
                             </div>
                             <h2><?php echo I18N::resolveHTML("poi.update.objective"); ?></h2>
                             <div class="pure-g">
@@ -267,7 +397,11 @@ $provider = Config::get("map/provider/source");
                                                 $i18n = I18N::resolve("objective.{$objective}.plural");
                                                 // Replace parameters (e.g. {%1}) with placeholders
                                                 for ($i = 0; $i < count($data["params"]); $i++) {
-                                                    $i18n = str_replace("{%".($i+1)."}", I18N::resolve("parameter.".$data["params"][$i].".placeholder"), $i18n);
+                                                    $i18n = str_replace(
+                                                        "{%".($i+1)."}",
+                                                        I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
+                                                        $i18n
+                                                    );
                                                 }
                                                 // Now save the final localized string back into the objective
                                                 $categorizedObjectives[$objective]["i18n"] = htmlspecialchars($i18n, ENT_QUOTES);
@@ -337,9 +471,17 @@ $provider = Config::get("map/provider/source");
                                         */
                                         if (in_array("objectives", $inst->getAvailable())) {
                                             ?>
-                                                <div id="update-poi-objective-param-<?php echo $param; ?>-box" class="pure-g research-parameter objective-parameter">
-                                                    <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p></div>
-                                                    <div class="pure-u-2-3 full-on-mobile"><p><?php echo $inst->html("update-poi-objective-param-{$param}-input", "parameter"); ?></p></div>
+                                                <div id="update-poi-objective-param-<?php echo $param; ?>-box"
+                                                     class="pure-g research-parameter objective-parameter">
+                                                    <div class="pure-u-1-3 full-on-mobile">
+                                                        <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
+                                                    </div>
+                                                    <div class="pure-u-2-3 full-on-mobile">
+                                                        <p><?php echo $inst->html(
+                                                            "update-poi-objective-param-{$param}-input",
+                                                            "parameter"
+                                                        ); ?></p>
+                                                    </div>
                                                 </div>
                                             <?php
                                         }
@@ -461,7 +603,11 @@ $provider = Config::get("map/provider/source");
                                                 $i18n = I18N::resolve("reward.{$reward}.plural");
                                                 // Replace parameters (e.g. {%1}) with placeholders
                                                 for ($i = 0; $i < count($data["params"]); $i++) {
-                                                    $i18n = str_replace("{%".($i+1)."}", I18N::resolve("parameter.".$data["params"][$i].".placeholder"), $i18n);
+                                                    $i18n = str_replace(
+                                                        "{%".($i+1)."}",
+                                                        I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
+                                                        $i18n
+                                                    );
                                                 }
                                                 // Now save the final localized string back into the reward
                                                 $categorizedRewards[$reward]["i18n"] = htmlspecialchars($i18n, ENT_QUOTES);
@@ -530,9 +676,17 @@ $provider = Config::get("map/provider/source");
                                         */
                                         if (in_array("rewards", $inst->getAvailable())) {
                                             ?>
-                                                <div id="update-poi-reward-param-<?php echo $param; ?>-box" class="pure-g research-parameter reward-parameter">
-                                                    <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p></div>
-                                                    <div class="pure-u-2-3 full-on-mobile"><p><?php echo $inst->html("update-poi-reward-param-{$param}-input", "parameter"); ?></p></div>
+                                                <div id="update-poi-reward-param-<?php echo $param; ?>-box"
+                                                     class="pure-g research-parameter reward-parameter">
+                                                    <div class="pure-u-1-3 full-on-mobile">
+                                                        <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
+                                                    </div>
+                                                    <div class="pure-u-2-3 full-on-mobile">
+                                                        <p><?php echo $inst->html(
+                                                            "update-poi-reward-param-{$param}-input",
+                                                            "parameter"
+                                                        ); ?></p>
+                                                    </div>
                                                 </div>
                                             <?php
                                         }
@@ -624,8 +778,20 @@ $provider = Config::get("map/provider/source");
                             </div>
                             <div class="cover-button-spacer"></div>
                             <div class="pure-g">
-                                <div class="pure-u-1-2 right-align"><span type="button" id="update-poi-cancel" class="button-standard split-button button-spaced left"><?php echo I18N::resolveHTML("ui.button.cancel"); ?></span></div>
-                                <div class="pure-u-1-2"><span type="button" id="update-poi-submit" class="button-submit split-button button-spaced right"><?php echo I18N::resolveHTML("poi.update.submit"); ?></span></div>
+                                <div class="pure-u-1-2 right-align">
+                                    <span type="button"
+                                          id="update-poi-cancel"
+                                          class="button-standard split-button button-spaced left">
+                                                <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
+                                    </span>
+                                </div>
+                                <div class="pure-u-1-2">
+                                    <span type="button"
+                                          id="update-poi-submit"
+                                          class="button-submit split-button button-spaced right">
+                                                <?php echo I18N::resolveHTML("poi.update.submit"); ?>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -641,8 +807,12 @@ $provider = Config::get("map/provider/source");
                 <div id="add-poi-working" class="cover-box">
                     <div class="cover-box-inner tiny">
                         <div class="cover-box-content">
-                            <div><i class="fas fa-spinner loading-spinner spinner-large"></i></div>
-                            <p><?php echo I18N::resolveHTML("poi.add.processing"); ?></p>
+                            <div>
+                                <i class="fas fa-spinner loading-spinner spinner-large"></i>
+                            </div>
+                            <p>
+                                <?php echo I18N::resolveHTML("poi.add.processing"); ?>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -654,8 +824,12 @@ $provider = Config::get("map/provider/source");
                 <div id="update-poi-working" class="cover-box">
                     <div class="cover-box-inner tiny">
                         <div class="cover-box-content">
-                            <div><i class="fas fa-spinner loading-spinner spinner-large"></i></div>
-                            <p><?php echo I18N::resolveHTML("poi.update.processing"); ?></p>
+                            <div>
+                                <i class="fas fa-spinner loading-spinner spinner-large"></i>
+                            </div>
+                            <p>
+                                <?php echo I18N::resolveHTML("poi.update.processing"); ?>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -680,7 +854,9 @@ $provider = Config::get("map/provider/source");
                             -->
                             <div class="pure-g">
                                 <div class="pure-u-1-3 full-on-mobile">
-                                    <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.directions_provider.name"); ?>:</p>
+                                    <p class="setting-name">
+                                        <?php echo I18N::resolveHTML("user_setting.directions_provider.name"); ?>:
+                                    </p>
                                 </div>
                                 <div class="pure-u-2-3 full-on-mobile">
                                     <p><select class="user-setting" data-key="naviProvider">
@@ -704,13 +880,21 @@ $provider = Config::get("map/provider/source");
                                     -->
                                     <div class="pure-g">
                                         <div class="pure-u-1-3 full-on-mobile">
-                                            <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.interface_theme.name"); ?>:</p>
+                                            <p class="setting-name">
+                                                <?php echo I18N::resolveHTML("user_setting.interface_theme.name"); ?>:
+                                            </p>
                                         </div>
                                         <div class="pure-u-2-3 full-on-mobile">
                                             <p><select class="user-setting" data-key="theme">
-                                                <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
-                                                <option value="light"><?php echo I18N::resolveHTML("setting.themes.color.user_settings.theme.option.light"); ?></option>
-                                                <option value="dark"><?php echo I18N::resolveHTML("setting.themes.color.user_settings.theme.option.dark"); ?></option>
+                                                <option value="">
+                                                    <?php echo I18N::resolveHTML("user_settings.value.default"); ?>
+                                                </option>
+                                                <option value="light">
+                                                    <?php echo I18N::resolveHTML("setting.themes.color.user_settings.theme.option.light"); ?>
+                                                </option>
+                                                <option value="dark">
+                                                    <?php echo I18N::resolveHTML("setting.themes.color.user_settings.theme.option.dark"); ?>
+                                                </option>
                                             </select></p>
                                         </div>
                                     </div>
@@ -755,7 +939,14 @@ $provider = Config::get("map/provider/source");
                                             <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.icons.name"); ?>:</p>
                                         </div>
                                         <div class="pure-u-2-3 full-on-mobile">
-                                            <p><?php echo $opt->getControl(null, null, "icon-selector", array("data-key" => "iconSet", "class" => "user-setting")); ?></p>
+                                            <p>
+                                                <?php echo $opt->getControl(
+                                                    null,
+                                                    null,
+                                                    "icon-selector",
+                                                    array("data-key" => "iconSet", "class" => "user-setting")
+                                                ); ?>
+                                            </p>
                                         </div>
                                     </div>
                                     <?php
@@ -764,7 +955,12 @@ $provider = Config::get("map/provider/source");
                                 <?php
                             }
                         ?>
-                        <p class="buttons"><input type="button" id="user-settings-save" class="button-submit" value="<?php echo I18N::resolveHTML("ui.button.save"); ?>"></p>
+                        <p class="buttons">
+                            <input type="button"
+                                   id="user-settings-save"
+                                   class="button-submit"
+                                   value="<?php echo I18N::resolveHTML("ui.button.save"); ?>">
+                        </p>
                     </div>
                 </div>
             </div>
@@ -807,9 +1003,15 @@ $provider = Config::get("map/provider/source");
             var forceDefaults = [
                 <?php
                     $forced = array();
-                    if (!Config::get("themes/color/user-settings/allow-personalization")) $forced[] = '"theme"';
-                    if (!Config::get("themes/color/map/allow-personalization")) $forced[] = '"mapStyle/mapbox"';
-                    if (!Config::get("themes/icons/allow-personalization")) $forced[] = '"iconSet"';
+                    if (!Config::get("themes/color/user-settings/allow-personalization")) {
+                        $forced[] = '"theme"';
+                    }
+                    if (!Config::get("themes/color/map/allow-personalization")) {
+                        $forced[] = '"mapStyle/mapbox"';
+                    }
+                    if (!Config::get("themes/icons/allow-personalization")) {
+                        $forced[] = '"iconSet"';
+                    }
                     echo implode(', ', $forced);
                 ?>
             ];
@@ -889,7 +1091,10 @@ $provider = Config::get("map/provider/source");
                     also replace the value with the corresponding default value
                     from `defaults`.
                 */
-                if (forceDefaults.indexOf(key) >= 0 || (!ignoreDefault && value == "")) {
+                if (
+                    forceDefaults.indexOf(key) >= 0 ||
+                    (!ignoreDefault && value == "")
+                ) {
                     value = defaults;
                     for (var i = 0; i < tree.length; i++) {
                         value = value[tree[i]];
@@ -928,7 +1133,12 @@ $provider = Config::get("map/provider/source");
                     );
 
                     for ($i = 0; $i < count($clientside_perms); $i++) {
-                        $clientside_perms[$i] = '"'.$clientside_perms[$i].'": '.(Auth::getCurrentUser()->hasPermission($clientside_perms[$i]) ? "true" : "false");
+                        $clientside_perms[$i] = '"'.$clientside_perms[$i].'": '.
+                                                (
+                                                    Auth::getCurrentUser()->hasPermission($clientside_perms[$i])
+                                                    ? "true"
+                                                    : "false"
+                                                );
                     }
                     echo implode(", ", $clientside_perms);
                 ?>
@@ -959,7 +1169,12 @@ $provider = Config::get("map/provider/source");
                     );
 
                     foreach ($themes as $theme) {
-                        if (!Config::get("themes/icons/allow-personalization") && in_array($theme, $restrictiveLoadThemes)) return;
+                        if (
+                            !Config::get("themes/icons/allow-personalization") &&
+                            in_array($theme, $restrictiveLoadThemes)
+                        ) {
+                            return;
+                        }
 
                         /*
                             Get an `IconSet` instance for each theme (from
@@ -999,7 +1214,10 @@ $provider = Config::get("map/provider/source");
                 Grab a stylesheet for the "dark" or "light" themes depending on
                 the user's selection.
             */
-            $("head").append('<link rel="stylesheet" type="text/css" href="./css/' + settings.get("theme") + '.css?v=<?php echo time(); ?>">');
+            $("head").append('<link rel="stylesheet" ' +
+                                   'type="text/css" ' +
+                                   'href="./css/' + settings.get("theme") +
+                                         '.css?v=<?php echo time(); ?>">');
 
             /*
                 Configure MapBox.

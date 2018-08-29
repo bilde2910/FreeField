@@ -157,7 +157,13 @@ function spawnBanner(type, message) {
         schedule the banner to dismiss automatically after 5 seconds.
     */
     var id = getNewID();
-    var node = $.parseHTML('<div class="banner ' + type + '" id="dyn-' + id + '"><div class="banner-inner">' + encodeHTML(message) + '</div></div>');
+    var node = $.parseHTML(
+        '<div class="banner ' + type + '" id="dyn-' + id + '">' +
+            '<div class="banner-inner">' +
+                encodeHTML(message) +
+            '</div>' +
+        '</div>'
+    );
     $("#dynamic-banner-container").append(node);
     $("#dyn-" + id).on("click", function() {
         dismiss("#dyn-" + id);
@@ -231,7 +237,13 @@ function openMarker(popup, id) {
         If permission is not granted, hide the button.
     */
     var displayAddPoi = permissions["report-research"];
-    if (displayAddPoi && (poiObj.objective.type != "unknown" || poiObj.reward.type != "unknown")) {
+    if (
+        displayAddPoi &&
+        (
+            poiObj.objective.type != "unknown" ||
+            poiObj.reward.type != "unknown"
+        )
+    ) {
         displayAddPoi = permissions["overwrite-research"];
     }
     if (displayAddPoi) {
@@ -254,7 +266,11 @@ function openMarker(popup, id) {
                 objective or reward is "unknown", then no research has been
                 reported on that POI today, and the fields should be left blank.
             */
-            $("#update-poi-objective").val(poiObj.objective.type == "unknown" ? null : poiObj.objective.type);
+            $("#update-poi-objective").val(
+                poiObj.objective.type == "unknown"
+                ? null
+                : poiObj.objective.type
+            );
             if (poiObj.objective.type !== "unknown") {
                 /*
                     The objective select box has an event handler that ensures
@@ -280,7 +296,11 @@ function openMarker(popup, id) {
             } else {
                 $(".objective-parameter").hide();
             }
-            $("#update-poi-reward").val(poiObj.reward.type == "unknown" ? null : poiObj.reward.type);
+            $("#update-poi-reward").val(
+                poiObj.reward.type == "unknown"
+                ? null
+                : poiObj.reward.type
+            );
             if (poiObj.reward.type !== "unknown") {
                 /*
                     The reward select box has an event handler that ensures that
@@ -331,12 +351,18 @@ function openMarker(popup, id) {
         */
         var objective = $("#update-poi-objective").val();
         if (objective == null) {
-            spawnBanner("failed", resolveI18N("poi.update.failed.message", resolveI18N("poi.update.failed.reason.objective_null")));
+            spawnBanner("failed", resolveI18N(
+                "poi.update.failed.message",
+                resolveI18N("poi.update.failed.reason.objective_null")
+            ));
             return;
         }
         var reward = $("#update-poi-reward").val();
         if (reward == null) {
-            spawnBanner("failed", resolveI18N("poi.update.failed.message", resolveI18N("poi.update.failed.reason.reward_null")));
+            spawnBanner("failed", resolveI18N(
+                "poi.update.failed.message",
+                resolveI18N("poi.update.failed.reason.reward_null")
+            ));
             return;
         }
 
@@ -357,7 +383,10 @@ function openMarker(popup, id) {
         for (var i = 0; i < objDefinition.params.length; i++) {
             var paramData = getObjectiveParameter(objDefinition.params[i]);
             if (paramData == null || paramData == "") {
-                spawnBanner("failed", resolveI18N("poi.update.failed.message", resolveI18N("xhr.failed.reason.missing_fields")));
+                spawnBanner("failed", resolveI18N(
+                    "poi.update.failed.message",
+                    resolveI18N("xhr.failed.reason.missing_fields")
+                ));
                 return;
             }
             objParams[objDefinition.params[i]] = paramData;
@@ -367,7 +396,10 @@ function openMarker(popup, id) {
         for (var i = 0; i < rewDefinition.params.length; i++) {
             var paramData = getRewardParameter(rewDefinition.params[i]);
             if (paramData == null || paramData == "") {
-                spawnBanner("failed", resolveI18N("poi.update.failed.message", resolveI18N("xhr.failed.reason.missing_fields")));
+                spawnBanner("failed", resolveI18N(
+                    "poi.update.failed.message",
+                    resolveI18N("xhr.failed.reason.missing_fields")
+                ));
                 return;
             }
             rewParams[rewDefinition.params[i]] = paramData;
@@ -410,8 +442,12 @@ function openMarker(popup, id) {
                     */
                     var oldObjective = poiObj.objective.type;
                     var oldReward = poiObj.reward.type;
-                    if ($(poiObj.element).hasClass(oldReward)) $(poiObj.element).removeClass(oldReward).addClass(reward);
-                    if ($(poiObj.element).hasClass(oldObjective)) $(poiObj.element).removeClass(oldObjective).addClass(objective);
+                    if ($(poiObj.element).hasClass(oldReward)) {
+                        $(poiObj.element).removeClass(oldReward).addClass(reward);
+                    }
+                    if ($(poiObj.element).hasClass(oldObjective)) {
+                        $(poiObj.element).removeClass(oldObjective).addClass(objective);
+                    }
                     poiObj.objective = {
                         type: objective,
                         params: objParams
@@ -766,7 +802,11 @@ $("#add-poi-submit").on("click", function() {
         if (data !== undefined && data.hasOwnProperty("reason")) {
             reason = resolveI18N(data["reason"]);
         }
-        spawnBanner("failed", resolveI18N("poi.add.failed.message", poiName, reason));
+        spawnBanner("failed", resolveI18N(
+            "poi.add.failed.message",
+            poiName,
+            reason
+        ));
         $("#add-poi-working").fadeOut(150);
         /*
             Re-enable the submit button that was previously disabled, to allow

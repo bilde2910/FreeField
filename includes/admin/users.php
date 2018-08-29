@@ -4,7 +4,10 @@
 */
 ?>
 <div class="content wide-content">
-    <form action="apply-users.php" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
+    <form action="apply-users.php"
+          method="POST"
+          class="pure-form"
+          enctype="application/x-www-form-urlencoded">
         <?php
             /*
                 Get a list of available users from the database.
@@ -38,7 +41,9 @@
             <!--
                 List of users which require approval of their user account
             -->
-            <h2 class="content-subhead"><?php echo I18N::resolveHTML("admin.section.users.require_approval.name"); ?></h2>
+            <h2 class="content-subhead">
+                <?php echo I18N::resolveHTML("admin.section.users.require_approval.name"); ?>
+            </h2>
             <table class="pure-table force-fullwidth">
                 <thead>
                     <tr>
@@ -75,15 +80,31 @@
                             $uidHTML = htmlspecialchars($uid, ENT_QUOTES);
                             ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($user->getProviderIdentity(), ENT_QUOTES); ?></td>
-                                    <td><?php echo I18N::resolveHTML("admin.section.auth.".$user->getProvider().".name"); ?></td>
-                                    <td><?php echo htmlspecialchars($user->getNickname(), ENT_QUOTES); ?></td>
-                                    <td><?php echo $user->getRegistrationDate(); ?></td>
-                                    <td><select class="account-actions" name="<?php echo $uidHTML; ?>[action]">
-                                        <option value="none" selected><?php echo I18N::resolveHTML("admin.section.users.user_list.action.none"); ?></option>
-                                        <option value="approve"><?php echo I18N::resolveHTML("admin.section.users.user_list.action.approve"); ?></option>
-                                        <option value="delete"><?php echo I18N::resolveHTML("admin.section.users.user_list.action.reject"); ?></option>
-                                    </select></td>
+                                    <td>
+                                        <?php echo htmlspecialchars($user->getProviderIdentity(), ENT_QUOTES); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo I18N::resolveHTML("admin.section.auth.".$user->getProvider().".name"); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo htmlspecialchars($user->getNickname(), ENT_QUOTES); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $user->getRegistrationDate(); ?>
+                                    </td>
+                                    <td>
+                                        <select class="account-actions" name="<?php echo $uidHTML; ?>[action]">
+                                            <option value="none" selected>
+                                                <?php echo I18N::resolveHTML("admin.section.users.user_list.action.none"); ?>
+                                            </option>
+                                            <option value="approve">
+                                                <?php echo I18N::resolveHTML("admin.section.users.user_list.action.approve"); ?>
+                                            </option>
+                                            <option value="delete">
+                                                <?php echo I18N::resolveHTML("admin.section.users.user_list.action.reject"); ?>
+                                            </option>
+                                        </select>
+                                    </td>
                                 </td>
                             <?php
                         }
@@ -95,7 +116,9 @@
             List of users whose accounts are already approved or which did not
             require approval to register
         -->
-        <h2 class="content-subhead"><?php echo I18N::resolveHTML("admin.section.users.user_list.name"); ?></h2>
+        <h2 class="content-subhead">
+            <?php echo I18N::resolveHTML("admin.section.users.user_list.name"); ?>
+        </h2>
         <table class="pure-table force-fullwidth">
             <thead>
                 <tr>
@@ -129,21 +152,40 @@
                         $uidHTML = htmlspecialchars($uid, ENT_QUOTES);
                         ?>
                             <tr>
-                                <td<?php if ($user->getColor() !== null) echo ' style="color: #'.$user->getColor().';"'; ?>><?php echo htmlspecialchars($user->getProviderIdentity(), ENT_QUOTES); ?></td>
-                                <td><?php echo I18N::resolveHTML("admin.section.auth.".$user->getProvider().".name"); ?></td>
+                                <td<?php if ($user->getColor() !== null) echo ' style="color: #'.$user->getColor().';"'; ?>>
+                                    <?php echo htmlspecialchars($user->getProviderIdentity(), ENT_QUOTES); ?>
+                                </td>
+                                <td>
+                                    <?php echo I18N::resolveHTML("admin.section.auth.".$user->getProvider().".name"); ?>
+                                </td>
                                 <!--
                                     If this user has a permission level at or
                                     higher than the one making changes here, no
                                     changes should be allowed to this user to
                                     prevent privilege escalation attacks.
                                 -->
-                                <td><input type="text" name="<?php echo $uidHTML; ?>[nick]" value="<?php echo htmlspecialchars($user->getNickname(), ENT_QUOTES); ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>></td>
+                                <td>
+                                    <input type="text"
+                                           name="<?php echo $uidHTML; ?>[nick]"
+                                           value="<?php echo htmlspecialchars($user->getNickname(), ENT_QUOTES); ?>"
+                                           <?php if (!Auth::getCurrentUser()->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>>
+                                </td>
                                 <!-- UNUSED: <td><?php /*echo $user->getLastLoginDate();*/ ?></td> -->
-                                <td><?php echo Auth::getPermissionSelector($uidHTML."[group]", null, $user->getPermissionLevel()); ?></td>
-                                <td><select class="account-actions" name="<?php echo $uidHTML; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>>
-                                    <option value="none" selected><?php echo I18N::resolveHTML("admin.section.users.user_list.action.none"); ?></option>
-                                    <option value="delete"><?php echo I18N::resolveHTML("admin.section.users.user_list.action.delete"); ?></option>
-                                </select></td>
+                                <td>
+                                    <?php echo Auth::getPermissionSelector($uidHTML."[group]", null, $user->getPermissionLevel()); ?>
+                                </td>
+                                <td>
+                                    <select class="account-actions"
+                                            name="<?php echo $uidHTML; ?>[action]"
+                                            <?php if (!Auth::getCurrentUser()->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>>
+                                        <option value="none" selected>
+                                            <?php echo I18N::resolveHTML("admin.section.users.user_list.action.none"); ?>
+                                        </option>
+                                        <option value="delete">
+                                            <?php echo I18N::resolveHTML("admin.section.users.user_list.action.delete"); ?>
+                                        </option>
+                                    </select>
+                                </td>
                             </td>
                         <?php
                     }
@@ -179,6 +221,10 @@
                 }
             });
         </script>
-        <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolveHTML("ui.button.save"); ?>"></p>
+        <p class="buttons">
+            <input type="submit"
+                   class="button-submit"
+                   value="<?php echo I18N::resolveHTML("ui.button.save"); ?>">
+        </p>
     </form>
 </div>

@@ -57,7 +57,11 @@ set_error_handler(function($no, $str, $file, $line, $context) {
 }, E_WARNING);
 
 try {
-    $data = json_decode(file_get_contents("https://api.telegram.org/bot".urlencode($_GET["token"])."/getUpdates", false, $context), true);
+    $data = json_decode(file_get_contents(
+        "https://api.telegram.org/bot".urlencode($_GET["token"])."/getUpdates",
+        false,
+        $context
+    ), true);
 } catch (Exception $e) {
     if (time() >= ($time + 14)) {
         /*

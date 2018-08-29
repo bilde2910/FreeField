@@ -4,22 +4,37 @@
 */
 ?>
 <div class="content">
-    <form action="apply-hooks.php" method="POST" class="pure-form require-validation" enctype="application/x-www-form-urlencoded">
+    <form action="apply-hooks.php"
+          method="POST"
+          class="pure-form require-validation"
+          enctype="application/x-www-form-urlencoded">
         <!--
             The two hook lists are where webhooks are dynamically created by
             `createHookNode()` later in this file are appended. Active hooks are
             appended to `#active-hooks-list` and inactive ones to
             `#inactive-hooks-list`.
         -->
-        <h2 class="content-subhead"><?php echo I18N::resolveHTML("admin.section.hooks.active.name"); ?></h2>
+        <h2 class="content-subhead">
+            <?php echo I18N::resolveHTML("admin.section.hooks.active.name"); ?>
+        </h2>
         <div class="hook-list" id="active-hooks-list">
-
         </div>
-        <h2 class="content-subhead"><?php echo I18N::resolveHTML("admin.section.hooks.inactive.name"); ?></h2>
+
+        <h2 class="content-subhead">
+            <?php echo I18N::resolveHTML("admin.section.hooks.inactive.name"); ?>
+        </h2>
         <div class="hook-list" id="inactive-hooks-list">
-
         </div>
-        <p class="buttons"><input type="button" id="hooks-add" class="button-standard" value="<?php echo I18N::resolveHTML("admin.section.hooks.ui.add.name"); ?>"> <input type="submit" class="button-submit" value="<?php echo I18N::resolveHTML("ui.button.save"); ?>"></p>
+
+        <p class="buttons">
+            <input type="button"
+                   id="hooks-add"
+                   class="button-standard"
+                   value="<?php echo I18N::resolveHTML("admin.section.hooks.ui.add.name"); ?>">
+            <input type="submit"
+                   class="button-submit"
+                   value="<?php echo I18N::resolveHTML("ui.button.save"); ?>">
+        </p>
     </form>
 </div>
 
@@ -69,7 +84,11 @@
 
                                 // Replace parameters (e.g. {%1}) with placeholders
                                 for ($i = 0; $i < count($data["params"]); $i++) {
-                                    $i18n = str_replace("{%".($i+1)."}", I18N::resolve("parameter.".$data["params"][$i].".placeholder"), $i18n);
+                                    $i18n = str_replace(
+                                        "{%".($i+1)."}",
+                                        I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
+                                        $i18n
+                                    );
                                 }
 
                                 // Now save the final localized string back into the objective
@@ -123,9 +142,14 @@
                         */
                         if (in_array("objectives", $inst->getAvailable())) {
                             ?>
-                                <div id="update-hook-objective-param-<?php echo $param; ?>-box" class="pure-g research-parameter objective-parameter">
-                                    <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p></div>
-                                    <div class="pure-u-2-3 full-on-mobile"><p><?php echo $inst->html("update-hook-objective-param-{$param}-input", "parameter"); ?></p></div>
+                                <div id="update-hook-objective-param-<?php echo $param; ?>-box"
+                                     class="pure-g research-parameter objective-parameter">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><?php echo $inst->html("update-hook-objective-param-{$param}-input", "parameter"); ?></p>
+                                    </div>
                                 </div>
                             <?php
                         }
@@ -219,8 +243,20 @@
             </div>
             <div class="cover-button-spacer"></div>
             <div class="pure-g">
-                <div class="pure-u-1-2 right-align"><span type="button" id="update-hook-objective-cancel" class="button-standard split-button button-spaced left"><?php echo I18N::resolveHTML("ui.button.cancel"); ?></span></div>
-                <div class="pure-u-1-2"><span type="button" id="update-hook-objective-submit" class="button-submit split-button button-spaced right"><?php echo I18N::resolveHTML("ui.button.done"); ?></span></div>
+                <div class="pure-u-1-2 right-align">
+                    <span type="button"
+                          id="update-hook-objective-cancel"
+                          class="button-standard split-button button-spaced left">
+                                <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
+                    </span>
+                </div>
+                <div class="pure-u-1-2">
+                    <span type="button"
+                          id="update-hook-objective-submit"
+                          class="button-submit split-button button-spaced right">
+                                <?php echo I18N::resolveHTML("ui.button.done"); ?>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -272,7 +308,11 @@
 
                                 // Replace parameters (e.g. {%1}) with placeholders
                                 for ($i = 0; $i < count($data["params"]); $i++) {
-                                    $i18n = str_replace("{%".($i+1)."}", I18N::resolve("parameter.".$data["params"][$i].".placeholder"), $i18n);
+                                    $i18n = str_replace(
+                                        "{%".($i+1)."}",
+                                        I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
+                                        $i18n
+                                    );
                                 }
 
                                 // Now save the final localized string back into the reward
@@ -325,9 +365,14 @@
                         */
                         if (in_array("rewards", $inst->getAvailable())) {
                             ?>
-                                <div id="update-hook-reward-param-<?php echo $param; ?>-box" class="pure-g research-parameter reward-parameter">
-                                    <div class="pure-u-1-3 full-on-mobile"><p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p></div>
-                                    <div class="pure-u-2-3 full-on-mobile"><p><?php echo $inst->html("update-hook-reward-param-{$param}-input", "parameter"); ?></p></div>
+                                <div id="update-hook-reward-param-<?php echo $param; ?>-box"
+                                     class="pure-g research-parameter reward-parameter">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><?php echo $inst->html("update-hook-reward-param-{$param}-input", "parameter"); ?></p>
+                                    </div>
                                 </div>
                             <?php
                         }
@@ -420,8 +465,20 @@
             </div>
             <div class="cover-button-spacer"></div>
             <div class="pure-g">
-                <div class="pure-u-1-2 right-align"><span type="button" id="update-hook-reward-cancel" class="button-standard split-button button-spaced left"><?php echo I18N::resolveHTML("ui.button.cancel"); ?></span></div>
-                <div class="pure-u-1-2"><span type="button" id="update-hook-reward-submit" class="button-submit split-button button-spaced right"><?php echo I18N::resolveHTML("ui.button.done"); ?></span></div>
+                <div class="pure-u-1-2 right-align">
+                    <span type="button"
+                          id="update-hook-reward-cancel"
+                          class="button-standard split-button button-spaced left">
+                                <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
+                    </span>
+                </div>
+                <div class="pure-u-1-2">
+                    <span type="button"
+                          id="update-hook-reward-submit"
+                          class="button-submit split-button button-spaced right">
+                                <?php echo I18N::resolveHTML("ui.button.done"); ?>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -438,12 +495,16 @@
 <div id="hooks-tg-groups-overlay" class="cover-box admin-cover-box">
     <div class="cover-box-inner">
         <div class="header">
-            <h1><?php echo I18N::resolveHTML("admin.hooks.popup.tg.select_group"); ?></h1>
+            <h1>
+                <?php echo I18N::resolveHTML("admin.hooks.popup.tg.select_group"); ?>
+            </h1>
         </div>
         <div class="cover-box-content content pure-form">
             <div class="pure-g">
                 <div class="pure-u-1-3 full-on-mobile">
-                    <p class="setting-name"><?php echo I18N::resolveHTML("setting.hooks.tg.groups.select.name"); ?>:</p>
+                    <p class="setting-name">
+                        <?php echo I18N::resolveHTML("setting.hooks.tg.groups.select.name"); ?>:
+                    </p>
                 </div>
                 <div class="pure-u-2-3 full-on-mobile">
                     <!--
@@ -455,8 +516,20 @@
             </div>
             <div class="cover-button-spacer"></div>
             <div class="pure-g">
-                <div class="pure-u-1-2 right-align"><span type="button" id="select-tg-group-cancel" class="button-standard split-button button-spaced left"><?php echo I18N::resolveHTML("ui.button.cancel"); ?></span></div>
-                <div class="pure-u-1-2"><span type="button" id="select-tg-group-submit" class="button-submit split-button button-spaced right"><?php echo I18N::resolveHTML("ui.button.select"); ?></span></div>
+                <div class="pure-u-1-2 right-align">
+                    <span type="button"
+                          id="select-tg-group-cancel"
+                          class="button-standard split-button button-spaced left">
+                                <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
+                    </span>
+                </div>
+                <div class="pure-u-1-2">
+                    <span type="button"
+                          id="select-tg-group-submit"
+                          class="button-submit split-button button-spaced right">
+                                <?php echo I18N::resolveHTML("ui.button.select"); ?>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -476,8 +549,12 @@
 <div id="hooks-tg-groups-working" class="cover-box admin-cover-box">
     <div class="cover-box-inner tiny">
         <div class="cover-box-content">
-            <div><i class="fas fa-spinner loading-spinner spinner-large"></i></div>
-            <p><?php echo I18N::resolveHTML("admin.hooks.popup.tg.searching_group"); ?></p>
+            <div>
+                <i class="fas fa-spinner loading-spinner spinner-large"></i>
+            </div>
+            <p>
+                <?php echo I18N::resolveHTML("admin.hooks.popup.tg.searching_group"); ?>
+            </p>
         </div>
     </div>
 </div>
@@ -491,20 +568,28 @@
 <div id="hooks-add-overlay" class="cover-box admin-cover-box">
     <div class="cover-box-inner">
         <div class="header">
-            <h1><?php echo I18N::resolveHTML("admin.clientside.hooks.popup.add_webhook"); ?></h1>
+            <h1>
+                <?php echo I18N::resolveHTML("admin.clientside.hooks.popup.add_webhook"); ?>
+            </h1>
         </div>
         <div class="cover-box-content content pure-form">
             <div class="pure-g">
                 <div class="pure-u-1-3 full-on-mobile">
-                    <p class="setting-name"><?php echo I18N::resolveHTML("setting.hooks.add.type.name"); ?>:</p>
+                    <p class="setting-name">
+                        <?php echo I18N::resolveHTML("setting.hooks.add.type.name"); ?>:
+                    </p>
                 </div>
                 <div class="pure-u-2-3 full-on-mobile">
                     <!--
                         Webhooks can be either of the JSON or the Telegram type.
                     -->
                     <p><select id="add-hook-type">
-                        <option value="json"><?php echo I18N::resolveHTML("setting.hooks.add.type.option.json"); ?></option>
-                        <option value="telegram"><?php echo I18N::resolveHTML("setting.hooks.add.type.option.telegram"); ?></option>
+                        <option value="json">
+                            <?php echo I18N::resolveHTML("setting.hooks.add.type.option.json"); ?>
+                        </option>
+                        <option value="telegram">
+                            <?php echo I18N::resolveHTML("setting.hooks.add.type.option.telegram"); ?>
+                        </option>
                     </select></p>
                 </div>
             </div>
@@ -519,10 +604,16 @@
                 */
                 $presets = array();
                 $path = __DIR__."/../../includes/hook-presets";
-                $presetdirs = array_diff(scandir($path), array('..', '.'));
+                $presetdirs = array_diff(
+                    scandir($path),
+                    array('..', '.')
+                );
                 foreach ($presetdirs as $type) {
                     if (is_dir("{$path}/{$type}")) {
-                        $typepresets = array_diff(scandir("{$path}/{$type}"), array('..', '.'));
+                        $typepresets = array_diff(
+                            scandir("{$path}/{$type}"),
+                            array('..', '.')
+                        );
                         foreach ($typepresets as $preset) {
                             /*
                                 Since the presets will be output and displayed
@@ -541,12 +632,16 @@
             -->
             <div class="pure-g hook-add-type-conditional hook-add-type-json">
                 <div class="pure-u-1-3 full-on-mobile">
-                    <p class="setting-name"><?php echo I18N::resolveHTML("setting.hooks.add.preset.name"); ?>:</p>
+                    <p class="setting-name">
+                        <?php echo I18N::resolveHTML("setting.hooks.add.preset.name"); ?>:
+                    </p>
                 </div>
 
                 <div class="pure-u-2-3 full-on-mobile">
                     <p><select id="add-hook-json-preset">
-                        <option value="none"><?php echo I18N::resolveHTML("setting.hooks.add.preset.option.none"); ?></option>
+                        <option value="none">
+                            <?php echo I18N::resolveHTML("setting.hooks.add.preset.option.none"); ?>
+                        </option>
                         <?php
                             foreach ($presets["json"] as $name => $data) {
                                 echo '<option value="'.$name.'">'.$name.'</option>';
@@ -560,12 +655,16 @@
             -->
             <div class="pure-g hook-add-type-conditional hook-add-type-telegram">
                 <div class="pure-u-1-3 full-on-mobile">
-                    <p class="setting-name"><?php echo I18N::resolveHTML("setting.hooks.add.preset.name"); ?>:</p>
+                    <p class="setting-name">
+                        <?php echo I18N::resolveHTML("setting.hooks.add.preset.name"); ?>:
+                    </p>
                 </div>
 
                 <div class="pure-u-2-3 full-on-mobile">
                     <p><select id="add-hook-telegram-preset">
-                        <option value="none"><?php echo I18N::resolveHTML("setting.hooks.add.preset.option.none"); ?></option>
+                        <option value="none">
+                            <?php echo I18N::resolveHTML("setting.hooks.add.preset.option.none"); ?>
+                        </option>
                         <?php
                             foreach ($presets["telegram"] as $name => $data) {
                                 echo '<option value="'.$name.'">'.$name.'</option>';
@@ -576,8 +675,20 @@
             </div>
             <div class="cover-button-spacer"></div>
             <div class="pure-g">
-                <div class="pure-u-1-2 right-align"><span type="button" id="add-hook-cancel" class="button-standard split-button button-spaced left"><?php echo I18N::resolveHTML("ui.button.cancel"); ?></span></div>
-                <div class="pure-u-1-2"><span type="button" id="add-hook-submit" class="button-submit split-button button-spaced right"><?php echo I18N::resolveHTML("ui.button.done"); ?></span></div>
+                <div class="pure-u-1-2 right-align">
+                    <span type="button"
+                          id="add-hook-cancel"
+                          class="button-standard split-button button-spaced left">
+                                <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
+                    </span>
+                </div>
+                <div class="pure-u-1-2">
+                    <span type="button"
+                          id="add-hook-submit"
+                          class="button-submit split-button button-spaced right">
+                                <?php echo I18N::resolveHTML("ui.button.done"); ?>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -621,7 +732,9 @@
             $langs = I18N::getAvailableLanguagesWithNames();
             $langopts = "";
             foreach ($langs as $code => $name) {
-                $langopts .= '<option value="'.$code.'">'.htmlspecialchars($name, ENT_QUOTES).'</option>';
+                $langopts .= '<option value="'.$code.'">'.
+                             htmlspecialchars($name, ENT_QUOTES).
+                             '</option>';
             }
 
             /*
@@ -638,7 +751,18 @@
                 The summary text box in the header of the webhook.
             */
             $hookSummary = '
-            <span class="hook-summary-text">'.I18N::resolveArgsHTML("poi.objective_text", false, '<span class="hook-head-objective-text">'.I18N::resolveHTML("admin.clientside.hooks.any_objective").'</span>', '<span class="hook-head-reward-text">'.I18N::resolveHTML("admin.clientside.hooks.any_reward").'</span>').'</span>';
+            <span class="hook-summary-text">'.
+                I18N::resolveArgsHTML(
+                    "poi.objective_text",
+                    false,
+                    '<span class="hook-head-objective-text">'.
+                        I18N::resolveHTML("admin.clientside.hooks.any_objective").
+                    '</span>',
+                    '<span class="hook-head-reward-text">'.
+                        I18N::resolveHTML("admin.clientside.hooks.any_reward").
+                    '</span>'
+                ).
+            '</span>';
 
             /*
                 Webhook quick actions. These allow users to enable, disable and
@@ -646,13 +770,25 @@
             */
             $hookActions = '
             <div class="pure-g">
-                <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.actions.name").':</p></div>
-                <div class="pure-u-2-3 full-on-mobile"><p><select class="hook-actions" name="hook_{%ID%}[action]">
-                    <option value="none" selected>'.I18N::resolveHTML("setting.hooks.hook_list.actions.option.none").'</option>
-                    <option value="enable">'.I18N::resolveHTML("setting.hooks.hook_list.actions.option.enable").'</option>
-                    <option value="disable">'.I18N::resolveHTML("setting.hooks.hook_list.actions.option.disable").'</option>
-                    <option value="delete">'.I18N::resolveHTML("setting.hooks.hook_list.actions.option.delete").'</option>
-                </select></p></div>
+                <div class="pure-u-1-3 full-on-mobile">
+                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.actions.name").':</p>
+                </div>
+                <div class="pure-u-2-3 full-on-mobile"><p>
+                    <select class="hook-actions" name="hook_{%ID%}[action]">
+                        <option value="none" selected>'.
+                            I18N::resolveHTML("setting.hooks.hook_list.actions.option.none").
+                        '</option>
+                        <option value="enable">'.
+                            I18N::resolveHTML("setting.hooks.hook_list.actions.option.enable").
+                        '</option>
+                        <option value="disable">'.
+                            I18N::resolveHTML("setting.hooks.hook_list.actions.option.disable").
+                        '</option>
+                        <option value="delete">'.
+                            I18N::resolveHTML("setting.hooks.hook_list.actions.option.delete").
+                        '</option>
+                    </select>
+                </p></div>
             </div>';
 
             /*
@@ -674,22 +810,37 @@
             */
             $hookCommonSettings = '
             <div class="pure-g">
-                <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.language.name").':</p></div>
+                <div class="pure-u-1-3 full-on-mobile">
+                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.language.name").':</p>
+                </div>
                 <div class="pure-u-2-3 full-on-mobile">
                     <p><select class="hook-lang" name="hook_{%ID%}[lang]">'.$langopts.'</select></p>
                 </div>
             </div>
             <div class="pure-g">
-                <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.icons.name").':</p></div>
+                <div class="pure-u-1-3 full-on-mobile">
+                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.icons.name").':</p>
+                </div>
                 <div class="pure-u-2-3 full-on-mobile">
-                    <p>'.$opt->getControl(null, "hook_{%ID%}[iconSet]", "{%ID%}-icon-selector", array("class" => "hook-icon-set")).'</p>
+                    <p>'.$opt->getControl(
+                        null,
+                        "hook_{%ID%}[iconSet]",
+                        "{%ID%}-icon-selector",
+                        array("class" => "hook-icon-set")
+                    ).'</p>
                 </div>
             </div>
             '.$opt->getFollowingBlock(false, false).'
             <div class="pure-g">
-                <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.geofence.name").':</p></div>
+                <div class="pure-u-1-3 full-on-mobile">
+                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.geofence.name").':</p>
+                </div>
                 <div class="pure-u-2-3 full-on-mobile">
-                    <p><textarea class="hook-geofence" name="hook_{%ID%}[geofence]" data-validate-as="geofence"></textarea></p>
+                    <p>
+                        <textarea class="hook-geofence"
+                                  name="hook_{%ID%}[geofence]"
+                                  data-validate-as="geofence"></textarea>
+                    </p>
                 </div>
             </div>';
 
@@ -703,7 +854,9 @@
                 in the documentation.
             */
             $hookSyntaxHelp = '
-            <p><a class="hook-show-help" href="#">'.I18N::resolveHTML("admin.clientside.hooks.syntax.show").'</a></p>
+            <p><a class="hook-show-help" href="#">'.
+                I18N::resolveHTML("admin.clientside.hooks.syntax.show").
+            '</a></p>
             <div class="hook-syntax-help hidden-by-default">
                 <div class="hook-syntax-block full-on-mobile">
                     <h3>'.I18N::resolveHTML("admin.hooks.syntax.poi.title").'</h3>
@@ -744,19 +897,41 @@
             $hookFilters = '
             <div class="pure-g">
                 <div class="pure-u-1-2 full-on-mobile hook-filter-objectives">
-                    <h2>'.I18N::resolveArgsHTML("admin.section.hooks.objectives.name", false, '<a class="hook-objective-add hook-filter-add" href="#">', '</a>').'</h2>
+                    <h2>'.
+                        I18N::resolveArgsHTML(
+                            "admin.section.hooks.objectives.name",
+                            false,
+                            '<a class="hook-objective-add hook-filter-add" href="#">',
+                            '</a>'
+                        ).
+                    '</h2>
                     <p>'.I18N::resolveHTML("setting.hooks.hook_list.filter_mode.name").':</p>
                     <p><select class="hook-mode-objective" name="hook_{%ID%}[filterModeObjective]" disabled>
-                        <option value="whitelist">'.I18N::resolveHTML("setting.hooks.hook_list.filter_mode.objective.option.whitelist.name").'</option>
-                        <option value="blacklist">'.I18N::resolveHTML("setting.hooks.hook_list.filter_mode.objective.option.blacklist.name").'</option>
+                        <option value="whitelist">'.
+                            I18N::resolveHTML("setting.hooks.hook_list.filter_mode.objective.option.whitelist.name").
+                        '</option>
+                        <option value="blacklist">'.
+                            I18N::resolveHTML("setting.hooks.hook_list.filter_mode.objective.option.blacklist.name").
+                        '</option>
                     </select></p>
                 </div>
                 <div class="pure-u-1-2 full-on-mobile hook-filter-rewards">
-                    <h2>'.I18N::resolveArgsHTML("admin.section.hooks.rewards.name", false, '<a class="hook-reward-add hook-filter-add" href="#">', '</a>').'</h2>
+                    <h2>'.
+                        I18N::resolveArgsHTML(
+                            "admin.section.hooks.rewards.name",
+                            false,
+                            '<a class="hook-reward-add hook-filter-add" href="#">',
+                            '</a>'
+                        ).
+                    '</h2>
                     <p>'.I18N::resolveHTML("setting.hooks.hook_list.filter_mode.name").':</p>
                     <p><select class="hook-mode-reward" name="hook_{%ID%}[filterModeReward]" disabled>
-                        <option value="whitelist">'.I18N::resolveHTML("setting.hooks.hook_list.filter_mode.reward.option.whitelist.name").'</option>
-                        <option value="blacklist">'.I18N::resolveHTML("setting.hooks.hook_list.filter_mode.reward.option.blacklist.name").'</option>
+                        <option value="whitelist">'.
+                            I18N::resolveHTML("setting.hooks.hook_list.filter_mode.reward.option.whitelist.name").
+                        '</option>
+                        <option value="blacklist">'.
+                            I18N::resolveHTML("setting.hooks.hook_list.filter_mode.reward.option.blacklist.name").
+                        '</option>
                     </select></p>
                 </div>
             </div>';
@@ -782,7 +957,11 @@
                 $node = '
                     <div class="hook-instance" data-hook-id="{%ID%}">
                         <div class="hook-head">
-                            <span class="hook-action">'.I18N::resolveHTML("setting.hooks.add.type.option.json").'</span> &rarr; <span class="hook-domain">'.I18N::resolveHTML("admin.clientside.domain.unknown").'</span><br />
+                            <span class="hook-action">'.
+                                I18N::resolveHTML("setting.hooks.add.type.option.json").
+                            '</span> &rarr; <span class="hook-domain">'.
+                                I18N::resolveHTML("admin.clientside.domain.unknown").
+                            '</span><br />
                             '.$hookSummary.'
                         </div>
                         <div class="hook-body hidden-by-default">
@@ -790,13 +969,24 @@
                             '.$hookActions.'
                             <h2>'.I18N::resolveHTML("admin.section.hooks.settings.name").'</h2>
                             <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.webhook_url.name").':</p></div>
-                                <div class="pure-u-2-3 full-on-mobile"><p><input type="text" class="hook-target" name="hook_{%ID%}[target]" data-uri-scheme="http" data-validate-as="http-uri"></p></div>
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.webhook_url.name").':</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile"><p>
+                                    <input type="text"
+                                           class="hook-target"
+                                           name="hook_{%ID%}[target]"
+                                           data-uri-scheme="http"
+                                           data-validate-as="http-uri">
+                                </p></div>
                             </div>
                             '.$hookCommonSettings.'
                             <h2>'.I18N::resolveHTML("admin.section.hooks.body.json.name").'</h2>
                             '.$hookSyntaxHelp.'
-                            <textarea class="hook-payload" name="hook_{%ID%}[body]" rows="8" data-validate-as="json"></textarea>
+                            <textarea class="hook-payload"
+                                      name="hook_{%ID%}[body]"
+                                      rows="8"
+                                      data-validate-as="json"></textarea>
                             '.$hookFilters.'
                         </div>
                     </div>
@@ -824,7 +1014,11 @@
                 $node = '
                     <div class="hook-instance" data-hook-id="{%ID%}">
                         <div class="hook-head">
-                            <span class="hook-action">'.I18N::resolveHTML("setting.hooks.add.type.option.telegram").'</span> &rarr; <span class="hook-domain">'.I18N::resolveHTML("admin.clientside.domain.unknown").'</span><br />
+                            <span class="hook-action">'.
+                                I18N::resolveHTML("setting.hooks.add.type.option.telegram").
+                            '</span> &rarr; <span class="hook-domain">'.
+                                I18N::resolveHTML("admin.clientside.domain.unknown").
+                            '</span><br />
                             '.$hookSummary.'
                         </div>
                         <div class="hook-body hidden-by-default">
@@ -832,38 +1026,87 @@
                             '.$hookActions.'
                             <h2>'.I18N::resolveHTML("admin.section.hooks.settings.name").'</h2>
                             <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.tg.bot_token.name").':</p></div>
-                                <div class="pure-u-2-3 full-on-mobile"><p><input type="text" class="hook-tg-bot-token" name="hook_{%ID%}[tg][bot_token]" data-validate-as="regex-string" data-validate-regex="^\d+:[A-Za-z\d]+$"></p></div>
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.tg.bot_token.name").':</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile"><p>
+                                    <input type="text"
+                                           class="hook-tg-bot-token"
+                                           name="hook_{%ID%}[tg][bot_token]"
+                                           data-validate-as="regex-string"
+                                           data-validate-regex="^\d+:[A-Za-z\d]+$">
+                                </p></div>
                             </div>
                             <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.webhook_url.name").':</p></div>
-                                <div class="pure-u-2-3 full-on-mobile"><p><select class="hook-target" name="hook_{%ID%}[target]" data-uri-scheme="tg" data-validate-as="tg-uri">
-                                    <optgroup label="'.I18N::resolveHTML("setting.hooks.hook_list.tg.webhook_url.option.current").'" class="hook-target-current-group">
-                                        <option value="" selected></option>
-                                    </optgroup>
-                                    <optgroup label="'.I18N::resolveHTML("setting.hooks.hook_list.tg.webhook_url.option.other").'">
-                                        <option value="_select">&lt; '.I18N::resolveHTML("setting.hooks.hook_list.tg.webhook_url.option.select").' &gt;</option>
-                                    </optgroup>
-                                </select></p></div>
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.webhook_url.name").':</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile"><p>
+                                    <select class="hook-target"
+                                            name="hook_{%ID%}[target]"
+                                            data-uri-scheme="tg"
+                                            data-validate-as="tg-uri">
+                                                <optgroup label="'.I18N::resolveHTML("setting.hooks.hook_list.tg.webhook_url.option.current").'" class="hook-target-current-group">
+                                                    <option value="" selected></option>
+                                                </optgroup>
+                                                <optgroup label="'.I18N::resolveHTML("setting.hooks.hook_list.tg.webhook_url.option.other").'">
+                                                    <option value="_select">
+                                                        &lt; '.I18N::resolveHTML("setting.hooks.hook_list.tg.webhook_url.option.select").' &gt;
+                                                    </option>
+                                                </optgroup>
+                                    </select>
+                                </p></div>
                             </div>
                             <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.name").':</p></div>
-                                <div class="pure-u-2-3 full-on-mobile"><p><select class="hook-tg-parse-mode" name="hook_{%ID%}[tg][parse_mode]">
-                                    <option value="txt">'.I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.option.txt").'</option>
-                                    <option value="md">'.I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.option.md").'</option>
-                                    <option value="html">'.I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.option.html").'</option>
-                                </select></p></div>
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.name").':</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile"><p>
+                                    <select class="hook-tg-parse-mode" name="hook_{%ID%}[tg][parse_mode]">
+                                        <option value="txt">'.
+                                            I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.option.txt").
+                                        '</option>
+                                        <option value="md">'.
+                                            I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.option.md").
+                                        '</option>
+                                        <option value="html">'.
+                                            I18N::resolveHTML("setting.hooks.hook_list.tg.parse_mode.option.html").
+                                        '</option>
+                                    </select>
+                                </p></div>
                             </div>
                             <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.tg.disable_web_page_preview.name").':</p></div>
-                                <div class="pure-u-2-3 full-on-mobile"><p><label for="hook-bool-disable_web_page_preview-{%ID%}"><input type="checkbox" id="hook-bool-disable_web_page_preview-{%ID%}" class="hook-tg-disable-web-page-preview" name="hook_{%ID%}[tg][disable_web_page_preview]"> '.I18N::resolveHTML("setting.hooks.hook_list.tg.disable_web_page_preview.label").'</label></p></div>
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.tg.disable_web_page_preview.name").':</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile"><p>
+                                    <label for="hook-bool-disable_web_page_preview-{%ID%}">
+                                        <input type="checkbox"
+                                               id="hook-bool-disable_web_page_preview-{%ID%}"
+                                               class="hook-tg-disable-web-page-preview"
+                                               name="hook_{%ID%}[tg][disable_web_page_preview]"> '.
+                                                    I18N::resolveHTML("setting.hooks.hook_list.tg.disable_web_page_preview.label").
+                                    '</label>
+                                </p></div>
                             </div>
                             <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile"><p>'.I18N::resolveHTML("setting.hooks.hook_list.tg.disable_notification.name").':</p></div>
-                                <div class="pure-u-2-3 full-on-mobile"><p><label for="hook-bool-disable_notification-{%ID%}"><input type="checkbox" id="hook-bool-disable_notification-{%ID%}" class="hook-tg-disable-notification" name="hook_{%ID%}[tg][disable_notification]"> '.I18N::resolveHTML("setting.hooks.hook_list.tg.disable_notification.label").'</label></p></div>
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.tg.disable_notification.name").':</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile"><p>
+                                    <label for="hook-bool-disable_notification-{%ID%}">
+                                        <input type="checkbox"
+                                               id="hook-bool-disable_notification-{%ID%}"
+                                               class="hook-tg-disable-notification"
+                                               name="hook_{%ID%}[tg][disable_notification]"> '.
+                                                    I18N::resolveHTML("setting.hooks.hook_list.tg.disable_notification.label").
+                                    '</label>
+                                </p></div>
                             </div>
                             '.$hookCommonSettings.'
-                            <h2 class="hook-body-header">'.I18N::resolveHTML("admin.section.hooks.body.txt.name").'</h2>
+                            <h2 class="hook-body-header">'.
+                                I18N::resolveHTML("admin.section.hooks.body.txt.name").
+                            '</h2>
                             '.$hookSyntaxHelp.'
                             <textarea class="hook-payload" name="hook_{%ID%}[body]" rows="8"></textarea>
                             '.$hookFilters.'

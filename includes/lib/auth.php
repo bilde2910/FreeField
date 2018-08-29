@@ -119,7 +119,13 @@ class Auth {
         $hmac = substr($c, $ivlen, 32);
         $ciph = substr($c, $ivlen + 32);
 
-        $data = openssl_decrypt($ciph, "AES-256-CBC", AuthSession::getSessionKey(), OPENSSL_RAW_DATA, $iv);
+        $data = openssl_decrypt(
+            $ciph,
+            "AES-256-CBC",
+            AuthSession::getSessionKey(),
+            OPENSSL_RAW_DATA,
+            $iv
+        );
         if ($data === false) return null;
 
         return json_decode($data, true);
@@ -211,8 +217,14 @@ class Auth {
             cookie and uses it on a machine running a different browser or
             system language.
         */
-        if (Config::get("security/validate-ua")) $session["http-ua"] = self::getVersionlessUserAgent();
-        if (Config::get("security/validate-lang")) $session["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) ? $_SERVER["HTTP_ACCEPT_LANGUAGE"] : "";
+        if (Config::get("security/validate-ua")) {
+            $session["http-ua"] = self::getVersionlessUserAgent();
+        }
+        if (Config::get("security/validate-lang")) {
+            $session["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])
+                                    ? $_SERVER["HTTP_ACCEPT_LANGUAGE"]
+                                    : "";
+        }
 
         self::setSession($session, $expire);
         return $approved;
@@ -224,7 +236,13 @@ class Auth {
     */
     private static function setSession($data, $expire) {
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length("AES-256-CBC"));
-        $ciph = openssl_encrypt(json_encode($data), "AES-256-CBC", AuthSession::getSessionKey(), OPENSSL_RAW_DATA, $iv);
+        $ciph = openssl_encrypt(
+            json_encode($data),
+            "AES-256-CBC",
+            AuthSession::getSessionKey(),
+            OPENSSL_RAW_DATA,
+            $iv
+        );
         $hmac = hash_hmac("SHA256", $ciph, AuthSession::getSessionKey(), true);
         $session = base64_encode($iv.$hmac.$ciph);
         setcookie("session", $session, time() + $expire, "/");
@@ -239,7 +257,9 @@ class Auth {
         $userdata = $db
             ->from(Database::getTable("user"))
             ->where("id", $session["id"])
-            ->leftJoin(Database::getTable("group"), array(Database::getTable("group").".level" => Database::getTable("user").".permission"))
+            ->leftJoin(Database::getTable("group"), array(
+                Database::getTable("group").".level" => Database::getTable("user").".permission"
+             ))
             ->one();
 
         return new User($userdata);
@@ -254,7 +274,9 @@ class Auth {
         $db = Database::getSparrow();
         $userdata = $db
             ->from(Database::getTable("user"))
-            ->leftJoin(Database::getTable("group"), array(Database::getTable("group").".level" => Database::getTable("user").".permission"))
+            ->leftJoin(Database::getTable("group"), array(
+                Database::getTable("group").".level" => Database::getTable("user").".permission"
+             ))
             ->many();
 
         $users = array();
@@ -290,8 +312,14 @@ class Auth {
             security.
         */
         $selectors = array();
-        if (Config::get("security/validate-ua")) $selectors["http-ua"] = self::getVersionlessUserAgent();
-        if (Config::get("security/validate-lang")) $selectors["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) ? $_SERVER["HTTP_ACCEPT_LANGUAGE"] : "";
+        if (Config::get("security/validate-ua")) {
+            $selectors["http-ua"] = self::getVersionlessUserAgent();
+        }
+        if (Config::get("security/validate-lang")) {
+            $selectors["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])
+                                      ? $_SERVER["HTTP_ACCEPT_LANGUAGE"]
+                                      : "";
+        }
         foreach ($selectors as $selector => $expectedValue) {
             if ($session[$selector] != $expectedValue) return self::setReturnUser(new User(null));
         }
@@ -301,7 +329,9 @@ class Auth {
             ->from(Database::getTable("user"))
             ->where("id", $session["id"])
             ->where("token", $session["token"])
-            ->leftJoin(Database::getTable("group"), array(Database::getTable("group").".level" => Database::getTable("user").".permission"))
+            ->leftJoin(Database::getTable("group"), array(
+                Database::getTable("group").".level" => Database::getTable("user").".permission"
+             ))
             ->one();
 
         /*
@@ -442,7 +472,13 @@ class Auth {
         */
         foreach ($perms as $perm) {
             if ($perm["level"] == $selectedLevel) $curperm = $perm;
-            $opts .= '<option value="'.$perm["level"].'"'.($perm["color"] !== null ? ' style="color: #'.$perm["color"].'"' : '').($user->canChangeAtPermission($perm["level"]) ? '' : ' disabled').'>'.$perm["level"].' - '.self::resolvePermissionLabelI18NHTML($perm["label"]).'</option>';
+            $opts .= '<option value="'.$perm["level"].'"'.
+                              ($perm["color"] !== null ? ' style="color: #'.$perm["color"].'"' : '').
+                              ($user->canChangeAtPermission($perm["level"]) ? '' : ' disabled').'>'.
+                                    $perm["level"].
+                                    ' - '.
+                                    self::resolvePermissionLabelI18NHTML($perm["label"]).
+                     '</option>';
         }
         /*
             Add the currently selected group to a separate <optgroup> labeled
@@ -453,12 +489,25 @@ class Auth {
             database.
         */
         if ($curperm === null) {
-            $curopt = '<option value="'.$selectedLevel.'" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18NHTML("{i18n:group.level.unknown}").'</option>';
+            $curopt = '<option value="'.$selectedLevel.'" selected>'.
+                            $selectedLevel.
+                            ' - '.
+                            self::resolvePermissionLabelI18NHTML("{i18n:group.level.unknown}").
+                      '</option>';
         } else {
-            $curopt = '<option value="'.$selectedLevel.'" style="color:" selected>'.$selectedLevel.' - '.self::resolvePermissionLabelI18NHTML($curperm["label"]).'</option>';
+            $curopt = '<option value="'.$selectedLevel.'" style="color:" selected>'.
+                            $selectedLevel.
+                            ' - '.
+                            self::resolvePermissionLabelI18NHTML($curperm["label"]).
+                      '</option>';
         }
 
-        return '<select'.($name !== null ? ' name="'.$name.'"' : '').($id !== null ? ' id="'.$id.'"' : '').($user->canChangeAtPermission($selectedLevel) ? '' : ' disabled').'><optgroup label="Current group">'.$curopt.'</optgroup><optgroup label="Available groups">'.$opts.'</optgroup></select>';
+        return '<select'.($name !== null ? ' name="'.$name.'"' : '').
+                         ($id !== null ? ' id="'.$id.'"' : '').
+                         ($user->canChangeAtPermission($selectedLevel) ? '' : ' disabled').'>
+                                <optgroup label="Current group">'.$curopt.'</optgroup>
+                                <optgroup label="Available groups">'.$opts.'</optgroup>
+                </select>';
     }
 }
 
@@ -504,7 +553,9 @@ class User {
     public function getNicknameHTML() {
         if (!$this->exists()) return htmlspecialchars("<Anonymous>", ENT_QUOTES);
         $color = self::getColor();
-        return '<span'.($color !== null ? ' style="color: #'.$color.';"' : '').'>'.htmlspecialchars(self::getNickname(), ENT_QUOTES).'</span>';
+        return '<span'.($color !== null ? ' style="color: #'.$color.';"' : '').'>'.
+                    htmlspecialchars(self::getNickname(), ENT_QUOTES).
+               '</span>';
     }
 
     /*
@@ -535,7 +586,11 @@ class User {
                 "color" => "#0088CC"
             )
         );
-        return '<span><i style="color: '.$providerAppearance[$this->getProvider()]["color"].'" class="fab fa-'.$providerAppearance[$this->getProvider()]["fa-icon"].'"></i> '.htmlspecialchars($this->getProviderIdentity(), ENT_QUOTES).'</span>';
+        return '<span>
+                    <i style="color: '.$providerAppearance[$this->getProvider()]["color"].'"
+                       class="fab fa-'.$providerAppearance[$this->getProvider()]["fa-icon"].'">
+                    </i> '.htmlspecialchars($this->getProviderIdentity(), ENT_QUOTES).'
+                </span>';
     }
 
     /*
@@ -654,7 +709,11 @@ class User {
         /*
             Get the current permission level of the user.
         */
-        $userperm = ($this->data === null || !self::isApproved() ? 0 : $this->getPermissionLevel());
+        $userperm = (
+            $this->data === null || !self::isApproved()
+            ? 0
+            : $this->getPermissionLevel()
+        );
 
         if (strpos($permission, "?") !== FALSE) {
             // Match any permission in set
@@ -715,7 +774,10 @@ class User {
             the "site host" would not be possible to change to a lower value
             without manually editing the config JSON.
         */
-        if ($this->hasPermission("admin/groups/self-manage") && $level <= $this->getPermissionLevel()) {
+        if (
+            $this->hasPermission("admin/groups/self-manage") &&
+            $level <= $this->getPermissionLevel()
+        ) {
             return true;
         }
         return false;

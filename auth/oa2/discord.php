@@ -42,10 +42,19 @@ if (!isset($_GET["code"])) {
     ));
     header("HTTP/1.1 307 Temporary Redirect");
     // CSRF mitigation
-    setcookie("oa2-{$service}-state", $provider->getState(), 0, strtok($_SERVER["REQUEST_URI"], "?"));
+    setcookie(
+        "oa2-{$service}-state",
+        $provider->getState(),
+        0,
+        strtok($_SERVER["REQUEST_URI"], "?")
+    );
     header("Location: {$authUrl}");
     exit;
-} elseif (empty($_GET["state"]) || !isset($_COOKIE["oa2-{$service}-state"]) || $_GET["state"] !== $_COOKIE["oa2-{$service}-state"]) {
+} elseif (
+    empty($_GET["state"]) ||
+    !isset($_COOKIE["oa2-{$service}-state"]) ||
+    $_GET["state"] !== $_COOKIE["oa2-{$service}-state"]
+) {
     /*
         Stage I CSRF failure
 
@@ -58,7 +67,12 @@ if (!isset($_GET["code"])) {
     header("303 See Other");
 
     // Unset CSRF state cookie as it is no longer required
-    setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+    setcookie(
+        "oa2-{$service}-state",
+        "",
+        time() - 3600,
+        strtok($_SERVER["REQUEST_URI"], "?")
+    );
 
     header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
     exit;
@@ -98,7 +112,12 @@ if (!isset($_GET["code"])) {
         header("HTTP/1.1 303 See Other");
 
         // Unset CSRF state cookie as it is no longer required
-        setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+        setcookie(
+            "oa2-{$service}-state",
+            "",
+            time() - 3600,
+            strtok($_SERVER["REQUEST_URI"], "?")
+        );
 
         /*
             Unapproved users should be redirected to a page explaining that
@@ -130,7 +149,12 @@ if (!isset($_GET["code"])) {
         header("303 See Other");
 
         // Unset CSRF state cookie as it is no longer required
-        setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+        setcookie(
+            "oa2-{$service}-state",
+            "",
+            time() - 3600,
+            strtok($_SERVER["REQUEST_URI"], "?")
+        );
 
         header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
         exit;

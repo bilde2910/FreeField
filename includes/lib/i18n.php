@@ -116,7 +116,10 @@ class I18N {
     */
     public static function resolveArgsHTML($token, $deep, ...$args) {
         if ($deep) {
-            return htmlspecialchars(call_user_func_array("I18N::resolveArgs", array_merge(array($token), $args)), ENT_QUOTES);
+            return htmlspecialchars(call_user_func_array(
+                "I18N::resolveArgs",
+                array_merge(array($token), $args)
+            ), ENT_QUOTES);
         } else {
             $string = self::resolveHTML($token);
             if (is_array($args[0])) $args = $args[0];
@@ -153,7 +156,10 @@ class I18N {
     */
     public static function resolveArgsJS($token, $deep, ...$args) {
         if ($deep) {
-            return json_encode(call_user_func_array("I18N::resolveArgs", array_merge(array($token), $args)));
+            return json_encode(call_user_func_array(
+                "I18N::resolveArgs",
+                array_merge(array($token), $args)
+            ));
         } else {
             $string = self::resolveJS($token);
             if (is_array($args[0])) $args = $args[0];
@@ -182,7 +188,9 @@ class I18N {
             If a non-wildcard token is passed, return an array containing only
             that one specific token and its corresponding localized string.
         */
-        if (substr($tokenDomain, -2) !== ".*") return array($tokenDomain => self::resolve($tokenDomain));
+        if (substr($tokenDomain, -2) !== ".*") return array(
+            $tokenDomain => self::resolve($tokenDomain)
+        );
 
         $tokens = array();
         $domainlength = strlen($tokenDomain);
@@ -269,7 +277,9 @@ class I18N {
         if ($lang == self::DEFAULT_LANG) {
             self::$i18ndefault = self::$i18ndata;
         } else {
-            self::$i18ndefault = parse_ini_file(__DIR__."/../i18n/".self::DEFAULT_LANG.".ini");
+            self::$i18ndefault = parse_ini_file(
+                __DIR__."/../i18n/".self::DEFAULT_LANG.".ini"
+            );
         }
     }
 
@@ -316,7 +326,11 @@ class I18N {
 
             Accept-Language is parsed as defined by RFC 2616 section 14.2.
         */
-        preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $lang_parse);
+        preg_match_all(
+            '/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i',
+            $_SERVER['HTTP_ACCEPT_LANGUAGE'],
+            $lang_parse
+        );
 
         if (count($lang_parse[1])) {
             /*

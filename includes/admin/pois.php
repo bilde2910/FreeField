@@ -4,7 +4,10 @@
 */
 ?>
 <div class="content wide-content">
-    <form action="apply-pois.php" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
+    <form action="apply-pois.php"
+          method="POST"
+          class="pure-form"
+          enctype="application/x-www-form-urlencoded">
         <?php
             /*
                 Get a list of available POIs from the database.
@@ -23,7 +26,9 @@
                 return strcmp($a->getName(), $b->getName()) < 0 ? -1 : 1;
             });
         ?>
-        <h2 class="content-subhead"><?php echo I18N::resolveHTML("admin.section.pois.poi_list.name"); ?></h2>
+        <h2 class="content-subhead">
+            <?php echo I18N::resolveHTML("admin.section.pois.poi_list.name"); ?>
+        </h2>
         <table class="pure-table force-fullwidth">
             <thead>
                 <tr>
@@ -59,7 +64,11 @@
                         $icons = Theme::getIconSet(null, Config::get("themes/color/admin"));
                         ?>
                             <tr>
-                                <td><input type="text" name="p<?php echo $pid; ?>[name]" value="<?php echo $poi->getNameHTML(); ?>"></td>
+                                <td>
+                                    <input type="text"
+                                           name="p<?php echo $pid; ?>[name]"
+                                           value="<?php echo $poi->getNameHTML(); ?>">
+                                </td>
                                 <td><?php echo $poi->getTimeCreatedString(); ?></td>
                                 <?php /*
                                     The identities of the creator and field
@@ -71,7 +80,13 @@
                                     user as it appears on their account at the
                                     authentication provider).
                                 */ ?>
-                                <td style="line-height: 1.2em;"><?php echo $poi->getCreator()->getNicknameHTML(); ?><br /><span class="user-box-small no-wrap"><?php echo $poi->getCreator()->getProviderIdentityHTML(); ?></span></td>
+                                <td style="line-height: 1.2em;">
+                                    <?php echo $poi->getCreator()->getNicknameHTML(); ?>
+                                    <br />
+                                    <span class="user-box-small no-wrap">
+                                        <?php echo $poi->getCreator()->getProviderIdentityHTML(); ?>
+                                    </span>
+                                </td>
                                 <?php /*
                                     The research objective and reward are
                                     displayed as icons, rather than the full
@@ -87,22 +102,40 @@
                                     request.
                                 */ ?>
                                 <td class="no-wrap">
-                                    <img class="poi-table-marker" src="<?php echo $icons->getIconUrl($poi->getCurrentObjective()["type"]); ?>">
-                                    <img class="poi-table-marker" src="<?php echo $icons->getIconUrl($poi->getCurrentReward()["type"]); ?>">
+                                    <img class="poi-table-marker"
+                                         src="<?php echo $icons->getIconUrl($poi->getCurrentObjective()["type"]); ?>">
+                                    <img class="poi-table-marker"
+                                         src="<?php echo $icons->getIconUrl($poi->getCurrentReward()["type"]); ?>">
                                 </td>
                                 <td><?php echo $poi->getLastUpdatedString(); ?></td>
-                                <td style="line-height: 1.2em;"><?php echo $poi->getLastUser()->getNicknameHTML(); ?><br /><span class="user-box-small no-wrap"><?php echo $poi->getLastUser()->getProviderIdentityHTML(); ?></span></td>
+                                <td style="line-height: 1.2em;">
+                                    <?php echo $poi->getLastUser()->getNicknameHTML(); ?>
+                                    <br />
+                                    <span class="user-box-small no-wrap">
+                                        <?php echo $poi->getLastUser()->getProviderIdentityHTML(); ?>
+                                    </span>
+                                </td>
                                 <?php /*
                                     TODO: Use the default directions provider
                                     set in the admin settings rather than
                                     hardcoding Google Maps for these links
                                 */ ?>
-                                <td><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi->getLatitude().",".$poi->getLongitude()); ?>"><?php echo Geo::getLocationString($poi->getLatitude(), $poi->getLongitude()); ?></td>
+                                <td>
+                                    <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi->getLatitude().",".$poi->getLongitude()); ?>">
+                                        <?php echo Geo::getLocationString($poi->getLatitude(), $poi->getLongitude()); ?>
+                                    </a>
+                                </td>
                                 <td><select class="poi-actions" name="p<?php echo $pid; ?>[action]">
-                                    <option value="none" selected><?php echo I18N::resolveHTML("admin.section.pois.poi_list.action.none"); ?></option>
+                                    <option value="none" selected>
+                                        <?php echo I18N::resolveHTML("admin.section.pois.poi_list.action.none"); ?>
+                                    </option>
                                     <!-- "Clear" resets the field research back to "unknown" -->
-                                    <option value="clear"><?php echo I18N::resolveHTML("admin.section.pois.poi_list.action.clear"); ?></option>
-                                    <option value="delete"><?php echo I18N::resolveHTML("admin.section.pois.poi_list.action.delete"); ?></option>
+                                    <option value="clear">
+                                        <?php echo I18N::resolveHTML("admin.section.pois.poi_list.action.clear"); ?>
+                                    </option>
+                                    <option value="delete">
+                                        <?php echo I18N::resolveHTML("admin.section.pois.poi_list.action.delete"); ?>
+                                    </option>
                                 </select></td>
                             </td>
                         <?php
@@ -137,6 +170,10 @@
                 }
             });
         </script>
-        <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolveHTML("ui.button.save"); ?>"></p>
+        <p class="buttons">
+            <input type="submit"
+                   class="button-submit"
+                   value="<?php echo I18N::resolveHTML("ui.button.save"); ?>">
+        </p>
     </form>
 </div>

@@ -103,7 +103,12 @@ function replaceWebhookFields($time, $theme, $body) {
     $matches = array();
     preg_match_all('/<%TIME\(([^\)]+)\)%>/', $body, $matches, PREG_SET_ORDER);
     for ($i = 0; $i < count($matches); $i++) {
-        $body = preg_replace('/<%TIME\('.$matches[$i][1].'\)%>/', date($matches[$i][1], $time), $body, 1);
+        $body = preg_replace(
+            '/<%TIME\('.$matches[$i][1].'\)%>/',
+            date($matches[$i][1], $time),
+            $body,
+            1
+        );
     }
 
     /*
@@ -114,7 +119,14 @@ function replaceWebhookFields($time, $theme, $body) {
     $matches = array();
     preg_match_all('/<%COORDS\((\d+)\)%>/', $body, $matches, PREG_SET_ORDER);
     for ($i = 0; $i < count($matches); $i++) {
-        $body = preg_replace('/<%COORDS\('.$matches[$i][1].'\)%>/', Geo::getLocationString($poidata["latitude"], $poidata["longitude"], intval($matches[$i][1])), $body, 1);
+        $body = preg_replace(
+            '/<%COORDS\('.$matches[$i][1].'\)%>/',
+            Geo::getLocationString($poidata["latitude"],
+            $poidata["longitude"],
+            intval($matches[$i][1])),
+            $body,
+            1
+        );
     }
 
     /*
@@ -151,13 +163,23 @@ function replaceWebhookFields($time, $theme, $body) {
                 array($matches[$i][1]),
                 explode(",", $matches[$i][3])
             );
-            $body = preg_replace('/<%I18N\('.$matches[$i][1].$matches[$i][2].'\)%>/', call_user_func_array("I18N::resolveArgs", $args), $body, 1);
+            $body = preg_replace(
+                '/<%I18N\('.$matches[$i][1].$matches[$i][2].'\)%>/',
+                call_user_func_array("I18N::resolveArgs", $args),
+                $body,
+                1
+            );
         } else {
             /*
                 If there are fewer than four matches, replace a plain I18N token
                 without arguments instead.
             */
-            $body = preg_replace('/<%I18N\('.$matches[$i][1].'\)%>/', call_user_func_array("I18N::resolve", array($matches[$i][1])), $body, 1);
+            $body = preg_replace(
+                '/<%I18N\('.$matches[$i][1].'\)%>/',
+                call_user_func_array("I18N::resolve", array($matches[$i][1])),
+                $body,
+                1
+            );
         }
     }
 
@@ -328,10 +350,20 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         `objective` and `reward` must both be arrays with keys defined for
         `type` and `params`. Params must additionally be an array or object.
     */
-    if (!is_array($patchdata["objective"]) || !isset($patchdata["objective"]["type"]) || !isset($patchdata["objective"]["params"]) || !is_array($patchdata["objective"]["params"])) {
+    if (
+        !is_array($patchdata["objective"]) ||
+        !isset($patchdata["objective"]["type"]) ||
+        !isset($patchdata["objective"]["params"]) ||
+        !is_array($patchdata["objective"]["params"])
+    ) {
         XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
     }
-    if (!is_array($patchdata["reward"]) || !isset($patchdata["reward"]["type"]) || !isset($patchdata["reward"]["params"]) || !is_array($patchdata["reward"]["params"])) {
+    if (
+        !is_array($patchdata["reward"]) ||
+        !isset($patchdata["reward"]["type"]) ||
+        !isset($patchdata["reward"]["params"]) ||
+        !is_array($patchdata["reward"]["params"])
+    ) {
         XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
     }
 
@@ -518,7 +550,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         )
                     );
                     $context = stream_context_create($opts);
-                    file_get_contents("https://api.telegram.org/bot".urlencode($hook["options"]["bot-token"])."/sendMessage", false, $context);
+                    file_get_contents(
+                        "https://api.telegram.org/bot".
+                            urlencode($hook["options"]["bot-token"])."/sendMessage",
+                        false,
+                        $context
+                    );
                     break;
             }
         } catch (Exception $e) {

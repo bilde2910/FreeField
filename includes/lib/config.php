@@ -39,7 +39,13 @@ class Config {
                     "database" => array(
                         "database/type" => array(
                             "default" => "mysqli",
-                            "option" => new SelectOption(array("mysql", "mysqli", "pgsql", "sqlite", "sqlite3"))
+                            "option" => new SelectOption(array(
+                                "mysql",
+                                "mysqli",
+                                "pgsql",
+                                "sqlite",
+                                "sqlite3"
+                            ))
                         )
                     )
                 )
@@ -58,7 +64,13 @@ class Config {
                 ),
                 "database/type" => array(
                     "default" => "mysqli",
-                    "option" => new SelectOption(array("mysql", "mysqli", "pgsql", "sqlite", "sqlite3"))
+                    "option" => new SelectOption(array(
+                        "mysql",
+                        "mysqli",
+                        "pgsql",
+                        "sqlite",
+                        "sqlite3"
+                    ))
                 )
             );
 
@@ -226,7 +238,8 @@ class Config {
                         itself, although "site/uri" and "site/name" are both
                         separately defined).
                     */
-                    throw new Exception("Cannot verify permissions when setting an array as value for a configuration path!");
+                    throw new Exception("Cannot verify permissions when setting an ".
+                                        "array as value for a configuration path!");
                     exit;
                 }
 
@@ -538,7 +551,11 @@ class Config {
     */
     public static function getEndpointUri($endpoint) {
         $basepath = self::get("site/uri");
-        return (substr($basepath, -1) == "/" ? substr($basepath, 0, -1) : $basepath).$endpoint;
+        return (
+            substr($basepath, -1) == "/"
+            ? substr($basepath, 0, -1)
+            : $basepath
+        ).$endpoint;
     }
 
     /*
@@ -557,7 +574,10 @@ class Config {
         Saves the current configuration in `$config` to the filesystem.
     */
     private static function saveConfig() {
-        file_put_contents(self::CONFIG_LOCATION, json_encode(self::$config, JSON_PRETTY_PRINT));
+        file_put_contents(
+            self::CONFIG_LOCATION,
+            json_encode(self::$config, JSON_PRETTY_PRINT)
+        );
     }
 }
 
@@ -602,7 +622,9 @@ class ConfigSettingI18N {
         Returns an I18N token representing the name of the setting.
     */
     public function getName() {
-        return "setting.".Config::translatePathI18N($this->path).".name";
+        return "setting.".
+               Config::translatePathI18N($this->path).
+               ".name";
     }
 
     /*
@@ -612,7 +634,9 @@ class ConfigSettingI18N {
         changing the setting.
     */
     public function getDescription() {
-        return "setting.".Config::translatePathI18N($this->path).".desc";
+        return "setting.".
+               Config::translatePathI18N($this->path).
+               ".desc";
     }
 
     /*
@@ -620,7 +644,10 @@ class ConfigSettingI18N {
         down list of items selectable in the box.
     */
     public function getOption($option) {
-        return "setting.".Config::translatePathI18N($this->path).".option.".Config::translatePathI18N($option);
+        return "setting.".
+               Config::translatePathI18N($this->path).
+               ".option.".
+               Config::translatePathI18N($option);
     }
 
     /*
@@ -630,7 +657,9 @@ class ConfigSettingI18N {
         of the setting.)
     */
     public function getLabel() {
-        return "setting.".Config::translatePathI18N($this->path).".label";
+        return "setting.".
+               Config::translatePathI18N($this->path).
+               ".label";
     }
 }
 
@@ -655,7 +684,11 @@ class ConfigSectionI18N {
         Returns an I18N token representing the name of the section.
     */
     public function getName() {
-        return "admin.section.".Config::translatePathI18N($this->domain).".".Config::translatePathI18N($this->section).".name";
+        return "admin.section.".
+               Config::translatePathI18N($this->domain).
+               ".".
+               Config::translatePathI18N($this->section).
+               ".name";
     }
 
     /*
@@ -666,7 +699,11 @@ class ConfigSectionI18N {
         specific information regarding how this is defined for each section.
     */
     public function getDescription() {
-        return "admin.section.".Config::translatePathI18N($this->domain).".".Config::translatePathI18N($this->section).".desc";
+        return "admin.section.".
+               Config::translatePathI18N($this->domain).
+               ".".
+               Config::translatePathI18N($this->section).
+               ".desc";
     }
 }
 
@@ -687,7 +724,9 @@ class ConfigDomainI18N {
         Returns an I18N token representing the name of the domain/page.
     */
     public function getName() {
-        return "admin.domain.".Config::translatePathI18N($this->domain).".name";
+        return "admin.domain.".
+               Config::translatePathI18N($this->domain).
+               ".name";
     }
 
     /*
@@ -695,7 +734,9 @@ class ConfigDomainI18N {
         main title on the page.
     */
     public function getDescription() {
-        return "admin.domain.".Config::translatePathI18N($this->domain).".desc";
+        return "admin.domain.".
+               Config::translatePathI18N($this->domain).
+               ".desc";
     }
 
     /*

@@ -83,7 +83,13 @@ class ConfigTree {
                     */
                     "database/type" => array(
                         "default" => "mysqli",
-                        "option" => new SelectOption(array("mysql", "mysqli", "pgsql", "sqlite", "sqlite3"))
+                        "option" => new SelectOption(array(
+                            "mysql",
+                            "mysqli",
+                            "pgsql",
+                            "sqlite",
+                            "sqlite3"
+                        ))
                     ),
                     /*
                         The hostname or IP address of the database.
@@ -507,7 +513,14 @@ class ConfigTree {
                     */
                     "map/provider/directions" => array(
                         "default" => "google",
-                        "option" => new SelectOption(array("bing", "google", "here", "mapquest", "waze", "yandex"))
+                        "option" => new SelectOption(array(
+                            "bing",
+                            "google",
+                            "here",
+                            "mapquest",
+                            "waze",
+                            "yandex"
+                        ))
                     )
                 ),
                 "default" => array(

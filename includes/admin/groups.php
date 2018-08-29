@@ -4,7 +4,10 @@
 */
 ?>
 <div class="content wide-content">
-    <form action="apply-groups.php" method="POST" class="pure-form" enctype="application/x-www-form-urlencoded">
+    <form action="apply-groups.php"
+          method="POST"
+          class="pure-form"
+          enctype="application/x-www-form-urlencoded">
         <?php
             /*
                 Get a list of available groups from the database.
@@ -29,7 +32,9 @@
                 return $a["level"] > $b["level"] ? -1 : 1;
             });
         ?>
-        <h2 class="content-subhead"><?php echo I18N::resolveHTML("admin.section.groups.group_list.name"); ?></h2>
+        <h2 class="content-subhead">
+            <?php echo I18N::resolveHTML("admin.section.groups.group_list.name"); ?>
+        </h2>
         <table class="pure-table force-fullwidth">
             <thead>
                 <tr>
@@ -64,14 +69,28 @@
                                     function will replace {i18n:*} tokens with
                                     localized strings.
                                 -->
-                                <td<?php if ($group["color"] !== null) echo ' style="color: #'.$group["color"].';"'; ?>><?php echo Auth::resolvePermissionLabelI18NHTML($group["label"]); ?></td>
+                                <td<?php if ($group["color"] !== null) echo ' style="color: #'.$group["color"].';"'; ?>>
+                                    <?php echo Auth::resolvePermissionLabelI18NHTML($group["label"]); ?>
+                                </td>
                                 <!--
                                     If the group has a permission level at or
                                     higher than the current user, the user
                                     should not be able to make changes to it.
                                 -->
-                                <td><input type="text" name="g<?php echo $gid; ?>[label]" value="<?php echo $group["label"]; ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>></td>
-                                <td><input type="number" min="0" max="250" name="g<?php echo $gid; ?>[level]" value="<?php echo $group["level"]; ?>"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>></td>
+                                <td>
+                                    <input type="text"
+                                           name="g<?php echo $gid; ?>[label]"
+                                           value="<?php echo $group["label"]; ?>"
+                                           <?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
+                                </td>
+                                <td>
+                                    <input type="number"
+                                           min="0"
+                                           max="250"
+                                           name="g<?php echo $gid; ?>[level]"
+                                           value="<?php echo $group["level"]; ?>"
+                                           <?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
+                                </td>
                                 <td class="no-wrap group-color-selector" data-id="g<?php echo $gid; ?>">
                                     <!--
                                         The checkbox here allows specifying that
@@ -81,13 +100,28 @@
                                         the checkbox will be treated server-side
                                         as a null value.
                                     -->
-                                    <input type="checkbox" id="g<?php echo $gid; ?>-usecolor" name="g<?php echo $gid; ?>[usecolor]"<?php if ($group["color"] !== null) echo ' checked'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
-                                    <input type="color" name="g<?php echo $gid; ?>[color]"<?php if ($group["color"] !== null) echo ' value="#'.$group["color"].'"'; ?><?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
+                                    <input type="checkbox"
+                                           id="g<?php echo $gid; ?>-usecolor"
+                                           name="g<?php echo $gid; ?>[usecolor]"
+                                           <?php if ($group["color"] !== null) echo ' checked'; ?>
+                                           <?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
+                                    <input type="color"
+                                           name="g<?php echo $gid; ?>[color]"
+                                           <?php if ($group["color"] !== null) echo ' value="#'.$group["color"].'"'; ?>
+                                           <?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                 </td>
-                                <td><select class="group-actions" name="g<?php echo $gid; ?>[action]"<?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
-                                    <option value="none" selected><?php echo I18N::resolveHTML("admin.section.groups.group_list.action.none"); ?></option>
-                                    <option value="delete"><?php echo I18N::resolveHTML("admin.section.groups.group_list.action.delete"); ?></option>
-                                </select></td>
+                                <td>
+                                    <select class="group-actions"
+                                            name="g<?php echo $gid; ?>[action]"
+                                            <?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
+                                        <option value="none" selected>
+                                            <?php echo I18N::resolveHTML("admin.section.groups.group_list.action.none"); ?>
+                                        </option>
+                                        <option value="delete">
+                                            <?php echo I18N::resolveHTML("admin.section.groups.group_list.action.delete"); ?>
+                                        </option>
+                                    </select>
+                                </td>
                             </td>
                         <?php
                     }
@@ -131,6 +165,10 @@
                 }
             });
         </script>
-        <p class="buttons"><input type="submit" class="button-submit" value="<?php echo I18N::resolveHTML("ui.button.save"); ?>"></p>
+        <p class="buttons">
+            <input type="submit"
+                   class="button-submit"
+                   value="<?php echo I18N::resolveHTML("ui.button.save"); ?>">
+        </p>
     </form>
 </div>

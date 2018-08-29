@@ -53,7 +53,13 @@ if (!isset($_GET["hash"])) { ?>
         <div>
             <h1>Authenticate with Telegram</h1>
             <p>Please click the button below to sign in using Telegram</p>
-            <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="<?php echo Config::getHTML("auth/provider/{$service}/bot-username"); ?>" data-size="large" data-userpic="false" data-auth-url="<?php echo Config::getEndpointUri("/auth/oa2/telegram.php"); ?>"></script>
+            <script async
+                    src="https://telegram.org/js/telegram-widget.js?4"
+                    data-telegram-login="<?php echo Config::getHTML("auth/provider/{$service}/bot-username"); ?>"
+                    data-size="large"
+                    data-userpic="false"
+                    data-auth-url="<?php echo Config::getEndpointUri("/auth/oa2/telegram.php"); ?>">
+            </script>
         </div>
     </body>
 </html>
@@ -135,11 +141,19 @@ try {
         user ID, depending on available data.
     */
     $user = (isset($_GET["username"]) ? $_GET["username"] : null);
-    if ($user === null || $user == "") $user = (isset($_GET["first_name"]) && isset($_GET["last_name"]) ? $_GET["first_name"]." ".$_GET["last_name"] : null);
+    if ($user === null || $user == "") $user = (
+        isset($_GET["first_name"]) && isset($_GET["last_name"])
+        ? $_GET["first_name"]." ".$_GET["last_name"]
+        : null
+    );
     if ($user === null || $user == "") $user = $_GET["id"];
 
     $hid = (isset($_GET["username"]) ? "@".$_GET["username"] : null);
-    if ($hid === null || $hid == "") $hid = (isset($_GET["first_name"]) && isset($_GET["last_name"]) ? $_GET["first_name"]." ".$_GET["last_name"] : null);
+    if ($hid === null || $hid == "") $hid = (
+        isset($_GET["first_name"]) && isset($_GET["last_name"])
+        ? $_GET["first_name"]." ".$_GET["last_name"]
+        : null
+    );
     if ($hid === null || $hid == "") $hid = $_GET["id"];
 
     $approved = Auth::setAuthenticatedSession(

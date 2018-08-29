@@ -137,7 +137,9 @@ function resolveObjective(objective) {
     if (objective.params.constructor !== Array) {
         for (var i = 0; i < objdef.params.length; i++) {
             var param = objdef.params[i];
-            i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(parameterToString(param, objective.params[param]));
+            i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(
+                parameterToString(param, objective.params[param])
+            );
         }
     }
     return i18nstring;
@@ -180,7 +182,9 @@ function resolveReward(reward) {
     if (reward.params.constructor !== Array) {
         for (var i = 0; i < rewdef.params.length; i++) {
             var param = rewdef.params[i];
-            i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(parameterToString(param, reward.params[param]));
+            i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(
+                parameterToString(param, reward.params[param])
+            );
         }
     }
     return i18nstring;

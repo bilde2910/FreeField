@@ -265,7 +265,9 @@ class ParamSpecies {
         if (count(self::$last_species) > 0) {
             $species_opts .= '<optgroup label="'.I18N::resolveHTML("parameter.species.recent.label").'">';
             foreach (self::$last_species as $species) {
-                $species_opts .= '<option value="'.$species.'">'.I18N::resolveHTML("species.{$species}.name").'</option>';
+                $species_opts .= '<option value="'.$species.'">'.
+                                 I18N::resolveHTML("species.{$species}.name").
+                                 '</option>';
             }
             $species_opts .= '</optgroup>';
         }
@@ -278,7 +280,9 @@ class ParamSpecies {
         for ($i = 1; $i <= self::$highest_species; $i++) {
             if ($i > self::GENERATIONS_HIGHEST[$current_gen_idx]) {
                 $current_gen_idx++;
-                $species_opts .= '</optgroup><optgroup label="'.I18N::resolveHTML("generation.".($current_gen_idx + 1).".label").'">';
+                $species_opts .= '</optgroup><optgroup label="'.
+                                 I18N::resolveHTML("generation.".($current_gen_idx + 1).".label").
+                                 '">';
             }
             $species_opts .= '<option value="'.$i.'">'.I18N::resolveHTML("species.{$i}.name").'</option>';
         }
@@ -291,8 +295,14 @@ class ParamSpecies {
         */
         return
             '<p><select id="'.$id.'-1" class="'.$class.'">'.$species_opts.'</select></p>
-            <p><select id="'.$id.'-2" class="'.$class.'"><option value="none">'.I18N::resolveHTML("ui.dropdown.none_selected").'</option>'.$species_opts.'</select></p>
-            <p><select id="'.$id.'-3" class="'.$class.'"><option value="none">'.I18N::resolveHTML("ui.dropdown.none_selected").'</option>'.$species_opts.'</select></p>';
+            <p><select id="'.$id.'-2" class="'.$class.'">
+                <option value="none">'.I18N::resolveHTML("ui.dropdown.none_selected").'</option>
+                '.$species_opts.'
+            </select></p>
+            <p><select id="'.$id.'-3" class="'.$class.'">
+                <option value="none">'.I18N::resolveHTML("ui.dropdown.none_selected").'</option>
+                '.$species_opts.'
+            </select></p>';
     }
     public function writeJS($id) {
         return
@@ -319,11 +329,22 @@ class ParamSpecies {
         __require("i18n");
 
         if (count($data) == 1) {
-            return I18N::resolve("species.".$data[0].".name");
+            return I18N::resolve(
+                "species.".$data[0].".name"
+            );
         } elseif (count($data) == 2) {
-            return I18N::resolveArgs("multi.species.double", I18N::resolve("species.".$data[0].".name"), I18N::resolve("species.".$data[1].".name"));
+            return I18N::resolveArgs(
+                "multi.species.double",
+                I18N::resolve("species.".$data[0].".name"),
+                I18N::resolve("species.".$data[1].".name")
+            );
         } elseif (count($data) == 3) {
-            return I18N::resolveArgs("multi.species.triple", I18N::resolve("species.".$data[0].".name"), I18N::resolve("species.".$data[1].".name"), I18N::resolve("species.".$data[2].".name"));
+            return I18N::resolveArgs(
+                "multi.species.triple",
+                I18N::resolve("species.".$data[0].".name"),
+                I18N::resolve("species.".$data[1].".name"),
+                I18N::resolve("species.".$data[2].".name")
+            );
         } else {
             return strval($data);
         }
@@ -331,11 +352,22 @@ class ParamSpecies {
     public function toStringJS() {
         return
             'if (data.length == 1) {
-                return resolveI18N("species." + data[0] + ".name");
+                return resolveI18N(
+                    "species." + data[0] + ".name"
+                );
             } else if (data.length == 2) {
-                return resolveI18N("multi.species.double", resolveI18N("species." + data[0] + ".name"), resolveI18N("species." + data[1] + ".name"));
+                return resolveI18N(
+                    "multi.species.double",
+                    resolveI18N("species." + data[0] + ".name"),
+                    resolveI18N("species." + data[1] + ".name")
+                );
             } else if (data.length == 3) {
-                return resolveI18N("multi.species.triple", resolveI18N("species." + data[0] + ".name"), resolveI18N("species." + data[1] + ".name"), resolveI18N("species." + data[2] + ".name"));
+                return resolveI18N(
+                    "multi.species.triple",
+                    resolveI18N("species." + data[0] + ".name"),
+                    resolveI18N("species." + data[1] + ".name"),
+                    resolveI18N("species." + data[2] + ".name")
+                );
             } else {
                 return data.toString();
             }';
@@ -360,12 +392,12 @@ class ParamSpecies {
 */
 class ParamType {
     private const TYPES = array(
-        "normal", "fighting", "flying",
-        "poison", "ground", "rock",
-        "bug", "ghost", "steel",
-        "fire", "water", "grass",
-        "electric", "psychic", "ice",
-        "dragon", "dark", "fairy"
+        "normal",   "fighting", "flying",
+        "poison",   "ground",   "rock",
+        "bug",      "ghost",    "steel",
+        "fire",     "water",    "grass",
+        "electric", "psychic",  "ice",
+        "dragon",   "dark",     "fairy"
     );
 
     public function getAvailable() {
@@ -383,10 +415,14 @@ class ParamType {
         for ($i = 1; $i <= 3; $i++) {
             $output .= '<p><select id="'.$id.'-'.$i.'" class="'.$class.'">';
             if ($i >= 2) {
-                $output .= '<option value="none">'.I18N::resolveHTML("ui.dropdown.none_selected").'</option>';
+                $output .= '<option value="none">'.
+                           I18N::resolveHTML("ui.dropdown.none_selected").
+                           '</option>';
             }
             foreach (self::TYPES as $type) {
-                $output .= '<option value="'.$type.'">'.I18N::resolveHTML("type.{$type}").'</option>';
+                $output .= '<option value="'.$type.'">'.
+                           I18N::resolveHTML("type.{$type}").
+                           '</option>';
             }
             $output .='</select></p>';
         }
@@ -417,11 +453,23 @@ class ParamType {
         __require("i18n");
 
         if (count($data) == 1) {
-            return I18N::resolveArgs("multi.type.single", I18N::resolve("type.".$data[0]));
+            return I18N::resolveArgs(
+                "multi.type.single",
+                I18N::resolve("type.".$data[0])
+            );
         } elseif (count($data) == 2) {
-            return I18N::resolveArgs("multi.type.double", I18N::resolve("type.".$data[0]), I18N::resolve("type.".$data[1]));
+            return I18N::resolveArgs(
+                "multi.type.double",
+                I18N::resolve("type.".$data[0]),
+                I18N::resolve("type.".$data[1])
+            );
         } elseif (count($data) == 3) {
-            return I18N::resolveArgs("multi.type.triple", I18N::resolve("type.".$data[0]), I18N::resolve("type.".$data[1]), I18N::resolve("type.".$data[2]));
+            return I18N::resolveArgs(
+                "multi.type.triple",
+                I18N::resolve("type.".$data[0]),
+                I18N::resolve("type.".$data[1]),
+                I18N::resolve("type.".$data[2])
+            );
         } else {
             return strval($data);
         }
@@ -429,11 +477,23 @@ class ParamType {
     public function toStringJS() {
         return
             'if (data.length == 1) {
-                return resolveI18N("multi.type.single", resolveI18N("type." + data[0]));
+                return resolveI18N(
+                    "multi.type.single",
+                    resolveI18N("type." + data[0])
+                );
             } else if (data.length == 2) {
-                return resolveI18N("multi.type.double", resolveI18N("type." + data[0]), resolveI18N("type." + data[1]));
+                return resolveI18N(
+                    "multi.type.double",
+                    resolveI18N("type." + data[0]),
+                    resolveI18N("type." + data[1])
+                );
             } else if (data.length == 3) {
-                return resolveI18N("multi.type.triple", resolveI18N("type." + data[0]), resolveI18N("type." + data[1]), resolveI18N("type." + data[2]));
+                return resolveI18N(
+                    "multi.type.triple",
+                    resolveI18N("type." + data[0]),
+                    resolveI18N("type." + data[1]),
+                    resolveI18N("type." + data[2])
+                );
             } else {
                 return data.toString();
             }';
@@ -718,7 +778,10 @@ class Research {
             foreach ($params as $param => $data) {
                 $class = self::PARAMETERS[$param];
                 $inst = new $class();
-                if (!in_array("objectives", $inst->getAvailable()) || !$inst->isValid($data)) {
+                if (
+                    !in_array("objectives", $inst->getAvailable()) ||
+                    !$inst->isValid($data)
+                ) {
                     return false;
                 }
             }
@@ -752,7 +815,10 @@ class Research {
             foreach ($params as $param => $data) {
                 $class = self::PARAMETERS[$param];
                 $inst = new $class();
-                if (!in_array("rewards", $inst->getAvailable()) || !$inst->isValid($data)) {
+                if (
+                    !in_array("rewards", $inst->getAvailable()) ||
+                    !$inst->isValid($data)
+                ) {
                     return false;
                 }
             }
@@ -813,7 +879,9 @@ class Research {
         */
         for ($i = 0; $i < count($objdef["params"]); $i++) {
             $param = $objdef["params"][$i];
-            $i18nstring = str_replace("{%" . ($i + 1) . "}", self::parameterToString($param, $params[$param]), $i18nstring);
+            $i18nstring = str_replace("{%" . ($i + 1) . "}", self::parameterToString(
+                $param, $params[$param]), $i18nstring
+            );
         }
 
         return $i18nstring;
@@ -857,7 +925,9 @@ class Research {
         */
         for ($i = 0; $i < count($rewdef["params"]); $i++) {
             $param = $rewdef["params"][$i];
-            $i18nstring = str_replace("{%" . ($i + 1) . "}", self::parameterToString($param, $params[$param]), $i18nstring);
+            $i18nstring = str_replace("{%" . ($i + 1) . "}", self::parameterToString(
+                $param, $params[$param]), $i18nstring
+            );
         }
 
         return $i18nstring;

@@ -80,7 +80,10 @@ foreach ($_POST as $poi => $data) {
             active research objective and reward to "unknown" and clearing the
             parameter list for both.
         */
-        if (!$pois_assoc[$pid]->isObjectiveUnknown() || !$pois_assoc[$pid]->isRewardUnknown()) {
+        if (
+            !$pois_assoc[$pid]->isObjectiveUnknown() ||
+            !$pois_assoc[$pid]->isRewardUnknown()
+        ) {
             $updates[$pid]["objective"] = "unknown";
             $updates[$pid]["reward"] = "unknown";
             $updates[$pid]["obj_params"] = json_encode(array());

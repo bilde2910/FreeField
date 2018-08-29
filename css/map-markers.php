@@ -40,7 +40,10 @@ foreach ($themes as $theme) {
         which is not in the approved list of themes should be rejected and not
         displayed.
     */
-    if (!Config::get("themes/icons/allow-personalization") && in_array($theme, $restrictiveLoadThemes)) return;
+    if (
+        !Config::get("themes/icons/allow-personalization") &&
+        in_array($theme, $restrictiveLoadThemes)
+    ) return;
 
     /*
         Loop over all of the markers and output a CSS rule for each of them.

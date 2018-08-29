@@ -154,7 +154,10 @@ class Database {
             a URI.
         */
 
-        if (Config::get("database/type") == "sqlite" || Config::get("database/type") == "sqlite3") {
+        if (
+            Config::get("database/type") == "sqlite" ||
+            Config::get("database/type") == "sqlite3"
+        ) {
             $db->setDb(Config::get("database/type")."://".Config::get("database/database"));
         } else {
             $type = Config::get("database/type");
