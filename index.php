@@ -601,7 +601,10 @@ $provider = Config::get("map/provider/source");
 
             var permissions = {
                 <?php
-                    $clientside_perms = array("report-research", "overwrite-research", "submit-poi");
+                    $clientside_perms = array(
+                        "report-research",
+                        "overwrite-research"
+                    );
                     for ($i = 0; $i < count($clientside_perms); $i++) {
                         $clientside_perms[$i] = '"'.$clientside_perms[$i].'": '.(Auth::getCurrentUser()->hasPermission($clientside_perms[$i]) ? "true" : "false");
                     }
