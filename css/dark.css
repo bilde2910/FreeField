@@ -1,29 +1,44 @@
+/*
+    This stylesheet contains only color definitions. It is applied in addition
+    to /css/main.css and is responsible for setting the colors of all elements
+    on the page that require a color definition when using dark theme.
+*/
+
 body {
     background-color: #111;
     color: #888;
 }
 
+/* Header area for admin pages, the user settings page, and various popups */
 .header {
     color: #ccc;
     border-bottom: 1px solid #222;
 }
 
+/* Main header text in `.header` */
 .header h2 {
     color: #444;
 }
 
+/* Sub-header in `.header`, displayed underneath `.header h2`. */
 .content-subhead {
     color: #777;
 }
 
+/* Submit button on forms. Highlighted in a vibrant color to visually indicate
+   that this button applies changes. */
 .button-submit {
     background-color: #0f466b;
 }
 
+/* Standard button on forms. Used for e.g. cancel buttons and buttons which do
+   not make any changes to settings or data. Uses a gray color to reflect this
+   behavior. */
 .button-standard {
     background-color: #555;
 }
 
+/* Background color for tooltips on admin pages. */
 .tooltip span {
     background-color: black;
 }
@@ -32,6 +47,7 @@ body {
     border-color: black transparent transparent transparent;
 }
 
+/* Input boxes. */
 .pure-form input[type=password], .pure-form input[type=email], .pure-form input[type=url], .pure-form input[type=date], .pure-form input[type=month], .pure-form input[type=time], .pure-form input[type=datetime], .pure-form input[type=datetime-local], .pure-form input[type=week], .pure-form input[type=tel], .pure-form input[type=color], .pure-form input[type=number], .pure-form input[type=search], .pure-form input[type=text], .pure-form select, .pure-form textarea {
     background-color: #000;
     border: 1px solid #333;
@@ -61,27 +77,44 @@ a {
     color: #0f466b;
 }
 
+/* The main body of popups and dialogs. */
 .cover-box-inner {
     background-color: #222;
 }
 
+/* Color defined for bold text. Set to a less intensive color than the
+   surrounding text to make it more comfortable to read. */
 .strong-color {
     color: #ccc;
 }
 
+/* Webhook header bars on admin pages. */
 .hook-head {
     background-color: #282828;
 }
+
+/* The type of webhook, displayed as a label in the header bar, e.g. "Post JSON"
+   or "Send Telegram message". */
 .hook-action {
     color: #ccc;
 }
+
+/* The main body of each webhook. Set to a color that is different from the
+   header bar and page background to better distinguish them from those
+   elements. */
 .hook-body {
     background-color: #1c1c1c;
 }
+
+/* Code elements in syntax help blocks contain text replacement blocks and
+   should render in a way that makes them easily distinguishable. */
 .hook-syntax-help code {
     background-color: #000;
     border: 1px solid #444;
 }
+
+/* An individual objective or reward filter entry, i.e. the block that displays
+   e.g. "Make 3 Great Throws" and contains an edit and delete button. */
 .hook-filter {
     background-color: #000;
 }

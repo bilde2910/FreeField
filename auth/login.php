@@ -1,18 +1,34 @@
 <?php
+/*
+    This page is the login page for FreeField, and lists all enabled
+    authentication providers. Users click on an authentication provider to sign
+    in with that provider.
+*/
 
 require_once("../includes/lib/global.php");
 __require("config");
 __require("auth");
 __require("i18n");
 
+/*
+    If the user is already logged in, they shouldn't be here.
+*/
 if (Auth::isAuthenticated()) {
     header("HTTP/1.1 307 Temporary Redirect");
     header("Location: ".Config::getEndpointUri("/"));
     exit;
 }
 
+/*
+    This function returns an array of enabled authentication providers.
+*/
 $providers = Auth::getEnabledProviders();
 
+/*
+    This array defines the appearance of the buttons for each provider. An icon
+    is set for each provider, plus the text and background color for each of the
+    buttons.
+*/
 $providerAppearance = array(
     "discord" => array(
         "fa-icon" => "discord",

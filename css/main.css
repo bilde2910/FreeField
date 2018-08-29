@@ -1,9 +1,20 @@
+/*
+    This is the main stylesheet, and is loaded on all pages. It contains styling
+    for most elements and works on top of the pure-css stylesheets
+    (/css/layouts/*.css) and together with the theming stylesheets
+    (/css/dark.css and /css/light.css).
+*/
+
+/* Icons in the menu sidebar. */
 .menu-fas {
     display: inline-block;
     width: 20px;
     margin-right: 3px;
     text-align: center;
 }
+
+/* The "userbox" which shows the currently logged in user at the top of the
+   sidebar. */
 .menu-user-box {
     max-width: calc(100% - 20px);
     padding: 10px 10px 5px 10px;
@@ -12,23 +23,40 @@
     text-overflow: ellipsis;
     color: #999;
 }
+
+/* Small text in the userbox (the "signed in as" text and the provider identity
+   display underneath the nickname). The nickname itself is normal-sized. */
 .user-box-small {
     font-size: 0.8em;
 }
+
+/* The nickname of the currently logged in user in the userbox. */
 .user-box-nick {
     font-weight: bold;
 }
+
+/* Spacer to separate groups of elements in the sidebar. Creates an empty gap.
+   Used to separate the userbox and login/logout buttons from the rest of the
+   elements in the sidebar. */
 .menu-spacer {
     height: 1em;
 }
+
+/* Icons in the main body of the page. Used to display "help" icons (?) next to
+   configuration options on the admin pages. Hovering over these icons shows a
+   tooltip that explains the usage of any configuration item. */
 .content-fas {
     display: inline-block;
     width: 20px;
     text-align: center;
 }
+
+/* Block element which contains `.button-submit` and/or `.button-standard`. */
 .buttons {
     text-align: right;
 }
+
+/* Buttons on forms, dialogs and popups.*/
 .button-submit, .button-standard {
     display: inline-block;
     padding: 0.75em 1.5em;
@@ -38,51 +66,82 @@
     cursor: pointer;
     user-select: none;
 }
+
+/* Span and input elements render with different sizes, so we'll force the same
+   size for both types of elements. */
 span.button-submit, span.button-standard {
     height: 1.5em;
 }
 input.button-submit, input.button-standard {
     height: 3em;
 }
+
 .button-submit:active {
     background-color: #1971ab;
 }
 .button-standard:active {
     background-color: #7f7f7f;
 }
+
+/* Full-width/block style buttons */
 .split-button {
     display: block;
 }
+
+/* If two block style buttons are placed next to each other, there should be
+   some spacing between them. `.left` and `.right` are left-most and right-most
+   buttons respectively. */
 .button-spaced.left {
     margin: 5px 2.5px 5px 0;
 }
 .button-spaced.right {
     margin: 5px 0 5px 2.5px;
 }
+
 table, thead, tbody {
     width: 100%;
 }
+
+/* Used on tables which should always use as much viewport width as possible,
+   instead of being capped at 800px. These appear on the POIs, users and groups
+   admin pages, as the tables on those pages greatly benefit from wider screen
+   space. */
 .force-fullwidth {
     width: 100%;
     min-width: 800px !important;
 }
+
+/* Used on the parent `<div class="content">` container for tables which use the
+   above `.force-fullwidth` style. `.wide-content` ensures that the table can
+   use up to 80% of the screen space (the remaining 20% reserved to ensure a
+   visually pleasant UI). */
 .wide-content {
     max-width: 80% !important;
 }
+
+/* Disables work wrapping. */
 .no-wrap {
     white-space: nowrap;
 }
+
 .red {
     color: red;
 }
 .green {
     color: green;
 }
+
+/* The (?) icon displayed next to settings on the administration pages. This
+   element also contains the tooltip that pops up when you hover over that
+   icon. */
 .tooltip {
     position: relative;
     display: inline-block;
     cursor: help;
 }
+
+/* The tooltip that shows up when you hover over the (?) icon on the
+   administration pages. */
 .tooltip span {
     visibility: hidden;
     width: 300px;
@@ -108,31 +167,62 @@ table, thead, tbody {
 .tooltip:hover span {
     visibility: visible;
 }
+
+/* Ensure proper sizing of input fields. */
 input[type=text], input[type=password], input[type=number], select, textarea {
     padding: 4px;
     width: calc(100% - 8px);
 }
+
+/* Mobile only. Mobile hides the sidebar as well - this is handled natively in
+   pure-css. */
 @media all and (min-width: 48em) {
     .only-mobile {
         display: none;
     }
 }
+
+/* Desktop only. */
 @media all and (max-width: 48em) {
     .only-desktop {
         display: none;
     }
+
+    /* Buttons should be displayed full-width rather than `inline-block` on
+       mobile, as we can't assume that there is enough space to render them
+       inline. */
     .button-submit, .button-standard {
         display: block;
     }
+
+    /* Tooltips are not displayed for mobile clients on administration pages -
+       instead, the decriptions which the tooltips contain are displayed
+       separately underneath the name of each setting. */
     .tooltip {
         display: none;
     }
+
+    /* In order to distinguish the name of a setting against its description,
+       the name is also bolded. */
     .setting-name {
         font-weight: bold;
     }
 }
 
+/*
+    BANNERS AND OVERLAYS
 
+    Banners show up on top of the map to indicate success and failure states to
+    the user after performing various operations, and can also prompt the user
+    to perform some action (such as clicking on the map to set the location of a
+    new POI).
+
+    Overlays are popups and dialogs that show up on top of the map to let the
+    user configure settings (e.g. report field research) or view more details
+    about a POI.
+*/
+
+/* Basic banner configuration. */
 .banner {
     position: absolute;
     bottom: 10%;
@@ -147,12 +237,17 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     color: white;
     display: none;
 }
+
+
 .banner.success {
     background-color: #007f00;
 }
 .banner.failed {
     background-color: #7f0000;
 }
+
+/* The inner block of the banner. Has spacing on each side to make it more
+   aesthetically pleasing. */
 .banner-inner {
     position: relative;
     padding: 10px;
@@ -161,6 +256,11 @@ input[type=text], input[type=password], input[type=number], select, textarea {
 .banner-inner a {
     color: white;
 }
+
+/* Basic overlay configuration. The cover-box is a full-screen block element
+   with a semi-transparent black background that darkens the map to draw more
+   attention to the overlay. The overlay is declared as a block element within
+   `.cover-box`. */
 .cover-box {
     position: absolute;
     top: 0;
@@ -173,9 +273,16 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
 }
+
+/* `.header` by default has a border at the bottom to draw a horizontal line
+   separating the header from the body. Overlays look better without it, so
+   we'll remove it. */
 .cover-box .header {
     border-bottom: none;
 }
+
+/* The dialog box itself. This renders on top of `.cover-box`, centered on the
+   screen. */
 .cover-box-inner {
     width: 500px;
     max-width: 90%;
@@ -187,16 +294,23 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     overflow-y: auto;
 }
+
+/* A tiny version of the standard, 500px dialog box. This is used for loading
+   spinners, since these don't require a bigger content space. */
 .cover-box-inner.tiny {
     width: 200px;
     max-width: 50%;
     text-align: center;
 }
+
+/* The content body of the dialog box. Appears underneath `.header`. */
 .cover-box-content {
     padding: 0 40px;
     margin-top: 20px !important;
     margin-bottom: 20px;
 }
+
+/* Loading icon for when data is processing. Spins clockwise. */
 .loading-spinner {
     display: inline-block;
     animation: spin 1.5s linear infinite;
@@ -209,6 +323,9 @@ input[type=text], input[type=password], input[type=number], select, textarea {
         transform: rotate(360deg);
     }
 }
+
+/* Banner width overrides for mobile. `left: 0;` has to be explicitly defined
+   due to the sidebar causing alignment issues with content when it's hidden. */
 @media all and (max-width: 48em) {
     .banner {
         left: 0;
@@ -220,42 +337,65 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     }
 }
 
-
-
+/* Full body container. This is used in two instances on the map page: The map
+   itself is within one of these, as well as the user settings pages. The
+   purpose of this is to ensure that the map and settings pages cover the entire
+   screen (except the sidebar area). The height uses viewport height units
+   rather than percentage units to ensure that the element actually scales to
+   the full height of the viewport instead of the full height of `<body>` (which
+   is usually less than the height of the viewport). */
 .full-container {
     height: 100vh;
     width: 100%;
 }
+
+/* Elements which should be hidden by default. */
 .hidden-by-default {
     display: none;
 }
 
-
+/* Used for the header that displays the name of the POI when a POI is clicked
+   and its details open. */
 h1.head-small {
     font-size: 2em !important;
 }
+
+/* A big version of map markers. These are displayed pairwise, side-by-side in
+   the POI details overlay that shows up when clicking a POI in the map. One of
+   the markers represents the research objective, and the other the reward. */
 .bigmarker {
     width: 150px;
     max-width: 90%;
     margin: 10px;
 }
+
 .right-align {
     text-align: right;
 }
 .centered {
     text-align: center;
 }
+
+/* Spacer used to separate action buttons from the rest of the content in
+   overlays/dialogs. */
 .cover-button-spacer {
     height: 1em;
 }
+
+/* Objective and reward parameter input prompts (e.g. quantity of items
+   awarded). These are displayed when needed based on the currently selected
+   objective or reward, and should thus be hidden by default. */
 .research-parameter {
     display: none;
 }
 
-
+/* Hide the default Mapbox popup (we're writing our own heavily customized
+   popups and displaying those instead). */
 .mapboxgl-popup {
     display: none;
 }
+
+/* Markers, as they appear on the map. */
 .marker {
     background-size: cover;
     width: 50px;
@@ -263,9 +403,16 @@ h1.head-small {
     cursor: pointer;
     z-index: 12;
 }
+
+/* Markers with unknown research should appear layered underneath the ones for
+   which research is known, to better highlight POIs which have current research
+   reports. */
 .marker.unknown {
     z-index: 11;
 }
+
+/* Markers as they appear in the list of POIs on the administration pages. These
+   show the current research on each POI in the list. */
 .poi-table-marker {
     width: 40px;
     height: 40px;

@@ -1,28 +1,43 @@
+/*
+    This stylesheet contains only color definitions. It is applied in addition
+    to /css/main.css and is responsible for setting the colors of all elements
+    on the page that require a color definition when using light theme.
+*/
+
 body {
     color: #777;
 }
 
+/* Header area for admin pages, the user settings page, and various popups */
 .header {
     color: #333;
     border-bottom: 1px solid #eee;
 }
 
+/* Main header text in `.header` */
 .header h2 {
     color: #ccc;
 }
 
+/* Sub-header in `.header`, displayed underneath `.header h2`. */
 .content-subhead {
     color: #888;
 }
 
+/* Submit button on forms. Highlighted in a vibrant color to visually indicate
+   that this button applies changes. */
 .button-submit {
     background-color: #1f8dd6;
 }
 
+/* Standard button on forms. Used for e.g. cancel buttons and buttons which do
+   not make any changes to settings or data. Uses a gray color to reflect this
+   behavior. */
 .button-standard {
     background-color: #aaa;
 }
 
+/* Background color for tooltips on admin pages. */
 .tooltip span {
     background-color: black;
 }
@@ -31,31 +46,54 @@ body {
     border-color: black transparent transparent transparent;
 }
 
+/*
+    The dark theme has styling here to color input boxes and tables as well, but
+    as the default color theme of pure-css is light, they're already
+    satisfactorily colored, so there's no need to explicitly define them here.
+*/
+
 a {
     color: #0f466b;
 }
 
+/* The main body of popups and dialogs. */
 .cover-box-inner {
     background-color: #ddd;
 }
 
+/* Color defined for bold text. Set to a less intensive color than the
+   surrounding text to make it more comfortable to read. */
 .strong-color {
     color: #333;
 }
 
+/* Webhook header bars on admin pages. */
 .hook-head {
     background-color: #d7d7d7;
 }
+
+/* The type of webhook, displayed as a label in the header bar, e.g. "Post JSON"
+   or "Send Telegram message". */
 .hook-action {
     color: #333;
 }
+
+/* The main body of each webhook. Set to a color that is different from the
+   header bar and page background to better distinguish them from those
+   elements. */
 .hook-body {
     background-color: #e3e3e3;
 }
+
+/* Code elements in syntax help blocks contain text replacement blocks and
+   should render in a way that makes them easily distinguishable. */
 .hook-syntax-help code {
     background-color: #fff;
     border: 1px solid #bbb;
 }
+
+/* An individual objective or reward filter entry, i.e. the block that displays
+   e.g. "Make 3 Great Throws" and contains an edit and delete button. */
 .hook-filter {
     background-color: #fff;
 }

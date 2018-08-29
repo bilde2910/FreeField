@@ -1,9 +1,19 @@
 <?php
+/*
+    This is the main page of FreeField. It contains the map that the whole
+    project revolves around.
+*/
 
 require_once("./includes/lib/global.php");
 __require("auth");
 __require("i18n");
 
+/*
+    Check if the user currently has access to view the map. If they don't, and
+    aren't logged in, prompt them to log in. If they are, tell them that they do
+    not currently have permission to view the map, and prompt them to ask the
+    admins for access.
+*/
 if (!Auth::getCurrentUser()->hasPermission("access")) {
     if (!Auth::isAuthenticated()) {
         header("HTTP/1.1 307 Temporary Redirect");
@@ -53,6 +63,9 @@ __require("config");
 __require("theme");
 __require("research");
 
+/*
+    A string identifying the chosen map provider for FreeField.
+*/
 $provider = Config::get("map/provider/source");
 
 ?>
@@ -109,7 +122,7 @@ $provider = Config::get("map/provider/source");
                                 <li class="pure-menu-item"><a href="#" id="add-poi-start" class="pure-menu-link"><i class="menu-fas fas fa-plus"></i> <?php echo I18N::resolveHTML("sidebar.add_poi"); ?></a></li>
                             <?php } ?>
                             <li class="pure-menu-item"><a href="#" id="menu-open-settings" class="pure-menu-link"><i class="menu-fas fas fa-wrench"></i> <?php echo I18N::resolveHTML("sidebar.settings"); ?></a></li>
-                            <?php if (Auth::getCurrentUser()->hasPermission("admin/?/general")) { ?>
+                            <?php /* Check if user has permission to access any admin pages. */ if (Auth::getCurrentUser()->hasPermission("admin/?/general")) { ?>
                                 <li class="pure-menu-item"><a href="./admin/" class="pure-menu-link"><i class="menu-fas fas fa-angle-double-right"></i> <?php echo I18N::resolveHTML("sidebar.manage_site"); ?></a></li>
                             <?php } ?>
                         </div>
@@ -123,14 +136,29 @@ $provider = Config::get("map/provider/source");
 
             <div id="main">
                 <div id="map-container">
+                <!--
+                    The banner container. Banners created by `spawnBanner()`
+                    in /js/main.js are added here.
+                -->
                 <div id="dynamic-banner-container">
-
                 </div>
+                <!--
+                    A special banner that shows up when the user is asked to
+                    click on the map to select the location for a new POI.
+                -->
                 <div id="add-poi-banner" class="banner">
                     <div class="banner-inner">
                         <?php echo I18N::resolveArgsHTML("poi.add.instructions", false, '<a href="#" id="add-poi-cancel-banner">', '</a>'); ?>
                     </div>
                 </div>
+                <!--
+                    POI details overlay. Contains details such as the POI's
+                    name, its current active field research, means of reporting
+                    research to the POI (if permission is granted to do so), and
+                    a button to get directions to the POI on a turn-based
+                    navigation service. The overlay is opened whenever the user
+                    clicks on a marker on the map.
+                -->
                 <div id="poi-details" class="cover-box">
                     <div class="cover-box-inner">
                         <div class="header">
@@ -153,6 +181,13 @@ $provider = Config::get("map/provider/source");
                         </div>
                     </div>
                 </div>
+                <!--
+                    New POI overlay that's shown when the user is adding a new
+                    POI to the map, and they have clicked on the location on the
+                    map where they wish the new POI to be added. The overlay
+                    dialog asks for the name of the POI to be added, and
+                    confirms its coordinates.
+                -->
                 <div id="add-poi-details" class="cover-box">
                     <div class="cover-box-inner">
                         <div class="header">
@@ -179,6 +214,14 @@ $provider = Config::get("map/provider/source");
                         </div>
                     </div>
                 </div>
+                <!--
+                    Field research reporting dialog. If a user wishes to report
+                    field research on a POI, this dialog shows up. It prompts
+                    the user for the type of objective and reward that
+                    constitutes the research task, and requests objective and
+                    reward metadata (parameters, such as a quantity of typing)
+                    as well, if applicable.
+                -->
                 <div id="update-poi-details" class="cover-box">
                     <div class="cover-box-inner">
                         <div class="header">
@@ -193,6 +236,10 @@ $provider = Config::get("map/provider/source");
                             <div class="pure-g">
                                 <div class="pure-u-5-5 full-on-mobile"><p><select id="update-poi-objective">
                                     <?php
+                                        /*
+                                            Select box that contains a list of all possible research objectives.
+                                        */
+
                                         // Sorts objectives and rewards alphabetically according to their translated strings.
                                         /*function sortByI18N($a, $b) {
                                             return strcmp($a["i18n"], $b["i18n"]);
@@ -258,8 +305,36 @@ $provider = Config::get("map/provider/source");
                             </div>
                             <div class="research-params objective-params">
                                 <?php
+                                    /*
+                                        Each objective may take one or more parameters. This
+                                        part of the script ensures that all possible parameters
+                                        have an input box representing them in the dialog.
+                                        Parameters which are not in use will be hidden by
+                                        default.
+                                    */
                                     foreach (Research::PARAMETERS as $param => $class) {
+                                        /*
+                                            Each parameter type has a class corresponding to it,
+                                            containing functions like value parsing, a function
+                                            for returning an HTML node allowing users to set a
+                                            value for the parameter, etc. These classes are
+                                            listed and defined in /includes/lib/research.php.
+
+                                            We instantiate an instance of the class for each
+                                            parameter so that we can check that the parameter
+                                            is valid for objectives, and to get the HTML edit
+                                            node for the parameter and output it to the page.
+
+                                            The `html()` function of each parameter class is
+                                            used to get this node, so we will call it here.
+                                        */
                                         $inst = new $class();
+                                        /*
+                                            Each parameter can be used for objectives, rewards,
+                                            or both. Ensure that the parameter can be used for
+                                            objectives before we output it, to avoid unnecessary
+                                            and unused elements on the page.
+                                        */
                                         if (in_array("objectives", $inst->getAvailable())) {
                                             ?>
                                                 <div id="update-poi-objective-param-<?php echo $param; ?>-box" class="pure-g research-parameter objective-parameter">
@@ -274,6 +349,26 @@ $provider = Config::get("map/provider/source");
                                     function getObjectiveParameter(param) {
                                         switch (param) {
                                             <?php
+                                                /*
+                                                    The parameter class also has a JavaScript
+                                                    function to retrieve the value of the input
+                                                    box(es) on for the parameter on the page,
+                                                    and converting them to an object that
+                                                    represents the parameter and can be stored
+                                                    in a database or configuration file.
+
+                                                    We will output all of these to a JavaScript
+                                                    function called `getObjectiveParameter()`.
+                                                    We can then call e.g.
+                                                    `getObjectiveParameter("type")` and have it
+                                                    return an object e.g. `["ice", "water"]`,
+                                                    depending on the data input by the user in
+                                                    the parameter's input box(es).
+
+                                                    The ID of the input box is passed to the
+                                                    `writeJS()` function so that the function
+                                                    can extract data from the correct input box.
+                                                */
                                                 foreach (Research::PARAMETERS as $param => $class) {
                                                     $inst = new $class();
                                                     if (in_array("objectives", $inst->getAvailable())) {
@@ -287,6 +382,17 @@ $provider = Config::get("map/provider/source");
                                     function parseObjectiveParameter(param, data) {
                                         switch (param) {
                                             <?php
+                                                /*
+                                                    The `parseObjectiveParameter()` function
+                                                    does the exact opposite of
+                                                    `getObjectiveParameter()` - it takes a data
+                                                    object, as parsed by the latter function,
+                                                    and puts its value(s) into the HTML input
+                                                    box(es) for the parameter on the page,
+                                                    allowing the user to edit them before being
+                                                    put back into a modified data object using
+                                                    `getObjectiveParameter()`.
+                                                */
                                                 foreach (Research::PARAMETERS as $param => $class) {
                                                     $inst = new $class();
                                                     if (in_array("objectives", $inst->getAvailable())) {
@@ -298,6 +404,17 @@ $provider = Config::get("map/provider/source");
                                             ?>
                                         }
                                     }
+
+                                    /*
+                                        When the objective is changed, the parameters used by
+                                        that objective should be displayed, and all others
+                                        should be hidden. This handler first ensures that all
+                                        parameters are hidden (it loops over the server-side
+                                        list of registered parameters and outputs a jQuery
+                                        `hide()` statement for each of them), then loops over
+                                        the list of parameters accepted by the currently
+                                        selected objective and shows them.
+                                    */
                                     $("#update-poi-objective").on("change", function() {
                                         <?php
                                             foreach (Research::PARAMETERS as $param => $class) {
@@ -318,6 +435,10 @@ $provider = Config::get("map/provider/source");
                             <div class="pure-g">
                                 <div class="pure-u-5-5 full-on-mobile"><p><select id="update-poi-reward">
                                     <?php
+                                        /*
+                                            Select box that contains a list of all possible research rewards.
+                                        */
+
                                         /*
                                             We'll sort the research rewards by their first respective categories.
                                             Put all the research rewards into an array ($cats) of the structure
@@ -378,8 +499,35 @@ $provider = Config::get("map/provider/source");
                             </div>
                             <div class="research-params reward-params">
                                 <?php
+                                    /*
+                                        Each reward may take one or more parameters. This part
+                                        of the script ensures that all possible parameters have
+                                        an input box representing them in the dialog. Parameters
+                                        which are not in use will be hidden by default.
+                                    */
                                     foreach (Research::PARAMETERS as $param => $class) {
+                                        /*
+                                            Each parameter type has a class corresponding to it,
+                                            containing functions like value parsing, a function
+                                            for returning an HTML node allowing users to set a
+                                            value for the parameter, etc. These classes are
+                                            listed and defined in /includes/lib/research.php.
+
+                                            We instantiate an instance of the class for each
+                                            parameter so that we can check that the parameter
+                                            is valid for rewards, and to get the HTML edit node
+                                            for the parameter and output it to the page.
+
+                                            The `html()` function of each parameter class is
+                                            used to get this node, so we will call it here.
+                                        */
                                         $inst = new $class();
+                                        /*
+                                            Each parameter can be used for objectives, rewards,
+                                            or both. Ensure that the parameter can be used for
+                                            rewards before we output it, to avoid unnecessary
+                                            and unused elements on the page.
+                                        */
                                         if (in_array("rewards", $inst->getAvailable())) {
                                             ?>
                                                 <div id="update-poi-reward-param-<?php echo $param; ?>-box" class="pure-g research-parameter reward-parameter">
@@ -394,6 +542,26 @@ $provider = Config::get("map/provider/source");
                                     function getRewardParameter(param) {
                                         switch (param) {
                                             <?php
+                                                /*
+                                                    The parameter class also has a JavaScript
+                                                    function to retrieve the value of the input
+                                                    box(es) on for the parameter on the page,
+                                                    and converting them to an object that
+                                                    represents the parameter and can be stored
+                                                    in a database or configuration file.
+
+                                                    We will output all of these to a JavaScript
+                                                    function called `getRewardParameter()`. We
+                                                    can then call e.g.
+                                                    `getRewardParameter("quantity")` and have it
+                                                    return an object e.g. `5`, depending on the
+                                                    data input by the user in the parameter's
+                                                    input box(es).
+
+                                                    The ID of the input box is passed to the
+                                                    `writeJS()` function so that the function
+                                                    can extract data from the correct input box.
+                                                */
                                                 foreach (Research::PARAMETERS as $param => $class) {
                                                     $inst = new $class();
                                                     if (in_array("rewards", $inst->getAvailable())) {
@@ -407,6 +575,16 @@ $provider = Config::get("map/provider/source");
                                     function parseRewardParameter(param, data) {
                                         switch (param) {
                                             <?php
+                                                /*
+                                                    The `parseRewardParameter()` function does
+                                                    the exact opposite of `getRewardParameter()`
+                                                    - it takes a data object, as parsed by the
+                                                    latter function, and puts its value(s) into
+                                                    the HTML input box(es) for the parameter on
+                                                    the page, allowing the user to edit them
+                                                    before being put back into a modified data
+                                                    object using `getRewardParameter()`.
+                                                */
                                                 foreach (Research::PARAMETERS as $param => $class) {
                                                     $inst = new $class();
                                                     if (in_array("rewards", $inst->getAvailable())) {
@@ -418,6 +596,16 @@ $provider = Config::get("map/provider/source");
                                             ?>
                                         }
                                     }
+                                    /*
+                                        When the reward is changed, the parameters used by that
+                                        reward should be displayed, and all others should be
+                                        hidden. This handler first ensures that all parameters
+                                        are hidden (it loops over the server-side list of
+                                        registered parameters and outputs a jQuery `hide()`
+                                        statement for each of them), then loops over the list of
+                                        parameters accepted by the currently selected reward and
+                                        shows them.
+                                    */
                                     $("#update-poi-reward").on("change", function() {
                                         <?php
                                             foreach (Research::PARAMETERS as $param => $class) {
@@ -442,6 +630,14 @@ $provider = Config::get("map/provider/source");
                         </div>
                     </div>
                 </div>
+                <!--
+                    "Working" indicator shown when adding a POI. Since adding a
+                    POI involves a request to the server, which might take some
+                    time, there should be some visual indication that something
+                    is happening. This loading indicator has a spinning loading
+                    icon that automatically disappears when the server request
+                    is complete.
+                -->
                 <div id="add-poi-working" class="cover-box">
                     <div class="cover-box-inner tiny">
                         <div class="cover-box-content">
@@ -450,6 +646,11 @@ $provider = Config::get("map/provider/source");
                         </div>
                     </div>
                 </div>
+                <!--
+                    "Working" indicator for reporting field research. This is
+                    functionally the same as `#add-poi-working`, but with a
+                    different text label.
+                -->
                 <div id="update-poi-working" class="cover-box">
                     <div class="cover-box-inner tiny">
                         <div class="cover-box-content">
@@ -458,8 +659,15 @@ $provider = Config::get("map/provider/source");
                         </div>
                     </div>
                 </div>
+                <!--
+                    The container for the map itself.
+                -->
                 <div id="map" class="full-container"></div>
                 </div>
+                <!--
+                    The user settings page. `#map` is hidden and this is shown
+                    instead when the user opens the local settings menu.
+                -->
                 <div id="settings-container" class="full-container hidden-by-default">
                     <div class="header">
                         <h1>Settings</h1>
@@ -467,6 +675,9 @@ $provider = Config::get("map/provider/source");
                     </div>
                     <div class="content pure-form">
                         <h2 class="content-subhead">Map providers</h2>
+                            <!--
+                                Directions provider for navigation links.
+                            -->
                             <div class="pure-g">
                                 <div class="pure-u-1-3 full-on-mobile">
                                     <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.directions_provider.name"); ?>:</p>
@@ -487,6 +698,10 @@ $provider = Config::get("map/provider/source");
                         <?php
                             if (Config::get("themes/color/user-settings/allow-personalization")) {
                                 ?>
+                                    <!--
+                                        User interface theme (dark or light).
+                                        This is separate from the map theme.
+                                    -->
                                     <div class="pure-g">
                                         <div class="pure-u-1-3 full-on-mobile">
                                             <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.interface_theme.name"); ?>:</p>
@@ -506,6 +721,10 @@ $provider = Config::get("map/provider/source");
                             if (Config::get("themes/color/map/allow-personalization")) {
                                 ?>
                                     <div class="pure-g">
+                                        <!--
+                                            Map theme (i.e. color scheme for map
+                                            elements).
+                                        -->
                                         <div class="pure-u-1-3 full-on-mobile">
                                             <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.map_theme.name"); ?>:</p>
                                         </div>
@@ -528,6 +747,9 @@ $provider = Config::get("map/provider/source");
                             if (Config::get("themes/icons/allow-personalization")) {
                                 $opt = new IconPackOption("user_settings.value.default");
                                 ?>
+                                    <!--
+                                        Icon set used for map markers.
+                                    -->
                                     <div class="pure-g">
                                         <div class="pure-u-1-3 full-on-mobile">
                                             <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.icons.name"); ?>:</p>
@@ -549,9 +771,17 @@ $provider = Config::get("map/provider/source");
         </div>
 
         <script>
+            /*
+                Objectives and rewards directories. These are copied from
+                /includes/lib/research.php.
+            */
             var objectives = <?php echo json_encode(Research::OBJECTIVES); ?>;
             var rewards = <?php echo json_encode(Research::REWARDS); ?>;
 
+            /*
+                Default local settings, used as fallback if a local setting is
+                not explicitly set for each entry.
+            */
             var defaults = {
                 iconSet: <?php echo Config::getJS("themes/icons/default"); ?>,
                 mapProvider: "<?php echo $provider; ?>",
@@ -567,6 +797,13 @@ $provider = Config::get("map/provider/source");
                 zoom: <?php echo Config::getJS("map/default/zoom"); ?>
             };
 
+            /*
+                Administrators may specify settings that should forcibly assume
+                the default value and ignore user-specific preferences. The
+                paths of all such settings in the settings tree are added to
+                this array. The contents are determined through various settings
+                on the administration pages.
+            */
             var forceDefaults = [
                 <?php
                     $forced = array();
@@ -577,34 +814,119 @@ $provider = Config::get("map/provider/source");
                 ?>
             ];
 
+            /*
+                Make a clone (deep copy) of the defaults object to override with
+                users' own values.
+            */
             var settings = $.extend(true, {}, defaults);
+            /*
+                The settings below are set to empty strings by default to ensure
+                that the "default" option is selected for them in the selection
+                boxes rather than the actual default values above. If an empty
+                string is defined for any setting, the fallback will be used
+                when the setting's value is called for, though the empty string
+                itself is returned when the value is queried so that the correct
+                value is chosen in the settings box.
+
+                For example, if `theme` is set to "", and the server-side
+                default is "dark", the theme of the page will be dark, but the
+                selection box that allows users to choose the theme in the
+                settings page will have the "default" setting selected rather
+                than "dark".
+            */
             settings.theme = "";
             settings.mapStyle.mapbox = "";
+
+            /*
+                A function for getting settings. This takes two arguments.
+
+                key
+                    The path to the setting that is being queried. For example,
+                    "center/latitude".
+
+                ignoreDefault
+                    Whether or not "" should be resolved to the default value
+                    (false) or if "" should be returned directly in those cases
+                    (true). Optional - defaults to `false`.
+            */
             settings.get = function(key, ignoreDefault) {
+                /*
+                    Set `ignoreDefault` to `false` if it is not currently set.
+                */
                 ignoreDefault = ignoreDefault || false;
 
+                /*
+                    Since the settings object is arranged a object with subkeys,
+                    we have to iterate deeper into the object's tree structure
+                    until we hit the setting we need. To do so, we split the
+                    path of the setting we're looking for by the separator / to
+                    get an array where each element is the next child of the
+                    settings object. We make a copy of the `settings` object to
+                    `value`. We then search `value` for the first item of the
+                    path segments array. When found, `value` is replaced with
+                    the value of `value[tree[i]]`, and the loop continues, but
+                    this time searching for the first child of that object, i.e.
+                    the second segment of the path. This continues until we've
+                    found the correct setting, at which point `value` will be
+                    the value we're looking for and that can be returned.
+                */
                 var tree = key.split("/");
                 var value = settings;
                 for (var i = 0; i < tree.length; i++) {
                     value = value[tree[i]];
                 }
 
+                /*
+                    If `forceDefaults`, the list of keys that must forcibly set
+                    to default independent of the user's preference, has an
+                    entry for the current settings path, we must overwrite the
+                    value we found from `settings` with the corresponding value
+                    from `defaults`.
+
+                    If the value we found was an empty string (""), and the
+                    caller of this function didn't explicitly request for the
+                    empty string to be returned through `ignoreDefault`, we will
+                    also replace the value with the corresponding default value
+                    from `defaults`.
+                */
                 if (forceDefaults.indexOf(key) >= 0 || (!ignoreDefault && value == "")) {
                     value = defaults;
                     for (var i = 0; i < tree.length; i++) {
                         value = value[tree[i]];
                     }
                 }
+
                 return value;
             };
 
-
+            /*
+                A reference to certain permissions that are used client-side.
+                These are also validated server-side, but in order to provide a
+                good user experience, some page elements may additionally be
+                hidden client-side if some of these permissions are not granted.
+            */
             var permissions = {
                 <?php
                     $clientside_perms = array(
+                        /*
+                            Allows the user to report field research. If this is
+                            not granted, the button that the user would click on
+                            to report field research is hidden.
+                        */
                         "report-research",
+                        /*
+                            Allows the user to report field research even if
+                            someone else has already done so on that POI earlier
+                            the same day. "report-research" is required in
+                            addition to this permission for this permission to
+                            have any effect. If this permission is not granted,
+                            it has the same effect as if "report-research" was
+                            not granted, but only for POIs that already have
+                            active field research tasks assigned to them.
+                        */
                         "overwrite-research"
                     );
+
                     for ($i = 0; $i < count($clientside_perms); $i++) {
                         $clientside_perms[$i] = '"'.$clientside_perms[$i].'": '.(Auth::getCurrentUser()->hasPermission($clientside_perms[$i]) ? "true" : "false");
                     }
@@ -612,18 +934,38 @@ $provider = Config::get("map/provider/source");
                 ?>
             }
 
+            /*
+                A reference to all available icon sets and the URLs they provide
+                for various icon graphics.
+            */
             var iconSets = {
                 <?php
+                    /*
+                        List all possible icons and all available icon sets.
+                    */
                     $icons = Theme::listIcons();
-
                     $themes = Theme::listIconSets();
+
                     $themejs = array();
+
+                    /*
+                        If the administrators have configured FreeField to deny
+                        users selecting their own icon sets, then only the icon
+                        sets defined in this array should be loaded. By default,
+                        all icon sets are loaded.
+                    */
                     $restrictiveLoadThemes = array(
                         Config::get("themes/icons/default")
                     );
+
                     foreach ($themes as $theme) {
                         if (!Config::get("themes/icons/allow-personalization") && in_array($theme, $restrictiveLoadThemes)) return;
 
+                        /*
+                            Get an `IconSet` instance for each theme (from
+                            /includes/lib/theme.php). Use this instance to grab
+                            an URL for every icon defined in `$icons`.
+                        */
                         $iconSet = Theme::getIconSet($theme);
                         $iconKv = array();
                         foreach ($icons as $icon) {
@@ -639,6 +981,10 @@ $provider = Config::get("map/provider/source");
         <script src="./js/ui.js"></script>
         <script src="./js/main.js?t="<?php echo time(); ?>></script>
         <script>
+            /*
+                Attempt to read settings from `localStorage`. If successful,
+                overwrite the relevant entries in `settings`.
+            */
             if (hasLocalStorageSupport()) {
                 var storedSettings = JSON.parse(localStorage.getItem("settings"));
                 if (storedSettings !== null) {
@@ -649,8 +995,15 @@ $provider = Config::get("map/provider/source");
                 }
             }
 
+            /*
+                Grab a stylesheet for the "dark" or "light" themes depending on
+                the user's selection.
+            */
             $("head").append('<link rel="stylesheet" type="text/css" href="./css/' + settings.get("theme") + '.css?v=<?php echo time(); ?>">');
 
+            /*
+                Configure MapBox.
+            */
             mapboxgl.accessToken = <?php echo Config::getJS("map/provider/mapbox/access-token"); ?>;
             var map = new mapboxgl.Map({
                 container: 'map',
@@ -658,6 +1011,10 @@ $provider = Config::get("map/provider/source");
                 center: [settings.center.longitude, settings.center.latitude],
                 zoom: settings.zoom
             });
+
+            /*
+                Add map controls to the MapBox instance.
+            */
             map.addControl(new mapboxgl.NavigationControl());
             map.addControl(new mapboxgl.GeolocateControl({
                 positionOptions: {
@@ -667,6 +1024,12 @@ $provider = Config::get("map/provider/source");
                 trackUserLocation: true
             }));
 
+            /*
+                Automatically save the current center point and zoom level of
+                the map to `localStorage` if the user pans or zooms on the map.
+                This allows the map to retain the current view the next time the
+                user visits this FreeField instance.
+            */
             var lastCenter = map.getCenter();
             var lastZoom = map.getZoom();
             setInterval(function() {

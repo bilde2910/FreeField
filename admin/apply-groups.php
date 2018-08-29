@@ -1,4 +1,8 @@
 <?php
+/*
+    This file handles submission of user group changes from the administration
+    interface.
+*/
 
 require_once("../includes/lib/global.php");
 __require("config");
@@ -7,18 +11,45 @@ __require("db");
 
 $returnpath = "./?d=groups";
 
+/*
+    If the requesting user does not have permission to make changes here, they
+    should be kicked out.
+*/
 if (!Auth::getCurrentUser()->hasPermission("admin/groups/general")) {
     header("HTTP/1.1 303 See Other");
     header("Location: {$returnpath}");
     exit;
 }
 
+/*
+    As this script is for submission only, only POST is supported. If a user
+    tries to GET this page, they should be redirected to the configuration UI
+    where they can make their desired changes.
+*/
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("HTTP/1.1 303 See Other");
     header("Location: {$returnpath}");
     exit;
 }
 
+/*
+    The groups list we get from /includes/lib/auth.php contains a list of groups
+    in an indexed array. We'll convert it to an associative array where the
+    group ID is the key, to make it easier to fetch the group details for a
+    group given its ID. This is because the updates POSTed from the client
+    contains changes where the group ID is the identifier for the groups whose
+    settings have changed.
+
+    Each group is stored in a database with the following structure:
+
+      - `group_id` INT
+      - `level` SMALLINT
+      - `label` VARCHAR(64)
+      - `color` CHAR(6)
+
+    That same structure is available in the arrays in `$grouplist` and
+    `$groups_assoc`.
+*/
 $grouplist = Auth::listPermissionLevels();
 $groups_assoc = array();
 
@@ -26,28 +57,76 @@ foreach ($grouplist as $group) {
     $groups_assoc[$group["group_id"]] = $group;
 }
 
+/*
+    Create an array for updates, as well as an array for deletes, to be applied
+    in one batch later. Changes to group permission levels are applied
+    separately later, so we'll create an array for those too.
+*/
 $updates = array();
 $deletes = array();
-
 $levelchanges = array();
 
 foreach ($_POST as $group => $data) {
+    /*
+        Ensure that the POST field we're working on now is a group change field.
+        These all have field names in the format "g<groupID>". If this matches,
+        extract the group ID from the field name.
+    */
     if (strlen($group) < 1 || substr($group, 0, 1) !== "g") continue;
     $gid = substr($group, 1);
 
+    /*
+        Users cannot make changes to groups at or above their own permission
+        level. Enforce this by matching the current user's permission level
+        against that of the group they are changing.
+    */
     if (!Auth::getCurrentUser()->canChangeAtPermission($groups_assoc[$gid]["level"])) {
         continue;
     }
 
+    /*
+        If group deletion is requested, add it to the deletion queue and do not
+        process further changes.
+    */
     if ($data["action"] === "delete") {
         $deletes[] = $gid;
         continue;
     }
+
+    /*
+        Handle changes to the group parameters, such as label and color. If
+        there are changes, they should be added to the updates queue.
+    */
     if ($groups_assoc[$gid]["label"] !== $data["label"]) {
         $updates[$gid]["label"] = $data["label"];
     }
+
+    /*
+        The color input for each group has a checkbox named `usecolor` that
+        determines whether or not a color is defined. If this checkbox is
+        checked, a color is selected and should be saved. If not, the color is
+        `null` i.e. undefined, and the database field should therefore list the
+        `null` color.
+
+        The `color` field has the # sign in front of the RRGGBB hex color code
+        selected. Strip this sign out of the color code before saving it to the
+        database.
+    */
+    if (isset($data["usecolor"]) && $groups_assoc[$gid]["color"] !== substr($data["color"], -6)) {
+        $updates[$gid]["color"] = substr($data["color"], -6);
+    }
+    if (!isset($data["usecolor"]) && $groups_assoc[$gid]["color"] !== null) {
+        $updates[$gid]["color"] = NULL;
+    }
+
+    /*
+        If the permission level has changed, validation should be done to ensure
+        that the user is not at or above either the current level of the group,
+        or the level that the group is being changed to. This is to stop
+        privilege escalation attacks. If the user has permission to make the
+        change, add the change to the list of level changes.
+    */
     if ($groups_assoc[$gid]["level"] != $data["level"]) {
-        // Level changes are applied separately, see below
         $old = intval($groups_assoc[$gid]["level"]);
         $new = intval($data["level"]);
         $max = max($old, $new);
@@ -55,16 +134,17 @@ foreach ($_POST as $group => $data) {
             $levelchanges[$old] = $new;
         }
     }
-    if (isset($data["usecolor"]) && $groups_assoc[$gid]["color"] !== substr($data["color"], -6)) {
-        $updates[$gid]["color"] = substr($data["color"], -6);
-    }
-    if (!isset($data["usecolor"]) && $groups_assoc[$gid]["color"] !== null) {
-        $updates[$gid]["color"] = NULL;
-    }
 }
 
 $db = Database::getSparrow();
 foreach ($updates as $groupid => $update) {
+    /*
+        Apply the updates queue to the database. The Sparrow library does not
+        handle `null` values correctly, so rather than have Sparrow execute the
+        update query for us, we'll request the SQL query that it would execute,
+        replace all instances of an empty `color` field with a NULL `color`
+        field, then execute the query manually.
+    */
     $query = $db
         ->from(Database::getTable("group"))
         ->where("group_id", $groupid)
@@ -233,6 +313,10 @@ if (count($queries) > 0) {
     need to be taken for groups vs. users).
 */
 
+/*
+    When all other changes are committed, process the deletion queue and remove
+    the groups it contains.
+*/
 foreach ($deletes as $groupid) {
     $db
         ->from(Database::getTable("group"))

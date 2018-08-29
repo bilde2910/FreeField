@@ -1,4 +1,7 @@
 <?php
+/*
+    This script handles all stages of Telegram authentication.
+*/
 
 require_once("../../includes/lib/global.php");
 __require("config");
@@ -12,6 +15,20 @@ if (!Auth::isProviderEnabled($service)) {
     exit;
 }
 
+/*
+    AUTH STAGE 0
+    Pre-authentication
+
+    Telegram requires using a separate button to sign in. This button is loaded
+    from Telegram's servers, and does not match the styling of the buttons for
+    the rest of the authentication providers on the sign-in page. We therefore
+    have to load a separate page that has this button together with a prompt for
+    the user to click on it. This allows us to style the Telegram button on the
+    main login page (/auth/login.php) however we want.
+
+    Clicking on the sign-in button on this page launches auth stage I
+    client-side.
+*/
 if (!isset($_GET["hash"])) { ?>
 
 <!DOCTYPE html>
@@ -43,6 +60,28 @@ if (!isset($_GET["hash"])) { ?>
 
 <?php exit; }
 
+/*
+    Stage I success
+    -> AUTH Stage II
+    Server-side validation
+
+    Validate the data returned from Telegram according to the Telegram login
+    widget documentation:
+
+    https://core.telegram.org/widgets/login#checking-authorization
+*/
+
+/*
+    Create and verify `data-check-string`:
+        1.  Sort all received GET parameters alphabetically by key name. Ignore
+            `hash` because we're verifying the data against `hash`.
+        2.  Create an array of the fields in `key=value` format.
+        3.  Implode the array to a string with \n as delimiter.
+        4.  Get a SHA256 hash of our Telegram bot token.
+        5.  Create a verification hash of the `data-check-string` using
+            HMAC-SHA256 with the bot token hash as the key.
+*/
+
 $fields = $_GET;
 $hash = $_GET["hash"];
 unset($fields["hash"]);
@@ -58,20 +97,48 @@ $key = hash("SHA256", Config::get("auth/provider/{$service}/bot-token"), true);
 
 $verify = hash_hmac("SHA256", $data, $key);
 
+/*
+    If the verification string is not equal to the hash returned by Telegram,
+    then the authentication request is forged and should be discarded. The bot
+    token is only visible to the FreeField administrators who have access to the
+    authentication providers settings page, as well as to Telegram itself. Since
+    no other parties have access to the token, no other parties may create login
+    requests with a valid hash, as creating a valid hash requires having access
+    to the bot token, or its SHA256 hash.
+
+    Also check that the authentication session hasn't timed out (10 minutes).
+*/
+
 if ($verify !== $hash || time() - intval($_GET["auth_date"]) > 600) {
     header("303 See Other");
     header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
     exit;
 }
 
+/*
+    Stage II success
+    -> AUTH Stage III
+    Create session
+*/
+
+/*
+    Since the request is verified to originate from Telegram, we can assume that
+    all the GET fields are set according to the Telegram documentation, hence we
+    do not need to check the `$_GET` values' existence with `isset()`.
+*/
+
 $userid = $_GET["id"];
 
 try {
+    /*
+        Nickname and provider identity both default to username, then name, then
+        user ID, depending on available data.
+    */
     $user = (isset($_GET["username"]) ? $_GET["username"] : null);
     if ($user === null || $user == "") $user = (isset($_GET["first_name"]) && isset($_GET["last_name"]) ? $_GET["first_name"]." ".$_GET["last_name"] : null);
     if ($user === null || $user == "") $user = $_GET["id"];
 
-    $hid = (isset($_GET["first_name"]) ? "@".$_GET["username"] : null);
+    $hid = (isset($_GET["username"]) ? "@".$_GET["username"] : null);
     if ($hid === null || $hid == "") $hid = (isset($_GET["first_name"]) && isset($_GET["last_name"]) ? $_GET["first_name"]." ".$_GET["last_name"] : null);
     if ($hid === null || $hid == "") $hid = $_GET["id"];
 
@@ -82,6 +149,11 @@ try {
         $user
     );
     header("HTTP/1.1 303 See Other");
+    /*
+        Unapproved users should be redirected to a page explaining that
+        their account has not yet been approved, and that they should
+        contact an administrator to approve their account.
+    */
     if ($approved) {
         header("Location: ".Config::getEndpointUri("/"));
     } else {
@@ -93,8 +165,5 @@ try {
     header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
     exit;
 }
-
-
-
 
 ?>

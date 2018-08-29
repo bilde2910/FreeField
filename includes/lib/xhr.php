@@ -1,4 +1,10 @@
 <?php
+/*
+    This library file is a helper class for JSON XMLHttpRequest target scripts.
+    XHR script files can call `XHR::exitWith()` with an HTTP status code and a
+    JSON data object, and the function will handle the proper output HTTP
+    headers and output serialization.
+*/
 
 class XHR {
     public static function exitWith($code, $data) {

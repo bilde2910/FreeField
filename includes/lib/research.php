@@ -1,5 +1,4 @@
 <?php
-
 /*
     This file contains a list of all available field research tasks and rewards
     currently implemented in FreeField. Each array element in OBJECTIVES and
@@ -186,12 +185,19 @@ class ParamMinTier {
 */
 class ParamSpecies {
 
+    /*
+        The number of the highest species from each generation.
+    */
     private const GENERATIONS_HIGHEST = array(151, 251, 386);
 
     private static $highest_species = null;
     private static $last_species = null;
 
     public function __construct() {
+        /*
+            `$highest_species` is an integer representing the highest number
+            across all available generations.
+        */
         if (self::$highest_species === null) {
             self::$highest_species = self::GENERATIONS_HIGHEST[count(self::GENERATIONS_HIGHEST) - 1];
         }
@@ -203,6 +209,23 @@ class ParamSpecies {
     public function html($id, $class) {
         __require("i18n");
 
+        /*
+            Due to the sheer number of species currently available,
+            `ParamSpecies` will query the POI database for a list of all
+            research objectives that have been reported (and not overwritten by
+            another objective) with the "species" parameter. If any species are
+            found here, those species will be considered common species, and
+            should be placed at the top of the list of species to make them
+            easier to find for users. Hence, if one user reports some specific
+            species connected to a research task, other users will much more
+            easily find those species in the list if they encounter the same
+            quest later.
+
+            This caching mechanism can be cleared by clearing all research tasks
+            from the POI database, i.e. resetting all objectives to "unknown".
+            This will clear all objectives that have a "species" parameter in
+            the database, making this function unable to find any results.
+        */
         if (self::$last_species === null) {
             __require("geo");
             $pois = Geo::listPOIs();
@@ -217,11 +240,28 @@ class ParamSpecies {
                     }
                 }
             }
+
+            /*
+                There will almost certainly be duplicates, so we filter those
+                out before sorting the array in ascending order by species
+                number.
+            */
             self::$last_species = array_unique($previous_species);
             sort(self::$last_species);
         }
 
+        /*
+            A variable that stores the <optgroup>s and <option>s within the
+            species selection box. There will be three separate species
+            selection boxes, hence using a variable and echoing it three times
+            (once for each box) saves on code reuse.
+        */
         $species_opts = '';
+
+        /*
+            If any recent species were found, we'll create a separate <optgroup>
+            for them labeled "Recent species".
+        */
         if (count(self::$last_species) > 0) {
             $species_opts .= '<optgroup label="'.I18N::resolveHTML("parameter.species.recent.label").'">';
             foreach (self::$last_species as $species) {
@@ -230,6 +270,9 @@ class ParamSpecies {
             $species_opts .= '</optgroup>';
         }
 
+        /*
+            List all species' names, grouped by the generation they belong to.
+        */
         $species_opts .= '<optgroup label="'.I18N::resolveHTML("generation.1.label").'">';
         $current_gen_idx = 0;
         for ($i = 1; $i <= self::$highest_species; $i++) {
@@ -240,6 +283,12 @@ class ParamSpecies {
             $species_opts .= '<option value="'.$i.'">'.I18N::resolveHTML("species.{$i}.name").'</option>';
         }
         $species_opts .= '</optgroup>';
+
+        /*
+            The species parameter has three input boxes, as research objectives
+            may require any of a set of species rather than only one particular
+            species (up to three different species).
+        */
         return
             '<p><select id="'.$id.'-1" class="'.$class.'">'.$species_opts.'</select></p>
             <p><select id="'.$id.'-2" class="'.$class.'"><option value="none">'.I18N::resolveHTML("ui.dropdown.none_selected").'</option>'.$species_opts.'</select></p>
@@ -326,6 +375,11 @@ class ParamType {
         __require("i18n");
 
         $output = "";
+        /*
+            The type parameter has three input boxes, as research objectives may
+            require any of a set of types rather than only one particular type
+            (up to three different types).
+        */
         for ($i = 1; $i <= 3; $i++) {
             $output .= '<p><select id="'.$id.'-'.$i.'" class="'.$class.'">';
             if ($i >= 2) {
@@ -407,6 +461,11 @@ class Research {
         "type" => "ParamType"
 
     );
+
+    /*
+        Please see the I18N files for details on each objective and reward
+        (objective.* and reward.*).
+    */
 
     public const OBJECTIVES = array(
 
@@ -636,6 +695,9 @@ class Research {
         )
     );
 
+    /*
+        Checks whether or not the given objective is valid.
+    */
     public static function isObjectiveValid($type, $params) {
         if (isset(self::OBJECTIVES[$type])) {
             $validParams = self::OBJECTIVES[$type]["params"];
@@ -667,6 +729,9 @@ class Research {
         }
     }
 
+    /*
+        Checks whether or not the given reward is valid.
+    */
     public static function isRewardValid($type, $params) {
         if (isset(self::REWARDS[$type])) {
             $validParams = self::REWARDS[$type]["params"];
@@ -698,6 +763,9 @@ class Research {
         }
     }
 
+    /*
+        Checks whether objective or reward 1 matches objective or reward 2.
+    */
     public static function matches($type1, $params1, $type2, $params2) {
         if ($type1 !== $type2) return false;
         foreach ($params2 as $param => $value) {
@@ -707,9 +775,16 @@ class Research {
         return true;
     }
 
+    /*
+        Localizes an objective object to a human-readable string representation.
+    */
     public static function resolveObjective($type, $params) {
         __require("i18n");
 
+        /*
+            Get the objective definition from the list of available objectives.
+            If the definition is not found, it falls back to a default array.
+        */
         $objdef = array(
             "categories" => null,
             "params" => array()
@@ -718,6 +793,12 @@ class Research {
             $objdef = self::OBJECTIVES[$type];
         }
 
+        /*
+            Defaults to the "objective.<type>" key. If the objective accepts the
+            "quantity" parameter, we'll instead resolve either
+            "objective.<key>.singular" or "objective.<key>.plural" depending on
+            the value of "quantity".
+        */
         $i18nstring = I18N::resolve("objective.{$type}");
         if (isset($params["quantity"])) {
             if ($params["quantity"] == 1) {
@@ -726,16 +807,28 @@ class Research {
                 $i18nstring = I18N::resolve("objective.{$type}.plural");
             }
         }
+
+        /*
+            Resolve parameters and insert them into the localized string.
+        */
         for ($i = 0; $i < count($objdef["params"]); $i++) {
             $param = $objdef["params"][$i];
             $i18nstring = str_replace("{%" . ($i + 1) . "}", self::parameterToString($param, $params[$param]), $i18nstring);
         }
+
         return $i18nstring;
     }
 
+    /*
+        Localizes a reward object to a human-readable string representation.
+    */
     public static function resolveReward($type, $params) {
         __require("i18n");
 
+        /*
+            Get the reward definition from the list of available rewards. If the
+            definition is not found, it falls back to a default array.
+        */
         $rewdef = array(
             "categories" => null,
             "params" => array()
@@ -744,6 +837,12 @@ class Research {
             $rewdef = self::REWARDS[$type];
         }
 
+        /*
+            Defaults to the "reward.<type>" key. If the reward accepts the
+            "quantity" parameter, we'll instead resolve either
+            "reward.<key>.singular" or "reward.<key>.plural" depending on the
+            value of "quantity".
+        */
         $i18nstring = I18N::resolve("reward.{$type}");
         if (isset($params["quantity"])) {
             if ($params["quantity"] == 1) {
@@ -752,13 +851,23 @@ class Research {
                 $i18nstring = I18N::resolve("reward.{$type}.plural");
             }
         }
+
+        /*
+            Resolve parameters and insert them into the localized string.
+        */
         for ($i = 0; $i < count($rewdef["params"]); $i++) {
             $param = $rewdef["params"][$i];
             $i18nstring = str_replace("{%" . ($i + 1) . "}", self::parameterToString($param, $params[$param]), $i18nstring);
         }
+
         return $i18nstring;
     }
 
+    /*
+        Resolves a parameter to a human-readable string by calling the
+        `toString()` function specific to the class of the parameter in
+        question.
+    */
     private static function parameterToString($param, $data) {
         $class = self::PARAMETERS[$param];
         $inst = new $class();

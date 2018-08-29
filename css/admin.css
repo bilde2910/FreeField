@@ -1,67 +1,127 @@
+/*
+    This stylesheet is loaded on admin pages (/admin/index.php) and contains
+    styling specific to the admin interface which does not have to be loaded for
+    regular users on other pages on FreeField.
+*/
+
+/* The <div> that contains all input fields and data for any one webhook. */
 .hook-instance {
     margin-top: 15px;
 }
+
+/* The header bar of a webhook. */
 .hook-head {
     width: calc(100% - 20px);
     padding: 10px;
     cursor: pointer;
 }
+
+/* The type of webhook, displayed as a label in the header bar, e.g. "Post JSON"
+   or "Send Telegram message". */
 .hook-action {
     font-weight: bold;
 }
+
+/* The target of the webhook (domain name, group ID or other identifier)
+   displayed in the header bar. */
 .hook-domain {
     color: #1f8dd6;
 }
+
+/* The human-readable summary of a webhook's objective and reward filters in the
+   header bar displays the filters in two <span> elements; these are the ones
+   that are styled by this clause. */
 .hook-head-objective-text, .hook-head-reward-text {
     font-weight: bold;
 }
+
+/* The main body of the webhook, hidden by default. */
 .hook-body {
     width: calc(100% - 30px);
     padding: 20px 15px;
 }
+
+/* Sets text spacing for all paragraphs in the webhook body. */
 .hook-body p {
     margin: 0.5em 0;
 }
+
+/* The big text box where the user enters the payload data sent to the webhook
+   handler upon execution (e.g. the JSON body if using the "Post JSON" webhook
+   type). */
 .hook-payload {
     width: calc(100% - 8px);
     font-family: monospace;
     line-height: 135%;
 }
+
+/* A <div> containing syntax help for text replacement blocks for webhook
+   payload data. Contains `.hook-syntax-block`. Hidden by default. */
 .hook-syntax-help {
     margin-bottom: 1em;
 }
+
+/* Code elements in the syntax help blocks contain text replacement blocks and
+   should render in a way that makes them easily distinguishable. */
 .hook-syntax-help code {
     padding: 0 5px;
     border-radius: 4px;
     display: inline-block;
 }
+
+/* Floating blocks that contain a list of available replacement blocks of a
+   particular type (e.g. coordinates, reporter information, etc.) */
 .hook-syntax-block {
     float: left;
     width: 50%;
 }
+
+/* Since `.hook-syntax-block` is floating, we use a clearing block at the end of
+   `.hook-syntax-help` to ensure all of the syntax blocks are within
+   `.hook-syntax-help`. */
 .hook-syntax-clear {
     clear: both;
 }
+
+/* An individual objective or reward filter entry, i.e. the block that displays
+   e.g. "Make 3 Great Throws" and contains an edit and delete button. */
 .hook-filter {
     width: calc(100% - 24px);
     padding: 7px;
     margin: 5px 0;
 }
+
+/* Container for the buttons that display on `.hook-filter`, i.e. the edit
+   button and delete button. */
 .hook-filter-actions {
     float: right;
 }
+
+/* Individual buttons within `.hook-filter-actions` are <i> tags with an icon
+   displayed in them. They're clickable with JavaScript, so the cursor should
+   reflect that upon mouse-over on desktop. */
 .hook-filter-actions > i {
     cursor: pointer;
 }
+
+/* The "+" buttons next to "Objectives" and "Rewards" that adds a new objective
+   or reward filter to the webhook. */
 .hook-filter-add {
     text-decoration: none;
 }
+
+/* The Edit button in `.hook-filter-actions`. */
 .hook-edit {
     color: goldenrod;
 }
+
+/* The Delete button in `.hook-filter-actions`. */
 .hook-delete {
     color: red;
 }
+
+/* A full-width and full-height overlay block that contains popups and dialogs
+   on the admin pages. Color styling etc. is applied from /css/main.css. */
 .admin-cover-box {
     height: 100%;
     position: fixed;
