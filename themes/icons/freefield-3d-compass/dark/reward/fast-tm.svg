@@ -1,1 +1,85 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100"><defs><style>.cls-1{fill:#1c2125;stroke:#bfe3ff;stroke-width:2px;}.cls-1,.cls-4,.cls-8{stroke-miterlimit:10;}.cls-2{fill:#7c8690;}.cls-3{fill:url(#linear-gradient);}.cls-4{stroke:#e5f4ff;stroke-width:0.08px;fill:url(#linear-gradient-2);}.cls-5{fill:url(#linear-gradient-3);}.cls-6,.cls-8{fill:#333;}.cls-7{fill:aqua;}.cls-8{stroke:#fff;stroke-width:0.5px;}.cls-9{fill:url(#linear-gradient-4);}.cls-10{fill:#bfe3ff;}</style><linearGradient id="linear-gradient" x1="16.8" y1="47.73" x2="25.56" y2="49.91" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#728899"/><stop offset="0.49" stop-color="#374149"/></linearGradient><linearGradient id="linear-gradient-2" x1="16.8" y1="47.73" x2="25.56" y2="49.91" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#bfe3ff"/><stop offset="0.73" stop-color="#728899"/></linearGradient><linearGradient id="linear-gradient-3" x1="80.62" y1="52.6" x2="84.96" y2="51.87" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#bfe3ff"/><stop offset="0.49" stop-color="#495660"/></linearGradient><linearGradient id="linear-gradient-4" x1="56.97" y1="51.47" x2="68.3" y2="49.68" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#90b0d4" stop-opacity="0.5"/><stop offset="0.8" stop-color="#495660" stop-opacity="0"/></linearGradient></defs><title>fast-tm</title><g id="Layer_1" data-name="Layer 1"><polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7"/></g><g id="Layer_3" data-name="Layer 3"><circle class="cls-2" cx="15.92" cy="69.93" r="4.54"/><path class="cls-3" d="M29.43,32.47a3.17,3.17,0,0,0,.13-.88,3.43,3.43,0,0,0-6.75-.87h0L11.63,68.44a4.55,4.55,0,0,1,8.8,2.08l9-38Z"/><path class="cls-4" d="M29.56,31.59a3.43,3.43,0,0,0-6.75-.87h0l-.18.67a3.39,3.39,0,0,1,1.29-1.87l-1.16,4-1,3.52A6.47,6.47,0,0,1,23.84,37l-2.7,9.9L21,47.5l-.47,1.72-1.39,5.1L16.16,65.08A4.86,4.86,0,0,0,12.06,67l-.43,1.45a4.55,4.55,0,0,1,8.8,2.08l9-38h0A3.17,3.17,0,0,0,29.56,31.59Z"/><path class="cls-5" d="M81.17,33.71h0a1.68,1.68,0,0,0-3.34.28,2.85,2.85,0,0,0,0,.29h0L84,72.53l4.35-.73Z"/><circle class="cls-2" cx="86.14" cy="72.15" r="2.22"/><path d="M27.3,30.25l-1,4-7.78,30a4.56,4.56,0,0,1,.75.41,5.53,5.53,0,0,1,2,2.4l8.05-34A3.67,3.67,0,0,0,27.3,30.25Z"/><polygon class="cls-6" points="78.36 34.19 36.82 34.07 26.89 31.84 18.48 64.23 31.08 67.04 83.73 67.04 78.36 34.19"/><ellipse class="cls-7" cx="67.93" cy="41.67" rx="3.79" ry="2.92"/><ellipse class="cls-8" cx="67.93" cy="41.67" rx="1.52" ry="1.17"/><polygon class="cls-9" points="71.05 67.04 60.84 67.04 54.22 34.11 64.29 34.11 71.05 67.04"/><path class="cls-10" d="M33.46,46.36H30.18V45.18h8v1.18h-3.3V56H33.46Z"/><path class="cls-10" d="M48.47,51.23c-.08-1.5-.17-3.31-.16-4.66h-.05c-.36,1.27-.81,2.61-1.36,4.1L45,55.91H43.94l-1.75-5.14c-.51-1.53-.94-2.92-1.25-4.2h0c0,1.35-.11,3.16-.21,4.77L40.41,56H39.08l.76-10.79h1.78l1.84,5.22c.45,1.33.81,2.51,1.09,3.64h.05c.27-1.09.65-2.28,1.13-3.64l1.93-5.22h1.77L50.11,56H48.75Z"/><rect class="cls-10" x="66.41" y="59.88" width="12.24" height="0.44"/><rect class="cls-10" x="68.53" y="61.38" width="5.2" height="0.44"/><rect class="cls-10" x="65.02" y="53.88" width="12.24" height="0.44"/><rect class="cls-10" x="67.14" y="55.38" width="5.2" height="0.44"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #1c2125;
+                stroke: #bfe3ff;
+                stroke-width: 2px;
+            }
+            .cls-1, .cls-4, .cls-8 {
+                stroke-miterlimit: 10;
+            }
+            .cls-2 {
+                fill: #7c8690;
+            }
+            .cls-3 {
+                fill: url(#linear-gradient);
+            }
+            .cls-4 {
+                stroke: #e5f4ff;
+                stroke-width: 0.08px;
+                fill: url(#linear-gradient-2);
+            }
+            .cls-5 {
+                fill: url(#linear-gradient-3);
+            }
+            .cls-6, .cls-8 {
+                fill: #333;
+            }
+            .cls-7 {
+                fill: aqua;
+            }
+            .cls-8 {
+                stroke: #fff;
+                stroke-width: 0.5px;
+            }
+            .cls-9 {
+                fill: url(#linear-gradient-4);
+            }
+            .cls-10 {
+                fill: #bfe3ff;
+            }
+        </style>
+        <linearGradient id="linear-gradient" x1="16.8" y1="47.73" x2="25.56" y2="49.91" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#728899" />
+            <stop offset="0.49" stop-color="#374149" />
+        </linearGradient>
+        <linearGradient id="linear-gradient-2" x1="16.8" y1="47.73" x2="25.56" y2="49.91" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#bfe3ff" />
+            <stop offset="0.73" stop-color="#728899" />
+        </linearGradient>
+        <linearGradient id="linear-gradient-3" x1="80.62" y1="52.6" x2="84.96" y2="51.87" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#bfe3ff" />
+            <stop offset="0.49" stop-color="#495660" />
+        </linearGradient>
+        <linearGradient id="linear-gradient-4" x1="56.97" y1="51.47" x2="68.3" y2="49.68" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#90b0d4" stop-opacity="0.5" />
+            <stop offset="0.8" stop-color="#495660" stop-opacity="0" />
+        </linearGradient>
+    </defs>
+    <title>fast-tm</title>
+    <g id="Layer_1" data-name="Layer 1">
+        <polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7" />
+    </g>
+    <g id="Layer_3" data-name="Layer 3">
+        <circle class="cls-2" cx="15.92" cy="69.93" r="4.54" />
+        <path class="cls-3" d="M29.43,32.47a3.17,3.17,0,0,0,.13-.88,3.43,3.43,0,0,0-6.75-.87h0L11.63,68.44a4.55,4.55,0,0,1,8.8,2.08l9-38Z" />
+        <path class="cls-4" d="M29.56,31.59a3.43,3.43,0,0,0-6.75-.87h0l-.18.67a3.39,3.39,0,0,1,1.29-1.87l-1.16,4-1,3.52A6.47,6.47,0,0,1,23.84,37l-2.7,9.9L21,47.5l-.47,1.72-1.39,5.1L16.16,65.08A4.86,4.86,0,0,0,12.06,67l-.43,1.45a4.55,4.55,0,0,1,8.8,2.08l9-38h0A3.17,3.17,0,0,0,29.56,31.59Z"
+        />
+        <path class="cls-5" d="M81.17,33.71h0a1.68,1.68,0,0,0-3.34.28,2.85,2.85,0,0,0,0,.29h0L84,72.53l4.35-.73Z" />
+        <circle class="cls-2" cx="86.14" cy="72.15" r="2.22" />
+        <path d="M27.3,30.25l-1,4-7.78,30a4.56,4.56,0,0,1,.75.41,5.53,5.53,0,0,1,2,2.4l8.05-34A3.67,3.67,0,0,0,27.3,30.25Z" />
+        <polygon class="cls-6" points="78.36 34.19 36.82 34.07 26.89 31.84 18.48 64.23 31.08 67.04 83.73 67.04 78.36 34.19" />
+        <ellipse class="cls-7" cx="67.93" cy="41.67" rx="3.79" ry="2.92" />
+        <ellipse class="cls-8" cx="67.93" cy="41.67" rx="1.52" ry="1.17" />
+        <polygon class="cls-9" points="71.05 67.04 60.84 67.04 54.22 34.11 64.29 34.11 71.05 67.04" />
+        <path class="cls-10" d="M33.46,46.36H30.18V45.18h8v1.18h-3.3V56H33.46Z" />
+        <path class="cls-10" d="M48.47,51.23c-.08-1.5-.17-3.31-.16-4.66h-.05c-.36,1.27-.81,2.61-1.36,4.1L45,55.91H43.94l-1.75-5.14c-.51-1.53-.94-2.92-1.25-4.2h0c0,1.35-.11,3.16-.21,4.77L40.41,56H39.08l.76-10.79h1.78l1.84,5.22c.45,1.33.81,2.51,1.09,3.64h.05c.27-1.09.65-2.28,1.13-3.64l1.93-5.22h1.77L50.11,56H48.75Z"
+        />
+        <rect class="cls-10" x="66.41" y="59.88" width="12.24" height="0.44" />
+        <rect class="cls-10" x="68.53" y="61.38" width="5.2" height="0.44" />
+        <rect class="cls-10" x="65.02" y="53.88" width="12.24" height="0.44" />
+        <rect class="cls-10" x="67.14" y="55.38" width="5.2" height="0.44" />
+    </g>
+</svg>

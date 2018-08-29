@@ -1,1 +1,55 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100"><defs><style>.cls-1{fill:#ffd0dd;stroke:#800a2b;stroke-miterlimit:10;stroke-width:2px;}.cls-2{fill:#00c8a9;}.cls-3{fill:#00f5ac;}.cls-4{fill:#00eb1a;}.cls-5{fill:#94f000;}.cls-6{fill:#ffe609;}.cls-7{fill:#ffa128;}.cls-8{fill:#ff3d31;}.cls-9{fill:#ff1456;}.cls-10{fill:url(#radial-gradient);}</style><radialGradient id="radial-gradient" cx="50" cy="50" r="19.5" gradientTransform="translate(50 -20.71) rotate(45)" gradientUnits="userSpaceOnUse"><stop offset="0.78" stop-opacity="0"/><stop offset="1" stop-opacity="0.4"/></radialGradient></defs><title>rare-candy</title><polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7"/><path class="cls-2" d="M69.5,50A19.5,19.5,0,1,0,50,69.5h0A19.5,19.5,0,0,0,69.5,50Z"/><path class="cls-3" d="M69.5,50A19.5,19.5,0,1,0,36.64,64.19,75.38,75.38,0,0,0,50,65.36a75.73,75.73,0,0,0,13.38-1.17A19.46,19.46,0,0,0,69.5,50Z"/><path class="cls-4" d="M50,30.5A19.5,19.5,0,0,0,30.5,50a19.29,19.29,0,0,0,1.68,7.9A65.61,65.61,0,0,0,50,60.24,65.89,65.89,0,0,0,67.83,57.9,19.5,19.5,0,0,0,50,30.5Z"/><path class="cls-5" d="M50,30.5A19.5,19.5,0,0,0,30.5,50a17.93,17.93,0,0,0,.09,1.8A52.36,52.36,0,0,0,50,55.2a52.25,52.25,0,0,0,19.42-3.41A17.73,17.73,0,0,0,69.5,50,19.5,19.5,0,0,0,50,30.5Z"/><path class="cls-6" d="M50,30.5A19.49,19.49,0,0,0,30.9,46.08c4.43,2.54,11.33,4.18,19.09,4.18s14.68-1.64,19.11-4.19A19.5,19.5,0,0,0,50,30.5Z"/><path class="cls-7" d="M67.2,40.81a19.5,19.5,0,0,0-34.4,0c3.29,2.62,9.75,4.41,17.19,4.41S63.91,43.44,67.2,40.81Z"/><path class="cls-8" d="M50,40.61c6.54,0,12.07-1.81,13.9-4.29a19.49,19.49,0,0,0-27.79,0C37.93,38.81,43.46,40.61,50,40.61Z"/><path class="cls-9" d="M50,36.39c4.92,0,9-1.31,10.09-3.08a19.51,19.51,0,0,0-20.19,0C41,35.08,45.07,36.39,50,36.39Z"/><circle class="cls-10" cx="50" cy="50" r="19.5"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #ffd0dd;
+                stroke: #800a2b;
+                stroke-miterlimit: 10;
+                stroke-width: 2px;
+            }
+            .cls-2 {
+                fill: #00c8a9;
+            }
+            .cls-3 {
+                fill: #00f5ac;
+            }
+            .cls-4 {
+                fill: #00eb1a;
+            }
+            .cls-5 {
+                fill: #94f000;
+            }
+            .cls-6 {
+                fill: #ffe609;
+            }
+            .cls-7 {
+                fill: #ffa128;
+            }
+            .cls-8 {
+                fill: #ff3d31;
+            }
+            .cls-9 {
+                fill: #ff1456;
+            }
+            .cls-10 {
+                fill: url(#radial-gradient);
+            }
+        </style>
+        <radialGradient id="radial-gradient" cx="50" cy="50" r="19.5" gradientTransform="translate(50 -20.71) rotate(45)" gradientUnits="userSpaceOnUse">
+            <stop offset="0.78" stop-opacity="0" />
+            <stop offset="1" stop-opacity="0.4" />
+        </radialGradient>
+    </defs>
+    <title>rare-candy</title>
+    <polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7" />
+    <path class="cls-2" d="M69.5,50A19.5,19.5,0,1,0,50,69.5h0A19.5,19.5,0,0,0,69.5,50Z" />
+    <path class="cls-3" d="M69.5,50A19.5,19.5,0,1,0,36.64,64.19,75.38,75.38,0,0,0,50,65.36a75.73,75.73,0,0,0,13.38-1.17A19.46,19.46,0,0,0,69.5,50Z" />
+    <path class="cls-4" d="M50,30.5A19.5,19.5,0,0,0,30.5,50a19.29,19.29,0,0,0,1.68,7.9A65.61,65.61,0,0,0,50,60.24,65.89,65.89,0,0,0,67.83,57.9,19.5,19.5,0,0,0,50,30.5Z" />
+    <path class="cls-5" d="M50,30.5A19.5,19.5,0,0,0,30.5,50a17.93,17.93,0,0,0,.09,1.8A52.36,52.36,0,0,0,50,55.2a52.25,52.25,0,0,0,19.42-3.41A17.73,17.73,0,0,0,69.5,50,19.5,19.5,0,0,0,50,30.5Z" />
+    <path class="cls-6" d="M50,30.5A19.49,19.49,0,0,0,30.9,46.08c4.43,2.54,11.33,4.18,19.09,4.18s14.68-1.64,19.11-4.19A19.5,19.5,0,0,0,50,30.5Z" />
+    <path class="cls-7" d="M67.2,40.81a19.5,19.5,0,0,0-34.4,0c3.29,2.62,9.75,4.41,17.19,4.41S63.91,43.44,67.2,40.81Z" />
+    <path class="cls-8" d="M50,40.61c6.54,0,12.07-1.81,13.9-4.29a19.49,19.49,0,0,0-27.79,0C37.93,38.81,43.46,40.61,50,40.61Z" />
+    <path class="cls-9" d="M50,36.39c4.92,0,9-1.31,10.09-3.08a19.51,19.51,0,0,0-20.19,0C41,35.08,45.07,36.39,50,36.39Z" />
+    <circle class="cls-10" cx="50" cy="50" r="19.5" />
+</svg>

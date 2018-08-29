@@ -1,1 +1,41 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><style>.cls-1{fill:#403012;stroke:#f0ede8;stroke-miterlimit:10;stroke-width:2px;}.cls-2{fill:#ffdfa5;}.cls-3{fill:#ffd78f;}.cls-4{fill:#ffbd45;}.cls-5{fill:#ffca6a;}.cls-6{fill:#8f6b27;}.cls-7{fill:#bf8e34;}</style></defs><title>max-revive</title><polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7"/><polyline class="cls-2" points="50 31.49 21.67 21.67 36.25 36.25 50 50 50 31.49"/><polyline class="cls-3" points="50 31.49 50 50 63.75 36.25 78.33 21.67 50 31.49"/><polyline class="cls-4" points="31.49 50 21.67 21.67 36.25 36.25 50 50 31.49 50"/><polyline class="cls-5" points="31.49 50 50 50 36.25 63.75 21.67 78.33 31.49 50"/><polyline class="cls-6" points="50 68.51 78.33 78.33 63.75 63.75 50 50 50 68.51"/><polyline class="cls-7" points="50 68.51 50 50 36.25 63.75 21.67 78.33 50 68.51"/><polyline class="cls-5" points="68.51 50 78.33 78.33 63.75 63.75 50 50 68.51 50"/><polyline class="cls-4" points="68.51 50 50 50 63.75 36.25 78.33 21.67 68.51 50"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #403012;
+                stroke: #f0ede8;
+                stroke-miterlimit: 10;
+                stroke-width: 2px;
+            }
+            .cls-2 {
+                fill: #ffdfa5;
+            }
+            .cls-3 {
+                fill: #ffd78f;
+            }
+            .cls-4 {
+                fill: #ffbd45;
+            }
+            .cls-5 {
+                fill: #ffca6a;
+            }
+            .cls-6 {
+                fill: #8f6b27;
+            }
+            .cls-7 {
+                fill: #bf8e34;
+            }
+        </style>
+    </defs>
+    <title>max-revive</title>
+    <polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7" />
+    <polyline class="cls-2" points="50 31.49 21.67 21.67 36.25 36.25 50 50 50 31.49" />
+    <polyline class="cls-3" points="50 31.49 50 50 63.75 36.25 78.33 21.67 50 31.49" />
+    <polyline class="cls-4" points="31.49 50 21.67 21.67 36.25 36.25 50 50 31.49 50" />
+    <polyline class="cls-5" points="31.49 50 50 50 36.25 63.75 21.67 78.33 31.49 50" />
+    <polyline class="cls-6" points="50 68.51 78.33 78.33 63.75 63.75 50 50 50 68.51" />
+    <polyline class="cls-7" points="50 68.51 50 50 36.25 63.75 21.67 78.33 50 68.51" />
+    <polyline class="cls-5" points="68.51 50 78.33 78.33 63.75 63.75 50 50 68.51 50" />
+    <polyline class="cls-4" points="68.51 50 50 50 63.75 36.25 78.33 21.67 68.51 50" />
+</svg>
