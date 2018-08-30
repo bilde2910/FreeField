@@ -863,8 +863,7 @@
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.poi", false, '<code>&lt;%POI%&gt;</code>').'<br />
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.lat", false, '<code>&lt;%LAT%&gt;</code>').'<br />
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.lng", false, '<code>&lt;%LNG%&gt;</code>').'<br />
-                    '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.coords", false, '<code>&lt;%COORDS%&gt;</code>').'<br />
-                    '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.navurl", false, '<code>&lt;%NAVURL%&gt;</code>').'
+                    '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.coords", false, '<code>&lt;%COORDS%&gt;</code>').'
                 </div>
                 <div class="hook-syntax-block full-on-mobile">
                     <h3>'.I18N::resolveHTML("admin.hooks.syntax.research.title").'</h3>
@@ -874,6 +873,11 @@
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.research.time", false, '<code>&lt;%TIME(format)%&gt;</code>').'
                 </div>
                 <div class="hook-syntax-clear"></div>
+                <div>
+                    <h3>'.I18N::resolveHTML("admin.hooks.syntax.navigation.title").'</h3>
+                    '.I18N::resolveArgsHTML("admin.hooks.syntax.navigation.navurl", false, '<code>&lt;%NAVURL%&gt;</code>').'<br />
+                    '.I18N::resolveArgsHTML("admin.hooks.syntax.navigation.navurl_arg", false, '<code>&lt;%NAVURL(provider)%&gt;</code>').'
+                </div>
                 <div>
                     <h3>'.I18N::resolveHTML("admin.hooks.syntax.icons.title").'</h3>
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.icons.objective_icon", false, '<code>&lt;%OBJECTIVE_ICON(format,variant)%&gt;</code>').'<br />

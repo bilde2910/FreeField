@@ -875,12 +875,14 @@ $provider = Config::get("map/provider/source");
                                 <div class="pure-u-2-3 full-on-mobile">
                                     <p><select class="user-setting" data-key="naviProvider">
                                         <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
-                                        <option value="bing"><?php echo I18N::resolveHTML("setting.map.provider.directions.option.bing"); ?></option>
-                                        <option value="google"><?php echo I18N::resolveHTML("setting.map.provider.directions.option.google"); ?></option>
-                                        <option value="here"><?php echo I18N::resolveHTML("setting.map.provider.directions.option.here"); ?></option>
-                                        <option value="mapquest"><?php echo I18N::resolveHTML("setting.map.provider.directions.option.mapquest"); ?></option>
-                                        <option value="waze"><?php echo I18N::resolveHTML("setting.map.provider.directions.option.waze"); ?></option>
-                                        <option value="yandex"><?php echo I18N::resolveHTML("setting.map.provider.directions.option.yandex"); ?></option>
+                                        <?php
+                                            $naviProviders = Geo::listNavigationProviders();
+                                            foreach ($naviProviders as $naviProvider => $url) {
+                                                echo '<option value="'.$naviProvider.'">
+                                                        '.I18N::resolveHTML("setting.map.provider.directions.option.{$naviProvider}").'
+                                                      </option>';
+                                            }
+                                        ?>
                                     </select></p>
                                 </div>
                             </div>
@@ -989,6 +991,11 @@ $provider = Config::get("map/provider/source");
             */
             var objectives = <?php echo json_encode(Research::OBJECTIVES); ?>;
             var rewards = <?php echo json_encode(Research::REWARDS); ?>;
+
+            /*
+                List of all navigation providers and their navigation URLs.
+            */
+            var naviProviders = <?php echo json_encode(Geo::listNavigationProviders()); ?>;
 
             /*
                 Time interval (in milliseconds) between automatic refreshes of

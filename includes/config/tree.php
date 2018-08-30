@@ -52,6 +52,9 @@
 
 require_once(__DIR__."/../config/types.php");
 
+// For navigation providers (map/provider/directions)
+__require("geo");
+
 class ConfigTree {
     public static function loadTree() {
         return array(
@@ -513,13 +516,8 @@ class ConfigTree {
                     */
                     "map/provider/directions" => array(
                         "default" => "google",
-                        "option" => new SelectOption(array(
-                            "bing",
-                            "google",
-                            "here",
-                            "mapquest",
-                            "waze",
-                            "yandex"
+                        "option" => new SelectOption(array_keys(
+                            Geo::listNavigationProviders()
                         ))
                     )
                 ),

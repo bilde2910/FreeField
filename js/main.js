@@ -209,26 +209,13 @@ function openMarker(popup, id) {
         Add event handlers to the directions and close buttons.
     */
     $("#poi-directions").on("click", function() {
-        switch (settings.get("naviProvider")) {
-            case "bing":
-                window.open("https://www.bing.com/maps?rtp=~pos." + encodeURI(poiObj.latitude + "_" + poiObj.longitude + "_" + poiObj.name));
-                break;
-            case "google":
-                window.open("https://www.google.com/maps/dir/?api=1&destination=" + encodeURI(poiObj.latitude + "," + poiObj.longitude));
-                break;
-            case "here":
-                window.open("https://share.here.com/r/mylocation/" + encodeURI(poiObj.latitude + "," + poiObj.longitude) + "?m=d&t=normal");
-                break;
-            case "mapquest":
-                window.open("https://www.mapquest.com/directions/to/near-" + encodeURI(poiObj.latitude + "," + poiObj.longitude));
-                break;
-            case "waze":
-                window.open("https://waze.com/ul?ll=" + encodeURI(poiObj.latitude + "," + poiObj.longitude) + "&navigate=yes");
-                break;
-            case "yandex":
-                window.open("https://yandex.ru/maps?rtext=~" + encodeURI(poiObj.latitude + "," + poiObj.longitude));
-                break;
-        }
+        var url = naviProviders[settings.get("naviProvider")];
+
+        url = url.split("{%LAT%}").join(encodeURI(poiObj.latitude));
+        url = url.split("{%LON%}").join(encodeURI(poiObj.longitude));
+        url = url.split("{%NAME%}").join(encodeURI(poiObj.name));
+
+        window.open(url);
     });
     $("#poi-close").on("click", function() {
         popup._onClickClose();

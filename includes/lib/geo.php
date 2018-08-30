@@ -1,9 +1,55 @@
 <?php
 /*
-    This library files contains geo- and POI-related functions.
+    This library files contains geo-, navigation-, and POI-related functions.
 */
 
 class Geo {
+    /*
+        This variable is a cache for available navigation providers.
+    */
+    private static $navigationProviders = null;
+
+    /*
+        Returns an array of all registered navigation providers. This is an
+        array of the following structure:
+
+            listNavigationProviders() == array(
+                "prov1_name" => "https://go.example.com/?lat={%LAT%}&lon={%LON%}",
+                "prov2_name" => "https://navigate.example.net/directions".
+                                "?to={%LAT%},{%LON%}&targetName={%NAME%}"
+            );
+
+        The URLs in each value may have any of the following placeholders:
+
+            {%LAT%} - Target latitude
+            {%LON%} - Target longitude
+            {%name%} - Name of the target location
+
+        The purpose of this function is to centralize navigation providers to a
+        single place in the code. Each provider offers a URL that, when
+        placeholders are replaced, offers turn-based navigation to the given
+        location.
+
+        The URLs are used in various locations, such as when clicking on the
+        "Directions" button on the POI details overlay on the map, when posting
+        webhook messages with navigation URLs, and when clicking on the link to
+        a POI's location in the list of POIs on the administration pages.
+
+        Navigation providers are defined in /includes/data/navigators.ini.
+    */
+    public static function listNavigationProviders() {
+        /*
+            The navigation providers array is cached in memory to prevent
+            unnecessary file reads when accessing this function multiple times
+            in the same script.
+        */
+        if (self::$navigationProviders === null) {
+            self::$navigationProviders = parse_ini_file(__DIR__."/../data/navigators.ini", true)["navigators"];
+        }
+
+        return self::$navigationProviders;
+    }
+
     /*
         Converts a coordinate pair to a coordinate string in DD format. E.g.
 

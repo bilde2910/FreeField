@@ -115,13 +115,18 @@
                                         <?php echo $poi->getLastUser()->getProviderIdentityHTML(); ?>
                                     </span>
                                 </td>
-                                <?php /*
-                                    TODO: Use the default directions provider
-                                    set in the admin settings rather than
-                                    hardcoding Google Maps for these links
-                                */ ?>
+                                <?php
+                                    $naviUrl =
+                                        str_replace("{%LAT%}", urlencode($poi->getLatitude()),
+                                        str_replace("{%LON%}", urlencode($poi->getLongitude()),
+                                        str_replace("{%NAME%}", urlencode($poi->getName()),
+                                            Geo::listNavigationProviders()[
+                                                Config::get("map/provider/directions")
+                                            ]
+                                        )));
+                                ?>
                                 <td>
-                                    <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($poi->getLatitude().",".$poi->getLongitude()); ?>">
+                                    <a target="_blank" href="<?php echo $naviUrl; ?>">
                                         <?php echo Geo::getLocationString($poi->getLatitude(), $poi->getLongitude()); ?>
                                     </a>
                                 </td>

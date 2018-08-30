@@ -74,27 +74,14 @@ function replaceWebhookFields($time, $theme, $body) {
         The <%NAVURL%> tag - a link to a navigation provider providing turn-
         based navigation to the given POI.
     */
-    switch (Config::get("map/provider/directions")) {
-        case "bing":
-            $replaces["NAVURL"] = "https://www.bing.com/maps?rtp=~pos." . urlencode($poidata["latitude"] . "_" . $poidata["longitude"] . "_" . $poidata["name"]);
-            break;
-        case "google":
-            $replaces["NAVURL"] = "https://www.google.com/maps/dir/?api=1&destination=" . urlencode($poidata["latitude"] . "," . $poidata["longitude"]);
-            break;
-        case "here":
-            $replaces["NAVURL"] = "https://share.here.com/r/mylocation/" . urlencode($poidata["latitude"] . "," . $poidata["longitude"]) . "?m=d&t=normal";
-            break;
-        case "mapquest":
-            $replaces["NAVURL"] = "https://www.mapquest.com/directions/to/near-" . urlencode($poidata["latitude"] . "," . $poidata["longitude"]);
-            break;
-        case "waze":
-            $replaces["NAVURL"] = "https://waze.com/ul?ll=" . urlencode($poidata["latitude"] . "," . $poidata["longitude"]) . "&navigate=yes";
-            break;
-        case "yandex":
-            $replaces["NAVURL"] = "https://yandex.ru/maps?rtext=~" . urlencode($poidata["latitude"] . "," . $poidata["longitude"]);
-            break;
-    }
-
+    $replaces["NAVURL"] =
+        str_replace("{%LAT%}", urlencode($poidata["latitude"]),
+        str_replace("{%LON%}", urlencode($poidata["longitude"]),
+        str_replace("{%NAME%}", urlencode($poidata["name"]),
+            Geo::listNavigationProviders()[
+                Config::get("map/provider/directions")
+            ]
+        )));
     /*
         <%TIME(format)%>. `format` is a date format compatible with PHP
         `date()`. Please see https://secure.php.net/manual/en/function.date.php
@@ -121,9 +108,38 @@ function replaceWebhookFields($time, $theme, $body) {
     for ($i = 0; $i < count($matches); $i++) {
         $body = preg_replace(
             '/<%COORDS\('.$matches[$i][1].'\)%>/',
-            Geo::getLocationString($poidata["latitude"],
-            $poidata["longitude"],
-            intval($matches[$i][1])),
+            Geo::getLocationString(
+                $poidata["latitude"],
+                $poidata["longitude"],
+                intval($matches[$i][1])
+            ),
+            $body,
+            1
+        );
+    }
+
+    /*
+        <%NAVURL(provider)%>. This is in addition to the basic <%NAVURL%> tag.
+        This tag allows specifying the directions provider to use when creating
+        a navigation URL.
+    */
+    $matches = array();
+    preg_match_all('/<%NAVURL\(([a-z]+)\)%>/', $body, $matches, PREG_SET_ORDER);
+    for ($i = 0; $i < count($matches); $i++) {
+        $navurl = "";
+        $naviprov = Geo::listNavigationProviders();
+        if (isset($naviprov[$matches[$i][1]])) {
+            $navurl = $naviprov[$matches[$i][1]];
+        }
+        $navurl =
+            str_replace("{%LAT%}", urlencode($poidata["latitude"]),
+            str_replace("{%LON%}", urlencode($poidata["longitude"]),
+            str_replace("{%NAME%}", urlencode($poidata["name"]),
+                $navurl
+            )));
+        $body = preg_replace(
+            '/<%NAVURL\('.$matches[$i][1].'\)%>/',
+            $navurl,
             $body,
             1
         );
