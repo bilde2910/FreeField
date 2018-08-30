@@ -138,18 +138,17 @@ class Auth {
     */
     public static function setAuthenticatedSession($id, $expire, $humanId, $suggestedNick) {
         $db = Database::getSparrow();
-        $token = $db
+        $user = $db
             ->from(Database::getTable("user"))
             ->where("id", $id)
-            ->value("token");
-
-        $approved = true;
+            ->select(array("token", "approved"))
+            ->one();
 
         /*
             If there is no token, that means that the user is registering a new
             account on FreeField.
         */
-        if ($token === null) {
+        if ($user === null || count($user) <= 0) {
             /*
                 If approval is required by the admins, the account should be
                 flagged as "pending approval". The registering user will be
@@ -180,6 +179,14 @@ class Auth {
                 ->from(Database::getTable("user"))
                 ->insert($data)
                 ->execute();
+        } else {
+            /*
+                If approval is required by the admins, the account should be flagged
+                as "pending approval". The user has the same privileges as anonymous
+                visitors until their account has been appoved. Setting his boolean
+            */
+            $approved = $user["approved"];
+            $token = $user["token"];
         }
 
         /*
