@@ -58,6 +58,7 @@ foreach ($hooklist as $hook) {
 */
 $filterModes = array("whitelist", "blacklist");
 $hookTypes = array("json", "telegram");
+$tgBodyFormats = array("txt", "md", "html");
 
 foreach ($_POST as $postid => $data) {
     /*
@@ -227,13 +228,20 @@ foreach ($_POST as $postid => $data) {
         // The Telegram bot token
         if ($hook["options"]["bot-token"] !== $data["tg"]["bot_token"]) {
             $botToken = $data["tg"]["bot_token"];
-            $hook["options"]["bot-token"] = $botToken;
+            /*
+                This regex query matches a Telegram bot token
+            */
+            if (preg_match("/^\d+:[A-Za-z\d]+$/", $botToken)) {
+                $hook["options"]["bot-token"] = $botToken;
+            }
         }
 
         // The parse mode used for the message body text
         if ($hook["options"]["parse-mode"] !== $data["tg"]["parse_mode"]) {
             $parseMode = $data["tg"]["parse_mode"];
-            $hook["options"]["parse-mode"] = $parseMode;
+            if (in_array($parseMode, $tgBodyFormats)) {
+                $hook["options"]["parse-mode"] = $parseMode;
+            }
         }
     }
 
