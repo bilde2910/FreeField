@@ -183,8 +183,16 @@ function spawnBanner(type, message) {
     Mapbox popups aren't very flexible, and don't allow us to display and style
     controls like we want. Hence, what we do is override the marker with a
     custom one. This function will configure and display that popup.
+
+    When a marker is opened, we also assign the ID of that marker to
+    `currentMarker`. This is because the map periodically checks for updates to
+    reported field research, and if an update is made to the POI that is
+    currently open, the POI details dialog should reflect that by updating the
+    displayed research icons and text.
 */
+var currentMarker = -1;
 function openMarker(popup, id) {
+    currentMarker = id;
     /*
         Get data for the POI in the list of POIs received from the server. This
         list is stored in the `pois` variable, and can be looked up using the ID
@@ -525,6 +533,12 @@ function openMarker(popup, id) {
     assigned to it in `openMarker()`.
 */
 function closeMarker(popup) {
+    /*
+        Reset the `currentMarker` ID since the POI details dialog is no longer
+        open (i.e. there is no currently displayed marker).
+    */
+    currentMarker = -1;
+
     $("#poi-directions").off();
     $("#poi-close").off();
     $("#poi-add-report").off();
@@ -636,6 +650,61 @@ function addMarkers(markers) {
 }
 
 /*
+    Connects to /xhr/poi.php to retrieve an updated list of all map markers.
+    This function is called periodically to ensure that the markers displayed on
+    the map are up to date.
+*/
+function refreshMarkers() {
+    $.getJSON("./xhr/poi.php", function(data) {
+        var markers = data["pois"];
+
+        markers.forEach(function(marker) {
+            /*
+                Retrieve the old marker from the `pois` array and replace the
+                marker icon on the marker to reflect the new objective/reward.
+            */
+            var oldMarker = pois[marker.id];
+
+            var oldObjective = oldMarker.objective.type;
+            var oldReward = oldMarker.reward.type;
+            var newObjective = marker.objective.type;
+            var newReward = marker.reward.type;
+
+            if ($(oldMarker.element).hasClass(oldReward)) {
+                $(oldMarker.element).removeClass(oldReward).addClass(newReward);
+            }
+            if ($(oldMarker.element).hasClass(oldObjective)) {
+                $(oldMarker.element).removeClass(oldObjective).addClass(newObjective);
+            }
+
+            /*
+                If the POI details screen is currently open for the given
+                marker, make sure that the details displayed on that screen are
+                updated as well.
+            */
+            if (marker.id == currentMarker) {
+                $("#poi-objective-icon").attr("src", resolveIconUrl(marker.objective.type));
+                $("#poi-reward-icon").attr("src", resolveIconUrl(marker.reward.type));
+                $("#poi-objective").text(resolveObjective(marker.objective));
+                $("#poi-reward").text(resolveReward(marker.reward));
+            }
+
+            /*
+                Overwrite the marker in the `pois` array with the updated values
+                from the server. Use a for loop to ensure that elements that
+                aren't in the received `marker` instance (such as the marker DOM
+                element) aren't overwritten in `pois`.
+            */
+            for (var prop in marker) {
+                if (marker.hasOwnProperty(prop)) {
+                    pois[marker.id][prop] = marker[prop];
+                }
+            }
+        });
+    });
+}
+
+/*
     Local storage is used to save user settings client-side. There's no good
     universal way to query the browser for local storage support, so we'll
     instead just try to use it, and if our attempt fails, local storage isn't
@@ -704,6 +773,13 @@ $(document).ready(function() {
     */
     $.getJSON("./xhr/poi.php", function(data) {
         addMarkers(data["pois"]);
+        /*
+            Automatically refresh the marker list with updated to information
+            from the server to stay in sync with other users' reports.
+        */
+        setInterval(function() {
+            refreshMarkers();
+        }, autoRefreshInterval);
     });
 });
 

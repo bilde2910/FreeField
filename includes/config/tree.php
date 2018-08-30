@@ -548,6 +548,21 @@ class ConfigTree {
                         "option" => new FloatOption(0.0, 20.0)
                     )
                 ),
+                "updates" => array(
+                    /*
+                        The amount of time in seconds between every time
+                        FreeField updates the list of POIs and active field
+                        research for connected clients. If you experience high
+                        load on your server from FreeField, try increasing this
+                        value. The total volume of requests to the REST API for
+                        connected clients is (c/i) per second where c=number of
+                        active clients and i=refresh interval.
+                    */
+                    "map/updates/refresh-interval" => array(
+                        "default" => 15,
+                        "option" => new IntegerOption(1, null)
+                    )
+                ),
                 "geofence" => array(
                     "__hasdesc" => true,
                     "__descsprintf" => array(

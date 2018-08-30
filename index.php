@@ -991,6 +991,12 @@ $provider = Config::get("map/provider/source");
             var rewards = <?php echo json_encode(Research::REWARDS); ?>;
 
             /*
+                Time interval (in milliseconds) between automatic refreshes of
+                the marker list and active field research from the server.
+            */
+            var autoRefreshInterval = <?php echo (Config::get("map/updates/refresh-interval") * 1000); ?>;
+
+            /*
                 Default local settings, used as fallback if a local setting is
                 not explicitly set for each entry.
             */
