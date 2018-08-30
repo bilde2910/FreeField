@@ -6,6 +6,7 @@
 require_once("../../includes/lib/global.php");
 __require("config");
 __require("auth");
+__require("i18n");
 
 $service = "telegram";
 
@@ -34,7 +35,11 @@ if (!isset($_GET["hash"])) { ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Authenticate with Telegram</title>
+        <title><?php echo I18N::resolveArgsHTML(
+            "page_title.login.telegram",
+            true,
+            Config::get("site/name")
+        ); ?></title>
         <meta name="robots" content="noindex,nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style type="text/css">
@@ -51,8 +56,8 @@ if (!isset($_GET["hash"])) { ?>
     </head>
     <body>
         <div>
-            <h1>Authenticate with Telegram</h1>
-            <p>Please click the button below to sign in using Telegram</p>
+            <h1><?php echo I18N::resolveHTML("login.telegram.title"); ?></h1>
+            <p><?php echo I18N::resolveHTML("login.telegram.body"); ?></p>
             <script async
                     src="https://telegram.org/js/telegram-widget.js?4"
                     data-telegram-login="<?php echo Config::getHTML("auth/provider/{$service}/bot-username"); ?>"

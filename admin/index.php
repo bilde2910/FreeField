@@ -169,7 +169,12 @@ if (!$domains[$domain]["custom-handler"]) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex,nofollow">
-        <title>FreeField Admin | <?php echo I18N::resolveHTML($di18n->getName()); ?></title>
+        <title><?php echo I18N::resolveArgsHTML(
+            "page_title.admin",
+            true,
+            Config::get("site/name"),
+            I18N::resolve($di18n->getName())
+        ); ?></title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>

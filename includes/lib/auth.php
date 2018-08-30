@@ -505,8 +505,12 @@ class Auth {
         return '<select'.($name !== null ? ' name="'.$name.'"' : '').
                          ($id !== null ? ' id="'.$id.'"' : '').
                          ($user->canChangeAtPermission($selectedLevel) ? '' : ' disabled').'>
-                                <optgroup label="Current group">'.$curopt.'</optgroup>
-                                <optgroup label="Available groups">'.$opts.'</optgroup>
+                                <optgroup label="'.I18N::resolveHTML("group.selector.current").'">
+                                    '.$curopt.'
+                                </optgroup>
+                                <optgroup label="'.I18N::resolveHTML("group.selector.available").'">
+                                    '.$opts.'
+                                </optgroup>
                 </select>';
     }
 }

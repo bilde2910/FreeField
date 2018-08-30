@@ -27,7 +27,11 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
                     <meta charset="utf-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
                     <meta name="robots" content="noindex,nofollow">
-                    <title><?php echo Config::get("site/name"); ?> | <?php echo I18N::resolveI18N("login.title"); ?></title>
+                    <title><?php echo I18N::resolveArgsHTML(
+                        "page_title.access_denied",
+                        true,
+                        Config::get("site/name")
+                    ); ?></title>
                     <link rel="stylesheet"
                           href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
                           integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
@@ -88,7 +92,11 @@ $provider = Config::get("map/provider/source");
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="robots" content="noindex,nofollow">
-        <title><?php echo Config::get("site/name"); ?></title>
+        <title><?php echo I18N::resolveArgsHTML(
+            "page_title.main",
+            true,
+            Config::get("site/name")
+        ); ?></title>
         <script src="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -844,11 +852,17 @@ $provider = Config::get("map/provider/source");
                 -->
                 <div id="settings-container" class="full-container hidden-by-default">
                     <div class="header">
-                        <h1>Settings</h1>
-                        <h2>Personalize your experience</h2>
+                        <h1>
+                            <?php echo I18N::resolveHTML("user_settings.page.title") ?>
+                        </h1>
+                        <h2>
+                            <?php echo I18N::resolveHTML("user_settings.page.subtitle") ?>
+                        </h2>
                     </div>
                     <div class="content pure-form">
-                        <h2 class="content-subhead">Map providers</h2>
+                        <h2 class="content-subhead">
+                            <?php echo I18N::resolveHTML("user_settings.section.map_providers") ?>
+                        </h2>
                             <!--
                                 Directions provider for navigation links.
                             -->
@@ -870,7 +884,9 @@ $provider = Config::get("map/provider/source");
                                     </select></p>
                                 </div>
                             </div>
-                        <h2 class="content-subhead">Appearance</h2>
+                        <h2 class="content-subhead">
+                            <?php echo I18N::resolveHTML("user_settings.section.appearance") ?>
+                        </h2>
                         <?php
                             if (Config::get("themes/color/user-settings/allow-personalization")) {
                                 ?>

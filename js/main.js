@@ -498,7 +498,7 @@ function openMarker(popup, id) {
                 of the reason with a red banner.
             */
             var data = xhr.responseJSON;
-            var reason = "Unknown reason";
+            var reason = resolveI18N("xhr.failed.reason.unknown_reason");
             console.log(data);
             if (data !== undefined && data.hasOwnProperty("reason")) {
                 reason = resolveI18N(data["reason"]);
@@ -797,7 +797,7 @@ $("#add-poi-submit").on("click", function() {
             overlay.
         */
         var data = xhr.responseJSON;
-        var reason = "Unknown reason";
+        var reason = resolveI18N("xhr.failed.reason.unknown_reason");
         console.log(data);
         if (data !== undefined && data.hasOwnProperty("reason")) {
             reason = resolveI18N(data["reason"]);

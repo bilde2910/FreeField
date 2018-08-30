@@ -49,7 +49,11 @@ $providerAppearance = array(
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex,nofollow">
-        <title><?php echo Config::get("site/name"); ?> | <?php echo I18N::resolveHTML("login.title"); ?></title>
+        <title><?php echo I18N::resolveArgsHTML(
+            "page_title.login.main",
+            true,
+            Config::get("site/name")
+        ); ?></title>
         <link rel="stylesheet"
               href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
               integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
@@ -83,7 +87,11 @@ $providerAppearance = array(
                                 <i class="fab fa-<?php echo $providerAppearance[$provider]["fa-icon"]; ?>" style="vertical-align: middle; display: inline-block; font-size: 1.5em; margin: 5px 15px 5px 10px;"></i>
                             </td><td>
                                 <span>
-                                    Log in using <?php echo I18N::resolveHTML("admin.section.auth.{$provider}.name"); ?>
+                                    <?php echo I18N::resolveArgsHTML(
+                                        "login.perform",
+                                        true,
+                                        I18N::resolve("admin.section.auth.{$provider}.name")
+                                    ); ?>
                                 </span>
                             </td></tr></tbody></table>
                         </div>
