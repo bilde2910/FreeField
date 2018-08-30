@@ -121,8 +121,27 @@ class StringOption extends DefaultOption {
     `StringOption`. It does not accept regex filtering, since there is no good
     way for the user to correct mistakes in the input if they cannot see the
     input string itself (the text is masked).
+
+    The current value of options using `PasswordOption` is never output to the
+    page. Instead, a mask is used - by default, `PasswordOption::DEFAULT_MASK` -
+    this is done to prevent sensitive information from being leaked out to the
+    page, only allowing the user to enter new values without reading the current
+    one. Doing so can prevent the sensitive information from being used
+    maliciously elsewhere.
 */
 class PasswordOption extends DefaultOption {
+    /*
+        Randomly generated 30-character string used as an "unchanged value"
+        mask. Chosen to be extremely unlikely to collide with a real value.
+    */
+    private const DEFAULT_MASK = "oqXb_&WkMrdHtRZ_@}qBM=?WheuO6Y";
+
+    private $mask;
+
+    public function __construct($mask = self::DEFAULT_MASK) {
+        $this->mask = $mask;
+    }
+
     public function getControl($current = null, $name = null, $id = null) {
         $attrs = "";
         if ($name !== null) {
@@ -132,7 +151,7 @@ class PasswordOption extends DefaultOption {
             $attrs .= ' id="'.$id.'"';
         }
         if ($current !== null) {
-            $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
+            $attrs .= ' value="'.htmlspecialchars($this->mask, ENT_QUOTES).'"';
         }
         return '<input type="password"'.$attrs.'>';
     }
@@ -143,7 +162,18 @@ class PasswordOption extends DefaultOption {
 
     public function isValid($data) {
         if (is_array($data)) return false;
+        /*
+            If the received input is the mask itself, then the value is
+            unchanged. By considering the mask as an invalid value, the settings
+            updater script will skip updating the value of this setting in the
+            configuration file, ensuring the setting remains unchanged.
+        */
+        if ($data == $this->mask) return false;
         return true;
+    }
+
+    public function getMask() {
+        return $this->mask;
     }
 }
 
