@@ -392,7 +392,7 @@ class ConfigTree {
                     */
                     "auth/provider/discord/client-secret" => array(
                         "default" => "",
-                        "option" => new StringOption()
+                        "option" => new PasswordOption()
                     )
                 ),
                 "telegram" => array(
