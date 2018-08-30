@@ -258,6 +258,12 @@ class IntegerOption extends DefaultOption {
         if ($id !== null) {
             $attrs .= ' id="'.$id.'"';
         }
+        if ($this->min !== null) {
+            $attrs .= ' min="'.$this->min.'"';
+        }
+        if ($this->max !== null) {
+            $attrs .= ' max="'.$this->max.'"';
+        }
         if ($current !== null) {
             $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
         }
@@ -299,11 +305,17 @@ class FloatOption extends DefaultOption {
         if ($id !== null) {
             $attrs .= ' id="'.$id.'"';
         }
+        if ($this->min !== null) {
+            $attrs .= ' min="'.$this->min.'"';
+        }
+        if ($this->max !== null) {
+            $attrs .= ' max="'.$this->max.'"';
+        }
         if ($current !== null) {
             $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
         }
         if ($decimals >= 1) {
-            $attrs .= ' step="0.'.str_repeat("0", $decimals - 1).'"';
+            $attrs .= ' step="0.'.str_repeat("0", $decimals - 1).'1"';
         }
         return '<input type="number"'.$attrs.'>';
     }
