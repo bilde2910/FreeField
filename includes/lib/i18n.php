@@ -52,7 +52,7 @@ class I18N {
         as a quoted JSON string.
     */
     public static function resolveJS($token) {
-        return json_encode($token);
+        return json_encode(self::resolve($token));
     }
 
     /*
