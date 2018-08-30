@@ -174,7 +174,7 @@ class Auth {
                 "nick" => $suggestedNick,
                 "token" => $token,
                 "permission" => Config::get("permissions/default-level"),
-                "approved" => $approved
+                "approved" => ($approved ? 1 : 0)
             );
             $db
                 ->from(Database::getTable("user"))
