@@ -91,6 +91,9 @@ input.button-submit, input.button-standard {
 /* If two block style buttons are placed next to each other, there should be
    some spacing between them. `.left` and `.right` are left-most and right-most
    buttons respectively. */
+.button-spaced {
+    margin: 5px 2.5px;
+}
 .button-spaced.left {
     margin: 5px 2.5px 5px 0;
 }
