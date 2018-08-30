@@ -857,7 +857,7 @@
             <p><a class="hook-show-help" href="#">'.
                 I18N::resolveHTML("admin.clientside.hooks.syntax.show").
             '</a></p>
-            <div class="hook-syntax-help hidden-by-default">
+            <div class="hook-syntax-help">
                 <div class="hook-syntax-block full-on-mobile">
                     <h3>'.I18N::resolveHTML("admin.hooks.syntax.poi.title").'</h3>
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.poi", false, '<code>&lt;%POI%&gt;</code>').'<br />
@@ -968,7 +968,7 @@
                             '</span><br />
                             '.$hookSummary.'
                         </div>
-                        <div class="hook-body hidden-by-default">
+                        <div class="hook-body">
                             <input type="hidden" name="hook_{%ID%}[type]" value="json">
                             '.$hookActions.'
                             <h2>'.I18N::resolveHTML("admin.section.hooks.settings.name").'</h2>
@@ -1025,7 +1025,7 @@
                             '</span><br />
                             '.$hookSummary.'
                         </div>
-                        <div class="hook-body hidden-by-default">
+                        <div class="hook-body">
                             <input type="hidden" name="hook_{%ID%}[type]" value="telegram">
                             '.$hookActions.'
                             <h2>'.I18N::resolveHTML("admin.section.hooks.settings.name").'</h2>

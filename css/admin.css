@@ -39,6 +39,7 @@
 .hook-body {
     width: calc(100% - 30px);
     padding: 20px 15px;
+    display: none;
 }
 
 /* Sets text spacing for all paragraphs in the webhook body. */
@@ -59,6 +60,7 @@
    payload data. Contains `.hook-syntax-block`. Hidden by default. */
 .hook-syntax-help {
     margin-bottom: 1em;
+    display: none;
 }
 
 /* Code elements in the syntax help blocks contain text replacement blocks and
