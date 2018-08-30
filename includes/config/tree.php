@@ -420,7 +420,7 @@ class ConfigTree {
                     */
                     "auth/provider/telegram/bot-token" => array(
                         "default" => "",
-                        "option" => new StringOption('^\d+:[A-Za-z\d]+$')
+                        "option" => new PasswordOption()
                     )
                 )
             ),

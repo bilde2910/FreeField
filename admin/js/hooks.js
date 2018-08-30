@@ -1156,11 +1156,83 @@ $(".hook-list").on("change", 'select[data-uri-scheme="tg"].hook-target', functio
             (How else would Telegram know which bot made the request? :D)
         */
         var token = $(this).closest(".hook-instance").find(".hook-tg-bot-token").val();
+
         if (token == "") {
             alert(resolveI18N(
                 "admin.clientside.hooks.tg.xhr.groups.failed.empty_token"
             ));
             return;
+        }
+
+        var xhrURI = "../xhr/tg-groups.php?token=" + encodeURI(token);
+
+        /*
+            When the list of webhooks is loaded on the administration pages, the
+            server ensures that all Telegram bot tokens in all webhooks are
+            substituted with a password mask/placeholder value rather than
+            having the bot tokens being sent in plaintext. For example, a
+            webhook may have a Telegram bot token stored internally in the
+            configuration file, but when that hook is presented on the webhooks
+            page in the administration interface, the bot token is replaced in
+            the HTML code with a random string, so that the bot token itself is
+            never sent back to the client.
+
+            The reason for this is that Telegram for some reason decided that
+            bot tokens are valid for sending messages (as is the point of a
+            webhook), but are also in scope to perform user authentication. The
+            bot token is used to verify that the authentication parameters
+            passed from Telegram actually originate from Telegram servers.
+            Telegram uses an HMAC hash to perform this verification, where the
+            secret key of the HMAC hash is created from the bot token. See
+            https://core.telegram.org/widgets/login#checking-authorization.
+
+            The reason Telegram uses the bot token for this purpose is that they
+            assume the bot token will be kept secret. After all, only the bot
+            developer and Telegram themselves would know this token. Hence,
+            anyone with the bot token will be able to craft a valid, signed HMAC
+            hash that can be used to authenticate an arbitrary user.
+
+            FreeField allows using Telegram both for webhooks and for
+            authentication. It is likely that many installations will re-use the
+            same bot token for both purposes. If a user on such an installation
+            has access to the webhooks administration interface, they would be
+            able to fetch the bot token from registered Telegram webhooks, if
+            the bot token was sent in plaintext. They could then use that bot
+            token to sign authentication data as if it was signed by Telegram
+            itself. The server would have no reason to suspect anything unusual
+            was going on, and as such would approve the authentication request.
+
+            Users with access to the webhook administration page would be able
+            to exploit this vulnerability to forge a valid authentication of a
+            higher privileged user. This could even result in the user being
+            able to assign themselves to a higher permission group using the
+            compromised account as a tool. By never sending the bot token back
+            to the web browser under any circumstances, and instead sending a
+            random string mask, this privilege escalation attack vector is
+            eliminated.
+
+            Not sending the bot token to the client causes another issue to
+            arise. When a user requests to enumerate the Telegram groups a bot
+            is in in order to select the correct target group for their
+            webhook's messages, the bot token is required in order to identify
+            and authorize the bot against Telegram's API. Since this token can't
+            be supplied by the client, it must be supplied by the server
+            instead. If the user has input a bot token manually on the webhooks
+            user interface, we can of course use that token to request the bot's
+            group memberships. If the user didn't specify a bot token for the
+            current session, we can instead pass the ID of the webhook and have
+            the enumeration script look up the bot token from the configuration
+            file given the ID of the webhook the bot token is registered in.
+
+            Telegram bot tokens match a very specific format (shown in the
+            `token.match()` below), hence if the token doesn't match, we can
+            assume that the value of the token field is the server-supplied
+            randomly generated replacement mask instead. In that case, fetch the
+            ID of the webhook and use that to look up the token server-side.
+        */
+        if (!token.match(/^\d+:[A-Za-z\d]+$/)) {
+            var webhookId = $(this).closest(".hook-instance").attr("data-hook-id");
+            xhrURI = "../xhr/tg-groups.php?forId=" + encodeURI(webhookId);
         }
 
         /*
@@ -1184,7 +1256,7 @@ $(".hook-list").on("change", 'select[data-uri-scheme="tg"].hook-target', functio
             internally.
         */
         var hook = $(this).closest(".hook-instance");
-        $.getJSON("../xhr/tg-groups.php?token=" + encodeURI(token), function(data) {
+        $.getJSON(xhrURI, function(data) {
             /*
                 When we get a response, clear the list of groups so we don't
                 have any duplicates, then append each option to the group
