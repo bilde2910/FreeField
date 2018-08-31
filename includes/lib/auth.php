@@ -181,9 +181,10 @@ class Auth {
                 ->execute();
         } else {
             /*
-                If approval is required by the admins, the account should be flagged
-                as "pending approval". The user has the same privileges as anonymous
-                visitors until their account has been appoved. Setting his boolean
+                If approval is required by the admins, the account should be
+                flagged as "pending approval". The user has the same privileges
+                as anonymous visitors until their account has been appoved.
+                Setting his boolean
             */
             $approved = $user["approved"];
             $token = $user["token"];
