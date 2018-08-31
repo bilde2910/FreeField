@@ -220,6 +220,16 @@
                     $(this).css("margin-right", "");
                 }
             });
+
+            /*
+                Changes to inputs on the form are tracked to stop data being
+                accidentally discarded if the user tries to navigate away from
+                the page without saving the settings. Ensure that the warning
+                isn't displayed if the user clicks on the submit button.
+            */
+            $("form").on("submit", function() {
+                unsavedChanges = false;
+            });
         </script>
         <p class="buttons">
             <input type="submit"
