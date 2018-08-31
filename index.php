@@ -1222,7 +1222,7 @@ $provider = Config::get("map/provider/source");
             };
         </script>
         <script src="./js/ui.js"></script>
-        <script src="./js/main.js?t="<?php echo time(); ?>></script>
+        <script src="./js/main.js?t=<?php echo time(); ?>"></script>
         <script>
             /*
                 Attempt to read settings from `localStorage`. If successful,
