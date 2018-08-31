@@ -228,7 +228,7 @@ class BooleanOption extends DefaultOption {
                 ".label"
             );
         } else {
-            $label = $item;
+            $label = "";
         }
 
         /*
