@@ -308,6 +308,29 @@ if (count($queries) > 0) {
 }
 
 /*
+    Also ensure that the configuration is updated to reflect the updated
+    permission level for all permissions using any of the affected
+    permission(s). To do this, we obtain a flat list of all options available in
+    /includes/config/tree.php. We search for settings using `PermissionOption`
+    and change them accordingly.
+*/
+
+$flattree = Config::getFlatTree();
+$configchanges = array();
+foreach ($flattree as $path => $values) {
+    if ($values["option"] instanceof PermissionOption) {
+        $value = Config::get($path);
+        foreach ($levelchanges as $old => $new) {
+            if ($value == $old) {
+                $configchanges[$path] = $new;
+                break;
+            }
+        }
+    }
+}
+Config::set($configchanges);
+
+/*
     Level change transaction ends here. Proceed with group deletion requests in
     the same way user deletion requests are treated (no special considerations
     need to be taken for groups vs. users).

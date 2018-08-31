@@ -420,7 +420,7 @@ class Config {
         declared at the start of this file, before the declaration of the
         `$flattree` variable.
     */
-    private static function getFlatTree() {
+    public static function getFlatTree() {
         /*
             The result of `getFlatTree()` is cached for faster subsequent
             lookups. If `$flattree` has not been generated yet, create it as an
