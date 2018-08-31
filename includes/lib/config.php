@@ -16,7 +16,7 @@
 */
 
 class Config {
-    private const CONFIG_LOCATION = __DIR__."/../config.json";
+    private const CONFIG_LOCATION = __DIR__."/../userdata/config.json";
 
     /*
         `$config` holds the decoded JSON array of the config file. The

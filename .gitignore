@@ -2,6 +2,5 @@
 /vendor
 /composer.lock
 
-# Config files
-/includes/config.json
-/includes/sessionkey.php
+# Config files and other user data
+/includes/userdata

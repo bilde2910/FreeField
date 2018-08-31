@@ -8,11 +8,11 @@ __require("config");
 __require("db");
 
 /*
-    The /includes/sessionkey.php file contains a randomly generated key used to
-    encrypt session data stored in browser cookies. This file is generated upon
-    first installation.
+    The /includes/userdata/sessionkey.php file contains a randomly generated key
+    used to encrypt session data stored in browser cookies. This file is
+    generated upon first installation.
 */
-require_once(__DIR__."/../sessionkey.php");
+require_once(__DIR__."/../userdata/sessionkey.php");
 
 class Auth {
     /*
