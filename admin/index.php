@@ -370,7 +370,10 @@ if (!$domains[$domain]["custom-handler"]) {
                                                         setting in /includes/config/tree.php (i.e.
                                                         the type of class in `$option`).
                                                     */
-                                                    echo $option->getControl($value, $setting, $setting);
+                                                    echo $option->getControl($value, array(
+                                                        "name" => $setting,
+                                                        "id" => $setting
+                                                    ));
                                                 ?>
                                             </p>
                                         </div>

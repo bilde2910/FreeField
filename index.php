@@ -958,12 +958,11 @@ $provider = Config::get("map/provider/source");
                                         </div>
                                         <div class="pure-u-2-3 full-on-mobile">
                                             <p>
-                                                <?php echo $opt->getControl(
-                                                    null,
-                                                    null,
-                                                    "icon-selector",
-                                                    array("data-key" => "iconSet", "class" => "user-setting")
-                                                ); ?>
+                                                <?php echo $opt->getControl(null, array(
+                                                    "id" => "icon-selector",
+                                                    "data-key" => "iconSet",
+                                                    "class" => "user-setting"
+                                                )); ?>
                                             </p>
                                         </div>
                                     </div>

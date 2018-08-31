@@ -822,12 +822,11 @@
                     <p>'.I18N::resolveHTML("setting.hooks.hook_list.icons.name").':</p>
                 </div>
                 <div class="pure-u-2-3 full-on-mobile">
-                    <p>'.$opt->getControl(
-                        null,
-                        "hook_{%ID%}[iconSet]",
-                        "{%ID%}-icon-selector",
-                        array("class" => "hook-icon-set")
-                    ).'</p>
+                    <p>'.$opt->getControl(null, array(
+                            "name" => "hook_{%ID%}[iconSet]",
+                            "id" => "{%ID%}-icon-selector",
+                            "class" => "hook-icon-set"
+                    )).'</p>
                 </div>
             </div>
             '.$opt->getFollowingBlock(false, false).'

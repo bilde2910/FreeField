@@ -36,13 +36,13 @@
         `true` or `false` depending on whether the argument data is valid and
         can be placed as-is into the configuration file.
 
-    getControl($current, $name, $id, [$attrs..])
+    getControl($current, $attrs)
         This function takes an input value `$current` that represents the
-        current, parsed value from the configuration file, as well as an HTML
-        ID and field name, and should output an HTML input control of some sort
-        where the input field itself has the given ID and name and the value
-        filled in. The output of this function is what is displayed on the
-        administration interface next to each setting's name.
+        current, parsed value from the configuration file, as well as a list of
+        HTML attributes, and should output an HTML input control of some sort
+        where the input field itself has the attributes and the value filled in.
+        The output of this function is what is displayed on the administration
+        interface next to each setting's name.
 
     getFollowingBlock()
         Some options require additional space to display the current value of
@@ -71,6 +71,32 @@ abstract class DefaultOption {
     public function getFollowingBlock() {
         return "";
     }
+
+    /*
+        Takes an array of attributes and converts it to an HTML attribute.
+        string. For example:
+
+            constructAttributes(array(
+                "name" => "fieldName",
+                "id" => "fieldID",
+                "class" => "myClass"
+            ))
+
+        This returns:
+
+            ' name="fieldName" id="fieldID" class="myClass"'
+    */
+    protected static function constructAttributes($attrArray) {
+        $attrString = "";
+        foreach ($attrArray as $attr => $value) {
+            if ($value === true) {
+                $attrString .= ' '.$attr;
+            } else {
+                $attrString .= ' '.$attr.'="'.htmlspecialchars($value, ENT_QUOTES).'"';
+            }
+        }
+        return $attrString;
+    }
 }
 
 /*
@@ -85,21 +111,14 @@ class StringOption extends DefaultOption {
         $this->regex = $regex;
     }
 
-    public function getControl($current = null, $name = null, $id = null) {
-        $attrs = "";
-        if ($name !== null) {
-            $attrs .= ' name="'.$name.'"';
-        }
-        if ($id !== null) {
-            $attrs .= ' id="'.$id.'"';
-        }
-        if ($current !== null) {
-            $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
-        }
+    public function getControl($current = null, $attrs = array()) {
+        if ($current !== null) $attrs["value"] = $current;
         if ($this->regex !== null) {
-            $attrs .= ' data-validate-as="regex-string" data-validate-regex="'.$this->regex.'"';
+            $attrs["data-validate-as"] = "regex-string";
+            $attrs["data-validate-regex"] = $this->regex;
         }
-        return '<input type="text"'.$attrs.'>';
+        $attrString = parent::constructAttributes($attrs);
+        return '<input type="text"'.$attrString.'>';
     }
 
     public function parseValue($data) {
@@ -142,18 +161,10 @@ class PasswordOption extends DefaultOption {
         $this->mask = $mask;
     }
 
-    public function getControl($current = null, $name = null, $id = null) {
-        $attrs = "";
-        if ($name !== null) {
-            $attrs .= ' name="'.$name.'"';
-        }
-        if ($id !== null) {
-            $attrs .= ' id="'.$id.'"';
-        }
-        if ($current !== null) {
-            $attrs .= ' value="'.htmlspecialchars($this->mask, ENT_QUOTES).'"';
-        }
-        return '<input type="password"'.$attrs.'>';
+    public function getControl($current = null, $attrs = array()) {
+        if ($current !== null) $attrs["value"] = $this->mask;
+        $attrString = parent::constructAttributes($attrs);
+        return '<input type="password"'.$attrString.'>';
     }
 
     public function parseValue($data) {
@@ -182,24 +193,18 @@ class PasswordOption extends DefaultOption {
     next to it.
 */
 class BooleanOption extends DefaultOption {
-    public function getControl($current = null, $name = null, $id = null, $i18ntoken = null) {
+    public function getControl($current = null, $attrs = array(), $i18ntoken = null) {
         __require("i18n");
 
-        $attrs = "";
-        if ($name !== null) {
-            $attrs .= ' name="'.$name.'"';
-        }
-        if ($id !== null) {
-            $attrs .= ' id="'.$id.'"';
-        }
-        if ($current === true) {
-            $attrs .= ' checked';
-        }
+        $id = isset($attrs["id"]) ? $attrs["id"] : null;
+        $name = isset($attrs["name"]) ? $attrs["name"] : null;
 
-        $labelAttrs = "";
-        if ($id !== null) {
-            $labelAttrs .= ' for="'.$id.'"';
-        }
+        if ($current === true) $attrs["checked"] = true;
+        $attrString = parent::constructAttributes($attrs);
+
+        $labelAttrs = array();
+        if ($id !== null) $labelAttrs["for"] = $id;
+        $labelAttrString = parent::constructAttributes($labelAttrs);
 
         /*
             Since the checkbox should have a label next to it, the contents of
@@ -244,13 +249,12 @@ class BooleanOption extends DefaultOption {
             checked or not. The two inputs must have the same name to enforce
             this behavior.
         */
-        $fallbackAttrs = "";
-        if ($name !== null) {
-            $fallbackAttrs .= ' name="'.$name.'"';
-        }
+        $fallbackAttrs = array();
+        if ($name !== null) $fallbackAttrs["name"] = $name;
+        $fallbackAttrString = parent::constructAttributes($fallbackAttrs);
 
-        $html = '<input type="hidden" value="off"'.$fallbackAttrs.'>';
-        $html .= '<label'.$labelAttrs.'><input type="checkbox"'.$attrs.'> '.$label.'</label>';
+        $html = '<input type="hidden" value="off"'.$fallbackAttrString.'>';
+        $html .= '<label'.$labelAttrString.'><input type="checkbox"'.$attrString.'> '.$label.'</label>';
         return $html;
     }
 
@@ -280,24 +284,13 @@ class IntegerOption extends DefaultOption {
         $this->max = $max;
     }
 
-    public function getControl($current = null, $name = null, $id = null) {
-        $attrs = "";
-        if ($name !== null) {
-            $attrs .= ' name="'.$name.'"';
-        }
-        if ($id !== null) {
-            $attrs .= ' id="'.$id.'"';
-        }
-        if ($this->min !== null) {
-            $attrs .= ' min="'.$this->min.'"';
-        }
-        if ($this->max !== null) {
-            $attrs .= ' max="'.$this->max.'"';
-        }
-        if ($current !== null) {
-            $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
-        }
-        return '<input type="number"'.$attrs.'>';
+    public function getControl($current = null, $attrs = array()) {
+        if ($this->min !== null) $attrs["min"] = $this->min;
+        if ($this->max !== null) $attrs["max"] = $this->max;
+        if ($current !== null) $attrs["value"] = $current;
+
+        $attrString = parent::constructAttributes($attrs);
+        return '<input type="number"'.$attrString.'>';
     }
 
     public function parseValue($data) {
@@ -327,27 +320,14 @@ class FloatOption extends DefaultOption {
         $this->max = $max;
     }
 
-    public function getControl($current = null, $name = null, $id = null, $decimals = 5) {
-        $attrs = "";
-        if ($name !== null) {
-            $attrs .= ' name="'.$name.'"';
-        }
-        if ($id !== null) {
-            $attrs .= ' id="'.$id.'"';
-        }
-        if ($this->min !== null) {
-            $attrs .= ' min="'.$this->min.'"';
-        }
-        if ($this->max !== null) {
-            $attrs .= ' max="'.$this->max.'"';
-        }
-        if ($current !== null) {
-            $attrs .= ' value="'.htmlspecialchars($current, ENT_QUOTES).'"';
-        }
-        if ($decimals >= 1) {
-            $attrs .= ' step="0.'.str_repeat("0", $decimals - 1).'1"';
-        }
-        return '<input type="number"'.$attrs.'>';
+    public function getControl($current = null, $attrs = array(), $decimals = 5) {
+        if ($this->min !== null) $attrs["min"] = $this->min;
+        if ($this->max !== null) $attrs["max"] = $this->max;
+        if ($current !== null) $attrs["value"] = $current;
+        if ($decimals >= 1) $attrs["step"] = "0.".str_repeat("0", $decimals - 1)."1";
+
+        $attrString = parent::constructAttributes($attrs);
+        return '<input type="number"'.$attrString.'>';
     }
 
     public function parseValue($data) {
@@ -368,14 +348,8 @@ class FloatOption extends DefaultOption {
     the format `LAT,LNG`. Empty lines are permitted in the input, but discarded.
 */
 class GeofenceOption extends DefaultOption {
-    public function getControl($current = null, $name = null, $id = null) {
-        $attrs = "";
-        if ($name !== null) {
-            $attrs .= ' name="'.$name.'"';
-        }
-        if ($id !== null) {
-            $attrs .= ' id="'.$id.'"';
-        }
+    public function getControl($current = null, $attrs = array()) {
+        $attrString = parent::constructAttributes($attrs);
 
         $value = "";
         if ($current !== null) {
@@ -385,12 +359,12 @@ class GeofenceOption extends DefaultOption {
                         0 => Latitude
                         1 => Longitude
                 */
-                $value .= $point[0] . "," . $point[1] . "\n";
+                $value .= $point[0].",".$point[1]."\n";
             }
         }
 
         $value = trim($value);
-        return '<textarea data-validate-as="geofence"'.$attrs.'>' . $value . '</textarea>';
+        return '<textarea data-validate-as="geofence"'.$attrString.'>'.$value.'</textarea>';
     }
 
     public function parseValue($data) {
@@ -482,18 +456,14 @@ class SelectOption extends DefaultOption {
         $this->type = $type;
     }
 
-    public function getControl($current = null, $name = null, $id = null, $i18ndomain = null) {
+    public function getControl($current = null, $attrs = array(), $i18ndomain = null) {
         __require("i18n");
+        $id = isset($attrs["id"]) ? $attrs["id"] : null;
+        $name = isset($attrs["name"]) ? $attrs["name"] : null;
 
-        $attrs = "";
-        if ($name !== null) {
-            $attrs .= ' name="'.$name.'"';
-        }
-        if ($id !== null) {
-            $attrs .= ' id="'.$id.'"';
-        }
+        $attrString = parent::constructAttributes($attrs);
 
-        $html = '<select'.$attrs.'>';
+        $html = '<select'.$attrString.'>';
         $selected = false;
         foreach ($this->items as $item) {
             $html .= '<option value="'.$item.'"';
@@ -561,12 +531,14 @@ class SelectOption extends DefaultOption {
     have to change as well to reflect the updated permission level.
 */
 class PermissionOption extends DefaultOption {
-    public function getControl($current = 0, $name = null, $id = null) {
+    public function getControl($current = 0, $attrs = array()) {
         /*
             The permission level selector is actually defined in
             /includes/lib/auth.php instead. Get the selector from there.
         */
         __require("auth");
+        $id = isset($attrs["id"]) ? $attrs["id"] : null;
+        $name = isset($attrs["name"]) ? $attrs["name"] : null;
         return Auth::getPermissionSelector($name, $id, $current);
     }
 
@@ -659,23 +631,13 @@ class IconPackOption extends DefaultOption {
         }
     }
 
-    public function getControl($current = null, $name = null, $id = null, $attributes = array()) {
+    public function getControl($current = null, $attrs = array()) {
         __require("i18n");
 
-        $this->id = $id;
-        $attrs = "";
-        if ($name !== null) {
-            $attrs .= ' name="'.$name.'"';
-        }
-        if ($id !== null) {
-            $attrs .= ' id="'.$id.'"';
-        }
+        $this->id = isset($attrs["id"]) ? $attrs["id"] : null;
+        $attrString = parent::constructAttributes($attrs);
 
-        foreach ($attributes as $attr => $value) {
-            $attrs .= ' '.$attr.'="'.$value.'"';
-        }
-
-        $html = '<select'.$attrs.'>';
+        $html = '<select'.$attrString.'>';
         if ($this->includeDefault !== null) {
             $html .= '<option value="">'.
                      I18N::resolveHTML($this->includeDefault).

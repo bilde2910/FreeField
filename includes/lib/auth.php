@@ -459,7 +459,7 @@ class Auth {
         Returns a <select> element that can be used to select a group on the
         administration pages. This function is called from
         `PermissionOption::getControl()` in /includes/config/types.php. It takes
-        parameters for the HTML name and ID to apply to the <select> element, as
+        parameters for the HTML attributes to apply to the <select> element, as
         well as the current permission level selected. The select box will have
         the current level pre-selected.
     */
