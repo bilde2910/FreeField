@@ -51,6 +51,13 @@
     text-align: center;
 }
 
+.right-align {
+    text-align: right;
+}
+.centered {
+    text-align: center;
+}
+
 /* Block element which contains `.button-submit` and/or `.button-standard`. */
 .buttons {
     text-align: right;
@@ -99,6 +106,23 @@ input.button-submit, input.button-standard {
 }
 .button-spaced.right {
     margin: 5px 0 5px 2.5px;
+}
+
+/* Full body container. This is used in two instances on the map page: The map
+   itself is within one of these, as well as the user settings pages. The
+   purpose of this is to ensure that the map and settings pages cover the entire
+   screen (except the sidebar area). The height uses viewport height units
+   rather than percentage units to ensure that the element actually scales to
+   the full height of the viewport instead of the full height of `<body>` (which
+   is usually less than the height of the viewport). */
+.full-container {
+    height: 100vh;
+    width: 100%;
+}
+
+/* Elements which should be hidden by default. */
+.hidden-by-default {
+    display: none;
 }
 
 table, thead, tbody {
@@ -340,23 +364,6 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     }
 }
 
-/* Full body container. This is used in two instances on the map page: The map
-   itself is within one of these, as well as the user settings pages. The
-   purpose of this is to ensure that the map and settings pages cover the entire
-   screen (except the sidebar area). The height uses viewport height units
-   rather than percentage units to ensure that the element actually scales to
-   the full height of the viewport instead of the full height of `<body>` (which
-   is usually less than the height of the viewport). */
-.full-container {
-    height: 100vh;
-    width: 100%;
-}
-
-/* Elements which should be hidden by default. */
-.hidden-by-default {
-    display: none;
-}
-
 /* Used for the header that displays the name of the POI when a POI is clicked
    and its details open. */
 h1.head-small {
@@ -370,13 +377,6 @@ h1.head-small {
     width: 150px;
     max-width: 90%;
     margin: 10px;
-}
-
-.right-align {
-    text-align: right;
-}
-.centered {
-    text-align: center;
 }
 
 /* Spacer used to separate action buttons from the rest of the content in
