@@ -26,20 +26,11 @@ $providers = Auth::getEnabledProviders();
 
 /*
     This array defines the appearance of the buttons for each provider. An icon
-    is set for each provider, plus the text and background color for each of the
-    buttons.
+    is set for each provider.
 */
-$providerAppearance = array(
-    "discord" => array(
-        "fa-icon" => "discord",
-        "bg-color" => "#7289DA",
-        "color" => "#FFFFFF"
-    ),
-    "telegram" => array(
-        "fa-icon" => "telegram-plane",
-        "bg-color" => "#0088CC",
-        "color" => "#FFFFFF"
-    )
+$providerIcons = array(
+    "discord" => "discord",
+    "telegram" => "telegram-plane"
 );
 
 ?>
@@ -82,9 +73,9 @@ $providerAppearance = array(
             <div class="content">
                 <?php foreach ($providers as $provider) { ?>
                     <a href="./oa2/<?php echo $provider; ?>.php" style="text-decoration: none;">
-                        <div style="color: <?php echo $providerAppearance[$provider]["color"]; ?>; text-align: left; border-radius: 5px; margin: 20px auto 0 auto; width: 280px; background-color: <?php echo $providerAppearance[$provider]["bg-color"]; ?>; font-size: 1.3em; padding: 7px 5px;">
+                        <div class="login-button auth-provider-<?php echo $provider; ?>-button">
                             <table><tbody><tr><td>
-                                <i class="fab fa-<?php echo $providerAppearance[$provider]["fa-icon"]; ?>" style="vertical-align: middle; display: inline-block; font-size: 1.5em; margin: 5px 15px 5px 10px;"></i>
+                                <i class="fab fa-<?php echo $providerIcons[$provider]; ?>"></i>
                             </td><td>
                                 <span>
                                     <?php echo I18N::resolveArgsHTML(

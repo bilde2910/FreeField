@@ -35,6 +35,43 @@
     font-weight: bold;
 }
 
+/* Buttons displayed on the login page for signing in with various
+   authentication providers. */
+.login-button {
+    text-align: left;
+    border-radius: 5px;
+    margin: 20px auto 0 auto;
+    width: 280px;
+    font-size: 1.3em;
+    padding: 7px 5px;
+}
+
+/* The icon for the authentication provider on each of the login buttons */
+.login-button i {
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 1.5em;
+    margin: 5px 15px 5px 10px;
+}
+
+/* The color that should be used for the icons of each authentication provider.
+   Displayed in the sidebar, in userboxes and elsewhere users' provider
+   identities are displayed. */
+.auth-provider-discord {
+    color: #7289DA;
+}
+.auth-provider-discord-button {
+    color: #FFFFFF;
+    background-color: #7289DA;
+}
+.auth-provider-telegram {
+    color: #0088CC;
+}
+.auth-provider-telegram-button {
+    color: #FFFFFF;
+    background-color: #0088CC;
+}
+
 /* Spacer to separate groups of elements in the sidebar. Creates an empty gap.
    Used to separate the userbox and login/logout buttons from the rest of the
    elements in the sidebar. */

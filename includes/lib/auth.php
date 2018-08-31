@@ -588,19 +588,15 @@ class User {
         the user to the provider identity.
     */
     public function getProviderIdentityHTML() {
-        $providerAppearance = array(
-            "discord" => array(
-                "fa-icon" => "discord",
-                "color" => "#7289DA"
-            ),
-            "telegram" => array(
-                "fa-icon" => "telegram-plane",
-                "color" => "#0088CC"
-            )
+        $providerIcons = array(
+            "discord" => "discord",
+            "telegram" => "telegram-plane"
         );
         return '<span>
-                    <i style="color: '.$providerAppearance[$this->getProvider()]["color"].'"
-                       class="fab fa-'.$providerAppearance[$this->getProvider()]["fa-icon"].'">
+                    <i class="
+                        auth-provider-'.$this->getProvider().'
+                        fab
+                        fa-'.$providerIcons[$this->getProvider()].'">
                     </i> '.htmlspecialchars($this->getProviderIdentity(), ENT_QUOTES).'
                 </span>';
     }
