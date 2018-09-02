@@ -700,6 +700,7 @@ class User {
         the user to the provider identity.
     */
     public function getProviderIdentityHTML() {
+        if (!$this->exists()) return htmlspecialchars("<Anonymous>", ENT_QUOTES);
         $providerIcons = array(
             "discord" => "discord",
             "telegram" => "telegram-plane"
