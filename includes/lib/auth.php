@@ -288,7 +288,7 @@ class Auth {
         $db = Database::getSparrow();
         $userdata = $db
             ->from(Database::getTable("user"))
-            ->where("id", $session["id"])
+            ->where("id", $id)
             ->leftJoin(Database::getTable("group"), array(
                 Database::getTable("group").".level" => Database::getTable("user").".permission"
              ))

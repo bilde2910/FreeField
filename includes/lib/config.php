@@ -107,7 +107,11 @@ class Config {
             actual value set in the configuration file.
         */
         $def = self::getDefinition($path);
-        if (isset($def["enable-only-if"]) && isset($def["value-if-disabled"])) {
+        if (
+            $def !== null &&
+            isset($def["enable-only-if"]) &&
+            isset($def["value-if-disabled"])
+        ) {
             if (!$def["enable-only-if"]) return $def["value-if-disabled"];
         }
 
