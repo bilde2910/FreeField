@@ -21,6 +21,12 @@ if (!Auth::isAuthenticated() || Auth::getCurrentUser()->isApproved()) {
     exit;
 }
 
+/*
+    A URL that administrators can use to approve the current user.
+*/
+$approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
+               urlencode(Auth::getCurrentUser()->getEncryptedUserID());
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,12 +81,82 @@ if (!Auth::isAuthenticated() || Auth::getCurrentUser()->isApproved()) {
             </div>
 
             <div class="content">
+                <?php
+                    if (Config::get("security/approval/by-qr")) {
+                        /*
+                            Display a QR code to approve this account if enabled
+                            in settings. This QR code is displayed next to the
+                            text explaining the account approval process. It
+                            only shows on desktop clients.
+                        */
+                        ?>
+                            <div class="only-desktop floating-approval-qr">
+                                <img src="./qr-approval.php">
+                            </div>
+                        <?php
+                    }
+                ?>
                 <h2 class="section-header">
                     <?php echo I18N::resolveHTML("awaiting_approval.title"); ?>
                 </h2>
                 <p>
-                    <?php echo I18N::resolveHTML("awaiting_approval.info"); ?>
+                    <!--
+                        This text explains that the user's account requires
+                        manual approval.
+                    -->
+                    <?php echo I18N::resolveHTML("awaiting_approval.info.1"); ?>
                 </p>
+                <p>
+                    <?php echo I18N::resolveHTML(
+                        /*
+                            The text content displayed varies depending on
+                            whether or not QR code generation is enabled in the
+                            configuration.
+                        */
+                        "awaiting_approval.info.2.".
+                        (
+                            Config::get("security/approval/by-qr")
+                            ? "qr_enabled"
+                            : "qr_disabled"
+                        )
+                    ); ?>
+                </p>
+                <h2>
+                    <?php echo I18N::resolveHTML("awaiting_approval.using.link.head"); ?>
+                </h2>
+                <p>
+                    <?php echo I18N::resolveHTML("awaiting_approval.using.link.info"); ?>
+                </p>
+                <p>
+                    <!--
+                        A link that an administrator can follow to approve the
+                        user's account. An encrypted URL is used to prevent
+                        others from knowing which user it belongs to if the user
+                        shares their code in public.
+                    -->
+                    <a class="approval-url" href="<?php echo $approvalUrl; ?>">
+                        <?php echo $approvalUrl; ?>
+                    </a>
+                </p>
+                <div class="only-desktop floating-approval-qr-clear"></div>
+                <?php
+                    if (Config::get("security/approval/by-qr")) {
+                        /*
+                            Display a QR code to approve this account if enabled
+                            in settings. This QR code is displayed underneath
+                            the text explaining the account approval process. It
+                            only shows on mobile clients.
+                        */
+                        ?>
+                            <div class="only-mobile">
+                                <h2>
+                                    <?php echo I18N::resolveHTML("awaiting_approval.using.qr.head"); ?>
+                                </h2>
+                                <img src="./qr-approval.php">
+                            </div>
+                        <?php
+                    }
+                ?>
                 <p class="buttons">
                     <input type="button"
                            id="approval-return"

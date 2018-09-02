@@ -137,6 +137,12 @@ input.button-submit, input.button-standard {
 .split-button {
     display: block;
 }
+/* Some input buttons somehow don't work with the above class. This is a
+   fallback for those instances. */
+.input-split-button {
+    width: calc(100% - 5px);
+    display: block;
+}
 
 /* If two block style buttons are placed next to each other, there should be
    some spacing between them. `.left` and `.right` are left-most and right-most
@@ -242,6 +248,29 @@ table, thead, tbody {
 input[type=text], input[type=password], input[type=number], select, textarea {
     padding: 4px;
     width: calc(100% - 8px);
+}
+
+/* QR codes displayed to approve new users in /auth/approval.php. */
+.floating-approval-qr {
+    float: right;
+    margin: 0 0 20px 35px;
+}
+
+/* Clears the `float` set by `.floating-approval-qr`. */
+.floating-approval-qr-clear {
+    clear: both;
+}
+
+/* A link users can send to administrators to request approval of their user
+   accounts. This link can be very long, hence it should be wrapped. */
+.approval-url {
+    word-wrap: break-word;
+}
+
+/* The table that is shown to administrators when approving an account via link
+   or QR code. */
+.approve-user-table td:nth-child(1) {
+    width: 33%;
 }
 
 /* Mobile only. Mobile hides the sidebar as well - this is handled natively in

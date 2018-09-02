@@ -8,11 +8,11 @@ __require("config");
 __require("db");
 
 /*
-    The /includes/userdata/sessionkey.php file contains a randomly generated key
+    The /includes/userdata/authkeys.php file contains a randomly generated key
     used to encrypt session data stored in browser cookies. This file is
     generated upon first installation.
 */
-require_once(__DIR__."/../userdata/sessionkey.php");
+require_once(__DIR__."/../userdata/authkeys.php");
 
 class Auth {
     /*
@@ -104,15 +104,10 @@ class Auth {
     }
 
     /*
-        Fetches and decrypts the raw, unauthenticated session array from cookie
-        data supplied by the browser. This will be further processed in other
-        functions.
+        Decrypts an array using the specified encryption key.
     */
-    private static function getSession() {
-        if (!isset($_COOKIE["session"])) return null;
-        $session = $_COOKIE["session"];
-
-        $c = base64_decode($session, true);
+    public static function decryptArray($data, $key) {
+        $c = base64_decode($data, true);
         if ($c === false) return null;
 
         $ivlen = openssl_cipher_iv_length("AES-256-CBC");
@@ -125,13 +120,25 @@ class Auth {
         $data = openssl_decrypt(
             $ciph,
             "AES-256-CBC",
-            AuthSession::getSessionKey(),
+            $key,
             OPENSSL_RAW_DATA,
             $iv
         );
         if ($data === false) return null;
 
         return json_decode($data, true);
+    }
+
+    /*
+        Fetches and decrypts the raw, unauthenticated session array from cookie
+        data supplied by the browser. This will be further processed in other
+        functions.
+    */
+    private static function getSession() {
+        if (!isset($_COOKIE["session"])) return null;
+        $session = $_COOKIE["session"];
+
+        return self::decryptArray($session, AuthKeys::getSessionKey());
     }
 
     /*
@@ -158,7 +165,7 @@ class Auth {
                 given the same privileges as anonymous visitors until their
                 account has been appoved.
             */
-            $approved = !Config::get("security/require-approval");
+            $approved = !Config::get("security/approval/require");
             /*
                 The token is used to invalidate sessions. The cookie array
                 contains a "token" value that must match the token value stored
@@ -249,20 +256,27 @@ class Auth {
     }
 
     /*
-        This function is the opposite of `getCookie()`. It takes a session data
-        array, encrypts it, and puts it in a cookie on the client's browser.
+        Encrypts an array using the specified encryption key.
     */
-    private static function setSession($data, $expire) {
+    public static function encryptArray($data, $key) {
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length("AES-256-CBC"));
         $ciph = openssl_encrypt(
             json_encode($data),
             "AES-256-CBC",
-            AuthSession::getSessionKey(),
+            $key,
             OPENSSL_RAW_DATA,
             $iv
         );
-        $hmac = hash_hmac("SHA256", $ciph, AuthSession::getSessionKey(), true);
-        $session = base64_encode($iv.$hmac.$ciph);
+        $hmac = hash_hmac("SHA256", $ciph, AuthKeys::getSessionKey(), true);
+        return base64_encode($iv.$hmac.$ciph);
+    }
+
+    /*
+        This function is the opposite of `getCookie()`. It takes a session data
+        array, encrypts it, and puts it in a cookie on the client's browser.
+    */
+    private static function setSession($data, $expire) {
+        $session = self::encryptArray($data, AuthKeys::getSessionKey());
         setcookie("session", $session, time() + $expire, "/");
     }
 
@@ -410,6 +424,15 @@ class Auth {
     }
 
     /*
+        Decrypts a user ID encrypted using `User::getEncryptedUserID()`.
+    */
+    public static function getDecryptedUserID($data) {
+        $array = self::decryptArray($data, AuthKeys::getIdOnlyKey());
+        if ($array === null || $array === false) return null;
+        return $array["id"];
+    }
+
+    /*
         Returns whether or not the user is logged in. If the current user is the
         `null` user (i.e. unauthenticated), the `User::exists()` function always
         returns false, while it always returns true if the corresponding user is
@@ -458,6 +481,53 @@ class Auth {
         */
         self::$groupsCache = $perms;
         return $perms;
+    }
+
+    /*
+        Get an HTML string representing the given group. It shows the name of
+        the group and its permission level and color.
+    */
+    public static function getGroupHTML($level) {
+        $group = null;
+
+        if (self::$groupsCache !== null) {
+            /*
+                First, attempt to find the group in the groups cache.
+            */
+            foreach (self::$groupsCache as $groupItem) {
+                if ($groupItem["level"] == $level) {
+                    $group = $groupItem;
+                    break;
+                }
+            }
+        } else {
+            /*
+                If the groups cache is empty, look up the group in the database.
+            */
+            $db = Database::getSparrow();
+            $perms = $db
+                ->from(Database::getTable("group"))
+                ->where("level", $level)
+                ->one();
+
+            if ($perms !== null) $group = $perms;
+        }
+        /*
+            If group not found, return empty string.
+        */
+        if ($group === null) return "";
+
+        return '<span'.
+                    (
+                        $group["color"] === null
+                        ? ''
+                        : ' style="color: #'.$group["color"].';"'
+                    ).
+                    '>'.
+                    $group["level"].
+                    " - ".
+                    self::resolvePermissionLabelI18N($group["label"]).
+                '</span>';
     }
 
     /*
@@ -655,6 +725,18 @@ class User {
     public function getUserID() {
         if (!$this->exists()) return null;
         return $this->data["id"];
+    }
+
+    /*
+        Returns the ID of the user as returned by `getUserID()`, encrypted with
+        the `getIdOnlyKey()` from AuthKeys.
+    */
+    public function getEncryptedUserID() {
+        if (!$this->exists()) return null;
+        $data = array(
+            "id" => $this->data["id"]
+        );
+        return Auth::encryptArray($data, AuthKeys::getIdOnlyKey());
     }
 
     /*

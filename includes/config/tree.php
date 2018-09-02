@@ -327,9 +327,24 @@ class ConfigTree {
                         created account before the account can be used to access
                         FreeField.
                     */
-                    "security/require-approval" => array(
+                    "security/approval/require" => array(
                         "default" => false,
                         "option" => new BooleanOption()
+                    ),
+                    /*
+                        If this is enabled, users awaiting approval will be
+                        presented with a QR code that can be scanned by an
+                        administrator. Scanning the code will allow the
+                        administrator to approve or reject the user very quickly
+                        compared to finding the user in the list of registered
+                        users and approving them there. This function requires
+                        the GD extension to be loaded in PHP.
+                    */
+                    "security/approval/by-qr" => array(
+                        "default" => extension_loaded("gd"),
+                        "option" => new BooleanOption(),
+                        "enable-only-if" => extension_loaded("gd"),
+                        "value-if-disabled" => false
                     )
                 ),
                 "sessions" => array(
