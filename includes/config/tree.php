@@ -312,7 +312,7 @@ class ConfigTree {
                         created account before the account can be used to access
                         FreeField.
                     */
-                    "security/require-validation" => array(
+                    "security/require-approval" => array(
                         "default" => false,
                         "option" => new BooleanOption()
                     )

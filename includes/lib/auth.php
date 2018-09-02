@@ -155,7 +155,7 @@ class Auth {
                 given the same privileges as anonymous visitors until their
                 account has been appoved.
             */
-            $approved = !Config::get("security/require-validation");
+            $approved = !Config::get("security/require-approval");
             /*
                 The token is used to invalidate sessions. The cookie array
                 contains a "token" value that must match the token value stored
