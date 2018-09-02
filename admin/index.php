@@ -274,7 +274,7 @@ if (!$domains[$domain]["custom-handler"]) {
                         <form action="apply-config.php?d=<?php echo urlencode($domain); ?>"
                               method="POST"
                               class="pure-form require-validation"
-                              enctype="application/x-www-form-urlencoded">
+                              enctype="multipart/form-data">
                             <?php foreach ($sections as $section => $settings) { ?>
                                 <h2 class="content-subhead">
                                     <?php echo I18N::resolveHTML($di18n->getSection($section)->getName()); ?>

@@ -147,6 +147,32 @@ class Config {
     }
 
     /*
+        Returns the setting definition for the given path. These are defined in
+        /includes/config/tree.php. This function returns an array of the
+        following structure:
+
+            getDefinition("site/name") ==array(
+                "default" => "FreeField",
+                "option" => new StringOption()
+            )
+    */
+    public static function getDefinition($path) {
+        /*
+            Load the configuration file if not already loaded, and fetch a
+            flattened version of the configuration definition tree for easy
+            access to default values and input validation functions.
+        */
+        if (self::$config === false) self::loadConfig();
+        $flat = self::getFlatTree();
+
+        /*
+            Return the definition (default value and options) for the given
+            settings path.
+        */
+        return $flat[$path];
+    }
+
+    /*
         This function is used to set the values of settings and then saving the
         updated configuration to the config file. This function also does
         permissions checks to see if the user is allowed to make changes to the
@@ -349,6 +375,11 @@ class Config {
                     bounds).
                 */
                 if (!$opt->isValid($value)) continue;
+
+                /*
+                    Run pre-commit callbacks for the given option.
+                */
+                if (!$opt->preCommit($value_raw, $value)) continue;
             }
 
             /*
@@ -412,6 +443,40 @@ class Config {
             if (self::get($path) === $value) return true;
         }
         return false;
+    }
+
+    /*
+        Checks whether or not the currently signed in user has access to view or
+        change the setting at the given path.
+    */
+    public static function hasPermission($path) {
+        /*
+            The authentication module is needed to check if the currently signed
+            in user has permission to change the given setting.
+        */
+        __require("auth");
+
+        /*
+            We need to look through the configuration tree structure to find the
+            domain under which the requested option can be found. Once found,
+            check the permission and return its value.
+        */
+        $permissionsAssoc = array();
+        foreach (self::$configtree as $domain => $sdata) {
+            foreach ($sdata as $section => $settings) {
+                foreach ($settings as $setting => $value) {
+                    if ($setting === $path) {
+                        $perm = "admin/{$domain}/general";
+                        return Auth::getCurrentUser()->hasPermission($perm);
+                    }
+                }
+            }
+        }
+
+        /*
+            If we get this far, the requested setting doesn't exist.
+        */
+        return null;
     }
 
     /*

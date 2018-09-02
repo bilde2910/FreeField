@@ -51,6 +51,31 @@
         pages. This is used for IconPackOption - whenever an icon pack is
         selected by the user, a block should be displayed following the setting
         itself that previews the given icon pack.
+
+    preCommit($rawData, $parsedValue)
+        This function is called after validation has passed, but before the
+        setting value is committed to the configuration file. This function is
+        used in `FileOption` to write a received file to disk, for example,
+        after the settings saving script has confirmed that the received data is
+        valid through `isValid()`. The purpose of this function is to prevent
+        saving data if the calling script has no intention for data to be saved.
+        I.e. a script may call both `parseValue()` and `isValid()` for a value,
+        but never proceed to actually commit the value to the configuration
+        file. If file saving in `FileOption` was done in `parseValue()` or
+        `isValid()`, changes would be committed when they never should have
+        been. This function can return false to abort the committment of the
+        updated setting value to the configuration file. This ensures that an
+        updated value is not stored for a setting if, say, writing a file to
+        disk failed, and the updated value depends on the file being correctly
+        written to disk.
+
+        The function accepts two parameters:
+
+        $rawData
+            The raw data sent to `parseValue()` for parsing.
+
+        $parsedData
+            The parsed value returned by `parseValue()`.
 */
 
 /*
@@ -70,6 +95,10 @@ abstract class DefaultOption {
 
     public function getFollowingBlock() {
         return "";
+    }
+
+    public function preCommit($rawData, $parsedValue) {
+        return true;
     }
 
     /*
@@ -516,6 +545,7 @@ class SelectOption extends DefaultOption {
     }
 
     public function isValid($data) {
+        if (is_array($data)) return false;
         return in_array($data, $this->items);
     }
 }
@@ -805,7 +835,359 @@ class IconPackOption extends DefaultOption {
     }
 
     public function isValid($data) {
+        if (is_array($data)) return false;
         return isset(self::$packs[$data]);
+    }
+}
+
+/*
+    This option is for file uploads. It renders as a file selection input. The
+    option requires passing the path of the implementing setting, as the path is
+    used to determine the storage location of the uploaded file.
+
+    `FileOption` allows restricting the file types that can be uploaded through
+    the `$accept` array, as well as restricting the file size through
+    `$maxLength`. `$maxLength` is the maximum number of bytes allowed to be
+    uploaded, while `$accept` is an associative array between mime types and
+    their corresponding file extensions. Example:
+
+        $accept = array(
+            "image/png" => "png",
+            "image/gif" => "gif",
+            "image/jpeg" => "jpg"
+        );
+
+    Uploaded files are stored with the file extension defined for the MIME type
+    of the file in the `$accept` array. The name of the file as provided by the
+    user is not trusted for local file system storage, but is stored in the
+    configuration file for lookup when downloaded by a user.
+*/
+class FileOption extends DefaultOption {
+    /*
+        A path for previewing an uploaded file. The provided `$path` is appended
+        to this path string.
+    */
+    private const FILE_PREVIEW_PATH = "/admin/view-file.php?path=";
+    /*
+        The storage location on the local server file system for uploaded files.
+    */
+    private const UPLOAD_DIRECTORY = __DIR__."/../userdata/files";
+    /*
+        The path of the setting this `FileOption` instance is assiged to. Used
+        for generating the filename of the uploaded file, and for generating the
+        correct file preview URL based on `FILE_PREVIEW_PATH`.
+    */
+    private $path;
+    /*
+        An array of accepted file MIME types and their corresponding file
+        extensions.
+    */
+    private $accept;
+    /*
+        The maximum file size of the uploaded file in bytes.
+    */
+    private $maxLength;
+
+    public function __construct($path, $accept = null, $maxLength = -1) {
+        $this->path = $path;
+        $this->accept = $accept;
+        $this->maxLength = $maxLength;
+    }
+
+    public function getControl($current = null, $attrs = array()) {
+        if ($this->accept !== null) $attrs["accept"] = implode(",", array_keys($this->accept));
+
+        /*
+            The name of the currently uploaded file, along with its size and a
+            link to preview it, is included underneath the file selection input
+            on the settings page.
+        */
+        $previewUrl = Config::getEndpointUri(self::FILE_PREVIEW_PATH.urlencode($this->path));
+
+        /*
+            Convert the file size in bytes to a human-readable string (e.g. if
+            `$size = 262144`, the displayed size should be "256 KiB").
+        */
+        $size = $current["size"];
+        $prefixes = array("byte", "kilo", "mega", "giga");
+        $prefixIdx = 0;
+        /*
+            For each order of magnitude of file size, cut the file size by 1024
+            and use the next size prefix (e.g. bytes -> kibibytes). Ensure that
+            the unit prefix index `$prefixIdx` never exceeds the length of the
+            `$prefixes` array, and use the highest prefix in the `$prefixes`
+            with a higher than 1024 value of `$size` in those cases. We could
+            easily implement "tera" rather than "giga" as the highest prefix in
+            `$prefixes`, but it's intentionally not included because there is no
+            reasonable reason that files greater than 1 TiB would ever be
+            uploaded to a website whose purpose isn't even to distribute files.
+        */
+        while (round($size) >= 1024 && $prefixIdx < count($prefixes) - 1) {
+            $size /= 1024;
+            $prefixIdx++;
+        }
+
+        $attrString = parent::constructAttributes($attrs);
+        return '<input type="file"'.$attrString.'><br />'.
+            I18N::resolveArgsHTML(
+                "admin.option.file.current",
+                false,
+                "<code>",
+                I18N::resolveArgsHTML(
+                    "admin.option.file.display_format",
+                    false,
+                    '<a href="'.$previewUrl.'" target="_blank">',
+                    '</a>',
+                    htmlspecialchars($current["name"], ENT_QUOTES),
+                    number_format($size, 2),
+                    I18N::resolveHTML(
+                        "admin.option.file.size_unit.".$prefixes[$prefixIdx]
+                    )
+                ),
+                "</code>"
+            );
+    }
+
+    public function parseValue($data) {
+        if (!isset($_FILES[$data])) return null;
+        /*
+            `$data` is the key of the uploaded file array in `$_FILES`. Fetch
+            the file to do further processing.
+        */
+        $fdata = $_FILES[$data];
+        if ($fdata["error"] !== UPLOAD_ERR_OK) return null;
+        $file = array(
+            /*
+                Don't trust the MIME type provided by `$fdata["type"]`, as this
+                is set by the browser and is thus not trustworthy. Determine the
+                MIME type server-side instead.
+            */
+            "type" => mime_content_type($fdata["tmp_name"]),
+            /*
+                The name of the file as provided by the browser is not trusted
+                for local filesystem storage, but is kept in the configuration
+                file for retrieval later.
+            */
+            "name" => $fdata["name"],
+            /*
+                File size and last modification time can be fetched using
+                `filesize()` and `filemtime()`, but we'll store those in the
+                configuration file as well to reduce the number of filesystem
+                calls when the file is fetched.
+            */
+            "size" => $fdata["size"],
+            "time" => time()
+        );
+        return $file;
+    }
+
+    public function isValid($data) {
+        if ($data === null) return false;
+        if (!is_array($data)) return false;
+        /*
+            Require presence of MIME type and filesize for input validation, and
+            the filename for later retrieval upon download.
+        */
+        if (!isset($data["type"])) return false;
+        if (!isset($data["name"])) return false;
+        if (!isset($data["size"])) return false;
+        /*
+            Ensure that the file is of an accepted type, and that it is within
+            the maximum allowed file size.
+        */
+        if (!isset($this->accept[$data["type"]])) return false;
+        if ($this->maxLength >= 0 && $data["size"] > $this->maxLength) return false;
+
+        return true;
+    }
+
+    public function preCommit($rawData, $parsedValue) {
+        /*
+            `$_FILES[$rawData]` not being set shouldn't hapen, but if it does,
+            don't proceed.
+        */
+        if (!isset($_FILES[$rawData])) return false;
+        $fdata = $_FILES[$rawData];
+
+        /*
+            Get a file helper object for the parsed value to simplify getting
+            the filename and uploaded file path for saving the uploaded file.
+        */
+        $appliedValue = $this->applyTo($parsedValue);
+        $basename = $appliedValue->getFilename();
+        $targetFile = $appliedValue->getPath();
+
+        /*
+            Attempt to save the uploaded file to the target file location.
+        */
+        $success = move_uploaded_file($fdata["tmp_name"], $targetFile);
+        if (!$success) return false;
+
+        /*
+            Delete other uploaded files with different file extensions that
+            correspond to the current setting.
+        */
+        $files = array_diff(scandir(self::UPLOAD_DIRECTORY), array('..', '.'));
+        /*
+            Get the index of the file extension in the filename string.
+        */
+        $baseExtIndex = strrpos($basename, ".");
+        foreach ($files as $file) {
+            $fileExtIndex = strrpos($file, ".");
+            /*
+                If the file has no extension, or it is a directory, skip it.
+            */
+            if (
+                $fileExtIndex === false ||
+                is_dir(self::UPLOAD_DIRECTORY."/{$file}")
+            ) continue;
+            /*
+                If the file has the same base name, but different file names,
+                the file is a file that is stored for the current setting but
+                with a different file extension, and should thus be deleted so
+                only the current version of the file remains.
+            */
+            if (
+                substr($file, 0, $fileExtIndex + 1) === substr($basename, 0, $baseExtIndex + 1) &&
+                $file !== $basename
+            ) {
+                unlink(self::UPLOAD_DIRECTORY."/{$file}");
+            }
+        }
+
+        return true;
+    }
+
+    /*
+        Gets a file helper instance that represents the current file as stored
+        in the configuration file.
+    */
+    public function applyToCurrent() {
+        return $this->applyTo(Config::get($this->path));
+    }
+
+    /*
+        Gets a file helper instance for the given setting value.
+    */
+    public function applyTo($value) {
+        return new FileOptionValue($value, self::UPLOAD_DIRECTORY, $this->path, $this->accept);
+    }
+}
+
+/*
+    This class is a helper object for `FileOption`. It is constructed by passing
+    the value of a `FileOption` setting to `FileOption::applyTo()`. The purpose
+    of the class is to make it easier to extract information such as file names,
+    paths, extensions, sizes and types for a given `FileOption`s value.
+*/
+class FileOptionValue {
+    /*
+        The value of a setting that uses `FileOption`.
+    */
+    private $value;
+    /*
+        The directory where uploaded files are stored.
+    */
+    private $directory;
+    /*
+        The setting path (not file path) of the given setting in the
+        configuration file.
+    */
+    private $path;
+    /*
+        An associative array of accepted file MIME types and their corresponding
+        file extensions.
+    */
+    private $accept;
+
+    public function __construct($value, $directory, $path, $accept) {
+        $this->value = $value;
+        $this->directory = $directory;
+        $this->path = $path;
+        $this->accept = $accept;
+    }
+
+    /*
+        Retrieves the file extension of the file.
+    */
+    public function getExtension() {
+        return $this->accept[$this->value["type"]];
+    }
+
+    /*
+        Retrieves the name of the file as stored on the server's file system.
+    */
+    public function getFilename() {
+        return str_replace("/", ".", $this->path).".".$this->getExtension();
+    }
+
+    /*
+        Retrieves the name of the file as provided by the browser that was used
+        to upload the file.
+    */
+    public function getUploadName() {
+        return $this->value["name"];
+    }
+
+    /*
+        Retrieves the full path to the location of the uploaded file on the
+        server's file system.
+    */
+    public function getPath() {
+        return $this->directory."/".$this->getFilename();
+    }
+
+    /*
+        Retrieves the MIME type of the file.
+    */
+    public function getMimeType() {
+        return $this->value["type"];
+    }
+
+    /*
+        Retrieves the size of the file.
+    */
+    public function getLength() {
+        return $this->value["size"];
+    }
+
+    /*
+        Retrieves a timestamp indicating the upload time of the file.
+    */
+    public function getUploadTime() {
+        if (isset($this->value["time"])) {
+            return $this->value["time"];
+        } else {
+            return filemtime($this->getPath());
+        }
+    }
+
+    /*
+        Sets the correct HTTP headers for the file and reads the file.
+    */
+    public function outputWithCaching() {
+        /*
+            Handle caching by `If-Modified-Since`.
+        */
+        $lastMod = $this->getUploadTime();
+        if (isset($_SERVER["HTTP_IF_MODIFIED_SINCE"])) {
+            $time = strtotime($_SERVER["HTTP_IF_MODIFIED_SINCE"]);
+            if ($time >= $lastMod) {
+                header("HTTP/1.1 304 Not Modified");
+                exit;
+            }
+        }
+
+        /*
+            Output the requested file.
+        */
+        header("Content-Type: ".$this->getMimeType());
+        header("Content-Length: ".$this->getLength());
+        header("Content-Disposition: inline; filename=\"".$this->getUploadName()."\"");
+        header("Last-Modified: ".date("r", $lastMod));
+
+        readfile($this->getPath());
+        exit;
     }
 }
 

@@ -37,9 +37,27 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     dangerous, and shouldn't ever happen from the admin pages, so we'll drop
     those changes if present.
 */
+$settings = array();
 foreach ($_POST as $key => $value) {
-    if (substr($key, 0, 8) === "install/") {
-        unset($_POST[$key]);
+    if (substr($key, 0, 8) !== "install/") {
+        $settings[$key] = $value;
+    }
+}
+
+/*
+    Files should also be processed, though they are in the `$_FILES` array
+    instead of `$_POST`. Add the keys for each file submitted to the array of
+    settings to set in the configuration file. `FileOption` will fetch the file
+    data from `$_FILES` directly. It would be possible for malicious users to
+    pass an array to an option directly (due to the way PHP works with GET query
+    strings). If the array from `$_FILES` was fetched and returned as the value
+    here, there would be no way to differentiate between a legitimate file and
+    a maliciously inserted array. Letting `FileOption` handle the `$_FILES`
+    array eliminates this issue.
+*/
+foreach ($_FILES as $key => $value) {
+    if (substr($key, 0, 8) !== "install/") {
+        $settings[$key] = $key;
     }
 }
 
@@ -47,7 +65,7 @@ foreach ($_POST as $key => $value) {
     Update the configuration itself. This is handled entirely in
     /includes/lib/config.php.
 */
-Config::set($_POST, true);
+Config::set($settings, true);
 
 /*
     Users should be redirected to the page they came from when saving settings.
