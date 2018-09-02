@@ -728,7 +728,8 @@
                 preview box, since the code to do so is readily available in
                 this class.
             */
-            $opt = new IconPackOption("setting.hooks.hook_list.icons.option.default");
+            $optIcon = new IconPackOption("setting.hooks.hook_list.icons.option.default");
+            $optFence = new GeofenceOption();
 
             /*
                 The summary text box in the header of the webhook.
@@ -798,23 +799,24 @@
                     <p>'.I18N::resolveHTML("setting.hooks.hook_list.icons.name").':</p>
                 </div>
                 <div class="pure-u-2-3 full-on-mobile">
-                    <p>'.$opt->getControl(null, array(
+                    <p>'.$optIcon->getControl(null, array(
                             "name" => "hook_{%ID%}[iconSet]",
                             "id" => "{%ID%}-icon-selector",
                             "class" => "hook-icon-set"
                     )).'</p>
                 </div>
             </div>
-            '.$opt->getFollowingBlock(false).'
+            '.$optIcon->getFollowingBlock(false).'
             <div class="pure-g">
                 <div class="pure-u-1-3 full-on-mobile">
                     <p>'.I18N::resolveHTML("setting.hooks.hook_list.geofence.name").':</p>
                 </div>
                 <div class="pure-u-2-3 full-on-mobile">
                     <p>
-                        <textarea class="hook-geofence"
-                                  name="hook_{%ID%}[geofence]"
-                                  data-validate-as="geofence"></textarea>
+                        '.$optFence->getControl(null, array(
+                            "name" => "hook_{%ID%}[geofence]",
+                            "class" => "hook-geofence",
+                        )).'
                     </p>
                 </div>
             </div>';

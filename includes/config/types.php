@@ -374,93 +374,62 @@ class FloatOption extends DefaultOption {
 }
 
 /*
-    This option is for inputs which require a geofence. A geofence is created by
-    listing at least three coordinate pairs, one per line, where each line is in
-    the format `LAT,LNG`. Empty lines are permitted in the input, but discarded.
+    This option is for inputs which require a geofence. Geofences are selected
+    from a list of labeled geofences stored in the configuration file.
 */
 class GeofenceOption extends DefaultOption {
+    private static $fences = null;
+
     public function getControl($current = null, $attrs = array()) {
+        __require("geo");
+        if (self::$fences === null) self::$fences = Geo::listGeofences();
+
         $attrString = parent::constructAttributes($attrs);
 
-        $value = "";
-        if ($current !== null) {
-            foreach ($current as $point) {
-                /*
-                    $point is an array where:
-                        0 => Latitude
-                        1 => Longitude
-                */
-                $value .= $point[0].",".$point[1]."\n";
-            }
-        }
+        /*
+            Create a <select> input with an <optgroup> under which geofences
+            should be listed.
+        */
+        $html = '<select'.$attrString.'>
+                    <option value="">
+                        '.I18N::resolveHTML("ui.dropdown.none_selected").'
+                    </option>
+                    <optgroup label="'.I18N::resolveHTML("admin.option.geofence.available").'">';
 
-        $value = trim($value);
-        return '<textarea data-validate-as="geofence"'.$attrString.'>'.$value.'</textarea>';
+        /*
+            Add each geofence to the selection box.
+        */
+        foreach (self::$fences as $fence) {
+            $html .= '<option value="'.$fence->getID().'"';
+            if ($fence->getID() == $current) {
+                $selected = true;
+                $html .= ' selected';
+            }
+            $html .= '>'.$fence->getLabel().'</option>';
+        }
+        $html .= '</optgroup></select>';
+        return $html;
     }
 
     public function parseValue($data) {
         if ($data === "") return null;
-        $points = array();
-
-        /*
-            Split the input data into lines. Split by any combination of line
-            feed and carriage return.
-        */
-        $lines = preg_split('/\r\n?|\n\r?/', $data);
-        foreach ($lines as $line) {
-            if ($line === "") continue;
-
-            /*
-                Convert all coordinates (comma-delimited) to floating point
-                values. Validation of the resulting array is performed in
-                `isValid()`.
-            */
-            $point = explode(",", $line);
-            $entry = array();
-            foreach ($point as $dimension) {
-                $entry[] = floatval($dimension);
-            }
-            $points[] = $entry;
-        }
-        return count($points) > 0 ? $points : null;
+        return strval($data);
     }
 
     public function isValid($data) {
+        __require("geo");
+        if (self::$fences === null) self::$fences = Geo::listGeofences();
+
         /*
             Null indicates that the geofence is disabled, and is thus valid.
         */
         if ($data === null) return true;
+        if (is_array($data)) return false;
 
-        if (!is_array($data)) return false;
-
-        /*
-            A geofence must consist of at least three corners for them to form a
-            two-dimensional surface area. Three points creates a triangle. Two
-            would only be sufficient to draw a line.
-        */
-        if (count($data) < 3) return false;
-
-        foreach ($data as $point) {
-            /*
-                Each point must consist of a coordinate pair. If the pair is not
-                an array, or it does not have exactly two coordinate axes, it is
-                not a valid coordinate pair, and is thus invalid.
-            */
-            if (!is_array($point) || count($point) !== 2) return false;
-            $lat = $point[0];
-            $lon = $point[1];
-
-            /*
-                The coordinates must also be valid floating point values and be
-                within the range of valid coordinates (-90 to 90 degrees
-                latitude, and -180 to 180 degrees longitude).
-            */
-            if (!is_float($lat)) return false;
-            if (!is_float($lon)) return false;
-            if ($lat < -90 || $lat > 90) return false;
-            if ($lon < -180 || $lon > 180) return false;
+        foreach (self::$fences as $fence) {
+            if ($fence->getID() === $data) return true;
         }
-        return true;
+        return false;
     }
 }
 

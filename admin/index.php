@@ -91,6 +91,12 @@ $domains = array(
         "custom-handler" => false
     ),
 
+    // Geofence settings
+    "fences" => array(
+        "icon" => "expand",
+        "custom-handler" => true
+    ),
+
     // Webhooks
     "hooks" => array(
         "icon" => "link",

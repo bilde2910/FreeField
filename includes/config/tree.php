@@ -308,6 +308,13 @@ class ConfigTree {
                         "option" => new PermissionOption()
                     ),
                     /*
+                        Allows users to manage geofences.
+                    */
+                    "permissions/level/admin/fences/general" => array(
+                        "default" => 200,
+                        "option" => new PermissionOption()
+                    ),
+                    /*
                         Allows users to manage webhook integrations.
                     */
                     "permissions/level/admin/hooks/general" => array(

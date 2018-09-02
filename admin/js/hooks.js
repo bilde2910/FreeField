@@ -1598,27 +1598,9 @@ for (var i = 0; i < hooks.length; i++) {
     node.find(".hook-mode-objective").val(hook["filter-mode"].objectives);
     // Whitelist/blacklist mode for rewards
     node.find(".hook-mode-reward").val(hook["filter-mode"].rewards);
-
-    /*
-        Parse the geofence, if there is one present. Geofences should be edited
-        as a list of coordinates with a comma-separated latitude and longitude
-        pair on each line. A minimum of three coordinate pairs is required if a
-        geofence is defined.
-    */
+    // Geofence, if present
     if (hook.hasOwnProperty("geofence") && hook.geofence !== null) {
-        var fenceStr = "";
-        /*
-            In this array:
-              - Index 0 = Latitude
-              - Index 1 = Longitude
-        */
-        for (var j = 0; j < hook.geofence.length; i++) {
-            fenceStr += hook.geofence[j][0] + "," + hook.geofence[j][1] + "\n";
-        }
-        if (fenceStr.length > 0) {
-            fenceStr = fenceStr.substring(0, fenceStr.length - 1);
-        }
-        node.find(".hook-geofence").val(fenceStr);
+        node.find(".hook-geofence").val(hook.geofence);
     }
 
     /*
