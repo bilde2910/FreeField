@@ -100,6 +100,18 @@ class Config {
         if (self::$config === false) self::loadConfig();
 
         /*
+            Some settings may require certain preconditions to work properly.
+            Such settings have a boolean assertion defined in the
+            "enable-only-if" array key in the configuration tree. If that
+            assertion fails, a default value should be returned instead of the
+            actual value set in the configuration file.
+        */
+        $def = self::getDefinition($path);
+        if (isset($def["enable-only-if"]) && isset($def["value-if-disabled"])) {
+            if (!$def["enable-only-if"]) return $def["value-if-disabled"];
+        }
+
+        /*
             Since the configuration file is arranged as objects with subkeys, we
             have to iterate deeper into the JSON tree structure until we hit
             the object we need. To do so, we split the path of the setting we're

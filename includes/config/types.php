@@ -227,6 +227,7 @@ class BooleanOption extends DefaultOption {
 
         $id = isset($attrs["id"]) ? $attrs["id"] : null;
         $name = isset($attrs["name"]) ? $attrs["name"] : null;
+        $disabled = isset($attrs["disabled"]) && $attrs["disabled"];
 
         if ($current === true) $attrs["checked"] = true;
         $attrString = parent::constructAttributes($attrs);
@@ -280,6 +281,7 @@ class BooleanOption extends DefaultOption {
         */
         $fallbackAttrs = array();
         if ($name !== null) $fallbackAttrs["name"] = $name;
+        if ($disabled) $fallbackAttrs["disabled"] = true;
         $fallbackAttrString = parent::constructAttributes($fallbackAttrs);
 
         $html = '<input type="hidden" value="off"'.$fallbackAttrString.'>';

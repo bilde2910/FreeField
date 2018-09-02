@@ -8,9 +8,24 @@
 
     E.g. "setup/uri" is listed under the Access section on the main settings page.
 
-    Each setting has two options:
-    - "default" is the default value of the object
-    - "options" specifies the type of data to store.
+    Each setting may have the following options:
+
+    "default" (required)
+        The default value of the object.
+
+    "options" (required)
+        Specifies the type of data to store.
+
+    "enable-only-if" (optional)
+        A boolean assertion that, if it evaluates to false, will disable the
+        setting input on the administration pages, preventing it from being
+        changed. Used if a setting requires some precondition to be satisfied in
+        order to work properly.
+
+    "value-if-disabled" (optional; only if "enable-only-if" is set)
+        A value to return instead of the value in the configuration file if the
+        assertion in "enable-only-if" fails. If this option is not set, the
+        value in the configuration file is returned even if the assertion fails.
 
     Valid options are declared in /includes/config/types.php.
 

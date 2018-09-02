@@ -394,10 +394,25 @@ if (!$domains[$domain]["custom-handler"]) {
                                                         setting in /includes/config/tree.php (i.e.
                                                         the type of class in `$option`).
                                                     */
-                                                    echo $option->getControl($value, array(
+                                                    $attrs = array(
                                                         "name" => $setting,
                                                         "id" => str_replace("/", ".", $setting)
-                                                    ));
+                                                    );
+                                                    /*
+                                                        Some settings may require certain
+                                                        preconditions to work properly. Such
+                                                        settings have a boolean assertion defined
+                                                        in the "enable-only-if" array key in the
+                                                        configuration tree. If that assertion
+                                                        fails, the input control should be
+                                                        disabled.
+                                                    */
+                                                    if (isset($values["enable-only-if"])) {
+                                                        if (!$values["enable-only-if"]) {
+                                                            $attrs["disabled"] = true;
+                                                        }
+                                                    }
+                                                    echo $option->getControl($value, $attrs);
                                                 ?>
                                             </p>
                                         </div>
