@@ -363,6 +363,26 @@ class ConfigTree {
                     "security/validate-lang" => array(
                         "default" => true,
                         "option" => new BooleanOption()
+                    ),
+                    /*
+                        The session hijack canary is triggered when any of the
+                        above validation requirements fail for a user. While
+                        this could be caused by a session hijack, it may also be
+                        caused for completely legitimate reasons, such as a
+                        browser update causing strict user-agent validation to
+                        fail. Enabling the canary will cause the user to be
+                        signed out of FreeField on all of their devices if
+                        validation fails for one of them. In practice, this
+                        means that if an attacker obtains the user's session
+                        cookie, if they have e.g. the wrong user-agent or
+                        language on their browser, they will not be able to sign
+                        in with that cookie later even if they were to guess the
+                        correct user-agent or language because the cookie will
+                        be permanently invalidated.
+                    */
+                    "security/selector-canary" => array(
+                        "default" => false,
+                        "option" => new BooleanOption()
                     )
                 )
             ),

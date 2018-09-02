@@ -345,10 +345,11 @@ class Auth {
                                       ? $_SERVER["HTTP_ACCEPT_LANGUAGE"]
                                       : "";
         }
-        foreach ($selectors as $selector => $expectedValue) {
-            if ($session[$selector] != $expectedValue) return self::setReturnUser(new User(null));
-        }
 
+        /*
+            Fetch the user from the server. If the user doesn't have the token
+            specified in the session array, this will return `null`.
+        */
         $db = Database::getSparrow();
         $userdata = $db
             ->from(Database::getTable("user"))
@@ -358,6 +359,30 @@ class Auth {
                 Database::getTable("group").".level" => Database::getTable("user").".permission"
              ))
             ->one();
+
+        foreach ($selectors as $selector => $expectedValue) {
+            if ($session[$selector] != $expectedValue) {
+                if (Config::get("security/selector-canary")) {
+                    if ($userdata !== null) {
+                        /*
+                            Session hijack canary triggered. Invalidate the
+                            token stored in the database to sign out the user
+                            globally.
+                        */
+                        $token = substr(base64_encode(openssl_random_pseudo_bytes(32)), 0, 32);
+                        $data = array(
+                            "token" => $token
+                        );
+                        $db
+                            ->from(Database::getTable("user"))
+                            ->where("id", $session["id"])
+                            ->update($data)
+                            ->execute();
+                    }
+                }
+                return self::setReturnUser(new User(null));
+            }
+        }
 
         /*
             Create a `User` instance, cache it for future lookups, and return
