@@ -21,7 +21,7 @@
 
                 That same structure is available in the arrays in `$groups`.
             */
-            $groups = Auth::listPermissionLevels();
+            $groups = Auth::listGroups();
 
             /*
                 Sort the group list in descending order by their permission

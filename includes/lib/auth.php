@@ -454,7 +454,7 @@ class Auth {
 
         That same structure is the structure returned by this function.
     */
-    public static function listPermissionLevels() {
+    public static function listGroups() {
         /*
             To avoid repeat database lookups resulting from repeatedly calling
             this function, we'll check if the results have been cached first,
@@ -577,7 +577,7 @@ class Auth {
     */
     public static function getPermissionSelector($name = null, $id = null, $selectedLevel = 0) {
         $user = self::getCurrentUser();
-        $perms = self::listPermissionLevels();
+        $perms = self::listGroups();
         $opts = "";
 
         // Current group

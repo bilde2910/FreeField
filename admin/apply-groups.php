@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     That same structure is available in the arrays in `$grouplist` and
     `$groups_assoc`.
 */
-$grouplist = Auth::listPermissionLevels();
+$grouplist = Auth::listGroups();
 $groups_assoc = array();
 
 foreach ($grouplist as $group) {
