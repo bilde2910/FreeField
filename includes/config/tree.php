@@ -318,6 +318,7 @@ class ConfigTree {
                     )
                 ),
                 "sessions" => array(
+                    "__hasdesc" => true,
                     /*
                         How long a user should stay logged in when they authenticate.
                     */

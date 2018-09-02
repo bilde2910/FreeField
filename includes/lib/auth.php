@@ -95,9 +95,12 @@ class Auth {
         removes version numbers from the string, meaning browser and system
         updates won't invalidate the session.
     */
-    private static function getVersionlessUserAgent() {
-        if (!isset($_SERVER["HTTP_USER_AGENT"])) return "";
-        return preg_replace('@/[^ ]+@', "", $_SERVER["HTTP_USER_AGENT"]);
+    private static function getVersionlessUserAgent($uastring = null) {
+        if ($uastring === null) {
+            if (!isset($_SERVER["HTTP_USER_AGENT"])) return "";
+            $uastring = $_SERVER["HTTP_USER_AGENT"];
+        }
+        return preg_replace('@/[^ ]+@', "", $uastring);
     }
 
     /*
@@ -225,8 +228,15 @@ class Auth {
             cookie and uses it on a machine running a different browser or
             system language.
         */
-        if (Config::get("security/validate-ua")) {
-            $session["http-ua"] = self::getVersionlessUserAgent();
+        switch (Config::get("security/validate-ua")) {
+            case "lenient":
+                $session["http-ua"] = self::getVersionlessUserAgent();
+                break;
+            case "strict":
+                $session["http-ua"] = isset($_SERVER["HTTP_USER_AGENT"])
+                                      ? $_SERVER["HTTP_USER_AGENT"]
+                                      : "";
+                break;
         }
         if (Config::get("security/validate-lang")) {
             $session["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])
@@ -320,8 +330,15 @@ class Auth {
             security.
         */
         $selectors = array();
-        if (Config::get("security/validate-ua")) {
-            $selectors["http-ua"] = self::getVersionlessUserAgent();
+        switch (Config::get("security/validate-ua")) {
+            case "lenient":
+                $selectors["http-ua"] = self::getVersionlessUserAgent();
+                break;
+            case "strict":
+                $selectors["http-ua"] = isset($_SERVER["HTTP_USER_AGENT"])
+                                      ? $_SERVER["HTTP_USER_AGENT"]
+                                      : "";
+                break;
         }
         if (Config::get("security/validate-lang")) {
             $selectors["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])
