@@ -748,7 +748,7 @@ class User {
         /*
             Anonymous/unauthenticated/unapproved users default to 0.
         */
-        if (!$this->exists()) return 0;
+        if (!$this->exists() || !$this->isApproved()) return 0;
 
         $perm = $this->data["permission"];
 
