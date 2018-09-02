@@ -432,6 +432,29 @@ class ConfigTree {
                 Appearance settings
             */
             "themes" => array(
+                "meta" => array(
+                    /*
+                        The icon displayed for this site in the address bar.
+                        *.png, *.gif, *.ico, and *.jpg files are allowed. Must
+                        not exceed 256 KiB.
+                    */
+                    "themes/meta/favicon" => array(
+                        "default" => array(
+                            "type" => "image/png",
+                            "name" => "default-favicon.png",
+                            "size" => 10042
+                        ),
+                        "option" => new FileOption(
+                            "themes/meta/favicon",
+                            array(
+                                "image/png" => "png",
+                                "image/gif" => "gif",
+                                "image/x-icon" => "ico",
+                                "image/jpeg" => "jpg"
+                            ), 256 * 1024 // Max 256 KiB
+                        )
+                    )
+                ),
                 "color" => array(
                     /*
                         Select the color theme of the administration pages.

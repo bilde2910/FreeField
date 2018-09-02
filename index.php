@@ -32,6 +32,16 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
                         true,
                         Config::get("site/name")
                     ); ?></title>
+                    <link rel="shortcut icon"
+                          href="./themes/favicon.php?t=<?php
+                            /*
+                                Force refresh the favicon by appending the last
+                                changed time of the file to the path.
+                                https://stackoverflow.com/a/7116701
+                            */
+                            echo Config::getDefinition("themes/meta/favicon")["option"]
+                                 ->applyToCurrent()->getUploadTime();
+                          ?>">
                     <link rel="stylesheet"
                           href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
                           integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
@@ -102,6 +112,15 @@ $provider = Config::get("map/provider/source");
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script src="./js/clientside-i18n.php"></script>
+        <link rel="shortcut icon"
+              href="./themes/favicon.php?t=<?php
+                /*
+                    Force refresh the favicon by appending the last changed time
+                    of the file to the path. https://stackoverflow.com/a/7116701
+                */
+                echo Config::getDefinition("themes/meta/favicon")["option"]
+                     ->applyToCurrent()->getUploadTime();
+              ?>">
         <link rel="stylesheet"
               href="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css">
         <link rel="stylesheet"
