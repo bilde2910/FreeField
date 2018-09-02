@@ -85,7 +85,7 @@ function __require($require) {
             Loads Sparrow specifically. Used in /includes/lib/db.php.
         */
         case "vendor/sparrow":
-            include_once(__DIR__."./../../vendor/mikecao/sparrow/sparrow.php");
+            include_once(__DIR__."/../../vendor/mikecao/sparrow/sparrow.php");
             break;
     }
 }
