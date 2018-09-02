@@ -381,7 +381,7 @@ if (!$domains[$domain]["custom-handler"]) {
                                                     */
                                                     echo $option->getControl($value, array(
                                                         "name" => $setting,
-                                                        "id" => $setting
+                                                        "id" => str_replace("/", ".", $setting)
                                                     ));
                                                 ?>
                                             </p>
