@@ -586,7 +586,7 @@ class User {
         array actually contains any data) to see if the user exists.
     */
     public function exists() {
-        return $this->data !== null && count($this->data > 0);
+        return $this->data !== null && count($this->data) > 0;
     }
 
     /*
