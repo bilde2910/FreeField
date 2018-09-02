@@ -698,6 +698,17 @@ class IconPackOption extends DefaultOption {
         This script ensures that the preview is displayed for the selected icon
         pack when the page loads, and also adds an event handler to update it if
         the icon pack selection changes.
+
+        NOTE: Some other scripts in FreeField have copied this selector script
+        for use with some changes. If you want to make changes to this script,
+        do a project-wide search for "viewTheme" to find all instances of
+        variations of this script. Ensure you apply changes to the function to
+        all instances of it in the project.
+
+        TODO: Centralize this script to /js/option.js to make unified changes.
+        This is a risky change and needs to be carefully implemented with
+        consideration to how e.g. the icon set option for webhooks works with
+        event handlers and dynamically created icon selectors.
     */
     public function getSelectorScript() {
         return 'viewTheme("'.$this->id.'", document.getElementById("'.$this->id.'").value);
