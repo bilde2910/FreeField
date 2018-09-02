@@ -198,7 +198,8 @@ class Geo {
     }
 
     /*
-        Returns an array of `POI` instances every POI in the database.
+        Returns an array of `POI` instances representing each POI in the
+        database.
     */
     public static function listPOIs() {
         __require("db");
