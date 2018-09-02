@@ -181,7 +181,7 @@ class Config {
             Return the definition (default value and options) for the given
             settings path.
         */
-        return $flat[$path];
+        return isset($flat[$path]) ? $flat[$path] : null;
     }
 
     /*
