@@ -87,6 +87,13 @@ function __require($require) {
         case "vendor/sparrow":
             include_once(__DIR__."/../../vendor/mikecao/sparrow/sparrow.php");
             break;
+
+        /*
+            Loads the PHP QR Code library. This is not obtained via Composer.
+        */
+        case "vendor/phpqrcode":
+            include_once(__DIR__."/../vendor/phpqrcode.php");
+            break;
     }
 }
 
