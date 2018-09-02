@@ -37,6 +37,13 @@ body {
     background-color: #aaa;
 }
 
+.button-standard.button-red {
+    background-color: #d95c5c;
+}
+.button-standard.button-green {
+    background-color: #4d9d4d;
+}
+
 /* Background color for tooltips on admin pages. */
 .tooltip span {
     background-color: black;

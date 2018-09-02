@@ -126,6 +126,12 @@ input.button-submit, input.button-standard {
 .button-standard:active {
     background-color: #7f7f7f;
 }
+.button-standard.button-red:active {
+    background-color: #cf3333;
+}
+.button-standard.button-green:active {
+    background-color: #218521;
+}
 
 /* Full-width/block style buttons */
 .split-button {
