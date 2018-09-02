@@ -112,6 +112,21 @@ $provider = Config::get("map/provider/source");
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script src="./js/clientside-i18n.php"></script>
+        <script>
+            /*
+                Display options for `IconPackOption` selectors; required by
+                `viewTheme()` in /js/option.js.
+            */
+            var isc_opts = <?php
+                echo json_encode(array(
+                    "themedata" => IconPackOption::getIconSetDefinitions(),
+                    "icons" => Theme::listIcons(),
+                    "baseuri" => Config::getEndpointUri("/"),
+                    "colortheme" => Config::get("themes/color/user-settings/theme")
+                ));
+            ?>;
+        </script>
+        <script src="./js/option.js?t=<?php echo time(); ?>"></script>
         <link rel="shortcut icon"
               href="./themes/favicon.php?t=<?php
                 /*
@@ -1265,6 +1280,12 @@ $provider = Config::get("map/provider/source");
                                    'type="text/css" ' +
                                    'href="./css/' + settings.get("theme") +
                                          '.css?v=<?php echo time(); ?>">');
+
+            /*
+                Configure the `IconPackOption` selector to use the correct user
+                theme color.
+            */
+            isc_opts.colortheme = settings.get("theme");
 
             /*
                 Configure MapBox.

@@ -616,15 +616,6 @@ class IconPackOption extends DefaultOption {
     private static $packs = null;
 
     /*
-        This variable is used to check if this instance of `IconPackOption` is
-        the first one output on a page. This is because the script responsible
-        for enabling `IconPackOption` functionality (the `viewTheme()` function)
-        should only be present once on a page and then reused for subsequent
-        instances.
-    */
-    private static $firstOnPage = true;
-
-    /*
         If a default (fallback) option is present, `$includeDefault` is set to
         the I18N token representing the default option label.
     */
@@ -641,24 +632,6 @@ class IconPackOption extends DefaultOption {
 
     public function __construct($includeDefault = null) {
         $this->includeDefault = $includeDefault;
-
-        /*
-            Populate the list of installed icon packs. This function reads the
-            content of all available pack.ini files (one for each icon pack) and
-            stores them in memory for use when displaying the control later. The
-            ID of each icon pack is the name of the directory in which the icon
-            pack resides.
-        */
-        if (self::$packs === null) {
-            self::$packs = array();
-            $themepath = __DIR__."/../../themes/icons";
-            $themes = array_diff(scandir($themepath), array('..', '.'));
-            foreach ($themes as $theme) {
-                if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
-                $data = parse_ini_file("{$themepath}/{$theme}/pack.ini", true);
-                self::$packs[$theme] = $data;
-            }
-        }
     }
 
     public function getControl($current = null, $attrs = array()) {
@@ -696,28 +669,13 @@ class IconPackOption extends DefaultOption {
         `IconPackOption` has been added to the page. The output of the function
         is rendered as a block underneath the setting line. It contains a
         preview of all of the icons in the icon pack. The block also contains
-        the script files that ensure functionality (the main script) as well as
         the event binder script that attaches a selection event handler to the
         selection box so that the preview is updated whenever the selection
-        changes (the selector script). These are both output by default, but can
-        be suppressed using the two arguments to this function.
+        changes (the selector script). This is output by default, but can be
+        suppressed using the `$includeSelectorScript` argument to this function.
     */
-    public function getFollowingBlock($includeMainScript = true, $includeSelectorScript = true) {
+    public function getFollowingBlock($includeSelectorScript = true) {
         $out = "";
-
-        /*
-            The main script defines a method that will update the icon pack
-            preview box with a given ID based on the ID of a theme passed to it.
-            This should only be output once on the page to avoid duplicate
-            versions of this function, but can also be suppressed entirely.
-        */
-        if (self::$firstOnPage) {
-            self::$firstOnPage = false;
-            if ($includeMainScript) {
-                $script = self::getScript();
-                $out .= $script;
-            }
-        }
 
         /*
             The preview box can only be added to the page if the selection box
@@ -749,85 +707,28 @@ class IconPackOption extends DefaultOption {
     }
 
     /*
-        The main script that is responsible for actually changing the icon pack
-        preview. TODO: Move this to /js/main.js.
+        Returns an array of installed icon sets, together with their pack.ini
+        definitions.
     */
-    public static function getScript() {
-        __require("theme");
-
-        $script = '<script type="text/javascript">
-            var themedata = '.json_encode(self::$packs, JSON_PRETTY_PRINT).';
-
-            function viewTheme(selectorID, theme) {
-                var box = document.getElementById("iconviewer-" + selectorID);
-                box.innerHTML = "";
-
-                if (theme === "") return;
-
-                var variants = ["light", "dark"];
-                var varbox = {};
-
-                for (var i = 0; i < variants.length; i++) {
-                    varbox[variants[i]] = document.createElement("div");
-                    varbox[variants[i]].style.width = "calc(100% - 20px)";
-                    varbox[variants[i]].style.padding = "10px";
-                }
-
-                varbox["light"].style.backgroundColor = "#ccc";
-                varbox["dark"].style.backgroundColor = "#333";
-
-                var tdata = themedata[theme];
-
-                var icons = '.json_encode(Theme::listIcons()).';
-
-                for (var i = 0; i < icons.length; i++) {
-                    var uri = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/";
-                    if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(icons[i])) {
-                        uri += tdata["vector"][icons[i]];
-                    } else if (tdata.hasOwnProperty("raster") && tdata["raster"].hasOwnProperty(icons[i])) {
-                        uri += tdata["raster"][icons[i]];
-                    } else {
-                        uri = null;
-                    }
-
-                    if (uri != null) {
-                        for (var j = 0; j < variants.length; j++) {
-                            var icobox = document.createElement("img");
-                            icobox.src = uri.split("{%variant%}").join(variants[j]);
-                            icobox.style.width = "68px";
-                            icobox.style.height = "68px";
-                            icobox.style.margin = "5px";
-                            varbox[variants[j]].appendChild(icobox);
-                        }
-                    }
-                }
-
-                if (tdata.hasOwnProperty("logo")) {
-                    var logo = document.createElement("img");
-                    logo.src = "'.Config::getEndpointUri("/").'themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join('.Config::getJS("themes/color/admin").');
-                    logo.style.width = "400px";
-                    logo.style.maxWidth = "100%";
-                    logo.marginTop = "20px";
-                    box.appendChild(logo);
-                }
-
-                var name = document.createElement("h2");
-                name.innerText = tdata.name;
-                name.style.color = "#'.(Config::get("themes/color/admin") == "dark" ? "ccc" : "333").'";
-                name.style.marginBottom = "0";
-                box.appendChild(name);
-
-                var author = document.createElement("p");
-                author.innerText = "Authored by " + tdata.author;
-                box.appendChild(author);
-
-                for (var i = 0; i < variants.length; i++) {
-                    box.appendChild(varbox[variants[i]]);
-                }
-
+    public static function getIconSetDefinitions() {
+        /*
+            Populate the list of installed icon sets. This function reads the
+            content of all available pack.ini files (one for each icon set) and
+            stores them in memory for use when displaying the control later. The
+            ID of each icon set is the name of the directory in which the icon
+            set resides.
+        */
+        if (self::$packs === null) {
+            self::$packs = array();
+            $themepath = __DIR__."/../../themes/icons";
+            $themes = array_diff(scandir($themepath), array('..', '.'));
+            foreach ($themes as $theme) {
+                if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
+                $data = parse_ini_file("{$themepath}/{$theme}/pack.ini", true);
+                self::$packs[$theme] = $data;
             }
-        </script>';
-        return $script;
+        }
+        return self::$packs;
     }
 
     public function parseValue($data) {

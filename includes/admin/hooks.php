@@ -694,23 +694,6 @@
     </div>
 </div>
 
-<?php
-    /*
-        Webhooks allow setting a custom icon pack to be used for image displays
-        in webhook messages. The icon pack selector requires a script to work
-        properly. Echo this script to the page to ensure its functionality. This
-        would normally not have to be done manually, since `IconPackOption`
-        outputs the script by default when the control is first added to the
-        page. However, on this page, the `getFollowingBlock()` function of
-        `IconPackOption`, which normally outputs this script, is called in such
-        a way as to explicitly not output it. More information on why it is
-        being done in this way is detailed on the comments for the call to
-        `getFollowingBlock()` in the `createHookNode()` JavaScript function
-        later in this file.
-    */
-    echo IconPackOption::getScript();
-?>
-
 <script type="text/javascript" src="../js/clientside-i18n.php"></script>
 <script>
     /*
@@ -797,16 +780,9 @@
 
                 This block contains a call to
                 `IconPackOption::getFollowingBlock()`. The call has been
-                structured to suppress outputting the script that enables
-                previewing functionality for icon packs. This is because only a
-                single instance of this script should ever be present on the
-                page. `createHookNode()` will likely be called several times, as
-                such adding the script several times to the page if it was
-                included here (which it would be if the script output was not
-                explicitly suppressed).
-
-                This has been compensated for by outputting the script higher up
-                on this page.
+                structured to suppress outputting the script that binds event
+                handlers for the icon pack selector. The event handler is bound
+                in /admin/js/hooks.js instead.
             */
             $hookCommonSettings = '
             <div class="pure-g">
@@ -829,7 +805,7 @@
                     )).'</p>
                 </div>
             </div>
-            '.$opt->getFollowingBlock(false, false).'
+            '.$opt->getFollowingBlock(false).'
             <div class="pure-g">
                 <div class="pure-u-1-3 full-on-mobile">
                     <p>'.I18N::resolveHTML("setting.hooks.hook_list.geofence.name").':</p>

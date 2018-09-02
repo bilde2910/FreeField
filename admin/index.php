@@ -178,6 +178,21 @@ if (!$domains[$domain]["custom-handler"]) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
+        <script>
+            /*
+                Display options for `IconPackOption` selectors; required by
+                `viewTheme()` in /js/option.js.
+            */
+            var isc_opts = <?php
+                echo json_encode(array(
+                    "themedata" => IconPackOption::getIconSetDefinitions(),
+                    "icons" => Theme::listIcons(),
+                    "baseuri" => Config::getEndpointUri("/"),
+                    "colortheme" => Config::get("themes/color/admin")
+                ));
+            ?>;
+        </script>
+        <script src="../js/option.js?t=<?php echo time(); ?>"></script>
         <link rel="shortcut icon"
               href="../themes/favicon.php?t=<?php
                 /*
