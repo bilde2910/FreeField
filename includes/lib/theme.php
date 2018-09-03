@@ -142,6 +142,11 @@ class IconSet {
             $url = self::getExplicitIconUrl($entry);
             if ($url !== null) return $url;
         }
+
+        /*
+            If no URLs were found at all, return null.
+        */
+        return null;
     }
 
     /*
@@ -183,6 +188,11 @@ class IconSet {
             $url = self::getExplicitRasterUrl($entry);
             if ($url !== null) return $url;
         }
+
+        /*
+            If no URLs were found at all, return null.
+        */
+        return null;
     }
 
     /*
