@@ -60,8 +60,11 @@ foreach ($grouplist as $group) {
 /*
     Create an array for updates, as well as an array for deletes, to be applied
     in one batch later. Changes to group permission levels are applied
-    separately later, so we'll create an array for those too.
+    separately later, so we'll create an array for those too. `$insertions` is
+    an array containing INSERT arrays passed to the SQL server to add new
+    groups.
 */
+$insertions = array();
 $updates = array();
 $deletes = array();
 $levelchanges = array();
@@ -72,15 +75,36 @@ foreach ($_POST as $group => $data) {
         These all have field names in the format "g<groupID>". If this matches,
         extract the group ID from the field name.
     */
-    if (strlen($group) < 1 || substr($group, 0, 1) !== "g") continue;
+    if (strlen($group) < 2 || substr($group, 0, 1) !== "g") continue;
     $gid = substr($group, 1);
+
+    /*
+        New groups have `$_POST` IDs starting with "gn_".
+    */
+    $newGroup = substr($group, 1, 1) === "n";
+
+    /*
+        If the group is new, create an instance rather than fetching one from
+        the groups array. Ensure that all of this group's fields are also in the
+        updates array.
+    */
+    if ($newGroup) {
+        $updates[$gid] = array(
+            "level" => 0,
+            "label" => "",
+            "color" => NULL
+        );
+        $groupInstance = $updates[$gid];
+    } else {
+        $groupInstance = $groups_assoc[$gid];
+    }
 
     /*
         Users cannot make changes to groups at or above their own permission
         level. Enforce this by matching the current user's permission level
         against that of the group they are changing.
     */
-    if (!Auth::getCurrentUser()->canChangeAtPermission($groups_assoc[$gid]["level"])) {
+    if (!Auth::getCurrentUser()->canChangeAtPermission($groupInstance["level"])) {
         continue;
     }
 
@@ -97,7 +121,7 @@ foreach ($_POST as $group => $data) {
         Handle changes to the group parameters, such as label and color. If
         there are changes, they should be added to the updates queue.
     */
-    if ($groups_assoc[$gid]["label"] !== $data["label"]) {
+    if ($groupInstance["label"] !== $data["label"]) {
         $updates[$gid]["label"] = $data["label"];
     }
 
@@ -112,10 +136,10 @@ foreach ($_POST as $group => $data) {
         selected. Strip this sign out of the color code before saving it to the
         database.
     */
-    if (isset($data["usecolor"]) && $groups_assoc[$gid]["color"] !== substr($data["color"], -6)) {
+    if (isset($data["usecolor"]) && $groupInstance["color"] !== substr($data["color"], -6)) {
         $updates[$gid]["color"] = substr($data["color"], -6);
     }
-    if (!isset($data["usecolor"]) && $groups_assoc[$gid]["color"] !== null) {
+    if (!isset($data["usecolor"]) && $groupInstance["color"] !== null) {
         $updates[$gid]["color"] = NULL;
     }
 
@@ -126,13 +150,33 @@ foreach ($_POST as $group => $data) {
         privilege escalation attacks. If the user has permission to make the
         change, add the change to the list of level changes.
     */
-    if ($groups_assoc[$gid]["level"] != $data["level"]) {
-        $old = intval($groups_assoc[$gid]["level"]);
+    if ($groupInstance["level"] != $data["level"]) {
+        $old = intval($groupInstance["level"]);
         $new = intval($data["level"]);
         $max = max($old, $new);
         if (Auth::getCurrentUser()->canChangeAtPermission($max)) {
-            $levelchanges[$old] = $new;
+            /*
+                If this group is new, there is no reason to add the level change
+                to the level changes processing array. This would normally be
+                done to change the level of an existing group, though since a
+                new group doesn't have an existing group to change, we can just
+                insert it directly.
+            */
+            if ($newGroup) {
+                $updates[$gid]["level"] = $new;
+            } else {
+                $levelchanges[$old] = $new;
+            }
         }
+    }
+
+    /*
+        New groups should be INSERTed rather than UPDATEd, so we'll remove it
+        from the updates array and put it into a separate insertion array.
+    */
+    if ($newGroup) {
+        $insertions[] = $updates[$gid];
+        unset($updates[$gid]);
     }
 }
 
@@ -331,10 +375,30 @@ foreach ($flattree as $path => $values) {
 Config::set($configchanges);
 
 /*
-    Level change transaction ends here. Proceed with group deletion requests in
-    the same way user deletion requests are treated (no special considerations
-    need to be taken for groups vs. users).
+    Level change transaction ends here. Proceed with group insertions (no
+    special considerations need to be taken for these cases as there is no
+    existing group in the database whose values need to be changed in a way that
+    could cause deadlock issues).
 */
+
+foreach ($insertions as $group) {
+    /*
+        Apply the insertion queue to the database. The Sparrow library does not
+        handle `null` values correctly, so rather than have Sparrow execute the
+        insert query for us, we'll request the SQL query that it would execute,
+        replace all instances of an empty `color` field with a NULL `color`
+        field, then execute the query manually.
+    */
+    $query = $db
+        ->from(Database::getTable("group"))
+        ->insert($group)
+        ->sql();
+
+    $query = str_replace(",''", ",NULL", $query);
+    $db
+        ->sql($query)
+        ->execute();
+}
 
 /*
     When all other changes are committed, process the deletion queue and remove

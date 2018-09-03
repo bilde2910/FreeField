@@ -55,7 +55,7 @@
                     <th><?php echo I18N::resolveHTML("admin.table.groups.group_list.column.actions.name"); ?></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="group-list">
                 <?php
                     foreach ($groups as $group) {
                         $gid = $group["group_id"];
@@ -115,70 +115,32 @@
                                             name="g<?php echo $gid; ?>[action]"
                                             <?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                         <option value="none" selected>
-                                            <?php echo I18N::resolveHTML("admin.section.groups.group_list.action.none"); ?>
+                                            <?php echo I18N::resolveHTML("admin.clientside.section.groups.group_list.action.none"); ?>
                                         </option>
                                         <option value="delete">
-                                            <?php echo I18N::resolveHTML("admin.section.groups.group_list.action.delete"); ?>
+                                            <?php echo I18N::resolveHTML("admin.clientside.section.groups.group_list.action.delete"); ?>
                                         </option>
                                     </select>
                                 </td>
-                            </td>
+                            </tr>
                         <?php
                     }
                 ?>
             </tbody>
         </table>
-        <script>
-            /*
-                Handle changes to the Actions down-down for groups. If the
-                "delete" action is selected, the box should be re-styled to make
-                it very obvious that the group will be deleted (i.e. it
-                shouldn't be possible to do it by accident). Setting the border
-                and text color to red should draw enough attention to the box
-                that accidental deletions doesn't happen (or at least happens
-                very rarely).
-            */
-            $(".group-actions").on("change", function() {
-                if ($(this).val() == "delete") {
-                    $(this).css("border", "1px solid red");
-                    $(this).css("color", "red");
-                    $(this).css("margin-right", "");
-                } else {
-                    $(this).css("border", "");
-                    $(this).css("color", "");
-                    $(this).css("margin-right", "");
-                }
-            });
-
-            /*
-                If the group color is changed, then the checkbox that sets the
-                color to non-null should be set, since the user wants a color
-                for the group. Vice versa, unchecking the checkbox should reset
-                the color selector.
-            */
-            $(".group-color-selector > input[type=color]").on("change", function() {
-                $(this).parent().find("input[type=checkbox]").prop("checked", true);
-            });
-            $(".group-color-selector > input[type=checkbox]").on("change", function() {
-                if (!$(this).is(":checked")) {
-                    $(this).parent().find("input[type=color]").val("#000000");
-                }
-            });
-
-            /*
-                Changes to inputs on the form are tracked to stop data being
-                accidentally discarded if the user tries to navigate away from
-                the page without saving the settings. Ensure that the warning
-                isn't displayed if the user clicks on the submit button.
-            */
-            $("form").on("submit", function() {
-                unsavedChanges = false;
-            });
-        </script>
         <p class="buttons">
+            <input type="button"
+                   id="group-new"
+                   class="button-standard"
+                   value="<?php echo I18N::resolveHTML("admin.section.groups.ui.add.name"); ?>">
             <input type="submit"
                    class="button-submit"
                    value="<?php echo I18N::resolveHTML("ui.button.save"); ?>">
         </p>
     </form>
 </div>
+<script type="text/javascript" src="../js/clientside-i18n.php"></script>
+<!--
+    /admin/js/groups.js contains additional functionality for this page.
+-->
+<script type="text/javascript" src="./js/groups.js"></script>
