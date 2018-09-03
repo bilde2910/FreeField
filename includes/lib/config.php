@@ -436,6 +436,17 @@ class Config {
                 case 10:
                     self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]][$s[6]][$s[7]][$s[8]][$s[9]] = $value;
                     break;
+                default:
+                    /*
+                        There should be no legitimate reason to ever nest a
+                        setting this deeply, but if it happens, an exception
+                        should probably be thrown.
+                    */
+                    throw new Exception("Setting {$option} cannot be saved due to excessive ".
+                                        "nesting depth! If you see this message, please raise ".
+                                        "a ticket on the FreeField GitHub repository immediately! ".
+                                        "This is not supposed to happen!");
+                    exit;
             }
         }
         /*
