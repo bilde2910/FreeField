@@ -23,7 +23,7 @@ class Geo {
 
             {%LAT%} - Target latitude
             {%LON%} - Target longitude
-            {%name%} - Name of the target location
+            {%NAME%} - Name of the target location
 
         The purpose of this function is to centralize navigation providers to a
         single place in the code. Each provider offers a URL that, when
