@@ -62,10 +62,10 @@
                                     <select class="fence-actions"
                                             name="fence_<?php echo $fid; ?>[action]">
                                         <option value="none" selected>
-                                            <?php echo I18N::resolveHTML("admin.clientside.section.fences.fence_list.action.none"); ?>
+                                            <?php echo I18N::resolveHTML("admin.clientside.fences.fence_list.action.none"); ?>
                                         </option>
                                         <option value="delete">
-                                            <?php echo I18N::resolveHTML("admin.clientside.section.fences.fence_list.action.delete"); ?>
+                                            <?php echo I18N::resolveHTML("admin.clientside.fences.fence_list.action.delete"); ?>
                                         </option>
                                     </select>
                                 </td>

@@ -115,10 +115,10 @@
                                             name="g<?php echo $gid; ?>[action]"
                                             <?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                         <option value="none" selected>
-                                            <?php echo I18N::resolveHTML("admin.clientside.section.groups.group_list.action.none"); ?>
+                                            <?php echo I18N::resolveHTML("admin.clientside.groups.group_list.action.none"); ?>
                                         </option>
                                         <option value="delete">
-                                            <?php echo I18N::resolveHTML("admin.clientside.section.groups.group_list.action.delete"); ?>
+                                            <?php echo I18N::resolveHTML("admin.clientside.groups.group_list.action.delete"); ?>
                                         </option>
                                     </select>
                                 </td>

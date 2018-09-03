@@ -135,7 +135,7 @@ $("#group-new").on("click", function() {
             '</td>' +
             '<td>' +
                 '<input type="text" name="gn_{%ID%}[label]"' +
-                       'value="' + resolveI18N("admin.clientside.section.groups.new") + '">' +
+                       'value="' + resolveI18N("admin.clientside.groups.new") + '">' +
             '</td>' +
             '<td>' +
                 '<input type="number" min="0" max="250" name="gn_{%ID%}[level]" value="0">' +
@@ -147,10 +147,10 @@ $("#group-new").on("click", function() {
             '<td>' +
                 '<select class="group-actions" name="gn_{%ID%}[action]">' +
                     '<option value="none" selected>' +
-                        resolveI18N("admin.clientside.section.groups.group_list.action.none") +
+                        resolveI18N("admin.clientside.groups.group_list.action.none") +
                     '</option>' +
                     '<option value="delete">' +
-                        resolveI18N("admin.clientside.section.groups.group_list.action.delete") +
+                        resolveI18N("admin.clientside.groups.group_list.action.delete") +
                     '</option>' +
                 '</select>' +
             '</td>' +

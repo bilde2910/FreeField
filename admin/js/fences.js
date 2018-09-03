@@ -93,10 +93,10 @@ $("#geofence-new").on("click", function() {
             '<td>' +
                 '<select class="fence-actions" name="fence_{%ID%}[action]">' +
                     '<option value="none" selected>' +
-                        resolveI18N("admin.clientside.section.fences.fence_list.action.none") +
+                        resolveI18N("admin.clientside.fences.fence_list.action.none") +
                     '</option>' +
                     '<option value="delete">' +
-                        resolveI18N("admin.clientside.section.fences.fence_list.action.delete") +
+                        resolveI18N("admin.clientside.fences.fence_list.action.delete") +
                     '</option>' +
                 '</select>' +
             '</td>' +
