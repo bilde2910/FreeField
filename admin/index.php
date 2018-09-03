@@ -252,7 +252,7 @@ if (!$domains[$domain]["custom-handler"]) {
                             </span><br>
                         </div>
                         <li class="pure-menu-item">
-                            <a href="./auth/logout.php" class="pure-menu-link">
+                            <a href="../auth/logout.php" class="pure-menu-link">
                                 <i class="menu-fas fas fa-sign-in-alt"></i>
                                 <?php echo I18N::resolveHTML("sidebar.logout"); ?>
                             </a>
