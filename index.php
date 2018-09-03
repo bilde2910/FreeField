@@ -245,640 +245,640 @@ $provider = Config::get("map/provider/source");
 
             <div id="main">
                 <div id="map-container">
-                <!--
-                    The banner container. Banners created by `spawnBanner()`
-                    in /js/main.js are added here.
-                -->
-                <div id="dynamic-banner-container">
-                </div>
-                <!--
-                    A special banner that shows up when the user is asked to
-                    click on the map to select the location for a new POI.
-                -->
-                <div id="add-poi-banner" class="banner">
-                    <div class="banner-inner">
-                        <?php echo I18N::resolveArgsHTML(
-                            "poi.add.instructions",
-                            false,
-                            '<a href="#" id="add-poi-cancel-banner">',
-                            '</a>'
-                        ); ?>
+                    <!--
+                        The banner container. Banners created by `spawnBanner()`
+                        in /js/main.js are added here.
+                    -->
+                    <div id="dynamic-banner-container">
                     </div>
-                </div>
-                <!--
-                    POI details overlay. Contains details such as the POI's
-                    name, its current active field research, means of reporting
-                    research to the POI (if permission is granted to do so), and
-                    a button to get directions to the POI on a turn-based
-                    navigation service. The overlay is opened whenever the user
-                    clicks on a marker on the map.
-                -->
-                <div id="poi-details" class="cover-box">
-                    <div class="cover-box-inner">
-                        <div class="header">
-                            <h1 id="poi-name" class="head-small"></h1>
-                        </div>
-                        <div class="cover-box-content content">
-                            <div class="pure-g">
-                                <div class="pure-u-1-2 right-align">
-                                    <img id="poi-objective-icon" src="about:blank" class="bigmarker">
-                                </div>
-                                <div class="pure-u-1-2">
-                                    <img id="poi-reward-icon" src="about:blank" class="bigmarker">
-                                </div>
-                            </div>
-                            <p class="centered">
-                                <?php echo I18N::resolveArgsHTML(
-                                    "poi.objective_text",
-                                    false,
-                                    '<strong id="poi-objective" class="strong-color"></strong>',
-                                    '<strong id="poi-reward" class="strong-color"></strong>'
-                                ); ?>
-                            </p>
-                            <div class="cover-button-spacer"></div>
-                            <div class="pure-g">
-                                <div class="pure-u-1-1 right-align">
-                                    <span type="button" id="poi-add-report"
-                                          class="button-standard split-button">
-                                        <?php echo I18N::resolveHTML("poi.report_research"); ?>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="pure-g">
-                                <div class="pure-u-1-2 right-align">
-                                    <span type="button"
-                                          id="poi-directions"
-                                          class="button-standard split-button button-spaced left">
-                                        <?php echo I18N::resolveHTML("poi.directions"); ?>
-                                    </span>
-                                </div>
-                                <div class="pure-u-1-2">
-                                    <span type="button"
-                                          id="poi-close"
-                                          class="button-standard split-button button-spaced right">
-                                        <?php echo I18N::resolveHTML("ui.button.close"); ?>
-                                    </span>
-                                </div>
-                            </div>
+                    <!--
+                        A special banner that shows up when the user is asked to
+                        click on the map to select the location for a new POI.
+                    -->
+                    <div id="add-poi-banner" class="banner">
+                        <div class="banner-inner">
+                            <?php echo I18N::resolveArgsHTML(
+                                "poi.add.instructions",
+                                false,
+                                '<a href="#" id="add-poi-cancel-banner">',
+                                '</a>'
+                            ); ?>
                         </div>
                     </div>
-                </div>
-                <!--
-                    New POI overlay that's shown when the user is adding a new
-                    POI to the map, and they have clicked on the location on the
-                    map where they wish the new POI to be added. The overlay
-                    dialog asks for the name of the POI to be added, and
-                    confirms its coordinates.
-                -->
-                <div id="add-poi-details" class="cover-box">
-                    <div class="cover-box-inner">
-                        <div class="header">
-                            <h1><?php echo I18N::resolveHTML("poi.add.title"); ?></h1>
-                        </div>
-                        <div class="cover-box-content content pure-form">
-                            <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile">
-                                    <p><?php echo I18N::resolveHTML("poi.add.name"); ?>:</p>
-                                </div>
-                                <div class="pure-u-2-3 full-on-mobile">
-                                    <p><input type="text" id="add-poi-name"></p>
-                                </div>
+                    <!--
+                        POI details overlay. Contains details such as the POI's
+                        name, its current active field research, means of
+                        reporting research to the POI (if permission is granted
+                        to do so), and a button to get directions to the POI on
+                        a turn-based navigation service. The overlay is opened
+                        whenever the user clicks on a marker on the map.
+                    -->
+                    <div id="poi-details" class="cover-box">
+                        <div class="cover-box-inner">
+                            <div class="header">
+                                <h1 id="poi-name" class="head-small"></h1>
                             </div>
-                            <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile">
-                                    <p><?php echo I18N::resolveHTML("poi.add.latitude"); ?>:</p>
+                            <div class="cover-box-content content">
+                                <div class="pure-g">
+                                    <div class="pure-u-1-2 right-align">
+                                        <img id="poi-objective-icon" src="about:blank" class="bigmarker">
+                                    </div>
+                                    <div class="pure-u-1-2">
+                                        <img id="poi-reward-icon" src="about:blank" class="bigmarker">
+                                    </div>
                                 </div>
-                                <div class="pure-u-2-3 full-on-mobile">
-                                    <p><input type="text" id="add-poi-lat" readonly></p>
+                                <p class="centered">
+                                    <?php echo I18N::resolveArgsHTML(
+                                        "poi.objective_text",
+                                        false,
+                                        '<strong id="poi-objective" class="strong-color"></strong>',
+                                        '<strong id="poi-reward" class="strong-color"></strong>'
+                                    ); ?>
+                                </p>
+                                <div class="cover-button-spacer"></div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-1 right-align">
+                                        <span type="button" id="poi-add-report"
+                                              class="button-standard split-button">
+                                            <?php echo I18N::resolveHTML("poi.report_research"); ?>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile">
-                                    <p><?php echo I18N::resolveHTML("poi.add.longitude"); ?>:</p>
-                                </div>
-                                <div class="pure-u-2-3 full-on-mobile">
-                                    <p><input type="text" id="add-poi-lon" readonly></p>
-                                </div>
-                            </div>
-                            <div class="cover-button-spacer"></div>
-                            <div class="pure-g">
-                                <div class="pure-u-1-2 right-align">
-                                    <span type="button"
-                                          id="add-poi-cancel"
-                                          class="button-standard split-button button-spaced left">
-                                        <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
-                                    </span>
-                                </div>
-                                <div class="pure-u-1-2">
-                                    <span type="button"
-                                          id="add-poi-submit"
-                                          class="button-submit split-button button-spaced right">
-                                        <?php echo I18N::resolveHTML("poi.add.submit"); ?>
-                                    </span>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-2 right-align">
+                                        <span type="button"
+                                              id="poi-directions"
+                                              class="button-standard split-button button-spaced left">
+                                            <?php echo I18N::resolveHTML("poi.directions"); ?>
+                                        </span>
+                                    </div>
+                                    <div class="pure-u-1-2">
+                                        <span type="button"
+                                              id="poi-close"
+                                              class="button-standard split-button button-spaced right">
+                                            <?php echo I18N::resolveHTML("ui.button.close"); ?>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--
-                    Field research reporting dialog. If a user wishes to report
-                    field research on a POI, this dialog shows up. It prompts
-                    the user for the type of objective and reward that
-                    constitutes the research task, and requests objective and
-                    reward metadata (parameters, such as a quantity of typing)
-                    as well, if applicable.
-                -->
-                <div id="update-poi-details" class="cover-box">
-                    <div class="cover-box-inner">
-                        <div class="header">
-                            <h1>
-                                <?php echo I18N::resolveHTML("poi.update.title"); ?>
-                            </h1>
-                        </div>
-                        <div class="cover-box-content content pure-form">
-                            <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile">
-                                    <p><?php echo I18N::resolveHTML("poi.update.name"); ?>:</p>
+                    <!--
+                        New POI overlay that's shown when the user is adding a
+                        new POI to the map, and they have clicked on the
+                        location on the map where they wish the new POI to be
+                        added. The overlay dialog asks for the name of the POI
+                        to be added, and confirms its coordinates.
+                    -->
+                    <div id="add-poi-details" class="cover-box">
+                        <div class="cover-box-inner">
+                            <div class="header">
+                                <h1><?php echo I18N::resolveHTML("poi.add.title"); ?></h1>
+                            </div>
+                            <div class="cover-box-content content pure-form">
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p><?php echo I18N::resolveHTML("poi.add.name"); ?>:</p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><input type="text" id="add-poi-name"></p>
+                                    </div>
                                 </div>
-                                <div class="pure-u-2-3 full-on-mobile">
-                                    <p><input type="text" id="update-poi-name" readonly></p>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p><?php echo I18N::resolveHTML("poi.add.latitude"); ?>:</p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><input type="text" id="add-poi-lat" readonly></p>
+                                    </div>
+                                </div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p><?php echo I18N::resolveHTML("poi.add.longitude"); ?>:</p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><input type="text" id="add-poi-lon" readonly></p>
+                                    </div>
+                                </div>
+                                <div class="cover-button-spacer"></div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-2 right-align">
+                                        <span type="button"
+                                              id="add-poi-cancel"
+                                              class="button-standard split-button button-spaced left">
+                                            <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
+                                        </span>
+                                    </div>
+                                    <div class="pure-u-1-2">
+                                        <span type="button"
+                                              id="add-poi-submit"
+                                              class="button-submit split-button button-spaced right">
+                                            <?php echo I18N::resolveHTML("poi.add.submit"); ?>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <h2><?php echo I18N::resolveHTML("poi.update.objective"); ?></h2>
-                            <div class="pure-g">
-                                <div class="pure-u-5-5 full-on-mobile"><p><select id="update-poi-objective">
-                                    <?php
-                                        /*
-                                            Select box that contains a list of all possible research objectives.
-                                        */
+                        </div>
+                    </div>
+                    <!--
+                        Field research reporting dialog. If a user wishes to
+                        report field research on a POI, this dialog shows up. It
+                        prompts the user for the type of objective and reward
+                        that constitutes the research task, and requests
+                        objective and reward metadata (parameters, such as a
+                        quantity of typing) as well, if applicable.
+                    -->
+                    <div id="update-poi-details" class="cover-box">
+                        <div class="cover-box-inner">
+                            <div class="header">
+                                <h1>
+                                    <?php echo I18N::resolveHTML("poi.update.title"); ?>
+                                </h1>
+                            </div>
+                            <div class="cover-box-content content pure-form">
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p><?php echo I18N::resolveHTML("poi.update.name"); ?>:</p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><input type="text" id="update-poi-name" readonly></p>
+                                    </div>
+                                </div>
+                                <h2><?php echo I18N::resolveHTML("poi.update.objective"); ?></h2>
+                                <div class="pure-g">
+                                    <div class="pure-u-5-5 full-on-mobile"><p><select id="update-poi-objective">
+                                        <?php
+                                            /*
+                                                Select box that contains a list of all possible research objectives.
+                                            */
 
-                                        // Sorts objectives and rewards alphabetically according to their translated strings.
-                                        /*function sortByI18N($a, $b) {
-                                            return strcmp($a["i18n"], $b["i18n"]);
-                                        }*/
-
-                                        /*
-                                            We'll sort the research objectives by their first respective categories.
-                                            Put all the research objectives into an array ($cats) of the structure
-                                            $cats[CATEGORY][RESEARCH OBJECTIVE][PARAMETERS ETC.]
-                                        */
-                                        $cats = array();
-                                        foreach (Research::OBJECTIVES as $objective => $data) {
-                                            // Skip unknown since it shouldn't be displayed
-                                            if ($objective === "unknown") continue;
-                                            $cats[$data["categories"][0]][$objective] = $data;
-                                        }
-
-                                        /*
-                                            After the objectives have been sorted into proper categories, we'll resolve
-                                            the I18N string for each research objective, one category at a time.
-                                        */
-                                        foreach ($cats as $category => $categorizedObjectives) {
-                                            foreach ($categorizedObjectives as $objective => $data) {
-                                                // Use the plural string of the objective by default
-                                                $i18n = I18N::resolve("objective.{$objective}.plural");
-                                                // Replace parameters (e.g. {%1}) with placeholders
-                                                for ($i = 0; $i < count($data["params"]); $i++) {
-                                                    $i18n = str_replace(
-                                                        "{%".($i+1)."}",
-                                                        I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
-                                                        $i18n
-                                                    );
-                                                }
-                                                // Now save the final localized string back into the objective
-                                                $categorizedObjectives[$objective]["i18n"] = htmlspecialchars($i18n, ENT_QUOTES);
-                                            }
-
-                                            //uasort($categorizedObjectives, "sortByI18N");
+                                            // Sorts objectives and rewards alphabetically according to their translated strings.
+                                            /*function sortByI18N($a, $b) {
+                                                return strcmp($a["i18n"], $b["i18n"]);
+                                            }*/
 
                                             /*
-                                                Create a group for each category of objectives, then output each of the
-                                                objectives within that category to the selection box.
+                                                We'll sort the research objectives by their first respective categories.
+                                                Put all the research objectives into an array ($cats) of the structure
+                                                $cats[CATEGORY][RESEARCH OBJECTIVE][PARAMETERS ETC.]
                                             */
-                                            echo '<optgroup label="'.I18N::resolveHTML("category.objective.{$category}").'">';
-                                            foreach ($categorizedObjectives as $objective => $data) {
-                                                echo '<option value="'.$objective.'">'.$data["i18n"].'</option>';
+                                            $cats = array();
+                                            foreach (Research::OBJECTIVES as $objective => $data) {
+                                                // Skip unknown since it shouldn't be displayed
+                                                if ($objective === "unknown") continue;
+                                                $cats[$data["categories"][0]][$objective] = $data;
                                             }
-                                            echo '</optgroup>';
-                                        }
 
-                                        /*
-                                        $objectives = Research::OBJECTIVES;
-                                        foreach ($objectives as $objective => $data) {
-                                            if ($objective === "unknown") continue;
-                                            $objectives[$objective]["i18n"] = I18N::resolve("objective.{$objective}.plural");
-                                        }
-                                        uasort($objectives, "sortByI18N");
+                                            /*
+                                                After the objectives have been sorted into proper categories, we'll resolve
+                                                the I18N string for each research objective, one category at a time.
+                                            */
+                                            foreach ($cats as $category => $categorizedObjectives) {
+                                                foreach ($categorizedObjectives as $objective => $data) {
+                                                    // Use the plural string of the objective by default
+                                                    $i18n = I18N::resolve("objective.{$objective}.plural");
+                                                    // Replace parameters (e.g. {%1}) with placeholders
+                                                    for ($i = 0; $i < count($data["params"]); $i++) {
+                                                        $i18n = str_replace(
+                                                            "{%".($i+1)."}",
+                                                            I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
+                                                            $i18n
+                                                        );
+                                                    }
+                                                    // Now save the final localized string back into the objective
+                                                    $categorizedObjectives[$objective]["i18n"] = htmlspecialchars($i18n, ENT_QUOTES);
+                                                }
 
-                                        foreach ($objectives as $objective => $data) {
-                                            if ($objective === "unknown") continue;
-                                            $text = I18N::resolve("objective.{$objective}.plural");
-                                            echo '<option value="'.$objective.'">'.$text.'</option>';
-                                        }
-                                        */
-                                    ?>
-                                </select></p></div>
-                            </div>
-                            <div class="research-params objective-params">
-                                <?php
-                                    /*
-                                        Each objective may take one or more parameters. This
-                                        part of the script ensures that all possible parameters
-                                        have an input box representing them in the dialog.
-                                        Parameters which are not in use will be hidden by
-                                        default.
-                                    */
-                                    foreach (Research::PARAMETERS as $param => $class) {
-                                        /*
-                                            Each parameter type has a class corresponding to it,
-                                            containing functions like value parsing, a function
-                                            for returning an HTML node allowing users to set a
-                                            value for the parameter, etc. These classes are
-                                            listed and defined in /includes/lib/research.php.
+                                                //uasort($categorizedObjectives, "sortByI18N");
 
-                                            We instantiate an instance of the class for each
-                                            parameter so that we can check that the parameter
-                                            is valid for objectives, and to get the HTML edit
-                                            node for the parameter and output it to the page.
-
-                                            The `html()` function of each parameter class is
-                                            used to get this node, so we will call it here.
-                                        */
-                                        $inst = new $class();
-                                        /*
-                                            Each parameter can be used for objectives, rewards,
-                                            or both. Ensure that the parameter can be used for
-                                            objectives before we output it, to avoid unnecessary
-                                            and unused elements on the page.
-                                        */
-                                        if (in_array("objectives", $inst->getAvailable())) {
-                                            ?>
-                                                <div id="update-poi-objective-param-<?php echo $param; ?>-box"
-                                                     class="pure-g research-parameter objective-parameter">
-                                                    <div class="pure-u-1-3 full-on-mobile">
-                                                        <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
-                                                    </div>
-                                                    <div class="pure-u-2-3 full-on-mobile">
-                                                        <p><?php echo $inst->html(
-                                                            "update-poi-objective-param-{$param}-input",
-                                                            "parameter"
-                                                        ); ?></p>
-                                                    </div>
-                                                </div>
-                                            <?php
-                                        }
-                                    }
-                                ?>
-                                <script>
-                                    function getObjectiveParameter(param) {
-                                        switch (param) {
-                                            <?php
                                                 /*
-                                                    The parameter class also has a JavaScript
-                                                    function to retrieve the value of the input
-                                                    box(es) on for the parameter on the page,
-                                                    and converting them to an object that
-                                                    represents the parameter and can be stored
-                                                    in a database or configuration file.
-
-                                                    We will output all of these to a JavaScript
-                                                    function called `getObjectiveParameter()`.
-                                                    We can then call e.g.
-                                                    `getObjectiveParameter("type")` and have it
-                                                    return an object e.g. `["ice", "water"]`,
-                                                    depending on the data input by the user in
-                                                    the parameter's input box(es).
-
-                                                    The ID of the input box is passed to the
-                                                    `writeJS()` function so that the function
-                                                    can extract data from the correct input box.
+                                                    Create a group for each category of objectives, then output each of the
+                                                    objectives within that category to the selection box.
                                                 */
+                                                echo '<optgroup label="'.I18N::resolveHTML("category.objective.{$category}").'">';
+                                                foreach ($categorizedObjectives as $objective => $data) {
+                                                    echo '<option value="'.$objective.'">'.$data["i18n"].'</option>';
+                                                }
+                                                echo '</optgroup>';
+                                            }
+
+                                            /*
+                                            $objectives = Research::OBJECTIVES;
+                                            foreach ($objectives as $objective => $data) {
+                                                if ($objective === "unknown") continue;
+                                                $objectives[$objective]["i18n"] = I18N::resolve("objective.{$objective}.plural");
+                                            }
+                                            uasort($objectives, "sortByI18N");
+
+                                            foreach ($objectives as $objective => $data) {
+                                                if ($objective === "unknown") continue;
+                                                $text = I18N::resolve("objective.{$objective}.plural");
+                                                echo '<option value="'.$objective.'">'.$text.'</option>';
+                                            }
+                                            */
+                                        ?>
+                                    </select></p></div>
+                                </div>
+                                <div class="research-params objective-params">
+                                    <?php
+                                        /*
+                                            Each objective may take one or more parameters. This
+                                            part of the script ensures that all possible parameters
+                                            have an input box representing them in the dialog.
+                                            Parameters which are not in use will be hidden by
+                                            default.
+                                        */
+                                        foreach (Research::PARAMETERS as $param => $class) {
+                                            /*
+                                                Each parameter type has a class corresponding to it,
+                                                containing functions like value parsing, a function
+                                                for returning an HTML node allowing users to set a
+                                                value for the parameter, etc. These classes are
+                                                listed and defined in /includes/lib/research.php.
+
+                                                We instantiate an instance of the class for each
+                                                parameter so that we can check that the parameter
+                                                is valid for objectives, and to get the HTML edit
+                                                node for the parameter and output it to the page.
+
+                                                The `html()` function of each parameter class is
+                                                used to get this node, so we will call it here.
+                                            */
+                                            $inst = new $class();
+                                            /*
+                                                Each parameter can be used for objectives, rewards,
+                                                or both. Ensure that the parameter can be used for
+                                                objectives before we output it, to avoid unnecessary
+                                                and unused elements on the page.
+                                            */
+                                            if (in_array("objectives", $inst->getAvailable())) {
+                                                ?>
+                                                    <div id="update-poi-objective-param-<?php echo $param; ?>-box"
+                                                         class="pure-g research-parameter objective-parameter">
+                                                        <div class="pure-u-1-3 full-on-mobile">
+                                                            <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
+                                                        </div>
+                                                        <div class="pure-u-2-3 full-on-mobile">
+                                                            <p><?php echo $inst->html(
+                                                                "update-poi-objective-param-{$param}-input",
+                                                                "parameter"
+                                                            ); ?></p>
+                                                        </div>
+                                                    </div>
+                                                <?php
+                                            }
+                                        }
+                                    ?>
+                                    <script>
+                                        function getObjectiveParameter(param) {
+                                            switch (param) {
+                                                <?php
+                                                    /*
+                                                        The parameter class also has a JavaScript
+                                                        function to retrieve the value of the input
+                                                        box(es) on for the parameter on the page,
+                                                        and converting them to an object that
+                                                        represents the parameter and can be stored
+                                                        in a database or configuration file.
+
+                                                        We will output all of these to a JavaScript
+                                                        function called `getObjectiveParameter()`.
+                                                        We can then call e.g.
+                                                        `getObjectiveParameter("type")` and have it
+                                                        return an object e.g. `["ice", "water"]`,
+                                                        depending on the data input by the user in
+                                                        the parameter's input box(es).
+
+                                                        The ID of the input box is passed to the
+                                                        `writeJS()` function so that the function
+                                                        can extract data from the correct input box.
+                                                    */
+                                                    foreach (Research::PARAMETERS as $param => $class) {
+                                                        $inst = new $class();
+                                                        if (in_array("objectives", $inst->getAvailable())) {
+                                                            echo "case '{$param}':\n";
+                                                            echo $inst->writeJS("update-poi-objective-param-{$param}-input")."\n";
+                                                        }
+                                                    }
+                                                ?>
+                                            }
+                                        }
+                                        function parseObjectiveParameter(param, data) {
+                                            switch (param) {
+                                                <?php
+                                                    /*
+                                                        The `parseObjectiveParameter()` function
+                                                        does the exact opposite of
+                                                        `getObjectiveParameter()` - it takes a data
+                                                        object, as parsed by the latter function,
+                                                        and puts its value(s) into the HTML input
+                                                        box(es) for the parameter on the page,
+                                                        allowing the user to edit them before being
+                                                        put back into a modified data object using
+                                                        `getObjectiveParameter()`.
+                                                    */
+                                                    foreach (Research::PARAMETERS as $param => $class) {
+                                                        $inst = new $class();
+                                                        if (in_array("objectives", $inst->getAvailable())) {
+                                                            echo "case '{$param}':\n";
+                                                            echo $inst->parseJS("update-poi-objective-param-{$param}-input")."\n";
+                                                            echo "break;\n";
+                                                        }
+                                                    }
+                                                ?>
+                                            }
+                                        }
+
+                                        /*
+                                            When the objective is changed, the parameters used by
+                                            that objective should be displayed, and all others
+                                            should be hidden. This handler first ensures that all
+                                            parameters are hidden (it loops over the server-side
+                                            list of registered parameters and outputs a jQuery
+                                            `hide()` statement for each of them), then loops over
+                                            the list of parameters accepted by the currently
+                                            selected objective and shows them.
+                                        */
+                                        $("#update-poi-objective").on("change", function() {
+                                            <?php
                                                 foreach (Research::PARAMETERS as $param => $class) {
                                                     $inst = new $class();
                                                     if (in_array("objectives", $inst->getAvailable())) {
-                                                        echo "case '{$param}':\n";
-                                                        echo $inst->writeJS("update-poi-objective-param-{$param}-input")."\n";
+                                                        echo "$('#update-poi-objective-param-{$param}-box').hide();";
                                                     }
                                                 }
                                             ?>
-                                        }
-                                    }
-                                    function parseObjectiveParameter(param, data) {
-                                        switch (param) {
-                                            <?php
-                                                /*
-                                                    The `parseObjectiveParameter()` function
-                                                    does the exact opposite of
-                                                    `getObjectiveParameter()` - it takes a data
-                                                    object, as parsed by the latter function,
-                                                    and puts its value(s) into the HTML input
-                                                    box(es) for the parameter on the page,
-                                                    allowing the user to edit them before being
-                                                    put back into a modified data object using
-                                                    `getObjectiveParameter()`.
-                                                */
-                                                foreach (Research::PARAMETERS as $param => $class) {
-                                                    $inst = new $class();
-                                                    if (in_array("objectives", $inst->getAvailable())) {
-                                                        echo "case '{$param}':\n";
-                                                        echo $inst->parseJS("update-poi-objective-param-{$param}-input")."\n";
-                                                        echo "break;\n";
-                                                    }
-                                                }
-                                            ?>
-                                        }
-                                    }
-
-                                    /*
-                                        When the objective is changed, the parameters used by
-                                        that objective should be displayed, and all others
-                                        should be hidden. This handler first ensures that all
-                                        parameters are hidden (it loops over the server-side
-                                        list of registered parameters and outputs a jQuery
-                                        `hide()` statement for each of them), then loops over
-                                        the list of parameters accepted by the currently
-                                        selected objective and shows them.
-                                    */
-                                    $("#update-poi-objective").on("change", function() {
+                                            var show = objectives[$("#update-poi-objective").val()].params;
+                                            for (var i = 0; i < show.length; i++) {
+                                                $("#update-poi-objective-param-" + show[i] + "-box").show();
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                                <h2><?php echo I18N::resolveHTML("poi.update.reward"); ?></h2>
+                                <div class="pure-g">
+                                    <div class="pure-u-5-5 full-on-mobile"><p><select id="update-poi-reward">
                                         <?php
-                                            foreach (Research::PARAMETERS as $param => $class) {
-                                                $inst = new $class();
-                                                if (in_array("objectives", $inst->getAvailable())) {
-                                                    echo "$('#update-poi-objective-param-{$param}-box').hide();";
-                                                }
-                                            }
-                                        ?>
-                                        var show = objectives[$("#update-poi-objective").val()].params;
-                                        for (var i = 0; i < show.length; i++) {
-                                            $("#update-poi-objective-param-" + show[i] + "-box").show();
-                                        }
-                                    });
-                                </script>
-                            </div>
-                            <h2><?php echo I18N::resolveHTML("poi.update.reward"); ?></h2>
-                            <div class="pure-g">
-                                <div class="pure-u-5-5 full-on-mobile"><p><select id="update-poi-reward">
-                                    <?php
-                                        /*
-                                            Select box that contains a list of all possible research rewards.
-                                        */
-
-                                        /*
-                                            We'll sort the research rewards by their first respective categories.
-                                            Put all the research rewards into an array ($cats) of the structure
-                                            $cats[CATEGORY][RESEARCH REWARD][PARAMETERS ETC.]
-                                        */
-                                        $cats = array();
-                                        foreach (Research::REWARDS as $reward => $data) {
-                                            // Skip unknown since it shouldn't be displayed
-                                            if ($reward === "unknown") continue;
-                                            $cats[$data["categories"][0]][$reward] = $data;
-                                        }
-
-                                        /*
-                                            After the rewards have been sorted into proper categories, we'll resolve
-                                            the I18N string for each research reward, one category at a time.
-                                        */
-                                        foreach ($cats as $category => $categorizedRewards) {
-                                            foreach ($categorizedRewards as $reward => $data) {
-                                                // Use the plural string of the reward by default
-                                                $i18n = I18N::resolve("reward.{$reward}.plural");
-                                                // Replace parameters (e.g. {%1}) with placeholders
-                                                for ($i = 0; $i < count($data["params"]); $i++) {
-                                                    $i18n = str_replace(
-                                                        "{%".($i+1)."}",
-                                                        I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
-                                                        $i18n
-                                                    );
-                                                }
-                                                // Now save the final localized string back into the reward
-                                                $categorizedRewards[$reward]["i18n"] = htmlspecialchars($i18n, ENT_QUOTES);
-                                            }
-
-                                            //uasort($categorizedRewards, "sortByI18N");
+                                            /*
+                                                Select box that contains a list of all possible research rewards.
+                                            */
 
                                             /*
-                                                Create a group for each category of rewards, then output each of the
-                                                rewards within that category to the selection box.
+                                                We'll sort the research rewards by their first respective categories.
+                                                Put all the research rewards into an array ($cats) of the structure
+                                                $cats[CATEGORY][RESEARCH REWARD][PARAMETERS ETC.]
                                             */
-                                            echo '<optgroup label="'.I18N::resolveHTML("category.reward.{$category}").'">';
-                                            foreach ($categorizedRewards as $reward => $data) {
-                                                echo '<option value="'.$reward.'">'.$data["i18n"].'</option>';
+                                            $cats = array();
+                                            foreach (Research::REWARDS as $reward => $data) {
+                                                // Skip unknown since it shouldn't be displayed
+                                                if ($reward === "unknown") continue;
+                                                $cats[$data["categories"][0]][$reward] = $data;
                                             }
-                                            echo '</optgroup>';
-                                        }
 
-                                        /*
-                                        $rewards = Research::REWARDS;
-                                        foreach ($rewards as $reward => $data) {
-                                            if ($reward === "unknown") continue;
-                                            $rewards[$reward]["i18n"] = I18N::resolve("reward.{$reward}.plural");
-                                        }
-                                        uasort($rewards, "sortByI18N");
-
-                                        foreach ($rewards as $reward => $data) {
-                                            if ($reward === "unknown") continue;
-                                            $text = I18N::resolve("reward.{$reward}.plural");
-                                            echo '<option value="'.$reward.'">'.$text.'</option>';
-                                        }
-                                        */
-                                    ?>
-                                </select></p></div>
-                            </div>
-                            <div class="research-params reward-params">
-                                <?php
-                                    /*
-                                        Each reward may take one or more parameters. This part
-                                        of the script ensures that all possible parameters have
-                                        an input box representing them in the dialog. Parameters
-                                        which are not in use will be hidden by default.
-                                    */
-                                    foreach (Research::PARAMETERS as $param => $class) {
-                                        /*
-                                            Each parameter type has a class corresponding to it,
-                                            containing functions like value parsing, a function
-                                            for returning an HTML node allowing users to set a
-                                            value for the parameter, etc. These classes are
-                                            listed and defined in /includes/lib/research.php.
-
-                                            We instantiate an instance of the class for each
-                                            parameter so that we can check that the parameter
-                                            is valid for rewards, and to get the HTML edit node
-                                            for the parameter and output it to the page.
-
-                                            The `html()` function of each parameter class is
-                                            used to get this node, so we will call it here.
-                                        */
-                                        $inst = new $class();
-                                        /*
-                                            Each parameter can be used for objectives, rewards,
-                                            or both. Ensure that the parameter can be used for
-                                            rewards before we output it, to avoid unnecessary
-                                            and unused elements on the page.
-                                        */
-                                        if (in_array("rewards", $inst->getAvailable())) {
-                                            ?>
-                                                <div id="update-poi-reward-param-<?php echo $param; ?>-box"
-                                                     class="pure-g research-parameter reward-parameter">
-                                                    <div class="pure-u-1-3 full-on-mobile">
-                                                        <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
-                                                    </div>
-                                                    <div class="pure-u-2-3 full-on-mobile">
-                                                        <p><?php echo $inst->html(
-                                                            "update-poi-reward-param-{$param}-input",
-                                                            "parameter"
-                                                        ); ?></p>
-                                                    </div>
-                                                </div>
-                                            <?php
-                                        }
-                                    }
-                                ?>
-                                <script>
-                                    function getRewardParameter(param) {
-                                        switch (param) {
-                                            <?php
-                                                /*
-                                                    The parameter class also has a JavaScript
-                                                    function to retrieve the value of the input
-                                                    box(es) on for the parameter on the page,
-                                                    and converting them to an object that
-                                                    represents the parameter and can be stored
-                                                    in a database or configuration file.
-
-                                                    We will output all of these to a JavaScript
-                                                    function called `getRewardParameter()`. We
-                                                    can then call e.g.
-                                                    `getRewardParameter("quantity")` and have it
-                                                    return an object e.g. `5`, depending on the
-                                                    data input by the user in the parameter's
-                                                    input box(es).
-
-                                                    The ID of the input box is passed to the
-                                                    `writeJS()` function so that the function
-                                                    can extract data from the correct input box.
-                                                */
-                                                foreach (Research::PARAMETERS as $param => $class) {
-                                                    $inst = new $class();
-                                                    if (in_array("rewards", $inst->getAvailable())) {
-                                                        echo "case '{$param}':\n";
-                                                        echo $inst->writeJS("update-poi-reward-param-{$param}-input")."\n";
+                                            /*
+                                                After the rewards have been sorted into proper categories, we'll resolve
+                                                the I18N string for each research reward, one category at a time.
+                                            */
+                                            foreach ($cats as $category => $categorizedRewards) {
+                                                foreach ($categorizedRewards as $reward => $data) {
+                                                    // Use the plural string of the reward by default
+                                                    $i18n = I18N::resolve("reward.{$reward}.plural");
+                                                    // Replace parameters (e.g. {%1}) with placeholders
+                                                    for ($i = 0; $i < count($data["params"]); $i++) {
+                                                        $i18n = str_replace(
+                                                            "{%".($i+1)."}",
+                                                            I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
+                                                            $i18n
+                                                        );
                                                     }
+                                                    // Now save the final localized string back into the reward
+                                                    $categorizedRewards[$reward]["i18n"] = htmlspecialchars($i18n, ENT_QUOTES);
                                                 }
-                                            ?>
-                                        }
-                                    }
-                                    function parseRewardParameter(param, data) {
-                                        switch (param) {
-                                            <?php
+
+                                                //uasort($categorizedRewards, "sortByI18N");
+
                                                 /*
-                                                    The `parseRewardParameter()` function does
-                                                    the exact opposite of `getRewardParameter()`
-                                                    - it takes a data object, as parsed by the
-                                                    latter function, and puts its value(s) into
-                                                    the HTML input box(es) for the parameter on
-                                                    the page, allowing the user to edit them
-                                                    before being put back into a modified data
-                                                    object using `getRewardParameter()`.
+                                                    Create a group for each category of rewards, then output each of the
+                                                    rewards within that category to the selection box.
                                                 */
-                                                foreach (Research::PARAMETERS as $param => $class) {
-                                                    $inst = new $class();
-                                                    if (in_array("rewards", $inst->getAvailable())) {
-                                                        echo "case '{$param}':\n";
-                                                        echo $inst->parseJS("update-poi-reward-param-{$param}-input")."\n";
-                                                        echo "break;\n";
-                                                    }
+                                                echo '<optgroup label="'.I18N::resolveHTML("category.reward.{$category}").'">';
+                                                foreach ($categorizedRewards as $reward => $data) {
+                                                    echo '<option value="'.$reward.'">'.$data["i18n"].'</option>';
                                                 }
-                                            ?>
-                                        }
-                                    }
-                                    /*
-                                        When the reward is changed, the parameters used by that
-                                        reward should be displayed, and all others should be
-                                        hidden. This handler first ensures that all parameters
-                                        are hidden (it loops over the server-side list of
-                                        registered parameters and outputs a jQuery `hide()`
-                                        statement for each of them), then loops over the list of
-                                        parameters accepted by the currently selected reward and
-                                        shows them.
-                                    */
-                                    $("#update-poi-reward").on("change", function() {
-                                        <?php
-                                            foreach (Research::PARAMETERS as $param => $class) {
-                                                $inst = new $class();
-                                                if (in_array("rewards", $inst->getAvailable())) {
-                                                    echo "$('#update-poi-reward-param-{$param}-box').hide();";
-                                                }
+                                                echo '</optgroup>';
                                             }
+
+                                            /*
+                                            $rewards = Research::REWARDS;
+                                            foreach ($rewards as $reward => $data) {
+                                                if ($reward === "unknown") continue;
+                                                $rewards[$reward]["i18n"] = I18N::resolve("reward.{$reward}.plural");
+                                            }
+                                            uasort($rewards, "sortByI18N");
+
+                                            foreach ($rewards as $reward => $data) {
+                                                if ($reward === "unknown") continue;
+                                                $text = I18N::resolve("reward.{$reward}.plural");
+                                                echo '<option value="'.$reward.'">'.$text.'</option>';
+                                            }
+                                            */
                                         ?>
-                                        var show = rewards[$("#update-poi-reward").val()].params;
-                                        for (var i = 0; i < show.length; i++) {
-                                            $("#update-poi-reward-param-" + show[i] + "-box").show();
+                                    </select></p></div>
+                                </div>
+                                <div class="research-params reward-params">
+                                    <?php
+                                        /*
+                                            Each reward may take one or more parameters. This part
+                                            of the script ensures that all possible parameters have
+                                            an input box representing them in the dialog. Parameters
+                                            which are not in use will be hidden by default.
+                                        */
+                                        foreach (Research::PARAMETERS as $param => $class) {
+                                            /*
+                                                Each parameter type has a class corresponding to it,
+                                                containing functions like value parsing, a function
+                                                for returning an HTML node allowing users to set a
+                                                value for the parameter, etc. These classes are
+                                                listed and defined in /includes/lib/research.php.
+
+                                                We instantiate an instance of the class for each
+                                                parameter so that we can check that the parameter
+                                                is valid for rewards, and to get the HTML edit node
+                                                for the parameter and output it to the page.
+
+                                                The `html()` function of each parameter class is
+                                                used to get this node, so we will call it here.
+                                            */
+                                            $inst = new $class();
+                                            /*
+                                                Each parameter can be used for objectives, rewards,
+                                                or both. Ensure that the parameter can be used for
+                                                rewards before we output it, to avoid unnecessary
+                                                and unused elements on the page.
+                                            */
+                                            if (in_array("rewards", $inst->getAvailable())) {
+                                                ?>
+                                                    <div id="update-poi-reward-param-<?php echo $param; ?>-box"
+                                                         class="pure-g research-parameter reward-parameter">
+                                                        <div class="pure-u-1-3 full-on-mobile">
+                                                            <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
+                                                        </div>
+                                                        <div class="pure-u-2-3 full-on-mobile">
+                                                            <p><?php echo $inst->html(
+                                                                "update-poi-reward-param-{$param}-input",
+                                                                "parameter"
+                                                            ); ?></p>
+                                                        </div>
+                                                    </div>
+                                                <?php
+                                            }
                                         }
-                                    });
-                                </script>
-                            </div>
-                            <div class="cover-button-spacer"></div>
-                            <div class="pure-g">
-                                <div class="pure-u-1-2 right-align">
-                                    <span type="button"
-                                          id="update-poi-cancel"
-                                          class="button-standard split-button button-spaced left">
-                                                <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
-                                    </span>
+                                    ?>
+                                    <script>
+                                        function getRewardParameter(param) {
+                                            switch (param) {
+                                                <?php
+                                                    /*
+                                                        The parameter class also has a JavaScript
+                                                        function to retrieve the value of the input
+                                                        box(es) on for the parameter on the page,
+                                                        and converting them to an object that
+                                                        represents the parameter and can be stored
+                                                        in a database or configuration file.
+
+                                                        We will output all of these to a JavaScript
+                                                        function called `getRewardParameter()`. We
+                                                        can then call e.g.
+                                                        `getRewardParameter("quantity")` and have it
+                                                        return an object e.g. `5`, depending on the
+                                                        data input by the user in the parameter's
+                                                        input box(es).
+
+                                                        The ID of the input box is passed to the
+                                                        `writeJS()` function so that the function
+                                                        can extract data from the correct input box.
+                                                    */
+                                                    foreach (Research::PARAMETERS as $param => $class) {
+                                                        $inst = new $class();
+                                                        if (in_array("rewards", $inst->getAvailable())) {
+                                                            echo "case '{$param}':\n";
+                                                            echo $inst->writeJS("update-poi-reward-param-{$param}-input")."\n";
+                                                        }
+                                                    }
+                                                ?>
+                                            }
+                                        }
+                                        function parseRewardParameter(param, data) {
+                                            switch (param) {
+                                                <?php
+                                                    /*
+                                                        The `parseRewardParameter()` function does
+                                                        the exact opposite of `getRewardParameter()`
+                                                        - it takes a data object, as parsed by the
+                                                        latter function, and puts its value(s) into
+                                                        the HTML input box(es) for the parameter on
+                                                        the page, allowing the user to edit them
+                                                        before being put back into a modified data
+                                                        object using `getRewardParameter()`.
+                                                    */
+                                                    foreach (Research::PARAMETERS as $param => $class) {
+                                                        $inst = new $class();
+                                                        if (in_array("rewards", $inst->getAvailable())) {
+                                                            echo "case '{$param}':\n";
+                                                            echo $inst->parseJS("update-poi-reward-param-{$param}-input")."\n";
+                                                            echo "break;\n";
+                                                        }
+                                                    }
+                                                ?>
+                                            }
+                                        }
+                                        /*
+                                            When the reward is changed, the parameters used by that
+                                            reward should be displayed, and all others should be
+                                            hidden. This handler first ensures that all parameters
+                                            are hidden (it loops over the server-side list of
+                                            registered parameters and outputs a jQuery `hide()`
+                                            statement for each of them), then loops over the list of
+                                            parameters accepted by the currently selected reward and
+                                            shows them.
+                                        */
+                                        $("#update-poi-reward").on("change", function() {
+                                            <?php
+                                                foreach (Research::PARAMETERS as $param => $class) {
+                                                    $inst = new $class();
+                                                    if (in_array("rewards", $inst->getAvailable())) {
+                                                        echo "$('#update-poi-reward-param-{$param}-box').hide();";
+                                                    }
+                                                }
+                                            ?>
+                                            var show = rewards[$("#update-poi-reward").val()].params;
+                                            for (var i = 0; i < show.length; i++) {
+                                                $("#update-poi-reward-param-" + show[i] + "-box").show();
+                                            }
+                                        });
+                                    </script>
                                 </div>
-                                <div class="pure-u-1-2">
-                                    <span type="button"
-                                          id="update-poi-submit"
-                                          class="button-submit split-button button-spaced right">
-                                                <?php echo I18N::resolveHTML("poi.update.submit"); ?>
-                                    </span>
+                                <div class="cover-button-spacer"></div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-2 right-align">
+                                        <span type="button"
+                                              id="update-poi-cancel"
+                                              class="button-standard split-button button-spaced left">
+                                                    <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
+                                        </span>
+                                    </div>
+                                    <div class="pure-u-1-2">
+                                        <span type="button"
+                                              id="update-poi-submit"
+                                              class="button-submit split-button button-spaced right">
+                                                    <?php echo I18N::resolveHTML("poi.update.submit"); ?>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--
-                    "Working" indicator shown when adding a POI. Since adding a
-                    POI involves a request to the server, which might take some
-                    time, there should be some visual indication that something
-                    is happening. This loading indicator has a spinning loading
-                    icon that automatically disappears when the server request
-                    is complete.
-                -->
-                <div id="add-poi-working" class="cover-box">
-                    <div class="cover-box-inner tiny">
-                        <div class="cover-box-content">
-                            <div>
-                                <i class="fas fa-spinner loading-spinner spinner-large"></i>
+                    <!--
+                        "Working" indicator shown when adding a POI. Since
+                        adding a POI involves a request to the server, which
+                        might take some time, there should be some visual
+                        indication that something is happening. This loading
+                        indicator has a spinning loading icon that automatically
+                        disappears when the server request is complete.
+                    -->
+                    <div id="add-poi-working" class="cover-box">
+                        <div class="cover-box-inner tiny">
+                            <div class="cover-box-content">
+                                <div>
+                                    <i class="fas fa-spinner loading-spinner spinner-large"></i>
+                                </div>
+                                <p>
+                                    <?php echo I18N::resolveHTML("poi.add.processing"); ?>
+                                </p>
                             </div>
-                            <p>
-                                <?php echo I18N::resolveHTML("poi.add.processing"); ?>
-                            </p>
                         </div>
                     </div>
-                </div>
-                <!--
-                    "Working" indicator for reporting field research. This is
-                    functionally the same as `#add-poi-working`, but with a
-                    different text label.
-                -->
-                <div id="update-poi-working" class="cover-box">
-                    <div class="cover-box-inner tiny">
-                        <div class="cover-box-content">
-                            <div>
-                                <i class="fas fa-spinner loading-spinner spinner-large"></i>
+                    <!--
+                        "Working" indicator for reporting field research. This
+                        is functionally the same as `#add-poi-working`, but with
+                        a different text label.
+                    -->
+                    <div id="update-poi-working" class="cover-box">
+                        <div class="cover-box-inner tiny">
+                            <div class="cover-box-content">
+                                <div>
+                                    <i class="fas fa-spinner loading-spinner spinner-large"></i>
+                                </div>
+                                <p>
+                                    <?php echo I18N::resolveHTML("poi.update.processing"); ?>
+                                </p>
                             </div>
-                            <p>
-                                <?php echo I18N::resolveHTML("poi.update.processing"); ?>
-                            </p>
                         </div>
                     </div>
-                </div>
-                <!--
-                    The container for the map itself.
-                -->
-                <div id="map" class="full-container"></div>
+                    <!--
+                        The container for the map itself.
+                    -->
+                    <div id="map" class="full-container"></div>
                 </div>
                 <!--
                     The user settings page. `#map` is hidden and this is shown
