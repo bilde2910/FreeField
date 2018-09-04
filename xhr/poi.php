@@ -509,23 +509,28 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             Check if the objective matches the objective requirements specified
             in the webhook's settings, if any.
         */
+        $eq = $hook["filter-mode"]["objectives"] == "whitelist";
+        $match = false;
         foreach ($hook["objectives"] as $req) {
-            $eq = $hook["filter-mode"]["objectives"] == "blacklist";
-            if (Research::matches($objective, $objParams, $req["type"], $req["params"]) === $eq) {
-                continue 2;
+            if (Research::matches($objective, $objParams, $req["type"], $req["params"])) {
+                $match = true;
+                break;
             }
         }
-
+        if ($match !== $eq) continue;
         /*
             Check if the reward matches the reward requirements specified in the
             webhook's settings, if any.
         */
+        $eq = $hook["filter-mode"]["rewards"] == "whitelist";
+        $match = false;
         foreach ($hook["rewards"] as $req) {
-            $eq = $hook["filter-mode"]["rewards"] == "blacklist";
-            if (Research::matches($reward, $rewParams, $req["type"], $req["params"]) === $eq) {
-                continue 2;
+            if (Research::matches($reward, $rewParams, $req["type"], $req["params"])) {
+                $match = true;
+                break;
             }
         }
+        if ($match !== $eq) continue;
 
         /*
             Get the icon set selected for the webhook. If none is selected, fall
