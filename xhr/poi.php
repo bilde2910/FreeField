@@ -218,10 +218,25 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
     try {
         $pois = Geo::listPOIs();
+        $geofence = Geo::getGeofence(Config::get("map/geofence/geofence"));
 
         $poidata = array();
 
         foreach ($pois as $poi) {
+            /*
+                If FreeField is configured to hide POIs that are out of POI
+                geofence bounds, the POI should not be added to the list of
+                returned POIs if it lies outside of the POI geofence.
+            */
+            if (
+                Config::get("map/geofence/hide-outside") &&
+                !$poi->isWithinGeofence($geofence)
+            ) {
+                continue;
+            }
+            /*
+                Add the POI to the list of returned POIs.
+            */
             $poidata[] = array(
                 "id" => intval($poi->getID()),
                 "name" => $poi->getName(),
@@ -291,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     if ($data["name"] == "") {
         XHR::exitWith(400, array("reason" => "poi.add.failed.reason.name_empty"));
     }
-    $geofence = Geo::getGeofence(Config::get("map/geofence"));
+    $geofence = Geo::getGeofence(Config::get("map/geofence/geofence"));
     if ($geofence !== null && !$geofence->containsPoint($data["latitude"], $data["longitude"])) {
         XHR::exitWith(400, array("reason" => "poi.add.failed.reason.invalid_location"));
     }
@@ -417,12 +432,28 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     try {
         /*
+            If FreeField is configured to hide POIs that are out of POI geofence
+            bounds, and the POI that is being updated is outside those bounds,
+            there is no reason to allow the update since the user shouldn't be
+            able to see the POI on the map in the first place to perform the
+            update.
+        */
+        $poi = Geo::getPOI($patchdata["id"]);
+        $geofence = Geo::getGeofence(Config::get("map/geofence/geofence"));
+
+        if (
+            Config::get("map/geofence/hide-outside") &&
+            !$poi->isWithinGeofence($geofence)
+        ) {
+            XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
+        }
+
+        /*
             If field research is already defined for the given POI, a separate
             permission is required to allow users to overwrite field research
             tasks. This is required in addition to the permission allowing users
             to submit any kind of field research in the first place.
         */
-        $poi = Geo::getPOI($patchdata["id"]);
         if ($poi->isUpdatedToday() && !$poi->isResearchUnknown()) {
             if (!Auth::getCurrentUser()->hasPermission("overwrite-research")) {
                 XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));

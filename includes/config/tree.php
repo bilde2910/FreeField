@@ -655,9 +655,13 @@ class ConfigTree {
                         allows submission of POIs (and by extension, their field
                         research) worldwide.
                     */
-                    "map/geofence" => array(
+                    "map/geofence/geofence" => array(
                         "default" => null,
                         "option" => new GeofenceOption()
+                    ),
+                    "map/geofence/hide-outside" => array(
+                        "default" => false,
+                        "option" => new BooleanOption()
                     )
                 )
             )

@@ -472,6 +472,7 @@ class POI {
             A `Geofence` instance.
     */
     public function isWithinGeofence($geofence) {
+        if ($geofence === null) return true;
         return $geofence->containsPoint($this->getLatitude(), $this->getLongitude());
     }
 
