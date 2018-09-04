@@ -712,6 +712,14 @@ function hasLocalStorageSupport() {
 var localStorageSupport = hasLocalStorageSupport();
 
 /*
+    If local storage is not supported by the browser, alert the user, because it
+    means that local settings will not be saved for them.
+*/
+if (!localStorageSupport) {
+    alert(resolveI18N("user_settings.no_local_storage"));
+}
+
+/*
     Saves client-side user settings to local storage. The settings have to be
     stored as a JSON encoded string, as saving the object directly to a key is
     not stable (see https://stackoverflow.com/a/2010948).
