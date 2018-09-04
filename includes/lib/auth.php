@@ -198,6 +198,18 @@ class Auth {
             */
             $approved = $user["approved"];
             $token = $user["token"];
+
+            /*
+                If the user's provider identity has changed, update the user's
+                record in the database.
+            */
+            if ($user["provider_id"] !== $providerIdentity) {
+                $db
+                    ->from(Database::getTable("user"))
+                    ->where("id", $id)
+                    ->update(array("provider_id" => $providerIdentity))
+                    ->execute();
+            }
         }
 
         /*
