@@ -8,6 +8,12 @@
 
 class XHR {
     public static function exitWith($code, $data) {
+        /*
+            Ensure the FreeField version number is included to ensure third
+            party clients can properly parse the response from the API.
+        */
+        $data = array_merge(array("ff-version" => FF_VERSION), $data);
+
         $codes = array(
             200 => "OK",
             201 => "Created",
