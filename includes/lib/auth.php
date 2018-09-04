@@ -146,7 +146,7 @@ class Auth {
         from the authentication providers when they have passed authentication
         stage III.
     */
-    public static function setAuthenticatedSession($id, $expire, $humanId, $suggestedNick) {
+    public static function setAuthenticatedSession($id, $expire, $providerIdentity, $suggestedNick) {
         $db = Database::getSparrow();
         $user = $db
             ->from(Database::getTable("user"))
@@ -179,7 +179,7 @@ class Auth {
 
             $data = array(
                 "id" => $id,
-                "provider_id" => $humanId,
+                "provider_id" => $providerIdentity,
                 "nick" => $suggestedNick,
                 "token" => $token,
                 "permission" => Config::get("permissions/default-level"),
