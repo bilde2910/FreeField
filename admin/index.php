@@ -179,7 +179,7 @@ if (!$domains[$domain]["custom-handler"]) {
             "page_title.admin",
             true,
             Config::get("site/name"),
-            I18N::resolve($di18n->getName())
+            I18N::resolve($di18n->getTitle())
         ); ?></title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -272,7 +272,7 @@ if (!$domains[$domain]["custom-handler"]) {
 
                             echo '<a href="./?d='.$d.'" class="pure-menu-link">'.
                                     '<i class="menu-fas fas fa-'.$domaindata["icon"].'"></i> '.
-                                    I18N::resolveHTML(Config::getDomainI18N($d)->getName()).
+                                    I18N::resolveHTML(Config::getDomainI18N($d)->getTitle()).
                                  '</a></li>';
                         }
                         ?>
@@ -289,8 +289,8 @@ if (!$domains[$domain]["custom-handler"]) {
 
             <div id="main">
                 <div class="header">
-                    <h1><?php echo I18N::resolveHTML($di18n->getName()); ?></h1>
-                    <h2><?php echo I18N::resolveHTML($di18n->getDescription()); ?></h2>
+                    <h1><?php echo I18N::resolveHTML($di18n->getTitle()); ?></h1>
+                    <h2><?php echo I18N::resolveHTML($di18n->getSubtitle()); ?></h2>
                 </div>
 
                 <?php

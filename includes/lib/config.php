@@ -815,7 +815,7 @@ class ConfigDomainI18N {
     /*
         Returns an I18N token representing the name of the domain/page.
     */
-    public function getName() {
+    public function getTitle() {
         return "admin.domain.".
                Config::translatePathI18N($this->domain).
                ".name";
@@ -825,7 +825,7 @@ class ConfigDomainI18N {
         Returns an I18N token representing a sub-title displayed underneath the
         main title on the page.
     */
-    public function getDescription() {
+    public function getSubtitle() {
         return "admin.domain.".
                Config::translatePathI18N($this->domain).
                ".desc";
