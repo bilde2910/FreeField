@@ -903,124 +903,159 @@ $provider = Config::get("map/provider/source");
                         </h2>
                     </div>
                     <div class="content pure-form">
-                        <h2 class="content-subhead">
-                            <?php echo I18N::resolveHTML("user_settings.section.map_providers") ?>
-                        </h2>
-                        <!--
-                            Directions provider for navigation links.
-                        -->
-                        <div class="pure-g">
-                            <div class="pure-u-1-3 full-on-mobile">
-                                <p class="setting-name">
-                                    <?php echo I18N::resolveHTML("user_setting.directions_provider.name"); ?>:
-                                </p>
-                            </div>
-                            <div class="pure-u-2-3 full-on-mobile">
-                                <p><select class="user-setting" data-key="naviProvider">
-                                    <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
-                                    <?php
-                                        $naviProviders = Geo::listNavigationProviders();
-                                        foreach ($naviProviders as $naviProvider => $url) {
-                                            echo '<option value="'.$naviProvider.'">
-                                                    '.I18N::resolveHTML("setting.map.provider.directions.option.{$naviProvider}").'
-                                                  </option>';
-                                        }
+                        <form action="apply-settings.php"
+                              id="user-settings-form"
+                              method="POST"
+                              enctype="application/x-www-form-urlencoded">
+                            <!--
+                                Directions provider for navigation links.
+                            -->
+                            <?php
+                                if (
+                                    Auth::getCurrentUser()->exists() &&
+                                    Auth::getCurrentUser()->hasPermission("self-manage/nickname")
+                                ) {
                                     ?>
-                                </select></p>
+                                        <h2 class="content-subhead">
+                                            <?php echo I18N::resolveHTML("user_settings.section.account") ?>
+                                        </h2>
+                                        <div class="pure-g">
+                                            <div class="pure-u-1-3 full-on-mobile">
+                                                <p class="setting-name">
+                                                    <?php echo I18N::resolveHTML("user_setting.nickname.name"); ?>:
+                                                </p>
+                                            </div>
+                                            <div class="pure-u-2-3 full-on-mobile">
+                                                <p><input type="text"
+                                                          name="nickname"
+                                                          value="<?php echo htmlspecialchars(
+                                                              Auth::getCurrentUser()->getNickname(),
+                                                              ENT_QUOTES
+                                                          ); ?>"></p>
+                                            </div>
+                                        </div>
+                                    <?php
+                                }
+                            ?>
+                            <h2 class="content-subhead">
+                                <?php echo I18N::resolveHTML("user_settings.section.map_providers") ?>
+                            </h2>
+                            <!--
+                                Directions provider for navigation links.
+                            -->
+                            <div class="pure-g">
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p class="setting-name">
+                                        <?php echo I18N::resolveHTML("user_setting.directions_provider.name"); ?>:
+                                    </p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile">
+                                    <p><select class="user-setting" data-key="naviProvider">
+                                        <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
+                                        <?php
+                                            $naviProviders = Geo::listNavigationProviders();
+                                            foreach ($naviProviders as $naviProvider => $url) {
+                                                echo '<option value="'.$naviProvider.'">
+                                                        '.I18N::resolveHTML("setting.map.provider.directions.option.{$naviProvider}").'
+                                                      </option>';
+                                            }
+                                        ?>
+                                    </select></p>
+                                </div>
                             </div>
-                        </div>
-                        <h2 class="content-subhead">
-                            <?php echo I18N::resolveHTML("user_settings.section.appearance") ?>
-                        </h2>
-                        <?php
-                            if (Config::get("themes/color/user-settings/allow-personalization")) {
-                                ?>
-                                    <!--
-                                        User interface theme (dark or light).
-                                        This is separate from the map theme.
-                                    -->
-                                    <div class="pure-g">
-                                        <div class="pure-u-1-3 full-on-mobile">
-                                            <p class="setting-name">
-                                                <?php echo I18N::resolveHTML("user_setting.interface_theme.name"); ?>:
-                                            </p>
-                                        </div>
-                                        <div class="pure-u-2-3 full-on-mobile">
-                                            <p><select class="user-setting" data-key="theme">
-                                                <option value="">
-                                                    <?php echo I18N::resolveHTML("user_settings.value.default"); ?>
-                                                </option>
-                                                <option value="light">
-                                                    <?php echo I18N::resolveHTML("setting.themes.color.user_settings.theme.option.light"); ?>
-                                                </option>
-                                                <option value="dark">
-                                                    <?php echo I18N::resolveHTML("setting.themes.color.user_settings.theme.option.dark"); ?>
-                                                </option>
-                                            </select></p>
-                                        </div>
-                                    </div>
-                                <?php
-                            }
-                        ?>
-                        <?php
-                            if (Config::get("themes/color/map/allow-personalization")) {
-                                ?>
-                                    <div class="pure-g">
+                            <h2 class="content-subhead">
+                                <?php echo I18N::resolveHTML("user_settings.section.appearance") ?>
+                            </h2>
+                            <?php
+                                if (Config::get("themes/color/user-settings/allow-personalization")) {
+                                    ?>
                                         <!--
-                                            Map theme (i.e. color scheme for map
-                                            elements).
+                                            User interface theme (dark or
+                                            light.) This is separate from the
+                                            map theme.
                                         -->
-                                        <div class="pure-u-1-3 full-on-mobile">
-                                            <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.map_theme.name"); ?>:</p>
+                                        <div class="pure-g">
+                                            <div class="pure-u-1-3 full-on-mobile">
+                                                <p class="setting-name">
+                                                    <?php echo I18N::resolveHTML("user_setting.interface_theme.name"); ?>:
+                                                </p>
+                                            </div>
+                                            <div class="pure-u-2-3 full-on-mobile">
+                                                <p><select class="user-setting" data-key="theme">
+                                                    <option value="">
+                                                        <?php echo I18N::resolveHTML("user_settings.value.default"); ?>
+                                                    </option>
+                                                    <option value="light">
+                                                        <?php echo I18N::resolveHTML("setting.themes.color.user_settings.theme.option.light"); ?>
+                                                    </option>
+                                                    <option value="dark">
+                                                        <?php echo I18N::resolveHTML("setting.themes.color.user_settings.theme.option.dark"); ?>
+                                                    </option>
+                                                </select></p>
+                                            </div>
                                         </div>
-                                        <div class="pure-u-2-3 full-on-mobile">
-                                            <p><select class="user-setting" data-key="mapStyle/mapbox">
-                                                <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
-                                                <option value="basic"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.basic"); ?></option>
-                                                <option value="streets"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.streets"); ?></option>
-                                                <option value="bright"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.bright"); ?></option>
-                                                <option value="light"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.light"); ?></option>
-                                                <option value="dark"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.dark"); ?></option>
-                                                <option value="satellite"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.satellite"); ?></option>
-                                            </select></p>
-                                        </div>
-                                    </div>
-                                <?php
-                            }
-                        ?>
-                        <?php
-                            if (Config::get("themes/icons/allow-personalization")) {
-                                $opt = new IconPackOption("user_settings.value.default");
-                                ?>
-                                    <!--
-                                        Icon set used for map markers.
-                                    -->
-                                    <div class="pure-g">
-                                        <div class="pure-u-1-3 full-on-mobile">
-                                            <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.icons.name"); ?>:</p>
-                                        </div>
-                                        <div class="pure-u-2-3 full-on-mobile">
-                                            <p>
-                                                <?php echo $opt->getControl(null, array(
-                                                    "id" => "icon-selector",
-                                                    "data-key" => "iconSet",
-                                                    "class" => "user-setting"
-                                                )); ?>
-                                            </p>
-                                        </div>
-                                    </div>
                                     <?php
-                                        echo $opt->getFollowingBlock();
+                                }
+                            ?>
+                            <?php
+                                if (Config::get("themes/color/map/allow-personalization")) {
                                     ?>
-                                <?php
-                            }
-                        ?>
-                        <p class="buttons">
-                            <input type="button"
-                                   id="user-settings-save"
-                                   class="button-submit"
-                                   value="<?php echo I18N::resolveHTML("ui.button.save"); ?>">
-                        </p>
+                                        <div class="pure-g">
+                                            <!--
+                                                Map theme (i.e. color scheme for
+                                                map elements).
+                                            -->
+                                            <div class="pure-u-1-3 full-on-mobile">
+                                                <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.map_theme.name"); ?>:</p>
+                                            </div>
+                                            <div class="pure-u-2-3 full-on-mobile">
+                                                <p><select class="user-setting" data-key="mapStyle/mapbox">
+                                                    <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
+                                                    <option value="basic"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.basic"); ?></option>
+                                                    <option value="streets"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.streets"); ?></option>
+                                                    <option value="bright"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.bright"); ?></option>
+                                                    <option value="light"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.light"); ?></option>
+                                                    <option value="dark"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.dark"); ?></option>
+                                                    <option value="satellite"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.satellite"); ?></option>
+                                                </select></p>
+                                            </div>
+                                        </div>
+                                    <?php
+                                }
+                            ?>
+                            <?php
+                                if (Config::get("themes/icons/allow-personalization")) {
+                                    $opt = new IconPackOption("user_settings.value.default");
+                                    ?>
+                                        <!--
+                                            Icon set used for map markers.
+                                        -->
+                                        <div class="pure-g">
+                                            <div class="pure-u-1-3 full-on-mobile">
+                                                <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.icons.name"); ?>:</p>
+                                            </div>
+                                            <div class="pure-u-2-3 full-on-mobile">
+                                                <p>
+                                                    <?php echo $opt->getControl(null, array(
+                                                        "id" => "icon-selector",
+                                                        "data-key" => "iconSet",
+                                                        "class" => "user-setting"
+                                                    )); ?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <?php
+                                            echo $opt->getFollowingBlock();
+                                        ?>
+                                    <?php
+                                }
+                            ?>
+                            <p class="buttons">
+                                <input type="submit"
+                                       class="button-submit"
+                                       value="<?php echo I18N::resolveHTML("ui.button.save"); ?>">
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>

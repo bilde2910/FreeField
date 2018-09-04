@@ -940,10 +940,11 @@ $("#menu-close-settings").on("click", function() {
 });
 
 /*
-    Event handler for the "save settings" button on the settings pane. Loops
-    over all configurable user settings and saves them to local storage.
+    Event handler for the user settings form on the settings pane. Loops over
+    all configurable user settings and saves them to local storage before the
+    form is submitted for processing of server-side settings.
 */
-$("#user-settings-save").on("click", function() {
+$("#user-settings-form").on("submit", function() {
     $(".user-setting").each(function() {
         var key = $(this).attr("data-key");
         var value = $(this).val();
@@ -989,10 +990,9 @@ $("#user-settings-save").on("click", function() {
     });
 
     /*
-        Save and then reload for the changes to take effect.
+        Save and then submit the form/reload for the changes to take effect.
     */
     saveSettings();
-    location.reload();
 });
 
 /*

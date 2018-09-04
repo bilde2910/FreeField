@@ -178,6 +178,16 @@ class ConfigTree {
                         "option" => new PermissionOption()
                     )
                 ),
+                "self-manage" => array(
+                    /*
+                        Allows users of this level and higher to change their
+                        own nicknames.
+                    */
+                    "permissions/level/self-manage/nickname" => array(
+                        "default" => 40,
+                        "option" => new PermissionOption()
+                    )
+                ),
                 "map-access" => array(
                     /*
                         Allows users to view the FreeField map and list of
