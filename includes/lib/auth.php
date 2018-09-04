@@ -608,19 +608,17 @@ class Auth {
             level currently selected, even though no group for it exists in the
             database.
         */
-        if ($curperm === null) {
-            $curopt = '<option value="'.$selectedLevel.'" selected>'.
-                            $selectedLevel.
-                            ' - '.
-                            self::resolvePermissionLabelI18NHTML("{i18n:group.level.unknown}").
-                      '</option>';
-        } else {
-            $curopt = '<option value="'.$selectedLevel.'" style="color:" selected>'.
-                            $selectedLevel.
-                            ' - '.
-                            self::resolvePermissionLabelI18NHTML($curperm["label"]).
-                      '</option>';
-        }
+        $curopt = '<option value="'.$selectedLevel.'" selected>'.
+                        $selectedLevel.
+                        ' - '.
+                        self::resolvePermissionLabelI18NHTML(
+                            (
+                                $curperm === null
+                                ? "{i18n:group.level.unknown}"
+                                : $curperm["label"]
+                            )
+                        ).
+                  '</option>';
 
         return '<select'.($name !== null ? ' name="'.$name.'"' : '').
                          ($id !== null ? ' id="'.$id.'"' : '').
