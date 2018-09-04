@@ -488,13 +488,15 @@ class SelectOption extends DefaultOption {
                 $label = I18N::resolveHTML(
                     "setting.".
                     str_replace("-", "_", str_replace("/", ".", $name)).
-                    ".option.{$item}"
+                    ".option.".
+                    str_replace(",", "_", $item)
                 );
             } elseif ($id !== null) {
                 $label = I18N::resolveHTML(
                     "setting.".
                     str_replace("-", "_", $id).
-                    ".option.{$item}"
+                    ".option.".
+                    str_replace(",", "_", $item)
                 );
             } else {
                 $label = $item;

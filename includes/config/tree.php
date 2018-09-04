@@ -95,6 +95,21 @@ class ConfigTree {
                         "option" => new StringOption()
                     )
                 ),
+                "spiders" => array(
+                    /*
+                        Declares how robots (such as search engines and other
+                        web scrapers) may crawl and index this site.
+                    */
+                    "spiders/robots-policy" => array(
+                        "default" => "none",
+                        "option" => new SelectOption(array(
+                            "all",
+                            "nofollow",
+                            "noindex",
+                            "noindex,nofollow"
+                        ))
+                    )
+                ),
                 "database" => array(
                     /*
                         The type of connection used to connect to the database.
