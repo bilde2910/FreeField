@@ -189,7 +189,7 @@ class ConfigTree {
                         group.
                     */
                     "permissions/default-level" => array(
-                        "default" => 80,
+                        "default" => PermissionOption::LEVEL_REGISTERED,
                         "option" => new PermissionOption()
                     )
                 ),
@@ -199,7 +199,7 @@ class ConfigTree {
                         own nicknames.
                     */
                     "permissions/level/self-manage/nickname" => array(
-                        "default" => 40,
+                        "default" => PermissionOption::LEVEL_READ_ONLY,
                         "option" => new PermissionOption()
                     )
                 ),
@@ -209,7 +209,7 @@ class ConfigTree {
                         POIs.
                     */
                     "permissions/level/access" => array(
-                        "default" => 0,
+                        "default" => PermissionOption::LEVEL_ANONYMOUS,
                         "option" => new PermissionOption()
                     ),
                     /*
@@ -217,7 +217,7 @@ class ConfigTree {
                         current field research objective is unknown.
                     */
                     "permissions/level/report-research" => array(
-                        "default" => 80,
+                        "default" => PermissionOption::LEVEL_REGISTERED,
                         "option" => new PermissionOption()
                     ),
                     /*
@@ -227,14 +227,14 @@ class ConfigTree {
                         field research" permission.
                     */
                     "permissions/level/overwrite-research" => array(
-                        "default" => 80,
+                        "default" => PermissionOption::LEVEL_REGISTERED,
                         "option" => new PermissionOption()
                     ),
                     /*
                         Allows users to submit new POIs to the map.
                     */
                     "permissions/level/submit-poi" => array(
-                        "default" => 120,
+                        "default" => PermissionOption::LEVEL_SUBMITTER,
                         "option" => new PermissionOption()
                     )
                 ),
@@ -244,7 +244,7 @@ class ConfigTree {
                         installation settings.
                     */
                     "permissions/level/admin/main/general" => array(
-                        "default" => 250,
+                        "default" => PermissionOption::LEVEL_HOST,
                         "option" => new PermissionOption()
                     ),
                     /*
@@ -252,14 +252,14 @@ class ConfigTree {
                         other users's accounts.
                     */
                     "permissions/level/admin/users/general" => array(
-                        "default" => 160,
+                        "default" => PermissionOption::LEVEL_MODERATOR,
                         "option" => new PermissionOption()
                     ),
                     /*
                         Allows users to add, remove, and manage user groups.
                     */
                     "permissions/level/admin/groups/general" => array(
-                        "default" => 200,
+                        "default" => PermissionOption::LEVEL_ADMIN,
                         "option" => new PermissionOption()
                     ),
                     /*
@@ -267,7 +267,7 @@ class ConfigTree {
                         Also requires the "Manage users" permission.
                     */
                     "permissions/level/admin/users/groups" => array(
-                        "default" => 160,
+                        "default" => PermissionOption::LEVEL_MODERATOR,
                         "option" => new PermissionOption()
                     ),
                     /*
@@ -283,14 +283,14 @@ class ConfigTree {
                         "Manage group membership" permission.
                     */
                     "permissions/level/admin/groups/self-manage" => array(
-                        "default" => 250,
+                        "default" => PermissionOption::LEVEL_HOST,
                         "option" => new PermissionOption()
                     ),
                     /*
                         Allow users to manage and delete user-submitted POIs.
                     */
                     "permissions/level/admin/pois/general" => array(
-                        "default" => 160,
+                        "default" => PermissionOption::LEVEL_MODERATOR,
                         "option" => new PermissionOption()
                     ),
                     /*
@@ -298,7 +298,7 @@ class ConfigTree {
                         page.
                     */
                     "permissions/level/admin/perms/general" => array(
-                        "default" => 200,
+                        "default" => PermissionOption::LEVEL_ADMIN,
                         "option" => new PermissionOption()
                     ),
                     /*
@@ -306,7 +306,7 @@ class ConfigTree {
                         site.
                     */
                     "permissions/level/admin/security/general" => array(
-                        "default" => 200,
+                        "default" => PermissionOption::LEVEL_ADMIN,
                         "option" => new PermissionOption()
                     ),
                     /*
@@ -314,14 +314,14 @@ class ConfigTree {
                         authentication providers for user sign-in.
                     */
                     "permissions/level/admin/auth/general" => array(
-                        "default" => 250,
+                        "default" => PermissionOption::LEVEL_HOST,
                         "option" => new PermissionOption()
                     ),
                     /*
                         Allows users to manage default site-wide themes.
                     */
                     "permissions/level/admin/themes/general" => array(
-                        "default" => 200,
+                        "default" => PermissionOption::LEVEL_ADMIN,
                         "option" => new PermissionOption()
                     ),
                     /*
@@ -329,21 +329,21 @@ class ConfigTree {
                         settings for the map.
                     */
                     "permissions/level/admin/map/general" => array(
-                        "default" => 250,
+                        "default" => PermissionOption::LEVEL_HOST,
                         "option" => new PermissionOption()
                     ),
                     /*
                         Allows users to manage geofences.
                     */
                     "permissions/level/admin/fences/general" => array(
-                        "default" => 200,
+                        "default" => PermissionOption::LEVEL_ADMIN,
                         "option" => new PermissionOption()
                     ),
                     /*
                         Allows users to manage webhook integrations.
                     */
                     "permissions/level/admin/hooks/general" => array(
-                        "default" => 200,
+                        "default" => PermissionOption::LEVEL_ADMIN,
                         "option" => new PermissionOption()
                     )
                 )

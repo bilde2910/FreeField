@@ -534,6 +534,17 @@ class SelectOption extends DefaultOption {
     have to change as well to reflect the updated permission level.
 */
 class PermissionOption extends DefaultOption {
+    /*
+        Constants representing the default permission levels.
+    */
+    public const LEVEL_HOST = 250;
+    public const LEVEL_ADMIN = 200;
+    public const LEVEL_MODERATOR = 160;
+    public const LEVEL_SUBMITTER = 120;
+    public const LEVEL_REGISTERED = 80;
+    public const LEVEL_READ_ONLY = 40;
+    public const LEVEL_ANONYMOUS = 0;
+
     public function getControl($current = 0, $attrs = array()) {
         /*
             The permission level selector is actually defined in
