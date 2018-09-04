@@ -771,6 +771,16 @@ $(document).ready(function() {
 });
 
 /*
+    In addition to the patch above that sets the height of the map to the real
+    height of the viewport on load, we'll also bind an event handler to ensure
+    that full-height containers retain full height when the window is resized.
+*/
+$(window).on("resize", function() {
+    var screenHeight = $(window).height();
+    $('.full-container').css('height', screenHeight + 'px');
+})
+
+/*
     Event handler for the sidebar button "Add POI". When clicked, this function
     starts the process for adding a new POI to the map. It registers an event
     handler that fetches the coordinates of a location the user clicks on on the
