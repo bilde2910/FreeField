@@ -231,17 +231,17 @@ function openMarker(popup, id) {
 
         If permission is not granted, hide the button.
     */
-    var displayAddPoi = permissions["report-research"];
+    var canReportResearch = permissions["report-research"];
     if (
-        displayAddPoi &&
+        canReportResearch &&
         (
             poiObj.objective.type != "unknown" ||
             poiObj.reward.type != "unknown"
         )
     ) {
-        displayAddPoi = permissions["overwrite-research"];
+        canReportResearch = permissions["overwrite-research"];
     }
-    if (displayAddPoi) {
+    if (canReportResearch) {
         $("#poi-add-report").on("click", function() {
             /*
                 This event handler opens the dialog box for reporting field
