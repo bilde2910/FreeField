@@ -451,7 +451,6 @@ function openMarker(popup, id) {
                         type: reward,
                         params: rewParams
                     };
-                    console.log(poiObj.element);
 
                     /*
                         Let the user know that the research was successfully
@@ -494,7 +493,7 @@ function openMarker(popup, id) {
             */
             var data = xhr.responseJSON;
             var reason = resolveI18N("xhr.failed.reason.unknown_reason");
-            console.log(data);
+
             if (data !== undefined && data.hasOwnProperty("reason")) {
                 reason = resolveI18N(data["reason"]);
             }
@@ -727,7 +726,6 @@ if (!localStorageSupport) {
 function saveSettings() {
     if (localStorageSupport) {
         localStorage.setItem("settings", JSON.stringify(settings));
-        console.log("Saved!");
     }
 }
 
@@ -881,7 +879,7 @@ $("#add-poi-submit").on("click", function() {
         */
         var data = xhr.responseJSON;
         var reason = resolveI18N("xhr.failed.reason.unknown_reason");
-        console.log(data);
+
         if (data !== undefined && data.hasOwnProperty("reason")) {
             reason = resolveI18N(data["reason"]);
         }
