@@ -250,6 +250,15 @@ if (!$domains[$domain]["custom-handler"]) {
                             <span class="user-box-small">
                                 <?php echo Auth::getCurrentUser()->getProviderIdentityHTML(); ?>
                             </span><br>
+                            <?php
+                                if (!Auth::getCurrentUser()->isApproved()) {
+                                    ?>
+                                        <span class="user-box-small red">
+                                            <?php echo I18N::resolveHTML("sidebar.approval_pending"); ?>
+                                        </span>
+                                    <?php
+                                }
+                            ?>
                         </div>
                         <li class="pure-menu-item">
                             <a href="../auth/logout.php" class="pure-menu-link">
