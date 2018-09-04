@@ -469,7 +469,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             Check that the POI is within the geofence of the webhook.
         */
         if (isset($hook["geofence"])) {
-            if (!$poi->isWithinGeofence($hook["geofence"])) {
+            if (!$poi->isWithinGeofence(Geo::getGeofence($hook["geofence"]))) {
                 continue;
             }
         }
