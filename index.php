@@ -906,29 +906,29 @@ $provider = Config::get("map/provider/source");
                         <h2 class="content-subhead">
                             <?php echo I18N::resolveHTML("user_settings.section.map_providers") ?>
                         </h2>
-                            <!--
-                                Directions provider for navigation links.
-                            -->
-                            <div class="pure-g">
-                                <div class="pure-u-1-3 full-on-mobile">
-                                    <p class="setting-name">
-                                        <?php echo I18N::resolveHTML("user_setting.directions_provider.name"); ?>:
-                                    </p>
-                                </div>
-                                <div class="pure-u-2-3 full-on-mobile">
-                                    <p><select class="user-setting" data-key="naviProvider">
-                                        <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
-                                        <?php
-                                            $naviProviders = Geo::listNavigationProviders();
-                                            foreach ($naviProviders as $naviProvider => $url) {
-                                                echo '<option value="'.$naviProvider.'">
-                                                        '.I18N::resolveHTML("setting.map.provider.directions.option.{$naviProvider}").'
-                                                      </option>';
-                                            }
-                                        ?>
-                                    </select></p>
-                                </div>
+                        <!--
+                            Directions provider for navigation links.
+                        -->
+                        <div class="pure-g">
+                            <div class="pure-u-1-3 full-on-mobile">
+                                <p class="setting-name">
+                                    <?php echo I18N::resolveHTML("user_setting.directions_provider.name"); ?>:
+                                </p>
                             </div>
+                            <div class="pure-u-2-3 full-on-mobile">
+                                <p><select class="user-setting" data-key="naviProvider">
+                                    <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
+                                    <?php
+                                        $naviProviders = Geo::listNavigationProviders();
+                                        foreach ($naviProviders as $naviProvider => $url) {
+                                            echo '<option value="'.$naviProvider.'">
+                                                    '.I18N::resolveHTML("setting.map.provider.directions.option.{$naviProvider}").'
+                                                  </option>';
+                                        }
+                                    ?>
+                                </select></p>
+                            </div>
+                        </div>
                         <h2 class="content-subhead">
                             <?php echo I18N::resolveHTML("user_settings.section.appearance") ?>
                         </h2>
