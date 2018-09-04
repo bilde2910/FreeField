@@ -536,8 +536,10 @@ function closeMarker(popup) {
         Reset the marker icons in the POI details popup.
     */
     setTimeout(function() {
-        $("#poi-objective-icon").attr("src", "about:blank");
-        $("#poi-reward-icon").attr("src", "about:blank");
+        // 1x1 transparent GIF
+        var blankImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+        $("#poi-objective-icon").attr("src", blankImage);
+        $("#poi-reward-icon").attr("src", blankImage);
     }, 150);
 }
 
