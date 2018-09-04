@@ -1074,4 +1074,44 @@ class FileOptionValue {
     }
 }
 
+/*
+    This option is for settings which require an RGB color code. The stored
+    value for this setting is of the format "#rrggbb".
+*/
+class ColorOption extends DefaultOption {
+    public function getControl($current = "#000000", $attrs = array()) {
+        $id = isset($attrs["id"]) ? $attrs["id"] : null;
+
+        $attrs["value"] = $current;
+        if ($this->regex !== null) {
+            $attrs["data-validate-as"] = "regex-string";
+            $attrs["data-validate-regex"] = $this->regex;
+        }
+        $attrString = parent::constructAttributes($attrs);
+
+        /*
+            The color selector should have a string next to it indicating the
+            selected color.
+        */
+        list($r, $g, $b) = sscanf($current, "#%02x%02x%02x");
+        $previewSpan = "<span>r={$r}, g={$g}, b={$b}</span>";
+
+        return '<input class="color-option-input" type="color"'.$attrString.'> '.
+            $previewSpan;
+    }
+
+    public function parseValue($data) {
+        return strtolower(strval($data));
+    }
+
+    public function isValid($data) {
+        if (is_array($data)) return false;
+        /*
+            Ensure that the value is a valid hexadecimal RGB color code.
+        */
+        if (!preg_match('/^#[0-9a-f]{6}$/', $data)) return false;
+        return true;
+    }
+}
+
 ?>
