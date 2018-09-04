@@ -18,7 +18,7 @@ class Theme {
         /includes/lib/research.php.
     */
     public static function listIcons() {
-        $icons = array();
+        $icons = array("default");
         foreach (Research::OBJECTIVES as $objective => $data) {
             // Add the objective itself to the icon array
             $icons[] = $objective;
