@@ -34,6 +34,7 @@ $approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex,nofollow">
+        <meta name="theme-color" content="<?php echo Config::getHTML("themes/meta/color"); ?>">
         <title><?php echo I18N::resolveArgsHTML(
             "page_title.login.awaiting_approval",
             true,

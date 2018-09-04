@@ -521,6 +521,14 @@ class ConfigTree {
                                 "image/jpeg" => "jpg"
                             ), 256 * 1024 // Max 256 KiB
                         )
+                    ),
+                    /*
+                        The color displayed in the title and address bars for
+                        mobile browsers.
+                    */
+                    "themes/meta/color" => array(
+                        "default" => "#08263a",
+                        "option" => new ColorOption()
                     )
                 ),
                 "color" => array(
