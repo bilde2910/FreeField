@@ -1210,50 +1210,46 @@ $provider = Config::get("map/provider/source");
                 A reference to all available icon sets and the URLs they provide
                 for various icon graphics.
             */
-            var iconSets = {
-                <?php
-                    /*
-                        List all possible icons and all available icon sets.
-                    */
-                    $icons = Theme::listIcons();
-                    $themes = Theme::listIconSets();
+            var iconSets = <?php
+                /*
+                    List all possible icons and all available icon sets.
+                */
+                $icons = Theme::listIcons();
+                $themes = Theme::listIconSets();
 
-                    $themejs = array();
+                $output = array();
 
-                    /*
-                        If the administrators have configured FreeField to deny
-                        users selecting their own icon sets, then only the icon
-                        sets defined in this array should be loaded. By default,
-                        all icon sets are loaded.
-                    */
-                    $restrictiveLoadThemes = array(
-                        Config::get("themes/icons/default")
-                    );
+                /*
+                    If the administrators have configured FreeField to deny
+                    users selecting their own icon sets, then only the icon sets
+                    defined in this array should be loaded. By default, all icon
+                    sets are loaded.
+                */
+                $restrictiveLoadThemes = array(
+                    Config::get("themes/icons/default")
+                );
 
-                    foreach ($themes as $theme) {
-                        if (
-                            !Config::get("themes/icons/allow-personalization") &&
-                            in_array($theme, $restrictiveLoadThemes)
-                        ) {
-                            return;
-                        }
-
-                        /*
-                            Get an `IconSet` instance for each theme (from
-                            /includes/lib/theme.php). Use this instance to grab
-                            an URL for every icon defined in `$icons`.
-                        */
-                        $iconSet = Theme::getIconSet($theme);
-                        $iconKv = array();
-                        foreach ($icons as $icon) {
-                            $iconKv[] = "'{$icon}': '".$iconSet->getIconUrl($icon)."'";
-                        }
-                        $themejs[] = "'{$theme}': {".implode(", ", $iconKv)."}";
+                foreach ($themes as $theme) {
+                    if (
+                        !Config::get("themes/icons/allow-personalization") &&
+                        in_array($theme, $restrictiveLoadThemes)
+                    ) {
+                        return;
                     }
 
-                    echo implode(", ", $themejs);
-                ?>
-            };
+                    /*
+                        Get an `IconSet` instance for each theme (from
+                        /includes/lib/theme.php). Use this instance to grab an
+                        URL for every icon defined in `$icons`.
+                    */
+                    $iconSet = Theme::getIconSet($theme);
+                    foreach ($icons as $icon) {
+                        $output[$theme][$icon] = $iconSet->getIconUrl($icon);
+                    }
+                }
+
+                echo json_encode($output);
+            ?>;
         </script>
         <script src="./js/ui.js"></script>
         <script src="./js/main.js?t=<?php echo time(); ?>"></script>
