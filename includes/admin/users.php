@@ -87,7 +87,7 @@
                                         <?php echo I18N::resolveHTML("admin.section.auth.".$user->getProvider().".name"); ?>
                                     </td>
                                     <td>
-                                        <?php echo htmlspecialchars($user->getNickname(), ENT_QUOTES); ?>
+                                        <?php echo $user->getNicknameHTML(); ?>
                                     </td>
                                     <td>
                                         <?php echo $user->getRegistrationDate(); ?>
