@@ -238,7 +238,9 @@ if (!$domains[$domain]["custom-handler"]) {
 
             <div id="menu">
                 <div class="pure-menu">
-                    <a class="pure-menu-heading" href="..">Freefield</a>
+                    <a class="pure-menu-heading" href="..">
+                        <?php echo Config::getHTML("site/menu-header"); ?>
+                    </a>
 
                     <ul class="pure-menu-list">
                         <div class="menu-user-box">

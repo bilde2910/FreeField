@@ -168,7 +168,9 @@ $provider = Config::get("map/provider/source");
 
             <div id="menu">
                 <div class="pure-menu">
-                    <a class="pure-menu-heading" href=".">FreeField</a>
+                    <a class="pure-menu-heading" href=".">
+                        <?php echo Config::getHTML("site/menu-header"); ?>
+                    </a>
 
                     <ul class="pure-menu-list">
                         <?php if (Auth::isAuthenticated()) { ?>

@@ -93,6 +93,13 @@ class ConfigTree {
                     "site/name" => array(
                         "default" => "FreeField",
                         "option" => new StringOption()
+                    ),
+                    /*
+                        The text displayed at the top of the menu sidebar.
+                    */
+                    "site/menu-header" => array(
+                        "default" => "FREEFIELD",
+                        "option" => new StringOption()
                     )
                 ),
                 "spiders" => array(

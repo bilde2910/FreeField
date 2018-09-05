@@ -13,6 +13,13 @@
     text-align: center;
 }
 
+/* The header in the menu sidebar. */
+.pure-menu-heading {
+    text-transform: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* The "userbox" which shows the currently logged in user at the top of the
    sidebar. */
 .menu-user-box {
