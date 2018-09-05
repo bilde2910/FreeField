@@ -252,7 +252,7 @@ if (!$user->exists() || $user->isApproved()) {
                     <tr>
                         <td>
                             <?php echo I18N::resolveHTML(
-                                "admin.table.users.user_list.column.auto_nickname.name"
+                                "admin.table.users.user_list.column.nickname.name"
                             ); ?>
                         </td>
                         <td>

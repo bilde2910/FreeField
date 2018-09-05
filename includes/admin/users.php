@@ -63,7 +63,7 @@
                         -->
                         <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.provider_identity.name"); ?></th>
                         <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.provider.name"); ?></th>
-                        <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.auto_nickname.name"); ?></th>
+                        <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.nickname.name"); ?></th>
                         <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.registered.name"); ?></th>
                         <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.actions.name"); ?></th>
                     </tr>
