@@ -75,10 +75,15 @@ function __require($require) {
             break;
 
         /*
-            Loads Composer libraries.
+            Loads OAuth2 library.
         */
-        case "vendor":
-            require_once(__DIR__."/../../vendor/autoload.php");
+        case "vendor/oauth2":
+            require_once(__DIR__."/../vendor/PHP-OAuth2/OAuth2/Client.php");
+            require_once(__DIR__."/../vendor/PHP-OAuth2/OAuth2/GrantType/IGrantType.php");
+            break;
+
+        case "vendor/oauth2/authcode":
+            require(__DIR__."/../vendor/PHP-OAuth2/OAuth2/GrantType/AuthorizationCode.php");
             break;
 
         /*

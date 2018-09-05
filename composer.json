@@ -14,7 +14,6 @@
     ],
     "require": {
         "php": ">=5.6.0",
-        "wohali/oauth2-discord-new": "^1.0",
         "mikecao/sparrow": "0.1"
     }
 }
