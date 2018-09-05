@@ -6,13 +6,6 @@
 */
 
 /*
-    `addingPoi` is a boolean flag on whether or not the user is currently adding
-    a POI to the map. This is set to `true` whenever POI adding is initiated to
-    prevent duplicate processing of new POIs.
-*/
-var addingPoi = false;
-
-/*
     `pois` holds the current, complete list of POIs available on this FreeField
     instance. An element in `pois` looks like this:
 
@@ -46,6 +39,46 @@ var styleMap = {
         satellite: "dark"
     }
 }
+
+/*
+    ------------------------------------------------------------------------
+        ADDING NEW POIS
+    ------------------------------------------------------------------------
+*/
+
+/*
+    `addingPoi` is a boolean flag on whether or not the user is currently adding
+    a POI to the map. This is set to `true` whenever POI adding is initiated to
+    prevent duplicate processing of new POIs.
+*/
+var addingPoi = false;
+
+/*
+    Event handler for the sidebar button "Add POI". When clicked, this function
+    starts the process for adding a new POI to the map. It registers an event
+    handler that fetches the coordinates of a location the user clicks on on the
+    map. It also displays a banner prompting the user to perform this action.
+*/
+$("#add-poi-start").on("click", function() {
+    if (addingPoi) return;
+    /*
+        Set the flag that indicates that a POI is currently in process of being
+        added to the map. This is used to prevent duplicate event handlers being
+        registered from clicking the button multiple times.
+    */
+    addingPoi = true;
+    $("#add-poi-banner").fadeIn(150);
+    map.on('click', getCoordsForPOI);
+});
+
+/*
+    Event handler for the "cancel" button on the banner that prompts users to
+    click on the map to add a new POI. This function cancels that action and
+    unbinds the associated event handler.
+*/
+$("#add-poi-cancel-banner").on("click", function() {
+    disableAddPOI(true);
+});
 
 /*
     Removes the banner prompting users to click on the map to select a location
@@ -105,36 +138,94 @@ function getCoordsForPOI(e) {
 }
 
 /*
-    Escapes HTML in a string.
-
-    data
-        The string to escape
+    Event handler for the "cancel" button on the "Add POI" dialog that requests
+    users for more information about the POI they are adding. This function
+    cancels the action of adding the POI and closes the dialog.
 */
-function encodeHTML(data) {
+$("#add-poi-cancel").on("click", function() {
+    disableAddPOI(true);
+    $("#add-poi-details").fadeOut();
+});
+
+/*
+    Event handler for the "submit" button on the "Add POI" dialog that requests
+    users for more information about the POI they are adding. This function
+    sends a PUT request to /xhr/poi.php to request the addition of the new POI.
+*/
+$("#add-poi-submit").on("click", function() {
     /*
-        This works by creating a new empty element, setting its innerText, and
-        the extracting the innerHTML from the same node. If innerText contains
-        HTML syntax, it will have to be escaped in the underlying HTML in order
-        to render as text, hence we can fetch that escaped HTML by calling the
-        contents of innerHTML.
+        Immediately disable the submit button to prevent duplicate submissions.
     */
-    return $("<div />").text(data).html();
-}
+    $("#add-poi-submit").prop("disabled", true);
+
+    var poiName = $("#add-poi-name").val();
+    var poiLat = parseFloat($("#add-poi-lat").val());
+    var poiLon = parseFloat($("#add-poi-lon").val());
+
+    /*
+        Since adding a new POI involves a server call, it may take a while
+        before the script can proceed from here. Display a loading animation
+        while we wait for the call to complete.
+    */
+    $("#add-poi-working").fadeIn(150);
+    $.ajax({
+        url: "./xhr/poi.php",
+        type: "PUT",
+        dataType: "json",
+        data: JSON.stringify({
+            lat: poiLat,
+            lon: poiLon,
+            name: poiName
+        }),
+        statusCode: {
+            201: function(data) {
+                /*
+                    The POI add request was accepted. `data` contains an array
+                    as defined in PUT /xhr/poi.php. Add the marker to the map
+                    so that research can be reported for it immediately.
+                */
+                var markers = [data.poi];
+                addMarkers(markers);
+
+                addingPoi = false;
+                spawnBanner("success", resolveI18N("poi.add.success", poiName));
+                $("#add-poi-details").fadeOut(150);
+                $("#add-poi-working").fadeOut(150);
+            }
+        }
+    }).fail(function(xhr) {
+        /*
+            The POI add request was denied for some reason. The user should be
+            informed of the reason the addition was deined through a banner
+            overlay.
+        */
+        var data = xhr.responseJSON;
+        var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+        if (data !== undefined && data.hasOwnProperty("reason")) {
+            reason = resolveI18N(data["reason"]);
+        }
+        spawnBanner("failed", resolveI18N(
+            "poi.add.failed.message",
+            poiName,
+            reason
+        ));
+        $("#add-poi-working").fadeOut(150);
+        /*
+            Re-enable the submit button that was previously disabled, to allow
+            the user to make more attempts at adding the POI once the submission
+            error that triggered the addition failure has been resolved by the
+            user.
+        */
+        $("#add-poi-submit").prop("disabled", false);
+    });
+});
 
 /*
-    Generates a new ID used to uniquely identify banner elements displayed as
-    overlays on top of the map.
+    ------------------------------------------------------------------------
+        BANNER OVERLAYS
+    ------------------------------------------------------------------------
 */
-function getNewID() {
-    return Math.random().toString(36).substr(2, 8);
-}
-
-/*
-    Fades away the element with the given ID.
-*/
-function dismiss(id) {
-    $(id).fadeOut(150);
-}
 
 /*
     Creates a banner that is displayed on top of the map. The banner contains a
@@ -173,6 +264,199 @@ function spawnBanner(type, message) {
         $("#dyn-" + id).fadeOut(150);
     }, 5000);
 }
+
+/*
+    Escapes HTML in a string.
+
+    data
+        The string to escape
+*/
+function encodeHTML(data) {
+    /*
+        This works by creating a new empty element, setting its innerText, and
+        the extracting the innerHTML from the same node. If innerText contains
+        HTML syntax, it will have to be escaped in the underlying HTML in order
+        to render as text, hence we can fetch that escaped HTML by calling the
+        contents of innerHTML.
+    */
+    return $("<div />").text(data).html();
+}
+
+/*
+    Generates a new ID used to uniquely identify banner elements displayed as
+    overlays on top of the map.
+*/
+function getNewID() {
+    return Math.random().toString(36).substr(2, 8);
+}
+
+/*
+    Fades away the element with the given ID.
+*/
+function dismiss(id) {
+    $(id).fadeOut(150);
+}
+
+/*
+    ------------------------------------------------------------------------
+        MAP MARKER, POI DETAILS AND RESEARCH REPORTING
+    ------------------------------------------------------------------------
+*/
+
+/*
+    Gets an image URL for the given icon, i.e. marker. This takes into account
+    the theme that the user has selected.
+
+    The URL may contain the {%variant%} token, which indicates that the icon
+    supports several different color variants. {%variant%}, if present, will be
+    replaced with `variant` ("light" or "dark") to get the correct variant based
+    on the color theme selected by the user in their local settings.
+*/
+function resolveIconUrl(icon) {
+    var variant = settings.get("theme");
+    var url = iconSets[settings.get("iconSet")][icon].split("{%variant%}").join(variant);
+    return url;
+}
+
+/*
+    Adds a set of marker icons to the map. The `markers` parameter is an array
+    of objects, where each object describes the properties of one POI.
+    format of the array is the same as the format output in JSON format by GET
+    /xhr/poi.php.
+*/
+function addMarkers(markers) {
+    markers.forEach(function(marker) {
+        /*
+            Create a marker element. This is the element that is displayed on
+            the map itself and is rendered with the relevant icon to indicate
+            the currently active field research on the POI.
+        */
+        var e = document.createElement("div");
+        e.className =
+            // Basic map marker class
+            "marker "
+
+            // Render the icon for the current reward active on the POI
+            + marker.reward.type + " "
+
+            // Set the color theme of the markers depending on the map style
+            + styleMap[settings.get("mapProvider")][settings.get("mapStyle/"+settings.get("mapProvider"))] + " "
+
+            // Set the icon set from which marker icons are fetched
+            + settings.get("iconSet");
+
+        marker["element"] = e;
+
+        /*
+            Add the marker to the global `pois` array for easy properties lookup
+            from elsewhere in the script.
+        */
+        pois[marker.id] = marker;
+
+        /*
+            Define a Mapbox popup that is attached to the marker. This popup is
+            just added to facilitate event handlers - we're making a custom
+            popup overlay that will be displayed instead of this one, so the
+            Mapbox native popup is hidden through CSS.
+        */
+        var popup = new mapboxgl.Popup({
+            offset: 25
+        });
+        /*
+            These are the event handlers we need. We need to know when a marker
+            is clicked on, and when the user requested to close a marker through
+            any means. These will open and close the custom POI details overlay
+            respectively.
+        */
+        popup.on("open", function() {
+            openMarker(popup, marker.id);
+        });
+        popup.on("close", function() {
+            closeMarker(popup);
+        });
+
+        /*
+            Declare and add the Mapbox marker to the map.
+        */
+        new mapboxgl.Marker(e)
+            .setLngLat([marker.longitude, marker.latitude])
+            .setPopup(popup)
+            .addTo(map);
+    });
+}
+
+/*
+    Connects to /xhr/poi.php to retrieve an updated list of all map markers.
+    This function is called periodically to ensure that the markers displayed on
+    the map are up to date.
+*/
+function refreshMarkers() {
+    $.getJSON("./xhr/poi.php", function(data) {
+        var markers = data["pois"];
+
+        markers.forEach(function(marker) {
+            /*
+                Retrieve the old marker from the `pois` array and replace the
+                marker icon on the marker to reflect the new objective/reward.
+            */
+            var oldMarker = pois[marker.id];
+
+            var oldObjective = oldMarker.objective.type;
+            var oldReward = oldMarker.reward.type;
+            var newObjective = marker.objective.type;
+            var newReward = marker.reward.type;
+
+            if ($(oldMarker.element).hasClass(oldReward)) {
+                $(oldMarker.element).removeClass(oldReward).addClass(newReward);
+            }
+            if ($(oldMarker.element).hasClass(oldObjective)) {
+                $(oldMarker.element).removeClass(oldObjective).addClass(newObjective);
+            }
+
+            /*
+                If the POI details screen is currently open for the given
+                marker, make sure that the details displayed on that screen are
+                updated as well.
+            */
+            if (marker.id == currentMarker) {
+                $("#poi-objective-icon").attr("src", resolveIconUrl(marker.objective.type));
+                $("#poi-reward-icon").attr("src", resolveIconUrl(marker.reward.type));
+                $("#poi-objective").text(resolveObjective(marker.objective));
+                $("#poi-reward").text(resolveReward(marker.reward));
+            }
+
+            /*
+                Overwrite the marker in the `pois` array with the updated values
+                from the server. Use a for loop to ensure that elements that
+                aren't in the received `marker` instance (such as the marker DOM
+                element) aren't overwritten in `pois`.
+            */
+            for (var prop in marker) {
+                if (marker.hasOwnProperty(prop)) {
+                    pois[marker.id][prop] = marker[prop];
+                }
+            }
+        });
+    });
+}
+
+$(document).ready(function() {
+    /*
+        Upon page load, the list of POIs should be fetched from the server and
+        displayed. This is done after page load to ensure that all required DOM
+        elements have loaded first.
+    */
+    $.getJSON("./xhr/poi.php", function(data) {
+        addMarkers(data["pois"]);
+        /*
+            Automatically refresh the marker list with updated to information
+            from the server to stay in sync with other users' reports.
+        */
+        setInterval(function() {
+            refreshMarkers();
+        }, autoRefreshInterval);
+    });
+})
 
 /*
     Whenever a marker is clicked on the map, this function is called with the
@@ -556,141 +840,10 @@ $("#update-poi-cancel").on("click", function() {
 });
 
 /*
-    Gets an image URL for the given icon, i.e. marker. This takes into account
-    the theme that the user has selected.
-
-    The URL may contain the {%variant%} token, which indicates that the icon
-    supports several different color variants. {%variant%}, if present, will be
-    replaced with `variant` ("light" or "dark") to get the correct variant based
-    on the color theme selected by the user in their local settings.
+    ------------------------------------------------------------------------
+        LOCAL USER SETTINGS
+    ------------------------------------------------------------------------
 */
-function resolveIconUrl(icon) {
-    var variant = settings.get("theme");
-    var url = iconSets[settings.get("iconSet")][icon].split("{%variant%}").join(variant);
-    return url;
-}
-
-/*
-    Adds a set of marker icons to the map. The `markers` parameter is an array
-    of objects, where each object describes the properties of one POI.
-    format of the array is the same as the format output in JSON format by GET
-    /xhr/poi.php.
-*/
-function addMarkers(markers) {
-    markers.forEach(function(marker) {
-        /*
-            Create a marker element. This is the element that is displayed on
-            the map itself and is rendered with the relevant icon to indicate
-            the currently active field research on the POI.
-        */
-        var e = document.createElement("div");
-        e.className =
-            // Basic map marker class
-            "marker "
-
-            // Render the icon for the current reward active on the POI
-            + marker.reward.type + " "
-
-            // Set the color theme of the markers depending on the map style
-            + styleMap[settings.get("mapProvider")][settings.get("mapStyle/"+settings.get("mapProvider"))] + " "
-
-            // Set the icon set from which marker icons are fetched
-            + settings.get("iconSet");
-
-        marker["element"] = e;
-
-        /*
-            Add the marker to the global `pois` array for easy properties lookup
-            from elsewhere in the script.
-        */
-        pois[marker.id] = marker;
-
-        /*
-            Define a Mapbox popup that is attached to the marker. This popup is
-            just added to facilitate event handlers - we're making a custom
-            popup overlay that will be displayed instead of this one, so the
-            Mapbox native popup is hidden through CSS.
-        */
-        var popup = new mapboxgl.Popup({
-            offset: 25
-        });
-        /*
-            These are the event handlers we need. We need to know when a marker
-            is clicked on, and when the user requested to close a marker through
-            any means. These will open and close the custom POI details overlay
-            respectively.
-        */
-        popup.on("open", function() {
-            openMarker(popup, marker.id);
-        });
-        popup.on("close", function() {
-            closeMarker(popup);
-        });
-
-        /*
-            Declare and add the Mapbox marker to the map.
-        */
-        new mapboxgl.Marker(e)
-            .setLngLat([marker.longitude, marker.latitude])
-            .setPopup(popup)
-            .addTo(map);
-    });
-}
-
-/*
-    Connects to /xhr/poi.php to retrieve an updated list of all map markers.
-    This function is called periodically to ensure that the markers displayed on
-    the map are up to date.
-*/
-function refreshMarkers() {
-    $.getJSON("./xhr/poi.php", function(data) {
-        var markers = data["pois"];
-
-        markers.forEach(function(marker) {
-            /*
-                Retrieve the old marker from the `pois` array and replace the
-                marker icon on the marker to reflect the new objective/reward.
-            */
-            var oldMarker = pois[marker.id];
-
-            var oldObjective = oldMarker.objective.type;
-            var oldReward = oldMarker.reward.type;
-            var newObjective = marker.objective.type;
-            var newReward = marker.reward.type;
-
-            if ($(oldMarker.element).hasClass(oldReward)) {
-                $(oldMarker.element).removeClass(oldReward).addClass(newReward);
-            }
-            if ($(oldMarker.element).hasClass(oldObjective)) {
-                $(oldMarker.element).removeClass(oldObjective).addClass(newObjective);
-            }
-
-            /*
-                If the POI details screen is currently open for the given
-                marker, make sure that the details displayed on that screen are
-                updated as well.
-            */
-            if (marker.id == currentMarker) {
-                $("#poi-objective-icon").attr("src", resolveIconUrl(marker.objective.type));
-                $("#poi-reward-icon").attr("src", resolveIconUrl(marker.reward.type));
-                $("#poi-objective").text(resolveObjective(marker.objective));
-                $("#poi-reward").text(resolveReward(marker.reward));
-            }
-
-            /*
-                Overwrite the marker in the `pois` array with the updated values
-                from the server. Use a for loop to ensure that elements that
-                aren't in the received `marker` instance (such as the marker DOM
-                element) aren't overwritten in `pois`.
-            */
-            for (var prop in marker) {
-                if (marker.hasOwnProperty(prop)) {
-                    pois[marker.id][prop] = marker[prop];
-                }
-            }
-        });
-    });
-}
 
 /*
     Local storage is used to save user settings client-side. There's no good
@@ -728,176 +881,6 @@ function saveSettings() {
         localStorage.setItem("settings", JSON.stringify(settings));
     }
 }
-
-$(document).ready(function() {
-    /*
-        Many mobile browsers have an issue where the viewport height exceeds the
-        window height. Ideally, setting `height: 100vh;` would result in the
-        element taking up vertical space equivalent to the height of the visible
-        area of the page in the browser. However, many mobile browsers have a
-        top bar that contains various controls (e.g. address bar) that is hidden
-        automatically upon scrolling down. Because this bar is hidden, this
-        would have resulted in the viewport height changing upon scroll, and the
-        continous layout updates this would cause would cause stuttering on the
-        page that can be difficult to mitigate, especially at the higher
-        framerates required to ensure a smooth user experience. The solution
-        implemented by all major mobile browsers is to define the 100% viewport
-        height as the height of the viewport when the navigation bar is hidden.
-        This has the unfortunate side-effect that parts of the viewport is
-        hidden beneath a scrollbar when the page first loads and the navigation
-        bar is visible. There is some good research into the issue on this blog
-        post by Nicolas Hoizey:
-
-        https://nicolas-hoizey.com/2015/02/viewport-height-is-taller-than-the-
-        visible-part-of-the-document-in-some-mobile-browsers.html
-
-        The solution to prevent the scrollbar from appearing, and to ensure the
-        entire contents of the page actually fits within the visible part of the
-        viewport, is to manually set the height of the elements that use
-        `height: 100vh;` with JavaScript when the page loads. The function below
-        reads the *real* height of the visible part of the viewport, and forces
-        the elements to assume that height.
-    */
-    var screenHeight = $(window).height();
-    $('.full-container').css('height', screenHeight + 'px');
-
-    /*
-        Upon page load, the list of POIs should be fetched from the server and
-        displayed. This is done after page load to ensure that all required DOM
-        elements have loaded first.
-    */
-    $.getJSON("./xhr/poi.php", function(data) {
-        addMarkers(data["pois"]);
-        /*
-            Automatically refresh the marker list with updated to information
-            from the server to stay in sync with other users' reports.
-        */
-        setInterval(function() {
-            refreshMarkers();
-        }, autoRefreshInterval);
-    });
-});
-
-/*
-    In addition to the patch above that sets the height of the map to the real
-    height of the viewport on load, we'll also bind an event handler to ensure
-    that full-height containers retain full height when the window is resized.
-*/
-$(window).on("resize", function() {
-    var screenHeight = $(window).height();
-    $('.full-container').css('height', screenHeight + 'px');
-})
-
-/*
-    Event handler for the sidebar button "Add POI". When clicked, this function
-    starts the process for adding a new POI to the map. It registers an event
-    handler that fetches the coordinates of a location the user clicks on on the
-    map. It also displays a banner prompting the user to perform this action.
-*/
-$("#add-poi-start").on("click", function() {
-    if (addingPoi) return;
-    /*
-        Set the flag that indicates that a POI is currently in process of being
-        added to the map. This is used to prevent duplicate event handlers being
-        registered from clicking the button multiple times.
-    */
-    addingPoi = true;
-    $("#add-poi-banner").fadeIn(150);
-    map.on('click', getCoordsForPOI);
-});
-
-/*
-    Event handler for the "cancel" button on the banner that prompts users to
-    click on the map to add a new POI. This function cancels that action and
-    unbinds the associated event handler.
-*/
-$("#add-poi-cancel-banner").on("click", function() {
-    disableAddPOI(true);
-});
-
-/*
-    Event handler for the "cancel" button on the "Add POI" dialog that requests
-    users for more information about the POI they are adding. This function
-    cancels the action of adding the POI and closes the dialog.
-*/
-$("#add-poi-cancel").on("click", function() {
-    disableAddPOI(true);
-    $("#add-poi-details").fadeOut();
-});
-
-/*
-    Event handler for the "submit" button on the "Add POI" dialog that requests
-    users for more information about the POI they are adding. This function
-    sends a PUT request to /xhr/poi.php to request the addition of the new POI.
-*/
-$("#add-poi-submit").on("click", function() {
-    /*
-        Immediately disable the submit button to prevent duplicate submissions.
-    */
-    $("#add-poi-submit").prop("disabled", true);
-
-    var poiName = $("#add-poi-name").val();
-    var poiLat = parseFloat($("#add-poi-lat").val());
-    var poiLon = parseFloat($("#add-poi-lon").val());
-
-    /*
-        Since adding a new POI involves a server call, it may take a while
-        before the script can proceed from here. Display a loading animation
-        while we wait for the call to complete.
-    */
-    $("#add-poi-working").fadeIn(150);
-    $.ajax({
-        url: "./xhr/poi.php",
-        type: "PUT",
-        dataType: "json",
-        data: JSON.stringify({
-            lat: poiLat,
-            lon: poiLon,
-            name: poiName
-        }),
-        statusCode: {
-            201: function(data) {
-                /*
-                    The POI add request was accepted. `data` contains an array
-                    as defined in PUT /xhr/poi.php. Add the marker to the map
-                    so that research can be reported for it immediately.
-                */
-                var markers = [data.poi];
-                addMarkers(markers);
-
-                addingPoi = false;
-                spawnBanner("success", resolveI18N("poi.add.success", poiName));
-                $("#add-poi-details").fadeOut(150);
-                $("#add-poi-working").fadeOut(150);
-            }
-        }
-    }).fail(function(xhr) {
-        /*
-            The POI add request was denied for some reason. The user should be
-            informed of the reason the addition was deined through a banner
-            overlay.
-        */
-        var data = xhr.responseJSON;
-        var reason = resolveI18N("xhr.failed.reason.unknown_reason");
-
-        if (data !== undefined && data.hasOwnProperty("reason")) {
-            reason = resolveI18N(data["reason"]);
-        }
-        spawnBanner("failed", resolveI18N(
-            "poi.add.failed.message",
-            poiName,
-            reason
-        ));
-        $("#add-poi-working").fadeOut(150);
-        /*
-            Re-enable the submit button that was previously disabled, to allow
-            the user to make more attempts at adding the POI once the submission
-            error that triggered the addition failure has been resolved by the
-            user.
-        */
-        $("#add-poi-submit").prop("disabled", false);
-    });
-});
 
 /*
     Event handler for the sidebar button responsible for opening the client-side
@@ -1016,3 +999,52 @@ $("#menu-reset-settings").on("click", function() {
         }
     }
 });
+
+/*
+    ------------------------------------------------------------------------
+        GENERAL USER INTERFACE
+    ------------------------------------------------------------------------
+*/
+
+$(document).ready(function() {
+    /*
+        Many mobile browsers have an issue where the viewport height exceeds the
+        window height. Ideally, setting `height: 100vh;` would result in the
+        element taking up vertical space equivalent to the height of the visible
+        area of the page in the browser. However, many mobile browsers have a
+        top bar that contains various controls (e.g. address bar) that is hidden
+        automatically upon scrolling down. Because this bar is hidden, this
+        would have resulted in the viewport height changing upon scroll, and the
+        continous layout updates this would cause would cause stuttering on the
+        page that can be difficult to mitigate, especially at the higher
+        framerates required to ensure a smooth user experience. The solution
+        implemented by all major mobile browsers is to define the 100% viewport
+        height as the height of the viewport when the navigation bar is hidden.
+        This has the unfortunate side-effect that parts of the viewport is
+        hidden beneath a scrollbar when the page first loads and the navigation
+        bar is visible. There is some good research into the issue on this blog
+        post by Nicolas Hoizey:
+
+        https://nicolas-hoizey.com/2015/02/viewport-height-is-taller-than-the-
+        visible-part-of-the-document-in-some-mobile-browsers.html
+
+        The solution to prevent the scrollbar from appearing, and to ensure the
+        entire contents of the page actually fits within the visible part of the
+        viewport, is to manually set the height of the elements that use
+        `height: 100vh;` with JavaScript when the page loads. The function below
+        reads the *real* height of the visible part of the viewport, and forces
+        the elements to assume that height.
+    */
+    var screenHeight = $(window).height();
+    $('.full-container').css('height', screenHeight + 'px');
+});
+
+/*
+    In addition to the patch above that sets the height of the map to the real
+    height of the viewport on load, we'll also bind an event handler to ensure
+    that full-height containers retain full height when the window is resized.
+*/
+$(window).on("resize", function() {
+    var screenHeight = $(window).height();
+    $('.full-container').css('height', screenHeight + 'px');
+})
