@@ -242,26 +242,26 @@ $("#add-poi-submit").on("click", function() {
         The message to display in the banner.
 */
 function spawnBanner(type, message) {
-    /*
-        Generate a random ID for the banner, and create th banner. Assign an
-        event handler that dismisses the banner on click, and additionally
-        schedule the banner to dismiss automatically after 5 seconds.
-    */
-    var id = getNewID();
-    var node = $.parseHTML(
-        '<div class="banner ' + type + '" id="dyn-' + id + '">' +
+    var node = $(
+        '<div class="banner ' + type + '">' +
             '<div class="banner-inner">' +
                 encodeHTML(message) +
             '</div>' +
         '</div>'
     );
     $("#dynamic-banner-container").append(node);
-    $("#dyn-" + id).on("click", function() {
-        dismiss("#dyn-" + id);
+
+    /*
+        Assign an event handler that dismisses the banner on click, show the
+        banner, and schedule the banner to dismiss automatically after 5
+        seconds.
+    */
+    node.on("click", function() {
+        dismiss(node);
     });
-    $("#dyn-" + id).fadeIn(150);
+    node.fadeIn(150);
     setTimeout(function() {
-        $("#dyn-" + id).fadeOut(150);
+        dismiss(node);
     }, 5000);
 }
 
@@ -283,18 +283,10 @@ function encodeHTML(data) {
 }
 
 /*
-    Generates a new ID used to uniquely identify banner elements displayed as
-    overlays on top of the map.
+    Fades away the given element.
 */
-function getNewID() {
-    return Math.random().toString(36).substr(2, 8);
-}
-
-/*
-    Fades away the element with the given ID.
-*/
-function dismiss(id) {
-    $(id).fadeOut(150);
+function dismiss(node) {
+    node.fadeOut(150);
 }
 
 /*
