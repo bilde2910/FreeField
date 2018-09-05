@@ -938,42 +938,33 @@ $("#user-settings-form").on("submit", function() {
         var value = $(this).val();
 
         /*
-            This block of `case` statements allows saving settings up to 10
-            objects deep in `settings`. There probably a much better way to do
-            this in a recursive manner. TODO?
+            Push the setting change to `settings`. The process and thinking
+            behind these loops are described in detail in
+            /includes/lib/config.php, which uses the same saving procedure for
+            the server-side configuration file.
         */
-        var tree = key.split("/");
-        switch (tree.length) {
-            case 1:
-                settings[tree[0]] = value;
-                break;
-            case 2:
-                settings[tree[0]][tree[1]] = value;
-                break;
-            case 3:
-                settings[tree[0]][tree[1]][tree[2]] = value;
-                break;
-            case 4:
-                settings[tree[0]][tree[1]][tree[2]][tree[3]] = value;
-                break;
-            case 5:
-                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]] = value;
-                break;
-            case 6:
-                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]][tree[5]] = value;
-                break;
-            case 7:
-                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]][tree[5]][tree[6]] = value;
-                break;
-            case 8:
-                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]][tree[5]][tree[6]][tree[7]] = value;
-                break;
-            case 9:
-                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]][tree[5]][tree[6]][tree[7]][tree[8]] = value;
-                break;
-            case 10:
-                settings[tree[0]][tree[1]][tree[2]][tree[3]][tree[4]][tree[5]][tree[6]][tree[7]][tree[8]][tree[9]] = value;
-                break;
+        var s = key.split("/");
+        for (var i = s.length - 1; i >= 0; i--) {
+            /*
+                Loop over the segments and for every iteration, find the parent
+                array directly above the current `s[i]`.
+            */
+            var parent = settings;
+            for (var j = 0; j < i; j++) {
+                parent = parent[s[j]];
+            }
+            /*
+                Update the value of `s[i]` in the array. Store a copy of this
+                array as the value to assign to the next parent segment.
+            */
+            parent[s[i]] = value;
+            value = parent;
+            /*
+                The next iteration finds the next parent above the current
+                parent and replaces the value of the key in that parent which
+                would hold the value of the current parent array with the
+                updated parent array that has the setting change applied to it.
+            */
         }
     });
 

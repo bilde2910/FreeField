@@ -399,55 +399,139 @@ class Config {
             }
 
             /*
-                Push the setting change to `$config`. This block of `case`
-                statements allows saving settings up to 10 objects deep. There
-                probably a much better way to do this in a recursive manner.
-                TODO?
+                Push the setting change to `$config`:
+
+                What this does, is it starts at the deepest nesting level of the
+                setting in the configuration array, finds the parent array of
+                the setting, and changes the setting in that array. Example for
+                "security/approval/require": The `$value` is, say, `true`. The
+                deepest nested item in the array for that setting is "require",
+                as it is the last item in the path. The parent of "require" is
+                "security/approval".
+
+                "security/approval" is retrieved:
+
+                    $parent = array(
+                        "require" => false,
+                        "by-qr" => true
+                    );
+
+                ..and the value of "require" (the next item in the setting's
+                path after "security/approval") is set to `$value`. Note how the
+                value of "require" has changed:
+
+                    $parent = array(
+                        "require" => true,
+                        "by-qr" => true
+                    );
+
+                `$value` is now set to `$parent`, so `$value` becomes the above
+                array. The loop now iterates to set "security/approval" in the
+                array. The parent of "security/approval" (i.e. "security") is
+                retrieved:
+
+                    $parent = array(
+                        "approval" => array(
+                            "require" => false,
+                            "by-qr" => true
+                        ),
+                        "validate-ua" => "lenient",
+                        "validate-lang" => true
+                    );
+
+                ..and the value of "approval" (the next item in the setting's
+                path after "security") is set to `$value`. Since `$value` is the
+                "approval" array with the "require" setting patched to `true`,
+                the entire "approval" array in `$parent` is overwritten:
+
+                    $parent = array(
+                        "approval" => array(
+                            "require" => true,
+                            "by-qr" => true
+                        ),
+                        "validate-ua" => "lenient",
+                        "validate-lang" => true
+                    );
+
+                Again, note that the "approval/require" value has changed to
+                reflect the update. `$value` is once again set to the value of
+                `$parent` so that `$value` now holds the entire updated
+                "security" array. Next, the loop iterates to set "security"
+                itself. The parent of "security" (i.e. the root array) is
+                retrieved:
+
+                    $parent = array(
+                        "security" => array(
+                            "approval" => array(
+                                "require" => false,
+                                "by-qr" => true
+                            ),
+                            "validate-ua" => "lenient",
+                            "validate-lang" => true
+                        ),
+                        "auth" => array(
+                            ...
+                        ),
+                        ...
+                    );
+
+                As before, the "security" key is replaced with the updated
+                "security" element stored in `$value`:
+
+                    $parent = array(
+                        "security" => array(
+                            "approval" => array(
+                                "require" => true,
+                                "by-qr" => true
+                            ),
+                            "validate-ua" => "lenient",
+                            "validate-lang" => true
+                        ),
+                        "auth" => array(
+                            ...
+                        ),
+                        ...
+                    );
+
+                ..and again note that the value of "security/approval/require"
+                has been correctly updated to `true` in this array. `$value` is
+                once again updated to the value of `$parent`.
+
+                At this point, we have iterated over all the segments of the
+                settings path ("require", "approval" and "security"), so the
+                loop ends. Since we retrieved the root array into `$parent`,
+                `$value` now holds the patched root configuration array. We can
+                overwrite the old configuration in `self::$config` with this
+                updated array, and the configuration array used by this script
+                will thus be the updated version where the value of
+                "security/approval/require" is updated.
             */
             $s = explode("/", $option);
-            switch (count($s)) {
-                case 1:
-                    self::$config[$s[0]] = $value;
-                    break;
-                case 2:
-                    self::$config[$s[0]][$s[1]] = $value;
-                    break;
-                case 3:
-                    self::$config[$s[0]][$s[1]][$s[2]] = $value;
-                    break;
-                case 4:
-                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]] = $value;
-                    break;
-                case 5:
-                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]] = $value;
-                    break;
-                case 6:
-                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]] = $value;
-                    break;
-                case 7:
-                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]][$s[6]] = $value;
-                    break;
-                case 8:
-                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]][$s[6]][$s[7]] = $value;
-                    break;
-                case 9:
-                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]][$s[6]][$s[7]][$s[8]] = $value;
-                    break;
-                case 10:
-                    self::$config[$s[0]][$s[1]][$s[2]][$s[3]][$s[4]][$s[5]][$s[6]][$s[7]][$s[8]][$s[9]] = $value;
-                    break;
-                default:
-                    /*
-                        There should be no legitimate reason to ever nest a
-                        setting this deeply, but if it happens, an exception
-                        should probably be thrown.
-                    */
-                    throw new Exception("Setting {$option} cannot be saved due to excessive ".
-                                        "nesting depth! If you see this message, please raise ".
-                                        "a ticket on the FreeField GitHub repository immediately! ".
-                                        "This is not supposed to happen!");
-                    exit;
+            for ($i = count($s) - 1; $i >= 0; $i--) {
+                /*
+                    Loop over the segments and for every iteration, find the
+                    parent array directly above the current `$s[$i]`.
+                */
+                $parent = self::$config;
+                for ($j = 0; $j < $i; $j++) {
+                    $parent = $parent[$s[$j]];
+                }
+                /*
+                    Update the value of `$s[$i]` in the array. Store a copy of
+                    this array as the value to assign to the next parent
+                    segment.
+                */
+                $parent[$s[$i]] = $value;
+                $value = $parent;
+                /*
+                    The next iteration finds the next parent above the current
+                    parent and replaces the value of the key in that parent
+                    which would hold the value of the current parent array with
+                    the updated parent array that has the setting change applied
+                    to it.
+                */
             }
+            self::$config = $value;
         }
         /*
             Save the changed `$config` array to file.
