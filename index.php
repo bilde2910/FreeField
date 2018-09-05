@@ -1336,8 +1336,8 @@ $provider = Config::get("map/provider/source");
             var map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/' + (settings.get("mapStyle/mapbox")) + '-v9',
-                center: [settings.center.longitude, settings.center.latitude],
-                zoom: settings.zoom
+                center: [settings.get("center/longitude"), settings.get("center/latitude")],
+                zoom: settings.get("zoom")
             });
 
             /*
