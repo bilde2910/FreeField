@@ -89,7 +89,7 @@
                                            max="250"
                                            name="g<?php echo $gid; ?>[level]"
                                            value="<?php echo $group["level"]; ?>"
-                                           <?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
+                                           <?php if ($group["level"] == 0 || !Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                 </td>
                                 <td class="no-wrap group-color-selector" data-id="g<?php echo $gid; ?>">
                                     <!--
@@ -113,7 +113,7 @@
                                 <td>
                                     <select class="group-actions"
                                             name="g<?php echo $gid; ?>[action]"
-                                            <?php if (!Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
+                                            <?php if ($group["level"] == 0 || !Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                         <option value="none" selected>
                                             <?php echo I18N::resolveHTML("admin.clientside.groups.group_list.action.none"); ?>
                                         </option>

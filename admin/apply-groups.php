@@ -90,7 +90,7 @@ foreach ($_POST as $group => $data) {
     */
     if ($newGroup) {
         $updates[$gid] = array(
-            "level" => 0,
+            "level" => -1,
             "label" => "",
             "color" => NULL
         );
@@ -111,8 +111,13 @@ foreach ($_POST as $group => $data) {
     /*
         If group deletion is requested, add it to the deletion queue and do not
         process further changes.
+
+        It should not be possible to delete the "Anonymous" group since
+        anonymous (unauthenticated) users are always assigned the lowest
+        possible permission level. This is fundamental to the permissions
+        system. The "Anonymous" group has permission level 0.
     */
-    if ($data["action"] === "delete") {
+    if ($data["action"] === "delete" && $groupInstance["level"] != 0) {
         $deletes[] = $gid;
         continue;
     }
@@ -149,8 +154,13 @@ foreach ($_POST as $group => $data) {
         or the level that the group is being changed to. This is to stop
         privilege escalation attacks. If the user has permission to make the
         change, add the change to the list of level changes.
+
+        The permission level of the "Anonymous" group should not be possible to
+        change since anonymous (unauthenticated) users are always assigned the
+        lowest possible permission level. This is fundamental to the permissions
+        system. The "Anonymous" group has permission level 0.
     */
-    if ($groupInstance["level"] != $data["level"]) {
+    if ($groupInstance["level"] != $data["level"] && $groupInstance["level"] != 0) {
         $old = intval($groupInstance["level"]);
         $new = intval($data["level"]);
         $max = max($old, $new);
