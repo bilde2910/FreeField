@@ -1,6 +1,2 @@
-# Composer
-/vendor
-/composer.lock
-
 # Config files and other user data
 /includes/userdata
