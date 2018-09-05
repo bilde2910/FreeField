@@ -900,6 +900,13 @@ $("#menu-open-settings").on("click", function() {
     });
 
     /*
+        Display the preview for the icon set selection box.
+    */
+    if ($("#icon-selector").length > 0) {
+        viewTheme("icon-selector", $("#icon-selector").val());
+    }
+
+    /*
         Hides the map and map-specific sidebar items, and shows the settings
         pane and settings-specific sidebar items instead.
     */
