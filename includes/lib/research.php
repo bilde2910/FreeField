@@ -587,7 +587,7 @@ class Research {
             "params" => array("quantity")
         ),
 
-        // Evolution and power-up objectives
+        // Evolution, power-up and management objectives
         "evolve" => array(
             "categories" => array("evolve"),
             "params" => array("quantity")
@@ -602,6 +602,10 @@ class Research {
         ),
         "power_up" => array(
             "categories" => array("power_up"),
+            "params" => array("quantity")
+        ),
+        "transfer" => array(
+            "categories" => array("transfer", "trash"),
             "params" => array("quantity")
         ),
 
