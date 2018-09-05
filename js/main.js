@@ -1001,6 +1001,20 @@ $("#menu-reset-settings").on("click", function() {
 });
 
 /*
+    Attempt to read settings from `localStorage` on load. If successful,
+    overwrite the relevant entries in `settings`.
+*/
+if (hasLocalStorageSupport()) {
+    var storedSettings = JSON.parse(localStorage.getItem("settings"));
+    if (storedSettings !== null) {
+        var keys = Object.keys(storedSettings);
+        for (var i = 0; i < keys.length; i++) {
+            settings[keys[i]] = storedSettings[keys[i]];
+        }
+    }
+}
+
+/*
     ------------------------------------------------------------------------
         GENERAL USER INTERFACE
     ------------------------------------------------------------------------
@@ -1048,3 +1062,60 @@ $(window).on("resize", function() {
     var screenHeight = $(window).height();
     $('.full-container').css('height', screenHeight + 'px');
 })
+
+/*
+    Grab a stylesheet for the "dark" or "light" themes depending on the user's
+    selection.
+*/
+$("head").append('<link rel="stylesheet" ' +
+                       'type="text/css" ' +
+                       'href="./css/' + settings.get("theme") +
+                             '.css?v=' + Date.now() + '">');
+
+/*
+    Configure the `IconPackOption` selector to use the correct user theme color.
+*/
+isc_opts.colortheme = settings.get("theme");
+
+/*
+    Configure MapBox.
+*/
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/' + (settings.get("mapStyle/mapbox")) + '-v9',
+    center: [settings.get("center/longitude"), settings.get("center/latitude")],
+    zoom: settings.get("zoom")
+});
+
+/*
+    Add map controls to the MapBox instance.
+*/
+map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: false,
+        timeout: 5000
+    },
+    trackUserLocation: true
+}));
+
+/*
+    Automatically save the current center point and zoom level of
+    the map to `localStorage` if the user pans or zooms on the map.
+    This allows the map to retain the current view the next time the
+    user visits this FreeField instance.
+*/
+var lastCenter = map.getCenter();
+var lastZoom = map.getZoom();
+setInterval(function() {
+    var center = map.getCenter();
+    var zoom = map.getZoom();
+    if (center != lastCenter || zoom != lastZoom) {
+        lastCenter = center;
+        lastZoom = zoom;
+        settings.center.longitude = center.lng;
+        settings.center.latitude = center.lat;
+        settings.zoom = zoom;
+        saveSettings();
+    }
+}, 1000);
