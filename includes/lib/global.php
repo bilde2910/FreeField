@@ -82,6 +82,9 @@ function __require($require) {
             require_once(__DIR__."/../vendor/PHP-OAuth2/OAuth2/GrantType/IGrantType.php");
             break;
 
+        /*
+            Loads Authorization Code OAuth2 method for the OAuth2 library.
+        */
         case "vendor/oauth2/authcode":
             require(__DIR__."/../vendor/PHP-OAuth2/OAuth2/GrantType/AuthorizationCode.php");
             break;
