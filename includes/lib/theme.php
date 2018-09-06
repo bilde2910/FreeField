@@ -18,7 +18,7 @@ class Theme {
         /includes/lib/research.php.
     */
     public static function listIcons() {
-        $icons = array("default");
+        $icons = array();
         foreach (Research::OBJECTIVES as $objective => $data) {
             // Add the objective itself to the icon array
             $icons[] = $objective;
@@ -37,6 +37,13 @@ class Theme {
                 $icons[] = $category;
             }
         }
+
+        /*
+            Add the "default" icon to the end of the icons list. This icon is
+            displayed if no more specific icon is found for any particular
+            research objective or reward.
+        */
+        $icons[] = "default";
 
         /*
             The array may contain duplicates. Remove duplicates and reset the
