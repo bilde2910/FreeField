@@ -102,6 +102,13 @@ function __require($require) {
         case "vendor/phpqrcode":
             include_once(__DIR__."/../vendor/phpqrcode.php");
             break;
+
+        /*
+            Loads the Spyc YAML parser.
+        */
+        case "vendor/spyc":
+            include_once(__DIR__."./../vendor/Spyc.php");
+            break;
     }
 }
 
