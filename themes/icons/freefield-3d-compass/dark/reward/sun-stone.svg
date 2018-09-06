@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #402101;
+                stroke: #ffce9b;
+                stroke-miterlimit: 10;
+                stroke-width: 2px;
+            }
+            .cls-2 {
+                fill: #ff6900;
+            }
+            .cls-3 {
+                fill: #ce5900;
+            }
+            .cls-4 {
+                fill: #bd3100;
+            }
+            .cls-5 {
+                fill: #7a2b12;
+            }
+            .cls-6 {
+                fill: #873212;
+            }
+            .cls-7 {
+                fill: #ffd070;
+            }
+            .cls-8 {
+                fill: #ff9a47;
+            }
+            .cls-9 {
+                fill: #ff6d0b;
+            }
+            .cls-10 {
+                fill: #ff4a0b;
+            }
+            .cls-11 {
+                fill: #952200;
+            }
+            .cls-12 {
+                fill: #c22e00;
+            }
+            .cls-13 {
+                fill: #ce3600;
+            }
+            .cls-14 {
+                fill: #ff2e0b;
+            }
+            .cls-15 {
+                fill: #d82e0b;
+            }
+            .cls-16 {
+                fill: #bf3808;
+            }
+            .cls-17 {
+                fill: url(#radial-gradient);
+            }
+        </style>
+        <radialGradient id="radial-gradient" cx="46.77" cy="44.67" r="15.33" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#ffcf4f" />
+            <stop offset="0.6" stop-color="#ffba40" />
+            <stop offset="0.82" stop-color="#ff6f0b" />
+            <stop offset="1" stop-color="#ff2e0b" />
+        </radialGradient>
+    </defs>
+    <title>sun-stone</title>
+    <polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7" />
+    <polyline class="cls-2" points="41.23 41.23 23.17 50 36.98 50 50 50 41.23 41.23" />
+    <polyline class="cls-3" points="41.23 58.77 23.17 50 36.98 50 50 50 41.23 58.77" />
+    <polyline class="cls-4" points="41.23 58.77 50 50 50 63.02 50 76.83 41.23 58.77" />
+    <polyline class="cls-4" points="58.77 58.77 50 50 50 63.02 50 76.83 58.77 58.77" />
+    <polyline class="cls-5" points="58.77 58.77 76.83 50 63.02 50 50 50 58.77 58.77" />
+    <polyline class="cls-6" points="58.77 41.23 76.83 50 63.02 50 50 50 58.77 41.23" />
+    <polyline class="cls-7" points="41.23 41.23 50 50 50 36.98 50 23.17 41.23 41.23" />
+    <polyline class="cls-8" points="58.77 41.23 50 50 50 36.98 50 23.17 58.77 41.23" />
+    <polygon class="cls-8" points="35.56 35.56 35.56 50 50 50 35.56 35.56" />
+    <polygon class="cls-7" points="50 50 50 35.56 35.56 35.56 50 50" />
+    <polygon class="cls-9" points="64.44 35.56 50 35.56 50 50 64.44 35.56" />
+    <polygon class="cls-10" points="50 50 64.44 50 64.44 35.56 50 50" />
+    <polygon class="cls-11" points="64.44 64.44 64.44 50 50 50 64.44 64.44" />
+    <polygon class="cls-12" points="50 50 50 64.44 64.44 64.44 50 50" />
+    <polygon class="cls-13" points="50 50 35.56 50 35.56 64.44 50 50" />
+    <polygon class="cls-14" points="35.56 64.44 50 64.44 50 50 35.56 64.44" />
+    <path class="cls-7" d="M50,33.14a16.88,16.88,0,0,0-6.45,1.29L50,50h0Z" />
+    <path class="cls-7" d="M43.55,34.43a16.82,16.82,0,0,0-5.47,3.65L50,50h0Z" />
+    <path class="cls-8" d="M38.08,38.08a17,17,0,0,0-3.65,5.47L50,50h0Z" />
+    <path class="cls-2" d="M34.43,43.55A16.91,16.91,0,0,0,33.14,50H50Z" />
+    <path class="cls-3" d="M33.14,50a17.07,17.07,0,0,0,1.29,6.45L50,50H33.14Z" />
+    <path class="cls-13" d="M34.43,56.45a16.82,16.82,0,0,0,3.65,5.47L50,50h0Z" />
+    <path class="cls-4" d="M38.08,61.92a17,17,0,0,0,5.47,3.65L50,50h0Z" />
+    <path class="cls-4" d="M43.55,65.57A16.91,16.91,0,0,0,50,66.86V50h0Z" />
+    <path class="cls-15" d="M50,66.86a17.07,17.07,0,0,0,6.45-1.29L50,50h0Z" />
+    <path class="cls-14" d="M56.45,65.57a16.82,16.82,0,0,0,5.47-3.65L50,50h0Z" />
+    <path class="cls-11" d="M61.92,61.92a17,17,0,0,0,3.65-5.47L50,50h0Z" />
+    <path class="cls-5" d="M65.57,56.45A16.91,16.91,0,0,0,66.86,50H50Z" />
+    <path class="cls-6" d="M66.86,50a17.07,17.07,0,0,0-1.29-6.45L50,50H66.86Z" />
+    <path class="cls-16" d="M65.57,43.55a16.82,16.82,0,0,0-3.65-5.47L50,50h0Z" />
+    <path class="cls-9" d="M61.92,38.08a16.82,16.82,0,0,0-5.47-3.65L50,50h0Z" />
+    <path class="cls-8" d="M56.45,34.43A16.73,16.73,0,0,0,50,33.14V50h0Z" />
+    <circle class="cls-17" cx="50" cy="50" r="10.66" />
+</svg>

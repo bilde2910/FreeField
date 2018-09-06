@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #23232b;
+                stroke: #d8d8db;
+                stroke-width: 2px;
+            }
+            .cls-1, .cls-7 {
+                stroke-miterlimit: 10;
+            }
+            .cls-2 {
+                fill: #00163c;
+            }
+            .cls-3 {
+                fill: url(#linear-gradient);
+            }
+            .cls-4 {
+                fill: url(#radial-gradient);
+            }
+            .cls-5 {
+                fill: url(#linear-gradient-2);
+            }
+            .cls-6, .cls-7 {
+                fill: #648aa2;
+            }
+            .cls-7 {
+                stroke-width: 0.75px;
+                stroke: url(#linear-gradient-3);
+            }
+        </style>
+        <linearGradient id="linear-gradient" x1="35.43" y1="58.86" x2="64.45" y2="58.86" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#4a565b" />
+            <stop offset="0.12" stop-color="#abc4d8" />
+            <stop offset="0.13" stop-color="#9fb6c9" />
+            <stop offset="0.18" stop-color="#7c8b9d" />
+            <stop offset="0.23" stop-color="#61697a" />
+            <stop offset="0.27" stop-color="#4d5160" />
+            <stop offset="0.31" stop-color="#414251" />
+            <stop offset="0.34" stop-color="#3d3d4c" />
+            <stop offset="0.51" stop-color="#3d3d4c" />
+            <stop offset="0.74" stop-color="#3a6487" />
+            <stop offset="0.91" stop-color="#397dad" />
+            <stop offset="1" stop-color="#3886bb" />
+        </linearGradient>
+        <radialGradient id="radial-gradient" cx="49.91" cy="47.1" r="14.18" gradientTransform="matrix(1, 0, 0, 0.33, -0.02, 31.59)" gradientUnits="userSpaceOnUse">
+            <stop offset="0.82" stop-color="#fff" />
+            <stop offset="0.96" stop-color="#00d4ff" />
+        </radialGradient>
+        <linearGradient id="linear-gradient-2" x1="35.43" y1="43.36" x2="64.45" y2="43.36" xlink:href="#linear-gradient" />
+        <linearGradient id="linear-gradient-3" x1="50.73" y1="33.31" x2="49.15" y2="40.17" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#a1b8c7" stop-opacity="0.7" />
+            <stop offset="1" stop-color="#54768b" />
+        </linearGradient>
+    </defs>
+    <title>metal-coat</title>
+    <polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7" />
+    <ellipse class="cls-2" cx="49.94" cy="47.03" rx="14.51" ry="5.04" />
+    <path class="cls-3" d="M49.94,52.06c-8,0-14.51-2.25-14.51-5V64.49c0,3.43,6.5,6.2,14.51,6.2s14.51-2.77,14.51-6.2V47C64.45,49.81,58,52.06,49.94,52.06Z" />
+    <ellipse class="cls-4" cx="49.94" cy="46.78" rx="13.96" ry="5.04" />
+    <path class="cls-5" d="M35.43,36.74V44c0,3.28,6.5,5.94,14.51,5.94S64.45,47.31,64.45,44V36.74Z" />
+    <ellipse class="cls-6" cx="49.94" cy="36.74" rx="14.51" ry="5.44" />
+    <ellipse class="cls-7" cx="49.94" cy="36.74" rx="8.14" ry="2.63" />
+</svg>

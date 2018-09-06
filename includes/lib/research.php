@@ -736,6 +736,28 @@ class Research {
             "params" => array("quantity")
         ),
 
+        // Evolution item rewards
+        "sun_stone" => array(
+            "categories" => array("evolution_item"),
+            "params" => array("quantity")
+        ),
+        "kings_rock" => array(
+            "categories" => array("evolution_item"),
+            "params" => array("quantity")
+        ),
+        "metal_coat" => array(
+            "categories" => array("evolution_item"),
+            "params" => array("quantity")
+        ),
+        "dragon_scale" => array(
+            "categories" => array("evolution_item"),
+            "params" => array("quantity")
+        ),
+        "up_grade" => array(
+            "categories" => array("evolution_item"),
+            "params" => array("quantity")
+        ),
+
         // Other rewards
         "fast_tm" => array(
             "categories" => array("tm"),

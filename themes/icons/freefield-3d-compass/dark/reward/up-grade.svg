@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #302908;
+                stroke: #fff7d5;
+                stroke-miterlimit: 10;
+                stroke-width: 2px;
+            }
+            .cls-2 {
+                fill: #333;
+            }
+            .cls-3 {
+                fill: #ffd72b;
+            }
+            .cls-4 {
+                fill: #403939;
+            }
+            .cls-5 {
+                fill: url(#linear-gradient);
+            }
+            .cls-6 {
+                fill: url(#linear-gradient-2);
+            }
+            .cls-7 {
+                fill: url(#linear-gradient-3);
+            }
+            .cls-8 {
+                fill: url(#linear-gradient-4);
+            }
+            .cls-9 {
+                fill: #59ffff;
+            }
+            .cls-10 {
+                fill: #ffe780;
+            }
+            .cls-11 {
+                fill: #efc200;
+            }
+            .cls-12 {
+                fill: #ffefaa;
+            }
+            .cls-13 {
+                fill: #f2ce33;
+            }
+            .cls-14 {
+                fill: #3c3c3c;
+            }
+            .cls-15 {
+                fill: #252525;
+            }
+        </style>
+        <linearGradient id="linear-gradient" x1="40.15" y1="78.69" x2="42.27" y2="78.69" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#00c0c0" />
+            <stop offset="0.09" stop-color="#00d3d3" />
+            <stop offset="0.24" stop-color="#00ebeb" />
+            <stop offset="0.38" stop-color="#00fafa" />
+            <stop offset="0.5" stop-color="aqua" />
+            <stop offset="0.62" stop-color="#00fafa" />
+            <stop offset="0.76" stop-color="#00ebeb" />
+            <stop offset="0.91" stop-color="#00d3d3" />
+            <stop offset="1" stop-color="#00c0c0" />
+        </linearGradient>
+        <linearGradient id="linear-gradient-2" x1="48.77" y1="76.49" x2="50.9" y2="76.49" xlink:href="#linear-gradient" />
+        <linearGradient id="linear-gradient-3" x1="53.02" y1="76.49" x2="55.15" y2="76.49" xlink:href="#linear-gradient" />
+        <linearGradient id="linear-gradient-4" x1="57.27" y1="76.52" x2="59.4" y2="76.52" xlink:href="#linear-gradient" />
+    </defs>
+    <title>up-grade</title>
+    <polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7" />
+    <rect class="cls-2" x="39.71" y="28.96" width="20.58" height="42.18" />
+    <polygon class="cls-3" points="37.87 27.12 37.87 67.45 45.23 67.45 45.23 53.27 41.55 53.27 41.55 30.8 58.45 30.8 58.45 40.05 62.13 40.05 62.13 27.12 37.87 27.12" />
+    <rect class="cls-3" x="54.77" y="53.27" width="7.36" height="14.19" />
+    <rect class="cls-4" x="39.71" y="71.13" width="3" height="5.36" />
+    <rect class="cls-5" x="40.15" y="76.49" width="2.13" height="4.39" />
+    <rect class="cls-6" x="48.77" y="74.3" width="2.13" height="4.39" />
+    <rect class="cls-4" x="47.88" y="71.13" width="12.41" height="3.2" />
+    <rect class="cls-7" x="53.02" y="74.3" width="2.13" height="4.39" />
+    <rect class="cls-8" x="57.27" y="74.33" width="2.13" height="4.39" />
+    <path class="cls-9" d="M50,42.74a3.49,3.49,0,1,1,3.49-3.49A3.49,3.49,0,0,1,50,42.74Zm0-6.21a2.72,2.72,0,1,0,2.72,2.72A2.72,2.72,0,0,0,50,36.53Z" />
+    <path class="cls-9" d="M55.36,39.25A5.36,5.36,0,1,0,47.49,44V63.42h.77V56.61h2V68.2h.78V55.83H48.26V44.31a5.3,5.3,0,0,0,1.74.3,5.36,5.36,0,0,0,2.72-.75v6h.77V43.3A5.33,5.33,0,0,0,55.36,39.25Zm-9.94,0A4.58,4.58,0,1,1,50,43.83,4.59,4.59,0,0,1,45.42,39.25Z"
+    />
+    <polygon class="cls-10" points="37.87 27.12 37.87 67.45 39.13 66.19 39.13 28.38 37.87 27.12" />
+    <polyline class="cls-11" points="37.87 67.45 45.23 67.45 45.23 66.19 39.13 66.19" />
+    <polyline class="cls-12" points="39.13 28.38 60.87 28.38 62.13 27.12 37.87 27.12" />
+    <polyline class="cls-13" points="60.87 28.38 60.87 40.05 62.13 40.05 62.13 27.12" />
+    <polyline class="cls-11" points="62.13 67.45 54.77 67.45 54.77 66.19 60.87 66.19" />
+    <polygon class="cls-13" points="60.87 53.27 60.87 66.19 62.13 67.45 62.13 53.27 60.87 53.27" />
+    <polyline class="cls-14" points="40.34 70.5 40.34 67.45 39.71 67.45 39.71 71.13" />
+    <rect class="cls-15" x="59.66" y="40.05" width="0.63" height="13.22" />
+    <polyline class="cls-15" points="59.66 70.5 59.66 67.45 60.29 67.45 60.29 71.13" />
+</svg>
