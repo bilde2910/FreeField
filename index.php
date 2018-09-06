@@ -436,7 +436,7 @@ $provider = Config::get("map/provider/source");
                                                 $cats[CATEGORY][RESEARCH OBJECTIVE][PARAMETERS ETC.]
                                             */
                                             $cats = array();
-                                            foreach (Research::OBJECTIVES as $objective => $data) {
+                                            foreach (Research::listObjectives() as $objective => $data) {
                                                 // Skip unknown since it shouldn't be displayed
                                                 if ($objective === "unknown") continue;
                                                 $cats[$data["categories"][0]][$objective] = $data;
@@ -476,7 +476,7 @@ $provider = Config::get("map/provider/source");
                                             }
 
                                             /*
-                                            $objectives = Research::OBJECTIVES;
+                                            $objectives = Research::listObjectives();
                                             foreach ($objectives as $objective => $data) {
                                                 if ($objective === "unknown") continue;
                                                 $objectives[$objective]["i18n"] = I18N::resolve("objective.{$objective}.plural");
@@ -507,7 +507,8 @@ $provider = Config::get("map/provider/source");
                                                 containing functions like value parsing, a function
                                                 for returning an HTML node allowing users to set a
                                                 value for the parameter, etc. These classes are
-                                                listed and defined in /includes/lib/research.php.
+                                                listed and defined in
+                                                /includes/data/objectives.yaml.
 
                                                 We instantiate an instance of the class for each
                                                 parameter so that we can check that the parameter
@@ -642,7 +643,7 @@ $provider = Config::get("map/provider/source");
                                                 $cats[CATEGORY][RESEARCH REWARD][PARAMETERS ETC.]
                                             */
                                             $cats = array();
-                                            foreach (Research::REWARDS as $reward => $data) {
+                                            foreach (Research::listRewards() as $reward => $data) {
                                                 // Skip unknown since it shouldn't be displayed
                                                 if ($reward === "unknown") continue;
                                                 $cats[$data["categories"][0]][$reward] = $data;
@@ -682,7 +683,7 @@ $provider = Config::get("map/provider/source");
                                             }
 
                                             /*
-                                            $rewards = Research::REWARDS;
+                                            $rewards = Research::listRewards();
                                             foreach ($rewards as $reward => $data) {
                                                 if ($reward === "unknown") continue;
                                                 $rewards[$reward]["i18n"] = I18N::resolve("reward.{$reward}.plural");
@@ -712,7 +713,7 @@ $provider = Config::get("map/provider/source");
                                                 containing functions like value parsing, a function
                                                 for returning an HTML node allowing users to set a
                                                 value for the parameter, etc. These classes are
-                                                listed and defined in /includes/lib/research.php.
+                                                listed and defined in /includes/data/rewards.yaml.
 
                                                 We instantiate an instance of the class for each
                                                 parameter so that we can check that the parameter
@@ -1068,10 +1069,10 @@ $provider = Config::get("map/provider/source");
         <script>
             /*
                 Objectives and rewards directories. These are copied from
-                /includes/lib/research.php.
+                /includes/data/objectives.yaml and /includes/data/rewards.yaml.
             */
-            var objectives = <?php echo json_encode(Research::OBJECTIVES); ?>;
-            var rewards = <?php echo json_encode(Research::REWARDS); ?>;
+            var objectives = <?php echo json_encode(Research::listObjectives()); ?>;
+            var rewards = <?php echo json_encode(Research::listRewards()); ?>;
 
             /*
                 List of all navigation providers and their navigation URLs.

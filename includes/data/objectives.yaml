@@ -1,0 +1,308 @@
+# This file contains a complete list of field research objectives currently
+# available in FreeField. Each array element in this file represents one
+# objective respectively, and contains two fields "categories" and "params".
+
+# The "categories" field is an array of categories the objective satisfies in
+# decreasing order of specificity. The first item in this array is used to
+# organize objectives into groups (e.g. "battle" = objectives related to Gym
+# battles). The whole array is also used as map marker/icon fallbacks for when a
+# specific icon is not available for the given objective in an icon pack. For
+# example, "win_raid" specifies the categories "raid" and "battle" in decreasing
+# order of specificity. This means that if an icon pack does not have a specific
+# icon with the label "win_raid", it will look for one with the label "raid"
+# instead. If it does not have a "raid" icon either, it falls back to "battle",
+# i.e. the next item in the categories array. If none of the icons specified
+# here are found, it will fall back to "default". If none of the icons,
+# including "default", are present in an icon pack, the marker will not be
+# rendered. Hence, it is very important that at the very least "default" is
+# available. For an icon pack to have any meaningful purpose beyond just a
+# single "default" marker for all map POIs, it is also very strongly recommended
+# that icon packs implement an icon for all of the categories, to better
+# distinguish objectives from each other on the map. Implementing specific icons
+# for each objective is optional.
+
+# The "params" field is a list of parameters each research objective takes. This
+# can be for example the type of species required for a specific quest (e.g.
+# "Evolve 2 Shellder"). The "params" array closely ties in to the I18N strings
+# for each objective, and the order of the items in this array corresponds to
+# the order of indices in the I18N strings for the objectives. Consider the
+# example of "level_raid". It is internationalized the following way by
+# en-US.ini:
+
+# objective.level_raid.plural = "Win {%2} level {%1} or higher raids
+
+# In this file, the same objective has declared the following "params" array:
+
+# params:
+#   - min_tier
+#   - quantity
+
+# This indicates that the first I18N token of the string {%1} corresponds to the
+# first item of the array ("min_tier"), the second {%2} corresponds to the
+# second item ("quantity"), and so on.
+
+# The different "params" options have special meanings in how the parameters are
+# filled in by map users. E.g. using the "quantity" parameter will add a number
+# selection box to the field research task submission form, with a label
+# identifying that the input box corresponds to the required quantity of
+# evolutions/catches, etc.
+
+# The currently available research objective parameters are defined in the
+# PARAMETERS array in /includes/lib/research.php.
+
+# --------------------------------------------------------------------------
+#     Gym objectives
+# --------------------------------------------------------------------------
+
+# Battle in a Gym
+battle_gym:
+    params:
+      - quantity
+    categories:
+      - battle
+
+# Win a Gym battle
+win_gym:
+    params:
+      - quantity
+    categories:
+      - battle
+
+# Battle in a raid
+battle_raid:
+    params:
+      - quantity
+    categories:
+      - raid
+      - battle
+
+# Win a raid
+win_raid:
+    params:
+      - quantity
+    categories:
+      - raid
+      - battle
+
+# Win a level [x] or higher raid
+level_raid:
+    params:
+      - min_tier
+      - quantity
+    categories:
+      - raid
+      - battle
+
+# Use a Super Effective Charged attack in a Gym battle
+se_charge:
+    params:
+      - quantity
+    categories:
+      - battle
+
+# --------------------------------------------------------------------------
+#     Catch objectives
+# --------------------------------------------------------------------------
+
+# Catch a Pokémon
+catch:
+    params:
+      - quantity
+    categories:
+      - catch
+
+# Catch a Pokémon with Weather Boost
+catch_weather:
+    params:
+      - quantity
+    categories:
+      - catch
+
+# Catch a [Type]-type Pokémon
+catch_type:
+    params:
+      - type
+      - quantity
+    categories:
+      - catch
+
+# Catch a [Species]
+catch_specific:
+    params:
+      - species
+      - quantity
+    categories:
+      - catch
+
+# Use a berry to help catch Pokémon
+use_berry:
+    params:
+      - quantity
+    categories:
+      - item
+
+# --------------------------------------------------------------------------
+#     Walking objectives
+# --------------------------------------------------------------------------
+
+# Earn a Candy walking with your buddy
+buddy_candy:
+    params:
+      - quantity
+    categories:
+      - buddy
+
+# Hatch an Egg
+hatch:
+    params:
+      - quantity
+    categories:
+      - hatch
+
+# --------------------------------------------------------------------------
+#     Evolution, power-up and management objectives
+# --------------------------------------------------------------------------
+
+# Evolve a Pokémon
+evolve:
+    params:
+      - quantity
+    categories:
+      - evolve
+
+# Evolve a [Type]-type Pokémon
+evolve_type:
+    params:
+      - type
+      - quantity
+    categories:
+      - evolve
+
+# Evolve a [Species]
+evolve_specific:
+    params:
+      - species
+      - quantity
+    categories:
+      - evolve
+
+# Power up a Pokémon
+power_up:
+    params:
+      - quantity
+    categories:
+      - power_up
+
+# Transfer a Pokémon
+transfer:
+    params:
+      - quantity
+    categories:
+      - transfer
+      - trash
+
+# --------------------------------------------------------------------------
+#     Throwing skill objectives
+# --------------------------------------------------------------------------
+
+# Make a Nice Throw
+throw_simple_nice:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Make [n] Nice Throws in a row
+throw_simple_nice_chain:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Make a Great Throw
+throw_simple_great:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Make [n] Great Throws in a row
+throw_simple_great_chain:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Make an Excellent Throw
+throw_simple_excellent:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Make [n] Excellent Throws in a row
+throw_simple_excellent_chain:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Land a Nice Curveball Throw
+throw_curve_nice:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Make [n] Nice Curveball Throws in a row
+throw_curve_nice_chain:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Land a Great Curveball Throw
+throw_curve_great:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Make [n] Great Curveball Throws in a row
+throw_curve_great_chain:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Land an Excellent Curveball Throw
+throw_curve_excellent:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Make [n] Excellent Curveball Throws in a row
+throw_curve_excellent_chain:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# --------------------------------------------------------------------------
+#     Exploration objectives
+# --------------------------------------------------------------------------
+
+# Spin a Pokéstop
+visit_poi:
+    params:
+      - quantity
+    categories:
+      - explore
+
+# Spin a Pokéstop you haven't visited before
+new_poi:
+    params:
+      - quantity
+    categories:
+      - explore

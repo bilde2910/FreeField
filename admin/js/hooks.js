@@ -345,10 +345,10 @@ function getObjectiveFilterNode(hook) {
           - A <span> containing human-readable text identifying the properties
             of the selected objective filter
           - A hidden <input> containing the type of objective, as defined in
-            /includes/lib/research.php
+            /includes/data/objectives.yaml
           - A hidden <input> containing parameters for the objective (such as
             e.g. quantity, typing), in JSON format, associated with the
-            objective as defined in /includes/lib/research.php
+            objective as defined in /includes/data/objectives.yaml
           - A button that allows users to edit the objective filter
           - A button that allows users to remove the objective filter from the
             webhook
@@ -447,7 +447,7 @@ function editObjective(newObjective, caller) {
             correct parameter input boxes are displayed when the dialog box is
             made visible. The event hides all parameter inputs and shows the
             ones that are relevant to the selected objective type, as defined in
-            /includes/lib/research.php.
+            /includes/data/objectives.yaml.
         */
         $("#update-hook-objective").trigger("change");
 
@@ -502,7 +502,7 @@ function editObjective(newObjective, caller) {
 
         /*
             Fetch the definition for the selected objective as defined in
-            /includes/lib/research.php. This contains parameter and category
+            /includes/data/objectives.yaml. This contains parameter and category
             data for the given objective.
         */
         var objDefinition = objectives[objective];
@@ -619,10 +619,10 @@ function getRewardFilterNode(hook) {
           - A <span> containing human-readable text identifying the properties
             of the selected reward filter
           - A hidden <input> containing the type of reward, as defined in
-            /includes/lib/research.php
+            /includes/data/rewards.yaml
           - A hidden <input> containing parameters for the reward (such as e.g.
             quantity of items awarded), in JSON format, associated with the
-            reward as defined in /includes/lib/research.php
+            reward as defined in /includes/data/rewards.yaml
           - A button that allows users to edit the reward filter
           - A button that allows users to remove the reward filter from the
             webhook
@@ -721,7 +721,7 @@ function editReward(newReward, caller) {
             parameter input boxes are displayed when the dialog box is made
             visible. The event hides all parameter inputs and shows the ones
             that are relevant to the selected reward type, as defined in
-            /includes/lib/research.php.
+            /includes/data/rewards.yaml.
         */
         $("#update-hook-reward").trigger("change");
 
@@ -776,7 +776,7 @@ function editReward(newReward, caller) {
 
         /*
             Fetch the definition for the selected reward as defined in
-            /includes/lib/research.php. This contains parameter and category
+            /includes/data/rewards.yaml. This contains parameter and category
             data for the given reward.
         */
         var rewDefinition = rewards[reward];

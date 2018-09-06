@@ -641,11 +641,12 @@ function openMarker(popup, id) {
             Ensure that all required parameters are set for both the objective
             and reward components of the research quest. This is done by
             retrieving the list of required parameters from the `objectives` and
-            `rewards` objects, populated from /includes/lib/research.php. The
-            definitions for the objective and reward contain these lists, so
-            we loop over them, fetch the user data from the dialog, and ensure
-            that none of the fields are `null` or empty. If they are, we abort
-            the submission and notify the user with a banner.
+            `rewards` objects, populated from /includes/data/objectives.yaml and
+            /includes/data/rewards.yaml. The definitions for the objective and
+            reward contain these lists, so we loop over them, fetch the user
+            data from the dialog, and ensure that none of the fields are `null`
+            or empty. If they are, we abort the submission and notify the user
+            with a banner.
         */
         var objDefinition = objectives[objective];
         var rewDefinition = rewards[reward];

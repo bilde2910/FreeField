@@ -1,0 +1,233 @@
+# This file contains a complete list of field research rewards currently
+# available in FreeField. Each array element in this file represents one reward
+# respectively, and contains two fields "categories" and "params".
+
+# The "categories" field is an array of categories the reward satisfies in
+# decreasing order of specificity. The first item in this array is used to
+# organize rewards into groups (e.g. "ball" = rewards related to various ball
+# items). The whole array is also used as map marker/icon fallbacks for when a
+# specific icon is not available for the given reward in an icon pack. For
+# example, "win_raid" in objectives.yaml specifies the categories "raid" and
+# "battle" in decreasing order of specificity. This means that if an icon pack
+# does not have a specific icon with the label "win_raid", it will look for one
+# with the label "raid" instead. If it does not have a "raid" icon either, it
+# falls back to "battle", i.e. the next item in the categories array. If none of
+# the icons specified here are found, it will fall back to "default". If none of
+# the icons, including "default", are present in an icon pack, the marker will
+# not be rendered. Hence, it is very important that at the very least "default"
+# is available. For an icon pack to have any meaningful purpose beyond just a
+# single "default" marker for all map POIs, it is also very strongly recommended
+# that icon packs implement an icon for all of the categories, to better
+# distinguish objectives from each other on the map. Implementing specific icons
+# for each reward is optional.
+
+# The "params" field is a list of parameters each research reward takes. This
+# can be for example the quantity of items awared by a reward (e.g. "5
+# Potions"). The "params" array closely ties in to the I18N strings for each
+# reward, and the order of the items in this array corresponds to the order of
+# indices in the I18N strings for the rewards. Consider the example of
+# "level_raid" in objectives.yaml. It is internationalized the following way by
+# en-US.ini:
+
+# objective.level_raid.plural = "Win {%2} level {%1} or higher raids
+
+# In objectives.yaml, the same objective has declared the following "params"
+# array:
+
+# params:
+#   - min_tier
+#   - quantity
+
+# This indicates that the first I18N token of the string {%1} corresponds to the
+# first item of the array ("min_tier"), the second {%2} corresponds to the
+# second item ("quantity"), and so on.
+
+# The different "params" options have special meanings in how the parameters are
+# filled in by map users. E.g. using the "quantity" parameter will add a number
+# selection box to the field research task submission form, with a label
+# identifying that the input box corresponds to the quantity of items awarded,
+# etc.
+
+# The currently available research reward parameters are defined in the
+# PARAMETERS array in /includes/lib/research.php.
+
+# --------------------------------------------------------------------------
+#     Ball rewards
+# --------------------------------------------------------------------------
+
+# Poké Balls
+poke_ball:
+    params:
+      - quantity
+    categories:
+      - ball
+
+# Great Balls
+great_ball:
+    params:
+      - quantity
+    categories:
+      - ball
+
+# Ultra Balls
+ultra_ball:
+    params:
+      - quantity
+    categories:
+      - ball
+
+# --------------------------------------------------------------------------
+#     Berry rewards
+# --------------------------------------------------------------------------
+
+# Razz Berries
+razz_berry:
+    params:
+      - quantity
+    categories:
+      - berry
+
+# Nanab Berries
+nanab_berry:
+    params:
+      - quantity
+    categories:
+      - berry
+
+# Pinap Berries
+pinap_berry:
+    params:
+      - quantity
+    categories:
+      - berry
+
+# Golden Razz Berries
+golden_razz_berry:
+    params:
+      - quantity
+    categories:
+      - berry
+
+# --------------------------------------------------------------------------
+#     Potion and revive rewards
+# --------------------------------------------------------------------------
+
+# Potions
+potion:
+    params:
+      - quantity
+    categories:
+      - potion
+
+# Super Potions
+super_potion:
+    params:
+      - quantity
+    categories:
+      - potion
+
+# Hyper Potions
+hyper_potion:
+    params:
+      - quantity
+    categories:
+      - potion
+
+# Max Potions
+max_potion:
+    params:
+      - quantity
+    categories:
+      - potion
+
+# Revives
+revive:
+    params:
+      - quantity
+    categories:
+      - revive
+
+# Max Revives
+max_revive:
+    params:
+      - quantity
+    categories:
+      - revive
+
+# --------------------------------------------------------------------------
+#     Evolution item rewards
+# --------------------------------------------------------------------------
+
+# Sun Stones
+sun_stone:
+    params:
+      - quantity
+    categories:
+      - evolution_item
+
+# Kings' Rocks
+kings_rock:
+    params:
+      - quantity
+    categories:
+      - evolution_item
+
+# Metal Coats
+metal_coat:
+    params:
+      - quantity
+    categories:
+      - evolution_item
+
+# Dragon Scales
+dragon_scale:
+    params:
+      - quantity
+    categories:
+      - evolution_item
+
+# Up-Grades
+up_grade:
+    params:
+      - quantity
+    categories:
+      - evolution_item
+
+# --------------------------------------------------------------------------
+#     Other rewards
+# --------------------------------------------------------------------------
+
+# Fast TMs
+fast_tm:
+    params:
+      - quantity
+    categories:
+      - tm
+
+# Charge TMs
+charge_tm:
+    params:
+      - quantity
+    categories:
+      - tm
+
+# Stardust
+stardust:
+    params:
+      - quantity
+    categories:
+      - stardust
+
+# Rare Candies
+rare_candy:
+    params:
+      - quantity
+    categories:
+      - candy
+
+# Pokémon encounters
+encounter:
+    params:
+      - quantity
+    categories:
+      - encounter

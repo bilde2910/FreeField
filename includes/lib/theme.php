@@ -7,10 +7,11 @@ __require("research");
 
 class Theme {
     /*
-        Lists all possible icon names. This works by loopin over the OBJECTIVES
-        and REWARDS objects from /includes/lib/research.php, including the IDs
-        of each objective and reward as well as a complete list of categories
-        and sub-categories for each objective/reawrd.
+        Lists all possible icon names. This works by looping over the objectives
+        and rewards arrays from /includes/data/objectives.yaml and
+        /includes/data/rewards.yaml, including the IDs of each objective and
+        reward as well as a complete list of categories and sub-categories for
+        each objective/reawrd.
 
         If an icon is not found for a specific objective or reward, it will back
         back through its categories and eventually "default" if no icons are
@@ -19,7 +20,7 @@ class Theme {
     */
     public static function listIcons() {
         $icons = array();
-        foreach (Research::OBJECTIVES as $objective => $data) {
+        foreach (Research::listObjectives() as $objective => $data) {
             // Add the objective itself to the icon array
             $icons[] = $objective;
 
@@ -28,7 +29,7 @@ class Theme {
                 $icons[] = $category;
             }
         }
-        foreach (Research::REWARDS as $reward => $data) {
+        foreach (Research::listRewards() as $reward => $data) {
             // Add the reward itself to the icon array
             $icons[] = $reward;
 
@@ -133,8 +134,9 @@ class IconSet {
             Create an array of the icon and its fallback categories, if any.
         */
         $icarray = array($icon);
-        if (isset(Research::OBJECTIVES[$icon])) {
-            $icarray = array_merge($icarray, Research::OBJECTIVES[$icon]["categories"]);
+        $objdef = Research::getObjective($icon);
+        if ($objdef !== null) {
+            $icarray = array_merge($icarray, $objdef["categories"]);
         }
         /*
             Add the default icon as fallback if no icon resource is found for
@@ -179,8 +181,9 @@ class IconSet {
             Create an array of the icon and its fallback categories, if any.
         */
         $icarray = array($icon);
-        if (isset(Research::OBJECTIVES[$icon])) {
-            $icarray = array_merge($icarray, Research::OBJECTIVES[$icon]["categories"]);
+        $objdef = Research::getObjective($icon);
+        if ($objdef !== null) {
+            $icarray = array_merge($icarray, $objdef["categories"]);
         }
         /*
             Add the default icon as fallback if no icon resource is found for

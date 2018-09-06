@@ -67,7 +67,7 @@
                             $cats[CATEGORY][RESEARCH OBJECTIVE][PARAMETERS ETC.]
                         */
                         $cats = array();
-                        foreach (Research::OBJECTIVES as $objective => $data) {
+                        foreach (Research::listObjectives() as $objective => $data) {
                             // Skip unknown since it shouldn't be displayed as an option
                             if ($objective === "unknown") continue;
                             $cats[$data["categories"][0]][$objective] = $data;
@@ -123,7 +123,8 @@
                             containing functions like value parsing, a function
                             for returning an HTML node allowing users to set a
                             value for the parameter, etc. These classes are
-                            listed and defined in /includes/lib/research.php.
+                            listed and defined in
+                            /includes/data/objectives.yaml.
 
                             We instantiate an instance of the class for each
                             parameter so that we can check that the parameter
@@ -291,7 +292,7 @@
                             $cats[CATEGORY][RESEARCH REWARD][PARAMETERS ETC.]
                         */
                         $cats = array();
-                        foreach (Research::REWARDS as $reward => $data) {
+                        foreach (Research::listRewards() as $reward => $data) {
                             // Skip unknown since it shouldn't be displayed as an option
                             if ($reward === "unknown") continue;
                             $cats[$data["categories"][0]][$reward] = $data;
@@ -346,7 +347,7 @@
                             containing functions like value parsing, a function
                             for returning an HTML node allowing users to set a
                             value for the parameter, etc. These classes are
-                            listed and defined in /includes/lib/research.php.
+                            listed and defined in /includes/data/rewards.yaml.
 
                             We instantiate an instance of the class for each
                             parameter so that we can check that the parameter
@@ -1109,11 +1110,12 @@
 
     /*
         Data objects which hold the current complete list of available research
-        objectives and rewards as defined in /includes/lib/research.php. These
-        are needed to properly manage and display objective and reward filters.
+        objectives and rewards as defined in /includes/data/objectives.yaml and
+        /includes/data/rewards.yaml. These are needed to properly manage and
+        display objective and reward filters.
     */
-    var objectives = <?php echo json_encode(Research::OBJECTIVES); ?>;
-    var rewards = <?php echo json_encode(Research::REWARDS); ?>;
+    var objectives = <?php echo json_encode(Research::listObjectives()); ?>;
+    var rewards = <?php echo json_encode(Research::listRewards()); ?>;
 
     /*
         Handle changes to the Actions down-down for webhooks. If the "delete"
