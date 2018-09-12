@@ -150,7 +150,7 @@ $("#add-poi-cancel").on("click", function() {
 /*
     Event handler for the "submit" button on the "Add POI" dialog that requests
     users for more information about the POI they are adding. This function
-    sends a PUT request to /xhr/poi.php to request the addition of the new POI.
+    sends a PUT request to /api/poi.php to request the addition of the new POI.
 */
 $("#add-poi-submit").on("click", function() {
     /*
@@ -169,7 +169,7 @@ $("#add-poi-submit").on("click", function() {
     */
     $("#add-poi-working").fadeIn(150);
     $.ajax({
-        url: "./xhr/poi.php",
+        url: "./api/poi.php",
         type: "PUT",
         dataType: "json",
         data: JSON.stringify({
@@ -181,7 +181,7 @@ $("#add-poi-submit").on("click", function() {
             201: function(data) {
                 /*
                     The POI add request was accepted. `data` contains an array
-                    as defined in PUT /xhr/poi.php. Add the marker to the map
+                    as defined in PUT /api/poi.php. Add the marker to the map
                     so that research can be reported for it immediately.
                 */
                 var markers = [data.poi];
@@ -314,7 +314,7 @@ function resolveIconUrl(icon) {
     Adds a set of marker icons to the map. The `markers` parameter is an array
     of objects, where each object describes the properties of one POI.
     format of the array is the same as the format output in JSON format by GET
-    /xhr/poi.php.
+    /api/poi.php.
 */
 function addMarkers(markers) {
     markers.forEach(function(marker) {
@@ -378,12 +378,12 @@ function addMarkers(markers) {
 }
 
 /*
-    Connects to /xhr/poi.php to retrieve an updated list of all map markers.
+    Connects to /api/poi.php to retrieve an updated list of all map markers.
     This function is called periodically to ensure that the markers displayed on
     the map are up to date.
 */
 function refreshMarkers() {
-    $.getJSON("./xhr/poi.php", function(data) {
+    $.getJSON("./api/poi.php", function(data) {
         var markers = data["pois"];
 
         markers.forEach(function(marker) {
@@ -438,7 +438,7 @@ $(document).ready(function() {
         displayed. This is done after page load to ensure that all required DOM
         elements have loaded first.
     */
-    $.getJSON("./xhr/poi.php", function(data) {
+    $.getJSON("./api/poi.php", function(data) {
         addMarkers(data["pois"]);
         /*
             Automatically refresh the marker list with updated to information
@@ -611,7 +611,7 @@ function openMarker(popup, id) {
     /*
         Event handler for the submit button on the "report field research"
         dialog. This function will initiate an HTTP PATCH request to
-        /xhr/poi.php to update the current field research on the POI. A banner
+        /api/poi.php to update the current field research on the POI. A banner
         is displayed once a response is received from the server showing the
         success state of the request.
     */
@@ -690,7 +690,7 @@ function openMarker(popup, id) {
         $("#update-poi-submit").prop("disabled", true);
         $("#update-poi-working").fadeIn(150);
         $.ajax({
-            url: "./xhr/poi.php",
+            url: "./api/poi.php",
             type: "PATCH",
             dataType: "json",
             data: JSON.stringify({
