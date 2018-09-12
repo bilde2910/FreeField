@@ -214,7 +214,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         GET request will list all available POIs.
     */
     if (!Auth::getCurrentUser()->hasPermission("access")) {
-        XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
+        XHR::exitWith(403, array("reason" => "access_denied"));
     }
     try {
         $pois = Geo::listPOIs();
@@ -257,7 +257,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             `Geo::listPOIs()` may fail with a database error and throw an
             exception.
         */
-        XHR::exitWith(500, array("reason" => "xhr.failed.reason.database_error"));
+        XHR::exitWith(500, array("reason" => "database_error"));
     }
 
 } elseif ($_SERVER["REQUEST_METHOD"] === "PUT") {
@@ -267,7 +267,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         PUT request will add a new POI.
     */
     if (!Auth::getCurrentUser()->hasPermission("submit-poi")) {
-        XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
+        XHR::exitWith(403, array("reason" => "access_denied"));
     }
 
     /*
@@ -278,7 +278,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $putdata = json_decode(file_get_contents("php://input"), true);
     foreach ($reqfields as $field) {
         if (!isset($putdata[$field])) {
-            XHR::exitWith(400, array("reason" => "xhr.failed.reason.missing_fields"));
+            XHR::exitWith(400, array("reason" => "missing_fields"));
         }
     }
 
@@ -304,11 +304,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         for this FreeField instance.
     */
     if ($data["name"] == "") {
-        XHR::exitWith(400, array("reason" => "poi.add.failed.reason.name_empty"));
+        XHR::exitWith(400, array("reason" => "name_empty"));
     }
     $geofence = Geo::getGeofence(Config::get("map/geofence/geofence"));
     if ($geofence !== null && !$geofence->containsPoint($data["latitude"], $data["longitude"])) {
-        XHR::exitWith(400, array("reason" => "poi.add.failed.reason.invalid_location"));
+        XHR::exitWith(400, array("reason" => "invalid_location"));
     }
 
     try {
@@ -348,7 +348,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         XHR::exitWith(201, array("poi" => $poidata));
     } catch (Exception $e) {
-        XHR::exitWith(500, array("reason" => "xhr.failed.reason.database_error"));
+        XHR::exitWith(500, array("reason" => "database_error"));
     }
 
 } elseif ($_SERVER["REQUEST_METHOD"] === "PATCH") {
@@ -357,7 +357,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         the POI.
     */
     if (!Auth::getCurrentUser()->hasPermission("report-research")) {
-        XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
+        XHR::exitWith(403, array("reason" => "access_denied"));
     }
 
     /*
@@ -374,7 +374,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     foreach ($reqfields as $field) {
         if (!isset($patchdata[$field])) {
-            XHR::exitWith(400, array("reason" => "xhr.failed.reason.missing_fields"));
+            XHR::exitWith(400, array("reason" => "missing_fields"));
         }
     }
 
@@ -388,7 +388,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         !isset($patchdata["objective"]["params"]) ||
         !is_array($patchdata["objective"]["params"])
     ) {
-        XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
+        XHR::exitWith(400, array("reason" => "invalid_data"));
     }
     if (
         !is_array($patchdata["reward"]) ||
@@ -396,7 +396,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         !isset($patchdata["reward"]["params"]) ||
         !is_array($patchdata["reward"]["params"])
     ) {
-        XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
+        XHR::exitWith(400, array("reason" => "invalid_data"));
     }
 
     /*
@@ -407,13 +407,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $objective = $patchdata["objective"]["type"];
     $objParams = $patchdata["objective"]["params"];
     if (!Research::isObjectiveValid($objective, $objParams)) {
-        XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
+        XHR::exitWith(400, array("reason" => "invalid_data"));
     }
 
     $reward = $patchdata["reward"]["type"];
     $rewParams = $patchdata["reward"]["params"];
     if (!Research::isRewardValid($reward, $rewParams)) {
-        XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
+        XHR::exitWith(400, array("reason" => "invalid_data"));
     }
 
     /*
@@ -445,7 +445,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             Config::get("map/geofence/hide-outside") &&
             !$poi->isWithinGeofence($geofence)
         ) {
-            XHR::exitWith(400, array("reason" => "xhr.failed.reason.invalid_data"));
+            XHR::exitWith(400, array("reason" => "invalid_data"));
         }
 
         /*
@@ -456,7 +456,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         */
         if ($poi->isUpdatedToday() && !$poi->isResearchUnknown()) {
             if (!Auth::getCurrentUser()->hasPermission("overwrite-research")) {
-                XHR::exitWith(403, array("reason" => "xhr.failed.reason.access_denied"));
+                XHR::exitWith(403, array("reason" => "access_denied"));
             }
         }
 
@@ -477,7 +477,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             ->one();
 
     } catch (Exception $e) {
-        XHR::exitWith(500, array("reason" => "xhr.failed.reason.database_error"));
+        XHR::exitWith(500, array("reason" => "database_error"));
     }
 
     /*
@@ -621,7 +621,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     /*
         Method not implemented.
     */
-    XHR::exitWith(405, array("reason" => "xhr.failed.reason.http_405"));
+    XHR::exitWith(405, array("reason" => "http_405"));
 }
 
 ?>

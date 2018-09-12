@@ -203,7 +203,7 @@ $("#add-poi-submit").on("click", function() {
         var reason = resolveI18N("xhr.failed.reason.unknown_reason");
 
         if (data !== undefined && data.hasOwnProperty("reason")) {
-            reason = resolveI18N(data["reason"]);
+            reason = resolveI18N("xhr.failed.reason." + data["reason"]);
         }
         spawnBanner("failed", resolveI18N(
             "poi.add.failed.message",
@@ -624,7 +624,7 @@ function openMarker(popup, id) {
         if (objective == null) {
             spawnBanner("failed", resolveI18N(
                 "poi.update.failed.message",
-                resolveI18N("poi.update.failed.reason.objective_null")
+                resolveI18N("xhr.failed.reason.objective_null")
             ));
             return;
         }
@@ -632,7 +632,7 @@ function openMarker(popup, id) {
         if (reward == null) {
             spawnBanner("failed", resolveI18N(
                 "poi.update.failed.message",
-                resolveI18N("poi.update.failed.reason.reward_null")
+                resolveI18N("xhr.failed.reason.reward_null")
             ));
             return;
         }
@@ -772,7 +772,7 @@ function openMarker(popup, id) {
             var reason = resolveI18N("xhr.failed.reason.unknown_reason");
 
             if (data !== undefined && data.hasOwnProperty("reason")) {
-                reason = resolveI18N(data["reason"]);
+                reason = resolveI18N("xhr.failed.reason." + data["reason"]);
             }
             spawnBanner("failed", resolveI18N("poi.update.failed.message", reason));
             $("#update-poi-working").fadeOut(150);
