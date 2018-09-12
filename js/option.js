@@ -11,11 +11,28 @@ function viewTheme(selectorID, theme) {
     /*
         Get the box used to preview icon sets.
     */
-    var box = document.getElementById("iconviewer-" + selectorID);
-    box.innerHTML = "";
+    var parent = document.getElementById("iconviewer-" + selectorID);
+    parent.innerHTML = "";
 
+    /*
+        Create a child element in which to put all elements of the icon selector
+        preview. This box has the `opt-icon-selector` class to handle styling of
+        added elements through /css/main.css.
+    */
+    var box = document.createElement("div");
+    parent.className = "opt-icon-selector";
+    parent.appendChild(box);
+
+    /*
+        Do not display a preview if no theme is selected.
+    */
     if (theme === "") return;
 
+    /*
+        Declare variants of the icon pack (dark and light icons). Each variant
+        has a preview box that displays the icons in that particular theme. The
+        <div> elements holding these icons are stored in `varbox`.
+    */
     var variants = ["light", "dark"];
     var varbox = {};
 
@@ -26,12 +43,8 @@ function viewTheme(selectorID, theme) {
     */
     for (var i = 0; i < variants.length; i++) {
         varbox[variants[i]] = document.createElement("div");
-        varbox[variants[i]].style.width = "calc(100% - 20px)";
-        varbox[variants[i]].style.padding = "10px";
+        varbox[variants[i]].className = "icon-box " + variants[i];
     }
-
-    varbox["light"].style.backgroundColor = "#ccc";
-    varbox["dark"].style.backgroundColor = "#333";
 
     /*
         Get the icon set metadata for the given theme.
@@ -64,9 +77,6 @@ function viewTheme(selectorID, theme) {
                 */
                 var icobox = document.createElement("img");
                 icobox.src = uri.split("{%variant%}").join(variants[j]);
-                icobox.style.width = "68px";
-                icobox.style.height = "68px";
-                icobox.style.margin = "5px";
                 varbox[variants[j]].appendChild(icobox);
             }
         }
@@ -79,9 +89,7 @@ function viewTheme(selectorID, theme) {
     if (tdata.hasOwnProperty("logo")) {
         var logo = document.createElement("img");
         logo.src = isc_opts.baseuri + "themes/icons/" + theme + "/" + tdata["logo"].split("{%variant%}").join(isc_opts.colortheme);
-        logo.style.width = "400px";
-        logo.style.maxWidth = "100%";
-        logo.marginTop = "20px";
+        logo.className = "logo";
         box.appendChild(logo);
     }
 
@@ -90,8 +98,7 @@ function viewTheme(selectorID, theme) {
     */
     var name = document.createElement("h2");
     name.innerText = tdata.name;
-    name.style.color = "#" + (isc_opts.colortheme == "dark" ? "ccc" : "333");
-    name.style.marginBottom = "0";
+    name.className = "name " + isc_opts.colortheme;
     box.appendChild(name);
 
     /*

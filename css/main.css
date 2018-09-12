@@ -499,3 +499,46 @@ h1.head-small {
     width: 40px;
     height: 40px;
 }
+
+/*
+    ------------------------------------------------------------------------
+        ICON SELECTOR PREVIEW BOX
+    ------------------------------------------------------------------------
+*/
+
+/* The logo displayed when previewing icon sets, for icon sets which have a
+   logo. */
+.opt-icon-selector .logo {
+    width: 400px;
+    max-width: 100%;
+}
+
+/* The name of the icon set, displayed as a header above the previewed icons. */
+.opt-icon-selector .name {
+    margin-bottom: 0;
+}
+.opt-icon-selector .name.light {
+    color: #333;
+}
+.opt-icon-selector .name.dark {
+    color: #ccc;
+}
+
+/* The box in which icons are previewed. */
+.opt-icon-selector .icon-box {
+    width: calc(100% - 20px);
+    padding: 10px;
+}
+.opt-icon-selector .icon-box.light {
+    background-color: #ccc;
+}
+.opt-icon-selector .icon-box.dark {
+    background-color: #333;
+}
+
+/* Individual icons displayed in the icon preview boxes. */
+.opt-icon-selector .icon-box > * {
+    width: 68px;
+    height: 68px;
+    margin: 5px;
+}
