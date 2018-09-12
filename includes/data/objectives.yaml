@@ -134,6 +134,13 @@ catch_specific:
     categories:
       - catch
 
+# Catch a Pokémon [n] days in a row
+catch_daily:
+    params:
+      - quantity
+    categories:
+      - catch
+
 # Use a berry to help catch Pokémon
 use_berry:
     params:
@@ -178,10 +185,25 @@ evolve_type:
     categories:
       - evolve
 
+# Evolve an evolved [Type]-type Pokémon
+evolve_evolution:
+    params:
+      - type
+      - quantity
+    categories:
+      - evolve
+
 # Evolve a [Species]
 evolve_specific:
     params:
       - species
+      - quantity
+    categories:
+      - evolve
+
+# Use an item to evolve a Pokémon
+evolve_item:
+    params:
       - quantity
     categories:
       - evolve
@@ -302,6 +324,13 @@ visit_poi:
 
 # Spin a Pokéstop you haven't visited before
 new_poi:
+    params:
+      - quantity
+    categories:
+      - explore
+
+# Visit Pokéstops [n] days in a row
+visit_daily:
     params:
       - quantity
     categories:
