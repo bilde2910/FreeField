@@ -105,7 +105,7 @@ function viewTheme(selectorID, theme) {
         Display the author of the icon set.
     */
     var author = document.createElement("p");
-    author.innerText = "Authored by " + tdata.author;
+    author.innerText = resolveI18N("admin.option.icon_set.authored_by", tdata.author);
     box.appendChild(author);
 
     /*
