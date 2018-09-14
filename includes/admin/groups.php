@@ -86,7 +86,18 @@
                                 <td>
                                     <input type="number"
                                            min="0"
-                                           max="250"
+                                           max="<?php
+                                                /*
+                                                    Cap the group level at the highest level the
+                                                    current user can modify, or the group level
+                                                    itself, whichever is higher.
+                                                */
+                                                echo max(
+                                                $group["level"],
+                                                Auth::getCurrentUser()->getPermissionLevel() - (
+                                                    Auth::getCurrentUser()->hasPermission("admin/groups/self-manage") ? 0 : 1
+                                                )
+                                           ); ?>"
                                            name="g<?php echo $gid; ?>[level]"
                                            value="<?php echo $group["level"]; ?>"
                                            <?php if ($group["level"] == 0 || !Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
