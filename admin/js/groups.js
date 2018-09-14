@@ -93,12 +93,82 @@ $("#group-list").on("change", ".group-color-selector > input[type=checkbox]", fu
 });
 
 /*
-    Changes to inputs on the form are tracked to stop data being accidentally
-    discarded if the user tries to navigate away from the page without saving
-    the settings. Ensure that the warning isn't displayed if the user clicks on
-    the submit button.
+    The default border color for the group level selectors. Used in the
+    following code block.
 */
+var groupBorderColor = $("input.group-level").css("border-color");
 $("form").on("submit", function() {
+    /*
+        Groups' permission levels are enforced unique by SQL. This means that no
+        two or more groups may share the same permission level. Warn the user if
+        duplicate group levels are found, and prevent them from submitting the
+        form if that is the case.
+    */
+    /*
+        `levels` stores all levels found on the form.
+    */
+    var levels = [];
+    /*
+        `hasDuplicates` is a boolean on whether or not the form contains
+        duplicates and should therefore not be submitted.
+    */
+    var hasDuplicates = false;
+    /*
+        Permission level selectors that are in conflict are highlighted in red
+        to easily distinguish them to the user. Reset the color of all of those
+        input boxes first to ensure that there are no red borders around boxes
+        that were, but no longer are, duplicates (i.e. if the user makes a
+        second attempt at submitting the form but now has other duplicates).
+    */
+    $("input.group-level").css("border-color", groupBorderColor);
+    $("input.group-level").each(function() {
+        /*
+            Search every permission level input box for their values. The values
+            are pushed to the `levels` array. If the value of the current
+            permission level selector is already in the `levels` array, then it
+            was previously added for another input level box, which means there
+            are permission level input boxes with duplicate values.
+        */
+        var val = $(this).val();
+        for (var i = 0; i < levels.length; i++) {
+            if (levels[i] == val) {
+                /*
+                    If a duplicate is found, find all permission level input
+                    boxes that have this duplicate value and set a red border
+                    around them to make it easy for the user to distinguish the
+                    groups with duplicate permission levels.
+                */
+                $("input.group-level").each(function() {
+                    if ($(this).val() == val) {
+                        $(this).css("border-color", "red");
+                    }
+                });
+                /*
+                    Flag the form to not submit if a duplicate was found.
+                */
+                hasDuplicates = true;
+            }
+        }
+        /*
+            Add the level of the current group to the `levels` array to match
+            against the remaining groups.
+        */
+        levels.push(val);
+    });
+    /*
+        If duplicate levels were found, alert the user and do not submit the
+        form.
+    */
+    if (hasDuplicates) {
+        alert(resolveI18N("admin.clientside.groups.popup.conflicting_levels"));
+        return false;
+    }
+    /*
+        Changes to inputs on the form are tracked to stop data being
+        accidentally discarded if the user tries to navigate away from the page
+        without saving the settings. Ensure that the warning isn't displayed if
+        the user clicks on the submit button.
+    */
     unsavedChanges = false;
 });
 

@@ -49,12 +49,18 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
     That same structure is available in the arrays in `$grouplist` and
     `$groups_assoc`.
+
+    `$groups_levels` is an array that contains the list of groups and their
+    updated permission levels. It is used to check for duplicate levels before
+    the groups are saved.
 */
 $grouplist = Auth::listGroups();
 $groups_assoc = array();
+$groups_levels = array();
 
 foreach ($grouplist as $group) {
     $groups_assoc[$group["group_id"]] = $group;
+    $groups_levels[$group["group_id"]] = intval($group["level"]);
 }
 
 /*
@@ -172,6 +178,7 @@ foreach ($_POST as $group => $data) {
                 new group doesn't have an existing group to change, we can just
                 insert it directly.
             */
+            $groups_levels[$gid] = $new;
             if ($newGroup) {
                 $updates[$gid]["level"] = $new;
             } else {
@@ -188,6 +195,17 @@ foreach ($_POST as $group => $data) {
         $insertions[] = $updates[$gid];
         unset($updates[$gid]);
     }
+}
+
+/*
+    Check for duplicate levels. Each group must have a unique permission level.
+    This is enforced by the database backend.
+*/
+if (max(array_values(array_count_values($groups_levels))) > 1) {
+    __require("i18n");
+    header("Content-Type: text/plain");
+    echo I18N::resolve("admin.clientside.groups.popup.conflicting_levels");
+    exit;
 }
 
 $db = Database::getSparrow();

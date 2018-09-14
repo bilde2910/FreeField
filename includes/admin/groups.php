@@ -99,6 +99,7 @@
                                                 )
                                            ); ?>"
                                            name="g<?php echo $gid; ?>[level]"
+                                           class="group-level"
                                            value="<?php echo $group["level"]; ?>"
                                            <?php if ($group["level"] == 0 || !Auth::getCurrentUser()->canChangeAtPermission($group["level"])) echo ' disabled'; ?>>
                                 </td>
