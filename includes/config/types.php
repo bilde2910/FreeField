@@ -252,6 +252,27 @@ class PasswordOption extends DefaultOption {
         return true;
     }
 
+    /*
+        Passwords should be stored encrypted on disk. The encryption key is
+        stored in the AuthKeys userdata file at /includes/userdata/authkeys.php.
+        This is done to ensure that attackers accessing config.json cannot
+        extract sensitive data.
+    */
+    public function encodeSavedValue($data) {
+        __require("auth");
+        __require("authkeys");
+        $key = AuthKeys::getConfigurationKey();
+        return Auth::encryptArray(array("password" => $data), $key);
+    }
+    public function decodeSavedValue($data) {
+        __require("auth");
+        __require("authkeys");
+        $key = AuthKeys::getConfigurationKey();
+        $decr = Auth::decryptArray($data, $key);
+        if ($decr !== null && isset($decr["password"])) return $decr["password"];
+        return $data;
+    }
+
     public function getMask() {
         return $this->mask;
     }

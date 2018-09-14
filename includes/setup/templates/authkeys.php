@@ -21,6 +21,14 @@ class AuthKeys {
         // Replaced with a random key on install
         return base64_decode("");
     }
+
+    /*
+        Gets the key used to encrypt various settings in the configuration file.
+    */
+    public static function getConfigurationKey() {
+        // Replaced with a random key on install
+        return base64_decode("");
+    }
 }
 
 ?>

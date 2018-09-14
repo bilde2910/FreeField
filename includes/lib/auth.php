@@ -6,13 +6,7 @@
 
 __require("config");
 __require("db");
-
-/*
-    The /includes/userdata/authkeys.php file contains a randomly generated key
-    used to encrypt session data stored in browser cookies. This file is
-    generated upon first installation.
-*/
-require_once(__DIR__."/../userdata/authkeys.php");
+__require("authkeys");
 
 class Auth {
     /*
