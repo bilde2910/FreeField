@@ -6,7 +6,7 @@
 
 require_once(__DIR__."/../userdata/authkeys.php");
 
-class Encryption extends AuthKeys {
+class Security extends AuthKeys {
     /*
         Encrypts an array using the specified encryption key.
     */

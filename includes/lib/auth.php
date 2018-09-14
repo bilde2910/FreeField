@@ -6,7 +6,7 @@
 
 __require("config");
 __require("db");
-__require("encryption");
+__require("security");
 
 class Auth {
     /*
@@ -106,7 +106,7 @@ class Auth {
         if (!isset($_COOKIE["session"])) return null;
         $session = $_COOKIE["session"];
 
-        return Encryption::decryptArray($session, "session");
+        return Security::decryptArray($session, "session");
     }
 
     /*
@@ -254,7 +254,7 @@ class Auth {
         array, encrypts it, and puts it in a cookie on the client's browser.
     */
     private static function setSession($data, $expire) {
-        $session = Encryption::encryptArray($data, "session");
+        $session = Security::encryptArray($data, "session");
         setcookie("session", $session, time() + $expire, "/");
     }
 
@@ -405,7 +405,7 @@ class Auth {
         Decrypts a user ID encrypted using `User::getEncryptedUserID()`.
     */
     public static function getDecryptedUserID($data) {
-        $array = Encryption::decryptArray($data, "id-only");
+        $array = Security::decryptArray($data, "id-only");
         if ($array === null || $array === false) return null;
         return $array["id"];
     }
@@ -713,7 +713,7 @@ class User {
         $data = array(
             "id" => $this->data["id"]
         );
-        return Encryption::encryptArray($data, "id-only");
+        return Security::encryptArray($data, "id-only");
     }
 
     /*

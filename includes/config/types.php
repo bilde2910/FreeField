@@ -259,12 +259,12 @@ class PasswordOption extends DefaultOption {
         extract sensitive data.
     */
     public function encodeSavedValue($data) {
-        __require("encryption");
-        return Encryption::encryptArray(array("password" => $data), "config");
+        __require("security");
+        return Security::encryptArray(array("password" => $data), "config");
     }
     public function decodeSavedValue($data) {
-        __require("encryption");
-        $decr = Encryption::decryptArray($data, "config", "password");
+        __require("security");
+        $decr = Security::decryptArray($data, "config", "password");
         if ($decr !== null) return $decr;
         return $data;
     }

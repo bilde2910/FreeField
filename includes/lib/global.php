@@ -25,8 +25,8 @@ function __require($require) {
         /*
             Handles data encryption and decryption.
         */
-        case "encryption":
-            require_once(__DIR__."/encryption.php");
+        case "security":
+            require_once(__DIR__."/security.php");
             break;
 
         /*
