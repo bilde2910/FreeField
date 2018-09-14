@@ -155,23 +155,23 @@ class Database {
         */
 
         if (
-            Config::get("database/type") == "sqlite" ||
-            Config::get("database/type") == "sqlite3"
+            Config::get("database/type")->value() == "sqlite" ||
+            Config::get("database/type")->value() == "sqlite3"
         ) {
-            $type = urlencode(Config::get("database/type"));
-            $database = urlencode(Config::get("database/database"));
+            $type = Config::get("database/type")->valueURL();
+            $database = Config::get("database/database")->valueURL();
 
             $uri = "{$type}://{$database}";
             $db->setDb($uri);
         } else {
-            $type = urlencode(Config::get("database/type"));
-            $host = urlencode(Config::get("database/host"));
-            $database = urlencode(Config::get("database/database"));
-            $user = urlencode(Config::get("database/username"));
-            $pass = urlencode(Config::get("database/password"));
+            $type = Config::get("database/type")->valueURL();
+            $host = Config::get("database/host")->valueURL();
+            $database = Config::get("database/database")->valueURL();
+            $user = Config::get("database/username")->valueURL();
+            $pass = Config::get("database/password")->valueURL();
 
-            if (Config::get("database/port") > 0) {
-                $port = urlencode(Config::get("database/port"));
+            if (Config::get("database/port")->value() > 0) {
+                $port = Config::get("database/port")->valueURL();
                 // The format of the connection URI is as follows:
                 $uri = "{$type}://{$user}:{$pass}@{$host}:{$port}/{$database}";
             } else {
@@ -191,7 +191,7 @@ class Database {
         when querying specific tables in the database.
     */
     public static function getTable($table) {
-        return Config::get("database/table-prefix").$table;
+        return Config::get("database/table-prefix")->value().$table;
     }
 }
 

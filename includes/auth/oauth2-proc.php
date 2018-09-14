@@ -14,8 +14,8 @@
         look like this for Discord authentication, for example:
 
         $opts = array(
-            "clientId" => Config::get("auth/provider/{$service}/client-id"),
-            "clientSecret" => Config::get("auth/provider/{$service}/client-secret"),
+            "clientId" => Config::get("auth/provider/{$service}/client-id")->value(),
+            "clientSecret" => Config::get("auth/provider/{$service}/client-secret")->value(),
             "redirectUri" => Config::getEndpointUri("/auth/oa2/{$service}.php"),
             "authEndpoint" => "https://discordapp.com/oauth2/authorize",
             "tokenEndpoint" => "https://discordapp.com/api/v6/oauth2/token",

@@ -26,12 +26,12 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
                 <head>
                     <meta charset="utf-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
-                    <meta name="robots" content="<?php echo Config::getHTML("spiders/robots-policy"); ?>">
-                    <meta name="theme-color" content="<?php echo Config::getHTML("themes/meta/color"); ?>">
+                    <meta name="robots" content="<?php echo Config::get("spiders/robots-policy")->valueHTML(); ?>">
+                    <meta name="theme-color" content="<?php echo Config::get("themes/meta/color")->valueHTML(); ?>">
                     <title><?php echo I18N::resolveArgsHTML(
                         "page_title.access_denied",
                         true,
-                        Config::get("site/name")
+                        Config::get("site/name")->value()
                     ); ?></title>
                     <link rel="shortcut icon"
                           href="./themes/favicon.php?t=<?php
@@ -40,8 +40,8 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
                                 changed time of the file to the path.
                                 https://stackoverflow.com/a/7116701
                             */
-                            echo Config::getDefinition("themes/meta/favicon")["option"]
-                                 ->applyToCurrent()->getUploadTime();
+                            echo Config::get("themes/meta/favicon")
+                                 ->getOption()->applyToCurrent()->getUploadTime();
                           ?>">
                     <link rel="stylesheet"
                           href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
@@ -52,7 +52,7 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
                           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
                           crossorigin="anonymous">
                     <link rel="stylesheet" href="./css/main.css">
-                    <link rel="stylesheet" href="./css/<?php echo Config::getHTML("themes/color/user-settings/theme"); ?>.css">
+                    <link rel="stylesheet" href="./css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
 
                     <!--[if lte IE 8]>
                         <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
@@ -93,7 +93,7 @@ __require("research");
 /*
     A string identifying the chosen map provider for FreeField.
 */
-$provider = Config::get("map/provider/source");
+$provider = Config::get("map/provider/source")->value();
 
 ?>
 
@@ -102,12 +102,12 @@ $provider = Config::get("map/provider/source");
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <meta name="robots" content="<?php echo Config::getHTML("spiders/robots-policy"); ?>">
-        <meta name="theme-color" content="<?php echo Config::getHTML("themes/meta/color"); ?>">
+        <meta name="robots" content="<?php echo Config::get("spiders/robots-policy")->valueHTML(); ?>">
+        <meta name="theme-color" content="<?php echo Config::get("themes/meta/color")->valueHTML(); ?>">
         <title><?php echo I18N::resolveArgsHTML(
             "page_title.main",
             true,
-            Config::get("site/name")
+            Config::get("site/name")->value()
         ); ?></title>
         <script src="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
@@ -124,7 +124,7 @@ $provider = Config::get("map/provider/source");
                     "themedata" => IconPackOption::getIconSetDefinitions(),
                     "icons" => Theme::listIcons(),
                     "baseuri" => Config::getEndpointUri("/"),
-                    "colortheme" => Config::get("themes/color/user-settings/theme")
+                    "colortheme" => Config::get("themes/color/user-settings/theme")->value()
                 ));
             ?>;
         </script>
@@ -135,8 +135,8 @@ $provider = Config::get("map/provider/source");
                     Force refresh the favicon by appending the last changed time
                     of the file to the path. https://stackoverflow.com/a/7116701
                 */
-                echo Config::getDefinition("themes/meta/favicon")["option"]
-                     ->applyToCurrent()->getUploadTime();
+                echo Config::get("themes/meta/favicon")
+                     ->getOption()->applyToCurrent()->getUploadTime();
               ?>">
         <link rel="stylesheet"
               href="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css">
@@ -169,7 +169,7 @@ $provider = Config::get("map/provider/source");
             <div id="menu">
                 <div class="pure-menu">
                     <a class="pure-menu-heading" href=".">
-                        <?php echo Config::getHTML("site/menu-header"); ?>
+                        <?php echo Config::get("site/menu-header")->valueHTML(); ?>
                     </a>
 
                     <ul class="pure-menu-list">
@@ -226,7 +226,7 @@ $provider = Config::get("map/provider/source");
                             </li>
                             <?php
                                 /* Check if user has permission to access any admin pages. */
-                                if (Auth::getCurrentUser()->hasPermission("admin/?/general")) {
+                                if (Auth::getCurrentUser()->canAccessAdminPages()) {
                                     ?>
                                         <li class="pure-menu-item">
                                             <a href="./admin/" class="pure-menu-link">
@@ -972,7 +972,7 @@ $provider = Config::get("map/provider/source");
                                 <?php echo I18N::resolveHTML("user_settings.section.appearance") ?>
                             </h2>
                             <?php
-                                if (Config::get("themes/color/user-settings/allow-personalization")) {
+                                if (Config::get("themes/color/user-settings/allow-personalization")->value()) {
                                     ?>
                                         <!--
                                             User interface theme (dark or
@@ -1003,7 +1003,7 @@ $provider = Config::get("map/provider/source");
                                 }
                             ?>
                             <?php
-                                if (Config::get("themes/color/map/allow-personalization")) {
+                                if (Config::get("themes/color/map/allow-personalization")->value()) {
                                     ?>
                                         <div class="pure-g">
                                             <!--
@@ -1029,7 +1029,7 @@ $provider = Config::get("map/provider/source");
                                 }
                             ?>
                             <?php
-                                if (Config::get("themes/icons/allow-personalization")) {
+                                if (Config::get("themes/icons/allow-personalization")->value()) {
                                     $opt = new IconPackOption("user_settings.value.default");
                                     ?>
                                         <!--
@@ -1083,25 +1083,25 @@ $provider = Config::get("map/provider/source");
                 Time interval (in milliseconds) between automatic refreshes of
                 the marker list and active field research from the server.
             */
-            var autoRefreshInterval = <?php echo (Config::get("map/updates/refresh-interval") * 1000); ?>;
+            var autoRefreshInterval = <?php echo (Config::get("map/updates/refresh-interval")->value() * 1000); ?>;
 
             /*
                 Default local settings, used as fallback if a local setting is
                 not explicitly set for each entry.
             */
             var defaults = {
-                iconSet: <?php echo Config::getJS("themes/icons/default"); ?>,
+                iconSet: <?php echo Config::get("themes/icons/default")->valueJS(); ?>,
                 mapProvider: "<?php echo $provider; ?>",
-                naviProvider: <?php echo Config::getJS("map/provider/directions"); ?>,
+                naviProvider: <?php echo Config::get("map/provider/directions")->valueJS(); ?>,
                 mapStyle: {
-                    mapbox: <?php echo Config::getJS("themes/color/map/theme/{$provider}"); ?>
+                    mapbox: <?php echo Config::get("themes/color/map/theme/{$provider}")->valueJS(); ?>
                 },
-                theme: <?php echo Config::getJS("themes/color/user-settings/theme"); ?>,
+                theme: <?php echo Config::get("themes/color/user-settings/theme")->valueJS(); ?>,
                 center: {
-                    latitude: <?php echo Config::getJS("map/default/center/latitude"); ?>,
-                    longitude: <?php echo Config::getJS("map/default/center/longitude"); ?>
+                    latitude: <?php echo Config::get("map/default/center/latitude")->valueJS(); ?>,
+                    longitude: <?php echo Config::get("map/default/center/longitude")->valueJS(); ?>
                 },
-                zoom: <?php echo Config::getJS("map/default/zoom"); ?>
+                zoom: <?php echo Config::get("map/default/zoom")->valueJS(); ?>
             };
 
             /*
@@ -1114,13 +1114,13 @@ $provider = Config::get("map/provider/source");
             var forceDefaults = [
                 <?php
                     $forced = array();
-                    if (!Config::get("themes/color/user-settings/allow-personalization")) {
+                    if (!Config::get("themes/color/user-settings/allow-personalization")->value()) {
                         $forced[] = '"theme"';
                     }
-                    if (!Config::get("themes/color/map/allow-personalization")) {
+                    if (!Config::get("themes/color/map/allow-personalization")->value()) {
                         $forced[] = '"mapStyle/mapbox"';
                     }
-                    if (!Config::get("themes/icons/allow-personalization")) {
+                    if (!Config::get("themes/icons/allow-personalization")->value()) {
                         $forced[] = '"iconSet"';
                     }
                     echo implode(', ', $forced);
@@ -1275,12 +1275,12 @@ $provider = Config::get("map/provider/source");
                     sets are loaded.
                 */
                 $restrictiveLoadThemes = array(
-                    Config::get("themes/icons/default")
+                    Config::get("themes/icons/default")->value()
                 );
 
                 foreach ($themes as $theme) {
                     if (
-                        !Config::get("themes/icons/allow-personalization") &&
+                        !Config::get("themes/icons/allow-personalization")->value() &&
                         in_array($theme, $restrictiveLoadThemes)
                     ) {
                         return;
@@ -1303,7 +1303,7 @@ $provider = Config::get("map/provider/source");
             /*
                 Configure MapBox.
             */
-            mapboxgl.accessToken = <?php echo Config::getJS("map/provider/mapbox/access-token"); ?>;
+            mapboxgl.accessToken = <?php echo Config::get("map/provider/mapbox/access-token")->valueJS(); ?>;
         </script>
         <script src="./js/ui.js"></script>
         <script src="./js/main.js?t=<?php echo time(); ?>"></script>

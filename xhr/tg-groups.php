@@ -104,7 +104,7 @@ if (isset($_GET["token"])) {
         A webhook ID was passed. Look up the webhook from the configuration file
         and extract the bot token from the webhook.
     */
-    $hooks = Config::get("webhooks");
+    $hooks = Config::getRaw("webhooks");
     if ($hooks === null) $hooks = array();
     foreach ($hooks as $hook) {
         if ($hook["id"] == $_GET["forId"]) {

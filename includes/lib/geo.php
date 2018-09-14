@@ -304,7 +304,7 @@ class Geo {
         /*
             Get geofence arrays from the configuration file.
         */
-        $fences = Config::get("geofences");
+        $fences = Config::getRaw("geofences");
         if ($fences === null) $fences = array();
 
         /*
@@ -334,7 +334,7 @@ class Geo {
         /*
             Get a list of all geofences in the configuration file.
         */
-        $fences = Config::get("geofences");
+        $fences = Config::getRaw("geofences");
         if ($fences === null) $fences = array();
 
         /*
@@ -371,7 +371,7 @@ class Geo {
         /*
             Get geofence arrays from the configuration file.
         */
-        $fences = Config::get("geofences");
+        $fences = Config::getRaw("geofences");
         if ($fences === null) $fences = array();
 
         /*

@@ -210,7 +210,7 @@
                     $(this).css("color", "red");
                     $(this).css("margin-right", "");
                 } else if ($(this).val() == "approve") {
-                    var color = <?php echo Config::getJS("themes/color/admin"); ?> == "dark" ? "lime" : "green";
+                    var color = <?php echo Config::get("themes/color/admin")->valueJS(); ?> == "dark" ? "lime" : "green";
                     $(this).css("border", "1px solid " + color);
                     $(this).css("color", color);
                     $(this).css("margin-right", "");

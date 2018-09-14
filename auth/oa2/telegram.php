@@ -38,7 +38,7 @@ if (!isset($_GET["hash"])) { ?>
         <title><?php echo I18N::resolveArgsHTML(
             "page_title.login.telegram",
             true,
-            Config::get("site/name")
+            Config::get("site/name")->value()
         ); ?></title>
         <meta name="robots" content="noindex,nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,7 +60,7 @@ if (!isset($_GET["hash"])) { ?>
             <p><?php echo I18N::resolveHTML("login.telegram.body"); ?></p>
             <script async
                     src="https://telegram.org/js/telegram-widget.js?4"
-                    data-telegram-login="<?php echo Config::getHTML("auth/provider/{$service}/bot-username"); ?>"
+                    data-telegram-login="<?php echo Config::get("auth/provider/{$service}/bot-username")->valueHTML(); ?>"
                     data-size="large"
                     data-userpic="false"
                     data-auth-url="<?php echo Config::getEndpointUri("/auth/oa2/telegram.php"); ?>">
@@ -104,7 +104,7 @@ foreach ($fields as $k => $v) {
 }
 
 $data = implode("\n", $urlfields);
-$key = hash("SHA256", Config::get("auth/provider/{$service}/bot-token"), true);
+$key = hash("SHA256", Config::get("auth/provider/{$service}/bot-token")->value(), true);
 
 $verify = hash_hmac("SHA256", $data, $key);
 
@@ -163,7 +163,7 @@ try {
 
     $approved = Auth::setAuthenticatedSession(
         "{$service}:".$userid,
-        Config::get("auth/session-length"),
+        Config::get("auth/session-length")->value(),
         $hid,
         $user
     );

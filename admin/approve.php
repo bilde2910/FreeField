@@ -38,11 +38,11 @@ if ($id === Auth::getCurrentUser()->getUserID()) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <meta name="robots" content="noindex,nofollow">
-            <meta name="theme-color" content="<?php echo Config::getHTML("themes/meta/color"); ?>">
+            <meta name="theme-color" content="<?php echo Config::get("themes/meta/color")->valueHTML(); ?>">
             <title><?php echo I18N::resolveArgsHTML(
                 "page_title.login.awaiting_approval",
                 true,
-                Config::get("site/name")
+                Config::get("site/name")->value()
             ); ?></title>
             <link rel="shortcut icon"
                   href="../themes/favicon.php?t=<?php
@@ -50,15 +50,15 @@ if ($id === Auth::getCurrentUser()->getUserID()) {
                         Force refresh the favicon by appending the last changed time
                         of the file to the path. https://stackoverflow.com/a/7116701
                     */
-                    echo Config::getDefinition("themes/meta/favicon")["option"]
-                         ->applyToCurrent()->getUploadTime();
+                    echo Config::get("themes/meta/favicon")
+                         ->getOption()->applyToCurrent()->getUploadTime();
                   ?>">
             <link rel="stylesheet"
                   href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
                   integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
                   crossorigin="anonymous">
             <link rel="stylesheet" href="../css/main.css">
-            <link rel="stylesheet" href="../css/<?php echo Config::getHTML("themes/color/user-settings/theme"); ?>.css">
+            <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
 
             <!--[if lte IE 8]>
                 <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
@@ -116,11 +116,11 @@ if (!$user->exists() || $user->isApproved()) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <meta name="robots" content="noindex,nofollow">
-            <meta name="theme-color" content="<?php echo Config::getHTML("themes/meta/color"); ?>">
+            <meta name="theme-color" content="<?php echo Config::get("themes/meta/color")->valueHTML(); ?>">
             <title><?php echo I18N::resolveArgsHTML(
                 "page_title.login.approve_user",
                 true,
-                Config::get("site/name")
+                Config::get("site/name")->valueHTML()
             ); ?></title>
             <link rel="shortcut icon"
                   href="../themes/favicon.php?t=<?php
@@ -128,15 +128,15 @@ if (!$user->exists() || $user->isApproved()) {
                         Force refresh the favicon by appending the last changed time
                         of the file to the path. https://stackoverflow.com/a/7116701
                     */
-                    echo Config::getDefinition("themes/meta/favicon")["option"]
-                         ->applyToCurrent()->getUploadTime();
+                    echo Config::get("themes/meta/favicon")
+                         ->getOption()->applyToCurrent()->getUploadTime();
                   ?>">
             <link rel="stylesheet"
                   href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
                   integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
                   crossorigin="anonymous">
             <link rel="stylesheet" href="../css/main.css">
-            <link rel="stylesheet" href="../css/<?php echo Config::getHTML("themes/color/user-settings/theme"); ?>.css">
+            <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
 
             <!--[if lte IE 8]>
                 <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
@@ -180,11 +180,11 @@ if (!$user->exists() || $user->isApproved()) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex,nofollow">
-        <meta name="theme-color" content="<?php echo Config::getHTML("themes/meta/color"); ?>">
+        <meta name="theme-color" content="<?php echo Config::get("themes/meta/color")->valueHTML(); ?>">
         <title><?php echo I18N::resolveArgsHTML(
             "page_title.login.approve_user",
             true,
-            Config::get("site/name")
+            Config::get("site/name")->value()
         ); ?></title>
         <link rel="shortcut icon"
               href="../themes/favicon.php?t=<?php
@@ -192,8 +192,8 @@ if (!$user->exists() || $user->isApproved()) {
                     Force refresh the favicon by appending the last changed time
                     of the file to the path. https://stackoverflow.com/a/7116701
                 */
-                echo Config::getDefinition("themes/meta/favicon")["option"]
-                     ->applyToCurrent()->getUploadTime();
+                echo Config::get("themes/meta/favicon")
+                     ->getOption()->applyToCurrent()->getUploadTime();
               ?>">
         <link rel="stylesheet"
               href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
@@ -204,7 +204,7 @@ if (!$user->exists() || $user->isApproved()) {
               integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
               crossorigin="anonymous">
         <link rel="stylesheet" href="../css/main.css">
-        <link rel="stylesheet" href="../css/<?php echo Config::getHTML("themes/color/admin"); ?>.css">
+        <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/admin")->valueHTML(); ?>.css">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">

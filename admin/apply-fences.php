@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     of fences will be `null`. In that case, create an empty geofences array to
     populate with new fences.
 */
-$fencelist = Config::get("geofences");
+$fencelist = Config::getRaw("geofences");
 if ($fencelist === null) $fencelist = array();
 $fences = array();
 foreach ($fencelist as $fence) {

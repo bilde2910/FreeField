@@ -365,15 +365,15 @@ if (count($queries) > 0) {
     Also ensure that the configuration is updated to reflect the updated
     permission level for all permissions using any of the affected
     permission(s). To do this, we obtain a flat list of all options available in
-    /includes/config/tree.php. We search for settings using `PermissionOption`
+    /includes/config/defs.php. We search for settings using `PermissionOption`
     and change them accordingly.
 */
 
-$flattree = Config::getFlatTree();
+$keys = Config::listAllKeys();
 $configchanges = array();
-foreach ($flattree as $path => $values) {
-    if ($values["option"] instanceof PermissionOption) {
-        $value = Config::get($path);
+foreach ($keys as $path) {
+    if (Config::getOptionType($path) == "PermissionOption") {
+        $value = Config::get($path)->value();
         foreach ($levelchanges as $old => $new) {
             if ($value == $old) {
                 $configchanges[$path] = $new;

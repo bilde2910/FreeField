@@ -10,11 +10,11 @@ __require("auth");
 
 /*
     If the current user does not have permission to view any of the admin pages
-    (as determined by `admin/<domain>/general`) then the user does not have
-    permission to change any of the settings on any pages either. Hence, we can
-    kick them out of this script right away since we presume they're not admins.
+    then the user does not have permission to change any of the settings on any
+    pages either. Hence, we can kick them out of this script right away since we
+    presume they're not admins.
 */
-if (!Auth::getCurrentUser()->hasPermission("admin/?/general")) {
+if (!Auth::getCurrentUser()->canAccessAdminPages()) {
     header("HTTP/1.1 303 See Other");
     header("Location: ./");
     exit;

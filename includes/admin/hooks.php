@@ -1132,7 +1132,7 @@
             $(this).css("color", "red");
             $(this).css("margin-right", "");
         } else if ($(this).val() == "enable") {
-            var color = <?php echo Config::getJS("themes/color/admin"); ?> == "dark" ? "lime" : "green";
+            var color = <?php echo Config::get("themes/color/admin")->valueJS(); ?> == "dark" ? "lime" : "green";
             $(this).css("border", "1px solid " + color);
             $(this).css("color", color);
             $(this).css("margin-right", "");
@@ -1153,7 +1153,7 @@
         webhooks being added to the page after page load is complete.
     */
     var hooks = <?php
-        $hooks = Config::get("webhooks");
+        $hooks = Config::getRaw("webhooks");
         if ($hooks === null) $hooks = array();
 
         /*

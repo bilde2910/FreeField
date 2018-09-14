@@ -12,7 +12,7 @@
     more examples.
 
     All settings and their defaults and valid values are listed in
-    /lib/config/tree.php.
+    /includes/config/defs.php.
 */
 
 class Config {
@@ -20,100 +20,42 @@ class Config {
 
     /*
         `$config` holds the decoded JSON array of the config file. The
-        `$configtree` variable is populated from /includes/config/tree.php on
-        initialization. This is iterated over and the full keys extracted to a
-        one-dimensional array in `$flattree`. Example:
-
-            $configtree = array(
-                "main" => array(
-                    "access" => array(
-                        "site/uri" => array(
-                            "default" => "",
-                            "option" => new StringOption('^https?\:\/\/')
-                        )
-                        "site/name" => array(
-                            "default" => "FreeField",
-                            "option" => new StringOption()
-                        )
-                    ),
-                    "database" => array(
-                        "database/type" => array(
-                            "default" => "mysqli",
-                            "option" => new SelectOption(array(
-                                "mysql",
-                                "mysqli",
-                                "pgsql",
-                                "sqlite",
-                                "sqlite3"
-                            ))
-                        )
-                    )
-                )
-            );
-
-        This array becomes:
-
-            $flattree = array(
-                "site/uri" => array(
-                    "default" => "",
-                    "option" => new StringOption('^https?\:\/\/')
-                ),
-                "site/name" => array(
-                    "default" => "FreeField",
-                    "option" => new StringOption()
-                ),
-                "database/type" => array(
-                    "default" => "mysqli",
-                    "option" => new SelectOption(array(
-                        "mysql",
-                        "mysqli",
-                        "pgsql",
-                        "sqlite",
-                        "sqlite3"
-                    ))
-                )
-            );
-
-        This makes it easy to look up defaults and options for each setting
-        without knowing the setting's domain and section.
+        `$configDefs` variable is populated from /includes/config/defs.php on
+        initialization.
     */
     private static $config = false;
-    private static $flattree = null;
-    private static $configtree = null;
+    private static $configDefs = null;
 
     /*
-        Loads the config tree to a variable in this class. The configuration
-        tree contains a list of all available settings and is defined in
-        /lib/config/tree.php. The `ConfigTree::loadTree()` function simply
-        returns the configuration tree array.
+        Loads the config definitions to a variable in this class. The
+        definitions contains a list of all available settings and is defined in
+        /includes/config/defs.php. The `ConfigDefinitions::loadDefinitions()`
+        function simply returns the definitions array.
     */
-    public static function loadTree() {
-        require_once(__DIR__."/../config/tree.php");
-        self::$configtree = ConfigTree::loadTree();
+    public static function loadDefinitions() {
+        require_once(__DIR__."/../config/defs.php");
+        self::$configDefs = ConfigDefinitions::loadDefinitions();
     }
 
     /*
-        Gets the value of a setting in the configuration file. Falls back to the
-        setting's default value.
+        Gets the entry for a setting in the configuration file. Used to get the
+        current value and parameters for a setting.
     */
     public static function get($path) {
-        if (self::$config === false) self::loadConfig();
+        self::ensureLoaded();
 
         /*
-            Some settings may require certain preconditions to work properly.
-            Such settings have a boolean assertion defined in the
-            "enable-only-if" array key in the configuration tree. If that
-            assertion fails, a default value should be returned instead of the
-            actual value set in the configuration file.
+            Check if the requested settings path is present in the list of
+            setting definitions.
         */
-        $def = self::getDefinition($path);
-        if (
-            $def !== null &&
-            isset($def["enable-only-if"]) &&
-            isset($def["value-if-disabled"])
-        ) {
-            if (!$def["enable-only-if"]) return $def["value-if-disabled"];
+        if (!isset(self::$configDefs[$path])) {
+            return null;
         }
+
+        /*
+            The setting is present - create a `ConfigEntry` instance for it.
+        */
+        $def = new ConfigEntry(self::$configDefs[$path]);
 
         /*
             Since the configuration file is arranged as objects with subkeys, we
@@ -130,62 +72,47 @@ class Config {
             looking for and that can be returned.
 
             If at any point a segment child is not found, then the setting is
-            not defined in the configuration file, so we'll return the default
-            value for the given setting path instead.
+            not defined in the configuration file, so we'll return the entry
+            without any specified value - this makes the entry fall back to its
+            default value.
         */
         $conf = self::$config;
         $segments = explode("/", $path);
         foreach ($segments as $segment) {
-            if (!isset($conf[$segment])) return self::getDefault($path);
+            if (!isset($conf[$segment])) {
+                /*
+                    Setting not found in configuration file. Return entry with
+                    default value.
+                */
+                return $def;
+            }
+            $conf = $conf[$segment];
+        }
+        /*
+            The setting was found in the configuration file! Parse the value
+            from the settings array to a parsed value and store it as the value
+            in the configuration. Please see /includes/config/defs.php to see
+            why this parsing is being done.
+        */
+        $def->setStorageEncodedValue($conf);
+        return $def;
+    }
+
+    /*
+        Gets the raw array value for a setting in the configuration file. This
+        can be used to get array elements in the configuration file which do not
+        have an associated setting, such as the list of webhooks and geofences.
+    */
+    public function getRaw($path) {
+        self::ensureLoaded();
+
+        $conf = self::$config;
+        $segments = explode("/", $path);
+        foreach ($segments as $segment) {
+            if (!isset($conf[$segment])) return $conf;
             $conf = $conf[$segment];
         }
         return $conf;
-    }
-
-    /*
-        The output of `get()` is not HTML safe. This function is a wrapper
-        around `get()` that escapes special HTML characters to avoid an XSS
-        attack vector associated with directly outputting the value of a
-        configuration entry to a page.
-    */
-    public static function getHTML($path) {
-        return htmlspecialchars(strval(self::get($path)), ENT_QUOTES);
-    }
-
-    /*
-        The output of `get()` is not JavaScript safe. This function is a wrapper
-        around `get()` that returns the JSON encoded value of a given setting to
-        avoid an XSS attack vector associated with directly outputting the value
-        of a configuration entry to a page.
-    */
-    public static function getJS($path) {
-        return json_encode(self::get($path));
-    }
-
-    /*
-        Returns the setting definition for the given path. These are defined in
-        /includes/config/tree.php. This function returns an array of the
-        following structure:
-
-            getDefinition("site/name") ==array(
-                "default" => "FreeField",
-                "option" => new StringOption()
-            )
-    */
-    public static function getDefinition($path) {
-        /*
-            Load the configuration file if not already loaded, and fetch a
-            flattened version of the configuration definition tree for easy
-            access to default values and input validation functions.
-        */
-        if (self::$config === false) self::loadConfig();
-        $flat = self::getFlatTree();
-
-        /*
-            Return the definition (default value and options) for the given
-            settings path.
-        */
-        return isset($flat[$path]) ? $flat[$path] : null;
     }
 
     /*
@@ -211,45 +138,31 @@ class Config {
             which are being updated.
     */
     public static function set($options, $validatePermissions = false) {
-        /*
-            Load the configuration file if not already loaded, and fetch a
-            flattened version of the configuration definition tree for easy
-            access to default values and input validation functions.
-        */
-        if (self::$config === false) self::loadConfig();
-        $flat = self::getFlatTree();
+        self::ensureLoaded();
 
-        if ($validatePermissions) {
-            /*
-                If validation is requested, the authentication module is needed
-                to check if the currently signed in user has permission to
-                change any given setting.
-            */
-            __require("auth");
-
-            /*
-                We also need to build a lookup table for checking which
-                permissions are required for each setting. This would be the
-                "admin/<domain>/general" permission where `domain` is the domain
-                in which the setting resides.
-            */
-            $permissionsAssoc = array();
-            foreach (self::$configtree as $domain => $sdata) {
-                foreach ($sdata as $section => $perms) {
-                    foreach ($perms as $perm => $data) {
-                        $permissionsAssoc[$perm] = $domain;
-                    }
-                }
-            }
-        }
-
-        /*
-            Create an array of options that are submitted, but which can not be
-            saved due to lack of permissions.
-        */
-        $optDeny = array();
         foreach ($options as $option => $value_raw) {
-            if ($validatePermissions) {
+            /*
+                Attempt to get the definition of the given setting, along with
+                its current value. If this is null, that means there is no
+                setting by this name, and we assume that the script invoking
+                this function is trying to set an entire array of options under
+                this element's key.
+            */
+            $def = self::get($option);
+
+            if ($def === null && is_array($value_raw)) {
+                /*
+                    If the value is an array, and the key it corresponds to is
+                    not defined as a stand-alone entry in the configuration
+                    definitions tree in `$configtree`/`$flattree`, we can assume
+                    that the script calling this is doing its own validation,
+                    and is trying to set a whole block of values at once, the
+                    block being at the path of `$option`. E.g. if `$option` ==
+                    "site", the entire "site" block in the configuratio file
+                    will be overwritten with the contents of `$value_raw`.
+                */
+                $value = $value_raw;
+
                 /*
                         _
                        / \
@@ -266,13 +179,9 @@ class Config {
 
                     AN EXCEPTION WILL BE THROWN IF THIS WARNING IS NOT HEEDED
                 */
-                $perm = "admin/".$permissionsAssoc[$option]."/general";
-                if (!Auth::getCurrentUser()->hasPermission($perm)) {
-                    $optDeny[] = $option;
-                }
-                if (!isset($flat[$option])) {
+                if ($validatePermissions) {
                     /*
-                        There exists no settings path in `$flattree` for the
+                        There exists no settings path in `$configDefs` for the
                         given setting's path. This can happen if `$option`
                         represents an array of different settings (e.g. "site"
                         which is a block containing the settings "uri" and
@@ -284,88 +193,22 @@ class Config {
                                         "array as value for a configuration path!");
                     exit;
                 }
-
-                /*
-                    Values contains the definition of the given settings path
-                    from the configuration tree:
-
-                        $values = array(
-                            "default" => default_value,
-                            "option" => new DefaultOption()
-                        );
-                */
-                $values = $flat[$option];
-                if (get_class($values["option"]) == "PermissionOption") {
-                    /*
-                        If the given settings path is a permissions type option,
-                        a check should be done to ensure that the user is higher
-                        than the permission level required for both the previous
-                        and the updated permission level. This is to prevent
-                        users both from lowering the permission levels of
-                        settings higher than their own level to one that grants
-                        them access (privilege escalation), and to prevent users
-                        locking themselves and others of the same or higher
-                        ranks out from accessing functions due to changing the
-                        required permission level to something higher than their
-                        own permissions.
-                    */
-                    $old = self::get($option);
-                    $new = intval($value_raw);
-                    $max = max($old, $new);
-                    if (!Auth::getCurrentUser()->canChangeAtPermission($max)) {
-                        $optDeny[] = $option;
-                    }
-                }
-            }
-        }
-
-        /*
-            Now, it's time to save all valid settings.
-        */
-        foreach ($options as $option => $value_raw) {
-            /*
-                If we previously determined that the current user does not have
-                permission to save this setting, skip it.
-            */
-            if (in_array($option, $optDeny)) continue;
-
-            if (!isset($flat[$option]) && is_array($value_raw)) {
-                /*
-                    If the value is an array, and the key it corresponds to is
-                    not defined as a stand-alone entry in the configuration
-                    definitions tree in `$configtree`/`$flattree`, we can assume
-                    that the script calling this is doing its own validation,
-                    and is trying to set a whole block of values at once, the
-                    block being at the path of `$option`. E.g. if `$option` ==
-                    "site", the entire "site" block in the configuratio file
-                    will be overwritten with the contents of `$value_raw`.
-                */
-                $value = $value_raw;
-            } else {
+            } elseif ($def === null) {
                 /*
                     If this block is reached and the given `$option` doesn't
-                    exist as a key in `$flattree`, and the given value is not an
-                    array of subkeys with corresponding values, then the caller
-                    of this function is trying to set a setting that simply
-                    doesn't exist in any form, so this key should be skipped.
+                    exist as a key in `$configDefs`, and the given value is not
+                    an array of subkeys with corresponding values, then the
+                    caller of this function is trying to set a setting that
+                    simple doesn't exist in any form, so this key should be
+                    skipped.
                 */
-                if (!isset($flat[$option])) continue;
-
+                continue;
+            } else {
                 /*
-                    Values contains the definition of the given settings path
-                    from the configuration tree:
-
-                        $values = array(
-                            "default" => default_value,
-                            "option" => new DefaultOption()
-                        );
+                    Get the data type of this setting to perform input
+                    validation.
                 */
-                $values = $flat[$option];
-
-                /*
-                    Get the `option` key to perform input validation.
-                */
-                $opt = $values["option"];
+                $opt = $def->getOption();
 
                 /*
                     If the value of the given settings key is a string, we can
@@ -386,16 +229,29 @@ class Config {
                 }
 
                 /*
-                    Skip the setting if the Option class for the setting
+                    Skip the setting if the `Option` class for the setting
                     declares that the parsed value is invalid (e.g. out of
                     bounds).
                 */
                 if (!$opt->isValid($value)) continue;
 
                 /*
+                    If permissions validation is requested, ensure that the user
+                    has permission to change the setting before saving it.
+                */
+                if ($validatePermissions && !$def->isAuthorizedToChange($value)) {
+                    continue;
+                }
+
+                /*
                     Run pre-commit callbacks for the given option.
                 */
                 if (!$opt->preCommit($value_raw, $value)) continue;
+
+                /*
+                    Encode the value for storage in the configuration array.
+                */
+                $value = $def->getStorageEncodedValue($value);
             }
 
             /*
@@ -547,121 +403,207 @@ class Config {
             An array of setting paths.
 
         $value
-            The value to evaluate.
+            The value to evaluate the settings against.
     */
     public static function ifAny($paths, $value) {
         foreach ($paths as $path) {
-            if (self::get($path) === $value) return true;
+            if (self::get($path)->value() === $value) return true;
         }
         return false;
     }
 
     /*
-        Checks whether or not the currently signed in user has access to view or
-        change the setting at the given path.
+        Returns a list of all settings keys available in FreeField.
     */
-    public static function hasPermission($path) {
-        /*
-            The authentication module is needed to check if the currently signed
-            in user has permission to change the given setting.
-        */
-        __require("auth");
-
-        /*
-            We need to look through the configuration tree structure to find the
-            domain under which the requested option can be found. Once found,
-            check the permission and return its value.
-        */
-        $permissionsAssoc = array();
-        foreach (self::$configtree as $domain => $sdata) {
-            foreach ($sdata as $section => $settings) {
-                foreach ($settings as $setting => $value) {
-                    if ($setting === $path) {
-                        $perm = "admin/{$domain}/general";
-                        return Auth::getCurrentUser()->hasPermission($perm);
-                    }
-                }
-            }
-        }
-
-        /*
-            If we get this far, the requested setting doesn't exist.
-        */
-        return null;
+    public static function listAllKeys() {
+        self::ensureLoaded();
+        return array_keys(self::$configDefs);
     }
 
     /*
-        Returns a flattened version of the configuration tree from
-        /includes/config/tree.php. The justification for this function is
-        declared at the start of this file, before the declaration of the
-        `$flattree` variable.
+        Returns a list of all sections for one particular domain from the
+        definitions list. This is used on the administration pages to determine
+        which settings to display on the page when showing the settings for one
+        particular domain on the page.
     */
-    public static function getFlatTree() {
-        /*
-            The result of `getFlatTree()` is cached for faster subsequent
-            lookups. If `$flattree` has not been generated yet, create it as an
-            empty array and then populate it with all settings definitions.
-        */
-        if (self::$flattree !== null) return self::$flattree;
-        self::$flattree = array();
+    public static function listKeysForDomain($domain) {
+        self::ensureLoaded();
 
         /*
-            Loop over all domains and their sections to get a list of setting
-            definitions. The setting defitions, here declared as `$values`, has
-            the following structure:
-
-                $values = array(
-                    "default" => default_value,
-                    "option" => new DefaultOption()
-                );
-
-            The array defines a default value for the setting, as well as an
-            Option class instance that determines the data type and data
-            processing functions for its values.
-
-            Please see /includes/config/tree.php to see the structure of
-            `$configtree`.
+            Loop over all setting definitions and check their assigned domain.
+            If it matches the provided domain, add it to the list of keys for
+            that domain.
         */
-        foreach (self::$configtree as $domain => $sections) {
-            foreach ($sections as $section => $paths) {
-                foreach ($paths as $path => $values) {
-                    /*
-                        Per the `$configtree` definition, some sections may have
-                        descriptions or other parameters - the fields declaring
-                        these start with two underscores. No setting paths will
-                        ever start with two underscores, so we skip all paths
-                        that start with two underscores.
-                    */
-                    if (substr($path, 0, 2) !== "__") self::$flattree[$path] = $values;
-                }
-            }
+        $keys = array();
+        foreach (self::$configDefs as $key => $def) {
+            if ($def["domain"] == $domain) $keys[] = $key;
         }
 
-        return self::$flattree;
+        return $keys;
     }
 
     /*
-        Returns a list of all sections and their associated settings for one
-        particular domain from the configuration tree. This is used on the
-        administration pages to determine which settings to display on the page
-        when showing the settings for one particular domain on the page.
+        Returns a list of all available domains, along with the icons that
+        should be used to display them in the sidebar on the administration
+        pages, and whether rendering of the domain should be handled by a
+        dedicated script or by /admin/index.php.
     */
-    public static function getTreeDomain($domain) {
-        return self::$configtree[$domain];
+    public static function listDomains() {
+        /*
+            The `$domains` array contains a list of pages (domains) to display
+            on the user interface. Each domain entry in this array is an array
+            with the following keys:
+
+            `icon`
+                The FontAwesome icon to display for this domain in the sidebar.
+
+            `custom-handler`
+                Boolean. True if the settings for the given domain should be
+                rendered by an external script (/includes/admin/<domain>.php),
+                false if it should render as a standard list of configuration
+                options, as defined in /admin/index.php.
+
+            Each domain where `custom-handler` is set to false will contain a
+            list of configuration options within the equivalent `domain` set in
+            /includes/config/defs.php. E.g. the "main" page will contain all of
+            the settings that have the `main` domain assigned to them in the
+            definitions list in that file.
+
+            Please see /includes/config/defs.php for detailed information on
+            what settings each of the `custom-handler` == false domains
+            represent.
+        */
+        $domains = array(
+
+            // Main settings (e.g. site URI, database connections)
+            "main" => array(
+                "icon" => "cog",
+                "custom-handler" => false
+            ),
+
+            // User management
+            "users" => array(
+                "icon" => "users",
+                "custom-handler" => true
+            ),
+
+            // Groups management
+            "groups" => array(
+                "icon" => "user-shield",
+                "custom-handler" => true
+            ),
+
+            // POI management
+            "pois" => array(
+                "icon" => "map-marker-alt",
+                "custom-handler" => true
+            ),
+
+            // Permissions
+            "perms" => array(
+                "icon" => "check-square",
+                "custom-handler" => false
+            ),
+
+            // Security settings
+            "security" => array(
+                "icon" => "shield-alt",
+                "custom-handler" => false
+            ),
+
+            // Authentication (sign-in) providers and setup
+            "auth" => array(
+                "icon" => "lock",
+                "custom-handler" => false
+            ),
+
+            // Theme settings and defaults
+            "themes" => array(
+                "icon" => "palette",
+                "custom-handler" => false
+            ),
+
+            // Map provider settings (e.g. map API keys)
+            "map" => array(
+                "icon" => "map",
+                "custom-handler" => false
+            ),
+
+            // Geofence settings
+            "fences" => array(
+                "icon" => "expand",
+                "custom-handler" => true
+            ),
+
+            // Webhooks
+            "hooks" => array(
+                "icon" => "link",
+                "custom-handler" => true
+            )
+
+        );
+
+        return $domains;
     }
 
     /*
-        Returns the default value for the given setting, or `null` if the
-        setting was not found. Note that the default value may also be `null`,
-        hence checking for `null` is not a reliable way to check for the
-        existence of a particular setting.
+        Returns a list of all sections available for a particular domain.
     */
-    public static function getDefault($item) {
-        $conf = self::getFlatTree();
-        foreach ($conf as $path => $values) {
-            if ($path == $item) return $values["default"];
+    public static function listSectionsForDomain($domain) {
+        self::ensureLoaded();
+
+        /*
+            Loop over all setting definitions and check their assigned domain
+            and section. If they match the provided domain, add the section to
+            the list of sections for that domain.
+        */
+        $sections = array();
+        foreach (self::$configDefs as $key => $def) {
+            if ($def["domain"] == $domain) $sections[] = $def["section"];
         }
-        return null;
+
+        /*
+            Remove duplicates before returning the array.
+        */
+        return array_values(array_unique($sections));
+    }
+
+    /*
+        Returns a list of all settings keys for a particular section on a
+        domain.
+    */
+    public static function listKeysForSection($domain, $section) {
+        self::ensureLoaded();
+
+        /*
+            Loop over all setting definitions and check their assigned domain
+            and section. If they match the provided domain and section, add it
+            to the list of keys for that section.
+        */
+        $keys = array();
+        foreach (self::$configDefs as $key => $def) {
+            if ($def["domain"] == $domain && $def["section"] == $section)
+                $keys[] = $key;
+        }
+
+        return $keys;
+    }
+
+    /*
+        Returns a string representing the class name of the data type option for
+        the given setting. Example: "StringOption".
+    */
+    public static function getOptionType($path) {
+        self::ensureLoaded();
+
+        /*
+            Check if the setting has a definition. If not, return null.
+        */
+        if (isset(self::$configDefs[$path])) {
+            return get_class(self::$configDefs[$path]["option"]);
+        } else {
+            return null;
+        }
     }
 
     /*
@@ -726,7 +668,7 @@ class Config {
         current installation of FreeField.
     */
     public static function getEndpointUri($endpoint) {
-        $basepath = self::get("site/uri");
+        $basepath = self::get("site/uri")->value();
         return (
             substr($basepath, -1) == "/"
             ? substr($basepath, 0, -1)
@@ -755,14 +697,236 @@ class Config {
             json_encode(self::$config, JSON_PRETTY_PRINT)
         );
     }
+
+    /*
+        Load the configuration file if not already loaded.
+    */
+    private static function ensureLoaded() {
+        if (self::$config === false) self::loadConfig();
+    }
 }
 
 /*
     When the `Config` class is included from a script that needs configuration
-    entries, the configuration tree in `Config::$configtree` needs to be
+    entries, the configuration tree in `Config::$configDefs` needs to be
     initialized first. Do this right away after declaring the class.
 */
-Config::loadTree();
+Config::loadDefinitions();
+
+/*
+    This class exists to provide common functions for configuration settings in
+    FreeField. An instance of this class is returned when `Config::get()` is
+    called. The class provides functions for returning the value of the setting
+    in various formats, as well as handling permission checks and providing
+    data type definitions.
+
+    This class must only be constructed from the array in
+    /includes/config/defs.php. Please see that file for information on how this
+    class is constructed.
+*/
+class ConfigEntry {
+    // The area of the administration pages this setting appears on.
+    private $domain = null;
+    // The section on the above page that this section appears underneath.
+    private $section = null;
+    // Permissions required to view and modify the setting.
+    private $permissions = array();
+    // The default value of the setting.
+    private $default = null;
+    // An `Option` data type class for the setting.
+    private $option = null;
+    // Whether or not this setting is enabled on the administration pages.
+    private $isEnabled = true;
+    // A value to return instead of the current value if disabled.
+    private $valueIfDisabled = null;
+    // The current value of the setting.
+    private $value = null;
+
+    public function __construct($definition) {
+        if (isset($definition["domain"]))
+            $this->domain           = $definition["domain"];
+        if (isset($definition["section"]))
+            $this->section          = $definition["section"];
+        if (isset($definition["permissions"]))
+            $this->permissions      = $definition["permissions"];
+        if (isset($definition["default"]))
+            $this->default          = $definition["default"];
+        if (isset($definition["option"]))
+            $this->option           = $definition["option"];
+        if (isset($definition["enable-only-if"]))
+            $this->isEnabled        = $definition["enable-only-if"];
+        if (isset($definition["value-if-disabled"]))
+            $this->valueIfDisabled  = $definition["value-if-disabled"];
+
+        /*
+            Ensure that the "admin/<domain>/general" permission is added by
+            default to the required permission for the setting. This is a basic,
+            minimal permission used to restrict access to various pages of the
+            administration interface.
+        */
+        $this->permissions[] = "admin/".$this->domain."/general";
+    }
+
+    /*
+        Returns the domain on the administration pages on which this setting
+        appears.
+    */
+    public function getDomain() {
+        return $this->domain;
+    }
+
+    /*
+        Returns the section on the page defined in `getDomain()` this setting
+        appears underneath.
+    */
+    public function getSection() {
+        return $this->section;
+    }
+
+    /*
+        Returns the default value of this setting.
+    */
+    public function getDefault() {
+        return $this->default;
+    }
+
+    /*
+        Returns the `Option` class instance representing this setting. Used for
+        parsing and validating data. Please see /includes/config/types.php for
+        a list of available option classes and their purpose.
+    */
+    public function getOption() {
+        return $this->option;
+    }
+
+    /*
+        Whether or not this setting is enabled and editable on the
+        administration pages.
+    */
+    public function isEnabled() {
+        return $this->isEnabled;
+    }
+
+    /*
+        Returns a list of permissions that a user must have in order to view and
+        make changes to this setting.
+    */
+    public function getPermissions() {
+        return $this->permissions;
+    }
+
+    /*
+        Checks whether or not the given user has permission to view the current
+        setting and make changes to it. Defaults to the currently logged in
+        user. Note: If you want to check whether or not the user can make a
+        specific change to the setting, please use `isAuthorizedToChange()`
+        instead. This function only checks the user against the permissions
+        declared in the permissions list for the setting, and does not attempt
+        to validate the passed value to see if the user is allowed to make a
+        specific change to the value, even if they have general access to it.
+    */
+    public function hasPermission($user = null) {
+        __require("auth");
+        if ($user === null) $user = Auth::getCurrentUser();
+        $permissions = $this->getPermissions();
+        foreach ($permissions as $permission) {
+            if (!$user->hasPermission($permission)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*
+        Checks whether or not the given user has permission to set the value of
+        this setting to the given value. Defaults to the currently logged in
+        user. This setting first checks `$this->hasPermission()` to check if the
+        user has general access to the setting, then checks if the user has
+        permission to update the setting to the given value. For example, a user
+        may have permission to change a given `PermissionOption`, but may not be
+        allowed to change its value to a higher value than their own current
+        permission level.
+    */
+    public function isAuthorizedToChange($newValue, $user = null) {
+        __require("auth");
+        if ($user === null) $user = Auth::getCurrentUser();
+
+        if (!$this->hasPermission($user)) return false;
+        if (!$this->getOption()->isAuthorizedToChange($this->value(), $newValue, $user)) return false;
+        return true;
+    }
+
+    /*
+        Sets the value of this `ConfigEntry` instance to the given value. This
+        function takes a value as it would appear in the configuration JSON
+        array and parses it according to the setting's `Option` class.
+    */
+    public function setStorageEncodedValue($value) {
+        $this->value = $this->getOption()->decodeSavedValue($value);
+    }
+
+    /*
+        Converts the given value (or the current value if none is given) to a
+        format that can be stored in the configuration file in JSON format,
+        according to the setting's `Option` class.
+    */
+    public function getStorageEncodedValue($value = null) {
+        if ($value === null) $value = $this->value();
+        return $this->getOption()->encodeSavedValue($value);
+    }
+
+    /*
+        Returns the value of this setting, or the default if no value is set.
+    */
+    public function value() {
+        /*
+            Some settings may require certain preconditions to work properly.
+            Such settings have a boolean assertion defined in the
+            "enable-only-if" array key in the definitions array. If that
+            assertion fails, a default value should be returned instead of the
+            actual value set in the configuration file.
+        */
+        if (!$this->isEnabled() && $this->valueIfDisabled === null) {
+            return $this->valueIfDisabled;
+        } else {
+            if ($this->value === null) {
+                return $this->getDefault();
+            } else {
+                return $this->value;
+            }
+        }
+    }
+
+    /*
+        The output of `value()` is not HTML safe. This function is a wrapper
+        around `value()` that escapes special HTML characters to avoid an XSS
+        attack vector associated with directly outputting the value of a
+        configuration entry to a page.
+    */
+    public function valueHTML() {
+        return htmlspecialchars(strval($this->value()), ENT_QUOTES);
+    }
+
+    /*
+        The output of `value()` is not JavaScript safe. This function is a
+        wrapper around `value()` that returns the JSON encoded value of a given
+        setting to avoid an XSS attack vector associated with directly
+        outputting the value of a configuration entry to a page.
+    */
+    public function valueJS() {
+        return json_encode($this->value());
+    }
+
+    /*
+        The output of `value()` is not URL safe. This function is a wrapper
+        around `value()` that returns the URL encoded value of a given setting
+        to avoid URL hijack attack vector associated with directly outputting
+        the value of a configuration entry to a URL.
+    */
+    public function valueURL() {
+        return urlencode($this->value());
+    }
+}
 
 /*
     THE `Config*I18N` CLASSES
@@ -851,6 +1015,58 @@ class ConfigSectionI18N {
     private $domain = null;
     private $section = null;
 
+    /*
+        Some sections have descriptions to guide the user on how to configure
+        various settings. These are displayed immediately underneath the header
+        for that section on the administration pages. Only sections listed in
+        this array will display descriptions. The syntax for the array is:
+
+            SECTIONS_WITH_DESCRIPTIONS = array(
+                "<domain>/<section>" => array(
+                    "{%1}-replacement-token",
+                    "{%2}-replacement-token",
+                    ...
+                )
+            );
+
+        Each section is declared as an array. The array can be empty, or it may
+        contain replacement strings. Consider e.g. a section which has the
+        description string "Please read {%1}the documentation{%2}." The
+        replacement tokens {%1} and {%2} will be replaced with the contents of
+        the 0th and 1st items in the array for that section below, respectively.
+
+        Let's say the same setting has the following array:
+
+            array(
+                '<a href="http://example.com/">',
+                '</a>'
+            );
+
+        The output string would now be:
+
+            Please read <a href="http://example.com/">the documentation</a>.
+    */
+    private const SECTIONS_WITH_DESCRIPTIONS = array(
+        "security/sessions" => array(
+            // admin.section.security.sessions.desc
+        ),
+        "auth/discord" => array(
+            // admin.section.auth.discord.desc
+            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Discord">',
+            '</a>'
+        ),
+        "auth/telegram" => array(
+            // admin.section.auth.telegram.desc
+            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Telegram">',
+            '</a>'
+        ),
+        "map/geofence" => array(
+            // admin.section.map.geofence.desc
+            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Geofencing">',
+            '</a>'
+        )
+    );
+
     function __construct($domain, $section) {
         $this->domain = $domain;
         $this->section = $section;
@@ -871,15 +1087,33 @@ class ConfigSectionI18N {
         Returns an I18N token representing a description displayed underneath
         the header for the section on the page. Not all sections have
         descriptions - those that do have the "__hasdesc" setting defined in the
-        configuration tree. Please see `/includes/config/tree.php` for more
+        configuration tree. Please see `/includes/config/defs.php` for more
         specific information regarding how this is defined for each section.
     */
-    public function getDescription() {
-        return "admin.section.".
-               Config::translatePathI18N($this->domain).
-               ".".
-               Config::translatePathI18N($this->section).
-               ".desc";
+    public function getLocalizedDescriptionHTML() {
+        if (isset(self::SECTIONS_WITH_DESCRIPTIONS[$this->domain."/".$this->section])) {
+            __require("i18n");
+            $replacements = self::SECTIONS_WITH_DESCRIPTIONS[$this->domain."/".$this->section];
+            $token = "admin.section.".
+                     Config::translatePathI18N($this->domain).
+                     ".".
+                     Config::translatePathI18N($this->section).
+                     ".desc";
+
+            if (count($replacements) > 0) {
+                return '<p>'.I18N::resolveArgsHTML(
+                    $token,
+                    false,
+                    $replacements
+                ).'</p>';
+            } else {
+                return '<p>'.I18N::resolveHTML(
+                    $token
+                ).'</p>';
+            }
+        } else {
+            return null;
+        }
     }
 }
 

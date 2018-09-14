@@ -61,7 +61,7 @@
                 <?php
                     foreach ($pois as $poi) {
                         $pid = $poi->getID();
-                        $icons = Theme::getIconSet(null, Config::get("themes/color/admin"));
+                        $icons = Theme::getIconSet(null, Config::get("themes/color/admin")->value());
                         ?>
                             <tr>
                                 <td>
@@ -121,7 +121,7 @@
                                         str_replace("{%LON%}", urlencode($poi->getLongitude()),
                                         str_replace("{%NAME%}", urlencode($poi->getName()),
                                             Geo::listNavigationProviders()[
-                                                Config::get("map/provider/directions")
+                                                Config::get("map/provider/directions")->value()
                                             ]
                                         )));
                                 ?>

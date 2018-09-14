@@ -79,7 +79,7 @@ function replaceWebhookFields($time, $theme, $body) {
         str_replace("{%LON%}", urlencode($poidata["longitude"]),
         str_replace("{%NAME%}", urlencode($poidata["name"]),
             Geo::listNavigationProviders()[
-                Config::get("map/provider/directions")
+                Config::get("map/provider/directions")->value()
             ]
         )));
     /*
@@ -218,7 +218,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
     try {
         $pois = Geo::listPOIs();
-        $geofence = Geo::getGeofence(Config::get("map/geofence/geofence"));
+        $geofence = Geo::getGeofence(Config::get("map/geofence/geofence")->value());
 
         $poidata = array();
 
@@ -229,7 +229,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 returned POIs if it lies outside of the POI geofence.
             */
             if (
-                Config::get("map/geofence/hide-outside") &&
+                Config::get("map/geofence/hide-outside")->value() &&
                 !$poi->isWithinGeofence($geofence)
             ) {
                 continue;
@@ -306,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     if ($data["name"] == "") {
         XHR::exitWith(400, array("reason" => "name_empty"));
     }
-    $geofence = Geo::getGeofence(Config::get("map/geofence/geofence"));
+    $geofence = Geo::getGeofence(Config::get("map/geofence/geofence")->value());
     if ($geofence !== null && !$geofence->containsPoint($data["latitude"], $data["longitude"])) {
         XHR::exitWith(400, array("reason" => "invalid_location"));
     }
@@ -439,10 +439,10 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             update.
         */
         $poi = Geo::getPOI($patchdata["id"]);
-        $geofence = Geo::getGeofence(Config::get("map/geofence/geofence"));
+        $geofence = Geo::getGeofence(Config::get("map/geofence/geofence")->value());
 
         if (
-            Config::get("map/geofence/hide-outside") &&
+            Config::get("map/geofence/hide-outside")->value() &&
             !$poi->isWithinGeofence($geofence)
         ) {
             XHR::exitWith(400, array("reason" => "invalid_data"));
@@ -491,7 +491,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         Get a list of all webhooks and iterate over them to check eligibility of
         submissions.
     */
-    $hooks = Config::get("webhooks");
+    $hooks = Config::getRaw("webhooks");
     if ($hooks === null) $hooks = array();
     foreach ($hooks as $hook) {
         if (!$hook["active"]) continue;

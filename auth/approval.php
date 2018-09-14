@@ -34,11 +34,11 @@ $approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex,nofollow">
-        <meta name="theme-color" content="<?php echo Config::getHTML("themes/meta/color"); ?>">
+        <meta name="theme-color" content="<?php echo Config::get("themes/meta/color")->valueHTML(); ?>">
         <title><?php echo I18N::resolveArgsHTML(
             "page_title.login.awaiting_approval",
             true,
-            Config::get("site/name")
+            Config::get("site/name")->value()
         ); ?></title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -49,8 +49,8 @@ $approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
                     Force refresh the favicon by appending the last changed time
                     of the file to the path. https://stackoverflow.com/a/7116701
                 */
-                echo Config::getDefinition("themes/meta/favicon")["option"]
-                     ->applyToCurrent()->getUploadTime();
+                echo Config::get("themes/meta/favicon")
+                     ->getOption()->applyToCurrent()->getUploadTime();
               ?>">
         <link rel="stylesheet"
               href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
@@ -61,7 +61,7 @@ $approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
               integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
               crossorigin="anonymous">
         <link rel="stylesheet" href="../css/main.css">
-        <link rel="stylesheet" href="../css/<?php echo Config::getHTML("themes/color/user-settings/theme"); ?>.css">
+        <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
@@ -83,7 +83,7 @@ $approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
 
             <div class="content">
                 <?php
-                    if (Config::get("security/approval/by-qr")) {
+                    if (Config::get("security/approval/by-qr")->value()) {
                         /*
                             Display a QR code to approve this account if enabled
                             in settings. This QR code is displayed next to the
@@ -116,7 +116,7 @@ $approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
                         */
                         "awaiting_approval.info.2.".
                         (
-                            Config::get("security/approval/by-qr")
+                            Config::get("security/approval/by-qr")->value()
                             ? "qr_enabled"
                             : "qr_disabled"
                         )
@@ -141,7 +141,7 @@ $approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
                 </p>
                 <div class="only-desktop floating-approval-qr-clear"></div>
                 <?php
-                    if (Config::get("security/approval/by-qr")) {
+                    if (Config::get("security/approval/by-qr")->value()) {
                         /*
                             Display a QR code to approve this account if enabled
                             in settings. This QR code is displayed underneath

@@ -79,7 +79,7 @@ class Theme {
     public static function getIconSet($set = null, $variant = null) {
         if ($set === null) {
             __require("config");
-            $set = Config::get("themes/icons/default");
+            $set = Config::get("themes/icons/default")->value();
         }
         return new IconSet($set, $variant);
     }

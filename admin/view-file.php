@@ -19,14 +19,15 @@ if (!isset($_GET["path"])) {
 }
 
 $path = $_GET["path"];
+$entry = Config::get($path);
 
 /*
     If the user is not explicitly allowed to access the setting, deny them
     access. This will be done both when the user does not have permission to
     view the setting, and when the requested setting doesn't exist in the first
-    place.
+    place. Also ensure that the setting actually exists.
 */
-if (Config::hasPermission($path) !== true) {
+if ($entry === null || $entry->hasPermission() !== true) {
     $status = "403 Forbidden";
     header("HTTP/1.1 {$status}");
     echo "<h1>{$status}</h1>";
@@ -39,7 +40,7 @@ if (Config::hasPermission($path) !== true) {
     HTTP 403 here as well for intentional vagueness about the presence of the
     setting and its type.
 */
-$opt = Config::getDefinition($path)["option"];
+$opt = $entry->getOption();
 if (!($opt instanceof FileOption)) {
     $status = "403 Forbidden";
     header("HTTP/1.1 {$status}");

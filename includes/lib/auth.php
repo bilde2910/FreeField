@@ -49,7 +49,7 @@ class Auth {
         // Undefined authentication provider
         if (!isset($providerRequirements[$provider])) return false;
         // Authentication provider exists, but is not enabled
-        if (!Config::get("auth/provider/{$provider}/enabled")) return false;
+        if (!Config::get("auth/provider/{$provider}/enabled")->value()) return false;
 
         /*
             Create an array of required configuration settings for the given
@@ -165,7 +165,7 @@ class Auth {
                 given the same privileges as anonymous visitors until their
                 account has been appoved.
             */
-            $approved = !Config::get("security/approval/require");
+            $approved = !Config::get("security/approval/require")->value();
             /*
                 The token is used to invalidate sessions. The cookie array
                 contains a "token" value that must match the token value stored
@@ -182,7 +182,7 @@ class Auth {
                 "provider_id" => $providerIdentity,
                 "nick" => $suggestedNick,
                 "token" => $token,
-                "permission" => Config::get("permissions/default-level"),
+                "permission" => Config::get("permissions/default-level")->value(),
                 "approved" => ($approved ? 1 : 0)
             );
             $db
@@ -247,7 +247,7 @@ class Auth {
             cookie and uses it on a machine running a different browser or
             system language.
         */
-        switch (Config::get("security/validate-ua")) {
+        switch (Config::get("security/validate-ua")->value()) {
             case "lenient":
                 $session["http-ua"] = self::getVersionlessUserAgent();
                 break;
@@ -257,7 +257,7 @@ class Auth {
                                       : "";
                 break;
         }
-        if (Config::get("security/validate-lang")) {
+        if (Config::get("security/validate-lang")->value()) {
             $session["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])
                                     ? $_SERVER["HTTP_ACCEPT_LANGUAGE"]
                                     : "";
@@ -356,7 +356,7 @@ class Auth {
             security.
         */
         $selectors = array();
-        switch (Config::get("security/validate-ua")) {
+        switch (Config::get("security/validate-ua")->value()) {
             case "lenient":
                 $selectors["http-ua"] = self::getVersionlessUserAgent();
                 break;
@@ -366,7 +366,7 @@ class Auth {
                                       : "";
                 break;
         }
-        if (Config::get("security/validate-lang")) {
+        if (Config::get("security/validate-lang")->value()) {
             $selectors["http-lang"] = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])
                                       ? $_SERVER["HTTP_ACCEPT_LANGUAGE"]
                                       : "";
@@ -388,7 +388,7 @@ class Auth {
 
         foreach ($selectors as $selector => $expectedValue) {
             if ($session[$selector] != $expectedValue) {
-                if (Config::get("security/selector-canary")) {
+                if (Config::get("security/selector-canary")->value()) {
                     if ($userdata !== null) {
                         /*
                             Session hijack canary triggered. Invalidate the
@@ -816,25 +816,19 @@ class User {
         return $this->data["approved"];
     }
 
+    public function canAccessAdminPages() {
+        $domains = Config::listDomains();
+
+        foreach ($domains as $domain => $appearanceOptions) {
+            if ($this->hasPermission("admin/{$domain}/general")) return true;
+        }
+
+        return false;
+    }
+
     /*
-        Checks whether the user has the given permission, or any permission in
-        a set of permissions. Valid inputs are one permission, any one of a set,
-        or all of a set. Examples:
-
-        One permission:
-            "admin/groups/general"
-
-        Any one or more of a set:
-            "admin/?/general"
-            (matches if the user is granted the "general" permission under any
-            subkey of "admin")
-
-        All of a set:
-            "admin/<*>/general"
-            (replace <*> with * - I can't place * there or I'll accidentally
-            end the PHP comment due to the forward slashes)
-            (returns true only if the user has been granted the "general"
-            permission on all subkeys of "admin")
+        Checks whether the user has the given permission. Example:
+            "admin/security/general"
     */
     public function hasPermission($permission) {
         if (!$this->exists()) {
@@ -858,39 +852,8 @@ class User {
             : $this->getPermissionLevel()
         );
 
-        if (strpos($permission, "?") !== FALSE) {
-            // Match any permission in set
-            $root = trim(strtok($permission, "?"), "/");
-            $tree = Config::get("permissions/level/{$root}");
-            $tail = trim(substr($permission, strpos($permission, "?") + 1), "/");
-
-            foreach ($tree as $domain => $sections) {
-                foreach ($sections as $section => $perm) {
-                    if ($section !== $tail) continue;
-                    if ($userperm >= $perm) return true;
-                }
-            }
-
-            return false;
-        } elseif (strpos($permission, "*") !== FALSE) {
-            // Match all permissions in set
-            $root = trim(strtok($permission, "?"), "/");
-            $tree = Config::get("permissions/level/{$root}");
-            $tail = trim(substr($permission, strpos($permission, "?") + 1), "/");
-
-            foreach ($tree as $domain => $sections) {
-                foreach ($sections as $section => $perm) {
-                    if ($section !== $tail) continue;
-                    if ($userperm < $perm) return false;
-                }
-            }
-
-            return true;
-        } else {
-            // Match specific permission
-            $perm = Config::get("permissions/level/{$permission}");
-            return $userperm >= $perm;
-        }
+        $perm = Config::get("permissions/level/{$permission}")->value();
+        return $userperm >= $perm;
     }
 
     /*

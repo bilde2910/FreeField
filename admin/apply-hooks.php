@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     of webhooks will be `null`. In that case, create an empty webhook array to
     populate with new webhooks.
 */
-$hooklist = Config::get("webhooks");
+$hooklist = Config::getRaw("webhooks");
 if ($hooklist === null) $hooklist = array();
 $hooks = array();
 foreach ($hooklist as $hook) {

@@ -30,7 +30,7 @@ $themes = Theme::listIconSets();
     allowed.
 */
 $restrictiveLoadThemes = array(
-    Config::get("themes/icons/default")
+    Config::get("themes/icons/default")->value()
 );
 
 $variants = array("dark", "light");
@@ -41,7 +41,7 @@ foreach ($themes as $theme) {
         displayed.
     */
     if (
-        !Config::get("themes/icons/allow-personalization") &&
+        !Config::get("themes/icons/allow-personalization")->value() &&
         in_array($theme, $restrictiveLoadThemes)
     ) return;
 

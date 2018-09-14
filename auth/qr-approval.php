@@ -12,7 +12,7 @@ __require("auth");
     Ensure that QR code approval is enabled and that its precondition (GD
     library being loaded) is satisfied.
 */
-if (!Config::get("security/approval/by-qr")) {
+if (!Config::get("security/approval/by-qr")->value()) {
     header("HTTP/1.1 501 Not Implemented");
     exit;
 }

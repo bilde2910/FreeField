@@ -2,7 +2,7 @@
 /*
     This script contains classes to simplify configuration parsing and saving on
     the administration pages. Each individual setting in
-    /includes/config/tree.php accepts one specific type of input (e.g. integer
+    /includes/config/defs.php accepts one specific type of input (e.g. integer
     values, strings, etc.). In order for these data types to be saved to the
     configuration file, the user must be restricted to inputing only values that
     can be correctly parsed to those data types. E.g. for integer inputs, only
@@ -17,14 +17,14 @@
     of the classes can determine e.g. the range of integers accepted, or a regex
     that a string must match. For example, if a setting requires that the user
     input an integer between 10 and 100, the setting's array in
-    /includes/config/tree.php should have the following entry:
+    /includes/config/defs.php should have the following entry:
 
         "option" => new IntegerOption(10, 100)
 
     When that option is rendered on the administration pages, it will
     automatically output an `<input type="number" min="10" max="100">` element.
 
-    Option classes have five different functions:
+    Option classes have eight different functions:
 
     parseValue($data)
         This function takes a string input, the data that is submitted by the
@@ -51,6 +51,34 @@
         pages. This is used for IconPackOption - whenever an icon pack is
         selected by the user, a block should be displayed following the setting
         itself that previews the given icon pack.
+
+    encodeSavedValue($value)
+        Some options may wish to store its value in the configuration file in
+        a different format than the structure of the value as used on the
+        administration pages. For example, passwords can be accessed in plain-
+        text from the `Config` class, but may be stored encrypted in the
+        configuration file on disk. This function encodes the in-memory `$value`
+        of the setting to the format it would be stored in on disk. By default,
+        this is the same format as the in-memory value, but specific options may
+        choose to override this behavior by declaring this function.
+
+    decodeSavedValue($value)
+        This is the reverse operation of `encodeSavedValue()`. This function
+        takes the value of the setting as it appears on disk and converts it to
+        the format used for in-memory representations of its value. For example,
+        passwords may be stored encrypted in the configuration file - this
+        function would return the decrypted password, given the encrypted
+        password from `$value`.
+
+    isAuthorizedToChange($old, $new, $user)
+        This function allows settings saving to check whether or not a user is
+        authorized to make a specific change to a setting. The function is
+        passed the old and new values of the setting, as well as an object
+        representing the user that is making the change, and should return
+        whether the change of the setting may proceed given these values. This
+        is used in `PermissionOption` to ensure that a user cannot change the
+        permission level of a setting to or from a value at or higher than their
+        own permission level.
 
     preCommit($rawData, $parsedValue)
         This function is called after validation has passed, but before the
@@ -98,6 +126,18 @@ abstract class DefaultOption {
     }
 
     public function preCommit($rawData, $parsedValue) {
+        return true;
+    }
+
+    public function encodeSavedValue($value) {
+        return $value;
+    }
+
+    public function decodeSavedValue($value) {
+        return $value;
+    }
+
+    public function isAuthorizedToChange($old, $new, $user) {
         return true;
     }
 
@@ -579,6 +619,15 @@ class PermissionOption extends DefaultOption {
 
         return true;
     }
+
+    public function isAuthorizedToChange($old, $new, $user) {
+        /*
+            Ensure that users cannot change the value of a permission setting to
+            or from a permission level at or higher than their own level.
+        */
+        $max = max($old, $new);
+        return $user->canChangeAtPermission($max);
+    }
 }
 
 /*
@@ -959,7 +1008,7 @@ class FileOption extends DefaultOption {
         in the configuration file.
     */
     public function applyToCurrent() {
-        return $this->applyTo(Config::get($this->path));
+        return $this->applyTo(Config::get($this->path)->value());
     }
 
     /*

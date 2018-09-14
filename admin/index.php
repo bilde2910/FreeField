@@ -28,82 +28,15 @@ __require("theme");
         file.
 
     Each domain where `custom-handler` is set to false will contain a list of
-    configuration options within the equivalent DOMAIN in
-    /includes/config/tree.php. E.g. the "main" page will contain all of the
-    settings under the `main` domain in the configuration tree in that file.
+    configuration options within the equivalent `domain` defined in
+    /includes/config/defs.php. E.g. the "main" page will contain all of the
+    settings with the `main` domain assigned in the definitions list in that
+    file.
 
-    Please see /includes/config/tree.php for detailed information on what
-    settings each of the `custom-handler` == false domains represent.
+    Please see /includes/config/defs.php for detailed information on what
+    settings each of the `custom-handler == false` domains represent.
 */
-$domains = array(
-
-    // Main settings (e.g. site URI, database connections)
-    "main" => array(
-        "icon" => "cog",
-        "custom-handler" => false
-    ),
-
-    // User management
-    "users" => array(
-        "icon" => "users",
-        "custom-handler" => true
-    ),
-
-    // Groups management
-    "groups" => array(
-        "icon" => "user-shield",
-        "custom-handler" => true
-    ),
-
-    // POI management
-    "pois" => array(
-        "icon" => "map-marker-alt",
-        "custom-handler" => true
-    ),
-
-    // Permissions
-    "perms" => array(
-        "icon" => "check-square",
-        "custom-handler" => false
-    ),
-
-    // Security settings
-    "security" => array(
-        "icon" => "shield-alt",
-        "custom-handler" => false
-    ),
-
-    // Authentication (sign-in) providers and setup
-    "auth" => array(
-        "icon" => "lock",
-        "custom-handler" => false
-    ),
-
-    // Theme settings and defaults
-    "themes" => array(
-        "icon" => "palette",
-        "custom-handler" => false
-    ),
-
-    // Map provider settings (e.g. map API keys)
-    "map" => array(
-        "icon" => "map",
-        "custom-handler" => false
-    ),
-
-    // Geofence settings
-    "fences" => array(
-        "icon" => "expand",
-        "custom-handler" => true
-    ),
-
-    // Webhooks
-    "hooks" => array(
-        "icon" => "link",
-        "custom-handler" => true
-    )
-
-);
+$domains = Config::listDomains();
 
 /*
     This page accepts a `d` GET query which indicates which of the domains (d is
@@ -155,17 +88,12 @@ $di18n = Config::getDomainI18N($domain);
 
 /*
     If there is no custom handler for the current domain, the configuration page
-    will be handled and rendered by this page. Load the list of settings
-    assigned to the current domain from the configuration tree in
-    /lib/config/tree.php. The returned array is associative and has page
-    sections as keys and the settings within each section as values. E.g. for
-    the "security" domain, `$sections` will have two keys "user-creation" and
-    "sessions" (as these are the sections defined for the "security" domain in
-    /lib/config/tree.php). These keys will have arrays for values, which contain
-    the list of settings to display under each section on the page.
+    will be handled and rendered by this page. Load the list of sections
+    assigned to the current domain from the configuration array in
+    /includes/config/defs.php.
 */
 if (!$domains[$domain]["custom-handler"]) {
-    $sections = Config::getTreeDomain($domain);
+    $sections = Config::listSectionsForDomain($domain);
 }
 
 ?>
@@ -175,11 +103,11 @@ if (!$domains[$domain]["custom-handler"]) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex,nofollow">
-        <meta name="theme-color" content="<?php echo Config::getHTML("themes/meta/color"); ?>">
+        <meta name="theme-color" content="<?php echo Config::get("themes/meta/color")->valueHTML(); ?>">
         <title><?php echo I18N::resolveArgsHTML(
             "page_title.admin",
             true,
-            Config::get("site/name"),
+            Config::get("site/name")->value(),
             I18N::resolve($di18n->getTitle())
         ); ?></title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
@@ -196,7 +124,7 @@ if (!$domains[$domain]["custom-handler"]) {
                     "themedata" => IconPackOption::getIconSetDefinitions(),
                     "icons" => Theme::listIcons(),
                     "baseuri" => Config::getEndpointUri("/"),
-                    "colortheme" => Config::get("themes/color/admin")
+                    "colortheme" => Config::get("themes/color/admin")->value()
                 ));
             ?>;
         </script>
@@ -207,8 +135,8 @@ if (!$domains[$domain]["custom-handler"]) {
                     Force refresh the favicon by appending the last changed time
                     of the file to the path. https://stackoverflow.com/a/7116701
                 */
-                echo Config::getDefinition("themes/meta/favicon")["option"]
-                     ->applyToCurrent()->getUploadTime();
+                echo Config::get("themes/meta/favicon")
+                     ->getOption()->applyToCurrent()->getUploadTime();
               ?>">
         <link rel="stylesheet"
               href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
@@ -220,7 +148,7 @@ if (!$domains[$domain]["custom-handler"]) {
               crossorigin="anonymous">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/admin.css">
-        <link rel="stylesheet" href="../css/<?php echo Config::getHTML("themes/color/admin"); ?>.css">
+        <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/admin")->valueHTML(); ?>.css">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="../css/layouts/side-menu-old-ie.css">
@@ -240,7 +168,7 @@ if (!$domains[$domain]["custom-handler"]) {
             <div id="menu">
                 <div class="pure-menu">
                     <a class="pure-menu-heading" href="..">
-                        <?php echo Config::getHTML("site/menu-header"); ?>
+                        <?php echo Config::get("site/menu-header")->valueHTML(); ?>
                     </a>
 
                     <ul class="pure-menu-list">
@@ -318,48 +246,25 @@ if (!$domains[$domain]["custom-handler"]) {
                               method="POST"
                               class="pure-form require-validation"
                               enctype="multipart/form-data">
-                            <?php foreach ($sections as $section => $settings) { ?>
+                            <?php foreach ($sections as $section) { ?>
+                                <?php
+                                    $settings = Config::listKeysForSection($domain, $section);
+                                ?>
                                 <h2 class="content-subhead">
                                     <?php echo I18N::resolveHTML($di18n->getSection($section)->getName()); ?>
                                 </h2>
                                 <?php
                                     /*
                                         Some configuration sections may have
-                                        custom decriptions. If `__hasdesc` is
-                                        set to `true` in this section, a
-                                        description is present and should be
-                                        displayed.
+                                        custom decriptions.
                                     */
-                                    if (isset($settings["__hasdesc"]) && $settings["__hasdesc"]) {
-                                        /*
-                                            If `__descsprintf` is set, the I18N string contains
-                                            arguments and should be passed to `resolveArgsHTML()`
-                                            instead of `resolveHTML()`.
-                                        */
-                                        if (isset($settings["__descsprintf"])) {
-                                            echo '<p>'.I18N::resolveArgsHTML(
-                                                $di18n->getSection($section)->getDescription(),
-                                                false,
-                                                $settings["__descsprintf"]
-                                            ).'</p>';
-                                        } else {
-                                            echo '<p>'.I18N::resolveHTML(
-                                                $di18n->getSection($section)->getDescription()
-                                            ).'</p>';
-                                        }
+                                    $sectionDesc = $di18n->getSection($section)->getLocalizedDescriptionHTML();
+                                    if ($sectionDesc !== null) {
+                                        echo $sectionDesc;
                                     }
                                 ?>
-                                <?php foreach ($settings as $setting => $values) { ?>
+                                <?php foreach ($settings as $setting) { ?>
                                     <?php
-                                        /*
-                                            Settings which start with "__" are meta descriptors for
-                                            the current section (e.g. __hasdesc is not a setting,
-                                            but a boolean that indicates whether or not the section
-                                            has a description). Since they are reserved for this
-                                            purpose, they should not be treated as settings.
-                                        */
-                                        if (substr($setting, 0, 2) === "__") continue;
-
                                         /*
                                             Similarly to how `$di18n` is a class instance for
                                             resolving keys for domains' localization keys, `$si18n`
@@ -372,6 +277,11 @@ if (!$domains[$domain]["custom-handler"]) {
                                         $si18n = Config::getSettingI18N($setting);
 
                                         /*
+                                            Get a config entry for the given setting.
+                                        */
+                                        $entry = Config::get($setting);
+
+                                        /*
                                             `$option` is an instance of the class set as the input
                                             type of the setting. E.g. string settings have the
                                             `StringOption` class. These classes contain functions
@@ -381,10 +291,10 @@ if (!$domains[$domain]["custom-handler"]) {
                                             for a list of these classes and the purpose of each of
                                             its functions.
                                         */
-                                        $option = $values["option"];
+                                        $option = $entry->getOption();
 
                                         // Current value of the setting
-                                        $value = Config::get($setting);
+                                        $value = $entry->value();
                                     ?>
                                     <div class="pure-g">
                                         <div class="pure-u-1-3 full-on-mobile">
@@ -410,7 +320,7 @@ if (!$domains[$domain]["custom-handler"]) {
                                                         of the setting. This can be an input box,
                                                         a selection box, a checkbox or label, etc.
                                                         depending on the Option assigned to the
-                                                        setting in /includes/config/tree.php (i.e.
+                                                        setting in /includes/config/defs.php (i.e.
                                                         the type of class in `$option`).
                                                     */
                                                     $attrs = array(
@@ -426,10 +336,8 @@ if (!$domains[$domain]["custom-handler"]) {
                                                         fails, the input control should be
                                                         disabled.
                                                     */
-                                                    if (isset($values["enable-only-if"])) {
-                                                        if (!$values["enable-only-if"]) {
-                                                            $attrs["disabled"] = true;
-                                                        }
+                                                    if (!$entry->isEnabled()) {
+                                                        $attrs["disabled"] = true;
                                                     }
                                                     echo $option->getControl($value, $attrs);
                                                 ?>
@@ -438,10 +346,10 @@ if (!$domains[$domain]["custom-handler"]) {
                                     </div>
                                     <?php
                                         /*
-                                            Some controls (like IconPackSelector) as additional
-                                            HTML that should be included in a block following the
+                                            Some controls (like IconPackOption) as additional HTML
+                                            that should be included in a block following the
                                             setting input box itself. This appears underneath the
-                                            setting input box. For IconPackSelector, this is a box
+                                            setting input box. For IconPackOption, this is a box
                                             that previews the icons in an icon pack upon selection
                                             by the user.
                                         */
