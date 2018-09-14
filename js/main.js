@@ -388,6 +388,19 @@ function refreshMarkers() {
 
         markers.forEach(function(marker) {
             /*
+                Check if the POI already exists in the `pois` array. If not,
+                add the marker.
+            */
+            if (
+                pois.length < marker.id ||
+                pois[marker.id] == null ||
+                !("element" in pois[marker.id])
+            ) {
+                addMarkers([marker]);
+                return;
+            }
+
+            /*
                 Retrieve the old marker from the `pois` array and replace the
                 marker icon on the marker to reflect the new objective/reward.
             */
