@@ -218,7 +218,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
     try {
         $pois = Geo::listPOIs();
-        $geofence = Geo::getGeofence(Config::get("map/geofence/geofence")->value());
+        $geofence = Config::get("map/geofence/geofence")->value();
 
         $poidata = array();
 
@@ -306,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     if ($data["name"] == "") {
         XHR::exitWith(400, array("reason" => "name_empty"));
     }
-    $geofence = Geo::getGeofence(Config::get("map/geofence/geofence")->value());
+    $geofence = Config::get("map/geofence/geofence")->value();
     if ($geofence !== null && !$geofence->containsPoint($data["latitude"], $data["longitude"])) {
         XHR::exitWith(400, array("reason" => "invalid_location"));
     }
@@ -439,7 +439,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             update.
         */
         $poi = Geo::getPOI($patchdata["id"]);
-        $geofence = Geo::getGeofence(Config::get("map/geofence/geofence")->value());
+        $geofence = Config::get("map/geofence/geofence")->value();
 
         if (
             Config::get("map/geofence/hide-outside")->value() &&

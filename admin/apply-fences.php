@@ -52,6 +52,12 @@ foreach ($fencelist as $fence) {
     $fences[$fence["id"]] = $fence;
 }
 
+/*
+    Track deleted geofences. If a geofence is deleted, all references to that
+    fence should be erased from the configuration file and replaced with null.
+*/
+$deletions = array();
+
 foreach ($_POST as $postid => $data) {
     /*
         Ensure that the POST field we're working on now is a geofence change
@@ -79,6 +85,7 @@ foreach ($_POST as $postid => $data) {
     */
     if ($data["action"] === "delete") {
         unset($fences[$fenceid]);
+        $deletions[] = $fenceid;
         continue;
     }
 
@@ -107,11 +114,45 @@ foreach ($_POST as $postid => $data) {
 }
 
 /*
+    Also ensure that the configuration is updated to remove all references to
+    deleted geofences. To do this, we obtain a flat list of all options
+    available in /includes/config/defs.php. We search for settings using
+    `GeofenceOption` and change them accordingly.
+*/
+$configchanges = array();
+if (count($deletions) > 0) {
+    $keys = Config::listAllKeys();
+    /*
+        Loop over all settings that are geofences.
+    */
+    foreach ($keys as $path) {
+        if (Config::getOptionType($path) == "GeofenceOption") {
+            /*
+                Get the value of each setting.
+            */
+            $value = Config::get($path)->value();
+            if ($value !== null) {
+                /*
+                    Check if the geofence that the setting represents has an ID
+                    that is on the list of deleted geofence IDs. If so, set the
+                    value of that setting to null.
+                */
+                foreach ($deletions as $deletedID) {
+                    if ($value->getID() == $deletedID) {
+                        $configchanges[$path] = null;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*
     Convert the associative `$fences` array back into an indexed array before
     saving it to the configuration file.
 */
 $fencelist = array_values($fences);
-Config::set(array("geofences" => $fencelist));
+Config::set(array_merge(array("geofences" => $fencelist), $configchanges));
 
 header("HTTP/1.1 303 See Other");
 header("Location: {$returnpath}");

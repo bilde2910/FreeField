@@ -866,12 +866,11 @@ class ConfigEntry {
     }
 
     /*
-        Converts the given value (or the current value if none is given) to a
-        format that can be stored in the configuration file in JSON format,
-        according to the setting's `Option` class.
+        Converts the given value to a format that can be stored in the
+        configuration file in JSON format, according to the setting's `Option`
+        class.
     */
-    public function getStorageEncodedValue($value = null) {
-        if ($value === null) $value = $this->value();
+    public function getStorageEncodedValue($value) {
         return $this->getOption()->encodeSavedValue($value);
     }
 

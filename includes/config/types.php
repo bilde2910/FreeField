@@ -418,11 +418,9 @@ class FloatOption extends DefaultOption {
     from a list of labeled geofences stored in the configuration file.
 */
 class GeofenceOption extends DefaultOption {
-    private static $fences = null;
-
     public function getControl($current = null, $attrs = array()) {
         __require("geo");
-        if (self::$fences === null) self::$fences = Geo::listGeofences();
+        $fences = Geo::listGeofences();
 
         $attrString = parent::constructAttributes($attrs);
 
@@ -439,9 +437,9 @@ class GeofenceOption extends DefaultOption {
         /*
             Add each geofence to the selection box.
         */
-        foreach (self::$fences as $fence) {
+        foreach ($fences as $fence) {
             $html .= '<option value="'.$fence->getID().'"';
-            if ($fence->getID() == $current) {
+            if ($current !== null && $fence->getID() == $current->getID()) {
                 $selected = true;
                 $html .= ' selected';
             }
@@ -452,24 +450,36 @@ class GeofenceOption extends DefaultOption {
     }
 
     public function parseValue($data) {
+        __require("geo");
         if ($data === "") return null;
-        return strval($data);
+
+        return Geo::getGeofence($data);
     }
 
     public function isValid($data) {
         __require("geo");
-        if (self::$fences === null) self::$fences = Geo::listGeofences();
 
         /*
             Null indicates that the geofence is disabled, and is thus valid.
         */
         if ($data === null) return true;
-        if (is_array($data)) return false;
+        if ($data instanceof Geofence) return true;
 
-        foreach (self::$fences as $fence) {
-            if ($fence->getID() === $data) return true;
-        }
         return false;
+    }
+
+    /*
+        `GeofenceOption` should return `Geofence` instances when
+        `Config::get()->value()` is called, and should be stored as a string
+        indicating the ID of the geofence, or null if none is selected.
+    */
+    public function encodeSavedValue($value) {
+        if ($value === null) return null;
+        return $value->getID();
+    }
+    public function decodeSavedValue($value) {
+        __require("geo");
+        return Geo::getGeofence($value);
     }
 }
 
