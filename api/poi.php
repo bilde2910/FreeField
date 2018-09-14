@@ -17,7 +17,7 @@ __require("geo");
     to the target URL.
 
     This function accepts a `$body` payload, a `Theme` instance `$theme`
-    representing the icon pack selected for the webhook, and the `$time`stamp on
+    representing the icon set selected for the webhook, and the `$time`stamp on
     which the field research was reported by the user. The timestamp is required
     because multiple webhooks may be triggered, and if one webhook takes a long
     time to execute, there is a risk that the research would be reported with

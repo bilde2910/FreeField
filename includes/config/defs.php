@@ -960,10 +960,10 @@ class ConfigDefinitions {
                 "domain" => "themes",
                 "section" => "icons",
                 "default" => "freefield-3d-compass",
-                "option" => new IconPackOption()
+                "option" => new IconSetOption()
             ),
             /*
-                Whether to allow users to select their own map marker pack
+                Whether to allow users to select their own map marker set
                 instead of the default for their own account.
             */
             "themes/icons/allow-personalization" => array(

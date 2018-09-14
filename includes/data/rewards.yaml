@@ -6,18 +6,18 @@
 # decreasing order of specificity. The first item in this array is used to
 # organize rewards into groups (e.g. "ball" = rewards related to various ball
 # items). The whole array is also used as map marker/icon fallbacks for when a
-# specific icon is not available for the given reward in an icon pack. For
+# specific icon is not available for the given reward in an icon set. For
 # example, "win_raid" in objectives.yaml specifies the categories "raid" and
-# "battle" in decreasing order of specificity. This means that if an icon pack
+# "battle" in decreasing order of specificity. This means that if an icon set
 # does not have a specific icon with the label "win_raid", it will look for one
 # with the label "raid" instead. If it does not have a "raid" icon either, it
 # falls back to "battle", i.e. the next item in the categories array. If none of
 # the icons specified here are found, it will fall back to "default". If none of
-# the icons, including "default", are present in an icon pack, the marker will
+# the icons, including "default", are present in an icon set, the marker will
 # not be rendered. Hence, it is very important that at the very least "default"
-# is available. For an icon pack to have any meaningful purpose beyond just a
+# is available. For an icon set to have any meaningful purpose beyond just a
 # single "default" marker for all map POIs, it is also very strongly recommended
-# that icon packs implement an icon for all of the categories, to better
+# that icon sets implement an icon for all of the categories, to better
 # distinguish objectives from each other on the map. Implementing specific icons
 # for each reward is optional.
 

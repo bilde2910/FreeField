@@ -116,12 +116,12 @@ if (!$domains[$domain]["custom-handler"]) {
         <script src="../js/clientside-i18n.php"></script>
         <script>
             /*
-                Display options for `IconPackOption` selectors; required by
+                Display options for `IconSetOption` selectors; required by
                 `viewTheme()` in /js/option.js.
             */
             var isc_opts = <?php
                 echo json_encode(array(
-                    "themedata" => IconPackOption::getIconSetDefinitions(),
+                    "themedata" => IconSetOption::getIconSetDefinitions(),
                     "icons" => Theme::listIcons(),
                     "baseuri" => Config::getEndpointUri("/"),
                     "colortheme" => Config::get("themes/color/admin")->value()
@@ -361,11 +361,11 @@ if (!$domains[$domain]["custom-handler"]) {
                                     </div>
                                     <?php
                                         /*
-                                            Some controls (like IconPackOption) as additional HTML
+                                            Some controls (like IconSetOption) as additional HTML
                                             that should be included in a block following the
                                             setting input box itself. This appears underneath the
-                                            setting input box. For IconPackOption, this is a box
-                                            that previews the icons in an icon pack upon selection
+                                            setting input box. For IconSetOption, this is a box
+                                            that previews the icons in an icon set upon selection
                                             by the user.
                                         */
                                         echo $option->getFollowingBlock();

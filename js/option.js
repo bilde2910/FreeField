@@ -4,8 +4,8 @@
 */
 
 /*
-    Handle item selection changes for `IconPackOption` downdowns. This function
-    updates the icon pack preview box.
+    Handle item selection changes for `IconSetOption` downdowns. This function
+    updates the icon set preview box.
 */
 function viewTheme(selectorID, theme) {
     /*
@@ -29,7 +29,7 @@ function viewTheme(selectorID, theme) {
     if (theme === "") return;
 
     /*
-        Declare variants of the icon pack (dark and light icons). Each variant
+        Declare variants of the icon set (dark and light icons). Each variant
         has a preview box that displays the icons in that particular theme. The
         <div> elements holding these icons are stored in `varbox`.
     */

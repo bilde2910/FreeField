@@ -722,14 +722,14 @@
             }
 
             /*
-                Create an icon pack option with a default element that is
+                Create an icon set option with a default element that is
                 displayed as the string localized from the I18N token passed to
                 the constructor of the class as its sole argument. This Option
                 instance is used to draw the icon selector selection box and
                 preview box, since the code to do so is readily available in
                 this class.
             */
-            $optIcon = new IconPackOption("setting.hooks.hook_list.icons.option.default");
+            $optIcon = new IconSetOption("setting.hooks.hook_list.icons.option.default");
             $optFence = new GeofenceOption();
 
             /*
@@ -781,9 +781,9 @@
                 the webhook language, its icon set, and geofence.
 
                 This block contains a call to
-                `IconPackOption::getFollowingBlock()`. The call has been
+                `IconSetOption::getFollowingBlock()`. The call has been
                 structured to suppress outputting the script that binds event
-                handlers for the icon pack selector. The event handler is bound
+                handlers for the icon set selector. The event handler is bound
                 in /admin/js/hooks.js instead.
             */
             $hookCommonSettings = '

@@ -1,9 +1,9 @@
 <?php
 /*
     This script outputs a stylesheet that defines map markers and their icon
-    locations for each installed icon pack in the format:
+    locations for each installed icon set in the format:
 
-        .marker.<icon_pack_name>.<icon>.<color_theme{dark|light}> {
+        .marker.<icon_set_name>.<icon>.<color_theme{dark|light}> {
             background-image: url('<icon_url>');
         }
 */
@@ -15,13 +15,13 @@ __require("config");
 header("Content-Type: text/css");
 
 /*
-    Lists all icons that are valid for use in an icon pack, including fallbacks
+    Lists all icons that are valid for use in an icon set, including fallbacks
     and icon categories.
 */
 $icons = Theme::listIcons();
 
 /*
-    Lists all installed icon packs.
+    Lists all installed icon sets.
 */
 $themes = Theme::listIconSets();
 

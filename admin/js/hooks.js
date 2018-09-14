@@ -117,8 +117,8 @@ $("#add-hook-submit").on("click", function() {
                 added to the DOM, so we'll add it to the DOM first and then
                 trigger the event.
 
-                We'll also load the correct icon pack at this step using the
-                `viewTheme()` function from IconPackOption.
+                We'll also load the correct icon set at this step using the
+                `viewTheme()` function from /js/option.js.
             */
             $("#active-hooks-list").append(node);
             node.find(".hook-target").trigger("input");
@@ -205,8 +205,8 @@ $("#add-hook-submit").on("click", function() {
                 added to the DOM, so we'll add it to the DOM first and then
                 trigger the events.
 
-                We'll also load the correct icon pack at this step using the
-                `viewTheme()` function from IconPackOption.
+                We'll also load the correct icon set at this step using the
+                `viewTheme()` function from /js/option.js.
             */
             $("#active-hooks-list").append(node);
             node.find(".hook-target").trigger("input");
@@ -1372,8 +1372,8 @@ $(".hook-list").on("change", '.hook-tg-parse-mode', function() {
 });
 
 /*
-    Handler for the icon pack selection box on each webhook. Ensures that a
-    preview is displayed for the selected icon pack upon change of selection.
+    Handler for the icon set selection box on each webhook. Ensures that a
+    preview is displayed for the selected icon set upon change of selection.
 
     Displays: on webhook body
 */
@@ -1738,8 +1738,8 @@ for (var i = 0; i < hooks.length; i++) {
     }
 
     /*
-        Lastly, ensure that the icon pack preview is being rendered in the hook
-        body by requesting the currently selected icon pack to be viewed using
+        Lastly, ensure that the icon set preview is being rendered in the hook
+        body by requesting the currently selected icon set to be viewed using
         `viewTheme()`.
     */
     viewTheme(hook.id + "-icon-selector", $("#" + hook.id + "-icon-selector").val());

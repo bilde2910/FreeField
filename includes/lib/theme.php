@@ -73,7 +73,7 @@ class Theme {
     /*
         Returns an `IconSet` instance representing the given icon set and
         variant (dark or light). If no icon set is specified, use the default
-        icon pack from the configuration. If no variant is specified, return a
+        icon set from the configuration. If no variant is specified, return a
         variant-neutral `IconSet` with "{%variant%}" path placeholders intact.
     */
     public static function getIconSet($set = null, $variant = null) {

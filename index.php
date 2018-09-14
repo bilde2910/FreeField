@@ -115,12 +115,12 @@ $provider = Config::get("map/provider/source")->value();
         <script src="./js/clientside-i18n.php"></script>
         <script>
             /*
-                Display options for `IconPackOption` selectors; required by
+                Display options for `IconSetOption` selectors; required by
                 `viewTheme()` in /js/option.js.
             */
             var isc_opts = <?php
                 echo json_encode(array(
-                    "themedata" => IconPackOption::getIconSetDefinitions(),
+                    "themedata" => IconSetOption::getIconSetDefinitions(),
                     "icons" => Theme::listIcons(),
                     "baseuri" => Config::getEndpointUri("/"),
                     "colortheme" => Config::get("themes/color/user-settings/theme")->value()
@@ -1049,7 +1049,7 @@ $provider = Config::get("map/provider/source")->value();
                             ?>
                             <?php
                                 if (Config::get("themes/icons/allow-personalization")->value()) {
-                                    $opt = new IconPackOption("user_settings.value.default");
+                                    $opt = new IconSetOption("user_settings.value.default");
                                     ?>
                                         <!--
                                             Icon set used for map markers.

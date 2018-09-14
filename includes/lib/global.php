@@ -30,7 +30,7 @@ function __require($require) {
             break;
 
         /*
-            Parses and manages icon packs and handles URL lookups for those.
+            Parses and manages icon sets and handles URL lookups for those.
         */
         case "theme":
             include_once(__DIR__."/theme.php");

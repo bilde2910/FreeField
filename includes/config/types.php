@@ -48,9 +48,9 @@
         Some options require additional space to display the current value of
         the option. Whatever is output here is displayed as a separate block
         underneath the setting name and input control on the administration
-        pages. This is used for IconPackOption - whenever an icon pack is
-        selected by the user, a block should be displayed following the setting
-        itself that previews the given icon pack.
+        pages. This is used for IconSetOption - whenever an icon set is selected
+        by the user, a block should be displayed following the setting itself
+        that previews the given icon set.
 
     encodeSavedValue($value)
         Some options may wish to store its value in the configuration file in
@@ -658,20 +658,19 @@ class PermissionOption extends DefaultOption {
 }
 
 /*
-    This option is used when a setting requires choosing an icon pack. Icon
-    packs are collections of map markers that represent each type of field
-    research objective and reward. This renders as a selection box with an
-    optional default field. If a non-default option is selected, a preview of
-    all of the icons in the selected icon pack should be displayed directly
-    underneath the setting on the page.
+    This option is used when a setting requires choosing an icon set. Icon sets
+    are collections of map markers that represent each type of field research
+    objective and reward. This renders as a selection box with an optional
+    default field. If a non-default option is selected, a preview of all of the
+    icons in the selected icon set should be displayed directly underneath the
+    setting on the page.
 */
-class IconPackOption extends DefaultOption {
+class IconSetOption extends DefaultOption {
     /*
-        The `$packs` array is a list of available icon packs. This is declared
+        The `$packs` array is a list of available icon sets. This is declared
         `static` to prevent it from having to be populated once for every
-        instance of `IconPackOption` on the page. The list is populated the
-        first time this class is constructed, and reused for subsequent
-        instances.
+        instance of `IconSetOption` on the page. The list is populated the first
+        time this class is constructed, and reused for subsequent instances.
     */
     private static $packs = null;
 
@@ -708,7 +707,7 @@ class IconPackOption extends DefaultOption {
         }
         foreach (self::$packs as $pack => $data) {
             /*
-                Each option should use the name of the icon pack and its author
+                Each option should use the name of the icon set and its author
                 as its label in the selection box.
             */
             $html .= '<option value="'.$pack.'"';
@@ -726,10 +725,10 @@ class IconPackOption extends DefaultOption {
 
     /*
         This function is called by the administration pages when an
-        `IconPackOption` has been added to the page. The output of the function
+        `IconSetOption` has been added to the page. The output of the function
         is rendered as a block underneath the setting line. It contains a
-        preview of all of the icons in the icon pack. The block also contains
-        the event binder script that attaches a selection event handler to the
+        preview of all of the icons in the icon set. The block also contains the
+        event binder script that attaches a selection event handler to the
         selection box so that the preview is updated whenever the selection
         changes (the selector script). This is output by default, but can be
         suppressed using the `$includeSelectorScript` argument to this function.
@@ -757,7 +756,7 @@ class IconPackOption extends DefaultOption {
     /*
         This script ensures that the preview is displayed for the selected icon
         pack when the page loads, and also adds an event handler to update it if
-        the icon pack selection changes.
+        the icon set selection changes.
 
         NOTE: Some other scripts in FreeField have copied this selector script
         for use with some changes. If you want to make changes to this script,

@@ -1064,7 +1064,7 @@ $("head").append('<link rel="stylesheet" ' +
                              '.css?v=' + Date.now() + '">');
 
 /*
-    Configure the `IconPackOption` selector to use the correct user theme color.
+    Configure the `IconSetOption` selector to use the correct user theme color.
 */
 isc_opts.colortheme = settings.get("theme");
 
