@@ -8,18 +8,9 @@ require_once("../includes/lib/global.php");
 __require("auth");
 __require("db");
 __require("geo");
+__require("security");
 
 $returnpath = "./?d=pois";
-
-/*
-    If the requesting user does not have permission to make changes here, they
-    should be kicked out.
-*/
-if (!Auth::getCurrentUser()->hasPermission("admin/pois/general")) {
-    header("HTTP/1.1 303 See Other");
-    header("Location: {$returnpath}");
-    exit;
-}
 
 /*
     As this script is for submission only, only POST is supported. If a user
@@ -27,6 +18,25 @@ if (!Auth::getCurrentUser()->hasPermission("admin/pois/general")) {
     where they can make their desired changes.
 */
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("HTTP/1.1 303 See Other");
+    header("Location: {$returnpath}");
+    exit;
+}
+
+/*
+    Perform CSRF validation.
+*/
+if (!Security::validateCSRF()) {
+    header("HTTP/1.1 303 See Other");
+    header("Location: {$returnpath}");
+    exit;
+}
+
+/*
+    If the requesting user does not have permission to make changes here, they
+    should be kicked out.
+*/
+if (!Auth::getCurrentUser()->hasPermission("admin/pois/general")) {
     header("HTTP/1.1 303 See Other");
     header("Location: {$returnpath}");
     exit;

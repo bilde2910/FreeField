@@ -8,6 +8,10 @@
           method="POST"
           class="pure-form require-validation"
           enctype="application/x-www-form-urlencoded">
+        <!--
+            Protection against CSRF
+        -->
+        <?php echo Security::getCSRFInputField(); ?>
         <?php
             /*
                 Get a list of available geofences from the configuration file.

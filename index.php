@@ -7,6 +7,9 @@
 require_once("./includes/lib/global.php");
 __require("auth");
 __require("i18n");
+__require("security");
+
+Security::requireCSRFToken();
 
 /*
     Check if the user currently has access to view the map. If they don't, and
@@ -193,7 +196,8 @@ $provider = Config::get("map/provider/source")->value();
                                 ?>
                             </div>
                             <li class="pure-menu-item">
-                                <a href="./auth/logout.php" class="pure-menu-link">
+                                <a href="./auth/logout.php?<?php echo Security::getCSRFUrlParameter(); ?>"
+                                   class="pure-menu-link">
                                     <i class="menu-fas fas fa-sign-in-alt"></i>
                                     <?php echo I18N::resolveHTML("sidebar.logout"); ?>
                                 </a>
@@ -910,6 +914,10 @@ $provider = Config::get("map/provider/source")->value();
                               id="user-settings-form"
                               method="POST"
                               enctype="application/x-www-form-urlencoded">
+                            <!--
+                                Protection against CSRF
+                            -->
+                            <?php echo Security::getCSRFInputField(); ?>
                             <h2 class="content-subhead">
                                 <?php echo I18N::resolveHTML("user_settings.section.account") ?>
                             </h2>

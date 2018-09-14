@@ -9,6 +9,9 @@ require_once("../includes/lib/global.php");
 __require("config");
 __require("auth");
 __require("i18n");
+__require("security");
+
+Security::requireCSRFToken();
 
 /*
     This page requires an `euid` GET parameter containing an encrypted user ID
@@ -283,6 +286,10 @@ if (!$user->exists() || $user->isApproved()) {
                         <form action="apply-users.php"
                               method="POST"
                               enctype="application/x-www-form-urlencoded">
+                            <!--
+                                Protection against CSRF
+                            -->
+                            <?php echo Security::getCSRFInputField(); ?>
                             <input type="hidden"
                                    name="<?php echo htmlspecialchars($user->getUserID(), ENT_QUOTES); ?>[action]"
                                    value="approve">
@@ -295,6 +302,10 @@ if (!$user->exists() || $user->isApproved()) {
                         <form action="apply-users.php"
                               method="POST"
                               enctype="application/x-www-form-urlencoded">
+                            <!--
+                                Protection against CSRF
+                            -->
+                            <?php echo Security::getCSRFInputField(); ?>
                             <input type="hidden"
                                    name="<?php echo htmlspecialchars($user->getUserID(), ENT_QUOTES); ?>[action]"
                                    value="delete">

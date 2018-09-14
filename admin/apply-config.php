@@ -7,6 +7,27 @@
 require_once("../includes/lib/global.php");
 __require("config");
 __require("auth");
+__require("security");
+
+/*
+    As this script is for submission only, only POST is supported. If a user
+    tries to GET this page, they should be redirected to the configuration UI
+    where they can make their desired changes.
+*/
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("HTTP/1.1 303 See Other");
+    header("Location: ./");
+    exit;
+}
+
+/*
+    Perform CSRF validation.
+*/
+if (!Security::validateCSRF()) {
+    header("HTTP/1.1 303 See Other");
+    header("Location: ./");
+    exit;
+}
 
 /*
     If the current user does not have permission to view any of the admin pages
@@ -15,17 +36,6 @@ __require("auth");
     presume they're not admins.
 */
 if (!Auth::getCurrentUser()->canAccessAdminPages()) {
-    header("HTTP/1.1 303 See Other");
-    header("Location: ./");
-    exit;
-}
-
-/*
-    As this script is for submission only, only POST is supported. If a user
-    tries to GET this page, they should be redirected to the configuration UI
-    where they can make their desired changes.
-*/
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("HTTP/1.1 303 See Other");
     header("Location: ./");
     exit;

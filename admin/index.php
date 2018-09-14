@@ -12,6 +12,9 @@ __require("auth");
 __require("i18n");
 __require("geo");
 __require("theme");
+__require("security");
+
+Security::requireCSRFToken();
 
 /*
     The `$domains` array contains a list of pages (domains) to display on the
@@ -192,7 +195,8 @@ if (!$domains[$domain]["custom-handler"]) {
                             ?>
                         </div>
                         <li class="pure-menu-item">
-                            <a href="../auth/logout.php" class="pure-menu-link">
+                            <a href="../auth/logout.php?<?php echo Security::getCSRFUrlParameter(); ?>"
+                               class="pure-menu-link">
                                 <i class="menu-fas fas fa-sign-in-alt"></i>
                                 <?php echo I18N::resolveHTML("sidebar.logout"); ?>
                             </a>
@@ -245,6 +249,10 @@ if (!$domains[$domain]["custom-handler"]) {
                               method="POST"
                               class="pure-form require-validation"
                               enctype="multipart/form-data">
+                            <!--
+                                Protection against CSRF
+                            -->
+                            <?php echo Security::getCSRFInputField(); ?>
                             <?php foreach ($sections as $section) { ?>
                                 <?php
                                     /*

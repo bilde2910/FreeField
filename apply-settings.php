@@ -8,8 +8,8 @@ require_once("./includes/lib/global.php");
 __require("config");
 __require("auth");
 __require("db");
+__require("security");
 
-$user = Auth::getCurrentUser();
 $returnpath = "./";
 
 /*
@@ -23,8 +23,18 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 /*
+    Perform CSRF validation.
+*/
+if (!Security::validateCSRF()) {
+    header("HTTP/1.1 303 See Other");
+    header("Location: {$returnpath}");
+    exit;
+}
+
+/*
     If nobody is logged in, there are no server-side settings to apply.
 */
+$user = Auth::getCurrentUser();
 if (!$user->exists()) {
     header("HTTP/1.1 303 See Other");
     header("Location: {$returnpath}");

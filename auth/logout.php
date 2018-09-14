@@ -6,9 +6,12 @@
 
 require_once("../includes/lib/global.php");
 __require("config");
+__require("security");
 
 header("HTTP/1.1 303 See Other");
-setcookie("session", "", time() - 3600, "/");
+if (Security::validateCSRF()) {
+    setcookie("session", "", time() - 3600, "/");
+}
 header("Location: ".Config::getEndpointUri("/"));
 exit;
 

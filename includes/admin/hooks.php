@@ -9,6 +9,10 @@
           class="pure-form require-validation"
           enctype="application/x-www-form-urlencoded">
         <!--
+            Protection against CSRF
+        -->
+        <?php echo Security::getCSRFInputField(); ?>
+        <!--
             The two hook lists are where webhooks are dynamically created by
             `createHookNode()` later in this file are appended. Active hooks are
             appended to `#active-hooks-list` and inactive ones to

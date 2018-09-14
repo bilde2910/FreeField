@@ -7,6 +7,7 @@ require_once("../../includes/lib/global.php");
 __require("config");
 __require("auth");
 __require("i18n");
+__require("security");
 
 $service = "telegram";
 
@@ -15,6 +16,8 @@ if (!Auth::isProviderEnabled($service)) {
     header("Location: ".Config::getEndpointUri("/auth/login.php"));
     exit;
 }
+
+Security::requireCSRFToken();
 
 /*
     AUTH STAGE 0
@@ -63,7 +66,7 @@ if (!isset($_GET["hash"])) { ?>
                     data-telegram-login="<?php echo Config::get("auth/provider/{$service}/bot-username")->valueHTML(); ?>"
                     data-size="large"
                     data-userpic="false"
-                    data-auth-url="<?php echo Config::getEndpointUri("/auth/oa2/telegram.php"); ?>">
+                    data-auth-url="<?php echo Config::getEndpointUri("/auth/oa2/telegram.php?").Security::getCSRFUrlParameter(); ?>">
             </script>
         </div>
     </body>
@@ -83,6 +86,15 @@ if (!isset($_GET["hash"])) { ?>
 */
 
 /*
+    Perform CSRF validation.
+*/
+if (!Security::validateCSRF()) {
+    header("303 See Other");
+    header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+    exit;
+}
+
+/*
     Create and verify `data-check-string`:
         1.  Sort all received GET parameters alphabetically by key name. Ignore
             `hash` because we're verifying the data against `hash`.
@@ -93,6 +105,7 @@ if (!isset($_GET["hash"])) { ?>
             HMAC-SHA256 with the bot token hash as the key.
 */
 
+Security::unsetCSRFFields();
 $fields = $_GET;
 $hash = $_GET["hash"];
 unset($fields["hash"]);
