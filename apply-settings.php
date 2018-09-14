@@ -47,6 +47,17 @@ if (isset($_POST["nickname"]) && $user->hasPermission("self-manage/nickname")) {
 }
 
 /*
+    If the user has requested that they are signed out from all devices, then
+    that is the only change we should process (as this is a separate button from
+    the standard submit button),
+*/
+if (isset($_POST["sign-out-everywhere"])) {
+    $updates = array(
+        "token" => Auth::generateUserToken()
+    );
+}
+
+/*
     Apply the updates queue to the database.
 */
 if (count($updates) > 0) {

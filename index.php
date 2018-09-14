@@ -910,18 +910,18 @@ $provider = Config::get("map/provider/source")->value();
                               id="user-settings-form"
                               method="POST"
                               enctype="application/x-www-form-urlencoded">
-                            <!--
-                                Directions provider for navigation links.
-                            -->
+                            <h2 class="content-subhead">
+                                <?php echo I18N::resolveHTML("user_settings.section.account") ?>
+                            </h2>
                             <?php
                                 if (
                                     Auth::getCurrentUser()->exists() &&
                                     Auth::getCurrentUser()->hasPermission("self-manage/nickname")
                                 ) {
                                     ?>
-                                        <h2 class="content-subhead">
-                                            <?php echo I18N::resolveHTML("user_settings.section.account") ?>
-                                        </h2>
+                                        <!--
+                                            Change nickname.
+                                        -->
                                         <div class="pure-g">
                                             <div class="pure-u-1-3 full-on-mobile">
                                                 <p class="setting-name">
@@ -940,6 +940,27 @@ $provider = Config::get("map/provider/source")->value();
                                     <?php
                                 }
                             ?>
+                            <!--
+                                Sign out everywhere/invalidate sessions.
+                            -->
+                            <div class="pure-g">
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p class="setting-name">
+                                        <?php echo I18N::resolveHTML("user_setting.sign_out_everywhere.name"); ?>:
+                                    </p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile">
+                                    <p>
+                                        <?php echo I18N::resolveHTML("user_setting.sign_out_everywhere.info"); ?>
+                                    </p>
+                                    <p><input type="submit"
+                                              name="sign-out-everywhere"
+                                              class="button-standard"
+                                              value="<?php echo I18N::resolveHTML(
+                                                  "user_setting.sign_out_everywhere.button"
+                                              ); ?>"></p>
+                                </div>
+                            </div>
                             <h2 class="content-subhead">
                                 <?php echo I18N::resolveHTML("user_settings.section.map_providers") ?>
                             </h2>

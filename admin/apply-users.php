@@ -75,14 +75,20 @@ foreach ($_POST as $user => $data) {
         continue;
     }
 
-    /*
-        If user approval is requested, add them to the approval queue. Do not
-        process further changes as changes can only be made to users who are
-        already approved.
-    */
     if ($data["action"] === "approve") {
+        /*
+            If user approval is requested, add them to the approval queue. Do
+            not process further changes as changes can only be made to users who
+            are already approved.
+        */
         $updates[$user]["approved"] = true;
         continue;
+    } elseif ($data["action"] === "invalidate") {
+        /*
+            Reset the session token for the user. This will sign the user out of
+            all of their devices.
+        */
+        $updates[$user]["token"] = Auth::generateUserToken();
     }
 
     if (!$users_assoc[$user]->isApproved()) continue;

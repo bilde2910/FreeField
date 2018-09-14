@@ -184,6 +184,9 @@
                                         <option value="delete">
                                             <?php echo I18N::resolveHTML("admin.section.users.user_list.action.delete"); ?>
                                         </option>
+                                        <option value="invalidate">
+                                            <?php echo I18N::resolveHTML("admin.section.users.user_list.action.invalidate"); ?>
+                                        </option>
                                     </select>
                                 </td>
                             </td>
@@ -213,6 +216,10 @@
                     var color = <?php echo Config::get("themes/color/admin")->valueJS(); ?> == "dark" ? "lime" : "green";
                     $(this).css("border", "1px solid " + color);
                     $(this).css("color", color);
+                    $(this).css("margin-right", "");
+                } else if ($(this).val() == "invalidate") {
+                    $(this).css("border", "1px solid darkorange");
+                    $(this).css("color", "darkorange");
                     $(this).css("margin-right", "");
                 } else {
                     $(this).css("border", "");
