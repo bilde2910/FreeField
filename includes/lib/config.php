@@ -729,6 +729,8 @@ class ConfigEntry {
     private $domain = null;
     // The section on the above page that this section appears underneath.
     private $section = null;
+    // The indentation level of the setting on the administration pages.
+    private $indentation = 0;
     // Permissions required to view and modify the setting.
     private $permissions = array();
     // The default value of the setting.
@@ -747,6 +749,8 @@ class ConfigEntry {
             $this->domain           = $definition["domain"];
         if (isset($definition["section"]))
             $this->section          = $definition["section"];
+        if (isset($definition["indentation"]))
+            $this->indentation      = $definition["indentation"];
         if (isset($definition["permissions"]))
             $this->permissions      = $definition["permissions"];
         if (isset($definition["default"]))
@@ -759,12 +763,14 @@ class ConfigEntry {
             $this->valueIfDisabled  = $definition["value-if-disabled"];
 
         /*
-            Ensure that the "admin/<domain>/general" permission is added by
-            default to the required permission for the setting. This is a basic,
-            minimal permission used to restrict access to various pages of the
+            Ensure that the "admin/<domain>/general" and
+            "admin/<domain>/section/<section>" permissions are added by default
+            to the required permission for the setting. This is a basic, minimal
+            permission used to restrict access to various pages of the
             administration interface.
         */
         $this->permissions[] = "admin/".$this->domain."/general";
+        $this->permissions[] = "admin/".$this->domain."/section/".$this->section;
     }
 
     /*
@@ -781,6 +787,14 @@ class ConfigEntry {
     */
     public function getSection() {
         return $this->section;
+    }
+
+    /*
+        Returns the indentation level of this setting on the administration
+        pages, relative to the other the settings on the page.
+    */
+    public function getIndentationLevel() {
+        return $this->indentation;
     }
 
     /*

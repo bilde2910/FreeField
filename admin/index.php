@@ -247,6 +247,15 @@ if (!$domains[$domain]["custom-handler"]) {
                               enctype="multipart/form-data">
                             <?php foreach ($sections as $section) { ?>
                                 <?php
+                                    /*
+                                        Ensure that the user has permission to
+                                        view and change settings in this
+                                        section.
+                                    */
+                                    if (!Auth::getCurrentUser()->hasPermission(
+                                        "admin/{$domain}/section/{$section}"
+                                    )) continue;
+
                                     $settings = Config::listKeysForSection($domain, $section);
                                 ?>
                                 <h2 class="content-subhead">
@@ -294,8 +303,15 @@ if (!$domains[$domain]["custom-handler"]) {
 
                                         // Current value of the setting
                                         $value = $entry->value();
+
+                                        // Indentation of the setting
+                                        $indent = "";
+                                        $indentLevel = $entry->getIndentationLevel();
+                                        if ($indentLevel > 0) {
+                                            $indent = ' style="padding-left: '.($indentLevel * 5).'%;"';
+                                        }
                                     ?>
-                                    <div class="pure-g">
+                                    <div class="pure-g"<?php echo $indent; ?>>
                                         <div class="pure-u-1-3 full-on-mobile">
                                             <p class="setting-name">
                                                 <?php echo I18N::resolveHTML($si18n->getName()); ?><span class="only-desktop">:

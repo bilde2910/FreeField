@@ -30,9 +30,10 @@
     "permissions" (optional)
         An array of permissions required to change this setting. If any of the
         permissions listed here are not granted for a user, that user will not
-        be able to change the setting. Note that "admin/<domain>/general" is
-        automatically added to this array as a minimum requirement regardless of
-        whether or not this key is defined or lists any additional permissions.
+        be able to change the setting. Note that "admin/<domain>/general" and
+        "admin/<domain>/section/<section>" are automatically added to this array
+        as a minimum requirement regardless of whether or not this key is
+        defined or lists any additional permissions.
 
     "enable-only-if" (optional)
         A boolean assertion that, if it evaluates to false, will disable the
@@ -289,18 +290,19 @@ class ConfigDefinitions {
                 "default" => PermissionOption::LEVEL_REGISTERED,
                 "option" => new PermissionOption()
             ),
-            /*
-                Allows users to report field research on all POIs, even if
-                another user has previously submitted a research objective on
-                the same day. Also requires the "Report field research"
-                permission.
-            */
-            "permissions/level/overwrite-research" => array(
-                "domain" => "perms",
-                "section" => "map-access",
-                "default" => PermissionOption::LEVEL_REGISTERED,
-                "option" => new PermissionOption()
-            ),
+                /*
+                    Allows users to report field research on all POIs, even if
+                    another user has previously submitted a research objective
+                    on the same day. Also requires the "Report field research"
+                    permission.
+                */
+                "permissions/level/overwrite-research" => array(
+                    "domain" => "perms",
+                    "section" => "map-access",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_REGISTERED,
+                    "option" => new PermissionOption()
+                ),
             /*
                 Allows users to submit new POIs to the map.
             */
@@ -325,6 +327,38 @@ class ConfigDefinitions {
                 "default" => PermissionOption::LEVEL_HOST,
                 "option" => new PermissionOption()
             ),
+                /*
+                    Allows users to change the access parameters, such as the
+                    URL, of the site.
+                */
+                "permissions/level/admin/main/section/access" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change the crawling settings for web
+                    spiders.
+                */
+                "permissions/level/admin/main/section/spiders" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change the database settings.
+                */
+                "permissions/level/admin/main/section/database" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
             /*
                 Allows users to approve, reject, manage, and delete other users'
                 accounts.
@@ -335,6 +369,36 @@ class ConfigDefinitions {
                 "default" => PermissionOption::LEVEL_MODERATOR,
                 "option" => new PermissionOption()
             ),
+                /*
+                    Allows users to manage users' memberships in groups. Also
+                    requires the "Manage users" permission.
+                */
+                "permissions/level/admin/users/groups" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_MODERATOR,
+                    "option" => new PermissionOption()
+                ),
+                    /*
+                        Allows users to assign and remove other users from, and
+                        manage the permissions of their own group. By default,
+                        users with group membership permissions can only assign
+                        users to and manage groups below themselves. This
+                        permission is a dangerous permission to grant! Users
+                        with this permission can appoint and delete other users
+                        of the same rank as themselves. It is highly recommended
+                        to leave this at the default unless there is an
+                        extremely good reason to change it. Also requires the
+                        "Manage group membership" permission.
+                    */
+                    "permissions/level/admin/groups/self-manage" => array(
+                        "domain" => "perms",
+                        "section" => "admin",
+                        "indentation" => 2,
+                        "default" => PermissionOption::LEVEL_HOST,
+                        "option" => new PermissionOption()
+                    ),
             /*
                 Allows users to add, remove, and manage user groups.
             */
@@ -342,33 +406,6 @@ class ConfigDefinitions {
                 "domain" => "perms",
                 "section" => "admin",
                 "default" => PermissionOption::LEVEL_ADMIN,
-                "option" => new PermissionOption()
-            ),
-            /*
-                Allows users to manage users' memberships in groups. Also
-                requires the "Manage users" permission.
-            */
-            "permissions/level/admin/users/groups" => array(
-                "domain" => "perms",
-                "section" => "admin",
-                "default" => PermissionOption::LEVEL_MODERATOR,
-                "option" => new PermissionOption()
-            ),
-            /*
-                Allows users to assign and remove other users from, and manage
-                the permissions of their own group. By default, users with group
-                membership permissions can only assign users to and manage
-                groups below themselves. This permission is a dangerous
-                permission to grant! Users with this permission can appoint and
-                delete other users of the same rank as themselves. It is highly
-                recommended to leave this at the default unless there is an
-                extremely good reason to change it. Also requires the "Manage
-                group membership" permission.
-            */
-            "permissions/level/admin/groups/self-manage" => array(
-                "domain" => "perms",
-                "section" => "admin",
-                "default" => PermissionOption::LEVEL_HOST,
                 "option" => new PermissionOption()
             ),
             /*
@@ -389,6 +426,50 @@ class ConfigDefinitions {
                 "default" => PermissionOption::LEVEL_ADMIN,
                 "option" => new PermissionOption()
             ),
+                /*
+                    Allows users to change the default user group for newly
+                    registered members.
+                */
+                "permissions/level/admin/perms/section/default" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to manage permissions relating to account self-
+                    management, such as granting users the right to change their
+                    own nicknames, on this page.
+                */
+                "permissions/level/admin/perms/section/self-manage" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to manage map access restrictions.
+                */
+                "permissions/level/admin/perms/section/map-access" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to manage administrative permissions (such as
+                    this one).
+                */
+                "permissions/level/admin/perms/section/admin" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
             /*
                 Allows users to change the security settings for the site.
             */
@@ -398,6 +479,27 @@ class ConfigDefinitions {
                 "default" => PermissionOption::LEVEL_ADMIN,
                 "option" => new PermissionOption()
             ),
+                /*
+                    Allows users to change settings related to user account
+                    creation.
+                */
+                "permissions/level/admin/security/section/user-creation" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change session security settings.
+                */
+                "permissions/level/admin/security/section/sessions" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
             /*
                 Allows users to add, set up, enable, and disable various
                 authentication providers for user sign-in.
@@ -408,6 +510,26 @@ class ConfigDefinitions {
                 "default" => PermissionOption::LEVEL_HOST,
                 "option" => new PermissionOption()
             ),
+                /*
+                    Allows users to change authentication settings for Discord.
+                */
+                "permissions/level/admin/auth/section/discord" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change authentication settings for Telegram.
+                */
+                "permissions/level/admin/auth/section/telegram" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
             /*
                 Allows users to manage default site-wide themes.
             */
@@ -417,6 +539,40 @@ class ConfigDefinitions {
                 "default" => PermissionOption::LEVEL_ADMIN,
                 "option" => new PermissionOption()
             ),
+                /*
+                    Allows users to change page metadata theming, such as the
+                    favicon and the theme color for mobile browsers.
+                */
+                "permissions/level/admin/themes/section/meta" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change the default map and page color themes
+                    and whether or not users are allowed to override those
+                    defaults.
+                */
+                "permissions/level/admin/themes/section/color" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change the default map marker set and
+                    whether or not users are allowed to override that default.
+                */
+                "permissions/level/admin/themes/section/icons" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
             /*
                 Allows users to manage map providers and default settings for
                 the map.
@@ -427,6 +583,51 @@ class ConfigDefinitions {
                 "default" => PermissionOption::LEVEL_HOST,
                 "option" => new PermissionOption()
             ),
+                /*
+                    Allows users to change and configure which map provider this
+                    FreeField instance uses.
+                */
+                "permissions/level/admin/map/section/provider" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change map defaults, such as default
+                    coordinates and zoom level for first-time visitors.
+                */
+                "permissions/level/admin/map/section/default" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change the interval at which each FreeField
+                    client requests an updated list of research tasks for all
+                    Pokéstops.
+                */
+                "permissions/level/admin/map/section/updates" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change the geofence and associated behavior
+                    for submission and display of Pokéstops.
+                */
+                "permissions/level/admin/map/section/geofence" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
             /*
                 Allows users to manage geofences.
             */
