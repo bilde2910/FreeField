@@ -153,34 +153,34 @@ class Database {
             not work properly. Therefore, we have to convert the connection to
             a URI.
         */
+        switch (Config::get("database/type")->value()) {
+            case "sqlite":
+            case "sqlite3":
+                $type = Config::get("database/type")->valueURL();
+                $database = Config::get("database/database")->valueURL();
 
-        if (
-            Config::get("database/type")->value() == "sqlite" ||
-            Config::get("database/type")->value() == "sqlite3"
-        ) {
-            $type = Config::get("database/type")->valueURL();
-            $database = Config::get("database/database")->valueURL();
+                $uri = "{$type}://{$database}";
+                $db->setDb($uri);
+                break;
 
-            $uri = "{$type}://{$database}";
-            $db->setDb($uri);
-        } else {
-            $type = Config::get("database/type")->valueURL();
-            $host = Config::get("database/host")->valueURL();
-            $database = Config::get("database/database")->valueURL();
-            $user = Config::get("database/username")->valueURL();
-            $pass = Config::get("database/password")->valueURL();
+            default:
+                $type = Config::get("database/type")->valueURL();
+                $host = Config::get("database/host")->valueURL();
+                $database = Config::get("database/database")->valueURL();
+                $user = Config::get("database/username")->valueURL();
+                $pass = Config::get("database/password")->valueURL();
 
-            if (Config::get("database/port")->value() > 0) {
-                $port = Config::get("database/port")->valueURL();
-                // The format of the connection URI is as follows:
-                $uri = "{$type}://{$user}:{$pass}@{$host}:{$port}/{$database}";
-            } else {
-                $uri = "{$type}://{$user}:{$pass}@{$host}/{$database}";
-            }
+                if (Config::get("database/port")->value() > 0) {
+                    $port = Config::get("database/port")->valueURL();
+                    // The format of the connection URI is as follows:
+                    $uri = "{$type}://{$user}:{$pass}@{$host}:{$port}/{$database}";
+                } else {
+                    $uri = "{$type}://{$user}:{$pass}@{$host}/{$database}";
+                }
 
-            error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
-
-            $db->setDb($uri);
+                error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+                $db->setDb($uri);
+                break;
         }
 
         return $db;
