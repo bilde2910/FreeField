@@ -813,7 +813,7 @@ class ConfigDefinitions {
             */
             "map/default/center/latitude" => array(
                 "domain" => "map",
-                "section" => "defaults",
+                "section" => "default",
                 "default" => 0.0,
                 "option" => new FloatOption(-90.0, 90.0)
             ),
@@ -823,7 +823,7 @@ class ConfigDefinitions {
             */
             "map/default/center/longitude" => array(
                 "domain" => "map",
-                "section" => "defaults",
+                "section" => "default",
                 "default" => 0.0,
                 "option" => new FloatOption(-180.0, 180.0)
             ),
@@ -832,7 +832,7 @@ class ConfigDefinitions {
             */
             "map/default/zoom" => array(
                 "domain" => "map",
-                "section" => "defaults",
+                "section" => "default",
                 "default" => 14.0,
                 "option" => new FloatOption(0.0, 20.0)
             ),
