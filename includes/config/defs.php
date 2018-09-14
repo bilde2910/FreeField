@@ -858,9 +858,10 @@ class ConfigDefinitions {
                 "domain" => "themes",
                 "section" => "meta",
                 "default" => array(
-                    "type" => "image/png",
-                    "name" => "default-favicon.png",
-                    "size" => 3200,
+                    "type"   => "image/png",
+                    "name"   => "default-favicon.png",
+                    "size"   => 3200,
+                    "sha256" => "b380a36938dcf1199a2b43ce761f5aa5f15ce645f88895ced88a05857e8547ca"
                 ),
                 "option" => new FileOption(
                     "themes/meta/favicon",

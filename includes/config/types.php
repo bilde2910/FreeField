@@ -942,13 +942,14 @@ class FileOption extends DefaultOption {
             */
             "name" => $fdata["name"],
             /*
-                File size and last modification time can be fetched using
-                `filesize()` and `filemtime()`, but we'll store those in the
-                configuration file as well to reduce the number of filesystem
-                calls when the file is fetched.
+                File size, last modification time and SHA-256 checksum can be
+                fetched using `filesize()`, `filemtime()` and `hash_file()`, but
+                we'll store those in the configuration file as well to reduce
+                the number of filesystem calls when the file is fetched.
             */
             "size" => $fdata["size"],
-            "time" => time()
+            "time" => time(),
+            "sha256" => hash_file("sha256", $fdata["tmp_name"])
         );
         return $this->applyTo($file);
     }
@@ -957,12 +958,13 @@ class FileOption extends DefaultOption {
         if ($data === null) return false;
         if (!($data instanceof FileOptionValue)) return false;
         /*
-            Require presence of MIME type and filesize for input validation, and
-            the filename for later retrieval upon download.
+            Require presence of MIME type and filesize for input validation,
+            SHA-256 checksum and filename for later retrieval upon download.
         */
         if ($data->getMimeType() === null) return false;
         if ($data->getUploadName() === null) return false;
         if ($data->getLength() === null) return false;
+        if ($data->getHexEncodedSHA256() === null) return false;
         /*
             Ensure that the file is of an accepted type, and that it is within
             the maximum allowed file size.
@@ -1038,10 +1040,11 @@ class FileOption extends DefaultOption {
     */
     public function encodeSavedValue($value) {
         return array(
-            "type" => $value->getMimeType(),
-            "name" => $value->getUploadName(),
-            "size" => $value->getLength(),
-            "time" => $value->getUploadTime()
+            "type"   => $value->getMimeType(),
+            "name"   => $value->getUploadName(),
+            "size"   => $value->getLength(),
+            "time"   => $value->getUploadTime(),
+            "sha256" => $value->getHexEncodedSHA256()
         );
     }
     public function decodeSavedValue($value) {
@@ -1148,6 +1151,25 @@ class FileOptionValue {
     }
 
     /*
+
+    */
+    public function getHexEncodedSHA256() {
+        if (isset($this->value["sha256"])) {
+            return $this->value["sha256"];
+        } else {
+            return hash_file("sha256", $this->getPath());
+        }
+    }
+
+    /*
+
+    */
+    public function getBase64EncodedSHA256() {
+        $sha256hex = $this->getHexEncodedSHA256();
+        return base64_encode(hex2bin($sha256hex));
+    }
+
+    /*
         Sets the correct HTTP headers for the file and reads the file.
     */
     public function outputWithCaching() {
@@ -1168,6 +1190,7 @@ class FileOptionValue {
         */
         header("Content-Type: ".$this->getMimeType());
         header("Content-Length: ".$this->getLength());
+        header("Digest: SHA-256=".$this->getBase64EncodedSHA256()); // RFC 5843
         header("Content-Disposition: inline; filename=\"".$this->getUploadName()."\"");
         header("Last-Modified: ".date("r", $lastMod));
 
