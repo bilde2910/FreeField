@@ -1150,7 +1150,7 @@ class FileOptionValue {
     }
 
     /*
-
+        Retrieves a SHA-256 hash of the file as a hexadecimal string.
     */
     public function getHexEncodedSHA256() {
         if (isset($this->value["sha256"])) {
@@ -1161,7 +1161,7 @@ class FileOptionValue {
     }
 
     /*
-
+        Retrieves a SHA-256 hash of the file as a base64-encoded string.
     */
     public function getBase64EncodedSHA256() {
         $sha256hex = $this->getHexEncodedSHA256();
