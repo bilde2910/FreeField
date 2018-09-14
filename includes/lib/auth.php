@@ -143,7 +143,7 @@ class Auth {
                 will immediately be considered invalid due to the token
                 mismatch.
             */
-            $token = substr(base64_encode(openssl_random_pseudo_bytes(32)), 0, 32);
+            $token = self::generateUserToken();
 
             $data = array(
                 "id" => $id,
@@ -233,6 +233,20 @@ class Auth {
 
         self::setSession($session, $expire);
         return $approved;
+    }
+
+    /*
+        Each user on FreeField has a token generated and stored in the database
+        that is used for session validation. The token is stored in the session
+        cookies for the user whenever they authenticate. If there is a mismatch
+        between the token stored in the cookie and the one stored in the
+        database, the session is considered invalid. This allows invalidating
+        all of a user's sessions, logging out the user from all devices, simply
+        by changing the token in the database. The user would have to
+        reauthentiate to get a session with a valid token.
+    */
+    public static function generateUserToken() {
+        return substr(base64_encode(openssl_random_pseudo_bytes(32)), 0, 32);
     }
 
     /*
@@ -347,7 +361,7 @@ class Auth {
                             token stored in the database to sign out the user
                             globally.
                         */
-                        $token = substr(base64_encode(openssl_random_pseudo_bytes(32)), 0, 32);
+                        $token = self::generateUserToken();
                         $data = array(
                             "token" => $token
                         );
