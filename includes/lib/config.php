@@ -801,7 +801,7 @@ class ConfigEntry {
         Returns the default value of this setting.
     */
     public function getDefault() {
-        return $this->default;
+        return $this->option->decodeSavedValue($this->default);
     }
 
     /*
