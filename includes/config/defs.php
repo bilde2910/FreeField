@@ -324,7 +324,7 @@ class ConfigDefinitions {
             "permissions/level/admin/main/general" => array(
                 "domain" => "perms",
                 "section" => "admin",
-                "default" => PermissionOption::LEVEL_HOST,
+                "default" => PermissionOption::LEVEL_ADMIN,
                 "option" => new PermissionOption()
             ),
                 /*
@@ -346,7 +346,7 @@ class ConfigDefinitions {
                     "domain" => "perms",
                     "section" => "admin",
                     "indentation" => 1,
-                    "default" => PermissionOption::LEVEL_HOST,
+                    "default" => PermissionOption::LEVEL_ADMIN,
                     "option" => new PermissionOption()
                 ),
                 /*
@@ -580,7 +580,7 @@ class ConfigDefinitions {
             "permissions/level/admin/map/general" => array(
                 "domain" => "perms",
                 "section" => "admin",
-                "default" => PermissionOption::LEVEL_HOST,
+                "default" => PermissionOption::LEVEL_ADMIN,
                 "option" => new PermissionOption()
             ),
                 /*
@@ -602,7 +602,7 @@ class ConfigDefinitions {
                     "domain" => "perms",
                     "section" => "admin",
                     "indentation" => 1,
-                    "default" => PermissionOption::LEVEL_HOST,
+                    "default" => PermissionOption::LEVEL_ADMIN,
                     "option" => new PermissionOption()
                 ),
                 /*
@@ -625,7 +625,7 @@ class ConfigDefinitions {
                     "domain" => "perms",
                     "section" => "admin",
                     "indentation" => 1,
-                    "default" => PermissionOption::LEVEL_HOST,
+                    "default" => PermissionOption::LEVEL_ADMIN,
                     "option" => new PermissionOption()
                 ),
             /*
