@@ -860,7 +860,7 @@ class ConfigDefinitions {
                 "default" => array(
                     "type" => "image/png",
                     "name" => "default-favicon.png",
-                    "size" => 10042
+                    "size" => 3200,
                 ),
                 "option" => new FileOption(
                     "themes/meta/favicon",
