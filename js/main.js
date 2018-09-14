@@ -442,6 +442,18 @@ function refreshMarkers() {
                 }
             }
         });
+    }).fail(function(xhr) {
+        /*
+            If the request failed, then the user should be informed of the
+            reason with a red banner.
+        */
+        var data = xhr.responseJSON;
+        var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+        if (data !== undefined && data.hasOwnProperty("reason")) {
+            reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+        }
+        spawnBanner("failed", resolveI18N("poi.list.failed.message", reason));
     });
 }
 
@@ -453,6 +465,19 @@ $(document).ready(function() {
     */
     $.getJSON("./api/poi.php", function(data) {
         addMarkers(data["pois"]);
+    }).fail(function(xhr) {
+        /*
+            If the request failed, then the user should be informed of the
+            reason with a red banner.
+        */
+        var data = xhr.responseJSON;
+        var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+        if (data !== undefined && data.hasOwnProperty("reason")) {
+            reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+        }
+        spawnBanner("failed", resolveI18N("poi.list.failed.message", reason));
+    }).always(function() {
         /*
             Automatically refresh the marker list with updated to information
             from the server to stay in sync with other users' reports.
