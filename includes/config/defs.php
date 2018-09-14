@@ -115,7 +115,7 @@ class ConfigDefinitions {
             */
             "site/name" => array(
                 "domain" => "main",
-                "section" => "access",
+                "section" => "instance",
                 "default" => "FreeField",
                 "option" => new StringOption()
             ),
@@ -124,7 +124,7 @@ class ConfigDefinitions {
             */
             "site/menu-header" => array(
                 "domain" => "main",
-                "section" => "access",
+                "section" => "instance",
                 "default" => "FREEFIELD",
                 "option" => new StringOption()
             ),
@@ -336,6 +336,17 @@ class ConfigDefinitions {
                     "section" => "admin",
                     "indentation" => 1,
                     "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change this FreeField instance's core
+                    appearance options, such as the name of the site.
+                */
+                "permissions/level/admin/main/section/instance" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
                     "option" => new PermissionOption()
                 ),
                 /*
