@@ -23,12 +23,10 @@ function __require($require) {
             break;
 
         /*
-            The /includes/userdata/authkeys.php file contains randomly generated
-            keys used to encrypt various data, such as session data stored in
-            browser cookies. This file is generated upon first installation.
+            Handles data encryption and decryption.
         */
-        case "authkeys":
-            require_once(__DIR__."/../userdata/authkeys.php");
+        case "encryption":
+            require_once(__DIR__."/encryption.php");
             break;
 
         /*

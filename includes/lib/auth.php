@@ -6,7 +6,7 @@
 
 __require("config");
 __require("db");
-__require("authkeys");
+__require("encryption");
 
 class Auth {
     /*
@@ -98,32 +98,6 @@ class Auth {
     }
 
     /*
-        Decrypts an array using the specified encryption key.
-    */
-    public static function decryptArray($data, $key) {
-        $c = base64_decode($data, true);
-        if ($c === false) return null;
-
-        $ivlen = openssl_cipher_iv_length("AES-256-CBC");
-        if (strlen($c) < $ivlen + 32 + 1) return null;
-
-        $iv = substr($c, 0, $ivlen);
-        $hmac = substr($c, $ivlen, 32);
-        $ciph = substr($c, $ivlen + 32);
-
-        $data = openssl_decrypt(
-            $ciph,
-            "AES-256-CBC",
-            $key,
-            OPENSSL_RAW_DATA,
-            $iv
-        );
-        if ($data === false) return null;
-
-        return json_decode($data, true);
-    }
-
-    /*
         Fetches and decrypts the raw, unauthenticated session array from cookie
         data supplied by the browser. This will be further processed in other
         functions.
@@ -132,7 +106,7 @@ class Auth {
         if (!isset($_COOKIE["session"])) return null;
         $session = $_COOKIE["session"];
 
-        return self::decryptArray($session, AuthKeys::getSessionKey());
+        return Encryption::decryptArray($session, "session");
     }
 
     /*
@@ -262,27 +236,11 @@ class Auth {
     }
 
     /*
-        Encrypts an array using the specified encryption key.
-    */
-    public static function encryptArray($data, $key) {
-        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length("AES-256-CBC"));
-        $ciph = openssl_encrypt(
-            json_encode($data),
-            "AES-256-CBC",
-            $key,
-            OPENSSL_RAW_DATA,
-            $iv
-        );
-        $hmac = hash_hmac("SHA256", $ciph, AuthKeys::getSessionKey(), true);
-        return base64_encode($iv.$hmac.$ciph);
-    }
-
-    /*
         This function is the opposite of `getCookie()`. It takes a session data
         array, encrypts it, and puts it in a cookie on the client's browser.
     */
     private static function setSession($data, $expire) {
-        $session = self::encryptArray($data, AuthKeys::getSessionKey());
+        $session = Encryption::encryptArray($data, "session");
         setcookie("session", $session, time() + $expire, "/");
     }
 
@@ -433,7 +391,7 @@ class Auth {
         Decrypts a user ID encrypted using `User::getEncryptedUserID()`.
     */
     public static function getDecryptedUserID($data) {
-        $array = self::decryptArray($data, AuthKeys::getIdOnlyKey());
+        $array = Encryption::decryptArray($data, "id-only");
         if ($array === null || $array === false) return null;
         return $array["id"];
     }
@@ -741,7 +699,7 @@ class User {
         $data = array(
             "id" => $this->data["id"]
         );
-        return Auth::encryptArray($data, AuthKeys::getIdOnlyKey());
+        return Encryption::encryptArray($data, "id-only");
     }
 
     /*

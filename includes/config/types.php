@@ -259,17 +259,13 @@ class PasswordOption extends DefaultOption {
         extract sensitive data.
     */
     public function encodeSavedValue($data) {
-        __require("auth");
-        __require("authkeys");
-        $key = AuthKeys::getConfigurationKey();
-        return Auth::encryptArray(array("password" => $data), $key);
+        __require("encryption");
+        return Encryption::encryptArray(array("password" => $data), "config");
     }
     public function decodeSavedValue($data) {
-        __require("auth");
-        __require("authkeys");
-        $key = AuthKeys::getConfigurationKey();
-        $decr = Auth::decryptArray($data, $key);
-        if ($decr !== null && isset($decr["password"])) return $decr["password"];
+        __require("encryption");
+        $decr = Encryption::decryptArray($data, "config", "password");
+        if ($decr !== null) return $decr;
         return $data;
     }
 
