@@ -52,7 +52,7 @@ if (!($opt instanceof FileOption)) {
     From here on, we know that the setting exists, represents a file, and that
     the user has access to view it. Output the file to the browser.
 */
-$opt->applyToCurrent()->outputWithCaching();
+$entry->value()->outputWithCaching();
 exit;
 
 ?>

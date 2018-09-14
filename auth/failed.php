@@ -64,8 +64,7 @@ if ($provider !== null && !in_array($provider, $providers)) {
                     Force refresh the favicon by appending the last changed time
                     of the file to the path. https://stackoverflow.com/a/7116701
                 */
-                echo Config::get("themes/meta/favicon")
-                     ->getOption()->applyToCurrent()->getUploadTime();
+                echo Config::get("themes/meta/favicon")->value()->getUploadTime();
               ?>">
         <link rel="stylesheet"
               href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"

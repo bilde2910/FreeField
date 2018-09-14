@@ -7,10 +7,7 @@
 require_once("../includes/lib/global.php");
 __require("config");
 
-Config::get("themes/meta/favicon")
-    ->getOption();
-    ->applyToCurrent()
-    ->outputWithCaching();
+Config::get("themes/meta/favicon")->value()->outputWithCaching();
 
 exit;
 

@@ -863,7 +863,7 @@ class FileOption extends DefaultOption {
             Convert the file size in bytes to a human-readable string (e.g. if
             `$size = 262144`, the displayed size should be "256 KiB").
         */
-        $size = $current["size"];
+        $size = $current->getLength();
         $prefixes = array("byte", "kilo", "mega", "giga");
         $prefixIdx = 0;
         /*
@@ -893,7 +893,7 @@ class FileOption extends DefaultOption {
                     false,
                     '<a href="'.$previewUrl.'" target="_blank">',
                     '</a>',
-                    htmlspecialchars($current["name"], ENT_QUOTES),
+                    htmlspecialchars($current->getUploadName(), ENT_QUOTES),
                     number_format($size, 2),
                     I18N::resolveHTML(
                         "admin.option.file.size_unit.".$prefixes[$prefixIdx]
@@ -933,25 +933,25 @@ class FileOption extends DefaultOption {
             "size" => $fdata["size"],
             "time" => time()
         );
-        return $file;
+        return $this->applyTo($file);
     }
 
     public function isValid($data) {
         if ($data === null) return false;
-        if (!is_array($data)) return false;
+        if (!($data instanceof FileOptionValue)) return false;
         /*
             Require presence of MIME type and filesize for input validation, and
             the filename for later retrieval upon download.
         */
-        if (!isset($data["type"])) return false;
-        if (!isset($data["name"])) return false;
-        if (!isset($data["size"])) return false;
+        if ($data->getMimeType() === null) return false;
+        if ($data->getUploadName() === null) return false;
+        if ($data->getLength() === null) return false;
         /*
             Ensure that the file is of an accepted type, and that it is within
             the maximum allowed file size.
         */
-        if (!isset($this->accept[$data["type"]])) return false;
-        if ($this->maxLength >= 0 && $data["size"] > $this->maxLength) return false;
+        if (!isset($this->accept[$data->getMimeType()])) return false;
+        if ($this->maxLength >= 0 && $data->getLength() > $this->maxLength) return false;
 
         return true;
     }
@@ -968,9 +968,8 @@ class FileOption extends DefaultOption {
             Get a file helper object for the parsed value to simplify getting
             the filename and uploaded file path for saving the uploaded file.
         */
-        $appliedValue = $this->applyTo($parsedValue);
-        $basename = $appliedValue->getFilename();
-        $targetFile = $appliedValue->getPath();
+        $basename = $parsedValue->getFilename();
+        $targetFile = $parsedValue->getPath();
 
         /*
             Attempt to save the uploaded file to the target file location.
@@ -1014,11 +1013,22 @@ class FileOption extends DefaultOption {
     }
 
     /*
-        Gets a file helper instance that represents the current file as stored
-        in the configuration file.
+        `FileOption` should return a `FileOptionValue` when
+        `Config::get()->value()` is called for a setting which uses this option
+        type. On disk, the file data is stored as an array with the MIME type,
+        uploaded filename, file size and last modification time of the stored
+        file.
     */
-    public function applyToCurrent() {
-        return $this->applyTo(Config::get($this->path)->value());
+    public function encodeSavedValue($value) {
+        return array(
+            "type" => $value->getMimeType(),
+            "name" => $value->getUploadName(),
+            "size" => $value->getLength(),
+            "time" => $value->getUploadTime()
+        );
+    }
+    public function decodeSavedValue($value) {
+        return $this->applyTo($value);
     }
 
     /*
@@ -1081,6 +1091,7 @@ class FileOptionValue {
         to upload the file.
     */
     public function getUploadName() {
+        if (!isset($this->value["name"])) return null;
         return $this->value["name"];
     }
 
@@ -1096,6 +1107,7 @@ class FileOptionValue {
         Retrieves the MIME type of the file.
     */
     public function getMimeType() {
+        if (!isset($this->value["type"])) return null;
         return $this->value["type"];
     }
 
@@ -1103,6 +1115,7 @@ class FileOptionValue {
         Retrieves the size of the file.
     */
     public function getLength() {
+        if (!isset($this->value["size"])) return null;
         return $this->value["size"];
     }
 

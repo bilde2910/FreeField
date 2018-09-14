@@ -40,8 +40,7 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
                                 changed time of the file to the path.
                                 https://stackoverflow.com/a/7116701
                             */
-                            echo Config::get("themes/meta/favicon")
-                                 ->getOption()->applyToCurrent()->getUploadTime();
+                            echo Config::get("themes/meta/favicon")->value()->getUploadTime();
                           ?>">
                     <link rel="stylesheet"
                           href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
@@ -135,8 +134,7 @@ $provider = Config::get("map/provider/source")->value();
                     Force refresh the favicon by appending the last changed time
                     of the file to the path. https://stackoverflow.com/a/7116701
                 */
-                echo Config::get("themes/meta/favicon")
-                     ->getOption()->applyToCurrent()->getUploadTime();
+                echo Config::get("themes/meta/favicon")->value()->getUploadTime();
               ?>">
         <link rel="stylesheet"
               href="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css">
