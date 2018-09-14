@@ -110,6 +110,11 @@ class ConfigDefinitions {
                 "option" => new StringOption('^https?\:\/\/')
             ),
             /*
+                ------------------------------------------------------------
+                    INSTANCE OPTIONS
+                ------------------------------------------------------------
+            */
+            /*
                 The name of the FreeField instance (e.g. '[City Name]
                 FreeField')
             */
@@ -741,7 +746,11 @@ class ConfigDefinitions {
                 "domain" => "security",
                 "section" => "sessions",
                 "default" => "lenient",
-                "option" => new SelectOption(array("no", "lenient", "strict"))
+                "option" => new SelectOption(array(
+                    "no",
+                    "lenient",
+                    "strict"
+                ))
             ),
             /*
                 Requires each login session to maintain the same set of browser
