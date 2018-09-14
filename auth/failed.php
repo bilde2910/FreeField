@@ -43,6 +43,12 @@ if ($provider !== null && !in_array($provider, $providers)) {
 }
 
 ?>
+<?php
+/*
+    Execute X-Frame-Options same-origin policy.
+*/
+Security::declareFrameOptionsHeader();
+?>
 <!DOCTYPE html>
 <html>
     <head>

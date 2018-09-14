@@ -511,6 +511,16 @@ class ConfigDefinitions {
                     "default" => PermissionOption::LEVEL_ADMIN,
                     "option" => new PermissionOption()
                 ),
+                /*
+                    Allows users to change same-origin policy settings.
+                */
+                "permissions/level/admin/security/section/same-origin" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
             /*
                 Allows users to add, set up, enable, and disable various
                 authentication providers for user sign-in.
@@ -767,6 +777,28 @@ class ConfigDefinitions {
                 "section" => "sessions",
                 "default" => false,
                 "option" => new BooleanOption()
+            ),
+            /*
+                ------------------------------------------------------------
+                    SAME-ORIGIN POLICY
+                ------------------------------------------------------------
+            */
+            /*
+                This setting declares the framing policy of this FreeField
+                instance. Allowing framing means that other sites can insert
+                this site as part of their own using iframes or framesets. It is
+                recommended to leave this at the default \"deny\" setting unless
+                you have a good reason for enabling it.
+            */
+            "security/frame-options" => array(
+                "domain" => "security",
+                "section" => "same-origin",
+                "default" => "deny",
+                "option" => new SelectOption(array(
+                    "allow",
+                    "sameorigin",
+                    "deny"
+                ))
             ),
             /*
 ================================================================================

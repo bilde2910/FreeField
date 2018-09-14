@@ -32,6 +32,7 @@ if (!$user->exists() || $user->isApproved()) {
     which user it belongs to if the user shares their code in public.
 */
 __require("vendor/phpqrcode");
+header("X-Frame-Options: sameorigin");
 QRcode::png(Config::getEndpointUri("/admin/approve.php?euid=").urlencode($user->getEncryptedUserID()), false, QR_ECLEVEL_M, 4);
 
 ?>

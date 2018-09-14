@@ -35,6 +35,12 @@ $id = Auth::getDecryptedUserID($_GET["euid"]);
 */
 if ($id === Auth::getCurrentUser()->getUserID()) {
     ?>
+    <?php
+    /*
+        Execute X-Frame-Options same-origin policy.
+    */
+    Security::declareFrameOptionsHeader();
+    ?>
     <!DOCTYPE html>
     <html>
         <head>
@@ -112,6 +118,12 @@ $user = Auth::getUser($id);
 */
 if (!$user->exists() || $user->isApproved()) {
     ?>
+    <?php
+    /*
+        Execute X-Frame-Options same-origin policy.
+    */
+    Security::declareFrameOptionsHeader();
+    ?>
     <!DOCTYPE html>
     <html>
         <head>
@@ -174,6 +186,12 @@ if (!$user->exists() || $user->isApproved()) {
     required privileges to approve or reject the user. Display the prompt.
 */
 
+?>
+<?php
+/*
+    Execute X-Frame-Options same-origin policy.
+*/
+Security::declareFrameOptionsHeader();
 ?>
 <!DOCTYPE html>
 <html>

@@ -28,6 +28,12 @@ $approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
                urlencode(Auth::getCurrentUser()->getEncryptedUserID());
 
 ?>
+<?php
+/*
+    Execute X-Frame-Options same-origin policy.
+*/
+Security::declareFrameOptionsHeader();
+?>
 <!DOCTYPE html>
 <html>
     <head>

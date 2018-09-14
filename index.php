@@ -24,6 +24,12 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
         exit;
     } else {
         ?>
+            <?php
+            /*
+                Execute X-Frame-Options same-origin policy.
+            */
+            Security::declareFrameOptionsHeader();
+            ?>
             <!DOCTYPE html>
             <html>
                 <head>
@@ -99,6 +105,12 @@ $provider = Config::get("map/provider/source")->value();
 
 ?>
 
+<?php
+/*
+    Execute X-Frame-Options same-origin policy.
+*/
+Security::declareFrameOptionsHeader();
+?>
 <!DOCTYPE html>
 <html>
     <head>

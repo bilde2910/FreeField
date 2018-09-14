@@ -35,6 +35,12 @@ Security::requireCSRFToken();
 */
 if (!isset($_GET["hash"])) { ?>
 
+<?php
+/*
+    Execute X-Frame-Options same-origin policy.
+*/
+Security::declareFrameOptionsHeader();
+?>
 <!DOCTYPE html>
 <html>
     <head>

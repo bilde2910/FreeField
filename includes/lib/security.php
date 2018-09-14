@@ -141,6 +141,21 @@ class Security extends AuthKeys {
     }
 
     /*
+        Looks up the frame options policy of this site and outputs the
+        corresponding frame options header.
+    */
+    public static function declareFrameOptionsHeader() {
+        switch (Config::get("security/frame-options")->value()) {
+            case "deny":
+                header("X-Frame-Options: deny");
+                break;
+            case "sameorigin":
+                header("X-Frame-Options: sameorigin");
+                break;
+        }
+    }
+
+    /*
         Encrypts an array using the specified encryption key.
     */
     public static function encryptArray($data, $keyName) {
