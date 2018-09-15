@@ -1259,14 +1259,31 @@ Security::declareFrameOptionsHeader();
                 users' own values.
             */
             var settings = $.extend(true, {}, defaults);
+
             /*
-                The settings below are set to empty strings by default to ensure
-                that the "default" option is selected for them in the selection
-                boxes rather than the actual default values above. If an empty
-                string is defined for any setting, the fallback will be used
-                when the setting's value is called for, though the empty string
-                itself is returned when the value is queried so that the correct
-                value is chosen in the settings box.
+                All local user settings that have `<select>` inputs have a
+                "default" option to indicate that the value is inherited from
+                the server-side default setting determined by the
+                administrators. When a new user loads FreeField, their
+                `settings` object are populated with a clone of the `defaults`
+                object (see the line above).
+
+                This means that the settings that are `<select>` inputs are pre-
+                populated with the default values, rather than the "default"
+                option of the selection box. Since the default option for all
+                `<select>` options is an empty string (""), we can set the
+                values of those settings in the `settings` object to empty
+                strings before they are overwritten by any customized settings
+                from localStorage.
+
+                Below, we set the values of all settings that are set using
+                `<select>` boxes to empty strings by default to ensure that the
+                "default" option is selected for them in the selection boxes
+                rather than the actual default values above. If an empty string
+                is defined for any setting, the fallback will be used when the
+                setting's value is called for, though the empty string itself is
+                returned when the value is queried so that the correct value is
+                chosen in the settings box.
 
                 For example, if `theme` is set to "", and the server-side
                 default is "dark", the theme of the page will be dark, but the
@@ -1274,8 +1291,45 @@ Security::declareFrameOptionsHeader();
                 settings page will have the "default" setting selected rather
                 than "dark".
             */
-            settings.theme = "";
-            settings.mapStyle.mapbox = "";
+            $("select.user-setting").each(function() {
+                /*
+                    Find the setting key from the `data-key` attribute of the
+                    select box, then declare the value of the setting that key
+                    represents to be an empty string.
+                */
+                var s = $(this).attr("data-key").split("/");
+                var value = "";
+                /*
+                    Push the setting change to `settings`. The process and
+                    thinking behind these loops are described in detail in
+                    /includes/lib/config.php, which uses the same saving
+                    procedure for the server-side configuration file.
+                */
+                for (var i = s.length - 1; i >= 0; i--) {
+                    /*
+                        Loop over the segments and for every iteration, find the
+                        parent array directly above the current `s[i]`.
+                    */
+                    var parent = settings;
+                    for (var j = 0; j < i; j++) {
+                        parent = parent[s[j]];
+                    }
+                    /*
+                        Update the value of `s[i]` in the array. Store a copy of
+                        this array as the value to assign to the next parent
+                        segment.
+                    */
+                    parent[s[i]] = value;
+                    value = parent;
+                    /*
+                        The next iteration finds the next parent above the
+                        current parent and replaces the value of the key in that
+                        parent which would hold the value of the current parent
+                        array with the updated parent array that has the setting
+                        change applied to it.
+                    */
+                }
+            });
 
             /*
                 A function for getting settings. This takes two arguments.
