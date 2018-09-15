@@ -619,10 +619,18 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                             "content" => $postdata
                         )
                     );
+
+                    __require("security");
+                    $botToken = Security::decryptArray(
+                        $hook["options"]["bot-token"],
+                        "config",
+                        "token"
+                    );
+
                     $context = stream_context_create($opts);
                     file_get_contents(
                         "https://api.telegram.org/bot".
-                            urlencode($hook["options"]["bot-token"])."/sendMessage",
+                            urlencode($botToken)."/sendMessage",
                         false,
                         $context
                     );

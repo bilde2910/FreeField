@@ -236,13 +236,20 @@ foreach ($_POST as $postid => $data) {
         );
 
         // The Telegram bot token
-        if ($hook["options"]["bot-token"] !== $data["tg"]["bot_token"]) {
+        $botToken = Security::decryptArray(
+            $hook["options"]["bot-token"],
+            "config",
+            "token"
+        );
+        if ($botToken !== $data["tg"]["bot_token"]) {
             $botToken = $data["tg"]["bot_token"];
             /*
                 This regex query matches a Telegram bot token
             */
             if (preg_match("/^\d+:[A-Za-z\d]+$/", $botToken)) {
-                $hook["options"]["bot-token"] = $botToken;
+                $hook["options"]["bot-token"] = Security::encryptArray(
+                    array("token" => $botToken), "config"
+                );
             }
         }
 
