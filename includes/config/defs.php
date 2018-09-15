@@ -1142,6 +1142,18 @@ class ConfigDefinitions {
                 "option" => new FloatOption(0.0, 20.0)
             ),
             /*
+                The default research task component to use for map markers.
+            */
+            "map/default/marker-component" => array(
+                "domain" => "map",
+                "section" => "default",
+                "default" => "reward",
+                "option" => new SelectOption(array(
+                    "objective",
+                    "reward"
+                ))
+            ),
+            /*
                 ------------------------------------------------------------
                     MAP UPDATES
                 ------------------------------------------------------------

@@ -1170,6 +1170,22 @@ Security::declareFrameOptionsHeader();
                                     <?php
                                 }
                             ?>
+                            <!--
+                                Which markers are displayed on the map (research
+                                objectives or research rewards).
+                            -->
+                            <div class="pure-g option-block-follows">
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.marker_component.name"); ?>:</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile">
+                                    <p><select class="user-setting" data-key="markerComponent">
+                                        <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
+                                        <option value="objective"><?php echo I18N::resolveHTML("setting.map.default.marker_component.option.objective"); ?></option>
+                                        <option value="reward"><?php echo I18N::resolveHTML("setting.map.default.marker_component.option.reward"); ?></option>
+                                    </select></p>
+                                </div>
+                            </div>
                             <p class="buttons">
                                 <input type="submit"
                                        class="button-submit"
@@ -1227,6 +1243,7 @@ Security::declareFrameOptionsHeader();
                     longitude: <?php echo Config::get("map/default/center/longitude")->valueJS(); ?>
                 },
                 zoom: <?php echo Config::get("map/default/zoom")->valueJS(); ?>,
+                markerComponent: <?php echo Config::get("map/default/marker-component")->valueJS(); ?>,
                 motdCurrentHash: "",
                 motdDismissedHash: ""
             };

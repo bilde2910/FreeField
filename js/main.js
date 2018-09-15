@@ -328,8 +328,8 @@ function addMarkers(markers) {
             // Basic map marker class
             "marker "
 
-            // Render the icon for the current reward active on the POI
-            + marker.reward.type + " "
+            // Render the icon for the current research active on the POI
+            + marker[settings.get("markerComponent")].type + " "
 
             // Set the color theme of the markers depending on the map style
             + styleMap[settings.get("mapProvider")][settings.get("mapStyle/"+settings.get("mapProvider"))] + " "
@@ -411,11 +411,17 @@ function refreshMarkers() {
             var newObjective = marker.objective.type;
             var newReward = marker.reward.type;
 
-            if ($(oldMarker.element).hasClass(oldReward)) {
-                $(oldMarker.element).removeClass(oldReward).addClass(newReward);
-            }
-            if ($(oldMarker.element).hasClass(oldObjective)) {
-                $(oldMarker.element).removeClass(oldObjective).addClass(newObjective);
+            switch (settings.get("markerComponent")) {
+                case "reward":
+                    if ($(oldMarker.element).hasClass(oldReward)) {
+                        $(oldMarker.element).removeClass(oldReward).addClass(newReward);
+                    }
+                    break;
+                case "objective":
+                    if ($(oldMarker.element).hasClass(oldObjective)) {
+                        $(oldMarker.element).removeClass(oldObjective).addClass(newObjective);
+                    }
+                    break;
             }
 
             /*
@@ -752,11 +758,18 @@ function openMarker(popup, id) {
                     */
                     var oldObjective = poiObj.objective.type;
                     var oldReward = poiObj.reward.type;
-                    if ($(poiObj.element).hasClass(oldReward)) {
-                        $(poiObj.element).removeClass(oldReward).addClass(reward);
-                    }
-                    if ($(poiObj.element).hasClass(oldObjective)) {
-                        $(poiObj.element).removeClass(oldObjective).addClass(objective);
+
+                    switch (settings.get("markerComponent")) {
+                        case "reward":
+                            if ($(poiObj.element).hasClass(oldReward)) {
+                                $(poiObj.element).removeClass(oldReward).addClass(reward);
+                            }
+                            break;
+                        case "objective":
+                            if ($(poiObj.element).hasClass(oldObjective)) {
+                                $(poiObj.element).removeClass(oldObjective).addClass(objective);
+                            }
+                            break;
                     }
                     poiObj.objective = {
                         type: objective,
