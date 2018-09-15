@@ -516,28 +516,32 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             Check if the objective matches the objective requirements specified
             in the webhook's settings, if any.
         */
-        $eq = $hook["filter-mode"]["objectives"] == "whitelist";
-        $match = false;
-        foreach ($hook["objectives"] as $req) {
-            if (Research::matches($objective, $objParams, $req["type"], $req["params"])) {
-                $match = true;
-                break;
+        if (count($hook["objectives"]) > 0) {
+            $eq = $hook["filter-mode"]["objectives"] == "whitelist";
+            $match = false;
+            foreach ($hook["objectives"] as $req) {
+                if (Research::matches($objective, $objParams, $req["type"], $req["params"])) {
+                    $match = true;
+                    break;
+                }
             }
+            if ($match !== $eq) continue;
         }
-        if ($match !== $eq) continue;
         /*
             Check if the reward matches the reward requirements specified in the
             webhook's settings, if any.
         */
-        $eq = $hook["filter-mode"]["rewards"] == "whitelist";
-        $match = false;
-        foreach ($hook["rewards"] as $req) {
-            if (Research::matches($reward, $rewParams, $req["type"], $req["params"])) {
-                $match = true;
-                break;
+        if (count($hook["rewards"]) > 0) {
+            $eq = $hook["filter-mode"]["rewards"] == "whitelist";
+            $match = false;
+            foreach ($hook["rewards"] as $req) {
+                if (Research::matches($reward, $rewParams, $req["type"], $req["params"])) {
+                    $match = true;
+                    break;
+                }
             }
+            if ($match !== $eq) continue;
         }
-        if ($match !== $eq) continue;
 
         /*
             Configure I18N with the language of the webhook.
