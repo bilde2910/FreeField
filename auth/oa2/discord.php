@@ -28,16 +28,16 @@ if (!Auth::isProviderEnabled($service)) {
 
 __require("vendor/oauth2");
 $opts = array(
-    "clientId" => Config::get("auth/provider/{$service}/client-id")->value(),
-    "clientSecret" => Config::get("auth/provider/{$service}/client-secret")->value(),
-    "clientAuth" => OAuth2\Client::AUTH_TYPE_URI,
-    "redirectUri" => Config::getEndpointUri("/auth/oa2/{$service}.php"),
-    "authEndpoint" => "https://discordapp.com/oauth2/authorize",
+    "clientId"      => Config::get("auth/provider/{$service}/client-id")->value(),
+    "clientSecret"  => Config::get("auth/provider/{$service}/client-secret")->value(),
+    "clientAuth"    => OAuth2\Client::AUTH_TYPE_URI,
+    "redirectUri"   => Config::getEndpointUri("/auth/oa2/{$service}.php"),
+    "authEndpoint"  => "https://discordapp.com/oauth2/authorize",
     "tokenEndpoint" => "https://discordapp.com/api/v6/oauth2/token",
     "identEndpoint" => "https://discordapp.com/api/v6/users/@me",
     "params" => array(
-        "scope" => "identify",
-        "state" => $state = bin2hex(openssl_random_pseudo_bytes(16))
+        "scope"     => "identify",
+        "state"     => $state = bin2hex(openssl_random_pseudo_bytes(16))
     )
 );
 

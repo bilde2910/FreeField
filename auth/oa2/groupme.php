@@ -23,8 +23,8 @@ if (!Auth::isProviderEnabled($service)) {
 */
 
 $opts = array(
-    "clientId" => Config::get("auth/provider/{$service}/client-id")->value(),
-    "authEndpoint" => "https://oauth.groupme.com/oauth/authorize?client_id=",
+    "clientId"      => Config::get("auth/provider/{$service}/client-id")->value(),
+    "authEndpoint"  => "https://oauth.groupme.com/oauth/authorize?client_id=",
     "identEndpoint" => "https://api.groupme.com/v3/users/me"
 );
 
