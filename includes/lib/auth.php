@@ -663,10 +663,12 @@ class User {
     */
     public function getNickname() {
         if (!$this->exists()) {
+            __require("i18n");
+
             if ($this->isLikelyDeletedUser()) {
-                return "<DeletedUser>";
+                return I18N::resolve("admin.table.users.deleted");
             } else {
-                return "<Anonymous>";
+                return I18N::resolve("admin.table.users.anonymous");
             }
         }
         return $this->data["nick"];
