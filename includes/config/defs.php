@@ -608,6 +608,16 @@ class ConfigDefinitions {
                     "option" => new PermissionOption()
                 ),
                 /*
+                    Allows users to change authentication settings for Reddit.
+                */
+                "permissions/level/admin/auth/section/reddit" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
                     Allows users to change authentication settings for GroupMe.
                 */
                 "permissions/level/admin/auth/section/groupme" => array(
@@ -937,6 +947,38 @@ class ConfigDefinitions {
             "auth/provider/telegram/bot-token" => array(
                 "domain" => "auth",
                 "section" => "telegram",
+                "default" => "",
+                "option" => new PasswordOption()
+            ),
+            /*
+                ------------------------------------------------------------
+                    REDDIT
+                ------------------------------------------------------------
+            */
+            /*
+                Enables usage of Reddit for user authentication.
+            */
+            "auth/provider/reddit/enabled" => array(
+                "domain" => "auth",
+                "section" => "reddit",
+                "default" => false,
+                "option" => new BooleanOption()
+            ),
+            /*
+                The client ID of your Reddit API application.
+            */
+            "auth/provider/reddit/client-id" => array(
+                "domain" => "auth",
+                "section" => "reddit",
+                "default" => "",
+                "option" => new StringOption()
+            ),
+            /*
+                The client secret of your Reddit API application.
+            */
+            "auth/provider/reddit/client-secret" => array(
+                "domain" => "auth",
+                "section" => "reddit",
                 "default" => "",
                 "option" => new PasswordOption()
             ),

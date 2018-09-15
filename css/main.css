@@ -78,6 +78,13 @@
     color: #FFFFFF;
     background-color: #0088CC;
 }
+.auth-provider-reddit {
+    color: #FF4500;
+}
+.auth-provider-reddit-button {
+    color: #FFFFFF;
+    background-color: #FF4500;
+}
 .auth-provider-groupme {
     color: #00AFF0;
 }

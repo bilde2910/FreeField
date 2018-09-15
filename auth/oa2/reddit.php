@@ -1,13 +1,13 @@
 <?php
 /*
-    This script handles all stages of Discord authentication.
+    This script handles all stages of Reddit authentication.
 */
 
 require_once("../../includes/lib/global.php");
 __require("config");
 __require("auth");
 
-$service = "discord";
+$service = "reddit";
 
 if (!Auth::isProviderEnabled($service)) {
     header("HTTP/1.1 307 Temporary Redirect");
@@ -28,16 +28,17 @@ if (!Auth::isProviderEnabled($service)) {
 
 __require("vendor/oauth2");
 $opts = array(
-    "clientId" => Config::get("auth/provider/{$service}/client-id")->value(),
-    "clientSecret" => Config::get("auth/provider/{$service}/client-secret")->value(),
-    "clientAuth" => OAuth2\Client::AUTH_TYPE_URI,
-    "redirectUri" => Config::getEndpointUri("/auth/oa2/{$service}.php"),
-    "authEndpoint" => "https://discordapp.com/oauth2/authorize",
-    "tokenEndpoint" => "https://discordapp.com/api/v6/oauth2/token",
-    "identEndpoint" => "https://discordapp.com/api/v6/users/@me",
+    "clientId"      => Config::get("auth/provider/{$service}/client-id")->value(),
+    "clientSecret"  => Config::get("auth/provider/{$service}/client-secret")->value(),
+    "clientAuth"    => OAuth2\Client::AUTH_TYPE_AUTHORIZATION_BASIC,
+    "redirectUri"   => Config::getEndpointUri("/auth/oa2/{$service}.php"),
+    "authEndpoint"  => "https://www.reddit.com/api/v1/authorize",
+    "tokenEndpoint" => "https://www.reddit.com/api/v1/access_token",
+    "identEndpoint" => "https://oauth.reddit.com/api/v1/me",
     "params" => array(
-        "scope" => "identify",
-        "state" => $state = bin2hex(openssl_random_pseudo_bytes(16))
+        "scope"     => "identity",
+        "duration"  => "temporary",
+        "state"     => $state = bin2hex(openssl_random_pseudo_bytes(16))
     )
 );
 
@@ -52,9 +53,10 @@ include(__DIR__."/../../includes/auth/oauth2-proc.php");
 $approved = Auth::setAuthenticatedSession(
     "{$service}:".$user["id"],
     Config::get("auth/session-length")->value(),
-    $user["username"]."#".$user["discriminator"],
-    $user["username"]
+    "/u/".$user["name"],
+    $user["name"]
 );
+
 header("HTTP/1.1 303 See Other");
 
 /*

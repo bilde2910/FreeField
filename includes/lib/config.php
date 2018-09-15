@@ -1073,6 +1073,11 @@ class ConfigSectionI18N {
             '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Telegram">',
             '</a>'
         ),
+        "auth/reddit" => array(
+            // admin.section.auth.reddit.desc
+            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Reddit">',
+            '</a>'
+        ),
         "auth/groupme" => array(
             // admin.section.auth.groupme.desc
             '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/GroupMe">',

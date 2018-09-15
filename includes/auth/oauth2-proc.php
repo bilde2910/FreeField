@@ -35,7 +35,7 @@ if (!isset($service) || !isset($opts)) {
 __require("vendor/oauth2");
 __require("vendor/oauth2/authcode");
 
-$client = new OAuth2\Client($opts["clientId"], $opts["clientSecret"]);
+$client = new OAuth2\Client($opts["clientId"], $opts["clientSecret"], $opts["clientAuth"]);
 
 if (!isset($_GET["code"])) {
     /*
@@ -100,13 +100,19 @@ if (!isset($_GET["code"])) {
     API to verify the identity of the user.
 */
 $user = null;
+$accessToken = null;
 try {
     $resp = $client->getAccessToken($opts["tokenEndpoint"], "authorization_code", array(
         "code" => $_GET["code"],
         "redirect_uri" => $opts["redirectUri"]
     ));
 
-    if (!isset($resp["result"]["access_token"])) {
+    if (isset($resp["result"]["access_token"])) {
+        $accessToken = $resp["result"]["access_token"];
+    } elseif (isset($resp["access_token"])) {
+        $accessToken = $resp["access_token"];
+    }
+    if ($accessToken === null) {
         /*
             Stage II failure
 
@@ -132,11 +138,11 @@ try {
         Set the access token in the client and proceed to fetch the resource
         owner.
     */
-    $client->setAccessToken($resp["result"]["access_token"]);
-    if ($resp["result"]["token_type"] === "Bearer") {
+    $client->setAccessToken($accessToken);
+    if (strtolower($resp["result"]["token_type"]) === "bearer") {
         $client->setAccessTokenType(\OAuth2\Client::ACCESS_TOKEN_BEARER);
     }
-    $response = $client->fetch($opts["identEndpoint"]);
+    $response = $client->fetch($opts["identEndpoint"], array(), OAuth2\Client::HTTP_METHOD_GET, array("User-Agent" => "FreeField/".FF_VERSION." PHP/".phpversion()));
     if ($response["code"] !== 200 || !isset($response["result"])) {
         /*
             Stage II failure

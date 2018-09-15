@@ -29,6 +29,7 @@ class Auth {
         return array(
             "discord" => ["client-id", "client-secret"],
             "telegram" => ["bot-username", "bot-token"],
+            "reddit" => ["client-id", "client-secret"],
             "groupme" => ["client-id"]
         );
     }
@@ -710,6 +711,7 @@ class User {
         $providerIcons = array(
             "discord"   => "fab fa-discord",
             "telegram"  => "fab fa-telegram-plane",
+            "reddit"    => "fab fa-reddit-alien",
             "groupme"   => "fas fa-user" // No brand specific icon available at this time
         );
         return '<span>
