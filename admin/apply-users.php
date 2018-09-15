@@ -33,6 +33,12 @@ if (!Security::validateCSRF()) {
 }
 
 /*
+    This script loops over `$_POST`, so the CSRF field must be unset from
+    `$_POST` before processing.
+*/
+Security::unsetCSRFFields();
+
+/*
     If the requesting user does not have permission to make changes here, they
     should be kicked out.
 */

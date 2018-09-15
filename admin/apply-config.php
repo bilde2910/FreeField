@@ -30,6 +30,12 @@ if (!Security::validateCSRF()) {
 }
 
 /*
+    This script loops over `$_POST`, so the CSRF field must be unset from
+    `$_POST` before processing.
+*/
+Security::unsetCSRFFields();
+
+/*
     If the current user does not have permission to view any of the admin pages
     then the user does not have permission to change any of the settings on any
     pages either. Hence, we can kick them out of this script right away since we
