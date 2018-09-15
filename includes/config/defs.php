@@ -607,6 +607,16 @@ class ConfigDefinitions {
                     "default" => PermissionOption::LEVEL_HOST,
                     "option" => new PermissionOption()
                 ),
+                /*
+                    Allows users to change authentication settings for GroupMe.
+                */
+                "permissions/level/admin/auth/section/groupme" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
             /*
                 Allows users to manage default site-wide themes.
             */
@@ -929,6 +939,29 @@ class ConfigDefinitions {
                 "section" => "telegram",
                 "default" => "",
                 "option" => new PasswordOption()
+            ),
+            /*
+                ------------------------------------------------------------
+                    GROUPME
+                ------------------------------------------------------------
+            */
+            /*
+                Enables usage of GroupMe for user authentication.
+            */
+            "auth/provider/groupme/enabled" => array(
+                "domain" => "auth",
+                "section" => "groupme",
+                "default" => false,
+                "option" => new BooleanOption()
+            ),
+            /*
+                The client ID of your GroupMe API application.
+            */
+            "auth/provider/groupme/client-id" => array(
+                "domain" => "auth",
+                "section" => "groupme",
+                "default" => "",
+                "option" => new StringOption('^[A-Za-z0-9]+$')
             ),
             /*
 ================================================================================

@@ -28,7 +28,8 @@ class Auth {
     private static function getProviderRequirements() {
         return array(
             "discord" => ["client-id", "client-secret"],
-            "telegram" => ["bot-username", "bot-token"]
+            "telegram" => ["bot-username", "bot-token"],
+            "groupme" => ["client-id"]
         );
     }
 
@@ -707,14 +708,14 @@ class User {
     public function getProviderIdentityHTML() {
         if (!$this->exists()) return htmlspecialchars($this->getProviderIdentity(), ENT_QUOTES);
         $providerIcons = array(
-            "discord" => "discord",
-            "telegram" => "telegram-plane"
+            "discord"   => "fab fa-discord",
+            "telegram"  => "fab fa-telegram-plane",
+            "groupme"   => "fas fa-user" // No brand specific icon available at this time
         );
         return '<span>
                     <i class="
                         auth-provider-'.$this->getProvider().'
-                        fab
-                        fa-'.$providerIcons[$this->getProvider()].'">
+                        '.$providerIcons[$this->getProvider()].'">
                     </i> '.htmlspecialchars($this->getProviderIdentity(), ENT_QUOTES).'
                 </span>';
     }

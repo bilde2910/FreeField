@@ -29,8 +29,9 @@ $providers = Auth::getEnabledProviders();
     is set for each provider.
 */
 $providerIcons = array(
-    "discord" => "discord",
-    "telegram" => "telegram-plane"
+    "discord"   => "fab fa-discord",
+    "telegram"  => "fab fa-telegram-plane",
+    "groupme"   => "fas fa-user" // No brand specific icon available at this time
 );
 
 ?>
@@ -90,7 +91,7 @@ Security::declareFrameOptionsHeader();
                     <a href="./oa2/<?php echo $provider; ?>.php" style="text-decoration: none;">
                         <div class="login-button auth-provider-<?php echo $provider; ?>-button">
                             <table><tbody><tr><td>
-                                <i class="fab fa-<?php echo $providerIcons[$provider]; ?>"></i>
+                                <i class="<?php echo $providerIcons[$provider]; ?>"></i>
                             </td><td>
                                 <span>
                                     <?php echo I18N::resolveArgsHTML(

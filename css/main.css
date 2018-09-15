@@ -78,6 +78,13 @@
     color: #FFFFFF;
     background-color: #0088CC;
 }
+.auth-provider-groupme {
+    color: #00AFF0;
+}
+.auth-provider-groupme-button {
+    color: #FFFFFF;
+    background-color: #00AFF0;
+}
 
 /* Spacer to separate groups of elements in the sidebar. Creates an empty gap.
    Used to separate the userbox and login/logout buttons from the rest of the

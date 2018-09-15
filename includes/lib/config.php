@@ -1073,6 +1073,11 @@ class ConfigSectionI18N {
             '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Telegram">',
             '</a>'
         ),
+        "auth/groupme" => array(
+            // admin.section.auth.groupme.desc
+            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/GroupMe">',
+            '</a>'
+        ),
         "map/geofence" => array(
             // admin.section.map.geofence.desc
             '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Geofencing">',
