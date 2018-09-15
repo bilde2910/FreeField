@@ -1150,6 +1150,17 @@ setInterval(function() {
 }, 1000);
 
 /*
+    Mobile: Hide the sidebar if any of its elements is clicked. This can be done
+    by triggering a click on the hamburger menu icon if it is displayed on the
+    page. (If it's not displayed, it's not considered a mobile client!)
+*/
+$(".pure-menu-item > a").on("click", function() {
+    if ($("#menuLink").is(":visible")) {
+        $("#menuLink").trigger("click");
+    }
+});
+
+/*
     ------------------------------------------------------------------------
         MESSAGE OF THE DAY
     ------------------------------------------------------------------------
