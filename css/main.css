@@ -512,6 +512,11 @@ h1.head-small {
     ------------------------------------------------------------------------
 */
 
+/* The icon preview box itself. */
+.opt-icon-selector {
+    width: 100%;
+}
+
 /* The logo displayed when previewing icon sets, for icon sets which have a
    logo. */
 .opt-icon-selector .logo {

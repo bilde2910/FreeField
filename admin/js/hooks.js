@@ -116,13 +116,9 @@ $("#add-hook-submit").on("click", function() {
                 This event can only be fired after the webhook node has been
                 added to the DOM, so we'll add it to the DOM first and then
                 trigger the event.
-
-                We'll also load the correct icon set at this step using the
-                `viewTheme()` function from /js/option.js.
             */
             $("#active-hooks-list").append(node);
             node.find(".hook-target").trigger("input");
-            viewTheme(id + "-icon-selector", $("#" + id + "-icon-selector").val());
 
             break;
         case "telegram":
@@ -204,14 +200,10 @@ $("#add-hook-submit").on("click", function() {
                 Those events can only be fired after the webhook node has been
                 added to the DOM, so we'll add it to the DOM first and then
                 trigger the events.
-
-                We'll also load the correct icon set at this step using the
-                `viewTheme()` function from /js/option.js.
             */
             $("#active-hooks-list").append(node);
             node.find(".hook-target").trigger("input");
             node.find(".hook-tg-parse-mode").trigger("input");
-            viewTheme(id + "-icon-selector", $("#" + id + "-icon-selector").val());
 
             break;
     }
@@ -1372,16 +1364,6 @@ $(".hook-list").on("change", '.hook-tg-parse-mode', function() {
 });
 
 /*
-    Handler for the icon set selection box on each webhook. Ensures that a
-    preview is displayed for the selected icon set upon change of selection.
-
-    Displays: on webhook body
-*/
-$(".hook-list").on("change", '.hook-icon-set', function() {
-    viewTheme($(this).attr("id"), $(this).val());
-});
-
-/*
     The webhook body/payload accepts various variables (like `<%COORDS%>`) that
     are substituted with their respective values whenever a webhook is called.
     There is a help section that lists these variables in a section above the
@@ -1736,11 +1718,4 @@ for (var i = 0; i < hooks.length; i++) {
     if (hook.type === "telegram") {
         node.find(".hook-tg-parse-mode").trigger("change");
     }
-
-    /*
-        Lastly, ensure that the icon set preview is being rendered in the hook
-        body by requesting the currently selected icon set to be viewed using
-        `viewTheme()`.
-    */
-    viewTheme(hook.id + "-icon-selector", $("#" + hook.id + "-icon-selector").val());
 }

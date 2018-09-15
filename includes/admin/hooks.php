@@ -783,12 +783,6 @@
             /*
                 Settings which are common for all webhook types. This includes
                 the webhook language, its icon set, and geofence.
-
-                This block contains a call to
-                `IconSetOption::getFollowingBlock()`. The call has been
-                structured to suppress outputting the script that binds event
-                handlers for the icon set selector. The event handler is bound
-                in /admin/js/hooks.js instead.
             */
             $hookCommonSettings = '
             <div class="pure-g">
@@ -799,7 +793,7 @@
                     <p><select class="hook-lang" name="hook_{%ID%}[lang]">'.$langopts.'</select></p>
                 </div>
             </div>
-            <div class="pure-g">
+            <div class="pure-g option-block-follows">
                 <div class="pure-u-1-3 full-on-mobile">
                     <p>'.I18N::resolveHTML("setting.hooks.hook_list.icons.name").':</p>
                 </div>
@@ -811,7 +805,7 @@
                     )).'</p>
                 </div>
             </div>
-            '.$optIcon->getFollowingBlock(false).'
+            '.$optIcon->getFollowingBlock().'
             <div class="pure-g">
                 <div class="pure-u-1-3 full-on-mobile">
                     <p>'.I18N::resolveHTML("setting.hooks.hook_list.geofence.name").':</p>

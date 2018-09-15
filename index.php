@@ -131,8 +131,8 @@ Security::declareFrameOptionsHeader();
         <script src="./js/clientside-i18n.php"></script>
         <script>
             /*
-                Display options for `IconSetOption` selectors; required by
-                `viewTheme()` in /js/option.js.
+                Display options for `IconSetOption` selectors; required by the
+                `IconSetOption` event handler in /js/option.js.
             */
             var isc_opts = <?php
                 echo json_encode(array(
@@ -1149,7 +1149,7 @@ Security::declareFrameOptionsHeader();
                                         <!--
                                             Icon set used for map markers.
                                         -->
-                                        <div class="pure-g">
+                                        <div class="pure-g option-block-follows">
                                             <div class="pure-u-1-3 full-on-mobile">
                                                 <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.icons.name"); ?>:</p>
                                             </div>

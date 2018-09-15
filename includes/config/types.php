@@ -52,6 +52,15 @@
         by the user, a block should be displayed following the setting itself
         that previews the given icon set.
 
+        The root element output by getFollowingBlock() should have the
+        `option-following-block` class. This allows event handler scripts for
+        the input fields themselves to reference the following block root
+        element by searching for the next instance of it in the DOM:
+
+            var followingBlock
+                = $(this).closest(".option-block-follows")
+                         .next(".option-following-block");
+
     encodeSavedValue($value)
         Some options may wish to store its value in the configuration file in
         a different format than the structure of the value as used on the
@@ -238,7 +247,7 @@ class ParagraphOption extends DefaultOption {
             stand-alone URLs as hyperlinks, which Parsedown does.
         */
         if ($this->format === "md") {
-            return '<div class="para-preview">
+            return '<div class="option-following-block para-preview">
                         <div class="para-content markdown-content"></div>
                     </div>
                     <p class="para-disclaimer">
@@ -739,23 +748,26 @@ class IconSetOption extends DefaultOption {
     */
     private $includeDefault;
 
-    /*
-        `$id` is the ID of the selection box element itself, and is used when
-        outputting the script that controls the functionality of the preview
-        function in `getFollowingBlock()`. It has to be stored at the class
-        level so that it is accessible to `getFollowingBlock()` as well (the ID
-        is only passed to the `getControl()` function).
-    */
-    private $id;
-
     public function __construct($includeDefault = null) {
         $this->includeDefault = $includeDefault;
+        if (self::$packs === null) {
+            self::getIconSetDefinitions();
+        }
     }
 
     public function getControl($current = null, $attrs = array()) {
         __require("i18n");
 
-        $this->id = isset($attrs["id"]) ? $attrs["id"] : null;
+        /*
+            Add the `icon-set-option-input` class to the control to enable it to
+            have an event handler bound by /js/option.js.
+        */
+        if (isset($attrs["class"])) {
+            $attrs["class"] .= " icon-set-option-input";
+        } else {
+            $attrs["class"] = "icon-set-option-input";
+        }
+
         $attrString = parent::constructAttributes($attrs);
 
         $html = '<select'.$attrString.'>';
@@ -764,6 +776,7 @@ class IconSetOption extends DefaultOption {
                      I18N::resolveHTML($this->includeDefault).
                      '</option>';
         }
+
         foreach (self::$packs as $pack => $data) {
             /*
                 Each option should use the name of the icon set and its author
@@ -786,53 +799,10 @@ class IconSetOption extends DefaultOption {
         This function is called by the administration pages when an
         `IconSetOption` has been added to the page. The output of the function
         is rendered as a block underneath the setting line. It contains a
-        preview of all of the icons in the icon set. The block also contains the
-        event binder script that attaches a selection event handler to the
-        selection box so that the preview is updated whenever the selection
-        changes (the selector script). This is output by default, but can be
-        suppressed using the `$includeSelectorScript` argument to this function.
+        preview of all of the icons in the icon set.
     */
-    public function getFollowingBlock($includeSelectorScript = true) {
-        $out = "";
-
-        /*
-            The preview box can only be added to the page if the selection box
-            has an ID associated with it. This is because the script uses IDs to
-            identify which icon selector box is attached to which icon selector.
-            If it has no ID then the script cannot idenfity which icon preview
-            box is supposed to be updated in the event handler.
-        */
-        if ($this->id !== null) {
-            $html = '<div style="width: 100%;" id="iconviewer-'.$this->id.'"></div>';
-            if ($includeSelectorScript) $html .= '
-            <script type="text/javascript">'.$this->getSelectorScript().'</script>';
-            $out .= $html;
-        }
-
-        return $out;
-    }
-
-    /*
-        This script ensures that the preview is displayed for the selected icon
-        pack when the page loads, and also adds an event handler to update it if
-        the icon set selection changes.
-
-        NOTE: Some other scripts in FreeField have copied this selector script
-        for use with some changes. If you want to make changes to this script,
-        do a project-wide search for "viewTheme" to find all instances of
-        variations of this script. Ensure you apply changes to the function to
-        all instances of it in the project.
-
-        TODO: Centralize this script to /js/option.js to make unified changes.
-        This is a risky change and needs to be carefully implemented with
-        consideration to how e.g. the icon set option for webhooks works with
-        event handlers and dynamically created icon selectors.
-    */
-    public function getSelectorScript() {
-        return 'viewTheme("'.$this->id.'", document.getElementById("'.$this->id.'").value);
-        document.getElementById("'.$this->id.'").addEventListener("change", function() {
-            viewTheme("'.$this->id.'", document.getElementById("'.$this->id.'").value);
-        });';
+    public function getFollowingBlock() {
+        return '<div class="option-following-block"></div>';
     }
 
     /*
