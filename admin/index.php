@@ -420,6 +420,14 @@ Security::declareFrameOptionsHeader();
                 the page without saving the settings. If the user does navigate
                 away, confirm with them that they intend to discard the changes
                 first.
+
+                `unsavedChanges` is declared in /js/input-validation.js. Forms
+                that use the `require-validation` class have a built-in handler
+                that sets `unsavedChanges` to `false` on submit. Forms which do
+                not use `require-validation` must set `unsavedChanges` to
+                `false` manually. This is done on the relevant pages
+                (/includes/admin/*.php) or their scripts (/admin/js/*.js) if the
+                page has a form that does not use `require-validation`.
             */
             $("form").on("change", ":input", function() {
                 unsavedChanges = true;
