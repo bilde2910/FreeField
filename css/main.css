@@ -140,6 +140,12 @@ input.button-submit, input.button-standard {
     background-color: #218521;
 }
 
+/* Paragraph that contains a checkbox "do not show again" on the Message of the
+   Day popup. */
+.motd-hide-paragraph {
+    margin-top: 0;
+}
+
 /* Full-width/block style buttons */
 .split-button {
     display: block;
@@ -541,4 +547,21 @@ h1.head-small {
     width: 68px;
     height: 68px;
     margin: 5px;
+}
+
+/*
+    ------------------------------------------------------------------------
+        PARAGRAPH PREVIEW BOX
+    ------------------------------------------------------------------------
+*/
+
+/* The box that contains the parsed Markdown content itself. */
+.para-content {
+    padding: 5px 20px;
+}
+
+/* The disclaimer underneath the preview that explains that the rendered HTML
+   may differ from what is displayed in the preview box. */
+.para-disclaimer {
+    font-size: 0.8em;
 }

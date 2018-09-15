@@ -131,3 +131,55 @@ $(document).ready(function() {
         }
     });
 });
+
+/*
+    Handle text changes for `ParagraphOption` downdowns. This function updates
+    the preview box for Markdown text.
+*/
+if (showdown) {
+    var showdown = new showdown.Converter();
+    $(document).ready(function() {
+        $("textarea[data-has-preview-for='md']").on("input", function() {
+            /*
+                Get the value of the input box with all user HTML tags escaped.
+            */
+            var value = $(this).val().split("<").join("&lt;").split(">").join("&gt;");
+            var previewBox = $(this).closest(".pure-g").next(".para-preview").find(".para-content");
+            var html = showdown.makeHtml(value);
+
+            /*
+                Search for XSS by creating an element consisting of the parsed
+                Markdown.
+            */
+            var xssFound = false;
+            var xssTestDiv = document.createElement("div");
+            xssTestDiv.innerHTML = html;
+
+            /*
+                Search for anchors linking to JavaScript.
+            */
+            var anchors = xssTestDiv.getElementsByTagName("a");
+            for (var i = 0; i < anchors.length; i++) {
+                var target = anchors[i].getAttribute("href");
+                if (target.toLowerCase().startsWith("javascript:")) xssFound = true;
+            }
+
+            /*
+                If JavaScript is found, warn the user and disable previews. Server-
+                side, Parsedown is used to render Markdown, which is more robust
+                when it comes to XSS prevention than Showdown, the client-side
+                script.
+            */
+            if (xssFound) {
+                previewBox.css("background", "darkorange");
+                previewBox.html('<span class="para-xss-warning"><i class="fas fa-code"></i> '
+                                + resolveI18N("admin.option.paragraph.xss_warning")
+                                + '</span>');
+            } else {
+                previewBox.css("background", "none");
+                previewBox.html(html);
+            }
+        });
+        $("textarea[data-has-preview-for='md']").trigger("input");
+    });
+}

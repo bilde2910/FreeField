@@ -1148,3 +1148,82 @@ setInterval(function() {
         saveSettings();
     }
 }, 1000);
+
+/*
+    ------------------------------------------------------------------------
+        MESSAGE OF THE DAY
+    ------------------------------------------------------------------------
+*/
+
+/*
+    Check if the Message of the Day popup should be displayed.
+*/
+switch (motdDisplay) {
+    case "on-change":
+        /*
+            Display only if the message of the day has changed.
+        */
+        if (settings.get("motdCurrentHash") == motdHash) break;
+    case "always":
+        /*
+            Display unless the user has dismissed the MotD. The dismissal is
+            revoked whenever the MotD changes.
+        */
+        if (settings.get("motdDismissedHash") == motdHash) break;
+    case "forced":
+        /*
+            Display the MotD.
+        */
+        $("#motd-overlay").fadeIn(150);
+}
+
+/*
+    Check if the user has dismissed the current MotD. If so, the "do not show
+    again" checkbox should be pre-checked if the user opens the MotD dialog
+    manually.
+*/
+if (settings.get("motdDismissedHash") == motdHash) {
+    $("#motd-hide").prop("checked", true);
+}
+
+/*
+    The "Close" button on the Message of the Day dialog box.
+*/
+$("#motd-close").on("click", function() {
+    /*
+        Save the hash of the current MotD. This is used to check if the user has
+        dismissed the current MotD at least once if the "on-change" display mode
+        is used.
+    */
+    settings.motdCurrentHash = motdHash;
+    /*
+        Check if the user has indicated they wish to hide the MotD by default
+        until the MotD next changes. Change detection is done using a hash of
+        the MotD content.
+    */
+    if ($("#motd-hide").length > 0 && $("#motd-hide").is(":checked")) {
+        /*
+            Save the hash of the current MotD. The next time the user loads the
+            page, if the hash matches the stored value, the MotD will not be
+            displayed.
+        */
+        settings.motdDismissedHash = motdHash;
+    } else {
+        /*
+            If the user has not checked the checkbox to hide the MotD on
+            subsequent visits, the hash should be reset to a blank value to
+            ensure that the MotD displays next time.
+        */
+        settings.motdDismissedHash = "";
+    }
+    saveSettings();
+    $("#motd-overlay").fadeOut(150);
+});
+
+/*
+    The "Show MotD" link in the sidebar.
+*/
+$("#motd-open").on("click", function() {
+    $("#motd-overlay").fadeIn(150);
+    return false;
+});

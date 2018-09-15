@@ -97,6 +97,7 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
 __require("config");
 __require("theme");
 __require("research");
+__require("vendor/parsedown");
 
 /*
     A string identifying the chosen map provider for FreeField.
@@ -246,6 +247,19 @@ Security::declareFrameOptionsHeader();
                                             <a href="./admin/" class="pure-menu-link">
                                                 <i class="menu-fas fas fa-angle-double-right"></i>
                                                 <?php echo I18N::resolveHTML("sidebar.manage_site"); ?>
+                                            </a>
+                                        </li>
+                                    <?php
+                                }
+                            ?>
+                            <?php
+                                /* Check if the "Show MotD" button should be displayed. */
+                                if (Config::get("motd/display-mode")->value() !== "never") {
+                                    ?>
+                                        <li class="pure-menu-item">
+                                            <a href="#" id="motd-open" class="pure-menu-link">
+                                                <i class="menu-fas fas fa-bell"></i>
+                                                <?php echo I18N::resolveHTML("sidebar.show_motd"); ?>
                                             </a>
                                         </li>
                                     <?php
@@ -867,6 +881,67 @@ Security::declareFrameOptionsHeader();
                         </div>
                     </div>
                     <!--
+                        The Message of the Day overlay. The overlay is opened
+                        when the page is loaded, or whenever the user clicks on
+                        the "Show MotD" button in the sidebar, depending on the
+                        MotD display settings defined by the administrators.
+                    -->
+                    <?php
+                        if (Config::get("motd/display-mode")->value() !== "never") {
+                            ?>
+                                <div id="motd-overlay" class="cover-box">
+                                    <div class="cover-box-inner">
+                                        <div class="header">
+                                            <h1 id="poi-name" class="head-small">
+                                                <?php
+                                                    $motdTitle = Config::get("motd/title")->valueHTML();
+                                                    if ($motdTitle == "")
+                                                        $motdTitle = I18N::resolveHTML("motd.title");
+
+                                                    echo $motdTitle;
+                                                ?>
+                                            </h1>
+                                        </div>
+                                        <div class="cover-box-content content">
+                                            <div id="motd-content">
+                                                <?php
+                                                    $parsedown = new Parsedown();
+                                                    $parsedown->setSafeMode(true);
+                                                    echo $parsedown->text(
+                                                        Config::get("motd/content")->value()
+                                                    );
+                                                ?>
+                                            </div>
+                                            <div class="cover-button-spacer"></div>
+                                            <?php
+                                                if (Config::get("motd/display-mode")->value() === "always") {
+                                                    ?>
+                                                        <p class="motd-hide-paragraph">
+                                                            <label for="motd-hide">
+                                                                <input type="checkbox" id="motd-hide">
+                                                                <?php echo I18N::resolveHTML("motd.hide"); ?>
+                                                            </label>
+                                                        </p>
+                                                    <?php
+                                                }
+                                            ?>
+
+                                            <div class="pure-g">
+                                                <div class="pure-u-1-1 right-align">
+                                                    <span type="button" id="motd-close"
+                                                          class="button-standard split-button">
+                                                        <?php echo I18N::resolveHTML("motd.close"); ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
+                        }
+                    ?>
+
+                    <!--
                         "Working" indicator shown when adding a POI. Since
                         adding a POI involves a request to the server, which
                         might take some time, there should be some visual
@@ -1125,6 +1200,16 @@ Security::declareFrameOptionsHeader();
             var autoRefreshInterval = <?php echo (Config::get("map/updates/refresh-interval")->value() * 1000); ?>;
 
             /*
+                Message of the Day settings. The `motdHash` is a SHA-256 hash of
+                the contents of the MotD content. This is used to detect changes
+                in the message in case the MotD should be displayed whenever the
+                message is changed. `motdDisplay` is the Message of the Day
+                display policy of the site.
+            */
+            var motdHash = <?php echo json_encode(hash("sha256", Config::get("motd/content")->value())); ?>;
+            var motdDisplay = <?php echo Config::get("motd/display-mode")->valueJS(); ?>;
+
+            /*
                 Default local settings, used as fallback if a local setting is
                 not explicitly set for each entry.
             */
@@ -1140,7 +1225,9 @@ Security::declareFrameOptionsHeader();
                     latitude: <?php echo Config::get("map/default/center/latitude")->valueJS(); ?>,
                     longitude: <?php echo Config::get("map/default/center/longitude")->valueJS(); ?>
                 },
-                zoom: <?php echo Config::get("map/default/zoom")->valueJS(); ?>
+                zoom: <?php echo Config::get("map/default/zoom")->valueJS(); ?>,
+                motdCurrentHash: "",
+                motdDismissedHash: ""
             };
 
             /*

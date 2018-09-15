@@ -125,3 +125,15 @@ a {
 .hook-filter {
     background-color: #000;
 }
+
+/* The Markdown preview box immediately underneath the input box for
+   `ParagraphOption` settings that use Markdown formatting. */
+.para-preview {
+    background-color: #1c1c1c;
+}
+
+/* The text on the orange bar that is displayed if JavaScript is detected in the
+   Markdown body. */
+.para-xss-warning {
+    color: #111;
+}

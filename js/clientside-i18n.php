@@ -22,8 +22,9 @@ var i18n = <?php
         // Admin pages scripting
         "admin.clientside.*",
 
-        // Setting option: Icon set I18N
+        // Setting options: Icon set and paragraph I18N
         "admin.option.icon_set.*",
+        "admin.option.paragraph.*",
 
         // Webhook body format headers
         "admin.section.hooks.body.*",

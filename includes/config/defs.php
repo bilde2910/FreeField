@@ -135,6 +135,46 @@ class ConfigDefinitions {
             ),
             /*
                 ------------------------------------------------------------
+                    MESSAGE OF THE DAY
+                ------------------------------------------------------------
+            */
+            /*
+                Determines how the Message of the Day is displayed.
+            */
+            "motd/display-mode" => array(
+                "domain" => "main",
+                "section" => "motd",
+                "default" => "never",
+                "option" => new SelectOption(array(
+                    "forced",
+                    "always",
+                    "on-change",
+                    "on-request",
+                    "never"
+                ))
+            ),
+            /*
+                The title on the Message of the Day popup box. Defaults to
+                "Message of the Day" if left blank.
+            */
+            "motd/title" => array(
+                "domain" => "main",
+                "section" => "motd",
+                "default" => "",
+                "option" => new StringOption()
+            ),
+            /*
+                A message displayed to all users in a popup box every time
+                FreeField is opened. Markdown formatting accepted.
+            */
+            "motd/content" => array(
+                "domain" => "main",
+                "section" => "motd",
+                "default" => "Welcome to FreeField!",
+                "option" => new ParagraphOption("md")
+            ),
+            /*
+                ------------------------------------------------------------
                     CRAWLING
                 ------------------------------------------------------------
             */
@@ -348,6 +388,17 @@ class ConfigDefinitions {
                     appearance options, such as the name of the site.
                 */
                 "permissions/level/admin/main/section/instance" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change and manage the Message of the Day for
+                    this FreeField instance.
+                */
+                "permissions/level/admin/main/section/motd" => array(
                     "domain" => "perms",
                     "section" => "admin",
                     "indentation" => 1,

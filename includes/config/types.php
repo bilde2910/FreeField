@@ -204,6 +204,63 @@ class StringOption extends DefaultOption {
 }
 
 /*
+    This option is for settings which require a longer string input. The string
+    may optionally match a text format. Acceptable text formats:
+
+      - "md" = Markdown
+*/
+class ParagraphOption extends DefaultOption {
+    private $format;
+
+    public function __construct($format = null) {
+        $this->format = $format;
+    }
+
+    public function getControl($current = "", $attrs = array()) {
+        if ($this->format === "md") {
+            $attrs["data-has-preview-for"] = "md";
+        }
+
+        $attrString = parent::constructAttributes($attrs);
+        return '<textarea type="text"'.$attrString.'>'.$current.'</textarea>';
+    }
+
+    public function getFollowingBlock() {
+        /*
+            If this option takes Markdown input, a live preview will be
+            displayed immediately undernath the input box.
+
+            A disclaimer is displayed underneath the preview box to warn users
+            that the output that is previewed in the box may vary from the
+            actual rendered output when displayed on the page. This is because
+            of differences in how the implementations of Showdown and Parsedown
+            render Markdown to HTML. Showdown, for example, does not render
+            stand-alone URLs as hyperlinks, which Parsedown does.
+        */
+        if ($this->format === "md") {
+            return '<div class="para-preview">
+                        <div class="para-content markdown-content"></div>
+                    </div>
+                    <p class="para-disclaimer">
+                        '.I18N::resolveHTML("admin.option.paragraph.disclaimer").'
+                    </p>';
+        }
+    }
+
+    public function parseValue($data) {
+        return strval($data);
+    }
+
+    public function isValid($data) {
+        if (is_array($data)) return false;
+        if ($this->regex !== null) {
+            if (!preg_match('/'.$this->regex.'/', $data)) return false;
+        }
+        return true;
+    }
+}
+
+/*
     This option is for settings with confidential data. It is displayed as a
     password box. Otherwise, it functions more or less in the same way as
     `StringOption`. It does not accept regex filtering, since there is no good
@@ -550,20 +607,22 @@ class SelectOption extends DefaultOption {
                 is set.
             */
             if ($i18ndomain !== null) {
-                $label = I18N::resolveHTML("{$i18ndomain}.{$item}");
+                $label = I18N::resolveHTML(
+                    "{$i18ndomain}.".str_replace(",", "_", str_replace("-", "_", $item))
+                );
             } elseif ($name !== null) {
                 $label = I18N::resolveHTML(
                     "setting.".
-                    str_replace("-", "_", str_replace("/", ".", $name)).
+                    str_replace(",", "_", str_replace("-", "_", str_replace("/", ".", $name))).
                     ".option.".
-                    str_replace(",", "_", $item)
+                    str_replace(",", "_", str_replace("-", "_", $item))
                 );
             } elseif ($id !== null) {
                 $label = I18N::resolveHTML(
                     "setting.".
                     str_replace("-", "_", $id).
                     ".option.".
-                    str_replace(",", "_", $item)
+                    str_replace(",", "_", str_replace("-", "_", $item))
                 );
             } else {
                 $label = $item;
