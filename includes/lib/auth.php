@@ -621,6 +621,11 @@ class User {
     */
     private $data = null;
 
+    /*
+        Color of anonymous users.
+    */
+    private static $anonColor = null;
+
     function __construct($userdata) {
         $this->data = $userdata;
     }
@@ -632,7 +637,23 @@ class User {
         array actually contains any data) to see if the user exists.
     */
     public function exists() {
-        return $this->data !== null && count($this->data) > 0;
+        return $this->data !== null &&
+               count($this->data) > 0 &&
+               strlen($this->data["id"]) > 0 &&
+               $this->data["provider_id"] !== null;
+    }
+
+    /*
+        Gets whether or not the user existed, but is now deleted. These users
+        have a valid ID, but a `null` provider identity. This is used to
+        identify user objects created from the POI list (i.e. from
+        /includes/lib/geo.php).
+    */
+    public function isLikelyDeletedUser() {
+        return $this->data !== null &&
+               count($this->data) > 0 &&
+               strlen($this->data["id"]) > 0 &&
+               $this->data["provider_id"] === null;
     }
 
     /*
@@ -641,7 +662,13 @@ class User {
         output to a page.
     */
     public function getNickname() {
-        if (!$this->exists()) return "<Anonymous>";
+        if (!$this->exists()) {
+            if ($this->isLikelyDeletedUser()) {
+                return "<DeletedUser>";
+            } else {
+                return "<Anonymous>";
+            }
+        }
         return $this->data["nick"];
     }
 
@@ -651,7 +678,7 @@ class User {
         member of.
     */
     public function getNicknameHTML() {
-        if (!$this->exists()) return htmlspecialchars("<Anonymous>", ENT_QUOTES);
+        //if (!$this->exists()) return htmlspecialchars($this->getNickname(), ENT_QUOTES);
         $color = self::getColor();
         return '<span'.($color !== null ? ' style="color: #'.$color.';"' : '').'>'.
                     htmlspecialchars(self::getNickname(), ENT_QUOTES).
@@ -666,7 +693,7 @@ class User {
         before being output to a page.
     */
     public function getProviderIdentity() {
-        if (!$this->exists()) return "<Anonymous>";
+        if (!$this->exists()) return $this->getNickname();
         return $this->data["provider_id"];
     }
 
@@ -676,7 +703,7 @@ class User {
         the user to the provider identity.
     */
     public function getProviderIdentityHTML() {
-        if (!$this->exists()) return htmlspecialchars("<Anonymous>", ENT_QUOTES);
+        if (!$this->exists()) return htmlspecialchars($this->getProviderIdentity(), ENT_QUOTES);
         $providerIcons = array(
             "discord" => "discord",
             "telegram" => "telegram-plane"
@@ -748,7 +775,23 @@ class User {
         Gets the color of the group this user is a member of.
     */
     public function getColor() {
-        if (!$this->exists()) return 0;
+        if (!$this->exists()) {
+            if ($this->isLikelyDeletedUser()) {
+                return null;
+            }
+            /*
+                If the user does not exist, get the anonymous user color.
+            */
+            if (self::$anonColor !== null) return self::$anonColor;
+
+            $db = Database::getSparrow();
+            self::$anonColor = $db
+                ->from(Database::getTable("group"))
+                ->where("level", 0)
+                ->value("color");
+
+            return self::$anonColor;
+        }
         return $this->data["color"];
     }
 
