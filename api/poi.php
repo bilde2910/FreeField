@@ -540,6 +540,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         if ($match !== $eq) continue;
 
         /*
+            Configure I18N with the language of the webhook.
+        */
+        __require("i18n");
+        I18N::setLanguages(array($hook["language"] => "1"));
+
+        /*
             Get the icon set selected for the webhook. If none is selected, fall
             back to the default icon set.
         */

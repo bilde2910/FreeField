@@ -27,6 +27,11 @@ class I18N {
     private static $i18ndefault = null;
 
     /*
+        `$currentLanguage` holds the current language loaded to `$i18ndata`.
+    */
+    private static $currentLanguage = null;
+
+    /*
         Resolves a localized string for the given I18N token. If the string
         isn't found in the preferred language array, a lookup is performed
         against the default language array. If a string isn't found there
@@ -240,10 +245,20 @@ class I18N {
     */
     private static function loadI18Ndata() {
         /*
-            Fetch a prioritized list of all languages accepted by the browser,
-            and a list of all languages installed in FreeField.
+            Fetch a prioritized list of all languages accepted by the browser.
         */
         $requested = self::getAcceptedLanguages();
+
+        /*
+            Set the preferred language and load the I18N data.
+        */
+        self::setLanguages($requested);
+    }
+
+    public static function setLanguages($requested) {
+        /*
+            Fetch a list of all languages installed in FreeField.
+        */
         $available = self::getAvailableLanguages();
 
         /*
@@ -254,7 +269,14 @@ class I18N {
         */
         foreach ($requested as $lang => $q) {
             if (in_array($lang, $available)) {
+                /*
+                    If the given language is already loaded, don't load it
+                    again.
+                */
+                if ($lang == self::$currentLanguage) return;
+
                 self::$i18ndata = parse_ini_file(__DIR__."/../i18n/$lang.ini");
+                self::$currentLanguage = $lang;
                 break;
             }
         }
