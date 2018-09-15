@@ -1,6 +1,6 @@
 <?php
 /*
-    This script handles all stages of Discord authentication.
+    This script handles all stages of GroupMe authentication.
 */
 
 require_once("../../includes/lib/global.php");
