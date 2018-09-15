@@ -117,6 +117,13 @@ function __require($require) {
         case "vendor/spyc":
             include_once(__DIR__."./../vendor/Spyc.php");
             break;
+
+        /*
+            Loads the Parsedown Markdown parser.
+        */
+        case "vendor/parsedown":
+            include_once(__DIR__."./../vendor/Parsedown/Parsedown.php");
+            break;
     }
 }
 
