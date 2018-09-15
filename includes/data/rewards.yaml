@@ -108,6 +108,13 @@ golden_razz_berry:
     categories:
       - berry
 
+# Silver Pinap Berries
+silver_pinap_berry:
+    params:
+      - quantity
+    categories:
+      - berry
+
 # --------------------------------------------------------------------------
 #     Potion and revive rewards
 # --------------------------------------------------------------------------
