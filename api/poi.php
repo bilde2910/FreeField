@@ -300,6 +300,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     );
 
     /*
+        If any of the users are null, unset the values as they default to null.
+        Sparrow does not handle null values properly.
+    */
+    if ($data["created_by"] === null) unset($data["created_by"]);
+    if ($data["updated_by"] === null) unset($data["updated_by"]);
+
+    /*
         Ensure that the POI has a name and is within the allowed geofence bounds
         for this FreeField instance.
     */
