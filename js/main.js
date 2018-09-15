@@ -967,6 +967,32 @@ $("#menu-close-settings").on("click", function() {
 });
 
 /*
+    If the user clicks on the "sign out everywhere" button, the script that
+    applies user settings server-side should be informed of the intention to
+    perform that action. The best way to this when the button is in the middle
+    of the form is to add a hidden element on the form before it is submitted
+    that flags the sign-out action for the processing script.
+
+    Normally, one could use `<input type="submit" name="sign-out-everywhere">`,
+    i.e. a submit button with an associated name, to identify the submit button
+    that was clicked server-side, so the correct action may be performed.
+    However, when users submit the form by pressing Enter in some form field,
+    the first submit button on the form is the one that is selected by default.
+    Since the "sign out everywhere" button is the first submit button on the
+    form (and it isn't really practical to place it after the "save settings"
+    button), pressing Enter in any form field would cause the user to have all
+    of their sessions invalidated. The solution to this is to let the "sign out"
+    button be an `<input type="button">` instead, and binding an event handler
+    to it that performs the following:
+*/
+$("#sign-out-everywhere").on("click", function() {
+    var form = $("#user-settings-form");
+    var signOutRequest = $('<input type="hidden" name="sign-out-everywhere" />')
+    form.append(signOutRequest);
+    form.submit();
+});
+
+/*
     Event handler for the user settings form on the settings pane. Loops over
     all configurable user settings and saves them to local storage before the
     form is submitted for processing of server-side settings.

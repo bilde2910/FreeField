@@ -1048,7 +1048,8 @@ Security::declareFrameOptionsHeader();
                                     <p>
                                         <?php echo I18N::resolveHTML("user_setting.sign_out_everywhere.info"); ?>
                                     </p>
-                                    <p><input type="submit"
+                                    <p><input type="button"
+                                              id="sign-out-everywhere"
                                               name="sign-out-everywhere"
                                               class="button-standard"
                                               value="<?php echo I18N::resolveHTML(
