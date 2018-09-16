@@ -628,6 +628,27 @@ class ConfigDefinitions {
                     "option" => new PermissionOption()
                 ),
             /*
+                Allows users to manage settings for the mobile device
+                representation of this FreeField instance.
+            */
+            "permissions/level/admin/mobile/general" => array(
+                "domain" => "perms",
+                "section" => "admin",
+                "default" => PermissionOption::LEVEL_ADMIN,
+                "option" => new PermissionOption()
+            ),
+                /*
+                    Allows users to modify the Progressive Web App manifest for
+                    mobile devices.
+                */
+                "permissions/level/admin/mobile/section/pwa" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+            /*
                 Allows users to manage default site-wide themes.
             */
             "permissions/level/admin/themes/general" => array(
@@ -1004,6 +1025,165 @@ class ConfigDefinitions {
                 "section" => "groupme",
                 "default" => "",
                 "option" => new StringOption('^[A-Za-z0-9]+$')
+            ),
+            /*
+================================================================================
+    MOBILE
+    Mobile settings
+================================================================================
+            */
+            /*
+                ------------------------------------------------------------
+                    PROGRESSIVE WEB APP
+                ------------------------------------------------------------
+            */
+            /*
+                Whether or not Progressive Web App functionality should be
+                enabled.
+            */
+            "mobile/pwa/enabled" => array(
+                "domain" => "mobile",
+                "section" => "pwa",
+                "default" => false,
+                "option" => new BooleanOption(),
+                "enable-only-if" => (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") ||
+                                    $_SERVER["SERVER_PORT"] == 443,
+                "value-if-disabled" => false
+            ),
+            /*
+                The color displayed in the title and address bars for mobile
+                browsers.
+            */
+            "mobile/pwa/name" => array(
+                "domain" => "mobile",
+                "section" => "pwa",
+                "default" => "FreeField",
+                "option" => new StringOption(),
+                
+            ),
+            /*
+                A short human-readable name for the application. Intended for
+                when there is insufficient space to display the full name above.
+            */
+            "mobile/pwa/short-name" => array(
+                "domain" => "mobile",
+                "section" => "pwa",
+                "default" => "FreeField",
+                "option" => new StringOption()
+            ),
+            /*
+                A general description of what the FreeField web app does.
+            */
+            "mobile/pwa/description" => array(
+                "domain" => "mobile",
+                "section" => "pwa",
+                "default" => "Shows field research reported by your local ".
+                             "Pokémon GO community.",
+                "option" => new StringOption()
+            ),
+            /*
+                The preferred display mode for the website.
+            */
+            "mobile/pwa/display" => array(
+                "domain" => "mobile",
+                "section" => "pwa",
+                "default" => "fullscreen",
+                "option" => new SelectOption(array(
+                    "fullscreen",
+                    "standalone",
+                    "minimal-ui",
+                    "browser"
+                ))
+            ),
+            /*
+                The icon that serves as the Progressive Web App's small icon.
+                *.png, *.gif, and *.jpg files are allowed. Must not exceed 64
+                KiB. The uploaded image should be exactly 192x192 px.
+            */
+            "mobile/pwa/icon/192px" => array(
+                "domain" => "mobile",
+                "section" => "pwa",
+                "default" => array(
+                    "type"   => "image/png",
+                    "name"   => "default-pwa-small.png",
+                    "size"   => 2044,
+                    "sha256" => "0a330b612466ea389359db56ce93f2a5faaa89359087926335c7bcab45b539e4"
+                ),
+                "option" => new FileOption(
+                    "mobile/pwa/icon/192px",
+                    array(
+                        "image/png" => "png",
+                        "image/gif" => "gif",
+                        "image/jpeg" => "jpg"
+                    ), 64 * 1024 // Max 64 KiB
+                )
+            ),
+            /*
+                The icon that serves as the Progressive Web App's small icon.
+                *.png, *.gif, and *.jpg files are allowed. Must not exceed 64
+                KiB. The uploaded image should be exactly 192x192 px.
+            */
+            "mobile/pwa/icon/512px" => array(
+                "domain" => "mobile",
+                "section" => "pwa",
+                "default" => array(
+                    "type"   => "image/png",
+                    "name"   => "default-pwa-large.png",
+                    "size"   => 6468,
+                    "sha256" => "76540d03ceae13acf84b2609395207786a115840f9968d94992b663d6cf01aec"
+                ),
+                "option" => new FileOption(
+                    "mobile/pwa/icon/512px",
+                    array(
+                        "image/png" => "png",
+                        "image/gif" => "gif",
+                        "image/jpeg" => "jpg"
+                    ), 256 * 1024 // Max 256 KiB
+                )
+            ),
+            /*
+                The icon that serves as the Progressive Web App's icon on the
+                loading screen. *.png, *.gif, *.jpg, and *.svg files are
+                allowed. Must not exceed 256 KiB.
+            */
+            "mobile/pwa/icon/launch" => array(
+                "domain" => "mobile",
+                "section" => "pwa",
+                "default" => array(
+                    "type"   => "image/svg+xml",
+                    "name"   => "default-pwa-launch.svg",
+                    "size"   => 978,
+                    "sha256" => "177998f2201056ed49f724264399aecb3f024e16be45e97af998199b8695e5a2"
+                ),
+                "option" => new FileOption(
+                    "mobile/pwa/icon/launch",
+                    array(
+                        "image/png" => "png",
+                        "image/gif" => "gif",
+                        "image/jpeg" => "jpg",
+                        "image/svg+xml" => "svg"
+                    ), 256 * 1024 // Max 256 KiB
+                )
+            ),
+            /*
+                The background color for the web app, displayed on the splash
+                screen.
+            */
+            "mobile/pwa/color/background" => array(
+                "domain" => "mobile",
+                "section" => "pwa",
+                "default" => "#08263a",
+                "option" => new ColorOption()
+            ),
+            /*
+                The foreground color for the web app, displayed on the splash
+                screen.
+            */
+            "mobile/pwa/color/foreground" => array(
+                "domain" => "mobile",
+                "section" => "pwa",
+                "default" => "#ffffff",
+                "option" => new ColorOption()
             ),
             /*
 ================================================================================

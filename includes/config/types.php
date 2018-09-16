@@ -1225,6 +1225,14 @@ class FileOptionValue {
         readfile($this->getPath());
         exit;
     }
+
+    /*
+        Returns the contents of the file as a base64-encoded data URI.
+    */
+    public function getDataURI() {
+        return "data:".$this->getMIMEType().";base64,".
+            base64_encode(file_get_contents($this->getPath()));
+    }
 }
 
 /*

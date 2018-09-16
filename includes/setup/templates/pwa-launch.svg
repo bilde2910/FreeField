@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #178cff;
+            }
+        </style>
+    </defs>
+    <title>pwa-launch</title>
+    <rect class="cls-1" x="93.74" y="93.74" width="68.53" height="68.53" transform="translate(128 -53.02) rotate(45)" />
+    <polygon class="cls-1" points="65.08 164.23 28.85 128 65.08 91.77 50.66 77.34 0 128 50.66 178.66 65.08 164.23" />
+    <polygon class="cls-1" points="190.92 164.23 205.34 178.66 256 128 205.34 77.34 190.92 91.77 227.15 128 190.92 164.23" />
+    <polygon class="cls-1" points="128 28.85 164.23 65.08 178.66 50.66 128 0 77.34 50.66 91.77 65.08 128 28.85" />
+    <polygon class="cls-1" points="128 176.46 79.54 224.92 79.54 234.58 79.54 255.75 79.54 256 176.46 256 176.46 255.75 176.46 234.58 176.46 224.92 128 176.46" />
+</svg>

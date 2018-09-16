@@ -164,6 +164,14 @@ Security::declareFrameOptionsHeader();
               crossorigin="anonymous">
         <link rel="stylesheet" href="./css/main.css?v=<?php echo time(); ?>">
         <link rel="stylesheet" href="./css/map-markers.php">
+        <?php
+            if (Config::get("mobile/pwa/enabled")->value()) {
+                ?>
+                    <link rel="manifest" href="./pwa/manifest.php">
+                    <script src="./pwa/register-sw.js?t=<?php echo time(); ?>"></script>
+                <?php
+            }
+        ?>
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">

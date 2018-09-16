@@ -517,6 +517,12 @@ class Config {
                 "custom-handler" => false
             ),
 
+            // Mobile settings
+            "mobile" => array(
+                "icon" => "mobile-alt",
+                "custom-handler" => false
+            ),
+
             // Theme settings and defaults
             "themes" => array(
                 "icon" => "palette",
@@ -1081,6 +1087,11 @@ class ConfigSectionI18N {
         "auth/groupme" => array(
             // admin.section.auth.groupme.desc
             '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/GroupMe">',
+            '</a>'
+        ),
+        "mobile/pwa" => array(
+            // admin.section.mobile.pwa.desc
+            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/FreeField-PWA">',
             '</a>'
         ),
         "map/geofence" => array(
