@@ -121,16 +121,14 @@ function resolveObjective(objective) {
     }
 
     /*
-        Defaults to the "objective.<type>" key. If the objective accepts the
-        "quantity" parameter, we'll instead resolve either
+        Defaults to the "objective.<type>.singular" key. If the objective
+        accepts the "quantity" parameter, we'll instead resolve either
         "objective.<key>.singular" or "objective.<key>.plural" depending on the
         value of "quantity".
     */
-    var i18nstring = resolveI18N("objective." + objective.type);
+    var i18nstring = resolveI18N("objective." + objective.type + ".singular");
     if (objective.params.hasOwnProperty("quantity")) {
-        if (objective.params.quantity == 1) {
-            i18nstring = resolveI18N("objective." + objective.type + ".singular");
-        } else {
+        if (objective.params.quantity != 1) {
             i18nstring = resolveI18N("objective." + objective.type + ".plural");
         }
     }
@@ -166,16 +164,14 @@ function resolveReward(reward) {
     }
 
     /*
-        Defaults to the "reward.<type>" key. If the reward accepts the
+        Defaults to the "reward.<type>.singular" key. If the reward accepts the
         "quantity" parameter, we'll instead resolve either
         "reward.<key>.singular" or "reward.<key>.plural" depending on the value
         of "quantity".
     */
-    var i18nstring = resolveI18N("reward." + reward.type);
+    var i18nstring = resolveI18N("reward." + reward.type + ".singular");
     if (reward.params.hasOwnProperty("quantity")) {
-        if (reward.params.quantity == 1) {
-            i18nstring = resolveI18N("reward." + reward.type + ".singular");
-        } else {
+        if (reward.params.quantity != 1) {
             i18nstring = resolveI18N("reward." + reward.type + ".plural");
         }
     }

@@ -234,7 +234,6 @@ rare_candy:
 
 # Pokémon encounters
 encounter:
-    params:
-      - quantity
+    params: []
     categories:
       - encounter

@@ -641,16 +641,14 @@ class Research {
         }
 
         /*
-            Defaults to the "objective.<type>" key. If the objective accepts the
-            "quantity" parameter, we'll instead resolve either
+            Defaults to the "objective.<type>.singular" key. If the objective
+            accepts the "quantity" parameter, we'll instead resolve either
             "objective.<key>.singular" or "objective.<key>.plural" depending on
             the value of "quantity".
         */
-        $i18nstring = I18N::resolve("objective.{$type}");
+        $i18nstring = I18N::resolve("objective.{$type}.singular");
         if (isset($params["quantity"])) {
-            if ($params["quantity"] == 1) {
-                $i18nstring = I18N::resolve("objective.{$type}.singular");
-            } else {
+            if ($params["quantity"] != 1) {
                 $i18nstring = I18N::resolve("objective.{$type}.plural");
             }
         }
@@ -684,16 +682,14 @@ class Research {
         }
 
         /*
-            Defaults to the "reward.<type>" key. If the reward accepts the
-            "quantity" parameter, we'll instead resolve either
+            Defaults to the "reward.<type>.singular" key. If the reward accepts
+            the "quantity" parameter, we'll instead resolve either
             "reward.<key>.singular" or "reward.<key>.plural" depending on the
             value of "quantity".
         */
-        $i18nstring = I18N::resolve("reward.{$type}");
+        $i18nstring = I18N::resolve("reward.{$type}.singular");
         if (isset($params["quantity"])) {
-            if ($params["quantity"] == 1) {
-                $i18nstring = I18N::resolve("reward.{$type}.singular");
-            } else {
+            if ($params["quantity"] != 1) {
                 $i18nstring = I18N::resolve("reward.{$type}.plural");
             }
         }

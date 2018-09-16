@@ -86,6 +86,10 @@
                                 // Use the plural string of the objective by default
                                 $i18n = I18N::resolve("objective.{$objective}.plural");
 
+                                // If the objective is singular-only, use the singular string
+                                if (!in_array("quantity", $data))
+                                    $i18n = I18N::resolve("objective.{$objective}.singular");
+
                                 // Replace parameters (e.g. {%1}) with placeholders
                                 for ($i = 0; $i < count($data["params"]); $i++) {
                                     $i18n = str_replace(
@@ -310,6 +314,10 @@
                             foreach ($categorizedRewards as $reward => $data) {
                                 // Use the plural string of the reward by default
                                 $i18n = I18N::resolve("reward.{$reward}.plural");
+
+                                // If the reward is singular-only, use the singular string
+                                if (!in_array("quantity", $data))
+                                    $i18n = I18N::resolve("reward.{$reward}.singular");
 
                                 // Replace parameters (e.g. {%1}) with placeholders
                                 for ($i = 0; $i < count($data["params"]); $i++) {
