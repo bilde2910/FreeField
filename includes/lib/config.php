@@ -899,7 +899,7 @@ class ConfigEntry {
             assertion fails, a default value should be returned instead of the
             actual value set in the configuration file.
         */
-        if (!$this->isEnabled() && $this->valueIfDisabled === null) {
+        if (!$this->isEnabled() && $this->valueIfDisabled !== null) {
             return $this->valueIfDisabled;
         } else {
             if ($this->value === null) {
