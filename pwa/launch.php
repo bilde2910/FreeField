@@ -13,7 +13,7 @@ __require("i18n");
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, user-scalable=no">

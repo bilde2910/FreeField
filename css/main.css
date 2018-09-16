@@ -20,6 +20,12 @@
     text-overflow: ellipsis;
 }
 
+/* Menus in the sidebar. Override default side-menu behavior of adding a 1px
+   solid top border to menus. */
+#menu .pure-menu ul, #menu .pure-menu .menu-item-divided {
+    border-top: none !important;
+}
+
 /* The "userbox" which shows the currently logged in user at the top of the
    sidebar. */
 .menu-user-box {

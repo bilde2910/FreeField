@@ -107,7 +107,7 @@ if (!$domains[$domain]["custom-handler"]) {
 Security::declareFrameOptionsHeader();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -182,7 +182,7 @@ Security::declareFrameOptionsHeader();
                         <?php echo Config::get("site/menu-header")->valueHTML(); ?>
                     </a>
 
-                    <ul class="pure-menu-list">
+                    <?php if (Auth::isAuthenticated()) { ?>
                         <div class="menu-user-box">
                             <span class="user-box-small">
                                 <?php echo I18N::resolveHTML("sidebar.signed_in_as"); ?>
@@ -203,14 +203,27 @@ Security::declareFrameOptionsHeader();
                                 }
                             ?>
                         </div>
-                        <li class="pure-menu-item">
-                            <a href="../auth/logout.php?<?php echo Security::getCSRFUrlParameter(); ?>"
-                               class="pure-menu-link">
-                                <i class="menu-fas fas fa-sign-in-alt"></i>
-                                <?php echo I18N::resolveHTML("sidebar.logout"); ?>
-                            </a>
-                        </li>
-                        <div class="menu-spacer"></div>
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-item">
+                                <a href="../auth/logout.php?<?php echo Security::getCSRFUrlParameter(); ?>"
+                                   class="pure-menu-link">
+                                    <i class="menu-fas fas fa-sign-in-alt"></i>
+                                    <?php echo I18N::resolveHTML("sidebar.logout"); ?>
+                                </a>
+                            </li>
+                        </ul>
+                    <?php } else { ?>
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-item">
+                                <a href="../auth/login.php" class="pure-menu-link">
+                                    <i class="menu-fas fas fa-sign-in-alt"></i>
+                                    <?php echo I18N::resolveHTML("sidebar.login"); ?>
+                                </a>
+                            </li>
+                        </ul>
+                    <?php } ?>
+                    <div class="menu-spacer"></div>
+                    <ul class="pure-menu-list">
                         <?php
                         /*
                             List all domains that the user has access to.
@@ -229,7 +242,9 @@ Security::declareFrameOptionsHeader();
                                  '</a></li>';
                         }
                         ?>
-                        <div class="menu-spacer"></div>
+                    </ul>
+                    <div class="menu-spacer"></div>
+                    <ul class="pure-menu-list">
                         <li class="pure-menu-item">
                             <a href=".." class="pure-menu-link">
                                 <i class="menu-fas fas fa-angle-double-left"></i>

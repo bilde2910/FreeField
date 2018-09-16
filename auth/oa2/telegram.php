@@ -42,7 +42,7 @@ if (!isset($_GET["hash"])) { ?>
 Security::declareFrameOptionsHeader();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
     <head>
         <title><?php echo I18N::resolveArgsHTML(
             "page_title.login.telegram",

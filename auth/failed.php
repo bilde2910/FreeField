@@ -50,7 +50,7 @@ if ($provider !== null && !in_array($provider, $providers)) {
 Security::declareFrameOptionsHeader();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">

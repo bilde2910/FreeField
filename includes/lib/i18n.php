@@ -27,7 +27,8 @@ class I18N {
     private static $i18ndefault = null;
 
     /*
-        `$currentLanguage` holds the current language loaded to `$i18ndata`.
+        `$currentLanguage` holds the language code of the language currently
+        loaded to `$i18ndata`.
     */
     private static $currentLanguage = null;
 
@@ -303,6 +304,14 @@ class I18N {
                 __DIR__."/../i18n/".self::DEFAULT_LANG.".ini"
             );
         }
+    }
+
+    /*
+        Returns the currently loaded language.
+    */
+    public static function getLanguage() {
+        if (self::$i18ndata === null) self::loadI18Ndata();
+        return self::$currentLanguage;
     }
 
     /*

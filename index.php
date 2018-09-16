@@ -31,7 +31,7 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
             Security::declareFrameOptionsHeader();
             ?>
             <!DOCTYPE html>
-            <html>
+            <html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
                 <head>
                     <meta charset="utf-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -127,7 +127,7 @@ $linkMod = array(
 Security::declareFrameOptionsHeader();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -225,28 +225,28 @@ Security::declareFrameOptionsHeader();
                         <?php echo Config::get("site/menu-header")->valueHTML(); ?>
                     </a>
 
-                    <ul class="pure-menu-list">
-                        <?php if (Auth::isAuthenticated()) { ?>
-                            <div class="menu-user-box">
-                                <span class="user-box-small">
-                                    <?php echo I18N::resolveHTML("sidebar.signed_in_as"); ?>
-                                </span><br>
-                                <span class="user-box-nick">
-                                    <?php echo Auth::getCurrentUser()->getNicknameHTML(); ?>
-                                </span><br>
-                                <span class="user-box-small">
-                                    <?php echo Auth::getCurrentUser()->getProviderIdentityHTML(); ?>
-                                </span><br>
-                                <?php
-                                    if (!Auth::getCurrentUser()->isApproved()) {
-                                        ?>
-                                            <span class="user-box-small red">
-                                                <?php echo I18N::resolveHTML("sidebar.approval_pending"); ?>
-                                            </span>
-                                        <?php
-                                    }
-                                ?>
-                            </div>
+                    <?php if (Auth::isAuthenticated()) { ?>
+                        <div class="menu-user-box">
+                            <span class="user-box-small">
+                                <?php echo I18N::resolveHTML("sidebar.signed_in_as"); ?>
+                            </span><br>
+                            <span class="user-box-nick">
+                                <?php echo Auth::getCurrentUser()->getNicknameHTML(); ?>
+                            </span><br>
+                            <span class="user-box-small">
+                                <?php echo Auth::getCurrentUser()->getProviderIdentityHTML(); ?>
+                            </span><br>
+                            <?php
+                                if (!Auth::getCurrentUser()->isApproved()) {
+                                    ?>
+                                        <span class="user-box-small red">
+                                            <?php echo I18N::resolveHTML("sidebar.approval_pending"); ?>
+                                        </span>
+                                    <?php
+                                }
+                            ?>
+                        </div>
+                        <ul class="pure-menu-list">
                             <li class="pure-menu-item">
                                 <a href="./auth/logout.php?<?php echo Security::getCSRFUrlParameter(); ?>"
                                    class="pure-menu-link">
@@ -254,71 +254,73 @@ Security::declareFrameOptionsHeader();
                                     <?php echo I18N::resolveHTML("sidebar.logout"); ?>
                                 </a>
                             </li>
-                        <?php } else { ?>
+                        </ul>
+                    <?php } else { ?>
+                        <ul class="pure-menu-list">
                             <li class="pure-menu-item">
                                 <a href="./auth/login.php" class="pure-menu-link">
                                     <i class="menu-fas fas fa-sign-in-alt"></i>
                                     <?php echo I18N::resolveHTML("sidebar.login"); ?>
                                 </a>
                             </li>
+                        </ul>
+                    <?php } ?>
+                    <div class="menu-spacer"></div>
+                    <ul id="map-menu" class="pure-menu-list">
+                        <?php if (Auth::getCurrentUser()->hasPermission("submit-poi")) { ?>
+                            <li class="pure-menu-item">
+                                <a href="#" id="add-poi-start" class="pure-menu-link">
+                                    <i class="menu-fas fas fa-plus"></i>
+                                    <?php echo I18N::resolveHTML("sidebar.add_poi"); ?>
+                                </a>
+                            </li>
                         <?php } ?>
-                        <div class="menu-spacer"></div>
-                        <div id="map-menu">
-                            <?php if (Auth::getCurrentUser()->hasPermission("submit-poi")) { ?>
-                                <li class="pure-menu-item">
-                                    <a href="#" id="add-poi-start" class="pure-menu-link">
-                                        <i class="menu-fas fas fa-plus"></i>
-                                        <?php echo I18N::resolveHTML("sidebar.add_poi"); ?>
-                                    </a>
-                                </li>
-                            <?php } ?>
-                            <li class="pure-menu-item">
-                                <a href="#" id="menu-open-settings" class="pure-menu-link">
-                                    <i class="menu-fas fas fa-wrench"></i>
-                                    <?php echo I18N::resolveHTML("sidebar.settings"); ?>
-                                </a>
-                            </li>
-                            <?php
-                                /* Check if user has permission to access any admin pages. */
-                                if (Auth::getCurrentUser()->canAccessAdminPages()) {
-                                    ?>
-                                        <li class="pure-menu-item">
-                                            <a href="./admin/" class="pure-menu-link">
-                                                <i class="menu-fas fas fa-angle-double-right"></i>
-                                                <?php echo I18N::resolveHTML("sidebar.manage_site"); ?>
-                                            </a>
-                                        </li>
-                                    <?php
-                                }
-                            ?>
-                            <?php
-                                /* Check if the "Show MotD" button should be displayed. */
-                                if (Config::get("motd/display-mode")->value() !== "never") {
-                                    ?>
-                                        <li class="pure-menu-item">
-                                            <a href="#" id="motd-open" class="pure-menu-link">
-                                                <i class="menu-fas fas fa-bell"></i>
-                                                <?php echo I18N::resolveHTML("sidebar.show_motd"); ?>
-                                            </a>
-                                        </li>
-                                    <?php
-                                }
-                            ?>
-                        </div>
-                        <div id="settings-menu" class="hidden-by-default">
-                            <li class="pure-menu-item">
-                                <a href="#" id="menu-reset-settings" class="pure-menu-link">
-                                    <i class="menu-fas fas fa-undo"></i>
-                                    <?php echo I18N::resolveHTML("sidebar.reset"); ?>
-                                </a>
-                            </li>
-                            <li class="pure-menu-item">
-                                <a href="#" id="menu-close-settings" class="pure-menu-link">
-                                    <i class="menu-fas fas fa-angle-double-left"></i>
-                                    <?php echo I18N::resolveHTML("sidebar.cancel"); ?>
-                                </a>
-                            </li>
-                        </div>
+                        <li class="pure-menu-item">
+                            <a href="#" id="menu-open-settings" class="pure-menu-link">
+                                <i class="menu-fas fas fa-wrench"></i>
+                                <?php echo I18N::resolveHTML("sidebar.settings"); ?>
+                            </a>
+                        </li>
+                        <?php
+                            /* Check if user has permission to access any admin pages. */
+                            if (Auth::getCurrentUser()->canAccessAdminPages()) {
+                                ?>
+                                    <li class="pure-menu-item">
+                                        <a href="./admin/" class="pure-menu-link">
+                                            <i class="menu-fas fas fa-angle-double-right"></i>
+                                            <?php echo I18N::resolveHTML("sidebar.manage_site"); ?>
+                                        </a>
+                                    </li>
+                                <?php
+                            }
+                        ?>
+                        <?php
+                            /* Check if the "Show MotD" button should be displayed. */
+                            if (Config::get("motd/display-mode")->value() !== "never") {
+                                ?>
+                                    <li class="pure-menu-item">
+                                        <a href="#" id="motd-open" class="pure-menu-link">
+                                            <i class="menu-fas fas fa-bell"></i>
+                                            <?php echo I18N::resolveHTML("sidebar.show_motd"); ?>
+                                        </a>
+                                    </li>
+                                <?php
+                            }
+                        ?>
+                    </ul>
+                    <ul id="settings-menu" class="pure-menu-list hidden-by-default">
+                        <li class="pure-menu-item">
+                            <a href="#" id="menu-reset-settings" class="pure-menu-link">
+                                <i class="menu-fas fas fa-undo"></i>
+                                <?php echo I18N::resolveHTML("sidebar.reset"); ?>
+                            </a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" id="menu-close-settings" class="pure-menu-link">
+                                <i class="menu-fas fas fa-angle-double-left"></i>
+                                <?php echo I18N::resolveHTML("sidebar.cancel"); ?>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
