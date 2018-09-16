@@ -931,7 +931,7 @@ Security::declareFrameOptionsHeader();
                                 <div id="motd-overlay" class="cover-box">
                                     <div class="cover-box-inner">
                                         <div class="header">
-                                            <h1 id="poi-name" class="head-small">
+                                            <h1 class="head-small">
                                                 <?php
                                                     $motdTitle = Config::get("motd/title")->valueHTML();
                                                     if ($motdTitle == "")
