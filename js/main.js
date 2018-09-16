@@ -1138,7 +1138,9 @@ $(window).on("resize", function() {
 $("head").append('<link rel="stylesheet" ' +
                        'type="text/css" ' +
                        'href="./css/' + settings.get("theme") +
-                             '.css?v=' + Date.now() + '">');
+                             '.css?t=' + linkMod[
+                                 "/css/" + settings.get("theme") + ".css"
+                             ] + '">');
 
 /*
     Configure the `IconSetOption` selector to use the correct user theme color.
