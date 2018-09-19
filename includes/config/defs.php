@@ -1068,8 +1068,7 @@ class ConfigDefinitions {
                 "domain" => "mobile",
                 "section" => "pwa",
                 "default" => "FreeField",
-                "option" => new StringOption(),
-                
+                "option" => new StringOption()
             ),
             /*
                 A short human-readable name for the application. Intended for
