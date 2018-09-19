@@ -484,6 +484,16 @@ class ConfigDefinitions {
                 "default" => PermissionOption::LEVEL_MODERATOR,
                 "option" => new PermissionOption()
             ),
+                /*
+                    Allow users to import and export POIs.
+                */
+                "permissions/level/admin/pois/import" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
             /*
                 Allows users to change the permissions settings on this page.
             */

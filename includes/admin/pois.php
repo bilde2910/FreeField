@@ -39,7 +39,7 @@
                     <!--
                         Table header defining columns for:
 
-                            1.  Changing the group name (text box)
+                            1.  Changing the POI name (text box)
                             2.  Showing the date and time the POI was created
                             3.  Showing the name of the user who created the POI
                             4.  Showing the current research task reported
@@ -152,49 +152,127 @@
                 ?>
             </tbody>
         </table>
-        <script>
-            /*
-                Handle changes to the Actions down-down for POIs. If the
-                "delete" action is selected, the box should be re-styled to make
-                it very obvious that the POI will be deleted (i.e. it shouldn't
-                be possible to do it by accident). Setting the border and text
-                color to red should draw enough attention to the box that
-                accidental deletions doesn't happen (or at least happens very
-                rarely). The same is done for the action that clears the field
-                research task currently reported on the POI.
-            */
-            $(".poi-actions").on("change", function() {
-                if ($(this).val() == "delete") {
-                    $(this).css("border", "1px solid red");
-                    $(this).css("color", "red");
-                    $(this).css("margin-right", "");
-                } else if ($(this).val() == "clear") {
-                    $(this).css("border", "1px solid darkorange");
-                    $(this).css("color", "darkorange");
-                    $(this).css("margin-right", "");
-                } else {
-                    $(this).css("border", "");
-                    $(this).css("color", "");
-                    $(this).css("margin-right", "");
+        <!--
+            ================================================================
+                POI IMPORTS SECTION
+            ================================================================
+        -->
+        <?php if (Auth::getCurrentUser()->hasPermission("admin/pois/import")) { ?>
+            <h2 class="content-subhead">
+                <?php echo I18N::resolveHTML("admin.section.pois.import.name"); ?>
+            </h2>
+            <!--
+                File input box. The user selects a file that contains a list of
+                POIs to be imported. Accepts CSV files only.
+            -->
+            <div class="pure-g">
+                <div class="pure-u-1-3 full-on-mobile">
+                    <p class="setting-name">
+                        <?php echo I18N::resolveHTML("admin.section.pois.import.file.name"); ?><span class="only-desktop">:
+                            <span class="tooltip">
+                                <i class="content-fas fas fa-question-circle"></i>
+                                <span>
+                                    <?php echo I18N::resolveHTML("admin.section.pois.import.file.desc"); ?>
+                                </span>
+                            </span>
+                        </span>
+                    </p>
+                    <p class="only-mobile">
+                        <?php echo I18N::resolveHTML("admin.section.pois.import.file.desc"); ?>
+                    </p>
+                </div>
+                <div class="pure-u-2-3 full-on-mobile">
+                    <p>
+                        <input type="file"
+                               id="import-poi-file"
+                               accept=".csv">
+                    </p>
+                </div>
+            </div>
+            <?php
+                /*
+                    An input box for each of the field headers required for
+                    importing POIs. To import POIs, it is necessary to know
+                    which data column contains the POI name, latitude and
+                    longitude in the imported data. The user selects this using
+                    these selection boxes.
+                */
+                $fields = array("name", "latitude", "longitude");
+                foreach ($fields as $field) {
+                    ?>
+                        <div class="pure-g">
+                            <div class="pure-u-1-3 full-on-mobile">
+                                <p class="setting-name">
+                                    <?php echo I18N::resolveHTML(
+                                        "admin.section.pois.import.{$field}.name"
+                                    ); ?><span class="only-desktop">:
+                                        <span class="tooltip">
+                                            <i class="content-fas fas fa-question-circle"></i>
+                                            <span>
+                                                <?php echo I18N::resolveHTML(
+                                                    "admin.section.pois.import.{$field}.desc"
+                                                ); ?>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </p>
+                                <p class="only-mobile">
+                                    <?php echo I18N::resolveHTML("admin.section.pois.import.{$field}.desc"); ?>
+                                </p>
+                            </div>
+                            <div class="pure-u-2-3 full-on-mobile">
+                                <p>
+                                    <select id="import-poi-field-<?php echo $field; ?>" class="import-poi-field" disabled>
+                                        <option value="">
+                                            <?php echo I18N::resolveHTML("admin.section.pois.import.selector.none"); ?>
+                                        </option>
+                                        <optgroup class="import-poi-optgroup" label="<?php
+                                            echo I18N::resolveHTML("admin.section.pois.import.selector.available");
+                                        ?>"></optgroup>
+                                    </select>
+                                </p>
+                            </div>
+                        </div>
+                    <?php
                 }
-            });
+            ?>
+            <!--
+                The preview section for imported POIs. Contains a table that is
+                populated with POIs that will be imported.
+            -->
+            <div id="import-poi-preview-section" class="hidden-by-default">
+                <h2 class="content-subhead">
+                    <?php echo I18N::resolveHTML("admin.section.pois.preview_table.name"); ?>
+                </h2>
+                <p id="import-poi-counter"></p>
+                <table class="pure-table force-fullwidth">
+                    <thead>
+                        <tr>
+                            <!--
+                                Table header defining columns for:
 
-            /*
-                Changes to inputs on the form are tracked to stop data being
-                accidentally discarded if the user tries to navigate away from
-                the page without saving the settings. Ensure that the warning
-                isn't displayed if the user clicks on the submit button.
-
-                This must be set manually on submit because the form on this
-                page does not use `require-validation`. Forms that use
-                `require-validation` have this handled automatically by the
-                validation script. Please see the end of the /admin/index.php
-                script for more information.
-            */
-            $("form").on("submit", function() {
-                unsavedChanges = false;
-            });
-        </script>
+                                    1.  Changing the POI name (text box)
+                                    2.  Changing the latitude of the POI (text
+                                        box)
+                                    3.  Changing the longitude of the POI (text
+                                        box)
+                                    4.  Choosing whether or not to import the POI
+                            -->
+                            <th><?php echo I18N::resolveHTML("admin.table.pois.preview_table.column.poi_name.name"); ?></th>
+                            <th><?php echo I18N::resolveHTML("admin.table.pois.preview_table.column.latitude.name"); ?></th>
+                            <th><?php echo I18N::resolveHTML("admin.table.pois.preview_table.column.longitude.name"); ?></th>
+                            <th><?php echo I18N::resolveHTML("admin.table.pois.preview_table.column.include.name"); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody id="import-poi-preview-rows">
+                    </tbody>
+                </table>
+                <p id="import-poi-invalid-warning" class="poi-import-invalid hidden-by-default">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <?php echo I18N::resolveHTML("admin.section.pois.import.invalid_warning"); ?>
+                </p>
+            </div>
+        <?php } ?>
         <p class="buttons">
             <input type="submit"
                    class="button-submit"
@@ -202,3 +280,13 @@
         </p>
     </form>
 </div>
+<!--
+    JavaScript library for CSV parsing.
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.6.0/papaparse.min.js"
+        integrity="sha256-VEDmZKQGIjdl6PnqmhA5y0oCcqpcJPFm8qP1mEOBwHY="
+        crossorigin="anonymous"></script>
+<!--
+    /admin/js/pois.js contains additional functionality for this page.
+-->
+<script type="text/javascript" src="./js/pois.js"></script>

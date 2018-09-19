@@ -526,6 +526,12 @@ h1.head-small {
     height: 40px;
 }
 
+/* The warning shown if the POI import table contains invalid data when
+   importing POIs through the POI list page on the administration pages. */
+.poi-import-invalid {
+    color: darkorange;
+}
+
 /*
     ------------------------------------------------------------------------
         ICON SELECTOR PREVIEW BOX
