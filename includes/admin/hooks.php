@@ -707,7 +707,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="../js/clientside-i18n.php"></script>
 <script>
     /*
         Creates and returns an HTML node representing a webhook. Contains

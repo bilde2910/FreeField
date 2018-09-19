@@ -155,7 +155,6 @@
         </p>
     </form>
 </div>
-<script type="text/javascript" src="../js/clientside-i18n.php"></script>
 <!--
     /admin/js/groups.js contains additional functionality for this page.
 -->
