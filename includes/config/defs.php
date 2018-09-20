@@ -938,7 +938,7 @@ class ConfigDefinitions {
                 "domain" => "auth",
                 "section" => "discord",
                 "default" => "",
-                "option" => new StringOption('^\d+$')
+                "option" => new StringOption('^\d*$')
             ),
             /*
                 The client secret of your Discord API application.
@@ -1034,7 +1034,7 @@ class ConfigDefinitions {
                 "domain" => "auth",
                 "section" => "groupme",
                 "default" => "",
-                "option" => new StringOption('^[A-Za-z0-9]+$')
+                "option" => new StringOption('^[A-Za-z0-9]*$')
             ),
             /*
 ================================================================================
