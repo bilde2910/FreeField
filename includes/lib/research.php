@@ -543,15 +543,18 @@ class Research {
 
     /*
         Checks whether or not the given objective is valid.
+
+        `$lenient` can be set to true to allow missing parameters for the given
+        reward type.
     */
-    public static function isObjectiveValid($type, $params) {
+    public static function isObjectiveValid($type, $params, $lenient = false) {
         $objdef = self::getObjective($type);
         if ($objdef !== null) {
             $validParams = $objdef["params"];
 
             // Check that all required parameters are present
             foreach ($validParams as $param) {
-                if (!isset($params[$param])) {
+                if (!$lenient && !isset($params[$param])) {
                     return false;
                 }
             }
@@ -581,15 +584,18 @@ class Research {
 
     /*
         Checks whether or not the given reward is valid.
+
+        `$lenient` can be set to true to allow missing parameters for the given
+        reward type.
     */
-    public static function isRewardValid($type, $params) {
+    public static function isRewardValid($type, $params, $lenient = false) {
         $rewdef = self::getReward($type);
         if ($rewdef !== null) {
             $validParams = $rewdef["params"];
 
             // Check that all required parameters are present
             foreach ($validParams as $param) {
-                if (!isset($params[$param])) {
+                if (!$lenient && !isset($params[$param])) {
                     return false;
                 }
             }
@@ -619,6 +625,12 @@ class Research {
 
     /*
         Checks whether objective or reward 1 matches objective or reward 2.
+
+        This function performs lenient matching. This means that if there is a
+        parameter present in `$params1` that is not present in `$params2`, this
+        function can return true. However, if there is a parameter missing in
+        `$params1` that is present in `$params2`, the function will fail the
+        match and return false.
     */
     public static function matches($type1, $params1, $type2, $params2) {
         if ($type1 !== $type2) return false;

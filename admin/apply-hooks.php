@@ -296,7 +296,7 @@ foreach ($_POST as $postid => $data) {
             $params = json_decode($value["params"], true);
             if ($params === null) continue;
 
-            if (Research::isObjectiveValid($type, $params)) {
+            if (Research::isObjectiveValid($type, $params, true)) {
                 $objectives[] = array(
                     "type" => $type,
                     "params" => $params
@@ -317,7 +317,7 @@ foreach ($_POST as $postid => $data) {
             $params = json_decode($value["params"], true);
             if ($params === null) continue;
 
-            if (Research::isRewardValid($type, $params)) {
+            if (Research::isRewardValid($type, $params, true)) {
                 $rewards[] = array(
                     "type" => $type,
                     "params" => $params

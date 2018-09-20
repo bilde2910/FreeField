@@ -434,6 +434,14 @@ function editObjective(newObjective, caller) {
     $("#update-hook-objective").val(objective.type == "unknown" ? null : objective.type);
     if (objective.type !== "unknown") {
         /*
+            If the objective parameters is an array, it is most likely empty.
+            Convert it to an empty object instead.
+        */
+        if (objective.params.constructor === Array) {
+            objective.params = {};
+        }
+
+        /*
             If the objective type is defined, the change event for the objective
             type selection box should be triggered. This will ensure that the
             correct parameter input boxes are displayed when the dialog box is
@@ -452,13 +460,33 @@ function editObjective(newObjective, caller) {
         */
         var params = objectives[objective.type].params;
         for (var i = 0; i < params.length; i++) {
-            /*
-                This function is defined in hooks.php as it contains server-
-                generated code. It parses the data from `objective.params` and
-                fills in the resulting data to the input boxes in the dialog box
-                so that it can be edited by the user.
-            */
-            parseObjectiveParameter(params[i], objective.params[params[i]]);
+            if (objective.params.hasOwnProperty(params[i])) {
+                /*
+                    The objective has the parameter specified. This indicates
+                    that the parameter is enabled. Check the checkbox next to
+                    the parameter name to reflect this.
+                */
+                var enableNode = $("#update-hook-objective-param-" + params[i] + "-enable");
+                enableNode.prop("checked", true);
+                enableNode.trigger("input");
+                /*
+                    This function is defined in hooks.php as it contains server-
+                    generated code. It parses the data from `objective.params`
+                    and fills in the resulting data to the input boxes in the
+                    dialog box so that it can be edited by the user.
+                */
+                parseObjectiveParameter(params[i], objective.params[params[i]]);
+            } else {
+                /*
+                    The objective does not have the parameter specified. This
+                    indicates that the parameter is disabled. Uncheck the
+                    checkbox next to the parameter name to reflect this.
+                */
+                var enableNode = $("#update-hook-objective-param-" + params[i] + "-enable");
+                enableNode.prop("checked", false);
+                enableNode.trigger("input");
+            }
+
         }
     } else {
         /*
@@ -514,14 +542,17 @@ function editObjective(newObjective, caller) {
         var objParams = {};
         for (var i = 0; i < objDefinition.params.length; i++) {
             var paramData = getObjectiveParameter(objDefinition.params[i]);
-            if (paramData == null || paramData == "") {
+            var enableParam = $(
+                "#update-hook-objective-param-" + objDefinition.params[i] + "-enable"
+            ).is(":checked");
+            if (enableParam && (paramData == null || paramData == "")) {
                 alert(resolveI18N(
                     "admin.clientside.hooks.update.objective.failed.message",
                     resolveI18N("xhr.failed.reason.missing_fields")
                 ));
                 return;
             }
-            objParams[objDefinition.params[i]] = paramData;
+            if (enableParam) objParams[objDefinition.params[i]] = paramData;
         }
 
         /*
@@ -708,6 +739,14 @@ function editReward(newReward, caller) {
     $("#update-hook-reward").val(reward.type == "unknown" ? null : reward.type);
     if (reward.type !== "unknown") {
         /*
+            If the reward parameters is an array, it is most likely empty.
+            Convert it to an empty object instead.
+        */
+        if (reward.params.constructor === Array) {
+            reward.params = {};
+        }
+
+        /*
             If the reward type is defined, the change event for the reward type
             selection box should be triggered. This will ensure that the correct
             parameter input boxes are displayed when the dialog box is made
@@ -726,13 +765,32 @@ function editReward(newReward, caller) {
         */
         var params = rewards[reward.type].params;
         for (var i = 0; i < params.length; i++) {
-            /*
-                This function is defined in hooks.php as it contains server-
-                generated code. It parses the data from `reward.params` and
-                fills in the resulting data to the input boxes in the dialog box
-                so that it can be edited by the user.
-            */
-            parseRewardParameter(params[i], reward.params[params[i]]);
+            if (reward.params.hasOwnProperty(params[i])) {
+                /*
+                    The reward has the parameter specified. This indicates that
+                    the parameter is enabled. Check the checkbox next to the
+                    parameter name to reflect this.
+                */
+                var enableNode = $("#update-hook-reward-param-" + params[i] + "-enable");
+                enableNode.prop("checked", true);
+                enableNode.trigger("input");
+                /*
+                    This function is defined in hooks.php as it contains server-
+                    generated code. It parses the data from `reward.params` and
+                    fills in the resulting data to the input boxes in the dialog
+                    box so that it can be edited by the user.
+                */
+                parseRewardParameter(params[i], reward.params[params[i]]);
+            } else {
+                /*
+                    The reward does not have the parameter specified. This
+                    indicates that the parameter is disabled. Uncheck the
+                    checkbox next to the parameter name to reflect this.
+                */
+                var enableNode = $("#update-hook-reward-param-" + params[i] + "-enable");
+                enableNode.prop("checked", false);
+                enableNode.trigger("input");
+            }
         }
     } else {
         /*
@@ -788,14 +846,17 @@ function editReward(newReward, caller) {
         var rewParams = {};
         for (var i = 0; i < rewDefinition.params.length; i++) {
             var paramData = getRewardParameter(rewDefinition.params[i]);
-            if (paramData == null || paramData == "") {
+            var enableParam = $(
+                "#update-hook-reward-param-" + rewDefinition.params[i] + "-enable"
+            ).is(":checked");
+            if (enableParam && (paramData == null || paramData == "")) {
                 alert(resolveI18N(
                     "admin.clientside.hooks.update.reward.failed.message",
                     resolveI18N("xhr.failed.reason.missing_fields")
                 ));
                 return;
             }
-            rewParams[rewDefinition.params[i]] = paramData;
+            if (enableParam) rewParams[rewDefinition.params[i]] = paramData;
         }
 
         /*
@@ -854,6 +915,26 @@ function editReward(newReward, caller) {
 
     $("#hooks-update-reward-overlay").fadeIn(150);
 }
+
+/*
+    The checkboxes next to the parameter names in the objective and reward
+    filter editing dialogs should disable the input box for the parameter if the
+    parameter is disabled. This event handler implements that action.
+*/
+$(".update-hook-param-checkbox").on("input", function() {
+    /*
+        Determine whether or not the checkbox is checked.
+    */
+    var paramEnabled = $(this).is(":checked");
+    /*
+        Find input boxes for the parameter.
+    */
+    var paramInputs = $(this).closest(".research-parameter").find(".parameter");
+    /*
+        Disable the input boxes.
+    */
+    paramInputs.prop("disabled", !paramEnabled);
+});
 
 /*
     Escapes HTML in a string.

@@ -121,14 +121,22 @@ function resolveObjective(objective) {
     }
 
     /*
+        If the objective parameters is an array, it is most likely empty.
+        Convert it to an empty object instead.
+    */
+    if (objective.params.constructor === Array) {
+        objective.params = {};
+    }
+
+    /*
         Defaults to the "objective.<type>.singular" key. If the objective
         accepts the "quantity" parameter, we'll instead resolve either
         "objective.<key>.singular" or "objective.<key>.plural" depending on the
         value of "quantity".
     */
     var i18nstring = resolveI18N("objective." + objective.type + ".singular");
-    if (objective.params.hasOwnProperty("quantity")) {
-        if (objective.params.quantity != 1) {
+    if (objdef.params.indexOf("quantity") != -1) {
+        if (!objective.params.hasOwnProperty("quantity") || objective.params.quantity != 1) {
             i18nstring = resolveI18N("objective." + objective.type + ".plural");
         }
     }
@@ -136,13 +144,13 @@ function resolveObjective(objective) {
     /*
         Resolve parameters and insert them into the localized string.
     */
-    if (objective.params.constructor !== Array) {
-        for (var i = 0; i < objdef.params.length; i++) {
-            var param = objdef.params[i];
-            i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(
-                parameterToString(param, objective.params[param])
-            );
-        }
+    for (var i = 0; i < objdef.params.length; i++) {
+        var param = objdef.params[i];
+        i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(
+            objective.params.hasOwnProperty(param)
+            ? parameterToString(param, objective.params[param])
+            : getParamPlaceholder(param)
+        );
     }
     return i18nstring;
 }
@@ -164,14 +172,22 @@ function resolveReward(reward) {
     }
 
     /*
+        If the reward parameters is an array, it is most likely empty. Convert
+        it to an empty object instead.
+    */
+    if (reward.params.constructor === Array) {
+        reward.params = {};
+    }
+
+    /*
         Defaults to the "reward.<type>.singular" key. If the reward accepts the
         "quantity" parameter, we'll instead resolve either
         "reward.<key>.singular" or "reward.<key>.plural" depending on the value
         of "quantity".
     */
     var i18nstring = resolveI18N("reward." + reward.type + ".singular");
-    if (reward.params.hasOwnProperty("quantity")) {
-        if (reward.params.quantity != 1) {
+    if (rewdef.params.indexOf("quantity") != -1) {
+        if (!reward.params.hasOwnProperty("quantity") || reward.params.quantity != 1) {
             i18nstring = resolveI18N("reward." + reward.type + ".plural");
         }
     }
@@ -179,13 +195,13 @@ function resolveReward(reward) {
     /*
         Resolve parameters and insert them into the localized string.
     */
-    if (reward.params.constructor !== Array) {
-        for (var i = 0; i < rewdef.params.length; i++) {
-            var param = rewdef.params[i];
-            i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(
-                parameterToString(param, reward.params[param])
-            );
-        }
+    for (var i = 0; i < rewdef.params.length; i++) {
+        var param = rewdef.params[i];
+        i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(
+            reward.params.hasOwnProperty(param)
+            ? parameterToString(param, reward.params[param])
+            : getParamPlaceholder(param)
+        );
     }
     return i18nstring;
 }
@@ -206,4 +222,20 @@ function parameterToString(param, data) {
         ?>
     }
     return data.toString();
+}
+
+/*
+    Resolves the placeholder string for the given parameter.
+*/
+function getParamPlaceholder(param) {
+    switch (param) {
+        <?php
+            foreach (Research::PARAMETERS as $param => $class) {
+                $inst = new $class();
+                    echo "case '{$param}': return ";
+                    echo I18N::resolveJS("parameter.{$param}.placeholder");
+                    echo ";\n";
+            }
+        ?>
+    }
 }

@@ -154,7 +154,15 @@
                                 <div id="update-hook-objective-param-<?php echo $param; ?>-box"
                                      class="pure-g research-parameter objective-parameter">
                                     <div class="pure-u-1-3 full-on-mobile">
-                                        <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
+                                        <p>
+                                            <label for="update-hook-objective-param-<?php echo $param; ?>-enable">
+                                                <input type="checkbox"
+                                                       id="update-hook-objective-param-<?php echo $param; ?>-enable"
+                                                       class="update-hook-param-checkbox"
+                                                       checked>
+                                                <?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:
+                                            </label>
+                                        </p>
                                     </div>
                                     <div class="pure-u-2-3 full-on-mobile">
                                         <p><?php echo $inst->html("update-hook-objective-param-{$param}-input", "parameter"); ?></p>
@@ -381,7 +389,15 @@
                                 <div id="update-hook-reward-param-<?php echo $param; ?>-box"
                                      class="pure-g research-parameter reward-parameter">
                                     <div class="pure-u-1-3 full-on-mobile">
-                                        <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
+                                        <p>
+                                            <label for="update-hook-reward-param-<?php echo $param; ?>-enable">
+                                                <input type="checkbox"
+                                                       id="update-hook-reward-param-<?php echo $param; ?>-enable"
+                                                       class="update-hook-param-checkbox"
+                                                       checked>
+                                                <?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:
+                                            </label>
+                                        </p>
                                     </div>
                                     <div class="pure-u-2-3 full-on-mobile">
                                         <p><?php echo $inst->html("update-hook-reward-param-{$param}-input", "parameter"); ?></p>
