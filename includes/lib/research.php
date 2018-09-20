@@ -82,7 +82,9 @@ class ParamQuantity {
         return '<p><input id="'.$id.'" class="'.$class.'" type="number" min="1"></p>';
     }
     public function writeJS($id) {
-        return 'return parseInt($("#'.$id.'").val());';
+        return 'var val = parseInt($("#'.$id.'").val());
+                if (isNaN(val)) return null;
+                return val;';
     }
     public function parseJS($id) {
         return '$("#'.$id.'").val(data);';
@@ -112,7 +114,9 @@ class ParamMinTier {
         return '<p><input id="'.$id.'" class="'.$class.'" type="number" min="1" max="5"></p>';
     }
     public function writeJS($id) {
-        return 'return parseInt($("#'.$id.'").val());';
+        return 'var val = parseInt($("#'.$id.'").val());
+                if (isNaN(val)) return null;
+                return val;';
     }
     public function parseJS($id) {
         return '$("#'.$id.'").val(data);';
