@@ -6,7 +6,7 @@
 <div class="content wide-content">
     <form action="apply-pois.php"
           method="POST"
-          class="pure-form"
+          class="pure-form limit-inputs"
           enctype="application/x-www-form-urlencoded">
         <!--
             Protection against CSRF
@@ -286,6 +286,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.6.0/papaparse.min.js"
         integrity="sha256-VEDmZKQGIjdl6PnqmhA5y0oCcqpcJPFm8qP1mEOBwHY="
         crossorigin="anonymous"></script>
+
+<!--
+    This page contains a significant amount of input fields. We can (and should)
+    cut down on the number of fields that are submitted to the server to avoid
+    hitting the server-side `max_input_vars` limit of 1000.
+-->
+<script type="text/javascript" src="./js/limit-inputs.js"></script>
+
 <!--
     /admin/js/pois.js contains additional functionality for this page.
 -->

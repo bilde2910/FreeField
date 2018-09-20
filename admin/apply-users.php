@@ -86,25 +86,26 @@ foreach ($_POST as $user => $data) {
         If user deletion is requested, add them to the deletion queue and do not
         process further changes.
     */
-    if ($data["action"] === "delete") {
-        $deletes[] = $user;
-        continue;
-    }
-
-    if ($data["action"] === "approve") {
-        /*
-            If user approval is requested, add them to the approval queue. Do
-            not process further changes as changes can only be made to users who
-            are already approved.
-        */
-        $updates[$user]["approved"] = true;
-        continue;
-    } elseif ($data["action"] === "invalidate") {
-        /*
-            Reset the session token for the user. This will sign the user out of
-            all of their devices.
-        */
-        $updates[$user]["token"] = Auth::generateUserToken();
+    if (isset($data["action"])) {
+        if ($data["action"] === "delete") {
+            $deletes[] = $user;
+            continue;
+        }
+        if ($data["action"] === "approve") {
+            /*
+                If user approval is requested, add them to the approval queue.
+                Do not process further changes as changes can only be made to
+                users who are already approved.
+            */
+            $updates[$user]["approved"] = true;
+            continue;
+        } elseif ($data["action"] === "invalidate") {
+            /*
+                Reset the session token for the user. This will sign the user
+                out of all of their devices.
+            */
+            $updates[$user]["token"] = Auth::generateUserToken();
+        }
     }
 
     if (!$users_assoc[$user]->isApproved()) continue;
@@ -113,11 +114,15 @@ foreach ($_POST as $user => $data) {
         Handle changes to the user's parameters, such as their nickname. If
         there are changes, they should be added to the updates queue.
     */
-    if ($users_assoc[$user]->getNickname() !== $data["nick"]) {
+    if (
+        isset($data["nick"]) &&
+        $users_assoc[$user]->getNickname() !== $data["nick"]
+    ) {
         $updates[$user]["nick"] = $data["nick"];
     }
 
     if (
+        isset($data["group"]) &&
         $users_assoc[$user]->getPermissionLevel() !== $data["group"] &&
         Auth::getCurrentUser()->hasPermission("admin/users/groups")
     ) {

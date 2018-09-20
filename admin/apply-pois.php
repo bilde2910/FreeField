@@ -131,31 +131,33 @@ foreach ($_POST as $poi => $data) {
         /*
             POI is pre-existing.
         */
-        if ($data["action"] === "delete") {
-            /*
-                If POI deletion is requested, add it to the deletion queue and
-                do not process further changes.
-            */
-            $deletes[] = $pid;
-            continue;
+        if (isset($data["action"])) {
+            if ($data["action"] === "delete") {
+                /*
+                    If POI deletion is requested, add it to the deletion queue
+                    and do not process further changes.
+                */
+                $deletes[] = $pid;
+                continue;
 
-        } elseif ($data["action"] === "clear") {
-            /*
-                If the user requests clearing the research objective and reward
-                currently active on the POI, the best way to do this is to set
-                the active research objective and reward to "unknown" and
-                clearing the parameter list for both.
-            */
-            if (
-                !$pois_assoc[$pid]->isObjectiveUnknown() ||
-                !$pois_assoc[$pid]->isRewardUnknown()
-            ) {
-                $updates[$pid]["objective"] = "unknown";
-                $updates[$pid]["reward"] = "unknown";
-                $updates[$pid]["obj_params"] = json_encode(array());
-                $updates[$pid]["rew_params"] = json_encode(array());
-                $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
-                $updates[$pid]["last_updated"] = date("Y-m-d H:i:s");
+            } elseif ($data["action"] === "clear") {
+                /*
+                    If the user requests clearing the research objective and
+                    reward currently active on the POI, the best way to do this
+                    is to set the active research objective and reward to
+                    "unknown" and clearing the parameter list for both.
+                */
+                if (
+                    !$pois_assoc[$pid]->isObjectiveUnknown() ||
+                    !$pois_assoc[$pid]->isRewardUnknown()
+                ) {
+                    $updates[$pid]["objective"] = "unknown";
+                    $updates[$pid]["reward"] = "unknown";
+                    $updates[$pid]["obj_params"] = json_encode(array());
+                    $updates[$pid]["rew_params"] = json_encode(array());
+                    $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
+                    $updates[$pid]["last_updated"] = date("Y-m-d H:i:s");
+                }
             }
         }
 
@@ -163,7 +165,10 @@ foreach ($_POST as $poi => $data) {
             Handle changes to the POI parameters, such as the POI's name. If
             there are changes, they should be added to the updates queue.
         */
-        if ($pois_assoc[$pid]->getName() !== $data["name"]) {
+        if (
+            isset($data["name"]) &&
+            $pois_assoc[$pid]->getName() !== $data["name"]
+        ) {
             $updates[$pid]["name"] = $data["name"];
         }
     }

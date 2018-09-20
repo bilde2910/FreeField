@@ -241,10 +241,18 @@ function drawTable() {
             /*
                 Add an "include" selection box that lets users exclude POIs that
                 they do not wish to import from the file.
+
+                `data-changed` is used to ensure that the selection made here is
+                sent to the server (it otherwise wouldn't due to
+                /admin/js/limit-inputs.js disabling it for not being changed).
+                If the `data-changed` attribute is set to "true", the <select>
+                will not be disabled and thus be sent to the server.
             */
             var colInclude = $(
                 '<td>' +
-                    '<select name="pn_' + i + '[include]" class="import-action">' +
+                    '<select name="pn_' + i + '[include]" ' +
+                            'class="import-action"' +
+                            'data-changed="true">' +
                         '<option value="yes"></option>' +
                         '<option value="no"></option>' +
                     '</select>' +

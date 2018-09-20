@@ -6,7 +6,7 @@
 <div class="content wide-content">
     <form action="apply-users.php"
           method="POST"
-          class="pure-form"
+          class="pure-form limit-inputs"
           enctype="application/x-www-form-urlencoded">
         <!--
             Protection against CSRF
@@ -255,3 +255,9 @@
         </p>
     </form>
 </div>
+<!--
+    This page contains a significant amount of input fields. We can (and should)
+    cut down on the number of fields that are submitted to the server to avoid
+    hitting the server-side `max_input_vars` limit of 1000.
+-->
+<script type="text/javascript" src="./js/limit-inputs.js"></script>
