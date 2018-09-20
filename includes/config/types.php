@@ -297,7 +297,7 @@ class PasswordOption extends DefaultOption {
     }
 
     public function getControl($current = null, $attrs = array()) {
-        if ($current !== null) $attrs["value"] = $this->mask;
+        if ($current !== null && $current !== "") $attrs["value"] = $this->mask;
         $attrString = parent::constructAttributes($attrs);
         return '<input type="password"'.$attrString.'>';
     }
