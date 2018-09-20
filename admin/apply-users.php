@@ -118,7 +118,8 @@ foreach ($_POST as $user => $data) {
         isset($data["nick"]) &&
         $users_assoc[$user]->getNickname() !== $data["nick"]
     ) {
-        $updates[$user]["nick"] = $data["nick"];
+        $newNick = trim($data["nick"]);
+        if (strlen($newNick) > 0) $updates[$user]["nick"] = $newNick;
     }
 
     if (

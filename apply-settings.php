@@ -52,7 +52,8 @@ $updates = array();
 */
 if (isset($_POST["nickname"]) && $user->hasPermission("self-manage/nickname")) {
     if ($_POST["nickname"] !== $user->getNickname()) {
-        $updates["nick"] = $_POST["nickname"];
+        $newNick = trim($_POST["nickname"]);
+        if (strlen($newNick) > 0) $updates["nick"] = $newNick;
     }
 }
 
