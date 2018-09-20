@@ -152,12 +152,12 @@
                 ?>
             </tbody>
         </table>
-        <!--
-            ================================================================
-                POI IMPORTS SECTION
-            ================================================================
-        -->
         <?php if (Auth::getCurrentUser()->hasPermission("admin/pois/import")) { ?>
+            <!--
+                ============================================================
+                    POI IMPORTS SECTION
+                ============================================================
+            -->
             <h2 class="content-subhead">
                 <?php echo I18N::resolveHTML("admin.section.pois.import.name"); ?>
             </h2>
@@ -272,6 +272,22 @@
                     <?php echo I18N::resolveHTML("admin.section.pois.import.invalid_warning"); ?>
                 </p>
             </div>
+            <!--
+                ============================================================
+                    POI EXPORTS SECTION
+                ============================================================
+            -->
+            <h2 class="content-subhead">
+                <?php echo I18N::resolveHTML("admin.section.pois.export.name"); ?>
+            </h2>
+            <p>
+                <?php echo I18N::resolveHTML("admin.section.pois.export.info"); ?>
+            </p>
+            <p>
+                <a href="./export-pois.php?<?php echo Security::getCSRFUrlParameter(); ?>">
+                    <?php echo I18N::resolveHTML("admin.section.pois.export.do"); ?>
+                </a>
+            </p>
         <?php } ?>
         <p class="buttons">
             <input type="submit"
