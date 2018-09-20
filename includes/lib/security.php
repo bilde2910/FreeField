@@ -11,7 +11,7 @@ require_once(__DIR__."/../userdata/authkeys.php");
 class Security extends AuthKeys {
     private const CSRF_COOKIE_NAME = "csrf";
     private const CSRF_POST_FIELD_NAME = "_csrf";
-    private const CSRF_GET_FIELD_NAME = "csrf";
+    private const CSRF_GET_FIELD_NAME = "_csrf";
 
     /*
         The CSRF token for this browsing session. Set from `requireCSRFToken()`.
