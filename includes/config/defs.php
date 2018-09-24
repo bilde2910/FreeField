@@ -775,6 +775,15 @@ class ConfigDefinitions {
                 "option" => new PermissionOption()
             ),
             /*
+                Allows users to update FreeField.
+            */
+            "permissions/level/admin/updates/general" => array(
+                "domain" => "perms",
+                "section" => "admin",
+                "default" => PermissionOption::LEVEL_HOST,
+                "option" => new PermissionOption()
+            ),
+            /*
 ================================================================================
     SECURITY
     Secure user access and sessions

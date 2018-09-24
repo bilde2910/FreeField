@@ -13,8 +13,16 @@ __require("i18n");
 __require("geo");
 __require("theme");
 __require("security");
+__require("update");
 
 Security::requireCSRFToken();
+
+/*
+    Check for software updates.
+*/
+if (Auth::getCurrentUser()->hasPermission("admin/updates/general")) {
+    Update::autoCheckForUpdates();
+}
 
 /*
     The `$domains` array contains a list of pages (domains) to display on the
@@ -236,7 +244,15 @@ Security::declareFrameOptionsHeader();
                                 echo '<li class="pure-menu-item">';
                             }
 
-                            echo '<a href="./?d='.$d.'" class="pure-menu-link">'.
+                            $classes = "pure-menu-link";
+                            if ($d == "updates" && Update::autoIsUpdateAvailable()) {
+                                /*
+                                    Highlight the "updates" link if a FreeField
+                                    update is available.
+                                */
+                                $classes .= " menu-update-available";
+                            }
+                            echo '<a href="./?d='.$d.'" class="'.$classes.'">'.
                                     '<i class="menu-fas fas fa-'.$domaindata["icon"].'"></i> '.
                                     I18N::resolveHTML(Config::getDomainI18N($d)->getTitle()).
                                  '</a></li>';

@@ -8,8 +8,16 @@ require_once("./includes/lib/global.php");
 __require("auth");
 __require("i18n");
 __require("security");
+__require("update");
 
 Security::requireCSRFToken();
+
+/*
+    Check for software updates.
+*/
+if (Auth::getCurrentUser()->hasPermission("admin/updates/general")) {
+    Update::autoCheckForUpdates();
+}
 
 /*
     Check if the user currently has access to view the map. If they don't, and
@@ -286,7 +294,22 @@ Security::declareFrameOptionsHeader();
                             if (Auth::getCurrentUser()->canAccessAdminPages()) {
                                 ?>
                                     <li class="pure-menu-item">
-                                        <a href="./admin/" class="pure-menu-link">
+                                        <a href="./admin/" class="pure-menu-link<?php
+                                            /*
+                                                Highlight "Manage site" link if
+                                                an update is available and the
+                                                current user has permission to
+                                                update FreeField.
+                                            */
+                                            if (
+                                                Auth::getCurrentUser()->hasPermission(
+                                                    "admin/updates/general"
+                                                ) &&
+                                                Update::autoIsUpdateAvailable()
+                                            ) {
+                                                echo " menu-update-available";
+                                            }
+                                        ?>">
                                             <i class="menu-fas fas fa-angle-double-right"></i>
                                             <?php echo I18N::resolveHTML("sidebar.manage_site"); ?>
                                         </a>

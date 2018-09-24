@@ -109,7 +109,7 @@ class Config {
         $conf = self::$config;
         $segments = explode("/", $path);
         foreach ($segments as $segment) {
-            if (!isset($conf[$segment])) return $conf;
+            if (!isset($conf[$segment])) return null;
             $conf = $conf[$segment];
         }
         return $conf;
@@ -544,6 +544,12 @@ class Config {
             // Webhooks
             "hooks" => array(
                 "icon" => "link",
+                "custom-handler" => true
+            ),
+
+            // Self-updates
+            "updates" => array(
+                "icon" => "sync-alt",
                 "custom-handler" => true
             )
 

@@ -106,6 +106,16 @@ a {
     background-color: #fff;
 }
 
+/* The header displayed for available FreeField updates. */
+.update-channel-head {
+    background-color: #d7d7d7;
+}
+
+/* The body displayed for available FreeField updates. */
+.update-channel-body {
+    background-color: #e3e3e3;
+}
+
 /* The Markdown preview box immediately underneath the input box for
    `ParagraphOption` settings that use Markdown formatting. */
 .para-preview {

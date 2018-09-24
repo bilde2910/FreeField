@@ -31,6 +31,13 @@ function __require($require) {
             break;
 
         /*
+            Checks for and installs updates.
+        */
+        case "update":
+            include_once(__DIR__."/update.php");
+            break;
+
+        /*
             Parses and manages icon sets and handles URL lookups for those.
         */
         case "theme":

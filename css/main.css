@@ -48,6 +48,12 @@
     font-weight: bold;
 }
 
+/* The color of the "Updates" sidebar item should be highlighted in orange if
+   there is an available FreeField software update. */
+.menu-update-available {
+    color: darkorange !important;
+}
+
 /* Buttons displayed on the login page for signing in with various
    authentication providers. */
 .login-button {
@@ -115,6 +121,9 @@
     text-align: center;
 }
 
+.left-align {
+    text-align: left;
+}
 .right-align {
     text-align: right;
 }
@@ -137,6 +146,9 @@
     cursor: pointer;
     user-select: none;
 }
+.button-submit[disabled], .button-standard[disabled] {
+    cursor: not-allowed;
+}
 
 /* Span and input elements render with different sizes, so we'll force the same
    size for both types of elements. */
@@ -147,16 +159,16 @@ input.button-submit, input.button-standard {
     height: 3em;
 }
 
-.button-submit:active {
+.button-submit:active:not([disabled]) {
     background-color: #1971ab;
 }
-.button-standard:active {
+.button-standard:active:not([disabled]) {
     background-color: #7f7f7f;
 }
-.button-standard.button-red:active {
+.button-standard.button-red:active:not([disabled]) {
     background-color: #cf3333;
 }
-.button-standard.button-green:active {
+.button-standard.button-green:active:not([disabled]) {
     background-color: #218521;
 }
 
@@ -238,6 +250,61 @@ table, thead, tbody {
 }
 .green {
     color: green;
+}
+
+/* The header displayed for available FreeField updates. */
+.update-channel-head {
+    padding: 5px 15px 1px 15px;
+    display: block;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+/* The body displayed for available FreeField updates. Bodies are hidden by
+   default, and displayed on header click. */
+.update-channel-body {
+    padding: 20px 15px;
+    display: none;
+}
+
+/* The type of release displayed in the header for available updates. */
+.update-release-type {
+    margin: 10px 0 !important;
+    float: left;
+}
+
+/* The version number displayed in the header for available updates. */
+.update-release-version {
+    margin: 10px 0 !important;
+    float: right;
+}
+
+/* A description explaining the release type in the header for available
+   updates. */
+.update-release-desc {
+    clear: both;
+}
+
+/* A header that appears in the body for available updates. */
+.update-release-notes {
+    margin: 0 0 10px 0 !important;
+}
+
+/* Color coding of release types for available updates. */
+.release-header-stable {
+    color: #1f8dd6 !important;
+}
+.release-header-rc {
+    color: green !important;
+}
+.release-header-beta {
+    color: goldenrod !important;
+}
+.release-header-alpha {
+    color: darkorange !important;
+}
+.release-header-dev {
+    color: red !important;
 }
 
 /* The (?) icon displayed next to settings on the administration pages. This
