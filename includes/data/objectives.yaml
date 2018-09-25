@@ -335,3 +335,14 @@ visit_daily:
       - quantity
     categories:
       - explore
+
+# --------------------------------------------------------------------------
+#     Social objectives
+# --------------------------------------------------------------------------
+
+# Send a Gift to a friend
+send_gift:
+    params:
+      - quantity
+    categories:
+      - social
