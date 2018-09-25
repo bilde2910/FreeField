@@ -1072,6 +1072,9 @@ class ConfigSectionI18N {
             Please read <a href="http://example.com/">the documentation</a>.
     */
     private const SECTIONS_WITH_DESCRIPTIONS = array(
+        "security/user-creation" => array(
+            // admin.section.security.user_creation.desc
+        ),
         "security/sessions" => array(
             // admin.section.security.sessions.desc
         ),
@@ -1099,6 +1102,12 @@ class ConfigSectionI18N {
             // admin.section.mobile.pwa.desc
             '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/FreeField-PWA">',
             '</a>'
+        ),
+        "perms/map-access" => array(
+            // admin.section.perms.map_access.desc
+        ),
+        "map/provider" => array(
+            // admin.section.map.provider.desc
         ),
         "map/geofence" => array(
             // admin.section.map.geofence.desc
