@@ -10,7 +10,6 @@ require_once("../includes/lib/global.php");
 __require("config");
 __require("auth");
 __require("i18n");
-__require("geo");
 __require("theme");
 __require("security");
 __require("update");

@@ -2,6 +2,9 @@
 /*
     Displayed on the admin page /admin/index.php when listing and editing POIs.
 */
+
+__require("geo");
+
 ?>
 <div class="content wide-content">
     <form action="apply-pois.php"

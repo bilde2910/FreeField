@@ -2,6 +2,9 @@
 /*
     Displayed on the admin page /admin/index.php when editing user geofences.
 */
+
+__require("geo");
+
 ?>
 <div class="content">
     <form action="apply-fences.php"
