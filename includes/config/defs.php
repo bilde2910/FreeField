@@ -1065,7 +1065,13 @@ class ConfigDefinitions {
                 "section" => "pwa",
                 "default" => false,
                 "option" => new BooleanOption(),
-                "enable-only-if" => (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") ||
+                "enable-only-if" => (
+                                        !empty($_SERVER["HTTPS"]) &&
+                                        $_SERVER["HTTPS"] !== "off"
+                                    ) || (
+                                        !empty($_SERVER["HTTP_X_FORWARDED_PROTO"]) &&
+                                        strtolower($_SERVER["HTTP_X_FORWARDED_PROTO"]) == "https"
+                                    ) ||
                                     $_SERVER["SERVER_PORT"] == 443,
                 "value-if-disabled" => false
             ),

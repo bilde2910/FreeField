@@ -38,7 +38,13 @@ class PreUpgrade {
         */
         echo "Checking for HTTPS...";
         if (
-            (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") ||
+            (
+                !empty($_SERVER["HTTPS"]) &&
+                $_SERVER["HTTPS"] !== "off"
+            ) || (
+                !empty($_SERVER["HTTP_X_FORWARDED_PROTO"]) &&
+                strtolower($_SERVER["HTTP_X_FORWARDED_PROTO"]) == "https"
+            ) ||
             $_SERVER["SERVER_PORT"] == 443
         ) {
             echo " ok\n";
