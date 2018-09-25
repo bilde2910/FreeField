@@ -178,10 +178,22 @@ Security::declareFrameOptionsHeader();
                 background-color: #111;
             }
         </style>
-        <link rel="stylesheet"
-              href="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css"
-              media="none"
-              onload="if(media!=='all')media='all'">
+
+        <?php
+            /*
+                Load the map provider stylesheep for the chosen map provider.
+            */
+            switch (Config::get("map/provider/source")->value()) {
+                case "mapbox":
+                    ?>
+                        <link rel="stylesheet"
+                              href="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css"
+                              media="none"
+                              onload="if(media!=='all')media='all'">
+                    <?php
+                    break;
+            }
+        ?>
         <link rel="stylesheet"
               href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
               integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
@@ -1267,7 +1279,6 @@ Security::declareFrameOptionsHeader();
             </div>
         </div>
 
-        <script src="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js"></script>
         <script>
             /*
                 Objectives and rewards directories. These are copied from
@@ -1306,7 +1317,7 @@ Security::declareFrameOptionsHeader();
                 mapProvider: "<?php echo $provider; ?>",
                 naviProvider: <?php echo Config::get("map/provider/directions")->valueJS(); ?>,
                 mapStyle: {
-                    mapbox: <?php echo Config::get("themes/color/map/theme/{$provider}")->valueJS(); ?>
+                    mapbox: <?php echo Config::get("themes/color/map/theme/mapbox")->valueJS(); ?>
                 },
                 theme: <?php echo Config::get("themes/color/user-settings/theme")->valueJS(); ?>,
                 center: {
@@ -1570,17 +1581,31 @@ Security::declareFrameOptionsHeader();
             ?>;
 
             /*
-                Configure MapBox.
-            */
-            mapboxgl.accessToken = <?php echo Config::get("map/provider/mapbox/access-token")->valueJS(); ?>;
-
-            /*
                 Echo the `$linkMod` array for usage when requesting content in
                 /js/main.js.
             */
             var linkMod = <?php echo json_encode($linkMod); ?>;
         </script>
         <script src="./js/ui.js"></script>
+        <?php
+            /*
+                Load the map implementation script for the chosen map provider.
+            */
+            switch (Config::get("map/provider/source")->value()) {
+                case "mapbox":
+                    ?>
+                        <script src="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js"></script>
+                        <script src="./js/map-impl/mapbox-impl.js"></script>
+                        <script>
+                            MapImpl.preInit({
+                                apiKey: <?php echo Config::get("map/provider/mapbox/access-token")->valueJS(); ?>
+                            });
+                        </script>
+
+                    <?php
+                    break;
+            }
+        ?>
         <script src="./js/main.js?t=<?php echo $linkMod["/js/main.js"]; ?>"></script>
     </body>
 </html>

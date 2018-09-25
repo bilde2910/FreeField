@@ -68,7 +68,7 @@ $("#add-poi-start").on("click", function() {
     */
     addingPoi = true;
     $("#add-poi-banner").fadeIn(150);
-    map.on('click', getCoordsForPOI);
+    MapImpl.bindMapClickHandler(getCoordsForPOI);
 });
 
 /*
@@ -101,7 +101,7 @@ function disableAddPOI(setFlag) {
         click event containing coordinate data, opens a dialog box that prompts
         the user for more details about the POI, such as its name.
     */
-    map.off('click', getCoordsForPOI);
+    MapImpl.unbindMapClickHandler();
     /*
         Hide the "please select a location on the map" banner.
     */
@@ -114,7 +114,7 @@ function disableAddPOI(setFlag) {
     event containing coordinate data, opens a dialog box that prompts the user
     for more details about the POI, such as its name.
 */
-function getCoordsForPOI(e) {
+function getCoordsForPOI(lat, lon) {
     /*
         Disables the map click event handler and hides the POI banner.
     */
@@ -125,8 +125,8 @@ function getCoordsForPOI(e) {
         cannot be changed, but are there to give the user an indication of the
         coordinates of the POI they are adding.
     */
-    $("#add-poi-lon").val(e.lngLat.lng);
-    $("#add-poi-lat").val(e.lngLat.lat);
+    $("#add-poi-lon").val(lon);
+    $("#add-poi-lat").val(lat);
     /*
         When a POI is submitted, the button that submits the form is disabled to
         prevent duplicate submissions. Make sure that the button is enabled when
@@ -346,34 +346,16 @@ function addMarkers(markers) {
         pois[marker.id] = marker;
 
         /*
-            Define a Mapbox popup that is attached to the marker. This popup is
-            just added to facilitate event handlers - we're making a custom
-            popup overlay that will be displayed instead of this one, so the
-            Mapbox native popup is hidden through CSS.
+            Add the marker to the map itself.
         */
-        var popup = new mapboxgl.Popup({
-            offset: 25
-        });
-        /*
-            These are the event handlers we need. We need to know when a marker
-            is clicked on, and when the user requested to close a marker through
-            any means. These will open and close the custom POI details overlay
-            respectively.
-        */
-        popup.on("open", function() {
-            openMarker(popup, marker.id);
-        });
-        popup.on("close", function() {
-            closeMarker(popup);
-        });
+        MapImpl.addMarker(e, marker.latitude, marker.longitude,
+            function(markerObj) {
+                openMarker(markerObj, marker.id);
+            }, function(markerObj) {
+                closeMarker(markerObj);
+            }
+        );
 
-        /*
-            Declare and add the Mapbox marker to the map.
-        */
-        new mapboxgl.Marker(e)
-            .setLngLat([marker.longitude, marker.latitude])
-            .setPopup(popup)
-            .addTo(map);
     });
 }
 
@@ -496,11 +478,11 @@ $(document).ready(function() {
 
 /*
     Whenever a marker is clicked on the map, this function is called with the
-    instance of the Mapbox popup that would open, as well as the ID of the
+    instance of the popup object that would open, as well as the ID of the
     marker that was clicked.
 
     The purpose of the function is to display a custom marker popup. The default
-    Mapbox popups aren't very flexible, and don't allow us to display and style
+    popup objects aren't very flexible, and don't allow us to display and style
     controls like we want. Hence, what we do is override the marker with a
     custom one. This function will configure and display that popup.
 
@@ -511,7 +493,7 @@ $(document).ready(function() {
     displayed research icons and text.
 */
 var currentMarker = -1;
-function openMarker(popup, id) {
+function openMarker(markerObj, id) {
     currentMarker = id;
     /*
         Get data for the POI in the list of POIs received from the server. This
@@ -538,7 +520,7 @@ function openMarker(popup, id) {
         window.open(url);
     });
     $("#poi-close").on("click", function() {
-        popup._onClickClose();
+        MapImpl.closeMarker(markerObj);
     });
 
     /*
@@ -786,13 +768,14 @@ function openMarker(popup, id) {
 
                         Note that at this point, the POI details popup is
                         already hidden - we hid it when we displayed the "report
-                        field research" dialog - but as far as Mapbox concerns,
-                        the popup is sitll open, because it hasn't received a
-                        click event on either a "close" button on the popup, or
-                        a click event somewhere else on the map. This means that
-                        if we try to click something that is not the Mapbox
-                        native popup box, Mapbox will attempt to "close" the
-                        popup despite there being none open.
+                        field research" dialog - but as far as the underlying
+                        map provider concerns, the popup is still open, because
+                        it hasn't received a click event on either a "close"
+                        button on the popup, or a click event somewhere else on
+                        the map. This means that if we try to click something
+                        that is not the underlying native popup box, the map
+                        will attempt to "close" the popup despite there being
+                        none open.
 
                         Since we're using our own implementation of a popup,
                         we've bound the close event to hide the POI details
@@ -802,14 +785,15 @@ function openMarker(popup, id) {
                         POI details overlay HTML for all markers, means that the
                         next time a marker is clicked, the POI details screen
                         for that POI would open, only to immediately close again
-                        because Mapbox fired the close event. To prevent this,
-                        we indicate to Mapbox that we want to trigger the close
-                        event manually. This ensures that Mapbox knows there is
-                        no open dialog, thus the close event won't be triggered
-                        the next time the map, or something on it, is clicked.
+                        because the map fired the close event. To prevent this,
+                        we indicate to the map implementation that we want to
+                        trigger the close event manually. This ensures that the
+                        implementation knows there is no open dialog, thus the
+                        close event won't be triggered the next time the map, or
+                        something on it, is clicked.
                     */
                     spawnBanner("success", resolveI18N("poi.update.success", poiObj.name));
-                    popup._onClickClose();
+                    MapImpl.closeMarker(markerObj);
                     $("#update-poi-details").fadeOut(150);
                     $("#update-poi-working").fadeOut(150);
                 }
@@ -842,11 +826,11 @@ function openMarker(popup, id) {
 }
 
 /*
-    This function is an event handler triggered whenever Mapbox fires its popup
-    "close" event. It should close the marker and disable all event handlers
-    assigned to it in `openMarker()`.
+    This function is an event handler triggered whenever the map implementation
+    fires its popup "close" event. It should close the marker and disable all
+    event handlers assigned to it in `openMarker()`.
 */
-function closeMarker(popup) {
+function closeMarker(markerObj) {
     /*
         Reset the `currentMarker` ID since the POI details dialog is no longer
         open (i.e. there is no currently displayed marker).
@@ -1148,26 +1132,9 @@ $("head").append('<link rel="stylesheet" ' +
 isc_opts.colortheme = settings.get("theme");
 
 /*
-    Configure MapBox.
+    Initialize the map.
 */
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/' + (settings.get("mapStyle/mapbox")) + '-v9',
-    center: [settings.get("center/longitude"), settings.get("center/latitude")],
-    zoom: settings.get("zoom")
-});
-
-/*
-    Add map controls to the MapBox instance.
-*/
-map.addControl(new mapboxgl.NavigationControl());
-map.addControl(new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: false,
-        timeout: 5000
-    },
-    trackUserLocation: true
-}));
+MapImpl.init("map", settings);
 
 /*
     Automatically save the current center point and zoom level of
@@ -1175,15 +1142,15 @@ map.addControl(new mapboxgl.GeolocateControl({
     This allows the map to retain the current view the next time the
     user visits this FreeField instance.
 */
-var lastCenter = map.getCenter();
-var lastZoom = map.getZoom();
+var lastCenter = MapImpl.getCenter();
+var lastZoom = MapImpl.getZoomLevel();
 setInterval(function() {
-    var center = map.getCenter();
-    var zoom = map.getZoom();
+    var center = MapImpl.getCenter();
+    var zoom = MapImpl.getZoomLevel();
     if (center != lastCenter || zoom != lastZoom) {
         lastCenter = center;
         lastZoom = zoom;
-        settings.center.longitude = center.lng;
+        settings.center.longitude = center.lon;
         settings.center.latitude = center.lat;
         settings.zoom = zoom;
         saveSettings();
