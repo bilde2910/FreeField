@@ -43,6 +43,17 @@ if (!Auth::getCurrentUser()->hasPermission("admin/updates/general")) {
 }
 
 /*
+    If the user only requested to check for new updates, do that then quit the
+    script. Otherwise, assume the user wants to install an update.
+*/
+if (isset($_POST["check-updates-only"])) {
+    Update::checkForUpdates();
+    header("HTTP/1.1 303 See Other");
+    header("Location: {$returnpath}");
+    exit;
+}
+
+/*
     Ensure that the user has chosen an update and that they assume
     responsibility for performing it.
 */

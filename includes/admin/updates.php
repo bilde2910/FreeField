@@ -53,6 +53,44 @@ __require("vendor/parsedown");
         }
     ?>
 
+    <!--
+        Button that allows users to immediately check for updates.
+    -->
+    <form action="apply-updates.php"
+          method="POST"
+          class="pure-form"
+          enctype="application/x-www-form-urlencoded">
+        <!--
+            Protection against CSRF
+        -->
+        <?php echo Security::getCSRFInputField(); ?>
+        <div class="pure-g">
+            <div class="pure-u-1-3 full-on-mobile">
+                <p class="setting-name">
+                    <?php echo I18N::resolveHTML("setting.updates.check_now.name"); ?><span class="only-desktop">:
+                        <span class="tooltip">
+                            <i class="content-fas fas fa-question-circle"></i>
+                            <span>
+                                <?php echo I18N::resolveHTML("setting.updates.check_now.desc"); ?>
+                            </span>
+                        </span>
+                    </span>
+                </p>
+                <p class="only-mobile">
+                    <?php echo I18N::resolveHTML("setting.updates.check_now.desc"); ?>
+                </p>
+            </div>
+            <div class="pure-u-2-3 full-on-mobile">
+                <p>
+                    <input type="submit"
+                           name="check-updates-only"
+                           class="button-standard"
+                           value="<?php echo I18N::resolveHTML("setting.updates.check_now.button"); ?>">
+                </p>
+            </div>
+        </div>
+    </form>
+
     <h2 class="content-subhead">
         <?php echo I18N::resolveHTML("admin.section.updates.available.name"); ?>
     </h2>
