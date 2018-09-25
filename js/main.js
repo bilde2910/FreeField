@@ -932,7 +932,9 @@ function saveSettings() {
     user to change various display settings that apply to the user's local
     browser session only.
 */
-$("#menu-open-settings").on("click", function() {
+$("#menu-open-settings").on("click", function(e) {
+    e.preventDefault();
+
     /*
         Update all the input and select boxes in the configuration pane with the
         values currently stored in the configuration.
@@ -958,15 +960,15 @@ $("#menu-open-settings").on("click", function() {
     $("#map-container").hide();
     $("#settings-container").show();
     $("#settings-menu").show();
-
-    return false;
 });
 
 /*
     Event handler for the sidebar button responsible for closing the client-side
     local user settings.
 */
-$("#menu-close-settings").on("click", function() {
+$("#menu-close-settings").on("click", function(e) {
+    e.preventDefault();
+
     /*
         Hides the settings pane and settings-specific sidebar items, and shows
         the map and map-specific sidebar items instead.
@@ -975,8 +977,6 @@ $("#menu-close-settings").on("click", function() {
     $("#settings-container").hide();
     $("#map-container").show();
     $("#map-menu").show();
-
-    return false;
 });
 
 /*
@@ -1275,7 +1275,7 @@ $("#motd-close").on("click", function() {
 /*
     The "Show MotD" link in the sidebar.
 */
-$("#motd-open").on("click", function() {
+$("#motd-open").on("click", function(e) {
+    e.preventDefault();
     $("#motd-overlay").fadeIn(150);
-    return false;
 });

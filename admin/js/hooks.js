@@ -1454,7 +1454,8 @@ $(".hook-list").on("change", '.hook-tg-parse-mode', function() {
 
     Displays: on webhook body
 */
-$(".hook-list").on("click", ".hook-show-help", function() {
+$(".hook-list").on("click", ".hook-show-help", function(e) {
+    e.preventDefault();
     var help = $(this).closest(".hook-body").find(".hook-syntax-help");
     help.toggle();
     if (help.is(":visible")) {
@@ -1462,7 +1463,6 @@ $(".hook-list").on("click", ".hook-show-help", function() {
     } else {
         $(this).text(resolveI18N("admin.clientside.hooks.syntax.show"));
     }
-    return false;
 });
 
 /*
@@ -1471,7 +1471,8 @@ $(".hook-list").on("click", ".hook-show-help", function() {
 
     Displays: on webhook body
 */
-$(".hook-list").on("click", ".hook-objective-add", function() {
+$(".hook-list").on("click", ".hook-objective-add", function(e) {
+    e.preventDefault();
     /*
         The first parameter to `editObjective()` indicates whether or not a new
         filter should be created (true) or if an existing one should be edited
@@ -1479,7 +1480,6 @@ $(".hook-list").on("click", ".hook-objective-add", function() {
         objective filter, which is the wanted behavior.
     */
     editObjective(true, $(this));
-    return false;
 });
 
 /*
@@ -1558,7 +1558,8 @@ $("#update-hook-objective-cancel").on("click", function() {
 
     Displays: on webhook body
 */
-$(".hook-list").on("click", ".hook-reward-add", function() {
+$(".hook-list").on("click", ".hook-reward-add", function(e) {
+    e.preventDefault();
     /*
         The first parameter to `editReward()` indicates whether or not a new
         filter should be created (true) or if an existing one should be edited
@@ -1566,7 +1567,6 @@ $(".hook-list").on("click", ".hook-reward-add", function() {
         reward filter, which is the wanted behavior.
     */
     editReward(true, $(this));
-    return false;
 });
 
 /*

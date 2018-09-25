@@ -97,7 +97,7 @@ $("#group-list").on("change", ".group-color-selector > input[type=checkbox]", fu
     following code block.
 */
 var groupBorderColor = $("input.group-level").css("border-color");
-$("form").on("submit", function() {
+$("form").on("submit", function(e) {
     /*
         Groups' permission levels are enforced unique by SQL. This means that no
         two or more groups may share the same permission level. Warn the user if
@@ -160,21 +160,23 @@ $("form").on("submit", function() {
         form.
     */
     if (hasDuplicates) {
+        e.preventDefault();
         alert(resolveI18N("admin.clientside.groups.popup.conflicting_levels"));
-        return false;
-    }
-    /*
-        Changes to inputs on the form are tracked to stop data being
-        accidentally discarded if the user tries to navigate away from the page
-        without saving the settings. Ensure that the warning isn't displayed if
-        the user clicks on the submit button.
+    } else {
+        /*
+            Changes to inputs on the form are tracked to stop data being
+            accidentally discarded if the user tries to navigate away from the
+            page without saving the settings. Ensure that the warning isn't
+            displayed if the user clicks on the submit button.
 
-        This must be set manually on submit because the form on this page does
-        not use `require-validation`. Forms that use `require-validation` have
-        this handled automatically by the validation script. Please see the end
-        of the /admin/index.php script for more information.
-    */
-    unsavedChanges = false;
+            This must be set manually on submit because the form on this page
+            does not use `require-validation`. Forms that use
+            `require-validation` have this handled automatically by the
+            validation script. Please see the end of the /admin/index.php script
+            for more information.
+        */
+        unsavedChanges = false;
+    }
 });
 
 /*
