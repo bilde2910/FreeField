@@ -370,7 +370,11 @@ class Config {
                 */
                 $parent = self::$config;
                 for ($j = 0; $j < $i; $j++) {
-                    $parent = $parent[$s[$j]];
+                    if (isset($parent[$s[$j]])) {
+                        $parent = $parent[$s[$j]];
+                    } else {
+                        $parent = array();
+                    }
                 }
                 /*
                     Update the value of `$s[$i]` in the array. Store a copy of
