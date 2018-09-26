@@ -25,7 +25,7 @@ class Auth {
         example, Discord authentication requires that both client ID and client
         secret is set.)
     */
-    private static function getProviderRequirements() {
+    public static function getProviderRequirements() {
         return array(
             "discord" => ["client-id", "client-secret"],
             "telegram" => ["bot-username", "bot-token"],
@@ -56,9 +56,10 @@ class Auth {
         */
         $conf = array();
         foreach ($providerRequirements[$provider] as $req) {
-            $conf[] = "auth/provider/{$provider}/{$req}";
+            if (Config::get("auth/provider/{$provider}/{$req}")->value() == "") {
+                return false;
+            };
         }
-        if (Config::ifAny($conf, "")) return false;
 
         return true;
     }
@@ -75,13 +76,14 @@ class Auth {
         Returns a list of all enabled authentication providers.
     */
     public static function getEnabledProviders() {
-        $providers = self::getAllProviders();
-        for ($i = 0; $i < count($providers); $i++) {
-            if (!self::isProviderEnabled($providers[$i])) {
-                unset($providers[$i]);
+        $allProviders = self::getAllProviders();
+        $enabledProviders = array();
+        foreach ($allProviders as $provider) {
+            if (self::isProviderEnabled($provider)) {
+                $enabledProviders[] = $provider;
             }
         }
-        return $providers;
+        return $enabledProviders;
     }
 
     /*

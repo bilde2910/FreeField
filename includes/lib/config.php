@@ -396,23 +396,6 @@ class Config {
     }
 
     /*
-        Checks if any one or more of the given settings is set to the given
-        value.
-
-        $paths
-            An array of setting paths.
-
-        $value
-            The value to evaluate the settings against.
-    */
-    public static function ifAny($paths, $value) {
-        foreach ($paths as $path) {
-            if (self::get($path)->value() === $value) return true;
-        }
-        return false;
-    }
-
-    /*
         Returns a list of all settings keys available in FreeField.
     */
     public static function listAllKeys() {
