@@ -154,12 +154,12 @@ class Config {
                 /*
                     If the value is an array, and the key it corresponds to is
                     not defined as a stand-alone entry in the configuration
-                    definitions tree in `$configtree`/`$flattree`, we can assume
-                    that the script calling this is doing its own validation,
-                    and is trying to set a whole block of values at once, the
-                    block being at the path of `$option`. E.g. if `$option` ==
-                    "site", the entire "site" block in the configuratio file
-                    will be overwritten with the contents of `$value_raw`.
+                    definitions tree in `$configDefs`, we can assume that the
+                    script calling this is doing its own validation, and is
+                    trying to set a whole block of values at once, the block
+                    being at the path of `$option`. E.g. if `$option` == "site",
+                    the entire "site" block in the configuratio file will be
+                    overwritten with the contents of `$value_raw`.
                 */
                 $value = $value_raw;
 
