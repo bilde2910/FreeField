@@ -242,8 +242,8 @@ class ConfigDefinitions {
             "database/username" => array(
                 "domain" => "main",
                 "section" => "database",
-                "default" => "fieldfree",
-                "option" => new StringOption()
+                "default" => "",
+                "option" => new StringOption('^[^\s]+$')
             ),
             /*
                 The password to login to the database server.
@@ -251,7 +251,7 @@ class ConfigDefinitions {
             "database/password" => array(
                 "domain" => "main",
                 "section" => "database",
-                "default" => "fieldfree",
+                "default" => "",
                 "option" => new PasswordOption()
             ),
             /*
@@ -260,8 +260,8 @@ class ConfigDefinitions {
             "database/database" => array(
                 "domain" => "main",
                 "section" => "database",
-                "default" => "fieldfree",
-                "option" => new StringOption()
+                "default" => "freefield",
+                "option" => new StringOption('^[A-Za-z0-9_-]+$')
             ),
             /*
                 A prefix used for all tables used by FreeField, to avoid
@@ -271,7 +271,7 @@ class ConfigDefinitions {
                 "domain" => "main",
                 "section" => "database",
                 "default" => "ffield_",
-                "option" => new StringOption()
+                "option" => new StringOption('^[A-Za-z0-9_]+$')
             ),
             /*
 ================================================================================
