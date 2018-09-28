@@ -133,7 +133,11 @@ foreach ($_POST as $group => $data) {
         possible permission level. This is fundamental to the permissions
         system. The "Anonymous" group has permission level 0.
     */
-    if ($data["action"] === "delete" && $groupInstance["level"] != 0) {
+    if (
+        isset($data["action"]) &&
+        $data["action"] === "delete" &&
+        $groupInstance["level"] != 0
+    ) {
         $deletes[] = $gid;
         continue;
     }
@@ -176,7 +180,11 @@ foreach ($_POST as $group => $data) {
         lowest possible permission level. This is fundamental to the permissions
         system. The "Anonymous" group has permission level 0.
     */
-    if ($groupInstance["level"] != $data["level"] && $groupInstance["level"] != 0) {
+    if (
+        isset($data["level"]) &&
+        $groupInstance["level"] != $data["level"] &&
+        $groupInstance["level"] != 0
+    ) {
         $old = intval($groupInstance["level"]);
         $new = intval($data["level"]);
         $max = max($old, $new);
