@@ -86,8 +86,8 @@ class Geo {
             $lat *= -1;
             $ns = "geo.direction.deg_south";
         }
-        if ($lng < 0) {
-            $lng *= -1;
+        if ($lon < 0) {
+            $lon *= -1;
             $ew = "geo.direction.deg_west";
         }
 
