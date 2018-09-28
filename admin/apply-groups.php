@@ -226,24 +226,15 @@ if (max(array_values(array_count_values($groups_levels))) > 1) {
     exit;
 }
 
-$db = Database::getSparrow();
+$db = Database::connect();
 foreach ($updates as $groupid => $update) {
     /*
-        Apply the updates queue to the database. The Sparrow library does not
-        handle `null` values correctly, so rather than have Sparrow execute the
-        update query for us, we'll request the SQL query that it would execute,
-        replace all instances of an empty `color` field with a NULL `color`
-        field, then execute the query manually.
+        Apply the updates queue to the database.
     */
-    $query = $db
-        ->from(Database::getTable("group"))
+    $db
+        ->from("group")
         ->where("group_id", $groupid)
         ->update($update)
-        ->sql();
-
-    $query = str_replace("color=''", "color=NULL", $query);
-    $db
-        ->sql($query)
         ->execute();
 }
 
@@ -342,60 +333,37 @@ foreach ($updates as $groupid => $update) {
     which 1000 unique groups would be considered even remotely reasonable.
 */
 
-$queries = array();
-foreach ($levelchanges as $old => $new) {
-    $query = $db
-        ->from(Database::getTable("group"))
+$db->beginTransaction();
+
+foreach ($levelchanges as $old => $new)
+    $db
+        ->from("group")
         ->where("level", $old)
         ->update(array("level" => ($new + 1000)))
-        ->sql();
+        ->execute();
 
-    $queries[] = $query;
-}
-
-foreach ($levelchanges as $old => $new) {
-    $query = $db
-        ->from(Database::getTable("group"))
+foreach ($levelchanges as $old => $new)
+    $db
+        ->from("group")
         ->where("level", ($new + 1000))
         ->update(array("level" => $new))
-        ->sql();
+        ->execute();
 
-    $queries[] = $query;
-}
-
-foreach ($levelchanges as $old => $new) {
-    $query = $db
-        ->from(Database::getTable("user"))
+foreach ($levelchanges as $old => $new)
+    $db
+        ->from("user")
         ->where("permission", $old)
         ->update(array("permission" => ($new + 1000)))
-        ->sql();
+        ->execute();
 
-    $queries[] = $query;
-}
-
-foreach ($levelchanges as $old => $new) {
-    $query = $db
-        ->from(Database::getTable("user"))
+foreach ($levelchanges as $old => $new)
+    $db
+        ->from("user")
         ->where("permission", ($new + 1000))
         ->update(array("permission" => $new))
-        ->sql();
-
-    $queries[] = $query;
-}
-
-if (count($queries) > 0) {
-    $db
-        ->sql("START TRANSACTION")
         ->execute();
-    foreach ($queries as $query) {
-        $db
-            ->sql($query)
-            ->execute();
-    }
-    $db
-        ->sql("COMMIT")
-        ->execute();
-}
+
+$db->commit();
 
 /*
     Also ensure that the configuration is updated to reflect the updated
@@ -429,20 +397,11 @@ Config::set($configchanges);
 
 foreach ($insertions as $group) {
     /*
-        Apply the insertion queue to the database. The Sparrow library does not
-        handle `null` values correctly, so rather than have Sparrow execute the
-        insert query for us, we'll request the SQL query that it would execute,
-        replace all instances of an empty `color` field with a NULL `color`
-        field, then execute the query manually.
+        Apply the insertion queue to the database.
     */
-    $query = $db
-        ->from(Database::getTable("group"))
-        ->insert($group)
-        ->sql();
-
-    $query = str_replace(",''", ",NULL", $query);
     $db
-        ->sql($query)
+        ->from("group")
+        ->insert($group)
         ->execute();
 }
 
@@ -452,7 +411,7 @@ foreach ($insertions as $group) {
 */
 foreach ($deletes as $groupid) {
     $db
-        ->from(Database::getTable("group"))
+        ->from("group")
         ->where("group_id", $groupid)
         ->delete()
         ->execute();

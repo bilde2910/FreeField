@@ -119,9 +119,9 @@ class Auth {
         stage III.
     */
     public static function setAuthenticatedSession($id, $expire, $providerIdentity, $suggestedNick) {
-        $db = Database::getSparrow();
+        $db = Database::connect();
         $user = $db
-            ->from(Database::getTable("user"))
+            ->from("user")
             ->where("id", $id)
             ->select(array("token", "approved"))
             ->one();
@@ -170,7 +170,7 @@ class Auth {
                 "approved" => ($approved ? 1 : 0)
             );
             $db
-                ->from(Database::getTable("user"))
+                ->from("user")
                 ->insert($data)
                 ->execute();
         } else {
@@ -189,7 +189,7 @@ class Auth {
             */
             if ($user["provider_id"] !== $providerIdentity) {
                 $db
-                    ->from(Database::getTable("user"))
+                    ->from("user")
                     ->where("id", $id)
                     ->update(array("provider_id" => $providerIdentity))
                     ->execute();
@@ -293,12 +293,12 @@ class Auth {
         `User` instance for extracting information about that user.
     */
     public static function getUser($id) {
-        $db = Database::getSparrow();
+        $db = Database::connect();
         $userdata = $db
-            ->from(Database::getTable("user"))
+            ->from("user")
             ->where("id", $id)
-            ->leftJoin(Database::getTable("group"), array(
-                Database::getTable("group").".level" => Database::getTable("user").".permission"
+            ->leftJoin("group", array(
+                "group.level" => "user.permission"
              ))
             ->one();
 
@@ -311,11 +311,11 @@ class Auth {
         users.
     */
     public static function listUsers() {
-        $db = Database::getSparrow();
+        $db = Database::connect();
         $userdata = $db
-            ->from(Database::getTable("user"))
-            ->leftJoin(Database::getTable("group"), array(
-                Database::getTable("group").".level" => Database::getTable("user").".permission"
+            ->from("user")
+            ->leftJoin("group", array(
+                "group.level" => "user.permission"
              ))
             ->many();
 
@@ -372,13 +372,13 @@ class Auth {
             Fetch the user from the server. If the user doesn't have the token
             specified in the session array, this will return `null`.
         */
-        $db = Database::getSparrow();
+        $db = Database::connect();
         $userdata = $db
-            ->from(Database::getTable("user"))
+            ->from("user")
             ->where("id", $session["id"])
             ->where("token", $session["token"])
-            ->leftJoin(Database::getTable("group"), array(
-                Database::getTable("group").".level" => Database::getTable("user").".permission"
+            ->leftJoin("group", array(
+                "group.level" => "user.permission"
              ))
             ->one();
 
@@ -396,7 +396,7 @@ class Auth {
                             "token" => $token
                         );
                         $db
-                            ->from(Database::getTable("user"))
+                            ->from("user")
                             ->where("id", $session["id"])
                             ->update($data)
                             ->execute();
@@ -470,9 +470,9 @@ class Auth {
         */
         if (self::$groupsCache !== null) return self::$groupsCache;
 
-        $db = Database::getSparrow();
+        $db = Database::connect();
         $perms = $db
-            ->from(Database::getTable("group"))
+            ->from("group")
             ->many();
 
         /*
@@ -512,9 +512,9 @@ class Auth {
             /*
                 If the groups cache is empty, look up the group in the database.
             */
-            $db = Database::getSparrow();
+            $db = Database::connect();
             $perms = $db
-                ->from(Database::getTable("group"))
+                ->from("group")
                 ->where("level", $level)
                 ->one();
 
@@ -817,9 +817,9 @@ class User {
             */
             if (self::$anonColor !== null) return self::$anonColor;
 
-            $db = Database::getSparrow();
+            $db = Database::connect();
             self::$anonColor = $db
-                ->from(Database::getTable("group"))
+                ->from("group")
                 ->where("level", 0)
                 ->value("color");
 

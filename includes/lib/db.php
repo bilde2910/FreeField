@@ -2,9 +2,6 @@
 /*
     This library file contains functions relating to database connections.
 
-    FreeField uses the Sparrow library to manage database connections. Sparrow
-    allows accessing MySQL, SQLite and PostgreSQL databases.
-
     There are three tables in use:
 
     [ffield_]user
@@ -139,51 +136,509 @@
 */
 
 __require("config");
-__require("vendor/sparrow");
 
 class Database {
+
+    // Holds PDO connection object.
+    private $pdo;
+
+    // Action constants for use in `execute()`.
+    private const ACTION_INSERT = 1;
+    private const ACTION_UPDATE = 2;
+    private const ACTION_DELETE = 3;
+
+    // Current action for use in `execute()`.
+    private $action = null;
+
+    // Data provided by calling functions in this class.
+    private $table = null;
+    private $select = null;
+    private $join = array();
+    private $where = array();
+    private $data = null;
+    private $order = null;
+    private $limit = null;
+
+    private function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+
     /*
-        Returns an initialized instance of Sparrow.
+        This function lists all available implemented drivers in the current
+        execution environment.
     */
-    public static function getSparrow() {
-        $db = new Sparrow();
+    public static function getAvailableDrivers() {
+        $drivers = PDO::getAvailableDrivers();
+        $implTypes = array();
+
+        // MySQL - tested, should be stable
+        if (in_array("mysql", $drivers)) {
+            $implTypes[] = "mysql";
+        }
+        // PostgreSQL - not tested, experimental
+        if (in_array("pgsql", $drivers)) {
+            $implTypes[] = "pgsql";
+        }
+        // SQLite 2 and 3 - not tested, experimental
+        if (in_array("sqlite", $drivers)) {
+            $implTypes[] = "sqlite2";
+            $implTypes[] = "sqlite";
+        }
+        // Microsoft SQL Server and SQL Azure - not tested, experimental
+        if (in_array("sqlsrv", $drivers)) {
+            $implTypes[] = "sqlsrv";
+        }
+        // 4D - not tested, highly experimental
+        if (in_array("4d", $drivers)) {
+            $implTypes[] = "4D";
+        }
+        // Oracle Instant Client - not tested, highly experimental
+        if (in_array("oci", $drivers)) {
+            $implTypes[] = "oci";
+        }
+        // Cubrid - not tested, highly experimental
+        if (in_array("cubrid", $drivers)) {
+            $implTypes[] = "cubrid";
+        }
+        // DBLIB drivers - not tested, highly experimental
+        if (in_array("dblib", $drivers)) {
+            $implTypes[] = "sybase";
+            $implTypes[] = "mssql";
+            $implTypes[] = "dblib";
+        }
+
+        return $implTypes;
+    }
+
+    /*
+        Returns an initialized PDO instance.
+    */
+    public static function connect() {
+        $type = Config::get("database/type")->value();
+        $host = Config::get("database/host")->value();
+        $port = Config::get("database/port")->value();
+        $database = Config::get("database/database")->value();
+        $user = Config::get("database/username")->value();
+        $pass = Config::get("database/password")->value();
+
+        $dsnOptions =  array(
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false
+        );
+
+        // SQL queries to run once a connection is established.
+        $runOnConnect = array();
+        // An array of DSN options.
+        $dsnArr = array();
+        // The DSN string used to connect with PDO.
+        $dsnStr = null;
 
         /*
-            For some reason, initializing Sparrow with a connection array does
-            not work properly. Therefore, we have to convert the connection to
-            a URI.
+            Build the DSN string.
         */
-        switch (Config::get("database/type")->value()) {
-            case "sqlite":
-            case "sqlite3":
-                $type = Config::get("database/type")->valueURL();
-                $database = Config::get("database/database")->valueURL();
+        switch ($type) {
+            case "mysql":
+                $dsnArr["host"] = $host;
+                if ($port != -1) $dsnArr["port"] = $port;
+                $dsnArr["dbname"] = $database;
+                $dsnArr["charset"] = "utf8mb4";
+                $dsnStr = self::buildDSN($type, $dsnArr);
+                break;
 
-                $uri = "{$type}://{$database}";
-                $db->setDb($uri);
+            case "pgsql":
+                $dsnArr["host"] = $host;
+                if ($port != -1) $dsnArr["port"] = $port;
+                $dsnArr["dbname"] = $database;
+                $runOnConnect[] = "SET CLIENT_ENCODING TO 'UTF8';";
+                $dsnStr = self::buildDSN($type, $dsnArr);
+                break;
+
+            case "sqlite":
+            case "sqlite2":
+                $dsnStr = "{$type}:{$database}";
+
+            case "sqlsrv":
+                if ($port != -1) {
+                    $dsnArr["Server"] = "$host,$port";
+                } else {
+                    $dsnArr["Server"] = $host;
+                }
+                $dsnArr["Database"] = $database;
+                $dsnStr = self::buildDSN($type, $dsnArr);
+                break;
+
+            case "4D":
+                $dsnArr["host"] = $host;
+                if ($port != -1) $dsnArr["port"] = $port;
+                $dsnArr["dbname"] = $database;
+                $dsnArr["charset"] = "UTF-8";
+                $dsnStr = self::buildDSN($type, $dsnArr);
+                break;
+
+            case "oci":
+                if ($port != -1) {
+                    $dsnArr["dbname"] = "//{$host}:{$port}/{$database}";
+                } else {
+                    $dsnArr["dbname"] = "//{$host}/{$database}";
+                }
+                $dsnArr["charset"] = "UTF-8";
+                $dsnStr = self::buildDSN($type, $dsnArr);
+                break;
+
+            case "cubrid":
+                $dsnArr["host"] = $host;
+                if ($port != -1) $dsnArr["port"] = $port;
+                $dsnArr["dbname"] = $database;
+                $dsnStr = self::buildDSN($type, $dsnArr);
+                break;
+
+            case "sybase":
+            case "mssql":
+            case "dblib":
+                $dsnArr["host"] = $host;
+                $dsnArr["dbname"] = $database;
+                $dsnArr["charset"] = "UTF-8";
+                $dsnStr = self::buildDSN($type, $dsnArr);
                 break;
 
             default:
-                $type = Config::get("database/type")->valueURL();
-                $host = Config::get("database/host")->valueURL();
-                $database = Config::get("database/database")->valueURL();
-                $user = Config::get("database/username")->valueURL();
-                $pass = Config::get("database/password")->valueURL();
+                throw new Exception("Unsupported database type!");
+                exit;
+        }
 
-                if (Config::get("database/port")->value() > 0) {
-                    $port = Config::get("database/port")->valueURL();
-                    // The format of the connection URI is as follows:
-                    $uri = "{$type}://{$user}:{$pass}@{$host}:{$port}/{$database}";
-                } else {
-                    $uri = "{$type}://{$user}:{$pass}@{$host}/{$database}";
+        /*
+            Connect to the database.
+        */
+        $pdo = new PDO($dsnStr, $user, $pass, $dsnOptions);
+
+        /*
+            Execute commands queued for connection.
+        */
+        foreach ($runOnConnect as $sql) {
+            $pdo->execute($sql);
+        }
+
+        return new Database($pdo);
+    }
+
+    /*
+        This function takes an associative array of DSN parameters and converts
+        them into a DSN connection string.
+    */
+    private static function buildDSN($type, $dsnArr) {
+        $dsnStr = "{$type}:";
+        foreach ($dsnArr as $key => $value) {
+            $dsnStr .= "{$key}={$value};";
+        }
+        // Remove trailing semicolon
+        return substr($dsnStr, 0, -1);
+    }
+
+    /*
+        Select from table. The global table prefix is prepended to the given
+        table name.
+
+        $table
+            Table name, without prefix.
+    */
+    public function from($table) {
+        $this->table = self::getTable($table);
+        return $this;
+    }
+
+    /*
+        Select the following columns from the table.
+
+        $columns
+            An array of column names.
+    */
+    public function select($columns) {
+        $this->select = $columns;
+        return $this;
+    }
+
+    /*
+        LEFT JOINs another table on this query.
+
+        $table
+            The other table to join.
+
+        $on
+            An associative array describing the connection between colums in the
+            origin table and the joined table. The global table prefix is
+            prepended to the given table names. This can be suppressed by
+            prepending `~` to the table name.
+
+            Examples:
+
+            $table = "group";
+            $on = array("group.level" => "user.permission");
+
+                LEFT JOIN ffield_group
+                ON ffield_group.level = ffield_user.permission
+
+            $table = "group";
+            $on = array("group.level" => "~user.permission");
+
+                LEFT JOIN ffield_group
+                ON ffield_group.level = user.permission
+    */
+    public function leftJoin($table, $on) {
+        $prefixedOn = array();
+        foreach ($on as $where => $match) {
+            $prefixedOn[] = self::getTable($where)." = ".self::getTable($match);
+        }
+        $this->join[] = array(
+            "type" => "LEFT",
+            "table" => self::getTable($table),
+            "on" => $prefixedOn
+        );
+        return $this;
+    }
+
+    /*
+        Limits affected or selected rows to rows matching the given equality.
+
+        Option 1:
+            $key
+                The name of the column.
+            $value
+                The value that the row must match for the given column.
+
+        Option 2:
+            $key
+                An associative array of `$key => $value` pairs as defined in
+                option 1.
+    */
+    public function where($key, $value = null) {
+        if (is_array($key)) {
+            $this->where = array_merge($this->where, $key);
+        } else {
+            $this->where[$key] = $value;
+        }
+        return $this;
+    }
+
+    /*
+        Orders the returned results by the given column and sorting order.
+
+        $by
+            A column and sorting order, e.g. "id DESC".
+    */
+    public function order($by) {
+        $this->order = $by;
+        return $this;
+    }
+
+    /*
+        Limits the returned results to the given number of rows.
+
+        $limit
+            The maximum number of rows to return.
+    */
+    public function limit($limit) {
+        $this->limit = $limit;
+        return $this;
+    }
+
+    /*
+        Executes a SELECT query with any given arguments and returns the value
+        of the given column for exactly one result from matching rows in the
+        returned list of results.
+    */
+    public function value($column) {
+        $data = $this->select(array($column))->one();
+        if ($data === null) return null;
+        return $data[$column];
+    }
+
+    /*
+        Executes a SELECT query with any given arguments and returns exactly one
+        result. Returns `null` if no rows were found.
+    */
+    public function one() {
+        $data = $this->limit(1)->many();
+        if (is_array($data) && count($data) >= 1) return $data[0];
+        return null;
+    }
+
+    /*
+        Executes a SELECT query with any given arguments.
+    */
+    public function many() {
+        $table = $this->table;
+        $columns = "*";
+        if ($this->select !== null) {
+            $columns = implode(", ", $this->select);
+        }
+        $sql = "SELECT {$columns} FROM {$table}";
+        $values = null;
+        /*
+            Add any JOIN clauses.
+        */
+        foreach ($this->join as $join) {
+            $type = $join["type"];
+            $table = $join["table"];
+            $on = implode(" AND ", $join["on"]);
+            $sql .= " {$type} JOIN {$table} ON {$on}";
+        }
+        /*
+            Append WHERE, if applicable.
+        */
+        if (count($this->where) > 0) {
+            $where = self::buildPrepareString(" AND ", array_keys($this->where));
+            $sql .= " WHERE {$where}";
+            $values = array_values($this->where);
+        }
+        /*
+            Append ORDER BY, if applicable.
+        */
+        if ($this->order !== null) {
+            $order = $this->order;
+            $sql .= " ORDER BY {$order}";
+        }
+        /*
+            Append LIMIT, if applicable.
+        */
+        if ($this->limit !== null) {
+            $limit = $this->limit;
+            $sql .= " LIMIT {$limit}";
+        }
+        /*
+            Execute the query and fetch results.
+        */
+        $data = null;
+        if ($values === null) {
+            $stmt = $this->pdo->query($sql);
+            $data = $stmt->fetchAll();
+        } else {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($values);
+            $data = $stmt->fetchAll();
+        }
+        /*
+            Clear all arguments and clauses for this query.
+        */
+        $this->clear();
+        return $data;
+    }
+
+    /*
+        Indicates that `execute()` should INSERT data.
+
+        $data
+            The data to insert.
+    */
+    public function insert($data) {
+        $this->data = $data;
+        $this->action = self::ACTION_INSERT;
+        return $this;
+    }
+
+    /*
+        Indicates that `execute()` should UPDATE data.
+
+        $data
+            The data to update.
+    */
+    public function update($data) {
+        $this->data = $data;
+        $this->action = self::ACTION_UPDATE;
+        return $this;
+    }
+
+    /*
+        Indicates that `execute()` should DELETE all rows matching WHERE clauses
+        provided through `where()`.
+    */
+    public function delete() {
+        $this->action = self::ACTION_DELETE;
+        return $this;
+    }
+
+    /*
+        Executes the built SQL query.
+
+        $sql
+            An optional SQL query. If given, executes the provided query, then
+            returns.
+    */
+    public function execute($sql = null) {
+        if ($sql !== null) {
+            $this->pdo->exec($sql);
+            return;
+        }
+        switch ($this->action) {
+            case self::ACTION_UPDATE:
+                $table = $this->table;
+                $set = self::buildPrepareString(", ", array_keys($this->data));
+
+                $sql = "UPDATE {$table} SET {$set}";
+                $values = array_values($this->data);
+                // Append WHERE clause, if necessary.
+                if (count($this->where) > 0) {
+                    $where = self::buildPrepareString(" AND ", array_keys($this->where));
+                    $sql .= " WHERE {$where}";
+                    $values = array_merge($values, array_values($this->where));
                 }
+                $this->pdo->prepare($sql)->execute($values);
+                break;
 
-                error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
-                @$db->setDb($uri);
+            case self::ACTION_INSERT:
+                $table = $this->table;
+                $columns = implode(", ", array_keys($this->data));
+                // Get a placeholder string (e.g. "?,?,?").
+                $placeholders = self::chainPlaceholders(count($this->data));
+
+                $sql = "INSERT INTO {$table} ({$columns}) VALUES ({$placeholders})";
+                $values = array_values($this->data);
+                $this->pdo->prepare($sql)->execute($values);
+                break;
+
+            case self::ACTION_DELETE:
+                $table = $this->table;
+                $where = self::buildPrepareString(" AND ", array_keys($this->where));
+
+                $sql = "DELETE FROM {$table} WHERE {$where}";
+                $values = array_values($this->where);
+                $this->pdo->prepare($sql)->execute($values);
                 break;
         }
 
-        return $db;
+        /*
+            Clear all arguments and clauses for this query.
+        */
+        $this->clear();
+    }
+
+    /*
+        This function resets the values of all caller-provided data in this
+        instance of `Database`.
+    */
+    private function clear() {
+        $this->action = null;
+        $this->select = null;
+        $this->join = array();
+        $this->where = array();
+        $this->data = null;
+        $this->order = null;
+        $this->limit = null;
+    }
+
+    /*
+        Starts a transaction (disables autocommit). End the transaction using
+        `commit()`.
+    */
+    public function beginTransaction() {
+        $this->pdo->beginTransaction();
+    }
+
+    /*
+        Commits all queries since `beginTransaction()` and resumes autocommit.
+    */
+    public function commit() {
+        $this->pdo->commit();
     }
 
     /*
@@ -191,7 +646,49 @@ class Database {
         when querying specific tables in the database.
     */
     public static function getTable($table) {
+        if (substr($table, 0, 1) == "~") return substr($table, 1);
         return Config::get("database/table-prefix")->value().$table;
+    }
+
+    /*
+        Builds a prepared statements string for the given list of fields using
+        the given glue.
+
+        $glue
+            The glue to bind the prepared column clauses.
+
+        $fields
+            The columns to prepare data for.
+
+        Example:
+            $o = buildPrepareString(", ", array(
+                "name", "latitude", "longitude"
+            ));
+            $o == "name=?, latitude=?, longitude=?";
+    */
+    private static function buildPrepareString($glue, $fields) {
+        for ($i = 0; $i < count($fields); $i++) {
+            $fields[$i] .= "=?";
+        }
+        return implode($glue, $fields);
+    }
+
+    /*
+        Chains a list of comma-separated placeholders, by the given quantity.
+
+        $qty
+            The quantity of prepared placeholders.
+
+        Example:
+            $o = chainPlaceholders(5);
+            $o == "?,?,?,?,?";
+    */
+    private static function chainPlaceholders($qty) {
+        $str = "";
+        for ($i = 0; $i < $qty; $i++) {
+            $str .= "?,";
+        }
+        return substr($str, 0, -1);
     }
 }
 

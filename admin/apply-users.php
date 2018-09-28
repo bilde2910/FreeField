@@ -144,18 +144,17 @@ foreach ($_POST as $user => $data) {
 /*
     Apply the updates queue to the database, and then process deletions.
 */
-$db = Database::getSparrow();
+$db = Database::connect();
 foreach ($updates as $userid => $update) {
     $userdata = $db
-        ->from(Database::getTable("user"))
+        ->from("user")
         ->where("id", $userid)
         ->update($update)
         ->execute();
 }
 foreach ($deletes as $userid) {
-    $db = Database::getSparrow();
     $db
-        ->from(Database::getTable("user"))
+        ->from("user")
         ->where("id", $userid)
         ->delete()
         ->execute();

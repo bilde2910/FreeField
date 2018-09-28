@@ -105,13 +105,6 @@ function __require($require) {
             break;
 
         /*
-            Loads Sparrow specifically. Used in /includes/lib/db.php.
-        */
-        case "vendor/sparrow":
-            include_once(__DIR__."/../vendor/sparrow.php");
-            break;
-
-        /*
             Loads the PHP QR Code library. This is not obtained via Composer.
         */
         case "vendor/phpqrcode":

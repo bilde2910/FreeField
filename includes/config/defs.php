@@ -83,6 +83,8 @@
 
 require_once(__DIR__."/../config/types.php");
 
+// For database drivers (database/type)
+__require("db");
 // For navigation providers (map/provider/directions)
 __require("geo");
 
@@ -205,13 +207,9 @@ class ConfigDefinitions {
                 "domain" => "main",
                 "section" => "database",
                 "default" => "mysqli",
-                "option" => new SelectOption(array(
-                    "mysql",
-                    "mysqli",
-                    "pgsql",
-                    "sqlite",
-                    "sqlite3"
-                ))
+                "option" => new SelectOption(
+                    Database::getAvailableDrivers()
+                )
             ),
             /*
                 The hostname or IP address of the database.

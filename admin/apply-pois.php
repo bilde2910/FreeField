@@ -121,7 +121,7 @@ foreach ($_POST as $poi => $data) {
 
         /*
             If any of the users are null, unset the values as they default to
-            null. Sparrow does not handle null values properly.
+            null.
         */
         if ($newPoi["created_by"] === null) unset($newPoi["created_by"]);
         if ($newPoi["updated_by"] === null) unset($newPoi["updated_by"]);
@@ -178,24 +178,24 @@ foreach ($_POST as $poi => $data) {
     Apply the updates queue to the database, and then process deletions and
     insertions.
 */
-$db = Database::getSparrow();
+$db = Database::connect();
 foreach ($updates as $poiid => $update) {
     $userdata = $db
-        ->from(Database::getTable("poi"))
+        ->from("poi")
         ->where("id", $poiid)
         ->update($update)
         ->execute();
 }
 foreach ($deletes as $poiid) {
     $db
-        ->from(Database::getTable("poi"))
+        ->from("poi")
         ->where("id", $poiid)
         ->delete()
         ->execute();
 }
 foreach ($inserts as $data) {
     $db
-        ->from(Database::getTable("poi"))
+        ->from("poi")
         ->insert($data)
         ->execute();
 }

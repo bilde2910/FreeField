@@ -72,9 +72,9 @@ if (isset($_POST["sign-out-everywhere"])) {
     Apply the updates queue to the database.
 */
 if (count($updates) > 0) {
-    $db = Database::getSparrow();
+    $db = Database::connect();
     $db
-        ->from(Database::getTable("user"))
+        ->from("user")
         ->where("id", $user->getUserID())
         ->update($updates)
         ->execute();

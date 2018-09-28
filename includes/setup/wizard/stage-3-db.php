@@ -64,7 +64,7 @@ if ($stage == 3 && (!$isPost || !$csrfPass)) {
                     as if the username/password is wrong).
                 */
                 global $db;
-                $db = Database::getSparrow();
+                $db = Database::connect();
                 return true;
             }, $r);
             $r += echoAssert("install.stage.{$stage}.assert.exec_sql", true, function() {
@@ -89,13 +89,7 @@ if ($stage == 3 && (!$isPost || !$csrfPass)) {
                 /*
                     Execute the queries.
                 */
-                $queries = explode(";", $sql);
-                foreach ($queries as $query) {
-                    if (trim($query) == "") continue;
-                    $db
-                        ->sql($query)
-                        ->execute();
-                }
+                $db->execute($sql);
                 return true;
             }, $r);
             $r += echoAssert("install.stage.{$stage}.assert.proceed_stage", true, function() {

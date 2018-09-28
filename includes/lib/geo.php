@@ -104,12 +104,12 @@ class Geo {
     public static function getPOI($id) {
         __require("db");
 
-        $db = Database::getSparrow();
+        $db = Database::connect();
         $poi = $db
             /*
                 Query the list of POIs
             */
-            ->from(Database::getTable("poi"))
+            ->from("poi")
 
             /*
                 Include the user who created POI
@@ -122,22 +122,22 @@ class Geo {
                 group membership of the user who created the POI
                 (`c_user.permission` matches `c_group.level`)
             */
-            ->leftJoin(Database::getTable("user c_user"), array(
-                Database::getTable("poi").".created_by" => "c_user.id"
+            ->leftJoin("user c_user", array(
+                "poi.created_by" => "~c_user.id"
             ))
-            ->leftJoin(Database::getTable("group c_group"), array(
-                "c_user.permission" => "c_group.level"
+            ->leftJoin("group c_group", array(
+                "~c_user.permission" => "~c_group.level"
             ))
 
             /*
                 Do the same for the user who last updated the POI, with "u_"
                 aliases for "updated" rather than "c_" for "created"
             */
-            ->leftJoin(Database::getTable("user u_user"), array(
-                Database::getTable("poi").".updated_by" => "u_user.id"
+            ->leftJoin("user u_user", array(
+                "poi.updated_by" => "~u_user.id"
             ))
-            ->leftJoin(Database::getTable("group u_group"), array(
-                "u_user.permission" => "u_group.level"
+            ->leftJoin("group u_group", array(
+                "~u_user.permission" => "~u_group.level"
             ))
 
             /*
@@ -204,12 +204,12 @@ class Geo {
     public static function listPOIs() {
         __require("db");
 
-        $db = Database::getSparrow();
+        $db = Database::connect();
         $pois = $db
             /*
                 Query the list of POIs
             */
-            ->from(Database::getTable("poi"))
+            ->from("poi")
 
             /*
                 Include the users who created POIs
@@ -222,22 +222,22 @@ class Geo {
                 group memberships of the users who created the POIs
                 (`c_user.permission` matches `c_group.level`)
             */
-            ->leftJoin(Database::getTable("user c_user"), array(
-                Database::getTable("poi").".created_by" => "c_user.id"
+            ->leftJoin("user c_user", array(
+                "poi.created_by" => "~c_user.id"
             ))
-            ->leftJoin(Database::getTable("group c_group"), array(
-                "c_user.permission" => "c_group.level"
+            ->leftJoin("group c_group", array(
+                "~c_user.permission" => "~c_group.level"
             ))
 
             /*
                 Do the same for the users who last updated the POI, with "u_"
                 aliases for "updated" rather than "c_" for "created"
             */
-            ->leftJoin(Database::getTable("user u_user"), array(
-                Database::getTable("poi").".updated_by" => "u_user.id"
+            ->leftJoin("user u_user", array(
+                "poi.updated_by" => "~u_user.id"
             ))
-            ->leftJoin(Database::getTable("group u_group"), array(
-                "u_user.permission" => "u_group.level"
+            ->leftJoin("group u_group", array(
+                "~u_user.permission" => "~u_group.level"
             ))
 
             ->select(array(

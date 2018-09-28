@@ -301,7 +301,6 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     /*
         If any of the users are null, unset the values as they default to null.
-        Sparrow does not handle null values properly.
     */
     if ($data["created_by"] === null) unset($data["created_by"]);
     if ($data["updated_by"] === null) unset($data["updated_by"]);
@@ -319,9 +318,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
 
     try {
-        $db = Database::getSparrow();
+        $db = Database::connect();
         $db
-            ->from(Database::getTable("poi"))
+            ->from("poi")
             ->insert($data)
             ->execute();
 
@@ -330,7 +329,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             about the POI back to the submitting client.
         */
         $poi = $db
-            ->from(Database::getTable("poi"))
+            ->from("poi")
             ->where($data)
             ->one();
 
@@ -467,9 +466,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             }
         }
 
-        $db = Database::getSparrow();
+        $db = Database::connect();
         $db
-            ->from(Database::getTable("poi"))
+            ->from("poi")
             ->where("id", $patchdata["id"])
             ->update($data)
             ->execute();
@@ -479,7 +478,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             here is used to trigger webhooks for field research updates.
         */
         $poidata = $db
-            ->from(Database::getTable("poi"))
+            ->from("poi")
             ->where("id", $patchdata["id"])
             ->one();
 
