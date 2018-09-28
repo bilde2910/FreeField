@@ -42,7 +42,6 @@ if ($stage == 5 && !$cu->exists() && !isset($_GET["auth-failed"])) {
             <?php echo I18N::resolveHTML("install.operation.done"); ?>
         </p>
         <pre><?php
-            $db = null;
             $r = echoAssert("install.stage.{$stage}.assert.auth_success", true, function() {
                 /*
                     Tell the user that the authentication was successful.

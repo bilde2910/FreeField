@@ -52,7 +52,6 @@ if ($stage == 4 && (!$isPost || !$csrfPass)) {
             <?php echo I18N::resolveHTML("install.operation.done"); ?>
         </p>
         <pre><?php
-            $db = null;
             $r = echoAssert("install.stage.{$stage}.assert.valid_data", true, function() {
                 /*
                     Verify that the given data is valid according to the setting
