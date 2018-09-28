@@ -154,7 +154,19 @@ class Auth {
                 "provider_id" => $providerIdentity,
                 "nick" => $suggestedNick,
                 "token" => $token,
-                "permission" => Config::get("permissions/default-level")->value(),
+                /*
+                    If FreeField is currently being set up from the install
+                    wizard in /admin/install-wizard.php, then the
+                    "install/wizard/authenticate-now" flag will be set. If so,
+                    automatically grant the current user host level privileges
+                    as the user authenticating would be the same user as the one
+                    who is following the install wizard.
+                */
+                "permission" => (
+                    Config::getRaw("install/wizard/authenticate-now") !== true
+                    ? Config::get("permissions/default-level")->value()
+                    : PermissionOption::LEVEL_HOST
+                ),
                 "approved" => ($approved ? 1 : 0)
             );
             $db
@@ -236,6 +248,20 @@ class Auth {
         }
 
         self::setSession($session, $expire);
+
+        /*
+            If FreeField is currently being set up from the install wizard in
+            /admin/install-wizard.php, then the
+            "install/wizard/authenticate-now" flag will be set. If so, redirect
+            the user back to the install wizard now that they have successfully
+            authenticated their account, instead of back to the map.
+        */
+        if (Config::getRaw("install/wizard/authenticate-now") === true) {
+            header("HTTP/1.1 303 See Other");
+            header("Location: ".Config::getEndpointUri("/admin/install-wizard.php"));
+            exit;
+        }
+
         return $approved;
     }
 

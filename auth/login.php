@@ -105,6 +105,29 @@ Security::declareFrameOptionsHeader();
                         </div>
                     </a>
                 <?php } ?>
+                <?php
+                    /*
+                        Give the user an option to cancel authentication and
+                        return to the install wizard if FreeField is currently
+                        being installed.
+                    */
+                    if (Config::getRaw("install/wizard/authenticate-now") === true) {
+                        ?>
+                            <div class="cover-button-spacer"></div>
+                            <a href="../admin/install-wizard.php?auth-failed" style="text-decoration: none; color: red;">
+                                <div class="login-button" style="background-color: #1c1c1c;">
+                                    <table><tbody><tr><td>
+                                        <i class="fas fa-arrow-left"></i>
+                                    </td><td>
+                                        <span>
+                                            <?php echo I18N::resolveHTML("login.reconfigure"); ?>
+                                        </span>
+                                    </td></tr></tbody></table>
+                                </div>
+                            </a>
+                        <?php
+                    }
+                ?>
             </div>
         </div>
         <script src="../js/ui.js"></script>

@@ -400,6 +400,80 @@ class Config {
     }
 
     /*
+        This function fills gaps in the configuration file with default values.
+        This ensures that the configuration file contains all possible keys with
+        default values assigned. Settings which are already set to non-default
+        values are not overwritten.
+
+        This function is run when FreeField is first installed, in order to
+        populate an empty, default configuration file.
+    */
+    public static function populateWithDefaults() {
+        self::ensureLoaded();
+
+        /*
+            Search through all available settings. If the current value of a
+            setting is the default value of that setting, then write that
+            setting with its default value to the configuration file. Values
+            which are non-default are not overwritten. This ensures that values
+            which are set to default, which may not be present in the
+            configuration file itself, are explicitly written to the
+            configuration file with the same value, while existing values, which
+            are then guaranteed to exist in the configuration file (otherwise,
+            there wouldn't be an existing value!) are not changed.
+        */
+        $options = array();
+        foreach (self::$configDefs as $key => $def) {
+            $defObj = self::get($key);
+            if ($defObj->value() == $defObj->getDefault()) {
+                $options[$key] = $def["default"];
+            }
+        }
+
+        foreach ($options as $option => $value) {
+            /*
+                Push the setting change to `$config`. The process behind this
+                function is explained in `self::set()`.
+            */
+            $s = explode("/", $option);
+            for ($i = count($s) - 1; $i >= 0; $i--) {
+                /*
+                    Loop over the segments and for every iteration, find the
+                    parent array directly above the current `$s[$i]`.
+                */
+                $parent = self::$config;
+                for ($j = 0; $j < $i; $j++) {
+                    if (isset($parent[$s[$j]])) {
+                        $parent = $parent[$s[$j]];
+                    } else {
+                        $parent = array();
+                    }
+                }
+                /*
+                    Update the value of `$s[$i]` in the array. Store a copy of
+                    this array as the value to assign to the next parent
+                    segment.
+                */
+                $parent[$s[$i]] = $value;
+                $value = $parent;
+                /*
+                    The next iteration finds the next parent above the current
+                    parent and replaces the value of the key in that parent
+                    which would hold the value of the current parent array with
+                    the updated parent array that has the setting change applied
+                    to it.
+                */
+            }
+            self::$config = $value;
+        }
+
+        /*
+            Save the changed `$config` array to file.
+        */
+        self::saveConfig();
+    }
+
+    /*
         Returns a list of all settings keys available in FreeField.
     */
     public static function listAllKeys() {

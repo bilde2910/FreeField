@@ -10,17 +10,17 @@ class AuthKeys {
             /*
                 The key used to encrypt session data.
             */
-            "session"   => base64_decode(""),
+            "session"   => base64_decode("<%GENERATED_KEY%>"),
             /*
                 The key used to encrypt user approval URLs for QR-code-based
                 user approval. Used to encrypt only the user ID.
             */
-            "id-only"   => base64_decode(""),
+            "id-only"   => base64_decode("<%GENERATED_KEY%>"),
             /*
                 The key used to encrypt various settings in the configuration
                 file (i.e. passwords and other sensitive data).
             */
-            "config"    => base64_decode("")
+            "config"    => base64_decode("<%GENERATED_KEY%>")
         );
     }
 }

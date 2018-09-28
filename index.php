@@ -4,11 +4,21 @@
     project revolves around.
 */
 
+/*
+    Ensure that the configuration file exists. If not, proceed to site setup.
+*/
+if (!file_exists(__DIR__."/includes/userdata/config.json")) {
+    header("HTTP/1.1 303 See Other");
+    header("Location: ./admin/install-wizard.php");
+    exit;
+}
+
 require_once("./includes/lib/global.php");
 __require("auth");
 __require("i18n");
 __require("security");
 __require("update");
+__require("config");
 
 Security::requireCSRFToken();
 

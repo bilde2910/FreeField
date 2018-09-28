@@ -144,7 +144,17 @@ Security::declareFrameOptionsHeader();
                 Event handlers for the "cancel" and "try again" buttons.
             */
             $("#login-failed-cancel").on("click", function() {
-                location.href = "./login.php";
+                location.href = <?php
+                    /*
+                        If the failure happened as part of the FreeField setup
+                        process, redirect the user back to the install wizard.
+                    */
+                    if (Config::getRaw("install/wizard/authenticate-now") !== true) {
+                        echo json_encode("./login.php");
+                    } else {
+                        echo json_encode("../admin/install-wizard.php?auth-failed");
+                    }
+                ?>;
             });
             $("#login-failed-retry").on("click", function() {
                 location.href = "./oa2/<?php echo $provider; ?>.php";
