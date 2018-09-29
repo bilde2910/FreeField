@@ -20,6 +20,7 @@ class PostUpgrade {
         updated version of FreeField works properly.
     */
     public static function finalizeUpgrade($fromVersion) {
+        require_once(__DIR__."/../lib/global.php");
         /*
             Perform step-by-step upgrades through each released FreeField
             version using a cascading `switch` block, starting at the version
@@ -30,6 +31,11 @@ class PostUpgrade {
             case "0.99.1-dev":
                 break;
         }
+        /*
+            Recheck for updates.
+        */
+        __require("update");
+        Update::checkForUpdates();
     }
 }
 
