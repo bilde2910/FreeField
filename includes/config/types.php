@@ -1241,10 +1241,6 @@ class ColorOption extends DefaultOption {
         $id = isset($attrs["id"]) ? $attrs["id"] : null;
 
         $attrs["value"] = $current;
-        if ($this->regex !== null) {
-            $attrs["data-validate-as"] = "regex-string";
-            $attrs["data-validate-regex"] = $this->regex;
-        }
         $attrString = parent::constructAttributes($attrs);
 
         /*
