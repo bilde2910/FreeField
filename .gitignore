@@ -1,2 +1,5 @@
 # Config files and other user data
 /includes/userdata
+
+# Sphinx documentation output
+/docs/_build
