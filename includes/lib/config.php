@@ -1141,22 +1141,22 @@ class ConfigSectionI18N {
         ),
         "auth/discord" => array(
             // admin.section.auth.discord.desc
-            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Discord">',
+            '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/discord.html">',
             '</a>'
         ),
         "auth/telegram" => array(
             // admin.section.auth.telegram.desc
-            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Telegram">',
+            '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/telegram.html">',
             '</a>'
         ),
         "auth/reddit" => array(
             // admin.section.auth.reddit.desc
-            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/Reddit">',
+            '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/reddit.html">',
             '</a>'
         ),
         "auth/groupme" => array(
             // admin.section.auth.groupme.desc
-            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Authentication-providers/GroupMe">',
+            '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/groupme.html">',
             '</a>'
         ),
         "mobile/pwa" => array(
