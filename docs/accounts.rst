@@ -30,21 +30,23 @@ each account on your instance of FreeField, in case a user misbehaves or
 otherwise causes problems on the map or elsewhere in your community. This allows
 you to contact the user in question should it be necessary.
 
-Keep in mind that on several provider platforms, the user can change their
-provider identity. While each FreeField user will always be internally linked to
-the correct user on the user's authentication provider by means of a unique ID
-(such as an account number), the human-readable identity displayed in this field
-may not necessarily represent the correct user, or even an existing user, if
-they changed their provider identity since they last authenticated on FreeField.
-Every time a user authenticates (i.e. create a new session by signing in anew),
-the provider identity in the FreeField database is updated.
+.. note:: Keep in mind that on several provider platforms, the user can change
+          their provider identity. While each FreeField user will always be
+          internally linked to the correct user on the user's authentication
+          provider by means of a unique ID (such as an account number), the
+          human-readable identity displayed in this field may not necessarily
+          represent the correct user, or even an existing user, if they changed
+          their provider identity since they last authenticated on FreeField.
+          Every time a user authenticates (i.e. create a new session by signing
+          in anew), the provider identity in the FreeField database is updated.
 
-The provider identity will only be updated if the user actually signs in to
-FreeField, and you cannot force a user to authenticate. This means that there is
-no guaranteed way to ensure that the provider identity stored in the database is
-always up to date. While you can take measures that restrict users' access to
-FreeField if they do not regularly authenticate, or invalidate their sessions,
-you should consider any ethical and privacy implications of doing so.
+          The provider identity will only be updated if the user actually signs
+          in to FreeField, and you cannot force a user to authenticate. This
+          means that there is no guaranteed way to ensure that the provider
+          identity stored in the database is always up to date. While you can
+          take measures that restrict users' access to FreeField if they do not
+          regularly authenticate, or invalidate their sessions, you should
+          consider any ethical and privacy implications of doing so.
 
 Provider
 ^^^^^^^^
@@ -55,14 +57,16 @@ that provider will be listed here, but if you are using several providers, this
 field can help you differentiate between accounts that are using the same
 username, but on different services.
 
-If you want to disable an authentication provider for whatever reason, it is a
-good idea to check the user list and use this field to identify any users who
-may currently be using that authentication provider. If you disable a provider,
-none of those users will be able to sign in any longer, and would have to resort
-to other enabled authentication providers instead.
+.. note:: If you want to disable an authentication provider for whatever reason,
+          it is a good idea to check the user list and use this field to
+          identify any users who may currently be using that authentication
+          provider. If you disable a provider, none of those users will be able
+          to sign in any longer, and would have to resort to other enabled
+          authentication providers instead.
 
-An existing user signing in on a new authentication provider will count as a new
-user registration, and you may have to reconfigure their permissions.
+          An existing user signing in on a new authentication provider will
+          count as a new user registration, and you may have to reconfigure
+          their permissions.
 
 Nickname
 ^^^^^^^^
@@ -80,8 +84,10 @@ Group
 
 Each user on FreeField is assigned to a group. The group functions as a
 permission tier, and changing the group that a user is a member of will result
-in that user being granted or revoked permissions on FreeField. The concept of
-groups is explained in greater detail on the :doc:`/permissions` page.
+in that user being granted or revoked permissions on FreeField.
+
+.. hint:: The concept of groups is explained in greater detail on the
+          :doc:`/permissions` page.
 
 Actions
 ^^^^^^^
@@ -90,22 +96,25 @@ The "Users" section on the administration pages allows administrators to perform
 various actions on individual registered users, such as deleting their account.
 Actions can be performed on several accounts at once through selecting an action
 for several users in the list, which will then be applied all at once when
-clicking on "Save settings." The available actions for registered users are as
-follows:
+clicking on :guilabel:`Save settings`. The available actions for registered
+users are as follows:
 
 Delete account
    This action will, if selected, delete the user's account from the FreeField
-   users database. Note that it will not delete references to the user in other
-   locations, such as the Pokéstops database - if the user has submitted a
-   Pokéstop on the map, or was the last person to report research for some
-   Pokéstop, then the account ID of the user will still be stored in the
-   Pokéstops database, although the list in the Pokéstops section on the
-   administration pages will display "<DeletedUser>" rather than the username of
-   the deleted user.
+   users database.
 
-   A user whose account has been deleted will still be able to sign up again
-   later if they attempt to log in. This will also re-link any references to the
-   user in other places, such as in the Pokéstops database.
+   .. note:: This will not delete references to the user in other locations,
+             such as the Pokéstops database - if the user has submitted a
+             Pokéstop on the map, or was the last person to report research for
+             some Pokéstop, then the account ID of the user will still be stored
+             in the Pokéstops database, although the list in the Pokéstops
+             section on the administration pages will display "<DeletedUser>"
+             rather than the username of the deleted user.
+
+   .. important:: A user whose account has been deleted will still be able to
+                  sign up again later if they attempt to log in. This will also
+                  re-link any references to the user in other places, such as in
+                  the Pokéstops database.
 
 Log out everywhere
    If you believe that a user has had their accounts compromised, or for some

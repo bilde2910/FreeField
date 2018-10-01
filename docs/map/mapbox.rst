@@ -9,17 +9,16 @@ monthly fee for commercial use. Please see Mapbox' `pricing page
 In order to set up Mapbox as the basemap provider for FreeField, you have to
 register an account on Mapbox and obtain an access token.
 
-Disclaimer
-----------
+.. attention::
 
-**You are fully responsible for ensuring you comply with the Mapbox terms of
-service if you use Mapbox as your map provider. You are also fully responsible
-for ensuring that you stay within your usage quota, and for covering any costs
-incurred by your usage of Mapbox' services through FreeField. You are also
-fully responsible for determining whether or not your usage of Mapbox' services
-qualify as commercial use (for example, whether or not you are restricting
-access to your application), and for covering the cost of a commercial use
-license if required by Mapbox.**
+   You are fully responsible for ensuring you comply with the Mapbox terms of
+   service if you use Mapbox as your map provider. You are also fully
+   responsible for ensuring that you stay within your usage quota, and for
+   covering any costs incurred by your usage of Mapbox' services through
+   FreeField. You are also fully responsible for determining whether or not your
+   usage of Mapbox' services qualify as commercial use (for example, whether or
+   not you are restricting access to your application), and for covering the
+   cost of a commercial use license if required by Mapbox.
 
 Obtaining an access token
 -------------------------

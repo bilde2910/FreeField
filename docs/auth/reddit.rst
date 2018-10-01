@@ -15,10 +15,14 @@ as well as on the `Reddit wiki <https://www.reddit.com/wiki/api>`_.
 2. Scroll to the bottom of the page and click on "are you a developer? create an
    app..."
 3. Select "web app" as your app type.
-4. Give your application a name and description. You should choose a name that
-   reflects the community you have set up FreeField for. A good idea is to use
-   the name of your community, or a location-specific name such as "New York
-   FreeField."
+4. Give your application a name and description.
+
+   .. tip:: You should choose a name that reflects the community you have set up
+            FreeField for. A good idea is to use the name of your community, or
+            a location-specific name such as "New York FreeField." You may
+            optionally upload an icon for your application, which will be
+            displayed when users attempt to authenticate.
+
 5. In the "about url" field, enter the base URL of your FreeField installation,
    e.g. ``https://example.com/freefield/``.
 6. In the "redirect uri" field, paste the redirect URL for FreeField's

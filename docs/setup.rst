@@ -48,12 +48,12 @@ nginx
 If you are setting up FreeField for nginx, it is **critical** that you restrict
 access to some directories that should not be publicly visible.
 
-/include
+includes
    You **must** deny access for everyone to this directory. It contains files
    that are included from elsewhere, and accessing these scripts directly can be
    dangerous.
 
-/docs
+docs
    You are *recommended* to restrict access to this directory, as it only
    contains documentation in reStructuredText format. This is already readily
    available from https://freefield.readthedocs.io/ in a more user-friendly
@@ -61,6 +61,13 @@ access to some directories that should not be publicly visible.
 
 Please check that you are not able to access these directories from the browser
 before you continue setting up FreeField.
+
+.. danger:: If you do not deny all direct access to /includes (via e.g.
+            ``deny all``), any user would be able to break your entire FreeField
+            installation beyond repair, and might even compromise the security
+            of your server. Files in this directory contains code that is only
+            supposed to be executed in controlled circumstances. The behavior of
+            this code in circumstances of direct execution has not been tested.
 
 Other web servers
 ^^^^^^^^^^^^^^^^^
@@ -92,17 +99,18 @@ Encrypted connection (HTTPS)
    if HTTPS is disabled, as this depends on service workers, which do not work
    without HTTPS for security reasons.
 
-   If your hosting provider already offers HTTPS by default, you can try to
-   simply load your site over HTTPS instead by changing your browser URL.
-   Otherwise, you may have to enable HTTPS yourself. If you are running your own
-   server, and you do not have HTTPS set up, you need to enable and configure
-   HTTPS in your HTTP daemon's configuration file, and allow connections to TCP
-   port 443 (or whatever port you are running HTTPS over) through your firewall.
+   .. tip:: If your hosting provider already offers HTTPS by default, you can
+            try to simply load your site over HTTPS instead by changing your
+            browser URL. Otherwise, you may have to enable HTTPS yourself. If
+            you are running your own server, and you do not have HTTPS set up,
+            you need to enable and configure HTTPS in your HTTP daemon's
+            configuration file, and allow connections to TCP port 443 (or
+            whatever port you are running HTTPS over) through your firewall.
 
-   If you need a TLS certificate, you could use a service such as Let's Encrypt
-   to get one for free. For information on how to set up Let's Encrypt, please
-   see Let's Encrypt's `Getting Started guide
-   <https://letsencrypt.org/getting-started/>`_.
+   .. tip:: If you need a TLS certificate, you could use a service such as Let's
+            Encrypt to get one for free. For information on how to set up Let's
+            Encrypt, please see Let's Encrypt's `Getting Started guide
+            <https://letsencrypt.org/getting-started/>`_.
 
 Installation directory writable
    In order for FreeField to perform updates, it is highly recommended that you
@@ -110,10 +118,10 @@ Installation directory writable
    function without this permission, but you will not be able to install
    updates.
 
-   To allow writing, either change the owner of the installation directory to
-   the user used by the HTTP daemon using e.g. ``chown -R http:http .``, or
-   change the file permission to allow global writes, i.e. ``chmod -R a+w .``,
-   in the installation directory.
+   .. hint:: To allow writing, either change the owner of the installation
+             directory to the user used by the HTTP daemon using e.g. ``chown
+             -R http:http .``, or change the file permission to allow global
+             writes, i.e. ``chmod -R a+w .``, in the installation directory.
 
 Userdata directory writable
    FreeField stores its configuration files and some user-submitted data in the
@@ -141,9 +149,10 @@ gd extension loaded
    users can be configured to display QR codes that, if scanned by an
    administrator, allows quickly approving the user. An approval link will be
    required in any case that the user can forward to an admin through some
-   messaging service/private message somewhere. The purpose of the QR codes is
-   to allow users to meet an administrator in person and have them scan their
-   code in person, e.g. during some community meetup.
+   messaging service/private message somewhere.
+
+   .. hint:: QR codes and manual approval is explained in greater detail in
+             :ref:`manual-approval`.
 
 openssl extension loaded
    Cryptographic functions are used for various purposes in FreeField, and these
@@ -179,9 +188,9 @@ this step should be the following three checks:
 - Secure storage encryption keys generated
 - Configuration file written
 
-If any of those entries are missing, along with the "Continue setup" button,
-then something has gone very wrong, and you should check your web server error
-logs.
+If any of those entries are missing, along with the :guilabel:`Continue setup`
+button, then something has gone very wrong, and you should check your web server
+error logs.
 
 Stage 3: Database setup
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -191,11 +200,13 @@ backend. Choose your database provider from the list of available providers and
 enter the required connection details.
 
 Hostname
-   The hostname of the database server. This is typically "localhost",
-   "127.0.0.1" or "::1" if MySQL is running on the same host as the web server.
-   If you are using shared web hosting, please check your hosting provider's
-   settings panel for the hostname, as shared hosting providers often have
-   dedicated SQL servers.
+   The hostname of the database server.
+
+   .. hint:: This is typically "localhost", "127.0.0.1" or "::1" if MySQL is
+             running on the same host as the web server. If you are using shared
+             web hosting, please check your hosting provider's settings panel
+             for the hostname, as shared hosting providers often have dedicated
+             SQL servers.
 
 Port
    The port that your database runs on. In most cases, you can leave this to the
@@ -217,21 +228,24 @@ Table prefix
    of FreeField in the same database, you must select a different table prefix
    for each instance, so the instances do not interfere with each other.
 
-Only MySQL has been tested and is known to be stable with FreeField. **Providers
-marked "experimental" have not been tested and may be unstable, not work at all,
-or spontaneously break in the future.** Use these at your own risk.
+.. caution:: Only MySQL has been tested and is known to be stable with
+             FreeField. Providers marked "experimental" have not been tested and
+             may be unstable, not work at all, or spontaneously break in the
+             future. Use these at your own risk.
 
-If you cannot find your database provider in the list, then you have most likely
-not enabled the PDO extension for your database backend in php.ini. For example,
-if you want to use MySQL, you must ensure that ``extension=pdo_mysql`` is
-defined and not commented out in php.ini. If you have enabled the extension, and
-the option still does not show up in the selection box, then FreeField may not
-support your database backend. If you wish for your database backend to be
-supported, you may create an issue for it on GitHub, but remember to search for
-existing related issues first, as others may have requested it before you.
+.. note:: If you cannot find your database provider in the list, then you have
+          most likely not enabled the PDO extension for your database backend in
+          php.ini. For example, if you want to use MySQL, you must ensure that
+          ``extension=pdo_mysql`` is defined and not commented out in php.ini.
+          If you have enabled the extension, and the option still does not show
+          up in the selection box, then FreeField may not support your database
+          backend. If you wish for your database backend to be supported, you
+          may create an issue for it on GitHub, but remember to search for
+          existing related issues first, as others may have requested it before
+          you.
 
-If you use SQLite, please fill in the path to the SQLite database in the
-"Database" field, and fill in dummy values in all other fields.
+.. note:: If you use SQLite, please fill in the path to the SQLite database in
+          the "Database" field, and fill in dummy values in all other fields.
 
 When you are ready, FreeField will connect to the tables and set up the
 necessary database table structure. If everything went according to plan, the
@@ -326,13 +340,15 @@ can proceed to sign in using the authentication provider you set up.
 Stage 5: Verify authentication setup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You are automatically redirected to this stage when you click "Continue setup"
-in stage 4, and the authentication challenge is part of this step. Sign in using
-any available authentication provider. If you for some reason cannot sign in
-using a provider, you can at any time click on "Reconfigure" to return to stage
-4 and attempt to set up the authentication providers again. You may want to
-consult the :doc:`/auth/index` docs to ensure that authentication is set up
-properly.
+You are automatically redirected to this stage when you click
+:guilabel:`Continue setup` in stage 4, and the authentication challenge is part
+of this step. Sign in using any available authentication provider.
+
+.. hint:: If you for some reason cannot sign in using a provider, you can at any
+          time click on :guilabel:`Reconfigure` to return to stage 4 and attempt
+          to set up the authentication providers again. You may want to consult
+          the :doc:`/auth/index` docs to ensure that authentication is set up
+          properly.
 
 When you have signed in, you should return to the installation wizard, and all
 of the following checks must pass:
@@ -360,10 +376,12 @@ choose a map provider and set it up, along with map defaults. Please consult the
 
 In addition to selecting a map provider, you have to specify the default
 starting coordinates for FreeField. The coordinates you choose are the ones that
-the map will be centered on when you first launch FreeField. It is a very good
-idea to pick the coordinates of a centrally located and/or easily recognizable
-location in the town/city you are setting up FreeField for. The default 0, 0
-location is **not a good location** to center the map.
+the map will be centered on when you first launch FreeField.
+
+.. tip:: It is a very good idea to pick the coordinates of a centrally located
+         and/or easily recognizable location in the town/city you are setting up
+         FreeField for. The default 0, 0 location is **not a good location** to
+         center the map.
 
 When you are done with stage 6, FreeField will write the map provider settings
 to the configuration file. The following checks should pass:
@@ -384,3 +402,10 @@ wizard and set up FreeField for use. Before you grant others access to the map,
 you should set up additional settings such as :doc:`/geofencing`,
 :doc:`/permissions`, names and theming, and add Pokéstops in your area to the
 map.
+
+.. warning:: By default, FreeField allows submission of Pokéstops to the map
+             anywhere in the world. To prevent your map from being leeched by
+             users elsewhere, it is strongly recommended that you set up a
+             geofence after installation that restricts the area in which
+             Pokéstops and field research can be submitted. For more information
+             on how to do this, refer to :doc:`/geofencing`.

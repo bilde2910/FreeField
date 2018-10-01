@@ -9,9 +9,14 @@ Registering an application
 
 1. Go to https://dev.groupme.com/applications/new and log in with your GroupMe
    account.
-2. Give your application a name. You should choose a name that reflects the
-   community you have set up FreeField for. A good idea is to use the name of
-   your community, or a location-specific name such as "New York FreeField."
+2. Give your application a name.
+
+   .. tip:: You should choose a name that reflects the community you have set up
+            FreeField for. A good idea is to use the name of your community, or
+            a location-specific name such as "New York FreeField." You may
+            optionally upload an icon for your application, which will be
+            displayed when users attempt to authenticate.
+
 3. In the "Callback URL" box, paste the redirect URL for FreeField's
    implementation of OAuth2 with GroupMe. This URL is ``auth/oa2/groupme.php``,
    relative to your installation path. E.g. if you have installed FreeField to

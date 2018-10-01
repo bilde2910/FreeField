@@ -6,9 +6,10 @@ Each permission tier is called a group, and each group is assigned a permission
 level, which is an integer between 0 and 250 describing the access level of
 users within that role to functionality in FreeField.
 
-Each group additionally has a color code that is used to distinguish users of a
-particular group in the user list. This is described in greater detail in the
-`Group settings`_ section of this page.
+.. tip:: Each group can additionally be assigned a color code that is used to
+         distinguish users of a particular group in the user list. This is
+         described in greater detail in the `Group settings`_ section of this
+         page.
 
 Default groups
 --------------
@@ -36,12 +37,14 @@ By default, FreeField comes with seven groups:
 Members of each group are automatically granted the permissions of all groups
 below their permission level in addition to the permissions specific to their
 own group. The default groups are set up in such a way that they should be safe
-for production use if set up properly according to the intentions below. If a
-permission that is reserved to a high-level group is desired for a lower level
-group, then that group should be granted that specific permission rather than be
-merged with a higher permission level group. Granting users access to
-permissions they do not need can be dangerous, and the security and availability
-of your site may be put at risk if you do so.
+for production use if set up properly according to the intentions below.
+
+.. caution:: If a permission that is reserved to a high-level group is desired
+             for a lower level group, then that group should be granted that
+             specific permission rather than be merged with a higher permission
+             level group. Granting users access to permissions they do not need
+             can be dangerous, and the security and availability of your site
+             may be put at risk if you do so.
 
 Site host
 ^^^^^^^^^
@@ -52,9 +55,14 @@ FreeField site. Site hosts have access to settings that can be very dangerous to
 change, or can break FreeField if changed, such as database connection settings,
 authentication provider setup and site updates.
 
-If your community has several administrators, it is strongly recommended that
-only the administrator responsible for hosting FreeField has this role, and that
-the others are assigned to the Administrator group instead.
+.. danger:: If your community has several administrators, it is strongly
+            recommended that only the administrator responsible for hosting
+            FreeField has this role, and that the others are assigned to the
+            Administrator group instead. Failure to do so presents a risk that
+            your entire FreeField installation can be hijacked by a rogue
+            administrator, in the worst case warranting a complete reinstall of
+            FreeField. This is explained in greated detail under
+            `The "Manage own group" permission`_ at the end of this document.
 
 Administrator
 ^^^^^^^^^^^^^
@@ -143,12 +151,14 @@ language for everyone. An internationalization token takes the form
 particular localizable string in the localization files. The latest localization
 files can be `found on GitHub
 <https://github.com/bilde2910/FreeField/tree/master/includes/i18n>`_. The token
-IDs used by groups in FreeField all start with ``group.level.``. If you want to
-use a custom name for a group, you should replace the entire
-internationalization token with the string that you wish to use. You should not
-add the string to your local copy of the localization files, as these are
-overwritten every time FreeField is updated - make the required changes on the
-administration pages instead.
+IDs used by groups in FreeField all start with ``group.level.``.
+
+.. note:: If you want to use a custom name for a group, you should replace the
+          entire internationalization token with the string that you wish to
+          use. You should not add the string to your local copy of the
+          localization files, as these are overwritten every time FreeField is
+          updated - make the required changes on the administration pages
+          instead.
 
 Permission level
 ^^^^^^^^^^^^^^^^
@@ -159,13 +169,14 @@ level automatically.
 
 Two groups cannot share the same permission level.
 
-**It is strongly recommended that you do not change the permission levels
-assigned to the default groups. This is because updates to FreeField that add
-new permissions will use the default permission levels as a reference when they
-are populated with defaults on your FreeField installation.** E.g. if a new
-permission is added that is only meant to be accessible to administrators by
-default, the permission will be set at level 200 regardless of what value you
-may have chosen for the local Administrators group.
+.. caution:: It is strongly recommended that you do not change the permission
+             levels assigned to the default groups. This is because updates to
+             FreeField that add new permissions will use the default permission
+             levels as a reference when they are populated with defaults on your
+             FreeField installation. E.g. if a new permission is added that is
+             only meant to be accessible to administrators by default, the
+             permission will be set at level 200 regardless of what value you
+             may have chosen for the local Administrators group.
 
 Color
 ^^^^^
@@ -187,8 +198,8 @@ Actions
 The "Groups" section on the administration pages allows administrators to
 perform actions on groups. Actions can be performed on several groups at once
 through selecting an action for several groups in the list, which will then be
-applied all at once when clicking on "Save settings." The available actions for
-groups are as follows:
+applied all at once when clicking on :guilabel:`Save settings`. The available
+actions for groups are as follows:
 
 Delete group
    This action will, if selected, delete the group from the groups database.
@@ -246,9 +257,9 @@ Default group for new members
 The default group for new members is "Registered member." This can be changed on
 the "Permissions" section of the administration pages.
 
-If you wish to manually approve new members before granting them access to
-FreeField, then this is not the setting you should change. Instead, look into
-:ref:`manual-approval`.
+.. hint:: If you wish to manually approve new members before granting them
+          access to FreeField, then this is not the setting you should change.
+          Instead, look into :ref:`manual-approval`.
 
 Managing permissions
 --------------------

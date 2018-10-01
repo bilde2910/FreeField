@@ -10,11 +10,14 @@ Registering an application
 1. Go to https://discordapp.com/developers/applications/ and log in with your
    Discord account.
 2. Click on "Create an application".
-3. Give your application a name and description. You should choose a name that
-   reflects the community you have set up FreeField for. A good idea is to use
-   the name of your community, or a location-specific name such as "New York
-   FreeField." You may optionally upload an icon for your application, which
-   will be displayed when users attempt to authenticate.
+3. Give your application a name and description.
+
+   .. tip:: You should choose a name that reflects the community you have set up
+            FreeField for. A good idea is to use the name of your community, or
+            a location-specific name such as "New York FreeField." You may
+            optionally upload an icon for your application, which will be
+            displayed when users attempt to authenticate.
+
 4. Take note of the "Client ID" and "Client Secret" assigned to your
    application:
 

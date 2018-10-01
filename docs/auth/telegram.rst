@@ -17,15 +17,37 @@ Registering a bot
 2. Issue the ``/newbot`` command in chat.
 3. @BotFather will ask for a display name and username of your Telegram bot.
    Enter a display name and username. The display name can be anything, though
-   the username must end with "_bot". You should choose a display name that
-   reflects the community you have set up FreeField for. A good idea is to use
-   the name of your community, or a location-specific name such as "New York
-   FreeField."
+   the username must end with "bot".
+
+   .. tip:: You should choose a name that reflects the community you have set up
+            FreeField for. A good idea is to use the name of your community, or
+            a location-specific name such as "New York FreeField." You may
+            optionally upload an icon for your application, which will be
+            displayed when users attempt to authenticate.
 
 .. image:: _images/telegram-02-newbot.png
 
 4. You should now be assigned a bot token for your bot by @BotFather. Store this
    token safely.
+
+   .. danger:: Your bot token is very sensitive information. Anyone who obtains
+               a copy of this token will be able to impersonate Telegram and
+               can authenticate themselves as any Telegram user on FreeField. If
+               you or a high level administrator uses Telegram to authenticate
+               with FreeField, it is particularly important that this token is
+               never, ever shared with anyone else, not even with other
+               administrators. In such a case, users who have the bot token
+               would be able to succesfully impersonate an administrator and
+               either elevate their own privileges to a higher level, or use the
+               administrator account directly to disrupt, destroy or even seize
+               total, exclusive control over FreeField.
+
+               If you ever suspect that the bot token has been inadvertently
+               shared with any other person, **immediately** shut down all
+               access to FreeField and revoke and reissue a new bot token
+               through @BotFather.
+
+               There is no technical way to fix this attack vector.
 
 .. image:: _images/telegram-03-token.png
 
