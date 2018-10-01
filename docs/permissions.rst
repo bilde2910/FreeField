@@ -62,10 +62,10 @@ Administrator
 Administrators have the second highest level of access to FreeField, and have
 access to most functionality needed to run and manage FreeField at a
 co-administrative level. Administrators have access to functionality such as
-site appearance settings, permissions management, security settings, geofences
-and webhooks. Only trusted community leaders should be assigned to this group,
-as malicious users with this level of access will be able to do significant
-damage to FreeField.
+site appearance settings, permissions management, security settings,
+:doc:`/geofencing` and webhooks. Only trusted community leaders should be
+assigned to this group, as malicious users with this level of access will be
+able to do significant damage to FreeField.
 
 Moderator
 ^^^^^^^^^

@@ -19,3 +19,4 @@ below.
    accounts
    permissions
    map/index
+   geofencing
