@@ -1172,7 +1172,7 @@ class ConfigSectionI18N {
         ),
         "map/geofence" => array(
             // admin.section.map.geofence.desc
-            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/Geofencing">',
+            '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/geofencing.html">',
             '</a>'
         )
     );
