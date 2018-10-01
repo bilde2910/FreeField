@@ -187,7 +187,7 @@ class ConfigDefinitions {
             "spiders/robots-policy" => array(
                 "domain" => "main",
                 "section" => "spiders",
-                "default" => "none",
+                "default" => "noindex,nofollow",
                 "option" => new SelectOption(array(
                     "all",
                     "nofollow",
@@ -1109,7 +1109,7 @@ class ConfigDefinitions {
             "mobile/pwa/display" => array(
                 "domain" => "mobile",
                 "section" => "pwa",
-                "default" => "fullscreen",
+                "default" => "standalone",
                 "option" => new SelectOption(array(
                     "fullscreen",
                     "standalone",
