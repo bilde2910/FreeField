@@ -9,7 +9,7 @@ Registering a bot
 
 1. Search for the user ``@BotFather`` on Telegram and open a conversation with
    this bot, or `click here <https://t.me/BotFather>`_ to open a conversation
-   directly. Click on the "Start" button at the bottom of the Telegram
+   directly. Click on the :guilabel:`Start` button at the bottom of the Telegram
    interface.
 
 .. image:: _images/telegram-01-botfather.png
@@ -60,6 +60,11 @@ Registering a bot
    "Success! Domain updated."
 
 .. image:: _images/telegram-04-setdomain.png
+
+.. caution:: By default, your bot can be added to any Telegram group. It is a
+             good idea to disable group joining, as this is not necessary to
+             authenticate users. To do so, issue the ``/setjoingroups`` command
+             to @BotFather and follow the provided instructions.
 
 Enabling Telegram authentication in FreeField
 ---------------------------------------------

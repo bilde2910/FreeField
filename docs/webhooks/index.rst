@@ -1,0 +1,366 @@
+Webhooks
+========
+
+A core component of research reporting is that community members are alerted to
+research tasks of interest. This can be accomplished with webhooks. A webhook
+is a handler for web requests that triggers some kind of action when called -
+e.g. a message can be sent in a channel on Discord, or an alert triggered in a
+Telegram group.
+
+Webhooks can be set up from the "Webhooks" section on the administration pages.
+There are built-in presets for some types of webhooks, but in principle, any
+service can be the target of a webhook if the service supports setting up
+webhook endpoints for inbound requests.
+
+Webhook basics
+--------------
+
+All webhooks share some common principles - when field research is reported on
+a Pokéstop, FreeField will evaluate the trigger conditions of all registered
+webhooks, and if the reported research matches all the defined conditions, the
+webhook is triggered. Every webhook has a target and a payload, and if the
+webhook is triggered, FreeField connects to the target and sends the payload.
+
+Webhooks can be added from the "Webhooks" section on the administration pages by
+clicking on :guilabel:`Add new webhook`. A dialog box will open, prompting you
+for the type of webhook to add, and if you wish to use a payload preset.
+
+.. tip:: Payload presets are pre-configured payloads that, if selected, will
+         automatically fill in the payload for your webhook. This can save you
+         from having to configure your webhook's payload from scratch according
+         to the documentation for the service that you are setting up a webhook
+         for. Payload presets are described in greater detail under `Presets`_.
+
+.. hint:: You can refer to the documentation for `Common webhook targets`_ below
+          to see what webhook types and payload presets you should choose for
+          the most common webhook target services. You should refer to this
+          documentation before you create your webhook.
+
+Here is a general overview of each webhook type:
+
+Post JSON
+^^^^^^^^^
+
+This type of webhook will make an HTTP POST request to the given target URL with
+the specified payload. The payload is encoded as JSON, with enforced syntax
+validation. If you enter invalid JSON in the payload field of the webhook, you
+will not be able to save the webhook settings.
+
+.. hint:: This is the most common type of webhook, and most webhook endpoints
+          support this type of request.
+
+.. tip:: In addition to FreeField's built-in JSON validation, you can use a
+         third party service such as `JSONLint <https://jsonlint.com/>`_ to
+         validate the JSON payload.
+
+Requests sent with this webhook type will have the following HTTP headers:
+
+.. parsed-literal::
+   Content-Type: application/json
+   User-Agent: FreeField/<FreeField_Version> PHP/<PHP_Version>
+
+Send Telegram message
+^^^^^^^^^^^^^^^^^^^^^
+
+This type of webhook is specific to sending messages to groups in Telegram. It
+is a wrapper around the `Post JSON`_ webhook request type and functions more or
+less the same as Post JSON internally, but exists as a convenience for making
+Telegram webhooks easier to manage. Please refer to :doc:`/webhooks/telegram`
+for more information about how to set up this webhook type.
+
+Common webhook targets
+----------------------
+
+This documentation offers examples for several common webhook targets, such as
+Discord. You are recommended to refer to the pages below if you are setting up
+webhooks for any of these services, as they explain webhook properties specific
+to these services, to help you get the most out of your webhooks.
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+
+   *
+
+Webhook properties
+------------------
+
+Once you have created your webhook, you have to specify additional properties to
+configure and customize its functionality. The main component is the webhook
+URL, but there are other properties as well, which are described below.
+
+.. hint:: The "Send Telegram message" webhook type has additional properties
+          which are not described in this section. These properties are
+          described in detail on the :doc:`/webhooks/telegram` subpage.
+
+Webhook URL
+^^^^^^^^^^^
+
+The webhook URL is, along with the `Payload`_, the most important property of a
+webhook. The webhook URL is the location on the web that FreeField will post the
+payload to when the hook is triggered. This is typically an ``http://`` or
+``https://`` URL, but may in certain specific circumstances be other protocols,
+such as ``tg://`` for Telegram webhooks.
+
+.. hint:: When you create a webhook listener on an service, you will receive a
+          URL that is associated with it. This URL should be put in the Webhook
+          URL field on FreeField.
+
+Language
+^^^^^^^^
+
+You can choose which language should be used for your webhooks. The language you
+select will be used to localize various `Substitution tokens`_ in your payload.
+The language you choose will only be applied to these tokens, and not strings of
+text that you define directly in your payload.
+
+Icon set
+^^^^^^^^
+
+The icon set you choose for your webhook is the icon set that will be used to
+generate icon URLs if you use any icon set image substitution tokens in your
+payload. These tokens are explained in greater detail in `Icon set images`_.
+
+Geofence
+^^^^^^^^
+
+FreeField webhook triggers support :doc:`/geofencing`. If you select a geofence
+for your webhook, then the webhook will only be triggered if the Pokéstop that
+field research was reported for is within the bounds of the selected geofence.
+For information on defining geofences, please see :doc:`/geofencing`.
+
+Payload
+-------
+
+The payload is, along with the `Webhook URL`_, the most important property of a
+webhook. When a webhook is triggered, the payload is what is sent to the webhook
+URL, and is the data that the receiving service will process to e.g. generate
+alerts. The syntax of the payload depends on the webhook type you have chosen,
+and the structure depends on the service whose webhooks you are targeting.
+
+.. hint:: Refer to the documentation for `Common webhook targets`_, as well as
+          the documentation available directly from your target webhook service,
+          to learn how to properly structure your webhook's payload.
+
+Presets
+^^^^^^^
+
+FreeField has payload presets for several popular webhook target services. You
+get the option to select a payload preset in the dialog that appears when you
+first create your webhook. Presets are pre-defined payloads that, if one if
+chosen, will fill in the Payload field of your webhook with pre-written
+contents. This can save you from having to configure your webhook's payload from
+scratch according to the documentation for the service that you are setting up a
+webhook for.
+
+Not all presets work for all webhook service providers, so you should consult
+the documentation on `Common webhook targets`_ for information on which presets
+you can use for your target service.
+
+.. caution:: If you wish to create your own presets, you should avoid storing
+             them in the presets directory in FreeField. This directory is
+             deleted and overwritten every time you update FreeField. If you
+             have created a preset you feel others would find useful, you can
+             submit an issue or pull request for it on the `issue tracker
+             <https://github.com/bilde2910/FreeField/issues>`_ on GitHub.
+
+Substitution tokens
+^^^^^^^^^^^^^^^^^^^
+
+FreeField is very flexible in how you can structure your payloads. Once you have
+decided on a structure for your payload, you can use substitution tokens to
+actually insert data from FreeField into it. Substitution tokens are tags which
+are replaced with relevant values when the webhook is about to be triggered, and
+will update the payload for each webhook call to be specific to the field
+research that was reported.
+
+.. tip:: A quick reference of available substitution tokens is available
+         directly from the webhook configuration section in FreeField. You can
+         access it by clicking on :guilabel:`Show help` in the Payload section
+         of your webhook.
+
+Pokéstop information
+""""""""""""""""""""
+
+It is possible to include the name of the Pokéstop on which field research was
+reported by including the ``<%POI%>`` token in the payload where you want it to
+appear. Furthermore, you can use the following tokens to refer to the location
+of the Pokéstop:
+
+``<%POI%>``
+   The name of the Pokéstop.
+
+``<%LAT%>``
+   The latitude of the Pokéstop.
+
+``<%LNG%>``
+   The longitude of the Pokéstop.
+
+``<%COORDS%>``
+   A coordinate pair in decimal degrees format (e.g. "42.63445°N, 87.12012°E").
+   You can specify the number of decimals in each coordinate by including it in
+   parentheses directly after "COORDS". For example, ``<%COORDS(4)%>`` will
+   return the string "42.6344°N, 87.1201°E."
+
+Research task information
+"""""""""""""""""""""""""
+
+You most likely want the research task components themselves to be part of the
+webhook's payload. You can use the following substitution tokens to include data
+about the reported research:
+
+``<%OBJECTIVE%>``
+   The research objective, for example "Catch 5 Pokémon."
+
+``<%REWARD%>``
+   The research reward, for example "Pokémon encounter."
+
+You can also include information on the context of the report:
+
+``<%REPORTER%>``
+   The nickname of the user who reported the research task.
+
+``<%TIME(format)%>``
+   The exact time the report was received by FreeField. You have to specify a
+   time formatting string when using this token. Replace ``format`` with a valid
+   `PHP date() string <https://secure.php.net/manual/en/function.date.php>`_.
+   For example, ``<%TIME(Y-m-d H:i:s)%>`` would result in a timestamp like
+   "2018-10-02 15:38:55," while ``<%TIME(c)%>`` would result in something like
+   "2018-10-02T15:38:55+02:00." Please refer to the aforementioned PHP manual
+   for more format examples.
+
+Navigation links
+""""""""""""""""
+
+A feature many users will likely find useful is the ability to get turn-based
+directions to the Pokéstop in question when field research is reported and
+announced. FreeField has a built-in substitution token for automatically
+creating a navigation URL, which can be put in the payload of your webhook.
+
+``<%NAVURL%>``
+   Inserts a navigation link to the Pokéstop using the default navigation
+   provider as configured in the "Map settings" sections of the administration
+   pages in FreeField. You can specify that you wish use one particular
+   navigation provider by passing it in parentheses directly after "NAVURL." For
+   example, ``<%NAVURL(bing)%>`` will override the default provider for
+   navigation links, and instead create a link for navigation on Bing Maps.
+   Valid navigation providers are ``bing``, ``google``, ``here``, ``mapquest``,
+   ``waze`` and ``yandex``.
+
+Icon set images
+"""""""""""""""
+
+Some services support displaying alerts with images and/or thumbnails (Discord
+is a good example of such a service). For these services, FreeField supports
+passing a URL that points to an image representing the reported research
+objective or reward.
+
+``<%OBJECTIVE_ICON(format,variant)%>``
+   Returns a URL to an image representing the reported field research objective.
+
+``<%REWARD_ICON(format,variant)%>``
+   Returns a URL to an image representing the reported field research reward.
+
+Both of these tokens require a format and a variant. The format is the kind of
+image that should be returned - ``vector`` or ``raster`` - and which one you
+should use depends on what you will be using it for. Vectors, if present, are
+generally much clearer and scale better than raster (bitmap) images, but not all
+services support vector graphics. Raster images have much better compatibility,
+but they do not scale as well and will start looking pixelated or blurry if
+scaled too high. If you specify the ``vector`` format, but the `Icon set`_ you
+have chosen does not offer vector variants of its icons, ``raster`` will be used
+as a fallback.
+
+The icon tokens also require a variant. This is either ``light`` or ``dark`` -
+you should choose the one that fits best with the context in which the icons are
+to be displayed.
+
+.. note:: Not all icon sets have separate light and dark icons. If you use an
+          icon set that uses the same graphics for both light and dark icons,
+          then the icons returned by these substitution tokens will be the same
+          regardless of which variant you have chosen.
+
+Localization tokens
+"""""""""""""""""""
+
+If the webhook triggers an alert in a chatroom in your community, you may want
+the message to contain some phrases that describe the research that was just
+reported. FreeField supports substitution of localization tokens for webhooks
+for this purpose. This allows FreeField to use placeholder values for various
+strings that are then localized to the correct language before the webhook is
+triggered.
+
+``<%I18N(token[,arg1[,arg2...]])%>``
+   Replaced by the localized value of ``token``, passing the given ``arg1..n``
+   arguments to the localization function. E.g.
+   ``<%I18N(webhook.report_title)%>`` is replaced with "Field research
+   reported!" Arguments can be other substitution tokens, e.g.
+   ``<%I18N(webhook.reported_by,<%REPORTER%>)%>`` is resolved to "Reported by,"
+   followed by the nickname of the user who reported field research.
+
+For more information on what localization tokens and arguments are, please refer
+to Internationalization in the developer documentation.
+
+.. tip:: Support for substitution of localization tokens was created in order
+         for FreeField to support multiple languages out of the box for
+         webhooks, by avoiding hardcoding English strings in payload presets. If
+         you want to place strings like "Reported by" in your own payload, you
+         could simply write out those strings in your native language directly
+         in the payload, without using localization tokens, as you most likely
+         won't change the language of a webhook later. Even if you do, you could
+         just manually replace the strings with matching strings in the other
+         language. In most cases, this is less work overall than setting up your
+         webhook payloads to be completely internationalized.
+
+Task-based filtering
+--------------------
+
+By default, FreeField will trigger webhooks regardless of what kind of research
+is reported. However, you can restrict them to only being triggered when a
+particular combination of research objectives and rewards are reported. This is
+done using objective and reward filtering.
+
+You can filter by both objectives and rewards in the same webhook. The webhook
+will only be triggered if both the objectives and rewards component of the
+filter are passed.
+
+To add a filter for a particular type of objective or reward, click the
+:guilabel:`+` button next to the "Objectives" or "Rewards" sections underneath
+the webhook payload. A popup will appear that lets you select the type of
+objective or reward that you want to filter. Select one.
+
+Most objectives and rewards have additional parameters, such as the quantity of
+items awarded by a reward, or the species of Pokémon that one must catch to
+complete an objective. When reporting research, it is mandatory to fill out all
+of these parameters, but when you set up webhook filters, these parameters can
+be omitted. If you wish to omit a parameter from the filter, simply uncheck the
+checkbox next to the parameter on the dialog box.
+
+If a parameter has been omitted in the filter, FreeField will skip checking the
+reported research task against it when determining whether or not to trigger the
+webhook. For example, consider the following two reward filters; "3 Rare Candy"
+and "[n] Rare Candy." Both of these reward filters will be triggered by the
+"Rare Candy" reward, but while the former will only trigger if exactly three
+Rare Candy are awarded by a research task, the latter will be triggered
+regardless of the quantity of rare candies rewarded. Hence, the former reward
+filter will only pass if exactly three Rare Candies are rewarded, while the
+latter will also pass if the reported quantity is e.g. 1 or 5.
+
+When you are done adding an objective or reward filter, click :guilabel:`Done`.
+The newly created filter will be added to the list of active filters for this
+webhook. You can add as many filters as you want, edit them whenever you wish,
+and delete them if you no longer want them.
+
+Filtering modes
+^^^^^^^^^^^^^^^
+
+Webhooks have two task filtering modes - whitelisting and blacklisting. The
+default setting is whitelisting for both objectives and rewards.
+
+If you choose the whitelisting mode, the webhook will only be triggered if any
+one of the given objective or reward filters match the reported research task.
+If you choose the blacklisting mode, the webhook will only be triggered if
+*none* of the filters match the reported research task.
+
+You can switch between them using the selection boxes at the top of the
+"Objectives" and "Rewards" filter sections of the webhook.

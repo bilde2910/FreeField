@@ -20,3 +20,4 @@ below.
    permissions
    map/index
    geofencing
+   webhooks/index
