@@ -18,8 +18,8 @@ Creating a webhook in Discord
 
 1. Open Discord and find the channel that you wish for FreeField alerts to be
    posted in.
-2. Open channel settings for the channel by clicking on  next to the channel
-   name in the channels list.
+2. Open channel settings for the channel by clicking on the cog next to the
+   channel name in the channels list.
 3. In the "Webhooks" section in the dialog that appears, click on
    :guilabel:`Create Webhook`.
 4. Give your webhook a name and optionally an avatar. The name of your webhook

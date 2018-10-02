@@ -53,7 +53,8 @@ you just created to the Telegram group in which you want to receive field
 research alerts.
 
 1. Open your Telegram group. In the top right corner of the window, look for the
-    symbol. Click on it to open the menu, and select "Add members."
+   vertical ellpisis menu symbol. Click on it to open the menu, and select "Add
+   members."
 
 2. Enter the username you defined for your bot above. Click on the bot when it
    appears in the list, then click :guilabel:`Invite`.
