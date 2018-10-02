@@ -40,5 +40,5 @@ the project founder. Please contact the founder directly at marius@varden.info
 regarding any such inquiries. All inquiries that are serious and in good faith
 will receive a timely response.
 
-[code_of_conduct]: https://github.com/bilde2910/FreeField/blob/master/.github/CODE_OF_CONDUCT.md
+[code_of_conduct]: ./CODE_OF_CONDUCT.md
 [dev_docs]: https://freefield.readthedocs.io/en/latest/
