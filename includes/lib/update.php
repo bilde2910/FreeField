@@ -175,6 +175,10 @@ class Update {
             */
             $releases = array();
             foreach ($data as $release) {
+                $versionNumber = $release["tag_name"];
+                if (substr($versionNumber, 0, 1) == "v") {
+                    $versionNumber = substr($versionNumber, 1);
+                }
                 $version = array(
                     "version" => $release["tag_name"],
                     "html-url" => $release["html_url"],
