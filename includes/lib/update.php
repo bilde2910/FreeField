@@ -180,7 +180,7 @@ class Update {
                     $versionNumber = substr($versionNumber, 1);
                 }
                 $version = array(
-                    "version" => $release["tag_name"],
+                    "version" => $versionNumber,
                     "html-url" => $release["html_url"],
                     "tgz-url" => $release["tarball_url"],
                     "published" => strtotime($release["published_at"]),
