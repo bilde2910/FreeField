@@ -564,6 +564,40 @@ Security::declareFrameOptionsHeader();
                                             }*/
 
                                             /*
+                                                First, get a list of all current research objectives.
+                                            */
+                                            $commonObjectives = Research::listCommonObjectives();
+
+                                            /*
+                                                Resolve their display text.
+                                            */
+                                            $commonObjectivesText = array();
+                                            for ($i = 0; $i < count($commonObjectives); $i++) {
+                                                $commonObjectivesText[$i] = htmlspecialchars(
+                                                    Research::resolveObjective(
+                                                        $commonObjectives[$i]["type"],
+                                                        $commonObjectives[$i]["params"]
+                                                    )
+                                                );
+                                            }
+
+                                            /*
+                                                Sort them alphabetically.
+                                            */
+                                            asort($commonObjectivesText);
+
+                                            /*
+                                                Echo them to the page in a "Current objectives" optgroup.
+                                            */
+                                            echo '<optgroup label="'.I18N::resolveHTML("category.objective.current").'">';
+                                            foreach ($commonObjectivesText as $index => $task) {
+                                                echo '<option value="_c_'.$index.'">'.$task.'</option>';
+                                            }
+                                            echo '</optgroup>';
+
+                                            /*
+                                                Now move on to the generic research objectives.
+
                                                 We'll sort the research objectives by their first respective categories.
                                                 Put all the research objectives into an array ($cats) of the structure
                                                 $cats[CATEGORY][RESEARCH OBJECTIVE][PARAMETERS ETC.]
@@ -758,9 +792,28 @@ Security::declareFrameOptionsHeader();
                                                     }
                                                 }
                                             ?>
-                                            var show = objectives[$("#update-poi-objective").val()].params;
-                                            for (var i = 0; i < show.length; i++) {
-                                                $("#update-poi-objective-param-" + show[i] + "-box").show();
+                                            /*
+                                                Determine whether the user selected a predefined
+                                                common objective.
+                                            */
+                                            var selectedObjective = $("#update-poi-objective").val();
+                                            if (selectedObjective.startsWith("_c_")) {
+                                                /*
+                                                    If they did, there is no need to display the
+                                                    parameter input boxes. We can just put the
+                                                    values for the parameters in directly, as the
+                                                    parameters are defined in `commonObjectives`.
+                                                */
+                                                var commonIndex = parseInt(selectedObjective.substring(3));
+                                                var objective = commonObjectives[commonIndex];
+                                                jQuery.each(objective.params, function(key, value) {
+                                                    parseObjectiveParameter(key, value);
+                                                });
+                                            } else {
+                                                var show = objectives[selectedObjective].params;
+                                                for (var i = 0; i < show.length; i++) {
+                                                    $("#update-poi-objective-param-" + show[i] + "-box").show();
+                                                }
                                             }
                                         });
                                     </script>
@@ -1311,10 +1364,11 @@ Security::declareFrameOptionsHeader();
         <script>
             /*
                 Objectives and rewards directories. These are copied from
-                /includes/data/objectives.yaml and /includes/data/rewards.yaml.
+                /includes/data/objectives.yaml and /includes/data/*.yaml.
             */
             var objectives = <?php echo json_encode(Research::listObjectives()); ?>;
             var rewards = <?php echo json_encode(Research::listRewards()); ?>;
+            var commonObjectives = <?php echo json_encode(Research::listCommonObjectives()); ?>;
 
             /*
                 List of all navigation providers and their navigation URLs.

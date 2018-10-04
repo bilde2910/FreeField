@@ -592,6 +592,7 @@ class ParamEncounterItem extends ParamReward {
 class Research {
     private const OBJECTIVES_FILE = __DIR__."/../data/objectives.yaml";
     private const REWARDS_FILE = __DIR__."/../data/rewards.yaml";
+    private const COMMON_TASKS_FILE = __DIR__."/../data/common-tasks.yaml";
 
     public const PARAMETERS = array(
 
@@ -606,6 +607,7 @@ class Research {
 
     private static $objectives = null;
     private static $rewards = null;
+    private static $commonTasks = null;
 
     /*
         Returns the complete list of objectives registered in FreeField.
@@ -665,6 +667,17 @@ class Research {
         } else {
             return null;
         }
+    }
+
+    /*
+        Lists common research objectives and their associated parameters.
+    */
+    public static function listCommonObjectives() {
+        if (self::$commonTasks === null) {
+            __require("vendor/spyc");
+            self::$commonTasks = Spyc::YAMLLoad(self::COMMON_TASKS_FILE);
+        }
+        return self::$commonTasks;
     }
 
     /*

@@ -1,0 +1,12 @@
+# This file contains a list of field research objectives currently active in
+# Pokémon Go. Each array element in this file represents one research task, and
+# contains two fields "type" and "params".
+
+# The "type" field is the type of research objective this task represents. This
+# one of the objectives definedin /includes/data/objectives.yaml.
+
+# The "params" field is a list of parameters the research objective takes. This
+# can be for example the type of species required for a specific quest (e.g.
+# "Evolve 2 Shellder"). These correspond to the parameters defined for the
+# `type` objective in /includes/data/objectives.yaml.
+

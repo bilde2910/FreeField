@@ -664,6 +664,16 @@ function openMarker(markerObj, id) {
         }
 
         /*
+            Determine if the user selected a pre-defined common research
+            objective. If so, retrieve the objective it represents from the
+            `commonObjectives` object.
+        */
+        if (objective.startsWith("_c_")) {
+            var commonIndex = parseInt(objective.substring(3));
+            objective = commonObjectives[commonIndex].type;
+        }
+
+        /*
             Ensure that all required parameters are set for both the objective
             and reward components of the research quest. This is done by
             retrieving the list of required parameters from the `objectives` and
