@@ -502,9 +502,9 @@ class ParamReward {
             if ($usableReward) {
                 /*
                     The reward has a matching category. Add it to the list of
-                    usable rewards.
+                    usable rewards, in an array representing its category.
                 */
-                $this->usableRewards[] = $reward;
+                $this->usableRewards[$def["categories"][0]][] = $reward;
             }
         }
     }
@@ -516,10 +516,15 @@ class ParamReward {
         __require("i18n");
 
         $output = '<p><select id="'.$id.'" class="'.$class.'">';
-        foreach ($this->usableRewards as $reward) {
-            $output .= '<option value="'.$reward.'">'.
-                       I18N::resolveHTML("reward.{$reward}.general").
-                       '</option>';
+        foreach ($this->usableRewards as $category => $rewards) {
+            $output .= '<optgroup label="'
+                     . I18N::resolveHTML("category.reward.{$category}").'">';
+            foreach ($rewards as $reward) {
+                $output .= '<option value="'.$reward.'">'.
+                           I18N::resolveHTML("reward.{$reward}.general").
+                           '</option>';
+            }
+            $output .= '</optgroup>';
         }
         $output .= '</select></p>';
         return $output;
@@ -564,9 +569,11 @@ class ParamReward {
     }
     public function isValid($data) {
         if (is_array($data)) return false;
-        if (!in_array($data, $this->usableRewards)) return false;
+        foreach ($this->usableRewards as $category => $rewards) {
+            if (in_array($data, $rewards)) return true;
+        }
 
-        return true;
+        return false;
     }
 }
 /*
