@@ -10,3 +10,157 @@
 # "Evolve 2 Shellder"). These correspond to the parameters defined for the
 # `type` objective in /includes/data/objectives.yaml.
 
+# --------------------------------------------------------------------------
+#     Gym objectives
+# --------------------------------------------------------------------------
+-
+    # Battle in a Gym
+    type: "battle_gym"
+    params:
+        quantity: 1
+-
+    # Win a Gym battle
+    type: "win_gym"
+    params:
+        quantity: 1
+-
+    # Win 3 Gym battles
+    type: "win_gym"
+    params:
+        quantity: 3
+-
+    # Win 5 Gym battles
+    type: "win_gym"
+    params:
+        quantity: 5
+-
+    # Use a Super Effective Charged Attack in a Gym battle
+    type: "se_charge"
+    params:
+        quantity: 7
+
+# --------------------------------------------------------------------------
+#     Catch objectives
+# --------------------------------------------------------------------------
+-
+    # Catch 10 Pokémon
+    type: "catch"
+    params:
+        quantity: 10
+-
+    # Catch 5 Pokémon with Weather Boost
+    type: "catch_weather"
+    params:
+        quantity: 5
+-
+    # Catch a Dragon-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - dragon
+        quantity: 1
+-
+    # Catch 5 Water-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - water
+        quantity: 5
+-
+    # Use 5 Pinap Berries while catching Pokémon
+    type: "use_item_encounter"
+    params:
+        encounter_item: "pinap_berry"
+        quantity: 5
+
+# --------------------------------------------------------------------------
+#     Walking objectives
+# --------------------------------------------------------------------------
+-
+    # Earn a Candy walking with your buddy
+    type: "buddy_candy"
+    params:
+        quantity: 1
+-
+    # Hatch an Egg
+    type: "hatch"
+    params:
+        quantity: 1
+-
+    # Hatch 2 Eggs
+    type: "hatch"
+    params:
+        quantity: 2
+-
+    # Hatch 3 Eggs
+    type: "hatch"
+    params:
+        quantity: 3
+-
+    # Hatch 5 Eggs
+    type: "hatch"
+    params:
+        quantity: 5
+
+# --------------------------------------------------------------------------
+#     Evolution, power-up and management objectives
+# --------------------------------------------------------------------------
+-
+    # Evolve a Pokémon
+    type: "evolve"
+    params:
+        quantity: 1
+-
+    # Evolve 10 Water-type Pokémon
+    type: "evolve_type"
+    params:
+        type:
+          - water
+        quantity: 10
+-
+    # Power up Pokémon 5 times
+    type: "power_up"
+    params:
+        quantity: 5
+
+# --------------------------------------------------------------------------
+#     Throwing skill objectives
+# --------------------------------------------------------------------------
+-
+    # Make 3 Great Throws
+    type: "throw_simple_great"
+    params:
+        quantity: 3
+-
+    # Make 5 Great Throws
+    type: "throw_simple_great"
+    params:
+        quantity: 5
+-
+    # Make 3 Great Throws in a row
+    type: "throw_simple_great_chain"
+    params:
+        quantity: 3
+-
+    # Make 3 Excellent Throws
+    type: "throw_simple_excellent_chain"
+    params:
+        quantity: 5
+-
+    # Make 2 Nice Curveball Throws in a row
+    type: "throw_curve_nice_chain"
+    params:
+        quantity: 2
+
+# --------------------------------------------------------------------------
+#     Exploration objectives
+# --------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------
+#     Social objectives
+# --------------------------------------------------------------------------
+-
+    # Trade a Pokémon
+    type: "trade"
+    params:
+        quantity: 1
