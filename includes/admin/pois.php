@@ -74,6 +74,7 @@ __require("geo");
                                 <td>
                                     <input type="text"
                                            name="p<?php echo $pid; ?>[name]"
+                                           class="poi-name"
                                            value="<?php echo $poi->getNameHTML(); ?>">
                                 </td>
                                 <td><?php echo $poi->getTimeCreatedString(); ?></td>

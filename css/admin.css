@@ -4,6 +4,11 @@
     regular users on other pages on FreeField.
 */
 
+/* The POI name input field on the POI list. */
+.poi-name {
+    min-width: 100px;
+}
+
 /* The <div> that contains all input fields and data for any one webhook. */
 .hook-instance {
     margin-top: 15px;
