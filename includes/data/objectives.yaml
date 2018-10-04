@@ -148,6 +148,14 @@ use_berry:
     categories:
       - item
 
+# Use an [Item] while catching Pokémon
+use_item_encounter:
+    params:
+      - encounter_item
+      - quantity
+    categories:
+      - item
+
 # --------------------------------------------------------------------------
 #     Walking objectives
 # --------------------------------------------------------------------------
