@@ -5,6 +5,11 @@
     (/css/dark.css and /css/light.css).
 */
 
+/* Prevent iOS from styling input boxes. */
+input, select, button {
+    -webkit-appearance: none;
+}
+
 /* Icons in the menu sidebar. */
 .menu-fas {
     display: inline-block;
