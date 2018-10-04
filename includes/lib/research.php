@@ -463,6 +463,96 @@ class ParamType {
         return true;
     }
 }
+/*
+    Adds a selection box prompting the user for an item. This parameter is
+    stored as a string. Items are picked from the rewards pool and filtered
+    according to the categories they belong to, based on the
+*/
+class ParamReward {
+    private static $allRewards = null;
+    private $usableRewards = array();
+
+    /*
+        This class must be initialized with an array of supported reward
+        categories. Pass this array to `$categories`.
+    */
+    public function __construct($categories) {
+        if (self::$allRewards === null) {
+            self::$allRewards = Research::listRewards();
+        }
+        /*
+            Loop over every reward and check if each reward have any categories
+            that match any of those specified in `$categories`.
+        */
+        foreach (self::$allRewards as $reward => $def) {
+            if ($reward == "unknown") continue;
+
+            $usableReward = false;
+            foreach ($def["categories"] as $foundCategory) {
+                if (in_array($foundCategory, $categories)) {
+                    $usableReward = true;
+                }
+            }
+            if ($usableReward) {
+                /*
+                    The reward has a matching category. Add it to the list of
+                    usable rewards.
+                */
+                $this->usableRewards[] = $reward;
+            }
+        }
+    }
+
+    public function getAvailable() {
+        return array("objectives");
+    }
+    public function html($id, $class) {
+        __require("i18n");
+
+        $output = '<p><select id="'.$id.'" class="'.$class.'">';
+        foreach ($this->usableRewards as $reward) {
+            $output .= '<option value="'.$reward.'">'.
+                       I18N::resolveHTML("reward.{$reward}.general").
+                       '</option>';
+        }
+        $output .= '</select></p>';
+        return $output;
+    }
+    public function writeJS($id) {
+        return
+            'return $("#'.$id.'").val();';
+    }
+    public function parseJS($id) {
+        return
+            '$("#'.$id.'").val(data);';
+    }
+    public function toString($data) {
+        __require("i18n");
+        return I18N::resolve("reward.{$data}.plural");
+    }
+    public function toStringJS() {
+        return
+            'return resolveI18N("reward." + data + ".general");';
+    }
+    public function isValid($data) {
+        if (is_array($data)) return false;
+        if (!in_array($data, $this->usableRewards)) return false;
+
+        return true;
+    }
+}
+/*
+    Adds a selection box prompting the user for an item that can be used during
+    encounters. This parameter implements `ParamReward` with a list of item
+    categories usable in encounters.
+*/
+class ParamEncounterItem extends ParamReward {
+    public function __construct() {
+        parent::__construct(array(
+            "ball", "berry"
+        ));
+    }
+}
 
 class Research {
     private const OBJECTIVES_FILE = __DIR__."/../data/objectives.yaml";
@@ -474,7 +564,8 @@ class Research {
         "quantity" => "ParamQuantity",
         "min_tier" => "ParamMinTier",
         "species" => "ParamSpecies",
-        "type" => "ParamType"
+        "type" => "ParamType",
+        "encounter_item" => "ParamEncounterItem"
 
     );
 
