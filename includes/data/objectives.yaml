@@ -346,3 +346,10 @@ send_gift:
       - quantity
     categories:
       - social
+
+# Trade a Pokémon
+trade:
+    params:
+      - quantity
+    categories:
+      - social
