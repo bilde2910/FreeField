@@ -91,6 +91,32 @@ __require("vendor/parsedown");
         </div>
     </form>
 
+    <?php
+        /*
+            Check if FreeField was installed by cloning directly from GitHub. If
+            this is the case, then in order to maintain compatibility with
+            version control, the built-in updater in FreeField should be
+            disabled. Please see the documentation for more information.
+        */
+        $gitCloned = Update::isSelfClonedFromGit();
+        if ($gitCloned) {
+            ?>
+                <h2 class="content-subhead update-git-warning">
+                    <?php echo I18N::resolveArgsHTML(
+                        "admin.section.updates.git.name", false,
+                        '<i class="fas fa-exclamation-triangle update-git-blink"></i>'
+                    ); ?>
+                </h2>
+                <p>
+                    <?php echo I18N::resolveArgsHTML(
+                        "admin.section.updates.git.desc", false,
+                        '<code>', '</code>'
+                    ); ?>
+                </p>
+            <?php
+        }
+    ?>
+
     <h2 class="content-subhead">
         <?php echo I18N::resolveHTML("admin.section.updates.available.name"); ?>
     </h2>
@@ -117,11 +143,17 @@ __require("vendor/parsedown");
                         $parsedown->setSafeMode(true);
                         echo $parsedown->text($release["body"]);
                     ?>
-                    <p class="buttons">
-                        <input type="button"
-                               class="button-submit install-button"
-                               data-version="<?php echo htmlspecialchars($release["version"], ENT_QUOTES); ?>"
-                               value="<?php echo I18N::resolveHTML("admin.section.updates.ui.update.name"); ?>">
+                    <?php
+                        if (!$gitCloned) {
+                            ?>
+                                <p class="buttons">
+                                    <input type="button"
+                                           class="button-submit install-button"
+                                           data-version="<?php echo htmlspecialchars($release["version"], ENT_QUOTES); ?>"
+                                           value="<?php echo I18N::resolveHTML("admin.section.updates.ui.update.name"); ?>">
+                            <?php
+                        }
+                    ?>
                 </div>
             <?php
         }

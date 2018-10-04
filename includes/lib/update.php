@@ -13,6 +13,14 @@ class Update {
     private const UPDATE_CHECKING_INTERVAL = 86400;
 
     /*
+        This function checks whether or not the current FreeField installation
+        was made by cloning from GitHub rather than installing via releases.
+    */
+    public static function isSelfClonedFromGit() {
+        return file_exists(__DIR__."/../../.git");
+    }
+
+    /*
         This function reads the update cache file from disk. The cache file
         contains details about available releases, such as their version
         numbers, release notes and download URLs.

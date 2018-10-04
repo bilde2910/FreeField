@@ -136,8 +136,16 @@ class Config {
         $validatePermissions
             Whether or not permissions should be validated for the settings
             which are being updated.
+
+        $skipNonexistentSettings
+            Whether or not settings in `$options` that do not have a
+            corresponding defition should be skipped.
     */
-    public static function set($options, $validatePermissions = false) {
+    public static function set(
+        $options,
+        $validatePermissions = false,
+        $skipNonexistentSettings = true
+    ) {
         self::ensureLoaded();
 
         foreach ($options as $option => $value_raw) {
@@ -199,10 +207,15 @@ class Config {
                     exist as a key in `$configDefs`, and the given value is not
                     an array of subkeys with corresponding values, then the
                     caller of this function is trying to set a setting that
-                    simple doesn't exist in any form, so this key should be
-                    skipped.
+                    simple doesn't exist in any form. Determine whether or not
+                    it should be skipped, or if we should attempt to set it
+                    anyway.
                 */
-                continue;
+                if ($skipNonexistentSettings) {
+                    continue;
+                } else {
+                    $value = $value_raw;
+                }
             } else {
                 /*
                     Get the data type of this setting to perform input

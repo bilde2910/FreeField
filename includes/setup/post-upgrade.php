@@ -19,8 +19,13 @@ class PostUpgrade {
         Performs configuration updates and other steps needed to ensure that the
         updated version of FreeField works properly.
     */
-    public static function finalizeUpgrade($fromVersion) {
+    public static function finalizeUpgrade($fromVersion, $silent = false) {
         require_once(__DIR__."/../lib/global.php");
+        __require("config");
+        Config::set(array(
+            "install/version-compatible" => FF_VERSION
+        ), false, false);
+
         /*
             Perform step-by-step upgrades through each released FreeField
             version using a cascading `switch` block, starting at the version
@@ -29,6 +34,7 @@ class PostUpgrade {
         */
         switch ($fromVersion) {
             case "0.99.1-dev":
+            case "1.0-alpha.1":
                 break;
         }
         /*

@@ -122,6 +122,25 @@
     color: red;
 }
 
+/* Warning header that is displayed on the updates section of the administration
+   pages when FreeField is installed by pulling directly from GitHub. */
+.update-git-warning {
+    color: darkorange !important;
+}
+
+/* Warning triangle that is displayed next to the above warning header. */
+.update-git-blink {
+    animation: 2s linear infinite git-blink;
+}
+@keyframes git-blink {
+    0%, 50% {
+        visibility: hidden;
+    }
+    100% {
+        visibility: visible;
+    }
+}
+
 /* A full-width and full-height overlay block that contains popups and dialogs
    on the admin pages. Color styling etc. is applied from /css/main.css. */
 .admin-cover-box {

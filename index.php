@@ -14,11 +14,30 @@ if (!file_exists(__DIR__."/includes/userdata/config.json")) {
 }
 
 require_once("./includes/lib/global.php");
+__require("config");
+
+/*
+    Check if updates have been pulled directly from Git. Normally when updates
+    are installed, `PostUpgrade::finalizeUpgrade()` will perform checks on the
+    configuration file to ensure that it is compatible with the currently
+    installed version. If the source is pulled from Git, this check won't be
+    performed. To properly handle this case, the upgrade script in `PostUpgrade`
+    will write the version that the configuration file is compatible with in the
+    configuration file itself. If this page is visited and the version number
+    has not been visited, then the `PostUpgrade::finalizeUpgrade()` function has
+    not been called, thus we should call it.
+*/
+if (Config::getRaw("install/version-compatible") !== FF_VERSION) {
+    include("./includes/setup/post-upgrade.php");
+    PostUpgrade::finalizeUpgrade(
+        Config::getRaw("install/version-compatible"), true
+    );
+}
+
 __require("auth");
 __require("i18n");
 __require("security");
 __require("update");
-__require("config");
 
 Security::requireCSRFToken();
 
