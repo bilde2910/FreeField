@@ -778,13 +778,17 @@ class User {
 
     /*
         Gets the current group membership of the user as a numerical permission
-        level value.
+        level value. By default, this will return 0 if the user is pending
+        approval, but the pending approval can be ignored by setting
+        `$ignorePendingApproval` to `true`, in which case the returned value
+        will be the permission level of the user as if they were approved.
     */
-    public function getPermissionLevel() {
+    public function getPermissionLevel($ignorePendingApproval = false) {
         /*
             Anonymous/unauthenticated/unapproved users default to 0.
         */
-        if (!$this->exists() || !$this->isApproved()) return 0;
+        if (!$this->exists()) return 0;
+        if (!$this->isApproved() && !$ignorePendingApproval) return 0;
 
         $perm = $this->data["permission"];
 

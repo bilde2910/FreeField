@@ -294,7 +294,7 @@ Security::declareFrameOptionsHeader();
                             ); ?>
                         </td>
                         <td>
-                            <?php echo Auth::getGroupHTML($user->getPermissionLevel()); ?>
+                            <?php echo Auth::getGroupHTML($user->getPermissionLevel(true)); ?>
                         </td>
                     </tr>
                 </tbody></table>
