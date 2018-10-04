@@ -106,6 +106,19 @@ if (!$domains[$domain]["custom-handler"]) {
     $sections = Config::listSectionsForDomain($domain);
 }
 
+/*
+    Caching tokens. By appending timestamps to the end of URLs of content that
+    can change often in development, we ensure that the content is cached, while
+    at the same ensuring that it is up to date when used by the browser.
+*/
+$linkMod = array(
+    "/css/main.css"         => filemtime("../css/main.css"),
+    "/css/admin.css"        => filemtime("../css/admin.css"),
+    "/css/dark.css"         => filemtime("../css/dark.css"),
+    "/css/light.css"        => filemtime("../css/light.css"),
+    "/js/option.js"         => filemtime("../js/option.js")
+);
+
 ?>
 <?php
 /*
@@ -147,7 +160,7 @@ Security::declareFrameOptionsHeader();
                 ));
             ?>;
         </script>
-        <script src="../js/option.js?t=<?php echo time(); ?>"></script>
+        <script src="../js/option.js?t=<?php echo $linkMod["/js/option.js"]; ?>"></script>
         <link rel="shortcut icon"
               href="../themes/favicon.php?t=<?php
                 /*
@@ -164,9 +177,12 @@ Security::declareFrameOptionsHeader();
               href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
               integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
               crossorigin="anonymous">
-        <link rel="stylesheet" href="../css/main.css">
-        <link rel="stylesheet" href="../css/admin.css">
-        <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/admin")->valueHTML(); ?>.css">
+        <link rel="stylesheet" href="../css/main.css?t=<?php echo $linkMod["/css/main.css"]; ?>">
+        <link rel="stylesheet" href="../css/admin.css?t=<?php echo $linkMod["/css/admin.css"]; ?>">
+        <?php
+            $adminThemeColor = Config::get("themes/color/admin")->valueHTML();
+        ?>
+        <link rel="stylesheet" href="../css/<?php echo $adminThemeColor ?>.css?t=<?php echo $linkMod["/css/{$adminThemeColor}.css"]; ?>">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="../css/layouts/side-menu-old-ie.css">
