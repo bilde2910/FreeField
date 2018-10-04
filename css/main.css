@@ -6,8 +6,10 @@
 */
 
 /* Prevent iOS from styling input boxes. */
-input, select, button {
-    -webkit-appearance: none;
+@supports (-webkit-overflow-scrolling: touch) {
+    input, select, button {
+        -webkit-appearance: none;
+    }
 }
 
 /* Icons in the menu sidebar. */
