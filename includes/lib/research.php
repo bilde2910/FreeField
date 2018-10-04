@@ -32,13 +32,19 @@
         A JavaScript handler for parsing "js_write" output into the form input
         boxes. The variable `data` is passed containing the data object.
 
-    toString($data)
+    toString($data, $allParams)
         A PHP handler for outputting the parameter to a text string. The
-        variable `$data` is passed containing the data object.
+        variable `$data` is passed containing the data object. `$allParams` is
+        also passed, and is an array containing all other parameters for the
+        current research objective or reward along with their values, including
+        `$data`.
 
     toStringJS()
         A JavaScript handler for outputting the parameter to a text string. The
-        variable `data` is passed containing the data object.
+        variable `data` is passed containing the data object. `allParams` is
+        also passed, and is an object containing all other parameters for the
+        current research objective or reward along with their values, including
+        `data`.
 
     isValid($data)
         A PHP function for server-side validation of user data. Should return
@@ -89,7 +95,7 @@ class ParamQuantity {
     public function parseJS($id) {
         return '$("#'.$id.'").val(data);';
     }
-    public function toString($data) {
+    public function toString($data, $allParams) {
         return strval($data);
     }
     public function toStringJS() {
@@ -121,7 +127,7 @@ class ParamMinTier {
     public function parseJS($id) {
         return '$("#'.$id.'").val(data);';
     }
-    public function toString($data) {
+    public function toString($data, $allParams) {
         return strval($data);
     }
     public function toStringJS() {
@@ -278,7 +284,7 @@ class ParamSpecies {
                 }
             }';
     }
-    public function toString($data) {
+    public function toString($data, $allParams) {
         __require("i18n");
 
         if (count($data) == 1) {
@@ -402,7 +408,7 @@ class ParamType {
                 }
             }';
     }
-    public function toString($data) {
+    public function toString($data, $allParams) {
         __require("i18n");
 
         if (count($data) == 1) {
@@ -526,13 +532,35 @@ class ParamReward {
         return
             '$("#'.$id.'").val(data);';
     }
-    public function toString($data) {
+    public function toString($data, $allParams) {
         __require("i18n");
-        return I18N::resolve("reward.{$data}.plural");
+        $i18nstring = I18N::resolve("reward.{$data}.general");
+        if (isset($allParams["quantity"])) {
+            $quantity = $allParams["quantity"];
+            if ($quantity != 1) {
+                /*
+                    If non-singular quantity of items, use the plural key of the
+                    reward for I18N lookups, and pass an empty quantity
+                    placeholder since the quantity is already expressed
+                    immediately before the reward name.
+                */
+                $i18nstring = trim(
+                    I18N::resolveArgs("reward.{$data}.plural", "")
+                );
+            }
+        }
+        return $i18nstring;
     }
     public function toStringJS() {
         return
-            'return resolveI18N("reward." + data + ".general");';
+            'var i18nstring = resolveI18N("reward." + data + ".general");
+            if (allParams.hasOwnProperty("quantity")) {
+                var quantity = allParams.quantity;
+                if (quantity != 1) {
+                    i18nstring = resolveI18N("reward." + data + ".plural", "").trim();
+                }
+            }
+            return i18nstring;';
     }
     public function isValid($data) {
         if (is_array($data)) return false;
@@ -765,8 +793,12 @@ class Research {
         */
         for ($i = 0; $i < count($objdef["params"]); $i++) {
             $param = $objdef["params"][$i];
-            $i18nstring = str_replace("{%" . ($i + 1) . "}", self::parameterToString(
-                $param, $params[$param]), $i18nstring
+            $i18nstring = str_replace(
+                "{%" . ($i + 1) . "}",
+                self::parameterToString(
+                    $param, $params[$param], $params
+                ),
+                $i18nstring
             );
         }
 
@@ -806,8 +838,12 @@ class Research {
         */
         for ($i = 0; $i < count($rewdef["params"]); $i++) {
             $param = $rewdef["params"][$i];
-            $i18nstring = str_replace("{%" . ($i + 1) . "}", self::parameterToString(
-                $param, $params[$param]), $i18nstring
+            $i18nstring = str_replace(
+                "{%" . ($i + 1) . "}",
+                self::parameterToString(
+                    $param, $params[$param], $params
+                ),
+                $i18nstring
             );
         }
 
@@ -819,10 +855,10 @@ class Research {
         `toString()` function specific to the class of the parameter in
         question.
     */
-    private static function parameterToString($param, $data) {
+    private static function parameterToString($param, $data, $allParams) {
         $class = self::PARAMETERS[$param];
         $inst = new $class();
-        return $inst->toString($data);
+        return $inst->toString($data, $allParams);
     }
 }
 

@@ -148,7 +148,7 @@ function resolveObjective(objective) {
         var param = objdef.params[i];
         i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(
             objective.params.hasOwnProperty(param)
-            ? parameterToString(param, objective.params[param])
+            ? parameterToString(param, objective.params[param], objective.params)
             : getParamPlaceholder(param)
         );
     }
@@ -199,7 +199,7 @@ function resolveReward(reward) {
         var param = rewdef.params[i];
         i18nstring = i18nstring.split("{%" + (i + 1) + "}").join(
             reward.params.hasOwnProperty(param)
-            ? parameterToString(param, reward.params[param])
+            ? parameterToString(param, reward.params[param], reward.params)
             : getParamPlaceholder(param)
         );
     }
@@ -210,7 +210,7 @@ function resolveReward(reward) {
     Resolves a parameter to a human-readable string by calling the
     `toStringJS()` function specific to the class of the parameter in question.
 */
-function parameterToString(param, data) {
+function parameterToString(param, data, allParams) {
     switch (param) {
         <?php
             foreach (Research::PARAMETERS as $param => $class) {
