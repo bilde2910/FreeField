@@ -24,8 +24,12 @@ __require("geo");
     different timestamps for each triggered webhook. `$time` is set once as the
     research is updated, and then re-used for each webhook, preventing this from
     happening.
+
+    In some situations it may be necessary to escape strings containing certain
+    values. This is done by passing a closure to `$escapeStr` that escapes a
+    string passed to it and returns the result.
 */
-function replaceWebhookFields($time, $theme, $body) {
+function replaceWebhookFields($time, $theme, $body, $escapeStr) {
     __require("research");
     __require("config");
 
@@ -44,13 +48,13 @@ function replaceWebhookFields($time, $theme, $body) {
         <array_value>.
     */
     $replaces = array(
-        "POI" => $poidata["name"],
+        "POI" => $escapeStr($poidata["name"]),
         "LAT" => $poidata["latitude"],
         "LNG" => $poidata["longitude"],
         "COORDS" => Geo::getLocationString($poidata["latitude"], $poidata["longitude"]),
-        "OBJECTIVE" => Research::resolveObjective($objective, $objParams),
-        "REWARD" => Research::resolveReward($reward, $rewParams),
-        "REPORTER" => Auth::getCurrentUser()->getNickname()
+        "OBJECTIVE" => $escapeStr(Research::resolveObjective($objective, $objParams)),
+        "REWARD" => $escapeStr(Research::resolveReward($reward, $rewParams)),
+        "REPORTER" => $escapeStr(Auth::getCurrentUser()->getNickname())
     );
 
     /*
@@ -181,7 +185,7 @@ function replaceWebhookFields($time, $theme, $body) {
             );
             $body = preg_replace(
                 '/<%I18N\('.$matches[$i][1].$matches[$i][2].'\)%>/',
-                call_user_func_array("I18N::resolveArgs", $args),
+                $escapeStr(call_user_func_array("I18N::resolveArgs", $args)),
                 $body,
                 1
             );
@@ -192,7 +196,7 @@ function replaceWebhookFields($time, $theme, $body) {
             */
             $body = preg_replace(
                 '/<%I18N\('.$matches[$i][1].'\)%>/',
-                call_user_func_array("I18N::resolve", array($matches[$i][1])),
+                $escapeStr(call_user_func_array("I18N::resolve", array($matches[$i][1]))),
                 $body,
                 1
             );
@@ -559,17 +563,24 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         }
 
         /*
-            Replace text replacement strings (e.g. <%COORDS%>) in the webhook's
-            payload body.
-        */
-        $body = replaceWebhookFields($reportedTime, $theme, $hook["body"]);
-
-        /*
             Post the webhook.
         */
         try {
             switch ($hook["type"]) {
                 case "json":
+                    /*
+                        Replace text replacement strings (e.g. <%COORDS%>) in the webhook's
+                        payload body.
+                    */
+                    $body = replaceWebhookFields($reportedTime, $theme, $hook["body"], function($str) {
+                        /*
+                            String escaping for JSON
+                            Convert to JSON string and remove leading and
+                            trailing quotation marks.
+                        */
+                        return substr(json_encode($str), 1, -1);
+                    });
+
                     $opts = array(
                         "http" => array(
                             "method" => "POST",
@@ -584,6 +595,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                     break;
 
                 case "telegram":
+                    /*
+                        Replace text replacement strings (e.g. <%COORDS%>) in the webhook's
+                        payload body.
+                    */
+                    $body = replaceWebhookFields($reportedTime, $theme, $hook["body"], function($str) {
+                        return $str;
+                    });
+
                     /*
                         Extract the Telegram group ID from the target URL.
                     */
