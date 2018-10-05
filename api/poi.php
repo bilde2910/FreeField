@@ -54,7 +54,8 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
         "COORDS" => Geo::getLocationString($poidata["latitude"], $poidata["longitude"]),
         "OBJECTIVE" => $escapeStr(Research::resolveObjective($objective, $objParams)),
         "REWARD" => $escapeStr(Research::resolveReward($reward, $rewParams)),
-        "REPORTER" => $escapeStr(Auth::getCurrentUser()->getNickname())
+        "REPORTER" => $escapeStr(Auth::getCurrentUser()->getNickname()),
+        "SITEURL" => $escapeStr(Config::getEndpointUri("/"))
     );
 
     /*
