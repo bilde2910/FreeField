@@ -87,6 +87,7 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                 Config::get("map/provider/directions")->value()
             ]
         )));
+
     /*
         <%TIME(format)%>. `format` is a date format compatible with PHP
         `date()`. Please see https://secure.php.net/manual/en/function.date.php
@@ -145,6 +146,97 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
         $body = preg_replace(
             '/<%NAVURL\('.$matches[$i][1].'\)%>/',
             $navurl,
+            $body,
+            1
+        );
+    }
+
+    /*
+        <%OBJECTIVE_PARAMETER(param[,index])%> and
+        <%REWARD_PARAMETER(param[,index])%>. `param` is the name of a parameter
+        associated with the reported research task objective or reward as
+        defined in /includes/data/*.yaml. In cases where the implementation of a
+        parameter stores its data as an array in its internal data structure
+        (such as the "species" or "type" parameters - see implementation classes
+        in /includes/lib/research.php), an optional `index` can be provided that
+        will return the value at that index of the array. `index` is otherwise
+        ignored. Note: `index` starts at 1.
+
+        If there is no parameter by the given parameter name for the given
+        objective, or if the given index does not correspond to an index that is
+        part of the parameter array, this replacement returns an empty string.
+
+        If the requested parameter is an array, but no index is specified, this
+        replacement returns the parameter array, joined together using commas
+        as the delimiter.
+    */
+    $matches = array();
+    /*
+        This regex query matches:
+
+        (OBJECTIVE|REWARD)
+            Objectives or rewards.
+
+        ([^\),]+)
+            A parameter name.
+
+        (,(-?\d+))?
+            An optional parameter sub-index.
+    */
+    preg_match_all('/<%(OBJECTIVE|REWARD)_PARAMETER\(([^\),]+)(,(-?\d+))?\)%>/', $body, $matches, PREG_SET_ORDER);
+    for ($i = 0; $i < count($matches); $i++) {
+        $param = $matches[$i][2];
+        $index = null;
+
+        /*
+            Determine whether we're dealing with the objective or the reward.
+        */
+        $componentParams = null;
+        switch ($matches[$i][1]) {
+            case "OBJECTIVE":
+                $componentParams = $objParams;
+                break;
+            case "REWARD":
+                $componentParams = $rewParams;
+                break;
+        }
+
+        /*
+            If there are five or more matches, that means the tag matched a tag
+            with an index supplied. Extract the parameter name and the requested
+            index.
+        */
+        if (count($matches[$i]) >= 5) {
+            $index = intval($matches[$i][4]) - 1; // Index starts at 1; see docs
+        }
+
+        // Return empty by default
+        $result = "";
+        if (isset($componentParams[$param])) {
+            // If parameter exists, get parameter
+            $paramData = $componentParams[$param];
+            if (is_array($paramData)) {
+                // If parameter is array, check if index is defined
+                if ($index === null) {
+                    // If null, join array with commas
+                    $result = implode(",", $paramData);
+                } else {
+                    // If not null, look for index
+                    $result = "";
+                    if ($index >= 0 && $index < count($paramData)) {
+                        // If index found, return index
+                        $result = $paramData[$index];
+                    }
+                }
+            } else {
+                // If not array, return parameter directly
+                $result = $paramData;
+            }
+        }
+
+        $body = preg_replace(
+            '/<%'.$matches[$i][1].'_PARAMETER\('.$param.$matches[$i][3].'\)%>/',
+            $result,
             $body,
             1
         );
