@@ -60,11 +60,26 @@
           - dragon
         quantity: 1
 -
+    # Catch 10 Psychic-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - psychic
+        quantity: 10
+-
     # Catch 5 Water-type Pokémon
     type: "catch_type"
     params:
         type:
           - water
+        quantity: 5
+-
+    # Catch 5 Drowzee or Abra
+    type: "catch_specific"
+    params:
+        species:
+          - 96 # Drowzee
+          - 63 # Abra
         quantity: 5
 -
     # Use 5 Pinap Berries while catching Pokémon
@@ -117,6 +132,14 @@
         type:
           - water
         quantity: 10
+-
+    # Evolve 3 Slowpoke or Exeggcute
+    type: "evolve_specific"
+    params:
+        species:
+          - 79 # Slowpoke
+          - 102 # Exeggcute
+        quantity: 3
 -
     # Power up Pokémon 5 times
     type: "power_up"
