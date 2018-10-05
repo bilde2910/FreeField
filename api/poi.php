@@ -167,8 +167,8 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
         part of the parameter array, this replacement returns an empty string.
 
         If the requested parameter is an array, but no index is specified, this
-        replacement returns the parameter array, joined together using commas
-        as the delimiter.
+        replacement returns the parameter array, joined together using
+        semicolons as the delimiter.
     */
     $matches = array();
     /*
@@ -218,8 +218,8 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
             if (is_array($paramData)) {
                 // If parameter is array, check if index is defined
                 if ($index === null) {
-                    // If null, join array with commas
-                    $result = implode(",", $paramData);
+                    // If null, join array with semicolons
+                    $result = implode(";", $paramData);
                 } else {
                     // If not null, look for index
                     $result = "";
@@ -297,10 +297,68 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
     }
 
     /*
-        Apply all the replacement tokens.
+        Apply all the standard replacement tokens.
     */
     foreach ($replaces as $key => $value) {
         $body = str_replace("<%{$key}%>", $value, $body);
+    }
+
+    /*
+        <%PAD_LEFT(string,length[,char])%> and
+        <%PAD_RIGHT(string,length[,char])%>. `string` is the string that should
+        be padded, `char` is the character it should be padded with, and
+        `length` is how much it should be padded. If `char` is not present, ' '
+        (space) is used.
+    */
+    $matches = array();
+    /*
+        This regex query matches:
+
+        (LEFT|RIGHT)
+            Padding type.
+
+        ([^\),]+)
+            A string.
+
+        (-?\d+)
+            The padding length.
+
+        (,([^\)]+))?
+            An optional padding character or string.
+    */
+    preg_match_all('/<%PAD_(LEFT|RIGHT)\(([^\),]+),(-?\d+)(,([^\)]+))?\)%>/', $body, $matches, PREG_SET_ORDER);
+    for ($i = 0; $i < count($matches); $i++) {
+        $string = $matches[$i][2];
+        $length = intval($matches[$i][3]);
+        $padStr = " ";
+
+        /*
+            Determine the type of padding.
+        */
+        $padType = null;
+        switch ($matches[$i][1]) {
+            case "LEFT":
+                $padType = STR_PAD_LEFT;
+                break;
+            case "RIGHT":
+                $padType = STR_PAD_RIGHT;
+                break;
+        }
+
+        /*
+            If there are six or more matches, that means the tag matched a tag
+            with an custom padding string supplied.
+        */
+        if (count($matches[$i]) >= 6) {
+            $padStr = $matches[$i][5];
+        }
+
+        $body = preg_replace(
+            '/<%PAD_'.$matches[$i][1].'\('.$string.','.$length.$matches[$i][4].'\)%>/',
+            str_pad($string, $length, $padStr, $padType),
+            $body,
+            1
+        );
     }
 
     return $body;
