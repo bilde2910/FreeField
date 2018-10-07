@@ -159,6 +159,15 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                     }
                     break;
 
+                case "IF_EMPTY":
+                    // <%IF_EMPTY(expr,ifTrue,ifFalse)%>
+                    // expr: Expression to evaluate.
+                    // ifTrue: Output if expr == ""
+                    // ifFalse: Output if expr != ""
+                    if (count($tokenArgs) < 3) break;
+                    $replacement = $tokenArgs[0] == "" ? $tokenArgs[1] : $tokenArgs[2];
+                    break;
+
                 case "IF_EQUAL":
                     // <%IF_EQUAL(expr,value,ifTrue,ifFalse)%>
                     // expr: Expression to evaluate.
