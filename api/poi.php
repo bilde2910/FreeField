@@ -168,22 +168,29 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                     break;
 
                 case "IF_EMPTY":
-                    // <%IF_EMPTY(expr,ifTrue,ifFalse)%>
+                    // <%IF_EMPTY(expr,ifTrue[,ifFalse])%>
                     // expr: Expression to evaluate.
                     // ifTrue: Output if expr == ""
-                    // ifFalse: Output if expr != ""
-                    if (count($tokenArgs) < 3) break;
-                    $replacement = $tokenArgs[0] == "" ? $tokenArgs[1] : $tokenArgs[2];
+                    // ifFalse: Output if expr != "", empty string if not given
+                    if (count($tokenArgs) < 2) break;
+                    $expr = $tokenArgs[0];
+                    $ifTrue = $tokenArgs[1];
+                    $ifFalse = count($tokenArgs) >= 3 ? $tokenArgs[2] : "";
+                    $replacement = $expr == "" ? $ifTrue : $ifFalse;
                     break;
 
                 case "IF_EQUAL":
-                    // <%IF_EQUAL(expr,value,ifTrue,ifFalse)%>
+                    // <%IF_EQUAL(expr,value,ifTrue[,ifFalse])%>
                     // expr: Expression to evaluate.
                     // value: Value to evaluate the expression against.
                     // ifTrue: Output if expr == value
-                    // ifFalse: Output if expr != value
-                    if (count($tokenArgs) < 4) break;
-                    $replacement = $tokenArgs[0] == $tokenArgs[1] ? $tokenArgs[2] : $tokenArgs[3];
+                    // ifFalse: Output if expr != value, empty string if not given
+                    if (count($tokenArgs) < 3) break;
+                    $expr = $tokenArgs[0];
+                    $value = $tokenArgs[1];
+                    $ifTrue = $tokenArgs[2];
+                    $ifFalse = count($tokenArgs) >= 4 ? $tokenArgs[3] : "";
+                    $replacement = $expr == $value ? $ifTrue : $ifFalse;
                     break;
 
                 case "I18N":
