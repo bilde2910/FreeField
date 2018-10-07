@@ -210,7 +210,7 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                             $eval = $expr != $value;
                             break;
                     }
-                    $replacement = $expr == $value ? $ifTrue : $ifFalse;
+                    $replacement = $eval ? $ifTrue : $ifFalse;
                     break;
 
                 case "I18N":
