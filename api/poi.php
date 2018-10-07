@@ -168,7 +168,9 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                     break;
 
                 case "IF_EMPTY":
+                case "IF_NOT_EMPTY":
                     // <%IF_EMPTY(expr,ifTrue[,ifFalse])%>
+                    // <%IF_NOT_EMPTY(expr,ifTrue[,ifFalse])%>
                     // expr: Expression to evaluate.
                     // ifTrue: Output if expr == ""
                     // ifFalse: Output if expr != "", empty string if not given
@@ -176,11 +178,21 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                     $expr = $tokenArgs[0];
                     $ifTrue = $tokenArgs[1];
                     $ifFalse = count($tokenArgs) >= 3 ? $tokenArgs[2] : "";
-                    $replacement = $expr == "" ? $ifTrue : $ifFalse;
+                    switch ($tokenName) {
+                        case "IF_EMPTY":
+                            $eval = $expr == "";
+                            break;
+                        case "IF_NOT_EMPTY":
+                            $eval = $expr != "";
+                            break;
+                    }
+                    $replacement = $eval ? $ifTrue : $ifFalse;
                     break;
 
                 case "IF_EQUAL":
+                case "IF_NOT_EQUAL":
                     // <%IF_EQUAL(expr,value,ifTrue[,ifFalse])%>
+                    // <%IF_NOT_EQUAL(expr,value,ifTrue[,ifFalse])%>
                     // expr: Expression to evaluate.
                     // value: Value to evaluate the expression against.
                     // ifTrue: Output if expr == value
@@ -190,6 +202,14 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                     $value = $tokenArgs[1];
                     $ifTrue = $tokenArgs[2];
                     $ifFalse = count($tokenArgs) >= 4 ? $tokenArgs[3] : "";
+                    switch ($tokenName) {
+                        case "IF_EQUAL":
+                            $eval = $expr == $value;
+                            break;
+                        case "IF_NOT_EQUAL":
+                            $eval = $expr != $value;
+                            break;
+                    }
                     $replacement = $expr == $value ? $ifTrue : $ifFalse;
                     break;
 
