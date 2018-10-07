@@ -278,7 +278,7 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                             // If parameter is array, check if index is defined
                             if (count($tokenArgs) >= 2) {
                                 // If it is, get the index
-                                $index = intval($tokenArgs[1]);
+                                $index = intval($tokenArgs[1]) - 1;
                                 if ($index >= 0 && $index < count($paramData)) {
                                     // If index found, return index
                                     $replacement = $paramData[$index];
