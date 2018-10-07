@@ -191,12 +191,20 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
 
                 case "IF_EQUAL":
                 case "IF_NOT_EQUAL":
+                case "IF_LESS_THAN":
+                case "IF_LESS_OR_EQUAL":
+                case "IF_GREATER_THAN":
+                case "IF_GREATER_OR_EQUAL":
                     // <%IF_EQUAL(expr,value,ifTrue[,ifFalse])%>
                     // <%IF_NOT_EQUAL(expr,value,ifTrue[,ifFalse])%>
+                    // <%IF_LESS_THAN(expr,value,ifTrue[,ifFalse])%>
+                    // <%IF_LESS_OR_EQUAL(expr,value,ifTrue[,ifFalse])%>
+                    // <%IF_GREATER_THAN(expr,value,ifTrue[,ifFalse])%>
+                    // <%IF_GREATER_OR_EQUAL(expr,value,ifTrue[,ifFalse])%>
                     // expr: Expression to evaluate.
                     // value: Value to evaluate the expression against.
-                    // ifTrue: Output if expr == value
-                    // ifFalse: Output if expr != value, empty string if not given
+                    // ifTrue: Output if expression matches value as specified
+                    // ifFalse: Output otherwise, empty string if not given
                     if (count($tokenArgs) < 3) break;
                     $expr = $tokenArgs[0];
                     $value = $tokenArgs[1];
@@ -208,6 +216,18 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                             break;
                         case "IF_NOT_EQUAL":
                             $eval = $expr != $value;
+                            break;
+                        case "IF_LESS_THAN":
+                            $eval = floatval($expr) < floatval($value);
+                            break;
+                        case "IF_LESS_OR_EQUAL":
+                            $eval = floatval($expr) <= floatval($value);
+                            break;
+                        case "IF_GREATER_THAN":
+                            $eval = floatval($expr) > floatval($value);
+                            break;
+                        case "IF_GREATER_OR_EQUAL":
+                            $eval = floatval($expr) >= floatval($value);
                             break;
                     }
                     $replacement = $eval ? $ifTrue : $ifFalse;
