@@ -159,6 +159,14 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                     }
                     break;
 
+                case "FALLBACK":
+                    // <%FALLBACK(expr,fallback)%>
+                    // expr: String to return by default.
+                    // fallback: String to return instead of `expr` is empty.
+                    if (count($tokenArgs) < 2) break;
+                    $replacement = $tokenArgs[0] != "" ? $tokenArgs[0] : $tokenArgs[1];
+                    break;
+
                 case "IF_EMPTY":
                     // <%IF_EMPTY(expr,ifTrue,ifFalse)%>
                     // expr: Expression to evaluate.
