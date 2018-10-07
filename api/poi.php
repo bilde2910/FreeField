@@ -12,9 +12,9 @@ __require("geo");
 
 /*
     When the user enters a body payload for webhooks, they may choose to use
-    text replacement fields, such as <%COORDS%> or <%POI%>. These should be
-    replaced with the proper dynamic values before the webhook payload is posted
-    to the target URL.
+    substitution tokens, such as <%COORDS%> or <%POI%>. These should be replaced
+    with the proper dynamic values before the webhook payload is posted to the
+    target URL.
 
     This function accepts a `$body` payload, a `Theme` instance `$theme`
     representing the icon set selected for the webhook, and the `$time`stamp on
@@ -43,322 +43,278 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
     global $rewParams;
 
     /*
-        Simple find-and-replace substitutions, i.e. <%POI%>, <%COORDS%>, etc.
-        All instances of <%<array_key>%> are replaced with the corresponding
-        <array_value>.
+        The body likely contains substitution tokens, and our job in this
+        function is to replace them with the values that they are supposed to
+        represent. We need a way to reliably extract tokens that can take
+        optional parameters. We can use regex to do this, by looking for a
+        sequence of something like <%.*(.*)?%>.
+
+        We need to ensure that it handles tags within tags properly, i.e. it
+        doesn't do nonsense like this:
+
+        <%TAG(<%NESTED_TAG(some argument)%>,some other argument)%>
+        |--------------MATCH--------------|
+
+        The solution is the following regex query:
+
+        <%                  | Open substitution token tag
+        (                   | Group 1: Substitution token name
+          (                 | Group 2: Match either:
+            [^\(%]          | Any character that is not ( or %
+          |                 | Or:
+            %(?!>)          | A % that is not followed by >
+          )*                | .. and match any number of the preceding
+        )                   |
+        (                   | Group 3: Parameters wrapped in parentheses
+          \(                | Opening parenthesis before parameter list
+          (                 | Group 4: Parameters, not wrapped
+            (               | Group 5: Match either:
+              [^<\)]        | Any character that is not < or )
+            |               | Or:
+              \)(?!%>)      | A ) that is not followed by %>
+            |               | Or:
+              <(?!%)        | A < that is not followed by %
+            )*              | .. and match any number of the preceding
+            (?=\)%>)        | ..as long as, and until, followed by sequence )%>
+          )                 |
+          \)                | Closing parenthesis after parameter list
+        )?                  | Parameters are optional
+        %>                  | Close substitution token tag
+
+        This query string allows us to detect and handle tags within tags
+        properly. You can test it here: https://www.regexpal.com/
+
+        The output is a match array with the following usable indices:
+
+            [0] => The whole tag
+            [1] => The name of the substitution token (e.g. "I18N")
+            [4] => A comma-separated list of parameters
+
+        These can be used to insert the correct strings of text in the webhook
+        body.
     */
-    $replaces = array(
-        "POI" => $escapeStr($poidata["name"]),
-        "LAT" => $poidata["latitude"],
-        "LNG" => $poidata["longitude"],
-        "COORDS" => Geo::getLocationString($poidata["latitude"], $poidata["longitude"]),
-        "OBJECTIVE" => $escapeStr(Research::resolveObjective($objective, $objParams)),
-        "REWARD" => $escapeStr(Research::resolveReward($reward, $rewParams)),
-        "REPORTER" => $escapeStr(Auth::getCurrentUser()->getNickname()),
-        "SITEURL" => $escapeStr(Config::getEndpointUri("/"))
-    );
+    $regex = "/<%(([^\(%]|%(?!>))*)(\((([^<\)]|\)(?!%>)|<(?!%))*(?=\)%>))\))?%>/";
 
     /*
-        Generate icon set URLs. These are <%OBJECTIVE_ICON%> and <%REWARD_ICON%>
-        where each tag can accept parameters for marker format ("vector" for SVG
-        and "raster" for PNG), as well as the theme variant ("light" or "dark").
+        When we substitute the tokens, there is no guarantee that the
+        replacement does not contain a special character or sequence, such as
+        '<%', '%>' or ','. In order to prevent injection attacks, we store the
+        replacements for each token in an array `$replArray`. Each replacement
+        is assigned a uniquely generated ID, and the replacement that is
+        inserted into the body is this unique ID string. The actual value of the
+        replacement is stored in `$replArray` at the key corresponding to the
+        generated ID, and all of the replacements are processed together once
+        all replacements have been made.
     */
-    $variants = array("dark", "light");
-    foreach ($variants as $variant) {
-        $theme->setVariant($variant);
-        $icons = array(
-            "OBJECTIVE_ICON(vector,{$variant})" => $theme->getIconUrl($objective),
-            "OBJECTIVE_ICON(raster,{$variant})" => $theme->getRasterUrl($objective),
-            "REWARD_ICON(vector,{$variant})" => $theme->getIconUrl($reward),
-            "REWARD_ICON(raster,{$variant})" => $theme->getRasterUrl($reward),
-        );
-        $replaces = array_merge($replaces, $icons);
-    }
+    $replArray = array();
 
-    /*
-        The <%NAVURL%> tag - a link to a navigation provider providing turn-
-        based navigation to the given POI.
-    */
-    $replaces["NAVURL"] =
-        str_replace("{%LAT%}", urlencode($poidata["latitude"]),
-        str_replace("{%LON%}", urlencode($poidata["longitude"]),
-        str_replace("{%NAME%}", urlencode($poidata["name"]),
-            Geo::listNavigationProviders()[
-                Config::get("map/provider/directions")->value()
-            ]
-        )));
-
-    /*
-        <%TIME(format)%>. `format` is a date format compatible with PHP
-        `date()`. Please see https://secure.php.net/manual/en/function.date.php
-        for a list of accepted format string components.
-    */
     $matches = array();
-    preg_match_all('/<%TIME\(([^\)]+)\)%>/', $body, $matches, PREG_SET_ORDER);
-    for ($i = 0; $i < count($matches); $i++) {
-        $body = preg_replace(
-            '/<%TIME\('.$matches[$i][1].'\)%>/',
-            date($matches[$i][1], $time),
-            $body,
-            1
-        );
-    }
+    preg_match_all($regex, $body, $matches, PREG_SET_ORDER);
 
-    /*
-        <%COORDS(precision)%>. This is in addition to the basic <%COORDS%> tag.
-        This tag allows specifying the number of decimals to output to each
-        coordinate value.
-    */
-    $matches = array();
-    preg_match_all('/<%COORDS\((\d+)\)%>/', $body, $matches, PREG_SET_ORDER);
-    for ($i = 0; $i < count($matches); $i++) {
-        $body = preg_replace(
-            '/<%COORDS\('.$matches[$i][1].'\)%>/',
-            Geo::getLocationString(
-                $poidata["latitude"],
-                $poidata["longitude"],
-                intval($matches[$i][1])
-            ),
-            $body,
-            1
-        );
-    }
+    while (count($matches) > 0) {
+        foreach ($matches as $match) {
+            $tokenTag = $match[0];
+            $tokenName = $match[1];
+            $tokenArgString = count($match) >= 5 ? $match[4] : "";
 
-    /*
-        <%NAVURL(provider)%>. This is in addition to the basic <%NAVURL%> tag.
-        This tag allows specifying the directions provider to use when creating
-        a navigation URL.
-    */
-    $matches = array();
-    preg_match_all('/<%NAVURL\(([a-z]+)\)%>/', $body, $matches, PREG_SET_ORDER);
-    for ($i = 0; $i < count($matches); $i++) {
-        $navurl = "";
-        $naviprov = Geo::listNavigationProviders();
-        if (isset($naviprov[$matches[$i][1]])) {
-            $navurl = $naviprov[$matches[$i][1]];
-        }
-        $navurl =
-            str_replace("{%LAT%}", urlencode($poidata["latitude"]),
-            str_replace("{%LON%}", urlencode($poidata["longitude"]),
-            str_replace("{%NAME%}", urlencode($poidata["name"]),
-                $navurl
-            )));
-        $body = preg_replace(
-            '/<%NAVURL\('.$matches[$i][1].'\)%>/',
-            $navurl,
-            $body,
-            1
-        );
-    }
-
-    /*
-        <%OBJECTIVE_PARAMETER(param[,index])%> and
-        <%REWARD_PARAMETER(param[,index])%>. `param` is the name of a parameter
-        associated with the reported research task objective or reward as
-        defined in /includes/data/*.yaml. In cases where the implementation of a
-        parameter stores its data as an array in its internal data structure
-        (such as the "species" or "type" parameters - see implementation classes
-        in /includes/lib/research.php), an optional `index` can be provided that
-        will return the value at that index of the array. `index` is otherwise
-        ignored. Note: `index` starts at 1.
-
-        If there is no parameter by the given parameter name for the given
-        objective, or if the given index does not correspond to an index that is
-        part of the parameter array, this replacement returns an empty string.
-
-        If the requested parameter is an array, but no index is specified, this
-        replacement returns the parameter array, joined together using
-        semicolons as the delimiter.
-    */
-    $matches = array();
-    /*
-        This regex query matches:
-
-        (OBJECTIVE|REWARD)
-            Objectives or rewards.
-
-        ([^\),]+)
-            A parameter name.
-
-        (,(-?\d+))?
-            An optional parameter sub-index.
-    */
-    preg_match_all('/<%(OBJECTIVE|REWARD)_PARAMETER\(([^\),]+)(,(-?\d+))?\)%>/', $body, $matches, PREG_SET_ORDER);
-    for ($i = 0; $i < count($matches); $i++) {
-        $param = $matches[$i][2];
-        $index = null;
-
-        /*
-            Determine whether we're dealing with the objective or the reward.
-        */
-        $componentParams = null;
-        switch ($matches[$i][1]) {
-            case "OBJECTIVE":
-                $componentParams = $objParams;
-                break;
-            case "REWARD":
-                $componentParams = $rewParams;
-                break;
-        }
-
-        /*
-            If there are five or more matches, that means the tag matched a tag
-            with an index supplied. Extract the parameter name and the requested
-            index.
-        */
-        if (count($matches[$i]) >= 5) {
-            $index = intval($matches[$i][4]) - 1; // Index starts at 1; see docs
-        }
-
-        // Return empty by default
-        $result = "";
-        if (isset($componentParams[$param])) {
-            // If parameter exists, get parameter
-            $paramData = $componentParams[$param];
-            if (is_array($paramData)) {
-                // If parameter is array, check if index is defined
-                if ($index === null) {
-                    // If null, join array with semicolons
-                    $result = implode(";", $paramData);
-                } else {
-                    // If not null, look for index
-                    $result = "";
-                    if ($index >= 0 && $index < count($paramData)) {
-                        // If index found, return index
-                        $result = $paramData[$index];
-                    }
-                }
+            /*
+                Get a list of passed parameters.
+            */
+            if (strlen($tokenArgString) > 0) {
+                // The argument string is comma-delimited.
+                $tokenArgs = explode(",", $tokenArgString);
             } else {
-                // If not array, return parameter directly
-                $result = $paramData;
+                $tokenArgs = array();
             }
-        }
 
-        $body = preg_replace(
-            '/<%'.$matches[$i][1].'_PARAMETER\('.$param.$matches[$i][3].'\)%>/',
-            $result,
-            $body,
-            1
-        );
-    }
-
-    /*
-        <%I18N(token,arg1,arg2,...)%>. A translated string tag. It accepts a
-        `token` to be looked up in the localization files, and an optional
-        number of arguments to be passed to the I18N function.
-
-        For example, `<%I18N(webhook.objective)%>` will resolve the
-        "webhook.objective" I18N token and substitute the tag with the localized
-        string. `<%I18N(webhook.reported_by,<%REPORTER%>)%>` will resolve the
-        "webhook.reported_by" I18N token, and replace the {%1} tag in that
-        token's localized string with the nickname of the person who reported
-        field research.
-    */
-    $matches = array();
-    /*
-        This regex query matches:
-
-        ([^\),]+)
-            An I18N token.
-
-        (,([^\)]+))?
-            An optional comma-delimited list of I18N arguments.
-    */
-    preg_match_all('/<%I18N\(([^\),]+)(,([^\)]+))?\)%>/', $body, $matches, PREG_SET_ORDER);
-    for ($i = 0; $i < count($matches); $i++) {
-        if (count($matches[$i]) >= 4) {
             /*
-                If there are four or more matches, that means the tag matched an
-                I18N tag with arguments supplied. Extract the I18N token and its
-                arguments, and call `I18N::resolveArgs()` with those parameters.
+                Resolve any prior replacements in the argument strings.
             */
-            $args = array_merge(
-                array($matches[$i][1]),
-                explode(",", $matches[$i][3])
-            );
-            $body = preg_replace(
-                '/<%I18N\('.$matches[$i][1].$matches[$i][2].'\)%>/',
-                $escapeStr(call_user_func_array("I18N::resolveArgs", $args)),
-                $body,
-                1
-            );
-        } else {
+            for ($i = 0; $i < count($tokenArgs); $i++) {
+                foreach ($replArray as $id => $repl) {
+                    $tokenArgs[$i] = str_replace($id, $repl, $tokenArgs[$i]);
+                }
+            }
+
+            $replacement = "";
+            switch (strtoupper($tokenName)) {
+                /*
+                    Please consult the documentation for information about each of
+                    these substitution tokens.
+                */
+
+                case "COORDS":
+                    // <%COORDS([precision])%>
+                    // precision: Number of decimals in output.
+                    $replacement = Geo::getLocationString(
+                        $poidata["latitude"],
+                        $poidata["longitude"]
+                    );
+                    if (count($tokenArgs) > 0) {
+                        $replacement = Geo::getLocationString(
+                            $poidata["latitude"],
+                            $poidata["longitude"],
+                            intval($tokenArgs[0])
+                        );
+                    }
+                    break;
+
+                case "I18N":
+                    // <%I18N(token[,arg1[,arg2...]])%>
+                    // token: Localization token
+                    // arg1..n: Argument to localization
+                    if (count($tokenArgs) < 1) break;
+                    $i18ntoken = $tokenArgs[0];
+                    if (count($tokenArgs) == 1) {
+                        $replacement = call_user_func_array("I18N::resolve", $tokenArgs);
+                    } else {
+                        $replacement = call_user_func_array("I18N::resolveArgs", $tokenArgs);
+                    }
+                    break;
+
+                case "LAT":
+                    // <%LAT%>
+                    $replacement = $poidata["latitude"];
+                    break;
+
+                case "LNG":
+                    // <%LNG%>
+                    $replacement = $poidata["longitude"];
+                    break;
+
+                case "NAVURL":
+                    // <%NAVURL([provider])%>
+                    // provider: Navigation provider ("google", "bing", etc.)
+                    $naviprov = Geo::listNavigationProviders();
+                    $provider = Config::get("map/provider/directions")->value();
+                    if (count($tokenArgs) > 0) $provider = $tokenArgs[0];
+                    if (isset($naviprov[$provider])) {
+                        $replacement =
+                            str_replace("{%LAT%}", urlencode($poidata["latitude"]),
+                            str_replace("{%LON%}", urlencode($poidata["longitude"]),
+                            str_replace("{%NAME%}", urlencode($poidata["name"]),
+                                $naviprov[$provider]
+                            )));
+                    }
+                    break;
+
+                case "OBJECTIVE":
+                    // <%OBJECTIVE%>
+                    $replacement = Research::resolveObjective($objective, $objParams);
+                    break;
+
+                case "PAD_LEFT":
+                case "PAD_RIGHT":
+                    // <%PAD_LEFT(string,length[,padString])%>
+                    // <%PAD_RIGHT(string,length[,padString])%>
+                    if (count($tokenArgs) < 2) break;
+                    $string = $tokenArgs[0];
+                    $length = intval($tokenArgs[1]);
+                    $padString = count($tokenArgs >= 3) ? $tokenArgs[2] : " ";
+                    $padType = $tokenName == "PAD_LEFT" ? STR_PAD_LEFT : STR_PAD_RIGHT;
+                    $replacement = str_pad($string, $length, $padString, $padType);
+                    break;
+
+                case "POI":
+                    // <%POI%>
+                    $replacement = $poidata["name"];
+                    break;
+
+                case "REPORTER":
+                    // <%REPORTER%>
+                    $replacement = Auth::getCurrentUser()->getNickname();
+                    break;
+
+                case "REWARD":
+                    // <%REWARD%>
+                    $replacement = Research::resolveReward($reward, $rewParams);
+                    break;
+
+                case "SITEURL":
+                    // <%SITEURL%>
+                    $replacement = Config::getEndpointUri("/");
+                    break;
+
+                case "TIME":
+                    // <%TIME(format)%>
+                    // format: PHP date() format string
+                    if (count($tokenArgs) < 1) break;
+                    $replacement = date($tokenArgs[0], $time);
+                    break;
+
+                case "OBJECTIVE_ICON":
+                case "REWARD_ICON":
+                    // <%OBJECTIVE_ICON(format,variant)%>
+                    // <%REWARD_ICON(format,variant)%>
+                    // format: "vector" (SVG) or "raster" (bitmap; PNG etc.)
+                    // variant: "light" or "dark"
+                    if (count($tokenArgs) < 2) break;
+                    if (!in_array($tokenArgs[1], array("dark", "light"))) break;
+                    $theme->setVariant($tokenArgs[1]);
+                    $icon = $tokenName == "OBJECTIVE_ICON" ? $objective : $reward;
+                    switch ($tokenArgs[0]) {
+                        case "vector":
+                            $replacement = $theme->getIconUrl($icon);
+                            break;
+                        case "raster":
+                            $replacement = $theme->getRasterUrl($icon);
+                            break;
+                    }
+                    break;
+
+                case "OBJECTIVE_PARAMETER":
+                case "REWARD_PARAMETER":
+                    // <%OBJECTIVE_PARAMETER(param[,index])
+                    // <%REWARD_PARAMETER(param[,index])
+                    // param: Parameter of reported objective or reward
+                    // index: Requested index if parameter is array
+                    if (count($tokenArgs) < 1) break;
+                    $params = $tokenName == "OBJECTIVE_PARAMETER" ? $objParams : $rewParams;
+                    $reqParam = $tokenArgs[0];
+                    if (isset($params[$reqParam])) {
+                        // If parameter exists, get parameter
+                        $paramData = $params[$reqParam];
+                        if (is_array($paramData)) {
+                            // If parameter is array, check if index is defined
+                            if (count($tokenArgs) >= 2) {
+                                // If it is, get the index
+                                $index = intval($tokenArgs[1]);
+                                if ($index >= 0 && $index < count($paramData)) {
+                                    // If index found, return index
+                                    $replacement = $paramData[$index];
+                                }
+                            } else {
+                                // If not, join array with semicolons
+                                $replacement = implode(",", $paramData);
+                            }
+                        } else {
+                            $replacement = $paramData;
+                        }
+                    }
+                    break;
+            }
+
             /*
-                If there are fewer than four matches, replace a plain I18N token
-                without arguments instead.
+                Generate a random ID for this replacement and insert the real
+                replacement into `$replArray`.
             */
-            $body = preg_replace(
-                '/<%I18N\('.$matches[$i][1].'\)%>/',
-                $escapeStr(call_user_func_array("I18N::resolve", array($matches[$i][1]))),
-                $body,
-                1
-            );
+            $id = base64_encode(openssl_random_pseudo_bytes(16));
+            $replArray[$id] = strval($replacement);
+
+            /*
+                Replace the matched tag with the replacement.
+            */
+            $body = str_replace($tokenTag, $id, $body);
         }
+
+        preg_match_all($regex, $body, $matches, PREG_SET_ORDER);
     }
 
     /*
-        Apply all the standard replacement tokens.
+        Resolve all replacement IDs in the body.
     */
-    foreach ($replaces as $key => $value) {
-        $body = str_replace("<%{$key}%>", $value, $body);
-    }
-
-    /*
-        <%PAD_LEFT(string,length[,char])%> and
-        <%PAD_RIGHT(string,length[,char])%>. `string` is the string that should
-        be padded, `char` is the character it should be padded with, and
-        `length` is how much it should be padded. If `char` is not present, ' '
-        (space) is used.
-    */
-    $matches = array();
-    /*
-        This regex query matches:
-
-        (LEFT|RIGHT)
-            Padding type.
-
-        ([^\),]+)
-            A string.
-
-        (-?\d+)
-            The padding length.
-
-        (,([^\)]+))?
-            An optional padding character or string.
-    */
-    preg_match_all('/<%PAD_(LEFT|RIGHT)\(([^\),]+),(-?\d+)(,([^\)]+))?\)%>/', $body, $matches, PREG_SET_ORDER);
-    for ($i = 0; $i < count($matches); $i++) {
-        $string = $matches[$i][2];
-        $length = intval($matches[$i][3]);
-        $padStr = " ";
-
-        /*
-            Determine the type of padding.
-        */
-        $padType = null;
-        switch ($matches[$i][1]) {
-            case "LEFT":
-                $padType = STR_PAD_LEFT;
-                break;
-            case "RIGHT":
-                $padType = STR_PAD_RIGHT;
-                break;
-        }
-
-        /*
-            If there are six or more matches, that means the tag matched a tag
-            with an custom padding string supplied.
-        */
-        if (count($matches[$i]) >= 6) {
-            $padStr = $matches[$i][5];
-        }
-
-        $body = preg_replace(
-            '/<%PAD_'.$matches[$i][1].'\('.$string.','.$length.$matches[$i][4].'\)%>/',
-            str_pad($string, $length, $padStr, $padType),
-            $body,
-            1
-        );
+    foreach ($replArray as $id => $repl) {
+        $body = str_replace($id, $escapeStr($repl), $body);
     }
 
     return $body;
