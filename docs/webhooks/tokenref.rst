@@ -263,7 +263,9 @@ String manipulation
 
 ``<%PAD_LEFT(string,length[,padString])%>`` |br| ``<%PAD_RIGHT(string,length[,padString])%>``
    Left- or right-pads the given ``string`` to the given ``length`` using
-   ``padString``. If ``padString`` is not specified, " " (space) is used.
+   ``padString``. If ``padString`` is not specified, " " (space) is used. E.g.
+   ``<%PAD_RIGHT(TestString,15,1)%>`` will right pad "TestString" to 15
+   characters using "1" as the padding string, thus returning "TestString11111."
 
 ``<%LOWERCASE(string)%>``
    Converts the given input ``string`` to lowercase.
