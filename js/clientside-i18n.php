@@ -180,6 +180,31 @@ function resolveReward(reward) {
     }
 
     /*
+        If the reward is an encounter, and it has the species parameter set,
+        then it is known what species this reward may provide. Switch the type
+        over to the "encounter_specific" I18N reward token that is specifically
+        designed to display the name(s) of the possible species of the encounter
+        reward.
+
+        The "encounter_specific" reward is entirely virtual and only exists as
+        an entry in the I18N files to provide this specific functionality.
+    */
+    if (reward.type == "encounter" && reward.params.hasOwnProperty("species")) {
+        /*
+            Ensure that copies are made of the reward and its definition to
+            prevent cascading these changes, applied for localization purposes
+            only, back up to the reward and rewards definition objects, as
+            JavaScript uses call by sharing to pass arguments to functions.
+            Changing these objects directly would otherwise break FreeField
+            client-side until a reload of the page.
+        */
+        reward = $.extend(true, {}, reward);
+        reward.type = "encounter_specific";
+        rewdef = $.extend(true, {}, rewdef);
+        rewdef.params.push("species");
+    }
+
+    /*
         Defaults to the "reward.<type>.singular" key. If the reward accepts the
         "quantity" parameter, we'll instead resolve either
         "reward.<key>.singular" or "reward.<key>.plural" depending on the value

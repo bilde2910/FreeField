@@ -561,10 +561,42 @@ class POI {
         `getCurrentReward()`.
     */
     public function getLastReward() {
-        return array(
+        $reward = array(
             "type" => $this->data["reward"],
-            "params" => json_decode($this->data["rew_params"])
+            "params" => json_decode($this->data["rew_params"], true)
         );
+
+        /*
+            If the reward is an encounter, we should check if the species of the
+            encounter is known. If so, add the species as a parameter to the
+            returned reward, so that it can be specifically localized and
+            processed.
+        */
+        if ($reward["type"] == "encounter") {
+            __require("research");
+            /*
+                Get the objective of the POI, and match it against known
+                objectives from /includes/data/common-tasks.yaml.
+            */
+            $objective = $this->getLastObjective();
+            $commonTasks = Research::listCommonObjectives();
+            foreach ($commonTasks as $task) {
+                if (Research::matches(
+                    $objective["type"], $objective["params"],
+                    $task["type"], $task["params"]
+                )) {
+                    /*
+                        If there is a match, and the match has a known encounter
+                        species, add the species parameter to the reward that is
+                        returned. This allows it to be localized properly.
+                    */
+                    if (isset($task["encounter_species"])) {
+                        $reward["params"]["species"] = $task["encounter_species"];
+                    }
+                }
+            }
+        }
+        return $reward;
     }
 
     /*

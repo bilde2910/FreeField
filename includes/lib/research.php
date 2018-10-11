@@ -841,6 +841,22 @@ class Research {
         }
 
         /*
+            If the reward is an encounter, and it has the species parameter set,
+            then it is known what species this reward may provide. Switch the
+            type over to the "encounter_specific" I18N reward token that is
+            specifically designed to display the name(s) of the possible species
+            of the encounter reward.
+
+            The "encounter_specific" reward is entirely virtual and only exists
+            as an entry in the I18N files to provide this specific
+            functionality.
+        */
+        if ($type == "encounter" && isset($params["species"])) {
+            $type = "encounter_specific";
+            $rewdef["params"] = array_merge(array("species"), $rewdef["params"]);
+        }
+
+        /*
             Defaults to the "reward.<type>.singular" key. If the reward accepts
             the "quantity" parameter, we'll instead resolve either
             "reward.<key>.singular" or "reward.<key>.plural" depending on the
