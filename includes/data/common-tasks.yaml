@@ -34,6 +34,22 @@
     params:
         quantity: 5
 -
+    # Battle in a raid
+    type: "battle_raid"
+    params:
+        quantity: 1
+-
+    # Win a raid
+    type: "win_raid"
+    params:
+        quantity: 1
+-
+    # Win a level 3 or higher raid
+    type: "level_raid"
+    params:
+        min_tier: 3
+        quantity: 1
+-
     # Use a Super Effective Charged Attack in a Gym battle
     type: "se_charge"
     params:
@@ -60,6 +76,13 @@
           - dragon
         quantity: 1
 -
+    # Catch 10 Normal-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - normal
+        quantity: 10
+-
     # Catch 10 Psychic-type Pokémon
     type: "catch_type"
     params:
@@ -81,6 +104,13 @@
           - 96 # Drowzee
           - 63 # Abra
         quantity: 5
+-
+    # Catch a Ditto
+    type: "catch_specific"
+    params:
+        species:
+          - 132 # Ditto
+        quantity: 1
 -
     # Use 5 Pinap Berries while catching Pokémon
     type: "use_item_encounter"
@@ -150,6 +180,11 @@
 #     Throwing skill objectives
 # --------------------------------------------------------------------------
 -
+    # Make 5 Nice Throws
+    type: "throw_simple_nice"
+    params:
+        quantity: 5
+-
     # Make 3 Great Throws
     type: "throw_simple_great"
     params:
@@ -159,6 +194,11 @@
     type: "throw_simple_great"
     params:
         quantity: 5
+-
+    # Make an Excellent Throw
+    type: "throw_simple_excellent"
+    params:
+        quantity: 1
 -
     # Make 3 Great Throws in a row
     type: "throw_simple_great_chain"
