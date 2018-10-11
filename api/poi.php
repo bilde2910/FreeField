@@ -251,9 +251,21 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                     $replacement = $poidata["latitude"];
                     break;
 
+                case "LENGTH":
+                    // <%LENGTH(string)%>
+                    if (count($tokenArgs) < 1) break;
+                    $replacement = strlen($tokenArgs[0]);
+                    break;
+
                 case "LNG":
                     // <%LNG%>
                     $replacement = $poidata["longitude"];
+                    break;
+
+                case "LOWERCASE":
+                    // <%LOWERCASE(string)%>
+                    if (count($tokenArgs) < 1) break;
+                    $replacement = strtolower($tokenArgs[0]);
                     break;
 
                 case "NAVURL":
@@ -309,11 +321,31 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                     $replacement = Config::getEndpointUri("/");
                     break;
 
+                case "SUBSTRING":
+                    // <%SUBSTRING(string,start[,length])%>
+                    if (count($tokenArgs) < 2) break;
+                    $string = $tokenArgs[0];
+                    $start = intval($tokenArgs[1]);
+                    if (count($tokenArgs) >= 3) {
+                        $length = intval($tokenArgs[2]);
+                        $replacement = substr($string, $start, $length);
+                    } else {
+                        $replacement = substr($string, $start);
+                    }
+                    if ($replacement === FALSE) $replacement = "";
+                    break;
+
                 case "TIME":
                     // <%TIME(format)%>
                     // format: PHP date() format string
                     if (count($tokenArgs) < 1) break;
                     $replacement = date($tokenArgs[0], $time);
+                    break;
+
+                case "UPPERCASE":
+                    // <%UPPERCASE(string)%>
+                    if (count($tokenArgs) < 1) break;
+                    $replacement = strtoupper($tokenArgs[0]);
                     break;
 
                 case "OBJECTIVE_ICON":
