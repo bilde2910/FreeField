@@ -18,21 +18,31 @@
     type: "battle_gym"
     params:
         quantity: 1
+    encounter_species:
+      - 56 # Mankey
 -
     # Win a Gym battle
     type: "win_gym"
     params:
         quantity: 1
+    encounter_species:
+      - 1 # Bulbasaur
+      - 4 # Charmander
+      - 7 # Squirtle
 -
     # Win 3 Gym battles
     type: "win_gym"
     params:
         quantity: 3
+    encounter_species:
+      - 124 # Jynx
 -
     # Win 5 Gym battles
     type: "win_gym"
     params:
         quantity: 5
+    encounter_species:
+      - 66 # Machop
 -
     # Battle in a raid
     type: "battle_raid"
@@ -50,10 +60,12 @@
         min_tier: 3
         quantity: 1
 -
-    # Use a Super Effective Charged Attack in a Gym battle
+    # Use a Super Effective Charged Attack 7 Gym battles
     type: "se_charge"
     params:
         quantity: 7
+    encounter_species:
+      - 125 # Electabuzz
 
 # --------------------------------------------------------------------------
 #     Catch objectives
@@ -63,11 +75,15 @@
     type: "catch"
     params:
         quantity: 10
+    encounter_species:
+      - 129 # Magikarp
 -
     # Catch 5 Pokémon with Weather Boost
     type: "catch_weather"
     params:
         quantity: 5
+    encounter_species:
+      - 37 # Vulpix
 -
     # Catch a Dragon-type Pokémon
     type: "catch_type"
@@ -75,6 +91,8 @@
         type:
           - dragon
         quantity: 1
+    encounter_species:
+      - 147 # Dratini
 -
     # Catch 10 Normal-type Pokémon
     type: "catch_type"
@@ -96,6 +114,8 @@
         type:
           - water
         quantity: 5
+    encounter_species:
+      - 98 # Krabby
 -
     # Catch 5 Drowzee or Abra
     type: "catch_specific"
@@ -104,6 +124,8 @@
           - 96 # Drowzee
           - 63 # Abra
         quantity: 5
+    encounter_species:
+      - 124 # Jynx
 -
     # Catch a Ditto
     type: "catch_specific"
@@ -126,26 +148,36 @@
     type: "buddy_candy"
     params:
         quantity: 1
+    encounter_species:
+      - 224 # Octillery
 -
     # Hatch an Egg
     type: "hatch"
     params:
         quantity: 1
+    encounter_species:
+      - 102 # Exeggcute
 -
     # Hatch 2 Eggs
     type: "hatch"
     params:
         quantity: 2
+    encounter_species:
+      - 320 # Wailmer
 -
     # Hatch 3 Eggs
     type: "hatch"
     params:
         quantity: 3
+    encounter_species:
+      - 126 # Magmar
 -
     # Hatch 5 Eggs
     type: "hatch"
     params:
         quantity: 5
+    encounter_species:
+      - 113 # Chansey
 
 # --------------------------------------------------------------------------
 #     Evolution, power-up and management objectives
@@ -155,6 +187,8 @@
     type: "evolve"
     params:
         quantity: 1
+    encounter_species:
+      - 133 # Eevee
 -
     # Evolve 10 Water-type Pokémon
     type: "evolve_type"
@@ -162,6 +196,8 @@
         type:
           - water
         quantity: 10
+    encounter_species:
+      - 147 # Dratini
 -
     # Evolve 3 Slowpoke or Exeggcute
     type: "evolve_specific"
@@ -175,6 +211,10 @@
     type: "power_up"
     params:
         quantity: 5
+    encounter_species:
+      - 1 # Bulbasaur
+      - 4 # Charmander
+      - 7 # Squirtle
 
 # --------------------------------------------------------------------------
 #     Throwing skill objectives
@@ -184,11 +224,15 @@
     type: "throw_simple_nice"
     params:
         quantity: 5
+    encounter_species:
+      - 100 # Voltorb
 -
     # Make 3 Great Throws
     type: "throw_simple_great"
     params:
         quantity: 3
+    encounter_species:
+      - 92 # Gastly
 -
     # Make 5 Great Throws
     type: "throw_simple_great"
@@ -204,16 +248,22 @@
     type: "throw_simple_great_chain"
     params:
         quantity: 3
+    encounter_species:
+      - 95 # Onix
 -
-    # Make 3 Excellent Throws
+    # Make 3 Excellent Throws in a row
     type: "throw_simple_excellent_chain"
     params:
         quantity: 5
+    encounter_species:
+      - 246 # Larvitar
 -
     # Make 2 Nice Curveball Throws in a row
     type: "throw_curve_nice_chain"
     params:
         quantity: 2
+    encounter_species:
+      - 327 # Spinda
 
 # --------------------------------------------------------------------------
 #     Exploration objectives
@@ -227,3 +277,5 @@
     type: "trade"
     params:
         quantity: 1
+    encounter_species:
+      - 349 # Feebas
