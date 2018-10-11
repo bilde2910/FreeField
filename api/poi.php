@@ -366,6 +366,23 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                         }
                     }
                     break;
+
+                case "OBJECTIVE_PARAMETER_COUNT":
+                case "REWARD_PARAMETER_COUNT":
+                    // <%OBJECTIVE_PARAMETER_COUNT(param)
+                    // <%REWARD_PARAMETER_COUNT(param)
+                    // param: Parameter of reported objective or reward
+                    if (count($tokenArgs) < 1) break;
+                    $params = $tokenName == "OBJECTIVE_PARAMETER_COUNT" ? $objParams : $rewParams;
+                    $reqParam = $tokenArgs[0];
+                    if (!isset($params[$reqParam])) {
+                        $replacement = 0;
+                    } elseif (!is_array($params[$reqParam])) {
+                        $replacement = 1;
+                    } else {
+                        $replacement = count($params[$reqParam]);
+                    }
+                    break;
             }
 
             /*
