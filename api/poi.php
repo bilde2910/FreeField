@@ -35,17 +35,16 @@ date_default_timezone_set(Config::get("map/updates/tz")->value());
     values. This is done by passing a closure to `$escapeStr` that escapes a
     string passed to it and returns the result.
 */
-function replaceWebhookFields($time, $theme, $body, $escapeStr) {
+function replaceWebhookFields($poidata, $time, $theme, $body, $escapeStr) {
     __require("research");
 
     /*
-        Fetch required POI details from the calling function.
+        Fetch required POI details for convenience.
     */
-    global $poidata;
-    global $objective;
-    global $objParams;
-    global $reward;
-    global $rewParams;
+    $objective = $poidata->getCurrentObjective()["type"];
+    $objParams = $poidata->getCurrentObjective()["params"];
+    $reward = $poidata->getCurrentReward()["type"];
+    $rewParams = $poidata->getCurrentReward()["params"];
 
     /*
         The body likely contains substitution tokens, and our job in this
@@ -152,13 +151,13 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                     // <%COORDS([precision])%>
                     // precision: Number of decimals in output.
                     $replacement = Geo::getLocationString(
-                        $poidata["latitude"],
-                        $poidata["longitude"]
+                        $poidata->getLatitude(),
+                        $poidata->getLongitude()
                     );
                     if (count($tokenArgs) > 0) {
                         $replacement = Geo::getLocationString(
-                            $poidata["latitude"],
-                            $poidata["longitude"],
+                            $poidata->getLatitude(),
+                            $poidata->getLongitude(),
                             intval($tokenArgs[0])
                         );
                     }
@@ -253,7 +252,7 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
 
                 case "LAT":
                     // <%LAT%>
-                    $replacement = $poidata["latitude"];
+                    $replacement = $poidata->getLatitude();
                     break;
 
                 case "LENGTH":
@@ -264,7 +263,7 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
 
                 case "LNG":
                     // <%LNG%>
-                    $replacement = $poidata["longitude"];
+                    $replacement = $poidata->getLongitude();
                     break;
 
                 case "LOWERCASE":
@@ -281,9 +280,9 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
                     if (count($tokenArgs) > 0) $provider = $tokenArgs[0];
                     if (isset($naviprov[$provider])) {
                         $replacement =
-                            str_replace("{%LAT%}", urlencode($poidata["latitude"]),
-                            str_replace("{%LON%}", urlencode($poidata["longitude"]),
-                            str_replace("{%NAME%}", urlencode($poidata["name"]),
+                            str_replace("{%LAT%}", urlencode($poidata->getLatitude()),
+                            str_replace("{%LON%}", urlencode($poidata->getLongitude()),
+                            str_replace("{%NAME%}", urlencode($poidata->getName()),
                                 $naviprov[$provider]
                             )));
                     }
@@ -308,7 +307,7 @@ function replaceWebhookFields($time, $theme, $body, $escapeStr) {
 
                 case "POI":
                     // <%POI%>
-                    $replacement = $poidata["name"];
+                    $replacement = $poidata->getName();
                     break;
 
                 case "REPORTER":
@@ -716,10 +715,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             Re-fetch the newly created POI from the database. The information
             here is used to trigger webhooks for field research updates.
         */
-        $poidata = $db
-            ->from("poi")
-            ->where("id", $patchdata["id"])
-            ->one();
+        $poidata = Geo::getPOI($patchdata["id"]);
 
     } catch (Exception $e) {
         XHR::exitWith(500, array("reason" => "database_error"));
@@ -807,7 +803,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         Replace text replacement strings (e.g. <%COORDS%>) in the webhook's
                         payload body.
                     */
-                    $body = replaceWebhookFields($reportedTime, $theme, $hook["body"], function($str) {
+                    $body = replaceWebhookFields($poidata, $reportedTime, $theme, $hook["body"], function($str) {
                         /*
                             String escaping for JSON
                             Convert to JSON string and remove leading and
@@ -834,7 +830,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         Replace text replacement strings (e.g. <%COORDS%>) in the webhook's
                         payload body.
                     */
-                    $body = replaceWebhookFields($reportedTime, $theme, $hook["body"], function($str) {
+                    $body = replaceWebhookFields($poidata, $reportedTime, $theme, $hook["body"], function($str) {
                         return $str;
                     });
 
