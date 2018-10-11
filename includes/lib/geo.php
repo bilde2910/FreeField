@@ -397,6 +397,11 @@ class Geo {
         around UNIX timestamps.
     */
     public static function wasPoiUpdatedToday($date) {
+        /*
+            Set correct timezone to ensure proper `date()` functionality.
+        */
+        __require("config");
+        date_default_timezone_set(Config::get("map/updates/tz")->value());
         return date("Y-m-d", strtotime($date)) === date("Y-m-d");
     }
 }

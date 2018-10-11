@@ -9,6 +9,12 @@ __require("xhr");
 __require("db");
 __require("auth");
 __require("geo");
+__require("config");
+
+/*
+    Set correct timezone to ensure research resets at the proper time.
+*/
+date_default_timezone_set(Config::get("map/updates/tz")->value());
 
 /*
     When the user enters a body payload for webhooks, they may choose to use
@@ -31,7 +37,6 @@ __require("geo");
 */
 function replaceWebhookFields($time, $theme, $body, $escapeStr) {
     __require("research");
-    __require("config");
 
     /*
         Fetch required POI details from the calling function.

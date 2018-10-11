@@ -27,6 +27,11 @@ class PostUpgrade {
         ), false, false);
 
         /*
+            Add any new configuration options to the config file.
+        */
+        Config::populateWithDefaults();
+
+        /*
             Perform step-by-step upgrades through each released FreeField
             version using a cascading `switch` block, starting at the version
             corresponding to the previously installed version and proceeding
@@ -35,6 +40,8 @@ class PostUpgrade {
         switch ($fromVersion) {
             case "0.99.1-dev":
             case "1.0-alpha.1":
+            case "1.0-alpha.2":
+            case "1.0-alpha.3":
                 break;
         }
         /*

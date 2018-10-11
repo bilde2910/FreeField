@@ -9,6 +9,12 @@ __require("auth");
 __require("db");
 __require("geo");
 __require("security");
+__require("config");
+
+/*
+    Set correct timezone to ensure proper `date()` functionality.
+*/
+date_default_timezone_set(Config::get("map/updates/tz")->value());
 
 $returnpath = "./?d=pois";
 

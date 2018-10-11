@@ -1450,6 +1450,18 @@ class ConfigDefinitions {
                 "option" => new IntegerOption(1, null)
             ),
             /*
+                The time zone used to determine midnight, i.e. the reset time
+                for field research.
+            */
+            "map/updates/tz" => array(
+                "domain" => "map",
+                "section" => "updates",
+                "default" => ini_get('date.timezone'),
+                "option" => new SelectOption(
+                    DateTimeZone::listIdentifiers(), "string", true
+                )
+            ),
+            /*
                 ------------------------------------------------------------
                     GEOFENCING
                 ------------------------------------------------------------

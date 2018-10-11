@@ -576,14 +576,19 @@ class GeofenceOption extends DefaultOption {
 
     The data type selected will be used to store the value in the configuration
     file.
+
+    If `$ignoreI18N` is set to `true`, this option will make no attempt to
+    internationalize the `SelectOption`s values.
 */
 class SelectOption extends DefaultOption {
     private $items;
     private $type;
+    private $ignoreI18N;
 
-    public function __construct($items, $type = "string") {
+    public function __construct($items, $type = "string", $ignoreI18N = false) {
         $this->items = $items;
         $this->type = $type;
+        $this->ignoreI18N = $ignoreI18N;
     }
 
     public function getControl($current = null, $attrs = array(), $i18ndomain = null) {
@@ -612,7 +617,9 @@ class SelectOption extends DefaultOption {
                 value of the item itself if neither the domain, HTML ID or name
                 is set.
             */
-            if ($i18ndomain !== null) {
+            if ($this->ignoreI18N) {
+                $label = $item;
+            } elseif ($i18ndomain !== null) {
                 $label = I18N::resolveHTML(
                     "{$i18ndomain}.".str_replace(",", "_", str_replace("-", "_", $item))
                 );
