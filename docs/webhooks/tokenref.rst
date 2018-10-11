@@ -185,6 +185,35 @@ deep into the internal workings of the reported research task.
    return an empty string for objectives which do not offer the ``type``
    parameter, such as "Catch 5 Pokémon."
 
+``<%OBJECTIVE_PARAMETER_COUNT(param)%>`` |br| ``<%REWARD_PARAMETER_COUNT(param)%>``
+   Returns the number of submitted entries for the given parameter ``param`` of
+   the reported research objective or reward. Parameters can be any parameters
+   listed in the developer documentation on research parameters. The behavior of
+   this substitution token is as follows:
+
+   -  If the requested parameter is not present in the reported research
+      objective or reward, this token is substituted by 0.
+
+   -  Otherwise, and if the parameter is internally represented by an array type
+      (please refer to the developer documentation to see if this is the case),
+      this token is substituted by a number representing the size of that array.
+
+   -  If the parameter is present and is not internally represented by an array,
+      this token is substituted by 1.
+
+   Example: ``<%OBJECTIVE_PARAMETER_COUNT(type)%>`` returns the number of
+   different Pokémon types in the reported field research objective. E.g. if the
+   reported objective is "Catch 5 Water- or Grass-type Pokémon," this
+   substitution would return the number 2. If the objective is "Catch 5
+   Water-type Pokémon," it would return 1. If it the objective does not offer
+   the ``type`` parameter, such as "Catch 5 Pokémon," 0 is returned.
+
+   Another example: ``<%REWARD_PARAMETER_COUNT(quantity)%>`` returns 1 if the
+   reported field research reward has an associated quantity, E.g. if the
+   reported reward is "3 Revives," this substitution token would return the
+   number 1. If the reported reward does not offer a quantity, such as for
+   "Pokémon encounter," 0 is returned.
+
 Conditional substitution
 ------------------------
 
