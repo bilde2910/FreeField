@@ -56,8 +56,8 @@ You can also include information on the context of the report:
    "2018-10-02T15:38:55+02:00." Please refer to the aforementioned PHP manual
    for more format examples.
 
-Navigation links
-----------------
+Navigation and links
+--------------------
 
 ``<%NAVURL%>``
    Inserts a link that users can click on to get turn-based navigation to the
@@ -69,6 +69,9 @@ Navigation links
    provider for navigation links, and instead create a link for navigation on
    Bing Maps. Valid navigation providers are ``bing``, ``google``, ``here``,
    ``mapquest``, ``waze`` and ``yandex``.
+
+``<%SITEURL%>``
+   Inserts a link that users can click to visit the FreeField map.
 
 Icon set images
 ---------------
