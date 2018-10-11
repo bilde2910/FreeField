@@ -243,6 +243,30 @@ Conditional substitution
 String manipulation
 -------------------
 
+``<%SUBSTRING(string,start[,length])%>``
+   Returns a ``length`` long substring of ``string`` starting from the character
+   index ``start``. ``length`` is optional.
+
+   -  If ``start`` is negative, the substring starts at ``start`` index of
+      characters relative to the end of the string.
+
+   -  If ``start`` is beyond the end of the string, an empty string is returned.
+
+   -  If ``length`` is not provided, the returned substring will end at the end
+      of the string rather than enforcing a particular substring length.
+
+   -  If ``length`` is negative, the given number of characters will be cut from
+      the end of the string.
+
+``<%LENGTH(string)%>``
+   Returns the length of the given ``string``.
+
 ``<%PAD_LEFT(string,length[,padString])%>`` |br| ``<%PAD_RIGHT(string,length[,padString])%>``
    Left- or right-pads the given ``string`` to the given ``length`` using
    ``padString``. If ``padString`` is not specified, " " (space) is used.
+
+``<%LOWERCASE(string)%>``
+   Converts the given input ``string`` to lowercase.
+
+``<%UPPERCASE(string)%>``
+   Converts the given input ``string`` to uppercase.
