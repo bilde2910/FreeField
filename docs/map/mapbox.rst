@@ -33,6 +33,6 @@ Using Mapbox with FreeField
 
 1. In the FreeField administration pages, navigate to the "Map settings" menu.
    Look for the "Map provider" section on this page.
-2. In the "Map source" menu, select "Mapbox (OpenStreetMap)".
+2. In the "Map source" menu, select "Mapbox (mapbox-gl.js)".
 3. Enter your access token in the "Mapbox access token" field.
-4. Save the sttings using "Save settings" at the bottom of the page.
+4. Save the settings using :guilabel:`Save settings` at the bottom of the page.
