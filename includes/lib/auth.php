@@ -123,7 +123,7 @@ class Auth {
         $user = $db
             ->from("user")
             ->where("id", $id)
-            ->select(array("token", "approved"))
+            ->select(array("token", "approved", "provider_id"))
             ->one();
 
         /*
