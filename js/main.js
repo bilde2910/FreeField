@@ -31,12 +31,23 @@ var pois = [];
 */
 var styleMap = {
     mapbox: {
-        basic: "light",
-        streets: "light",
-        bright: "light",
-        light: "light",
-        dark: "dark",
-        satellite: "dark"
+        "basic": "light",
+        "streets": "light",
+        "bright": "light",
+        "light": "light",
+        "dark": "dark",
+        "satellite": "dark"
+    },
+    thunderforest: {
+        "cycle": "light",
+        "transport": "light",
+        "landscape": "light",
+        "outdoors": "light",
+        "transport-dark": "dark",
+        "spinal-map": "dark",
+        "pioneer": "light",
+        "mobile-atlas": "light",
+        "neighbourhood": "light"
     }
 }
 
@@ -324,6 +335,7 @@ function addMarkers(markers) {
             the currently active field research on the POI.
         */
         var e = document.createElement("div");
+        e.id = "dynamic-marker-" + marker.id;
         e.className =
             // Basic map marker class
             "marker "
@@ -332,12 +344,12 @@ function addMarkers(markers) {
             + marker[settings.get("markerComponent")].type + " "
 
             // Set the color theme of the markers depending on the map style
-            + styleMap[settings.get("mapProvider")][settings.get("mapStyle/"+settings.get("mapProvider"))] + " "
+            + styleMap[settings.get("mapProvider")][settings.get("mapStyle-"+settings.get("mapProvider"))] + " "
 
             // Set the icon set from which marker icons are fetched
             + settings.get("iconSet");
 
-        marker["element"] = e;
+        marker["elementId"] = e.id;
 
         /*
             Add the marker to the global `pois` array for easy properties lookup
@@ -376,7 +388,7 @@ function refreshMarkers() {
             if (
                 pois.length < marker.id ||
                 pois[marker.id] == null ||
-                !("element" in pois[marker.id])
+                !("elementId" in pois[marker.id])
             ) {
                 addMarkers([marker]);
                 return;
@@ -395,13 +407,13 @@ function refreshMarkers() {
 
             switch (settings.get("markerComponent")) {
                 case "reward":
-                    if ($(oldMarker.element).hasClass(oldReward)) {
-                        $(oldMarker.element).removeClass(oldReward).addClass(newReward);
+                    if ($("#" + oldMarker.elementId).hasClass(oldReward)) {
+                        $("#" + oldMarker.elementId).removeClass(oldReward).addClass(newReward);
                     }
                     break;
                 case "objective":
-                    if ($(oldMarker.element).hasClass(oldObjective)) {
-                        $(oldMarker.element).removeClass(oldObjective).addClass(newObjective);
+                    if ($("#" + oldMarker.elementId).hasClass(oldObjective)) {
+                        $("#" + oldMarker.elementId).removeClass(oldObjective).addClass(newObjective);
                     }
                     break;
             }
@@ -753,13 +765,13 @@ function openMarker(markerObj, id) {
 
                     switch (settings.get("markerComponent")) {
                         case "reward":
-                            if ($(poiObj.element).hasClass(oldReward)) {
-                                $(poiObj.element).removeClass(oldReward).addClass(reward);
+                            if ($("#" + poiObj.elementId).hasClass(oldReward)) {
+                                $("#" + poiObj.elementId).removeClass(oldReward).addClass(reward);
                             }
                             break;
                         case "objective":
-                            if ($(poiObj.element).hasClass(oldObjective)) {
-                                $(poiObj.element).removeClass(oldObjective).addClass(objective);
+                            if ($("#" + poiObj.elementId).hasClass(oldObjective)) {
+                                $("#" + poiObj.elementId).removeClass(oldObjective).addClass(objective);
                             }
                             break;
                     }

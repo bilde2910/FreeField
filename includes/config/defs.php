@@ -1308,6 +1308,25 @@ class ConfigDefinitions {
                 ))
             ),
             /*
+                Select the default color theme of the map.
+            */
+            "themes/color/map/theme/thunderforest" => array(
+                "domain" => "themes",
+                "section" => "color",
+                "default" => "neighbourhood",
+                "option" => new SelectOption(array(
+                    "cycle",
+                    "transport",
+                    "landscape",
+                    "outdoors",
+                    "transport-dark",
+                    "spinal-map",
+                    "pioneer",
+                    "mobile-atlas",
+                    "neighbourhood"
+                ))
+            ),
+            /*
                 Whether to allow users to set their own color theme for
                 map instead of the default for their own account.
             */
@@ -1358,15 +1377,25 @@ class ConfigDefinitions {
             "map/provider/source" => array(
                 "domain" => "map",
                 "section" => "provider",
-                "default" => "mapbox",
+                "default" => "",
                 "option" => new SelectOption(array(
-                    "mapbox"
+                    "mapbox",
+                    "thunderforest"
                 ))
             ),
             /*
                 Access token obtained from Mapbox.
             */
             "map/provider/mapbox/access-token" => array(
+                "domain" => "map",
+                "section" => "provider",
+                "default" => "",
+                "option" => new StringOption()
+            ),
+            /*
+                Access token obtained from Thunderforest.
+            */
+            "map/provider/thunderforest/access-token" => array(
                 "domain" => "map",
                 "section" => "provider",
                 "default" => "",

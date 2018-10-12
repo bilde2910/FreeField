@@ -21,11 +21,23 @@ if ($stage == 6 && (!$isPost || !$csrfPass)) {
         </p>
         <?php
             /*
-                Settings related to choosing a map provider.
+                Setting for choosing a map provider.
             */
             $settings = array(
-                "map/provider/source",
-                "map/provider/mapbox/access-token"
+                "map/provider/source"
+            );
+            printSettingFields($settings, false);
+        ?>
+        <p>
+            <?php echo I18N::resolveHTML("install.stage.{$stage}.field_guide"); ?>
+        </p>
+        <?php
+            /*
+                Map provider-specific settings.
+            */
+            $settings = array(
+                "map/provider/mapbox/access-token",
+                "map/provider/thunderforest/access-token"
             );
             printSettingFields($settings, false);
         ?>

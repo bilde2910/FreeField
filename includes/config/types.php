@@ -592,10 +592,6 @@ class SelectOption extends DefaultOption {
     }
 
     public function getControl($current = null, $attrs = array(), $i18ndomain = null) {
-        __require("i18n");
-        $id = isset($attrs["id"]) ? $attrs["id"] : null;
-        $name = isset($attrs["name"]) ? $attrs["name"] : null;
-
         $attrString = parent::constructAttributes($attrs);
 
         $html = '<select'.$attrString.'>';
@@ -609,37 +605,8 @@ class SelectOption extends DefaultOption {
 
             /*
                 Each of the options should have a label indicating its value.
-                This is taken from an I18N domain passed in `$i18ndomain`, where
-                the label for each item is taken from the `$item` subkey from
-                the domain. If `$i18ndomain` is not available, it falls back to
-                "setting.<html_name>.option.<item_value>", then
-                "setting.<html_id>.option.<item_value>", then the raw string
-                value of the item itself if neither the domain, HTML ID or name
-                is set.
             */
-            if ($this->ignoreI18N) {
-                $label = $item;
-            } elseif ($i18ndomain !== null) {
-                $label = I18N::resolveHTML(
-                    "{$i18ndomain}.".str_replace(",", "_", str_replace("-", "_", $item))
-                );
-            } elseif ($name !== null) {
-                $label = I18N::resolveHTML(
-                    "setting.".
-                    str_replace(",", "_", str_replace("-", "_", str_replace("/", ".", $name))).
-                    ".option.".
-                    str_replace(",", "_", str_replace("-", "_", $item))
-                );
-            } elseif ($id !== null) {
-                $label = I18N::resolveHTML(
-                    "setting.".
-                    str_replace("-", "_", $id).
-                    ".option.".
-                    str_replace(",", "_", str_replace("-", "_", $item))
-                );
-            } else {
-                $label = $item;
-            }
+            $label = $this->getLabelI18N($item, $attrs, $i18ndomain);
             $html .= '>'.$label.'</option>';
         }
         $html .= '</select>';
@@ -659,6 +626,57 @@ class SelectOption extends DefaultOption {
     public function isValid($data) {
         if (is_array($data)) return false;
         return in_array($data, $this->items);
+    }
+
+    /*
+        Returns a list of all items in the selection box.
+    */
+    public function getItems() {
+        return $this->items;
+    }
+
+    /*
+        Returns an I18N token representing the label for the given `$item` of
+        the selection box.
+    */
+    public function getLabelI18N($item, $attrs, $i18ndomain = null) {
+        __require("i18n");
+        $id = isset($attrs["id"]) ? $attrs["id"] : null;
+        $name = isset($attrs["name"]) ? $attrs["name"] : null;
+
+        /*
+            Each of the options should have a label indicating its value.
+            This is taken from an I18N domain passed in `$i18ndomain`, where
+            the label for each item is taken from the `$item` subkey from
+            the domain. If `$i18ndomain` is not available, it falls back to
+            "setting.<html_name>.option.<item_value>", then
+            "setting.<html_id>.option.<item_value>", then the raw string
+            value of the item itself if neither the domain, HTML ID or name
+            is set.
+        */
+        if ($this->ignoreI18N) {
+            return $item;
+        } elseif ($i18ndomain !== null) {
+            return I18N::resolveHTML(
+                "{$i18ndomain}.".str_replace(",", "_", str_replace("-", "_", $item))
+            );
+        } elseif ($name !== null) {
+            return I18N::resolveHTML(
+                "setting.".
+                str_replace(",", "_", str_replace("-", "_", str_replace("/", ".", $name))).
+                ".option.".
+                str_replace(",", "_", str_replace("-", "_", $item))
+            );
+        } elseif ($id !== null) {
+            return I18N::resolveHTML(
+                "setting.".
+                str_replace("-", "_", $id).
+                ".option.".
+                str_replace(",", "_", str_replace("-", "_", $item))
+            );
+        } else {
+            return $item;
+        }
     }
 }
 

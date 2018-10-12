@@ -577,6 +577,18 @@ h1.head-small {
     display: none;
 }
 
+/* Prevent Leaflet map from rendering on top of popup boxes on the page. */
+.leaflet-pane {
+    z-index: 0;
+}
+
+/* Hide the default Leaflet `divIcon` container. */
+.leaflet-div-icon {
+    background: none;
+    border: none;
+    outline: none;
+}
+
 /* Markers, as they appear on the map. */
 .marker {
     background-size: cover;

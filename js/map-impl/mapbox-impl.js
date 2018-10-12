@@ -4,7 +4,7 @@
 
 /*
     The registered callback if the user clicks the map. Used by
-    `MapImpl.bindMapCLickHandler`.
+    `MapImpl.bindMapClickHandler`.
 */
 var mapboxClickCallback = null;
 /*
@@ -36,7 +36,7 @@ var MapImpl = {
         */
         mapboxMap = new mapboxgl.Map({
             container: containerId,
-            style: 'mapbox://styles/mapbox/' + (config.get("mapStyle/mapbox")) + '-v9',
+            style: 'mapbox://styles/mapbox/' + (config.get("mapStyle-mapbox")) + '-v9',
             center: [config.get("center/longitude"), config.get("center/latitude")],
             zoom: config.get("zoom")
         });

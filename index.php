@@ -221,6 +221,20 @@ Security::declareFrameOptionsHeader();
                               onload="if(media!=='all')media='all'">
                     <?php
                     break;
+                case "thunderforest":
+                    ?>
+                        <link rel="stylesheet"
+                              href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+                              integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+                              crossorigin=""
+                              onload="if(media!=='all')media='all'">
+                        <link rel="stylesheet"
+                              href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.63.0/dist/L.Control.Locate.min.css"
+                              integrity="sha256-mvCapu8voeqbM31gwIzYjSiq79jiT4LdIEQSmjyRNoE="
+                              crossorigin="anonymous"
+                              onload="if(media!=='all')media='all'">
+                    <?php
+                    break;
             }
         ?>
         <link rel="stylesheet"
@@ -1293,15 +1307,32 @@ Security::declareFrameOptionsHeader();
                                                 <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.map_theme.name"); ?>:</p>
                                             </div>
                                             <div class="pure-u-2-3 full-on-mobile">
-                                                <p><select class="user-setting" data-key="mapStyle/mapbox">
-                                                    <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
-                                                    <option value="basic"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.basic"); ?></option>
-                                                    <option value="streets"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.streets"); ?></option>
-                                                    <option value="bright"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.bright"); ?></option>
-                                                    <option value="light"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.light"); ?></option>
-                                                    <option value="dark"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.dark"); ?></option>
-                                                    <option value="satellite"><?php echo I18N::resolveHTML("setting.themes.color.map.theme.mapbox.option.satellite"); ?></option>
-                                                </select></p>
+                                                <?php
+                                                    switch (Config::get("map/provider/source")->value()) {
+                                                        case "mapbox":
+                                                            $opt = Config::get("themes/color/map/theme/mapbox")->getOption();
+                                                            ?>
+                                                                <p><select class="user-setting" data-key="mapStyle-mapbox">
+                                                                    <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
+                                                                    <?php foreach ($opt->getItems() as $item) { ?>
+                                                                        <option value="<?php echo $item; ?>"><?php echo $opt->getLabelI18N($item, null, "setting.themes.color.map.theme.mapbox.option"); ?></option>
+                                                                    <?php } ?>
+                                                                </select></p>
+                                                            <?php
+                                                            break;
+                                                        case "thunderforest":
+                                                            $opt = Config::get("themes/color/map/theme/thunderforest")->getOption();
+                                                            ?>
+                                                                <p><select class="user-setting" data-key="mapStyle-thunderforest">
+                                                                    <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
+                                                                    <?php foreach ($opt->getItems() as $item) { ?>
+                                                                        <option value="<?php echo $item; ?>"><?php echo $opt->getLabelI18N($item, null, "setting.themes.color.map.theme.thunderforest.option"); ?></option>
+                                                                    <?php } ?>
+                                                                </select></p>
+                                                            <?php
+                                                            break;
+                                                    }
+                                                ?>
                                             </div>
                                         </div>
                                     <?php
@@ -1396,21 +1427,20 @@ Security::declareFrameOptionsHeader();
                 not explicitly set for each entry.
             */
             var defaults = {
-                iconSet: <?php echo Config::get("themes/icons/default")->valueJS(); ?>,
-                mapProvider: "<?php echo $provider; ?>",
-                naviProvider: <?php echo Config::get("map/provider/directions")->valueJS(); ?>,
-                mapStyle: {
-                    mapbox: <?php echo Config::get("themes/color/map/theme/mapbox")->valueJS(); ?>
-                },
-                theme: <?php echo Config::get("themes/color/user-settings/theme")->valueJS(); ?>,
-                center: {
+                "iconSet": <?php echo Config::get("themes/icons/default")->valueJS(); ?>,
+                "mapProvider": "<?php echo $provider; ?>",
+                "naviProvider": <?php echo Config::get("map/provider/directions")->valueJS(); ?>,
+                "mapStyle-mapbox": <?php echo Config::get("themes/color/map/theme/mapbox")->valueJS(); ?>,
+                "mapStyle-thunderforest": <?php echo Config::get("themes/color/map/theme/thunderforest")->valueJS(); ?>,
+                "theme": <?php echo Config::get("themes/color/user-settings/theme")->valueJS(); ?>,
+                "center": {
                     latitude: <?php echo Config::get("map/default/center/latitude")->valueJS(); ?>,
                     longitude: <?php echo Config::get("map/default/center/longitude")->valueJS(); ?>
                 },
-                zoom: <?php echo Config::get("map/default/zoom")->valueJS(); ?>,
-                markerComponent: <?php echo Config::get("map/default/marker-component")->valueJS(); ?>,
-                motdCurrentHash: "",
-                motdDismissedHash: ""
+                "zoom": <?php echo Config::get("map/default/zoom")->valueJS(); ?>,
+                "markerComponent": <?php echo Config::get("map/default/marker-component")->valueJS(); ?>,
+                "motdCurrentHash": "",
+                "motdDismissedHash": ""
             };
 
             /*
@@ -1422,12 +1452,13 @@ Security::declareFrameOptionsHeader();
             */
             var forceDefaults = [
                 <?php
-                    $forced = array();
+                    $forced = array('"mapProvider"');
                     if (!Config::get("themes/color/user-settings/allow-personalization")->value()) {
                         $forced[] = '"theme"';
                     }
                     if (!Config::get("themes/color/map/allow-personalization")->value()) {
-                        $forced[] = '"mapStyle/mapbox"';
+                        $forced[] = '"mapStyle-mapbox"';
+                        $forced[] = '"mapStyle-thunderforest"';
                     }
                     if (!Config::get("themes/icons/allow-personalization")->value()) {
                         $forced[] = '"iconSet"';
@@ -1682,6 +1713,29 @@ Security::declareFrameOptionsHeader();
                         <script>
                             MapImpl.preInit({
                                 apiKey: <?php echo Config::get("map/provider/mapbox/access-token")->valueJS(); ?>
+                            });
+                        </script>
+
+                    <?php
+                    break;
+                case "thunderforest":
+                    ?>
+                        <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+                                integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+                                crossorigin=""></script>
+                        <script src="./js/map-impl/leaflet-impl.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.63.0/dist/L.Control.Locate.min.js"
+                                integrity="sha256-fDXZX7+frvNEVCWnwZ9MFVEn0ADry+xkmJC93dU9xKk="
+                                crossorigin="anonymous"></script>
+                        <script>
+                            MapImpl.preInit({
+                                url: 'https://tile.thunderforest.com/{providerTheme}/{z}/{x}/{y}{r}.png?apikey={accessToken}',
+                                theme: 'mapStyle-thunderforest',
+                                params: {
+                                    attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                                    accessToken: <?php echo Config::get("map/provider/thunderforest/access-token")->valueJS(); ?>,
+                                    maxZoom: 20
+                                }
                             });
                         </script>
 
