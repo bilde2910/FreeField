@@ -37,7 +37,7 @@ if ($stage == 6 && (!$isPost || !$csrfPass)) {
             */
             $settings = array(
                 "map/provider/mapbox/access-token",
-                "map/provider/thunderforest/access-token"
+                "map/provider/thunderforest/api-key"
             );
             printSettingFields($settings, false);
         ?>

@@ -1395,7 +1395,7 @@ class ConfigDefinitions {
             /*
                 Access token obtained from Thunderforest.
             */
-            "map/provider/thunderforest/access-token" => array(
+            "map/provider/thunderforest/api-key" => array(
                 "domain" => "map",
                 "section" => "provider",
                 "default" => "",

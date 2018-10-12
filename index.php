@@ -1729,11 +1729,11 @@ Security::declareFrameOptionsHeader();
                                 crossorigin="anonymous"></script>
                         <script>
                             MapImpl.preInit({
-                                url: 'https://tile.thunderforest.com/{providerTheme}/{z}/{x}/{y}{r}.png?apikey={accessToken}',
+                                url: 'https://tile.thunderforest.com/{providerTheme}/{z}/{x}/{y}{r}.png?apikey={apiKey}',
                                 theme: 'mapStyle-thunderforest',
                                 params: {
                                     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                                    accessToken: <?php echo Config::get("map/provider/thunderforest/access-token")->valueJS(); ?>,
+                                    apiKey: <?php echo Config::get("map/provider/thunderforest/api-key")->valueJS(); ?>,
                                     maxZoom: 20
                                 }
                             });
