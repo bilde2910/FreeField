@@ -337,6 +337,8 @@ class I18N {
           - Spanish (Argentina)
     */
     public static function getAcceptedLanguages() {
+        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) return array();
+
         $lang_parse = array();
         /*
             This regex matches:
