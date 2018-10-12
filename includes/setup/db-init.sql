@@ -5,7 +5,7 @@ CREATE TABLE {%TablePrefix%}group (
     color           char(6)         DEFAULT NULL,
     PRIMARY KEY (group_id),
     UNIQUE KEY level (level)
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE {%TablePrefix%}poi (
     id              int(11)         NOT NULL AUTO_INCREMENT,
@@ -21,7 +21,7 @@ CREATE TABLE {%TablePrefix%}poi (
     reward          varchar(32)     NOT NULL,
     rew_params      varchar(128)    NOT NULL,
     PRIMARY KEY (id)
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE {%TablePrefix%}user (
     id              varchar(64)     NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE {%TablePrefix%}user (
     permission      smallint(6)     NOT NULL,
     user_signup     timestamp       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
-);
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO {%TablePrefix%}group (level, label, color) VALUES
     (0,     '{i18n:group.level.anonymous}',     NULL    ),
