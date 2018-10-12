@@ -50,12 +50,14 @@ class PostUpgrade {
                     Bugfix: Allow Unicode code points beyond 0xFFFD (such as
                     emoji) in any strings.
                 */
+                echo "Altering table charsets...";
                 $sql = <<<__END_STRING__
 ALTER TABLE {$prefix}group CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE {$prefix}poi CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE {$prefix}user CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 __END_STRING__;
                 $db->execute($sql);
+                echo " ok\n";
                 break;
         }
         /*
