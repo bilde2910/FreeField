@@ -356,7 +356,7 @@ try {
     */
     echo " ok\nChecking dependencies...\n";
     include_once($preprocFile);
-    $result = PreUpgrade::verifyDependencies();
+    $result = PreUpgrade::verifyDependencies($updateData["source"]);
     if (!$result) {
         throw new Exception(
             "Dependencies not satisfied!"
