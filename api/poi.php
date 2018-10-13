@@ -687,6 +687,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         if (
             Config::get("map/geofence/hide-outside")->value() &&
+            $geofence !== null &&
             !$poi->isWithinGeofence($geofence)
         ) {
             XHR::exitWith(400, array("reason" => "invalid_data"));
