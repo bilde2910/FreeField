@@ -7,9 +7,9 @@
 */
 
 $returnpath = "./?d=updates";
-$basepath = __DIR__."/..";
-$pkgMetaPath = __DIR__."/../includes/userdata/updatepkg.json";
-$pkgBasePath = __DIR__."/../includes/userdata/tmp-update";
+$basepath = dirname(__DIR__);
+$pkgMetaPath = "{$basepath}/includes/userdata/updatepkg.json";
+$pkgBasePath = "{$basepath}/includes/userdata/tmp-update";
 $pkgExtractPath = "{$pkgBasePath}/content";
 $pkgFilePath = "{$pkgBasePath}/updatepkg.tar.gz";
 $pkgTarPath = "{$pkgBasePath}/updatepkg.tar";
@@ -395,7 +395,7 @@ try {
         ignore /includes/userdata.
     */
     echo " ok\nInstalling upgrade...";
-    $extractBasePath = "{$setupDir}/../..";
+    $extractBasePath = dirname(dirname($setupDir));
     $files = scandir($extractBasePath);
     foreach ($files as $file) {
         if ($file != "." && $file != ".." && $file != "includes") {
