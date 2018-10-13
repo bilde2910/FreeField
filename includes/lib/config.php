@@ -103,7 +103,7 @@ class Config {
         can be used to get array elements in the configuration file which do not
         have an associated setting, such as the list of webhooks and geofences.
     */
-    public function getRaw($path) {
+    public static function getRaw($path) {
         self::ensureLoaded();
 
         $conf = self::$config;
