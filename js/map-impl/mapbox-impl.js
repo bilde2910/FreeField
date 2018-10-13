@@ -125,10 +125,29 @@ var MapImpl = {
         /*
             Declare and add the Mapbox marker to the map.
         */
-        new mapboxgl.Marker(markerNode)
+        return new mapboxgl.Marker(markerNode)
             .setLngLat([lon, lat])
             .setPopup(popup)
             .addTo(mapboxMap);
+    },
+
+    /*
+        This function is called to move a marker to another place on the map.
+        The function takes three arguments - a target latitude and longitude, as
+        well as a reference to the marker object created and returned by
+        `addMarker()`.
+    */
+    moveMarker: function(implObject, lat, lon) {
+        implObject.setLngLat([lon, lat]);
+    },
+
+    /*
+        This function is called to remove a marker from the map. The function
+        takes one argument - a reference to the marker object created and
+        returned by `addMarker()`.
+    */
+    removeMarker: function(implObject) {
+        implObject.remove();
     },
 
     /*

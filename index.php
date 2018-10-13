@@ -426,6 +426,20 @@ Security::declareFrameOptionsHeader();
                         </div>
                     </div>
                     <!--
+                        A special banner that shows up when the user is asked to
+                        click on the map to select a new location for a POI.
+                    -->
+                    <div id="move-poi-banner" class="banner">
+                        <div class="banner-inner">
+                            <?php echo I18N::resolveArgsHTML(
+                                "poi.move.instructions",
+                                false,
+                                '<a href="#" id="move-poi-cancel-banner">',
+                                '</a>'
+                            ); ?>
+                        </div>
+                    </div>
+                    <!--
                         POI details overlay. Contains details such as the POI's
                         name, its current active field research, means of
                         reporting research to the POI (if permission is granted
@@ -464,6 +478,31 @@ Security::declareFrameOptionsHeader();
                                         </span>
                                     </div>
                                 </div>
+                                <?php
+                                    if (Auth::getCurrentUser()->hasPermission("admin/pois/general")) {
+                                        /*
+                                            Buttons for moving and deleting POIs.
+                                        */
+                                        ?>
+                                            <div class="pure-g">
+                                                <div class="pure-u-1-2 right-align">
+                                                    <span type="button"
+                                                          id="poi-move"
+                                                          class="button-standard split-button button-spaced left">
+                                                        <?php echo I18N::resolveHTML("poi.move"); ?>
+                                                    </span>
+                                                </div>
+                                                <div class="pure-u-1-2">
+                                                    <span type="button"
+                                                          id="poi-delete"
+                                                          class="button-standard split-button button-spaced right">
+                                                        <?php echo I18N::resolveHTML("poi.delete"); ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        <?php
+                                    }
+                                ?>
                                 <div class="pure-g">
                                     <div class="pure-u-1-2 right-align">
                                         <span type="button"
@@ -1157,6 +1196,40 @@ Security::declareFrameOptionsHeader();
                         </div>
                     </div>
                     <!--
+                        "Working" indicator for moving POIs. This is
+                        functionally the same as `#add-poi-working`, but with a
+                        different text label.
+                    -->
+                    <div id="move-poi-working" class="cover-box">
+                        <div class="cover-box-inner tiny">
+                            <div class="cover-box-content">
+                                <div>
+                                    <i class="fas fa-spinner loading-spinner spinner-large"></i>
+                                </div>
+                                <p>
+                                    <?php echo I18N::resolveHTML("poi.move.processing"); ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                        "Working" indicator for deleting POIs. This is
+                        functionally the same as `#add-poi-working`, but with a
+                        different text label.
+                    -->
+                    <div id="delete-poi-working" class="cover-box">
+                        <div class="cover-box-inner tiny">
+                            <div class="cover-box-content">
+                                <div>
+                                    <i class="fas fa-spinner loading-spinner spinner-large"></i>
+                                </div>
+                                <p>
+                                    <?php echo I18N::resolveHTML("poi.delete.processing"); ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
                         The container for the map itself.
                     -->
                     <div id="map" class="full-container"></div>
@@ -1615,7 +1688,7 @@ Security::declareFrameOptionsHeader();
                 good user experience, some page elements may additionally be
                 hidden client-side if some of these permissions are not granted.
             */
-            var permissions = {
+            var permissions =
                 <?php
                     $clientside_perms = array(
                         /*
@@ -1634,20 +1707,21 @@ Security::declareFrameOptionsHeader();
                             not granted, but only for POIs that already have
                             active field research tasks assigned to them.
                         */
-                        "overwrite-research"
+                        "overwrite-research",
+                        /*
+                            Allows the user to manage POIs. If this is not
+                            granted, the buttons that the user would click on to
+                            move or delete POIs are hidden.
+                        */
+                        "admin/pois/general"
                     );
 
-                    for ($i = 0; $i < count($clientside_perms); $i++) {
-                        $clientside_perms[$i] = '"'.$clientside_perms[$i].'": '.
-                                                (
-                                                    Auth::getCurrentUser()->hasPermission($clientside_perms[$i])
-                                                    ? "true"
-                                                    : "false"
-                                                );
+                    $permsJson = array();
+                    foreach ($clientside_perms as $perm) {
+                        $permsJson[$perm] = Auth::getCurrentUser()->hasPermission($clientside_perms[$i]);
                     }
-                    echo implode(", ", $clientside_perms);
-                ?>
-            }
+                    echo json_encode($permsJson);
+                ?>;
 
             /*
                 A reference to all available icon sets and the URLs they provide
@@ -1709,7 +1783,7 @@ Security::declareFrameOptionsHeader();
                 case "mapbox":
                     ?>
                         <script src="https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js"></script>
-                        <script src="./js/map-impl/mapbox-impl.js"></script>
+                        <script src="./js/map-impl/mapbox-impl.js?t=<?php echo filemtime("./js/map-impl/mapbox-impl.js"); ?>"></script>
                         <script>
                             MapImpl.preInit({
                                 apiKey: <?php echo Config::get("map/provider/mapbox/access-token")->valueJS(); ?>
@@ -1723,7 +1797,7 @@ Security::declareFrameOptionsHeader();
                         <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
                                 integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
                                 crossorigin=""></script>
-                        <script src="./js/map-impl/leaflet-impl.js"></script>
+                        <script src="./js/map-impl/leaflet-impl.js?t=<?php echo filemtime("./js/map-impl/leaflet-impl.js"); ?>"></script>
                         <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.63.0/dist/L.Control.Locate.min.js"
                                 integrity="sha256-fDXZX7+frvNEVCWnwZ9MFVEn0ADry+xkmJC93dU9xKk="
                                 crossorigin="anonymous"></script>

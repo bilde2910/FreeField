@@ -109,9 +109,28 @@ var MapImpl = {
             html: markerNode.outerHTML,
             iconAnchor: [25, 25]
         });
-        L.marker([lat, lon], {icon: divIcon}).on("click", function() {
+        return L.marker([lat, lon], {icon: divIcon}).on("click", function() {
             openCallback(closeCallback);
         }).addTo(leafletMap);
+    },
+
+    /*
+        This function is called to move a marker to another place on the map.
+        The function takes three arguments - a target latitude and longitude, as
+        well as a reference to the marker object created and returned by
+        `addMarker()`.
+    */
+    moveMarker: function(implObject, lat, lon) {
+        implObject.setLatLng(new L.LatLng(lat, lon));
+    },
+
+    /*
+        This function is called to remove a marker from the map. The function
+        takes one argument - a reference to the marker object created and
+        returned by `addMarker()`.
+    */
+    removeMarker: function(implObject) {
+        leafletMap.removeLayer(implObject);
     },
 
     /*

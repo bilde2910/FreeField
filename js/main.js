@@ -53,16 +53,16 @@ var styleMap = {
 
 /*
     ------------------------------------------------------------------------
-        ADDING NEW POIS
+        ADDING, MOVING AND DELETING POIS
     ------------------------------------------------------------------------
 */
 
 /*
-    `addingPoi` is a boolean flag on whether or not the user is currently adding
-    a POI to the map. This is set to `true` whenever POI adding is initiated to
-    prevent duplicate processing of new POIs.
+    `mapClickHandlerActive` is a boolean flag on whether or not the user is
+    currently adding or moving a POI to the map. This is set to `true` whenever
+    POI adding or movement is initiated toprevent duplicate processing of POIs.
 */
-var addingPoi = false;
+var mapClickHandlerActive = false;
 
 /*
     Event handler for the sidebar button "Add POI". When clicked, this function
@@ -71,13 +71,13 @@ var addingPoi = false;
     map. It also displays a banner prompting the user to perform this action.
 */
 $("#add-poi-start").on("click", function() {
-    if (addingPoi) return;
+    if (mapClickHandlerActive) return;
     /*
         Set the flag that indicates that a POI is currently in process of being
         added to the map. This is used to prevent duplicate event handlers being
         registered from clicking the button multiple times.
     */
-    addingPoi = true;
+    mapClickHandlerActive = true;
     $("#add-poi-banner").fadeIn(150);
     MapImpl.bindMapClickHandler(getCoordsForPOI);
 });
@@ -88,36 +88,42 @@ $("#add-poi-start").on("click", function() {
     unbinds the associated event handler.
 */
 $("#add-poi-cancel-banner").on("click", function() {
-    disableAddPOI(true);
+    disableAddMovePOI(true);
+});
+
+/*
+    Event handler for the "cancel" button on the banner that prompts users to
+    click on the map to move an existing POI. This function cancels that action
+    and unbinds the associated event handler.
+*/
+$("#move-poi-cancel-banner").on("click", function() {
+    disableAddMovePOI(true);
 });
 
 /*
     Removes the banner prompting users to click on the map to select a location
     when adding a new POI, and also unbinds the event handlers that opens the
     dialog box prompting users for details about the POI they are adding. If
-    `setFlag` is set, `addingPoi` is reset to the default `false` value;
-    otherwise the `addingPoi` flag remains `true`.
+    `setFlag` is set, `mapClickHandlerActive` is reset to the default `false`
+    value; otherwise the `mapClickHandlerActive` flag remains `true`.
 
-    `disableAddPOI(false)` is called when the user has clicked on the map to
+    `disableAddMovePOI(false)` is called when the user has clicked on the map to
     select a location. The user has not finished adding the POI yet, hence
-    `addingPoi` should remain true.
+    `mapClickHandlerActive` should remain true.
 
-    `disableAddPOI(true)` is called if the user cancels adding a new POI by
+    `disableAddMovePOI(true)` is called if the user cancels adding a new POI by
     clicking on the "cancel" link on the banner prompting them to select a
-    location.
+    location. This function is also called when the movement process has
+    completed.
 */
-function disableAddPOI(setFlag) {
-    /*
-        `getCoordsForPOI()` is an event handler that, when called with a map
-        click event containing coordinate data, opens a dialog box that prompts
-        the user for more details about the POI, such as its name.
-    */
+function disableAddMovePOI(setFlag) {
     MapImpl.unbindMapClickHandler();
     /*
-        Hide the "please select a location on the map" banner.
+        Hide the "please select a location on the map" banners.
     */
     $("#add-poi-banner").fadeOut(150);
-    addingPoi = !setFlag;
+    $("#move-poi-banner").fadeOut(150);
+    mapClickHandlerActive = !setFlag;
 }
 
 /*
@@ -129,7 +135,7 @@ function getCoordsForPOI(lat, lon) {
     /*
         Disables the map click event handler and hides the POI banner.
     */
-    disableAddPOI(false);
+    disableAddMovePOI(false);
     /*
         The dialog box allowing the user to specify details for the newly added
         POI contains text fields displaying the coordinates of the POI. These
@@ -154,7 +160,7 @@ function getCoordsForPOI(lat, lon) {
     cancels the action of adding the POI and closes the dialog.
 */
 $("#add-poi-cancel").on("click", function() {
-    disableAddPOI(true);
+    disableAddMovePOI(true);
     $("#add-poi-details").fadeOut();
 });
 
@@ -198,7 +204,7 @@ $("#add-poi-submit").on("click", function() {
                 var markers = [data.poi];
                 addMarkers(markers);
 
-                addingPoi = false;
+                mapClickHandlerActive = false;
                 spawnBanner("success", resolveI18N("poi.add.success", poiName));
                 $("#add-poi-details").fadeOut(150);
                 $("#add-poi-working").fadeOut(150);
@@ -352,21 +358,23 @@ function addMarkers(markers) {
         marker["elementId"] = e.id;
 
         /*
-            Add the marker to the global `pois` array for easy properties lookup
-            from elsewhere in the script.
+            Add the marker to the map itself. Get a reference to the marker
+            object itself, in case it has to be updated later.
         */
-        pois[marker.id] = marker;
-
-        /*
-            Add the marker to the map itself.
-        */
-        MapImpl.addMarker(e, marker.latitude, marker.longitude,
+        var implMarkerObj = MapImpl.addMarker(e, marker.latitude, marker.longitude,
             function(markerObj) {
                 openMarker(markerObj, marker.id);
             }, function(markerObj) {
                 closeMarker(markerObj);
             }
         );
+        marker["implObject"] = implMarkerObj;
+
+        /*
+            Add the marker to the global `pois` array for easy properties lookup
+            from elsewhere in the script.
+        */
+        pois[marker.id] = marker;
 
     });
 }
@@ -546,6 +554,7 @@ function openMarker(markerObj, id) {
         If permission is not granted, hide the button.
     */
     var canReportResearch = permissions["report-research"];
+    var canManagePOIs = permissions["admin/pois/general"];
     if (
         canReportResearch &&
         (
@@ -644,6 +653,142 @@ function openMarker(markerObj, id) {
         $("#poi-add-report").show();
     } else {
         $("#poi-add-report").hide();
+    }
+    if (canManagePOIs) {
+        /*
+            Event handler for the sidebar button "Add POI". When clicked, this function
+            starts the process for adding a new POI to the map. It registers an event
+            handler that fetches the coordinates of a location the user clicks on on the
+            map. It also displays a banner prompting the user to perform this action.
+        */
+        /*
+            Event handler for the "Move POI" button. When clicked, this button
+            starts the process for moving a POI on the map. It registers an
+            event handler that fetches the coordinates of a location the user
+            clicks on on the map. It also displays a banner prompting the user
+            to perform this action.
+        */
+        $("#poi-move").on("click", function() {
+            if (mapClickHandlerActive) return;
+            /*
+                Set the flag that indicates that a POI is currently in process
+                of being moved on the map. This is used to prevent duplicate
+                event handlers being registered from clicking the button
+                multiple times.
+            */
+            mapClickHandlerActive = true;
+            /*
+                Replace the POI details dialog with the banner prompting users
+                to select a new location for the POI.
+            */
+            MapImpl.closeMarker(markerObj);
+            $("#move-poi-banner").fadeIn(150);
+            MapImpl.bindMapClickHandler(function(lat, lon) {
+                /*
+                    Disables the map click event handler and hides the POI
+                    banner. Since we're initiating a request to the server,
+                    display a "working" spinner popup to visually invidate to
+                    the user that the POI is being moved.
+                */
+                disableAddMovePOI(true);
+                $("#move-poi-working").fadeIn(150);
+                $.ajax({
+                    url: "./api/poi.php",
+                    type: "PATCH",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        id: poiObj.id,
+                        moveTo: {
+                            latitude: lat,
+                            longitude: lon
+                        }
+                    }),
+                    statusCode: {
+                        204: function(data) {
+                            /*
+                                If the request was successful, update the
+                                display of the marker on the map to reflect the
+                                new location. Also update the instance of the
+                                object in `pois` with the new location.
+                            */
+                            poiObj.latitude = lat;
+                            poiObj.longitude = lon;
+                            MapImpl.moveMarker(poiObj.implObject, lat, lon);
+
+                            /*
+                                Let the user know that the POI was successfully
+                                moved, and then close the waiting popup.
+                            */
+                            spawnBanner("success", resolveI18N("poi.move.success"));
+                            $("#move-poi-working").fadeOut(150);
+                        }
+                    }
+                }).fail(function(xhr) {
+                    /*
+                        If the update request failed, then the user should be
+                        informed of the reason with a red banner.
+                    */
+                    var data = xhr.responseJSON;
+                    var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+                    if (data !== undefined && data.hasOwnProperty("reason")) {
+                        reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+                    }
+                    spawnBanner("failed", resolveI18N("poi.move.failed.message", reason));
+                    $("#move-poi-working").fadeOut(150);
+                });
+            });
+        });
+        /*
+            Event handler for the "Delete POI" button. When clicked, this button
+            starts the process for removing a POI on the map.
+        */
+        $("#poi-delete").on("click", function() {
+            MapImpl.closeMarker(markerObj);
+            /*
+                Since we're initiating a request to the server, display a
+                "working" spinner popup to visually invidate to the user that
+                the POI is being deleted.
+            */
+            $("#delete-poi-working").fadeIn(150);
+            $.ajax({
+                url: "./api/poi.php",
+                type: "DELETE",
+                dataType: "json",
+                data: JSON.stringify({
+                    id: poiObj.id
+                }),
+                statusCode: {
+                    204: function(data) {
+                        /*
+                            If the request was successful, remove the marker
+                            from the map.
+                        */
+                        MapImpl.removeMarker(poiObj.implObject);
+
+                        /*
+                            Let the user know that the POI was successfully
+                            moved, and then close the waiting popup.
+                        */
+                        spawnBanner("success", resolveI18N("poi.delete.success"));
+                        $("#delete-poi-working").fadeOut(150);
+                    }
+                }
+            }).fail(function(xhr) {
+                /*
+                    If the deletion request failed, then the user should be
+                    informed of the reason with a red banner.
+                */
+                var data = xhr.responseJSON;
+                var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+                if (data !== undefined && data.hasOwnProperty("reason")) {
+                    reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+                }
+                spawnBanner("failed", resolveI18N("poi.delete.failed.message", reason));
+                $("#delete-poi-working").fadeOut(150);
+            });
+        });
     }
 
     /*
@@ -859,6 +1004,8 @@ function closeMarker(markerObj) {
     */
     currentMarker = -1;
 
+    $("#poi-move").off();
+    $("#poi-delete").off();
     $("#poi-directions").off();
     $("#poi-close").off();
     $("#poi-add-report").off();

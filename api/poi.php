@@ -598,83 +598,89 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 } elseif ($_SERVER["REQUEST_METHOD"] === "PATCH") {
     /*
         PATCH request will update the field research that is currently active on
-        the POI.
+        the POI, or move the POI, depending on passed parameters.
     */
-    if (!Auth::getCurrentUser()->hasPermission("report-research")) {
-        XHR::exitWith(403, array("reason" => "access_denied"));
-    }
-
-    /*
-        Obtain and lock a timestamp of when research was submitted by the user.
-    */
-    $reportedTime = time();
-
-    /*
-        Required fields are the POI ID and the reported objective and reward.
-        Ensure that all of these fields are present in the received data.
-    */
-    $reqfields = array("id", "objective", "reward");
     $patchdata = json_decode(file_get_contents("php://input"), true);
 
-    foreach ($reqfields as $field) {
-        if (!isset($patchdata[$field])) {
-            XHR::exitWith(400, array("reason" => "missing_fields"));
+    if (isset($patchdata["objective"]) && isset($patchdata["reward"])) {
+        /*
+            Field research is being updated.
+        */
+        if (!Auth::getCurrentUser()->hasPermission("report-research")) {
+            XHR::exitWith(403, array("reason" => "access_denied"));
         }
-    }
 
-    /*
-        `objective` and `reward` must both be arrays with keys defined for
-        `type` and `params`. Params must additionally be an array or object.
-    */
-    if (
-        !is_array($patchdata["objective"]) ||
-        !isset($patchdata["objective"]["type"]) ||
-        !isset($patchdata["objective"]["params"]) ||
-        !is_array($patchdata["objective"]["params"])
-    ) {
-        XHR::exitWith(400, array("reason" => "invalid_data"));
-    }
-    if (
-        !is_array($patchdata["reward"]) ||
-        !isset($patchdata["reward"]["type"]) ||
-        !isset($patchdata["reward"]["params"]) ||
-        !is_array($patchdata["reward"]["params"])
-    ) {
-        XHR::exitWith(400, array("reason" => "invalid_data"));
-    }
+        /*
+            Obtain and lock a timestamp of when research was submitted by the
+            user.
+        */
+        $reportedTime = time();
 
-    /*
-        Ensure that the submitted research data is valid.
-    */
-    __require("research");
+        /*
+            Required fields are the POI ID and the reported objective and
+            reward. Ensure that all of these fields are present in the received
+            data.
+        */
+        $reqfields = array("id", "objective", "reward");
 
-    $objective = $patchdata["objective"]["type"];
-    $objParams = $patchdata["objective"]["params"];
-    if (!Research::isObjectiveValid($objective, $objParams)) {
-        XHR::exitWith(400, array("reason" => "invalid_data"));
-    }
+        foreach ($reqfields as $field) {
+            if (!isset($patchdata[$field])) {
+                XHR::exitWith(400, array("reason" => "missing_fields"));
+            }
+        }
 
-    $reward = $patchdata["reward"]["type"];
-    $rewParams = $patchdata["reward"]["params"];
-    if (!Research::isRewardValid($reward, $rewParams)) {
-        XHR::exitWith(400, array("reason" => "invalid_data"));
-    }
+        /*
+            `objective` and `reward` must both be arrays with keys defined for
+            `type` and `params`. Params must additionally be an array or object.
+        */
+        if (
+            !is_array($patchdata["objective"]) ||
+            !isset($patchdata["objective"]["type"]) ||
+            !isset($patchdata["objective"]["params"]) ||
+            !is_array($patchdata["objective"]["params"])
+        ) {
+            XHR::exitWith(400, array("reason" => "invalid_data"));
+        }
+        if (
+            !is_array($patchdata["reward"]) ||
+            !isset($patchdata["reward"]["type"]) ||
+            !isset($patchdata["reward"]["params"]) ||
+            !is_array($patchdata["reward"]["params"])
+        ) {
+            XHR::exitWith(400, array("reason" => "invalid_data"));
+        }
 
-    /*
-        Validity is verified from here on.
+        /*
+            Ensure that the submitted research data is valid.
+        */
+        __require("research");
 
-        Create a database update array.
-    */
-    $data = array(
-        "updated_by" => Auth::getCurrentUser()->getUserID(),
-        "last_updated" => date("Y-m-d H:i:s"),
-        "objective" => $objective,
-        "obj_params" => json_encode($objParams),
-        "reward" => $reward,
-        "rew_params" => json_encode($rewParams)
-    );
+        $objective = $patchdata["objective"]["type"];
+        $objParams = $patchdata["objective"]["params"];
+        if (!Research::isObjectiveValid($objective, $objParams)) {
+            XHR::exitWith(400, array("reason" => "invalid_data"));
+        }
 
-    try {
+        $reward = $patchdata["reward"]["type"];
+        $rewParams = $patchdata["reward"]["params"];
+        if (!Research::isRewardValid($reward, $rewParams)) {
+            XHR::exitWith(400, array("reason" => "invalid_data"));
+        }
+
+        /*
+            Validity is verified from here on.
+
+            Create a database update array.
+        */
+        $data = array(
+            "updated_by" => Auth::getCurrentUser()->getUserID(),
+            "last_updated" => date("Y-m-d H:i:s"),
+            "objective" => $objective,
+            "obj_params" => json_encode($objParams),
+            "reward" => $reward,
+            "rew_params" => json_encode($rewParams)
+        );
+
         /*
             If FreeField is configured to hide POIs that are out of POI geofence
             bounds, and the POI that is being updated is outside those bounds,
@@ -705,193 +711,323 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             }
         }
 
+        try {
+            $db = Database::connect();
+            $db
+                ->from("poi")
+                ->where("id", $patchdata["id"])
+                ->update($data)
+                ->execute();
+
+            /*
+                Re-fetch the newly created POI from the database. The
+                information here is used to trigger webhooks for field research
+                updates.
+            */
+            $poidata = Geo::getPOI($patchdata["id"]);
+
+        } catch (Exception $e) {
+            XHR::exitWith(500, array("reason" => "database_error"));
+        }
+
+        /*
+            Call webhooks.
+        */
+        __require("config");
+        __require("theme");
+        __require("research");
+
+        /*
+            Get a list of all webhooks and iterate over them to check
+            eligibility of submissions.
+        */
+        $hooks = Config::getRaw("webhooks");
+        if ($hooks === null) $hooks = array();
+        foreach ($hooks as $hook) {
+            if (!$hook["active"]) continue;
+
+            /*
+                Check that the POI is within the geofence of the webhook.
+            */
+            if (isset($hook["geofence"])) {
+                if (!$poi->isWithinGeofence(Geo::getGeofence($hook["geofence"]))) {
+                    continue;
+                }
+            }
+
+            /*
+                Check if the objective matches the objective requirements
+                specified in the webhook's settings, if any.
+            */
+            if (count($hook["objectives"]) > 0) {
+                $eq = $hook["filter-mode"]["objectives"] == "whitelist";
+                $match = false;
+                foreach ($hook["objectives"] as $req) {
+                    if (Research::matches($objective, $objParams, $req["type"], $req["params"])) {
+                        $match = true;
+                        break;
+                    }
+                }
+                if ($match !== $eq) continue;
+            }
+            /*
+                Check if the reward matches the reward requirements specified in
+                the webhook's settings, if any.
+            */
+            if (count($hook["rewards"]) > 0) {
+                $eq = $hook["filter-mode"]["rewards"] == "whitelist";
+                $match = false;
+                foreach ($hook["rewards"] as $req) {
+                    if (Research::matches($reward, $rewParams, $req["type"], $req["params"])) {
+                        $match = true;
+                        break;
+                    }
+                }
+                if ($match !== $eq) continue;
+            }
+
+            /*
+                Configure I18N with the language of the webhook.
+            */
+            __require("i18n");
+            I18N::setLanguages(array($hook["language"] => "1"));
+
+            /*
+                Get the icon set selected for the webhook. If none is selected,
+                fall back to the default icon set.
+            */
+            if ($hook["icons"] !== "") {
+                $theme = Theme::getIconSet($hook["icons"]);
+            } else {
+                $theme = Theme::getIconSet();
+            }
+
+            /*
+                Post the webhook.
+            */
+            try {
+                switch ($hook["type"]) {
+                    case "json":
+                        /*
+                            Replace text replacement strings (e.g. <%COORDS%>)
+                            in the webhook's payload body.
+                        */
+                        $body = replaceWebhookFields($poidata, $reportedTime, $theme, $hook["body"], function($str) {
+                            /*
+                                String escaping for JSON
+                                Convert to JSON string and remove leading and
+                                trailing quotation marks.
+                            */
+                            return substr(json_encode($str), 1, -1);
+                        });
+
+                        $opts = array(
+                            "http" => array(
+                                "method" => "POST",
+                                "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()."\r\n".
+                                            "Content-Type: application/json\r\n".
+                                            "Content-Length: ".strlen($body),
+                                "content" => $body
+                            )
+                        );
+                        $context = stream_context_create($opts);
+                        file_get_contents($hook["target"], false, $context);
+                        break;
+
+                    case "telegram":
+                        /*
+                            Replace text replacement strings (e.g. <%COORDS%>)
+                            in the webhook's payload body.
+                        */
+                        $body = replaceWebhookFields($poidata, $reportedTime, $theme, $hook["body"], function($str) {
+                            return $str;
+                        });
+
+                        /*
+                            Extract the Telegram group ID from the target URL.
+                        */
+                        $matches = array();
+                        preg_match('/^tg:\/\/send\?to=(-\d+)$/', $hook["target"], $matches);
+
+                        /*
+                            Create an array to be POSTed to the Telegram API.
+                        */
+                        $postArray = array(
+                            "chat_id" => $matches[1],
+                            "text" => $body,
+                            "disable_web_page_preview" => $hook["options"]["disable-web-page-preview"],
+                            "disable_notification" => $hook["options"]["disable-notification"]
+                        );
+                        switch ($hook["options"]["parse-mode"]) {
+                            case "md":
+                                $postArray["parse_mode"] = "Markdown";
+                                break;
+                            case "html":
+                                $postArray["parse_mode"] = "HTML";
+                                break;
+                        }
+                        $postdata = json_encode($postArray);
+
+                        $opts = array(
+                            "http" => array(
+                                "method" => "POST",
+                                "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()."\r\n".
+                                            "Content-Type: application/json\r\n".
+                                            "Content-Length: ".strlen($postdata),
+                                "content" => $postdata
+                            )
+                        );
+
+                        __require("security");
+                        $botToken = Security::decryptArray(
+                            $hook["options"]["bot-token"],
+                            "config",
+                            "token"
+                        );
+
+                        $context = stream_context_create($opts);
+                        file_get_contents(
+                            "https://api.telegram.org/bot".
+                                urlencode($botToken)."/sendMessage",
+                            false,
+                            $context
+                        );
+                        break;
+                }
+            } catch (Exception $e) {
+
+            }
+        }
+
+        XHR::exitWith(204, null);
+
+    } elseif (isset($patchdata["moveTo"])) {
+        /*
+            A POI is being moved.
+        */
+        if (!Auth::getCurrentUser()->hasPermission("admin/pois/general")) {
+            XHR::exitWith(403, array("reason" => "access_denied"));
+        }
+
+        /*
+            Required fields are the POI ID and the new coordinates. Ensure that
+            all of these fields are present in the received data.
+        */
+        $reqfields = array("id", "moveTo");
+
+        foreach ($reqfields as $field) {
+            if (!isset($patchdata[$field])) {
+                XHR::exitWith(400, array("reason" => "missing_fields"));
+            }
+        }
+
+        /*
+            `moveTo` must be an arrays with keys defined for `latitude` and
+            `longitude`, both of which must be numbers within valid bounds.
+        */
+        if (
+            !is_array($patchdata["moveTo"]) ||
+            !isset($patchdata["moveTo"]["latitude"]) ||
+            !isset($patchdata["moveTo"]["longitude"]) ||
+            !is_numeric($patchdata["moveTo"]["latitude"]) ||
+            !is_numeric($patchdata["moveTo"]["longitude"])
+        ) {
+            XHR::exitWith(400, array("reason" => "invalid_data"));
+        }
+
+        $latitude = floatval($patchdata["moveTo"]["latitude"]);
+        $longitude = floatval($patchdata["moveTo"]["longitude"]);
+        if (
+            $latitude < -90 || $latitude > 90 ||
+            $longitude < -180 || $longitude > 180
+        ) {
+            XHR::exitWith(400, array("reason" => "invalid_data"));
+        }
+
+        /*
+            Validity is verified from here on.
+
+            Create a database update array.
+        */
+        $data = array(
+            "updated_by" => Auth::getCurrentUser()->getUserID(),
+            "last_updated" => date("Y-m-d H:i:s"),
+            "latitude" => $latitude,
+            "longitude" => $longitude
+        );
+
+        /*
+            If FreeField is configured to only accept POIs within a certain
+            geofence boundary, and the POI is being moved to a location outside
+            those bounds, there is no reason to allow the update.
+        */
+        $geofence = Config::get("map/geofence/geofence")->value();
+
+        if (
+            $geofence !== null &&
+            !$geofence->containsPoint($latitude, $longitude)
+        ) {
+            XHR::exitWith(400, array("reason" => "invalid_location"));
+        }
+
+        try {
+            $db = Database::connect();
+            $db
+                ->from("poi")
+                ->where("id", $patchdata["id"])
+                ->update($data)
+                ->execute();
+
+        } catch (Exception $e) {
+            XHR::exitWith(500, array("reason" => "database_error"));
+        }
+
+        XHR::exitWith(204, null);
+
+    }
+
+    /*
+        Invalid request.
+    */
+    XHR::exitWith(400, array("reason" => "missing_fields"));
+
+} elseif ($_SERVER["REQUEST_METHOD"] === "DELETE") {
+    /*
+        DELETE request will delete the given POI.
+    */
+    $deletedata = json_decode(file_get_contents("php://input"), true);
+
+    if (!Auth::getCurrentUser()->hasPermission("admin/pois/general")) {
+        XHR::exitWith(403, array("reason" => "access_denied"));
+    }
+
+    /*
+        Required fields are the POI ID. Ensure that it is present in the
+        received data.
+    */
+    if (!isset($deletedata["id"])) {
+        XHR::exitWith(400, array("reason" => "missing_fields"));
+    }
+
+    /*
+        Validity is verified from here on.
+
+        Delete the POI.
+    */
+    try {
         $db = Database::connect();
         $db
             ->from("poi")
-            ->where("id", $patchdata["id"])
-            ->update($data)
+            ->where("id", $deletedata["id"])
+            ->delete()
             ->execute();
-
-        /*
-            Re-fetch the newly created POI from the database. The information
-            here is used to trigger webhooks for field research updates.
-        */
-        $poidata = Geo::getPOI($patchdata["id"]);
 
     } catch (Exception $e) {
         XHR::exitWith(500, array("reason" => "database_error"));
     }
 
-    /*
-        Call webhooks.
-    */
-    __require("config");
-    __require("theme");
-    __require("research");
-
-    /*
-        Get a list of all webhooks and iterate over them to check eligibility of
-        submissions.
-    */
-    $hooks = Config::getRaw("webhooks");
-    if ($hooks === null) $hooks = array();
-    foreach ($hooks as $hook) {
-        if (!$hook["active"]) continue;
-
-        /*
-            Check that the POI is within the geofence of the webhook.
-        */
-        if (isset($hook["geofence"])) {
-            if (!$poi->isWithinGeofence(Geo::getGeofence($hook["geofence"]))) {
-                continue;
-            }
-        }
-
-        /*
-            Check if the objective matches the objective requirements specified
-            in the webhook's settings, if any.
-        */
-        if (count($hook["objectives"]) > 0) {
-            $eq = $hook["filter-mode"]["objectives"] == "whitelist";
-            $match = false;
-            foreach ($hook["objectives"] as $req) {
-                if (Research::matches($objective, $objParams, $req["type"], $req["params"])) {
-                    $match = true;
-                    break;
-                }
-            }
-            if ($match !== $eq) continue;
-        }
-        /*
-            Check if the reward matches the reward requirements specified in the
-            webhook's settings, if any.
-        */
-        if (count($hook["rewards"]) > 0) {
-            $eq = $hook["filter-mode"]["rewards"] == "whitelist";
-            $match = false;
-            foreach ($hook["rewards"] as $req) {
-                if (Research::matches($reward, $rewParams, $req["type"], $req["params"])) {
-                    $match = true;
-                    break;
-                }
-            }
-            if ($match !== $eq) continue;
-        }
-
-        /*
-            Configure I18N with the language of the webhook.
-        */
-        __require("i18n");
-        I18N::setLanguages(array($hook["language"] => "1"));
-
-        /*
-            Get the icon set selected for the webhook. If none is selected, fall
-            back to the default icon set.
-        */
-        if ($hook["icons"] !== "") {
-            $theme = Theme::getIconSet($hook["icons"]);
-        } else {
-            $theme = Theme::getIconSet();
-        }
-
-        /*
-            Post the webhook.
-        */
-        try {
-            switch ($hook["type"]) {
-                case "json":
-                    /*
-                        Replace text replacement strings (e.g. <%COORDS%>) in the webhook's
-                        payload body.
-                    */
-                    $body = replaceWebhookFields($poidata, $reportedTime, $theme, $hook["body"], function($str) {
-                        /*
-                            String escaping for JSON
-                            Convert to JSON string and remove leading and
-                            trailing quotation marks.
-                        */
-                        return substr(json_encode($str), 1, -1);
-                    });
-
-                    $opts = array(
-                        "http" => array(
-                            "method" => "POST",
-                            "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()."\r\n".
-                                        "Content-Type: application/json\r\n".
-                                        "Content-Length: ".strlen($body),
-                            "content" => $body
-                        )
-                    );
-                    $context = stream_context_create($opts);
-                    file_get_contents($hook["target"], false, $context);
-                    break;
-
-                case "telegram":
-                    /*
-                        Replace text replacement strings (e.g. <%COORDS%>) in the webhook's
-                        payload body.
-                    */
-                    $body = replaceWebhookFields($poidata, $reportedTime, $theme, $hook["body"], function($str) {
-                        return $str;
-                    });
-
-                    /*
-                        Extract the Telegram group ID from the target URL.
-                    */
-                    $matches = array();
-                    preg_match('/^tg:\/\/send\?to=(-\d+)$/', $hook["target"], $matches);
-
-                    /*
-                        Create an array to be POSTed to the Telegram API.
-                    */
-                    $postArray = array(
-                        "chat_id" => $matches[1],
-                        "text" => $body,
-                        "disable_web_page_preview" => $hook["options"]["disable-web-page-preview"],
-                        "disable_notification" => $hook["options"]["disable-notification"]
-                    );
-                    switch ($hook["options"]["parse-mode"]) {
-                        case "md":
-                            $postArray["parse_mode"] = "Markdown";
-                            break;
-                        case "html":
-                            $postArray["parse_mode"] = "HTML";
-                            break;
-                    }
-                    $postdata = json_encode($postArray);
-
-                    $opts = array(
-                        "http" => array(
-                            "method" => "POST",
-                            "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()."\r\n".
-                                        "Content-Type: application/json\r\n".
-                                        "Content-Length: ".strlen($postdata),
-                            "content" => $postdata
-                        )
-                    );
-
-                    __require("security");
-                    $botToken = Security::decryptArray(
-                        $hook["options"]["bot-token"],
-                        "config",
-                        "token"
-                    );
-
-                    $context = stream_context_create($opts);
-                    file_get_contents(
-                        "https://api.telegram.org/bot".
-                            urlencode($botToken)."/sendMessage",
-                        false,
-                        $context
-                    );
-                    break;
-            }
-        } catch (Exception $e) {
-
-        }
-    }
-
     XHR::exitWith(204, null);
+
 } else {
     /*
         Method not implemented.
