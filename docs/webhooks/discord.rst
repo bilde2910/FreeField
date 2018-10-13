@@ -62,7 +62,12 @@ Supported presets
 
 The following presets are supported by FreeField's Discord webhooks:
 
-discord.json
-^^^^^^^^^^^^
+discord-embed-full.json
+^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: _images/discord-02-preset-01-discord-json.png
+.. image:: _images/discord-02-preset-01-discord-embed-full-json.png
+
+discord-embed-compact.json
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: _images/discord-03-preset-02-discord-embed-compact-json.png
