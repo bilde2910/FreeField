@@ -147,7 +147,7 @@ class ParamSpecies {
     /*
         The number of the highest species from each generation.
     */
-    const GENERATIONS_HIGHEST = array(151, 251, 386);
+    const GENERATIONS_HIGHEST = array(151, 251, 386, 493);
 
     private static $highest_species = null;
     private static $last_species = null;
