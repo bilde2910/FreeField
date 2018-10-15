@@ -277,6 +277,20 @@ throw_simple_excellent_chain:
     categories:
       - throwing_skill
 
+# Land a Curveball Throw
+throw_curve:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
+# Make [n] Curveball Throws in a row
+throw_curve_chain:
+    params:
+      - quantity
+    categories:
+      - throwing_skill
+
 # Land a Nice Curveball Throw
 throw_curve_nice:
     params:

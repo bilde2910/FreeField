@@ -258,6 +258,11 @@
     encounter_species:
       - 246 # Larvitar
 -
+    # Make 5 Curveball Throws in a row
+    type: "throw_curve_chain"
+    params:
+        quantity: 5
+-
     # Make 2 Nice Curveball Throws in a row
     type: "throw_curve_nice_chain"
     params:
