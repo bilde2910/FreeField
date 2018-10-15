@@ -285,7 +285,7 @@ class PasswordOption extends DefaultOption {
         Randomly generated 30-character string used as an "unchanged value"
         mask. Chosen to be extremely unlikely to collide with a real value.
     */
-    private const DEFAULT_MASK = "oqXb_&WkMrdHtRZ_@}qBM=?WheuO6Y";
+    const DEFAULT_MASK = "oqXb_&WkMrdHtRZ_@}qBM=?WheuO6Y";
 
     private $mask;
 
@@ -694,13 +694,13 @@ class PermissionOption extends DefaultOption {
     /*
         Constants representing the default permission levels.
     */
-    public const LEVEL_HOST = 250;
-    public const LEVEL_ADMIN = 200;
-    public const LEVEL_MODERATOR = 160;
-    public const LEVEL_SUBMITTER = 120;
-    public const LEVEL_REGISTERED = 80;
-    public const LEVEL_READ_ONLY = 40;
-    public const LEVEL_ANONYMOUS = 0;
+    const LEVEL_HOST = 250;
+    const LEVEL_ADMIN = 200;
+    const LEVEL_MODERATOR = 160;
+    const LEVEL_SUBMITTER = 120;
+    const LEVEL_REGISTERED = 80;
+    const LEVEL_READ_ONLY = 40;
+    const LEVEL_ANONYMOUS = 0;
 
     public function getControl($current = 0, $attrs = array()) {
         /*
@@ -889,11 +889,11 @@ class FileOption extends DefaultOption {
         A path for previewing an uploaded file. The provided `$path` is appended
         to this path string.
     */
-    private const FILE_PREVIEW_PATH = "/admin/view-file.php?path=";
+    const FILE_PREVIEW_PATH = "/admin/view-file.php?path=";
     /*
         The storage location on the local server file system for uploaded files.
     */
-    private const UPLOAD_DIRECTORY = __DIR__."/../userdata/files";
+    const UPLOAD_DIRECTORY = __DIR__."/../userdata/files";
     /*
         The path of the setting this `FileOption` instance is assiged to. Used
         for generating the filename of the uploaded file, and for generating the

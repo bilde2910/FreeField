@@ -16,7 +16,7 @@
 */
 
 class Config {
-    private const CONFIG_LOCATION = __DIR__."/../userdata/config.json";
+    const CONFIG_LOCATION = __DIR__."/../userdata/config.json";
 
     /*
         `$config` holds the decoded JSON array of the config file. The
@@ -1145,7 +1145,7 @@ class ConfigSectionI18N {
 
             Please read <a href="http://example.com/">the documentation</a>.
     */
-    private const SECTIONS_WITH_DESCRIPTIONS = array(
+    const SECTIONS_WITH_DESCRIPTIONS = array(
         "security/user-creation" => array(
             // admin.section.security.user_creation.desc
         ),

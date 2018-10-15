@@ -16,7 +16,7 @@ class I18N {
         missing from the language specified here as there will be NO FALLBACK
         to a language that has these missing strings defined!
     */
-    private const DEFAULT_LANG = "en-US";
+    const DEFAULT_LANG = "en-US";
 
     /*
         `$i18ndata` holds the I18N array for the preferred loaded language.

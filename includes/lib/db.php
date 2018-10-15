@@ -143,9 +143,9 @@ class Database {
     private $pdo;
 
     // Action constants for use in `execute()`.
-    private const ACTION_INSERT = 1;
-    private const ACTION_UPDATE = 2;
-    private const ACTION_DELETE = 3;
+    const ACTION_INSERT = 1;
+    const ACTION_UPDATE = 2;
+    const ACTION_DELETE = 3;
 
     // Current action for use in `execute()`.
     private $action = null;

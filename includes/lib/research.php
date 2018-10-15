@@ -147,7 +147,7 @@ class ParamSpecies {
     /*
         The number of the highest species from each generation.
     */
-    private const GENERATIONS_HIGHEST = array(151, 251, 386);
+    const GENERATIONS_HIGHEST = array(151, 251, 386);
 
     private static $highest_species = null;
     private static $last_species = null;
@@ -350,7 +350,7 @@ class ParamSpecies {
     array of strings.
 */
 class ParamType {
-    private const TYPES = array(
+    const TYPES = array(
         "normal",   "fighting", "flying",
         "poison",   "ground",   "rock",
         "bug",      "ghost",    "steel",
@@ -590,11 +590,11 @@ class ParamEncounterItem extends ParamReward {
 }
 
 class Research {
-    private const OBJECTIVES_FILE = __DIR__."/../data/objectives.yaml";
-    private const REWARDS_FILE = __DIR__."/../data/rewards.yaml";
-    private const COMMON_TASKS_FILE = __DIR__."/../data/common-tasks.yaml";
+    const OBJECTIVES_FILE = __DIR__."/../data/objectives.yaml";
+    const REWARDS_FILE = __DIR__."/../data/rewards.yaml";
+    const COMMON_TASKS_FILE = __DIR__."/../data/common-tasks.yaml";
 
-    public const PARAMETERS = array(
+    const PARAMETERS = array(
 
         // CLass mappings for each parameter
         "quantity" => "ParamQuantity",

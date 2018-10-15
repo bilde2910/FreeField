@@ -7,10 +7,10 @@ __require("config");
 
 class Update {
 
-    private const UPDATE_SEARCH_URL = "https://api.github.com/repos/bilde2910/FreeField/releases";
-    private const CURRENT_VERSION = FF_VERSION;
-    private const CACHE_PATH = __DIR__."/../userdata/updates-cache.json";
-    private const UPDATE_CHECKING_INTERVAL = 86400;
+    const UPDATE_SEARCH_URL = "https://api.github.com/repos/bilde2910/FreeField/releases";
+    const CURRENT_VERSION = FF_VERSION;
+    const CACHE_PATH = __DIR__."/../userdata/updates-cache.json";
+    const UPDATE_CHECKING_INTERVAL = 86400;
 
     /*
         This function checks whether or not the current FreeField installation
