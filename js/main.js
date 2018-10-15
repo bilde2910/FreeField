@@ -439,6 +439,21 @@ function refreshMarkers() {
             }
 
             /*
+                If the POI has been moved on another client, it should also be
+                moved locally.
+            */
+            if (
+                oldMarker.latitude !== marker.latitude ||
+                oldMarker.longitude !== marker.longitude
+            ) {
+                MapImpl.moveMarker(
+                    oldMarker.implObject,
+                    marker.latitude,
+                    marker.longitude
+                );
+            }
+
+            /*
                 Overwrite the marker in the `pois` array with the updated values
                 from the server. Use a for loop to ensure that elements that
                 aren't in the received `marker` instance (such as the marker DOM
@@ -450,6 +465,26 @@ function refreshMarkers() {
                 }
             }
         });
+
+        /*
+            POIs can be deleted. If any locally stored POIs no longer exist,
+            remove the relevant markers from the map. To do this, search
+        */
+        for (var i = 0; i < pois.length; i++) {
+            if (pois[i] != null) {
+                var exists = false;
+                for (var j = 0; j < markers.length; j++) {
+                    if (pois[i].id == markers[j].id) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    MapImpl.removeMarker(pois[i].implObject);
+                    pois[i] = null;
+                }
+            }
+        }
     }).fail(function(xhr) {
         /*
             If the request failed, then the user should be informed of the
