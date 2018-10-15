@@ -67,7 +67,7 @@ class PreUpgrade {
             `$fromVersion` is null, the current installation is vulnerable to
             this bug.
         */
-        echo "Determining if updater is broken..."
+        echo "Determining if updater is broken...";
         if ($fromVersion === null) {
             echo <<<__END_STRING__
 ################################# FATAL ERROR ##################################
