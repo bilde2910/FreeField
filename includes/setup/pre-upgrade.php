@@ -69,6 +69,7 @@ class PreUpgrade {
         */
         echo "Determining if updater is broken...";
         if ($fromVersion === null) {
+            echo "\n";
             echo <<<__END_STRING__
 ################################# FATAL ERROR ##################################
 You are upgrading from a FreeField version with a broken auto-updater script.
