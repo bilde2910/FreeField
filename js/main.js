@@ -779,50 +779,52 @@ function openMarker(markerObj, id) {
             starts the process for removing a POI on the map.
         */
         $("#poi-delete").on("click", function() {
-            MapImpl.closeMarker(markerObj);
-            /*
-                Since we're initiating a request to the server, display a
-                "working" spinner popup to visually invidate to the user that
-                the POI is being deleted.
-            */
-            $("#delete-poi-working").fadeIn(150);
-            $.ajax({
-                url: "./api/poi.php",
-                type: "DELETE",
-                dataType: "json",
-                data: JSON.stringify({
-                    id: poiObj.id
-                }),
-                statusCode: {
-                    204: function(data) {
-                        /*
-                            If the request was successful, remove the marker
-                            from the map.
-                        */
-                        MapImpl.removeMarker(poiObj.implObject);
-
-                        /*
-                            Let the user know that the POI was successfully
-                            moved, and then close the waiting popup.
-                        */
-                        spawnBanner("success", resolveI18N("poi.delete.success"));
-                        $("#delete-poi-working").fadeOut(150);
-                    }
-                }
-            }).fail(function(xhr) {
+            if (confirm(resolveI18N("poi.delete.confirm"))) {
+                MapImpl.closeMarker(markerObj);
                 /*
-                    If the deletion request failed, then the user should be
-                    informed of the reason with a red banner.
+                    Since we're initiating a request to the server, display a
+                    "working" spinner popup to visually invidate to the user
+                    that the POI is being deleted.
                 */
-                var data = xhr.responseJSON;
-                var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+                $("#delete-poi-working").fadeIn(150);
+                $.ajax({
+                    url: "./api/poi.php",
+                    type: "DELETE",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        id: poiObj.id
+                    }),
+                    statusCode: {
+                        204: function(data) {
+                            /*
+                                If the request was successful, remove the marker
+                                from the map.
+                            */
+                            MapImpl.removeMarker(poiObj.implObject);
 
-                if (data !== undefined && data.hasOwnProperty("reason")) {
-                    reason = resolveI18N("xhr.failed.reason." + data["reason"]);
-                }
-                spawnBanner("failed", resolveI18N("poi.delete.failed.message", reason));
-                $("#delete-poi-working").fadeOut(150);
-            });
+                            /*
+                                Let the user know that the POI was successfully
+                                moved, and then close the waiting popup.
+                            */
+                            spawnBanner("success", resolveI18N("poi.delete.success"));
+                            $("#delete-poi-working").fadeOut(150);
+                        }
+                    }
+                }).fail(function(xhr) {
+                    /*
+                        If the deletion request failed, then the user should be
+                        informed of the reason with a red banner.
+                    */
+                    var data = xhr.responseJSON;
+                    var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+                    if (data !== undefined && data.hasOwnProperty("reason")) {
+                        reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+                    }
+                    spawnBanner("failed", resolveI18N("poi.delete.failed.message", reason));
+                    $("#delete-poi-working").fadeOut(150);
+                });
+            }
         });
     }
 
