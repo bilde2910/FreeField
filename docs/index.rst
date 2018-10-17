@@ -19,5 +19,12 @@ below.
    accounts
    permissions
    map/index
+   manage-poi
    geofencing
    webhooks/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: For players
+
+   reporting-research
