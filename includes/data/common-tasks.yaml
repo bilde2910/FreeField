@@ -234,7 +234,7 @@
     # Make 3 Excellent Throws in a row
     type: "throw_simple_excellent_chain"
     params:
-        quantity: 5
+        quantity: 3
     encounter_species:
       - 246 # Larvitar
 -
