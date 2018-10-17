@@ -117,6 +117,11 @@
           - 132 # Ditto
         quantity: 1
 -
+    # Use 5 berries to help catch Pokémon
+    type: "use_berry"
+    params:
+        quantity: 5
+-
     # Use 5 Pinap Berries while catching Pokémon
     type: "use_item_encounter"
     params:
