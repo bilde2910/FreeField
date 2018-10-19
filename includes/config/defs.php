@@ -1485,7 +1485,7 @@ class ConfigDefinitions {
             "map/updates/tz" => array(
                 "domain" => "map",
                 "section" => "updates",
-                "default" => ini_get('date.timezone'),
+                "default" => empty(ini_get('date.timezone')) ? "UTC" : ini_get('date.timezone'),
                 "option" => new SelectOption(
                     DateTimeZone::listIdentifiers(), "string", true
                 )

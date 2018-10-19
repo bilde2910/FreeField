@@ -52,6 +52,7 @@ if ($stage == 6 && (!$isPost || !$csrfPass)) {
                 Settings for map defaults (e.g. default coordinates).
             */
             $settings = array(
+                "map/updates/tz",
                 "map/default/center/latitude",
                 "map/default/center/longitude"
             );
