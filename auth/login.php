@@ -89,7 +89,15 @@ Security::declareFrameOptionsHeader();
 
             <div class="content">
                 <?php foreach ($providers as $provider) { ?>
-                    <a href="./oa2/<?php echo $provider; ?>.php" style="text-decoration: none;">
+                    <a href="./oa2/<?php echo $provider; ?>.php<?php
+                        /*
+                            If a continue URL is specified, pass it on to the
+                            authentication providers.
+                        */
+                        if (isset($_GET["continue"])) {
+                            echo "?continue=".urlencode($_GET["continue"]);
+                        }
+                    ?>" style="text-decoration: none;">
                         <div class="login-button auth-provider-<?php echo $provider; ?>-button">
                             <table><tbody><tr><td>
                                 <i class="<?php echo $providerIcons[$provider]; ?>"></i>

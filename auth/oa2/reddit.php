@@ -60,12 +60,10 @@ $approved = Auth::setAuthenticatedSession(
 header("HTTP/1.1 303 See Other");
 
 /*
-    Unset CSRF state cookie as it is no longer required
+    Unset cookies as they are no longer required.
 */
-setcookie(
-    "oa2-{$service}-state", "", time() - 3600,
-    strtok($_SERVER["REQUEST_URI"], "?")
-);
+setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
 
 /*
     Unapproved users should be redirected to a page explaining that
@@ -73,7 +71,7 @@ setcookie(
     contact an administrator to approve their account.
 */
 if ($approved) {
-    header("Location: ".Config::getEndpointUri("/"));
+    header("Location: ".Config::getEndpointUri($continueUrl));
 } else {
     header("Location: ".Config::getEndpointUri("/auth/approval.php"));
 }

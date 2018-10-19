@@ -28,6 +28,9 @@ $opts = array(
     "identEndpoint" => "https://api.groupme.com/v3/users/me"
 );
 
+$continueUrl = isset($_COOKIE["oa2-after-auth"]) ? $_COOKIE["oa2-after-auth"] : "/";
+$continueUrlSafe = urlencode($continueUrl);
+
 if (!isset($_GET["access_token"])) {
     /*
         AUTH STAGE I
@@ -37,6 +40,14 @@ if (!isset($_GET["access_token"])) {
         OAuth options and redirect the user there.
     */
     header("HTTP/1.1 303 See Other");
+    /*
+        If the client wishes to be redirected to a particular path after
+        authentication is complete, we should set that path as a cookie now.
+    */
+    setcookie(
+        "oa2-after-auth", isset($_GET["continue"]) ? $_GET["continue"] : "/", 0,
+        strtok($_SERVER["REQUEST_URI"], "?")
+    );
     header("Location: ".$opts["authEndpoint"].urlencode($opts["clientId"]));
     exit;
 }
@@ -72,7 +83,10 @@ set_error_handler(function($no, $str, $file, $line, $context) {
         to the "failed to authenticate" page and prompt them to try again.
     */
     header("303 See Other");
-    header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+    setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+    header("Location: ".Config::getEndpointUri(
+        "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
+    ));
     exit;
 }, E_WARNING);
 
@@ -89,7 +103,10 @@ try {
         "failed to authenticate" page and prompt them to try again.
     */
     header("303 See Other");
-    header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+    setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+    header("Location: ".Config::getEndpointUri(
+        "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
+    ));
     exit;
 }
 
@@ -101,7 +118,10 @@ if ($resp === null || $resp["meta"]["code"] !== 200) {
         "failed to authenticate" page and prompt them to try again.
     */
     header("303 See Other");
-    header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+    setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+    header("Location: ".Config::getEndpointUri(
+        "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
+    ));
     exit;
 }
 
@@ -125,12 +145,17 @@ $approved = Auth::setAuthenticatedSession(
 header("HTTP/1.1 303 See Other");
 
 /*
+    Unset cookies as they are no longer required.
+*/
+setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+
+/*
     Unapproved users should be redirected to a page explaining that
     their account has not yet been approved, and that they should
     contact an administrator to approve their account.
 */
 if ($approved) {
-    header("Location: ".Config::getEndpointUri("/"));
+    header("Location: ".Config::getEndpointUri($continueUrl));
 } else {
     header("Location: ".Config::getEndpointUri("/auth/approval.php"));
 }

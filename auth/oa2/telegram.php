@@ -72,13 +72,35 @@ Security::declareFrameOptionsHeader();
                     data-telegram-login="<?php echo Config::get("auth/provider/{$service}/bot-username")->valueHTML(); ?>"
                     data-size="large"
                     data-userpic="false"
-                    data-auth-url="<?php echo Config::getEndpointUri("/auth/oa2/telegram.php?").Security::getCSRFUrlParameter(); ?>">
+                    data-auth-url="<?php
+                        /*
+                            If the client wishes to be redirected to a
+                            particular path after authentication is complete, we
+                            should set that path as our redirect location.
+                        */
+                        echo Config::getEndpointUri("/auth/oa2/telegram.php?") .
+                             Security::getCSRFUrlParameter() . (
+                                 isset($_GET["continue"])
+                                 ? "&continue=" . urlencode($_GET["continue"])
+                                 : ""
+                             );
+                    ?>">
             </script>
         </div>
     </body>
 </html>
 
 <?php exit; }
+
+/*
+    If the client wishes to be redirected to a particular path after
+    authentication is complete, we should set that path as our redirect
+    location.
+*/
+$continueUrl = isset($_GET["continue"]) ? $_GET["continue"] : "/";
+$continueUrlSafe = urlencode($continueUrl);
+// Unset to prevent conflict with hashing validation function.
+unset($_GET["continue"]);
 
 /*
     Stage I success
@@ -96,7 +118,9 @@ Security::declareFrameOptionsHeader();
 */
 if (!Security::validateCSRF()) {
     header("303 See Other");
-    header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+    header("Location: ".Config::getEndpointUri(
+        "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
+    ));
     exit;
 }
 
@@ -141,7 +165,9 @@ $verify = hash_hmac("SHA256", $data, $key);
 
 if ($verify !== $hash || time() - intval($_GET["auth_date"]) > 600) {
     header("303 See Other");
-    header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+    header("Location: ".Config::getEndpointUri(
+        "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
+    ));
     exit;
 }
 
@@ -193,14 +219,16 @@ try {
         contact an administrator to approve their account.
     */
     if ($approved) {
-        header("Location: ".Config::getEndpointUri("/"));
+        header("Location: ".Config::getEndpointUri($continueUrl));
     } else {
         header("Location: ".Config::getEndpointUri("/auth/approval.php"));
     }
     exit;
 } catch (Exception $e) {
     header("303 See Other");
-    header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+    header("Location: ".Config::getEndpointUri(
+        "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
+    ));
     exit;
 }
 

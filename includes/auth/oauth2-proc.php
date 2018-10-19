@@ -36,6 +36,8 @@ __require("vendor/oauth2");
 __require("vendor/oauth2/authcode");
 
 $client = new OAuth2\Client($opts["clientId"], $opts["clientSecret"], $opts["clientAuth"]);
+$continueUrl = isset($_COOKIE["oa2-after-auth"]) ? $_COOKIE["oa2-after-auth"] : "/";
+$continueUrlSafe = urlencode($continueUrl);
 
 if (!isset($_GET["code"])) {
     /*
@@ -60,6 +62,16 @@ if (!isset($_GET["code"])) {
         "oa2-{$service}-state", $state, 0,
         strtok($_SERVER["REQUEST_URI"], "?")
     );
+
+    /*
+        If the client wishes to be redirected to a particular path after
+        authentication is complete, we should set that path as a cookie now.
+    */
+    setcookie(
+        "oa2-after-auth", isset($_GET["continue"]) ? $_GET["continue"] : "/", 0,
+        strtok($_SERVER["REQUEST_URI"], "?")
+    );
+
     header("Location: {$authUrl}");
     exit;
 } elseif (
@@ -79,14 +91,14 @@ if (!isset($_GET["code"])) {
     header("303 See Other");
 
     /*
-        Unset CSRF state cookie as it is no longer required
+        Unset cookies as they are no longer required.
     */
-    setcookie(
-        "oa2-{$service}-state", "", time() - 3600,
-        strtok($_SERVER["REQUEST_URI"], "?")
-    );
+    setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+    setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
 
-    header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+    header("Location: ".Config::getEndpointUri(
+        "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
+    ));
     exit;
 }
 
@@ -123,14 +135,14 @@ try {
         header("303 See Other");
 
         /*
-            Unset CSRF state cookie as it is no longer required
+            Unset cookies as they are no longer required.
         */
-        setcookie(
-            "oa2-{$service}-state", "", time() - 3600,
-            strtok($_SERVER["REQUEST_URI"], "?")
-        );
+        setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+        setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
 
-        header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+        header("Location: ".Config::getEndpointUri(
+            "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
+        ));
         exit;
     }
 
@@ -154,14 +166,14 @@ try {
         header("303 See Other");
 
         /*
-            Unset CSRF state cookie as it is no longer required
+            Unset cookies as they are no longer required.
         */
-        setcookie(
-            "oa2-{$service}-state", "", time() - 3600,
-            strtok($_SERVER["REQUEST_URI"], "?")
-        );
+        setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+        setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
 
-        header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+        header("Location: ".Config::getEndpointUri(
+            "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
+        ));
         exit;
     }
 } catch (Exception $e) {
@@ -182,14 +194,14 @@ try {
     header("303 See Other");
 
     /*
-        Unset CSRF state cookie as it is no longer required
+        Unset cookies as they are no longer required.
     */
-    setcookie(
-        "oa2-{$service}-state", "", time() - 3600,
-        strtok($_SERVER["REQUEST_URI"], "?")
-    );
+    setcookie("oa2-{$service}-state", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
+    setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
 
-    header("Location: ".Config::getEndpointUri("/auth/failed.php?provider={$service}"));
+    header("Location: ".Config::getEndpointUri(
+        "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
+    ));
     exit;
 }
 

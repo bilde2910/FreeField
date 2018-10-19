@@ -150,14 +150,24 @@ Security::declareFrameOptionsHeader();
                         process, redirect the user back to the install wizard.
                     */
                     if (Config::getRaw("install/wizard/authenticate-now") !== true) {
-                        echo json_encode("./login.php");
+                        echo json_encode(
+                            isset($_GET["continue"])
+                            ? "./login.php?continue=".urlencode($_GET["continue"])
+                            : "./login.php"
+                        );
                     } else {
                         echo json_encode("../admin/install-wizard.php?auth-failed");
                     }
                 ?>;
             });
             $("#login-failed-retry").on("click", function() {
-                location.href = "./oa2/<?php echo $provider; ?>.php";
+                location.href = <?php
+                    echo json_encode(
+                        isset($_GET["continue"])
+                        ? "./oa2/{$provider}.php?continue=".urlencode($_GET["continue"])
+                        : "./oa2/{$provider}.php"
+                    );
+                ?>;
             });
         </script>
     </body>
