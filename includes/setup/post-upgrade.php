@@ -58,7 +58,16 @@ ALTER TABLE {$prefix}user CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unico
 __END_STRING__;
                 $db->execute($sql);
                 if (!$silent) echo " ok\n";
-                break;
+
+            case "1.0-alpha.4":
+            case "1.0-alpha.5":
+                /*
+                    Bugfix: Empty timezone value breaks core functionality.
+                    Default to UTC in those cases.
+                */
+                if (empty(Config::get("map/updates/tz")->value())) {
+                    Config::set(array("map/updates/tz" => "UTC"));
+                }
         }
         /*
             Recheck for updates.
