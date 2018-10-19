@@ -746,6 +746,20 @@ function openMarker(markerObj, id) {
             $("#update-poi-details").show();
         });
         $("#poi-add-report").show();
+    } else if (!isAuthenticated()) {
+        /*
+            If the user does not have permission to report research, but the
+            reason is that they aren't logged in, then redirect the user to the
+            login page instead of hiding the button. This is better UX than
+            simply removing the button, leaving new users clueless about how to
+            report research since 1) the button isn't shown and 2) it isn't
+            immediately obvious that users have to sign in.
+        */
+        $("#poi-add-report").on("click", function() {
+            location.href = "./auth/login.php?continue="
+                          + encodeURIComponent("/" + location.hash);
+        });
+        $("#poi-add-report").show();
     } else {
         $("#poi-add-report").hide();
     }

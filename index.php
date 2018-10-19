@@ -192,6 +192,13 @@ Security::declareFrameOptionsHeader();
                     "colortheme" => Config::get("themes/color/user-settings/theme")->value()
                 ));
             ?>;
+
+            /*
+                Determine if user is signed in or not.
+            */
+            function isAuthenticated() {
+                return <?php echo Auth::isAuthenticated() ? "true" : "false"; ?>;
+            }
         </script>
         <script src="./js/option.js?t=<?php echo $linkMod["/js/option.js"]; ?>" async defer></script>
         <link rel="shortcut icon"
