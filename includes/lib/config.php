@@ -1174,7 +1174,7 @@ class ConfigSectionI18N {
         ),
         "mobile/pwa" => array(
             // admin.section.mobile.pwa.desc
-            '<a target="_blank" href="https://github.com/bilde2910/FreeField/wiki/FreeField-PWA">',
+            '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/pwa.html">',
             '</a>'
         ),
         "perms/map-access" => array(
