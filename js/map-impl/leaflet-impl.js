@@ -143,6 +143,15 @@ var MapImpl = {
     },
 
     /*
+        This function is called on page load to manually open the given marker
+        on the Leaflet map. The `poiObj` is the POI object as stored in the
+        `pois` array.
+    */
+    simulatePOIClick: function(poiObj) {
+        $("#" + poiObj.elementId).trigger("click");
+    },
+
+    /*
         Returns the center of the current map view on Leaflet.
     */
     getCenter: function() {

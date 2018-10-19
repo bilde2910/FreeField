@@ -70,8 +70,10 @@ var mapClickHandlerActive = false;
     handler that fetches the coordinates of a location the user clicks on on the
     map. It also displays a banner prompting the user to perform this action.
 */
-$("#add-poi-start").on("click", function() {
+$("#add-poi-start").on("click", function(e) {
+    e.preventDefault();
     if (mapClickHandlerActive) return;
+
     /*
         Set the flag that indicates that a POI is currently in process of being
         added to the map. This is used to prevent duplicate event handlers being
@@ -87,7 +89,8 @@ $("#add-poi-start").on("click", function() {
     click on the map to add a new POI. This function cancels that action and
     unbinds the associated event handler.
 */
-$("#add-poi-cancel-banner").on("click", function() {
+$("#add-poi-cancel-banner").on("click", function(e) {
+    e.preventDefault();
     disableAddMovePOI(true);
 });
 
@@ -96,7 +99,8 @@ $("#add-poi-cancel-banner").on("click", function() {
     click on the map to move an existing POI. This function cancels that action
     and unbinds the associated event handler.
 */
-$("#move-poi-cancel-banner").on("click", function() {
+$("#move-poi-cancel-banner").on("click", function(e) {
+    e.preventDefault();
     disableAddMovePOI(true);
 });
 
@@ -508,6 +512,51 @@ $(document).ready(function() {
     */
     $.getJSON("./api/poi.php", function(data) {
         addMarkers(data["pois"]);
+        /*
+            Handle deep-linking via URL hashes.
+        */
+        var hashFound = false;
+        if (location.hash.length >= 2) {
+            if (location.hash.startsWith("#/poi/")) {
+                /*
+                    The link has a POI ID. Open the ID listed in the URL.
+                */
+                var poiId = location.hash.substring("#/poi/".length);
+                if (poiId.indexOf("/") >= 0) {
+                    poiId = poiId.substring(0, poiId.indexOf("/"));
+                }
+                /*
+                    If the POI is found, open it, otherwise, reset the hash back
+                    to the main map view ("#/").
+                */
+                poiId = parseInt(poiId);
+                if (!isNaN(poiId) && poiId >= 0 && poiId < pois.length) {
+                    var poi = pois[poiId];
+                    if (poi != null && poi.hasOwnProperty("elementId")) {
+                        hashFound = true;
+                        MapImpl.simulatePOIClick(poi);
+                    }
+                }
+            } else if (location.hash.startsWith("#/settings")) {
+                /*
+                    The link points directly to the user settings page.
+                */
+                hashFound = true;
+                $("#menu-open-settings").trigger("click");
+            }
+        }
+
+        /*
+            If no handler for the current URL was successful, reset the hash
+            value back to the default map view URL ("#/").
+        */
+        if (false && !hashFound) {
+            if (history.replaceState) {
+                history.replaceState(null, null, "#/");
+            } else {
+                location.hash = "#/";
+            }
+        }
     }).fail(function(xhr) {
         /*
             If the request failed, then the user should be informed of the
@@ -550,6 +599,17 @@ $(document).ready(function() {
 var currentMarker = -1;
 function openMarker(markerObj, id) {
     currentMarker = id;
+
+    /*
+        Set the address bar URL to reflect the POI, to let the user copy and
+        paste it to share the specific POI with others.
+    */
+    if (history.replaceState) {
+        history.replaceState(null, null, "#/poi/" + id + "/");
+    } else {
+        location.hash = "#/poi/" + id + "/";
+    }
+
     /*
         Get data for the POI in the list of POIs received from the server. This
         list is stored in the `pois` variable, and can be looked up using the ID
@@ -1036,28 +1096,44 @@ function openMarker(markerObj, id) {
 */
 function closeMarker(markerObj) {
     /*
-        Reset the `currentMarker` ID since the POI details dialog is no longer
-        open (i.e. there is no currently displayed marker).
+        When using mapbox-gl.js, this function is somehow called whenever
+        markers are added to the map. Ensure that this function can only be
+        called if the marker is actually open.
     */
-    currentMarker = -1;
+    if ($("#poi-details").is(":visible")) {
+        /*
+            Reset the `currentMarker` ID since the POI details dialog is no longer
+            open (i.e. there is no currently displayed marker).
+        */
+        currentMarker = -1;
 
-    $("#poi-move").off();
-    $("#poi-delete").off();
-    $("#poi-directions").off();
-    $("#poi-close").off();
-    $("#poi-add-report").off();
-    $("#update-poi-submit").off();
-    $("#poi-details").fadeOut(150);
+        /*
+            Set the address bar URL back to the main map.
+        */
+        if (history.replaceState) {
+            history.replaceState(null, null, "#/");
+        } else {
+            location.hash = "#/";
+        }
 
-    /*
-        Reset the marker icons in the POI details popup.
-    */
-    setTimeout(function() {
-        // 1x1 transparent GIF
-        var blankImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-        $("#poi-objective-icon").attr("src", blankImage);
-        $("#poi-reward-icon").attr("src", blankImage);
-    }, 150);
+        $("#poi-move").off();
+        $("#poi-delete").off();
+        $("#poi-directions").off();
+        $("#poi-close").off();
+        $("#poi-add-report").off();
+        $("#update-poi-submit").off();
+        $("#poi-details").fadeOut(150);
+
+        /*
+            Reset the marker icons in the POI details popup.
+        */
+        setTimeout(function() {
+            // 1x1 transparent GIF
+            var blankImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+            $("#poi-objective-icon").attr("src", blankImage);
+            $("#poi-reward-icon").attr("src", blankImage);
+        }, 150);
+    }
 }
 
 /*
@@ -1126,6 +1202,15 @@ $("#menu-open-settings").on("click", function(e) {
     e.preventDefault();
 
     /*
+        For deep-linking.
+    */
+    if (history.replaceState) {
+        history.replaceState(null, null, "#/settings/");
+    } else {
+        location.hash = "#/settings/";
+    }
+
+    /*
         Update all the input and select boxes in the configuration pane with the
         values currently stored in the configuration.
     */
@@ -1158,6 +1243,15 @@ $("#menu-open-settings").on("click", function(e) {
 */
 $("#menu-close-settings").on("click", function(e) {
     e.preventDefault();
+
+    /*
+        For deep-linking.
+    */
+    if (history.replaceState) {
+        history.replaceState(null, null, "#/");
+    } else {
+        location.hash = "#/";
+    }
 
     /*
         Hides the settings pane and settings-specific sidebar items, and shows

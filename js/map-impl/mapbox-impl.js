@@ -160,6 +160,15 @@ var MapImpl = {
     },
 
     /*
+        This function is called on page load to manually open the given marker
+        on the Mapbox map. The `poiObj` is the POI object as stored in the
+        `pois` array.
+    */
+    simulatePOIClick: function(poiObj) {
+        openMarker(poiObj.implObject.getPopup(), poiObj.id);
+    },
+
+    /*
         Returns the center of the current map view on Mapbox.
     */
     getCenter: function() {
