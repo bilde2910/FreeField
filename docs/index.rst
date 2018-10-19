@@ -22,6 +22,7 @@ below.
    manage-poi
    geofencing
    webhooks/index
+   pwa
 
 .. toctree::
    :maxdepth: 2
