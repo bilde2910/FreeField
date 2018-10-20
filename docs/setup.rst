@@ -397,6 +397,9 @@ Configuration file updated
    writable. The userdata directory and its contents must remain permanently
    writable in order for FreeField to function properly.
 
+Post-installation steps
+-----------------------
+
 If all these checks passed, you have successfully completed the installation
 wizard and set up FreeField for use. Before you grant others access to the map,
 you should set up additional settings such as :doc:`/geofencing`,
