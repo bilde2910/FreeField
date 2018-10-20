@@ -97,6 +97,16 @@ if ($stage == 6 && (!$isPost || !$csrfPass)) {
         <p>
             <?php echo I18N::resolveHTML("install.stage.{$stage}.next"); ?>
         </p>
+        <h2 class="content-subhead">
+            <?php echo I18N::resolveHTML("install.stage.{$stage}.post-install.head"); ?>
+        </h2>
+        <p>
+            <?php echo I18N::resolveArgsHTML(
+                "install.stage.{$stage}.post-install.body", false,
+                '<a href="https://freefield.readthedocs.io/en/latest/setup.html#post-installation-steps" target="_blank">',
+                '</a>'
+            ); ?>
+        </p>
         <?php
         /*
             If the data is invalid or the assertations otherwise failed,
