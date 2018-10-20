@@ -1275,7 +1275,7 @@ class ConfigDefinitions {
             "themes/color/user-settings/theme" => array(
                 "domain" => "themes",
                 "section" => "color",
-                "default" => "dark",
+                "default" => "light",
                 "option" => new SelectOption(array(
                     "light",
                     "dark"
