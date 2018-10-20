@@ -400,8 +400,8 @@ Configuration file updated
 If all these checks passed, you have successfully completed the installation
 wizard and set up FreeField for use. Before you grant others access to the map,
 you should set up additional settings such as :doc:`/geofencing`,
-:doc:`/permissions`, names and theming, and add Pokéstops in your area to the
-map.
+:doc:`/permissions`, :doc:`/appearance`, and then add the :doc:`manage-poi` in
+your area to the map.
 
 .. warning:: By default, FreeField allows submission of Pokéstops to the map
              anywhere in the world. To prevent your map from being leeched by

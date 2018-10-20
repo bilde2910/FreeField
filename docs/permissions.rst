@@ -129,6 +129,8 @@ The only permission which is set to this group by default is "View map," to
 allow anyone to view the map and any submitted research without having to
 authenticate.
 
+.. _group-settings:
+
 Group settings
 --------------
 

@@ -22,6 +22,7 @@ below.
    manage-poi
    geofencing
    webhooks/index
+   appearance
    pwa
 
 .. toctree::
