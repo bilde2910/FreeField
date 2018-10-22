@@ -1114,7 +1114,7 @@ function closeMarker(markerObj) {
         markers are added to the map. Ensure that this function can only be
         called if the marker is actually open.
     */
-    if ($("#poi-details").is(":visible")) {
+    if (currentMarker != -1) {
         /*
             Reset the `currentMarker` ID since the POI details dialog is no longer
             open (i.e. there is no currently displayed marker).
