@@ -11,6 +11,52 @@
 # `type` objective in /includes/data/objectives.yaml.
 
 # --------------------------------------------------------------------------
+#     Event objectives
+# --------------------------------------------------------------------------
+
+-
+    # Catch 5 Dark-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - dark
+        quantity: 5
+-
+    # Catch 10 Ghost-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - ghost
+        quantity: 10
+    encounter_species:
+      - 302 # Sableye
+-
+    # Catch 5 Poochyena or Houndour
+    type: "catch_specific"
+    params:
+        species:
+          - 261 # Poochyena
+          - 228 # Houndour
+        quantity: 5
+    encounter_species:
+      - 215 # Sneasel
+-
+    # Evolve 3 Shuppet or Duskull
+    type: "evolve_specific"
+    params:
+        species:
+          - 353 # Shuppet
+          - 355 # Duskull
+        quantity: 3
+-
+    # Transfer 10 Pokémon
+    type: "transfer"
+    params:
+        quantity: 10
+    encounter_species:
+      - 200 # Misdreavus
+
+# --------------------------------------------------------------------------
 #     Gym objectives
 # --------------------------------------------------------------------------
 -
