@@ -1303,7 +1303,7 @@ $(".hook-list").on("change", 'select[data-uri-scheme="tg"].hook-target', functio
             randomly generated replacement mask instead. In that case, fetch the
             ID of the webhook and use that to look up the token server-side.
         */
-        if (!token.match(/^\d+:[A-Za-z\d]+$/)) {
+        if (!token.match(/^\d+:[A-Za-z\d_-]+$/)) {
             var webhookId = $(this).closest(".hook-instance").attr("data-hook-id");
             xhrURI = "../xhr/tg-groups.php?forId=" + encodeURI(webhookId);
         }

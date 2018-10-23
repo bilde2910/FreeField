@@ -246,7 +246,7 @@ foreach ($_POST as $postid => $data) {
             /*
                 This regex query matches a Telegram bot token
             */
-            if (preg_match("/^\d+:[A-Za-z\d]+$/", $botToken)) {
+            if (preg_match("/^\d+:[A-Za-z\d_-]+$/", $botToken)) {
                 $hook["options"]["bot-token"] = Security::encryptArray(
                     array("token" => $botToken), "config"
                 );
