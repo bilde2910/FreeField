@@ -347,7 +347,7 @@ foreach ($_POST as $postid => $data) {
     if (isset($hook["geofence"]) && $valid && $fence === null) {
         unset($hook["geofence"]);
     } elseif ($valid) {
-        $hook["geofence"] = $fence;
+        $hook["geofence"] = $data["geofence"];
     }
 
     /*
