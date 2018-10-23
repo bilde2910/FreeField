@@ -44,6 +44,28 @@ $output = array(
 );
 
 /*
+    iOS Safari's PWA implementation breaks the OAuth authentication flow. When
+    a user tries to authenticate, they are redirected off the browser context of
+    the PWA since the authentication domain is out-of-scope. However, unlike
+    most Android implementations, the user is not redirected back to the PWA
+    browser context when the user returns into scope after completing
+    authentication. This means that users aren't signed in in the PWA instance,
+    but in Safari instead. There is no known stable workaround for this issue,
+    so it is fixed in FreeField by forcing browser display mode for PWA on iOS
+    clients. This causes the PWA to open in Safari, where users are able to
+    follow the OAuth authentication flow properly.
+*/
+if (isset($_SERVER["HTTP_USER_AGENT"])) {
+    if (
+        stristr($_SERVER["HTTP_USER_AGENT"], "iPhone") !== FALSE ||
+        stristr($_SERVER["HTTP_USER_AGENT"], "iPad") !== FALSE ||
+        stristr($_SERVER["HTTP_USER_AGENT"], "iPod") !== FALSE
+    ) {
+        $output["display"] = "browser";
+    }
+}
+
+/*
     Output the manifest file.
 */
 $output = json_encode($output, JSON_PRETTY_PRINT);
