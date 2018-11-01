@@ -11,50 +11,70 @@
 # `type` objective in /includes/data/objectives.yaml.
 
 # --------------------------------------------------------------------------
-#     Event objectives
+#     Monthly objectives
 # --------------------------------------------------------------------------
-
 -
-    # Catch 5 Dark-type Pokémon
-    type: "catch_type"
+    # Win a raid
+    type: "win_raid"
     params:
-        type:
-          - dark
-        quantity: 5
--
-    # Catch 10 Ghost-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - ghost
-        quantity: 10
+        quantity: 1
     encounter_species:
-      - 302 # Sableye
+      - 204 # Pineco
 -
-    # Catch 5 Poochyena or Houndour
-    type: "catch_specific"
-    params:
-        species:
-          - 261 # Poochyena
-          - 228 # Houndour
-        quantity: 5
-    encounter_species:
-      - 215 # Sneasel
--
-    # Evolve 3 Shuppet or Duskull
+    # Evolve 2 Pidgey
     type: "evolve_specific"
     params:
         species:
-          - 353 # Shuppet
-          - 355 # Duskull
-        quantity: 3
--
-    # Transfer 10 Pokémon
-    type: "transfer"
-    params:
-        quantity: 10
+          - 16 # Pidgey
+        quantity: 2
     encounter_species:
-      - 200 # Misdreavus
+      - 10 # Caterpie
+-
+    # Send 5 Gifts to Friends
+    type: "send_gift"
+    params:
+        quantity: 5
+    encounter_species:
+      - 42 # Golbat
+-
+    # Catch 5 Bug-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - bug
+        quantity: 5
+    encounter_species:
+      - 290 # Nincada
+-
+    # Make 3 Nice Curveball Throws
+    type: "throw_curve_nice"
+    params:
+        quantity: 3
+    encounter_species:
+      - 327 # Spinda
+-
+    # Earn a Candy walking with your buddy
+    type: "buddy_candy"
+    params:
+        quantity: 1
+    encounter_species:
+      - 36 # Clefable
+-
+    # Make 5 Great Throws in a row
+    type: "throw_simple_great_chain"
+    params:
+        quantity: 5
+    encounter_species:
+      - 40 # Wigglytuff
+-
+    # Catch 5 Normal-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - normal
+        quantity: 5
+    encounter_species:
+      - 127 # Pinsir
 
 # --------------------------------------------------------------------------
 #     Gym objectives
@@ -95,18 +115,13 @@
     params:
         quantity: 1
 -
-    # Win a raid
-    type: "win_raid"
-    params:
-        quantity: 1
--
     # Win a level 3 or higher raid
     type: "level_raid"
     params:
         min_tier: 3
         quantity: 1
 -
-    # Use a Super Effective Charged Attack 7 Gym battles
+    # Use a Super Effective Charged Attack in 7 Gym battles
     type: "se_charge"
     params:
         quantity: 7
@@ -130,6 +145,7 @@
         quantity: 5
     encounter_species:
       - 37 # Vulpix
+      - 60 # Poliwag
 -
     # Catch a Dragon-type Pokémon
     type: "catch_type"
@@ -140,50 +156,16 @@
     encounter_species:
       - 147 # Dratini
 -
-    # Catch 10 Normal-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - normal
-        quantity: 10
--
-    # Catch 5 Water-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - water
-        quantity: 5
-    encounter_species:
-      - 98 # Krabby
--
     # Catch a Ditto
     type: "catch_specific"
     params:
         species:
           - 132 # Ditto
         quantity: 1
--
-    # Use 5 berries to help catch Pokémon
-    type: "use_berry"
-    params:
-        quantity: 5
--
-    # Use 5 Pinap Berries while catching Pokémon
-    type: "use_item_encounter"
-    params:
-        encounter_item: "pinap_berry"
-        quantity: 5
 
 # --------------------------------------------------------------------------
 #     Walking objectives
 # --------------------------------------------------------------------------
--
-    # Earn a Candy walking with your buddy
-    type: "buddy_candy"
-    params:
-        quantity: 1
-    encounter_species:
-      - 224 # Octillery
 -
     # Hatch an Egg
     type: "hatch"
@@ -191,13 +173,6 @@
         quantity: 1
     encounter_species:
       - 102 # Exeggcute
--
-    # Hatch 2 Eggs
-    type: "hatch"
-    params:
-        quantity: 2
-    encounter_species:
-      - 320 # Wailmer
 -
     # Hatch 3 Eggs
     type: "hatch"
@@ -223,15 +198,6 @@
         quantity: 1
     encounter_species:
       - 133 # Eevee
--
-    # Evolve 10 Water-type Pokémon
-    type: "evolve_type"
-    params:
-        type:
-          - water
-        quantity: 10
-    encounter_species:
-      - 147 # Dratini
 -
     # Power up Pokémon 5 times
     type: "power_up"
@@ -288,13 +254,6 @@
     type: "throw_curve_chain"
     params:
         quantity: 5
--
-    # Make 2 Nice Curveball Throws in a row
-    type: "throw_curve_nice_chain"
-    params:
-        quantity: 2
-    encounter_species:
-      - 327 # Spinda
 
 # --------------------------------------------------------------------------
 #     Exploration objectives
@@ -303,10 +262,3 @@
 # --------------------------------------------------------------------------
 #     Social objectives
 # --------------------------------------------------------------------------
--
-    # Trade a Pokémon
-    type: "trade"
-    params:
-        quantity: 1
-    encounter_species:
-      - 349 # Feebas
