@@ -30,3 +30,10 @@ below.
    :caption: For players
 
    reporting-research
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Developer documentation
+   :glob:
+
+   dev/*

@@ -100,6 +100,12 @@ html_static_path = ['_static']
 #
 # html_sidebars = {}
 
+# Syntax highlighting for PHP.
+from sphinx.highlighting import lexers
+from pygments.lexers.web import PhpLexer
+lexers["php"] = PhpLexer(startinline=True, linenos=1)
+lexers["php-annotations"] = PhpLexer(startinline=True, linenos=1)
+
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
