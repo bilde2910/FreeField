@@ -30,6 +30,8 @@ research was reported.
    parentheses directly after "COORDS". For example, ``<%COORDS(4)%>`` will
    return the string "42.6344°N, 87.1201°E."
 
+.. _tokenref-research-info:
+
 Research task information
 -------------------------
 
@@ -188,15 +190,16 @@ deep into the internal workings of the reported research task.
 ``<%OBJECTIVE_PARAMETER_COUNT(param)%>`` |br| ``<%REWARD_PARAMETER_COUNT(param)%>``
    Returns the number of submitted entries for the given parameter ``param`` of
    the reported research objective or reward. Parameters can be any parameters
-   listed in the developer documentation on research parameters. The behavior of
-   this substitution token is as follows:
+   in the :ref:`parameter-list` in the developer documentation on research data.
+   The behavior of this substitution token is as follows:
 
    -  If the requested parameter is not present in the reported research
       objective or reward, this token is substituted by 0.
 
    -  Otherwise, and if the parameter is internally represented by an array type
-      (please refer to the developer documentation to see if this is the case),
-      this token is substituted by a number representing the size of that array.
+      (please refer to the :ref:`parameter-list` in the developer documentation
+      to see if this is the case), this token is substituted by a number
+      representing the size of that array.
 
    -  If the parameter is present and is not internally represented by an array,
       this token is substituted by 1.
