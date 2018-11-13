@@ -196,12 +196,32 @@ try {
         ? $_GET["first_name"]." ".$_GET["last_name"]
         : null
     );
+    if ($user === null || $user == "") $user = (
+        isset($_GET["first_name"])
+        ? $_GET["first_name"]
+        : null
+    );
+    if ($user === null || $user == "") $user = (
+        isset($_GET["last_name"])
+        ? $_GET["last_name"]
+        : null
+    );
     if ($user === null || $user == "") $user = $_GET["id"];
 
     $hid = (isset($_GET["username"]) ? "@".$_GET["username"] : null);
     if ($hid === null || $hid == "") $hid = (
         isset($_GET["first_name"]) && isset($_GET["last_name"])
         ? $_GET["first_name"]." ".$_GET["last_name"]
+        : null
+    );
+    if ($hid === null || $hid == "") $hid = (
+        isset($_GET["first_name"])
+        ? $_GET["first_name"]
+        : null
+    );
+    if ($hid === null || $hid == "") $hid = (
+        isset($_GET["last_name"])
+        ? $_GET["last_name"]
         : null
     );
     if ($hid === null || $hid == "") $hid = $_GET["id"];
