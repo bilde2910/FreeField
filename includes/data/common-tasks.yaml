@@ -87,6 +87,13 @@
     encounter_species:
       - 56 # Mankey
 -
+    # Battle in a Gym 5 times
+    type: "battle_gym"
+    params:
+        quantity: 5
+    encounter_species:
+      - 66 # Machop
+-
     # Win a Gym battle
     type: "win_gym"
     params:
