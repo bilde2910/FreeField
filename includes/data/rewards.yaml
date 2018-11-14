@@ -253,3 +253,10 @@ up_grade:
       - quantity
     categories:
       - evolution_item
+
+# Sinnoh Stones
+sinnoh_stone:
+    params:
+      - quantity
+    categories:
+      - evolution_item

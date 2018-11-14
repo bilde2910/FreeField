@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #d7bdd9;
+                stroke: #490051;
+                stroke-miterlimit: 10;
+                stroke-width: 2px;
+            }
+            .cls-2 {
+                fill: url(#radial-gradient);
+            }
+            .cls-3 {
+                fill: url(#radial-gradient-2);
+            }
+            .cls-4 {
+                fill: url(#radial-gradient-3);
+            }
+            .cls-5 {
+                fill: url(#radial-gradient-4);
+            }
+            .cls-6 {
+                fill: url(#radial-gradient-5);
+            }
+            .cls-7 {
+                fill: url(#radial-gradient-6);
+            }
+            .cls-8 {
+                fill: url(#radial-gradient-7);
+            }
+            .cls-15, .cls-9 {
+                fill: #a8dee3;
+            }
+            .cls-10 {
+                fill: #b9e5e9;
+            }
+            .cls-11 {
+                fill: #dcf2f4;
+            }
+            .cls-12 {
+                fill: #eef8f9;
+            }
+            .cls-13 {
+                fill: #7ea7aa;
+            }
+            .cls-14 {
+                fill: #cbebee;
+            }
+            .cls-15 {
+                opacity: 0.66;
+            }
+        </style>
+        <radialGradient id="radial-gradient" cx="29.51" cy="37.4" r="10.14" gradientUnits="userSpaceOnUse">
+            <stop offset="0.47" stop-color="#fff" />
+            <stop offset="0.67" stop-color="#ea86ff" />
+            <stop offset="0.72" stop-color="#db78ef" />
+            <stop offset="0.82" stop-color="#b552c6" />
+            <stop offset="0.96" stop-color="#771583" />
+            <stop offset="1" stop-color="#61006c" />
+        </radialGradient>
+        <radialGradient id="radial-gradient-2" cx="43.77" cy="39.98" r="3.58" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#61006c" />
+            <stop offset="1" stop-color="#310036" />
+        </radialGradient>
+        <radialGradient id="radial-gradient-3" cx="30.43" cy="50.17" r="7.67" gradientUnits="userSpaceOnUse">
+            <stop offset="0.28" stop-color="#ba51b0" />
+            <stop offset="0.37" stop-color="#aa43a4" />
+            <stop offset="0.54" stop-color="#811d84" />
+            <stop offset="0.66" stop-color="#61006c" />
+            <stop offset="0.73" stop-color="#5a0064" />
+            <stop offset="0.85" stop-color="#49004e" />
+            <stop offset="0.99" stop-color="#2c0029" />
+            <stop offset="1" stop-color="#2a0027" />
+        </radialGradient>
+        <radialGradient id="radial-gradient-4" cx="42.89" cy="47.64" r="5.16" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#b850c0" />
+            <stop offset="0.07" stop-color="#a948b0" />
+            <stop offset="0.22" stop-color="#833287" />
+            <stop offset="0.23" stop-color="#7e2f82" />
+            <stop offset="0.7" stop-color="#4c134c" />
+            <stop offset="1" stop-color="#2a0027" />
+        </radialGradient>
+        <radialGradient id="radial-gradient-5" cx="36.34" cy="36.33" r="9.41" xlink:href="#radial-gradient-3" />
+        <radialGradient id="radial-gradient-6" cx="36.72" cy="50.66" r="5.65" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#61006c" />
+            <stop offset="1" stop-color="#310036" />
+        </radialGradient>
+        <radialGradient id="radial-gradient-7" cx="34.37" cy="41.76" r="11.57" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#b850c0" />
+            <stop offset="0.13" stop-color="#a841b1" />
+            <stop offset="0.37" stop-color="#7f1c89" />
+            <stop offset="0.53" stop-color="#61006c" />
+            <stop offset="0.63" stop-color="#5a0064" />
+            <stop offset="0.79" stop-color="#49004e" />
+            <stop offset="0.99" stop-color="#2c0029" />
+            <stop offset="1" stop-color="#2a0027" />
+        </radialGradient>
+    </defs>
+    <title>sinnoh-stone</title>
+    <polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7" />
+    <polygon class="cls-2" points="33.21 46.29 30.86 46.29 35.28 38.62 36.46 40.66 33.21 46.29" />
+    <polygon class="cls-3" points="46.21 46.29 48.55 46.29 44.13 38.62 42.96 40.66 46.21 46.29" />
+    <polygon class="cls-4" points="33.21 46.29 30.86 46.29 35.28 53.95 36.46 51.91 33.21 46.29" />
+    <polygon class="cls-5" points="46.21 46.29 48.55 46.29 44.13 53.95 42.96 51.91 46.21 46.29" />
+    <polygon class="cls-6" points="42.96 40.66 36.46 40.66 35.28 38.62 44.13 38.62 42.96 40.66" />
+    <polygon class="cls-7" points="42.96 51.91 36.46 51.91 35.28 53.95 44.13 53.95 42.96 51.91" />
+    <polygon class="cls-8" points="42.96 40.66 36.46 40.66 33.21 46.29 36.46 51.91 42.96 51.91 46.21 46.29 42.96 40.66" />
+    <polygon class="cls-9" points="44.35 70.59 32.81 59.72 28.53 51.35 38.11 52.06 42.6 56.41 39.71 44.2 46.45 27.41 56.28 42.4 56.7 47.71 62.91 39.63 67.47 51.24 66.87 68.13 60.81 69.85 58.65 68.53 55.78 70.41 52.91 68.85 50.65 70.52 44.35 70.59" />
+    <polygon class="cls-9" points="55.67 66.7 54.4 67.75 51.11 44 56.28 42.4 56.7 47.71 56.17 48.4 55.67 66.7" />
+    <polygon class="cls-10" points="46.45 27.41 51.11 44 56.28 42.4 46.45 27.41" />
+    <polygon class="cls-11" points="46.45 27.41 42.56 44.05 51.11 44 46.45 27.41" />
+    <polygon class="cls-12" points="54.4 67.75 47.03 60.71 42.56 44.05 51.11 44 54.4 67.75" />
+    <polygon class="cls-13" points="46.45 27.41 39.71 44.2 42.56 44.05 46.45 27.41" />
+    <polygon class="cls-9" points="47.03 60.71 42.6 56.41 39.71 44.2 42.56 44.05 47.03 60.71" />
+    <polygon class="cls-14" points="49.46 63.03 44.39 64.1 42.36 62.01 34.79 54.44 38.11 52.06 49.46 63.03" />
+    <polygon class="cls-9" points="50.65 70.52 44.39 64.1 49.46 63.03 54.4 67.75 50.65 70.52" />
+    <polygon class="cls-10" points="60.81 69.85 55.67 66.7 56.17 48.4 61.97 51.35 60.81 69.85" />
+    <polygon class="cls-11" points="62.91 39.63 56.7 47.71 56.17 48.4 61.97 51.35 62.91 39.63" />
+    <polygon class="cls-9" points="62.91 39.63 61.97 51.35 67.47 51.24 62.91 39.63" />
+    <polygon class="cls-13" points="66.87 68.13 60.81 69.85 61.97 51.35 67.47 51.24 66.87 68.13" />
+    <polygon class="cls-13" points="42.36 62.01 44.35 70.59 50.65 70.52 42.36 62.01" />
+    <polygon class="cls-11" points="38.11 52.06 28.53 51.35 34.79 54.44 38.11 52.06" />
+    <polygon class="cls-9" points="42.36 62.01 34.79 54.44 28.53 51.35 32.81 59.72 44.35 70.59 42.36 62.01" />
+    <polygon class="cls-15" points="55.78 70.41 52.91 68.85 54.4 67.75 55.67 66.7 58.65 68.53 55.78 70.41" />
+</svg>
