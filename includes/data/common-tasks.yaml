@@ -11,6 +11,33 @@
 # `type` objective in /includes/data/objectives.yaml.
 
 # --------------------------------------------------------------------------
+#     Event objectives
+# --------------------------------------------------------------------------
+-
+    # Make an Excellent Throw
+    type: "throw_simple_excellent"
+    params:
+        quantity: 1
+    encounter_species:
+      - 132 # Ditto
+-
+    # Hatch 2 Eggs
+    type: "hatch"
+    params:
+        quantity: 2
+    encounter_species:
+      - 142 # Aerodactyl
+-
+    # Evolve 2 Anorith
+    type: "evolve_specific"
+    params:
+        species:
+          - 347 # Anorith
+        quantity: 2
+    encounter_species:
+      - 123 # Scyther
+
+# --------------------------------------------------------------------------
 #     Monthly objectives
 # --------------------------------------------------------------------------
 -
