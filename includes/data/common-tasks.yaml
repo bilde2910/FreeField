@@ -155,6 +155,11 @@
         min_tier: 3
         quantity: 1
 -
+    # Use a Super Effective Charged Attack in a Gym battle
+    type: "se_charge"
+    params:
+        quantity: 1
+-
     # Use a Super Effective Charged Attack in 7 Gym battles
     type: "se_charge"
     params:
@@ -264,11 +269,11 @@
     type: "throw_simple_great"
     params:
         quantity: 5
--
-    # Make an Excellent Throw
-    type: "throw_simple_excellent"
-    params:
-        quantity: 1
+#-
+#    # Make an Excellent Throw
+#    type: "throw_simple_excellent"
+#    params:
+#        quantity: 1
 -
     # Make 3 Great Throws in a row
     type: "throw_simple_great_chain"
