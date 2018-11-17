@@ -4,6 +4,7 @@
 */
 
 __require("geo");
+__require("research");
 
 ?>
 <div class="content wide-content">
@@ -95,25 +96,37 @@ __require("geo");
                                         <?php echo $poi->getCreator()->getProviderIdentityHTML(); ?>
                                     </span>
                                 </td>
-                                <?php /*
-                                    The research objective and reward are
-                                    displayed as icons, rather than the full
-                                    human-readable text, to save space in the
-                                    table. The table is pretty wide already, and
-                                    requires at least a 1920px wide display to
-                                    properly show all of its columns.
+                                <?php
+                                    /*
+                                        The research objective and reward are
+                                        displayed as icons, rather than the full
+                                        human-readable text, to save space in the
+                                        table. The table is pretty wide already, and
+                                        requires at least a 1920px wide display to
+                                        properly show all of its columns.
 
-                                    Sidenote: This is a nightmare on mobile, and
-                                    if anyone has any suggestions on how to
-                                    improve this display on mobile clients,
-                                    please let me know by making an issue/pull
-                                    request.
-                                */ ?>
+                                        Sidenote: This is a nightmare on mobile, and
+                                        if anyone has any suggestions on how to
+                                        improve this display on mobile clients,
+                                        please let me know by making an issue/pull
+                                        request.
+                                    */
+                                    $objString = Research::resolveObjective(
+                                        $poi->getCurrentObjective()["type"],
+                                        $poi->getCurrentObjective()["params"]
+                                    );
+                                    $rewString = Research::resolveReward(
+                                        $poi->getCurrentReward()["type"],
+                                        $poi->getCurrentReward()["params"]
+                                    );
+                                ?>
                                 <td class="no-wrap">
                                     <img class="poi-table-marker"
-                                         src="<?php echo $icons->getIconUrl($poi->getCurrentObjective()["type"]); ?>">
+                                         src="<?php echo $icons->getIconUrl($poi->getCurrentObjective()["type"]); ?>"
+                                         title="<?php echo htmlspecialchars($objString, ENT_QUOTES); ?>"
                                     <img class="poi-table-marker"
-                                         src="<?php echo $icons->getIconUrl($poi->getCurrentReward()["type"]); ?>">
+                                         src="<?php echo $icons->getIconUrl($poi->getCurrentReward()["type"]); ?>"
+                                         title="<?php echo htmlspecialchars($rewString, ENT_QUOTES); ?>"
                                 </td>
                                 <td><?php echo $poi->getLastUpdatedString(); ?></td>
                                 <td style="line-height: 1.2em;">
