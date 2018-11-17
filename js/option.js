@@ -135,13 +135,13 @@ $(document).ready(function() {
     values next to the color input.
 */
 $(document).ready(function() {
-    $(".color-option-input").on("input", function() {
+    $(".color-option-input").on("change", function() {
         var value = $(this).val();
         if (value.match(/^#[0-9A-Fa-f]{6}$/)) {
             var r = parseInt(value.substring(1, 3), 16);
             var g = parseInt(value.substring(3, 5), 16);
             var b = parseInt(value.substring(5, 7), 16);
-            $(this).next().text("r="+r+", g="+g+", b="+b+"");
+            $(this).closest("p").find("span").text("r="+r+", g="+g+", b="+b+"");
         }
     });
 });

@@ -17,6 +17,15 @@ __require("config");
 date_default_timezone_set(Config::get("map/updates/tz")->value());
 
 /*
+    Disable all caching.
+*/
+header("Expires: ".date("r", 0));
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+header("Content-Type: application/json");
+
+/*
     When the user enters a body payload for webhooks, they may choose to use
     substitution tokens, such as <%COORDS%> or <%POI%>. These should be replaced
     with the proper dynamic values before the webhook payload is posted to the

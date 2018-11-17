@@ -135,6 +135,7 @@ $linkMod = array(
     "/css/admin.css"        => filemtime("../css/admin.css"),
     "/css/dark.css"         => filemtime("../css/dark.css"),
     "/css/light.css"        => filemtime("../css/light.css"),
+    "/js/ie-polyfill.js"    => filemtime("../js/ie-polyfill.js"),
     "/js/option.js"         => filemtime("../js/option.js")
 );
 
@@ -158,12 +159,33 @@ Security::declareFrameOptionsHeader();
             Config::get("site/name")->value(),
             I18N::resolve($di18n->getTitle())
         ); ?></title>
+
+        <?php if (preg_match('/(MSIE|Trident)/', $_SERVER['HTTP_USER_AGENT'])) { ?>
+            <!--
+                Internet Explorer requires loading polyfills for certain
+                JavaScript functionality such as `String.prototype.startsWith()`
+                since it does not support ECMAScript 6.
+            -->
+            <script src="../js/ie-polyfill.js?t=<?php echo $linkMod["/js/ie-polyfill.js"]; ?>"></script>
+        <?php } ?>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.min.js"
                 integrity="sha256-dwhppIrxD8qC6lNulndZgtIm4XBU9zoMd9OUoXzIDAE="
                 crossorigin="anonymous"></script>
+        <!--
+            <input type="color"> polyfill:
+        -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"
+                integrity="sha256-ZdnRjhC/+YiBbXTHIuJdpf7u6Jh5D2wD5y0SNRWDREQ="
+                crossorigin="anonymous"></script>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css"
+              integrity="sha256-f83N12sqX/GO43Y7vXNt9MjrHkPc4yi9Uq9cLy1wGIU="
+              crossorigin="anonymous" />
+
         <script src="../js/clientside-i18n.php"></script>
         <script>
             /*

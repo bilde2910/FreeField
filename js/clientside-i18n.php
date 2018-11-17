@@ -92,7 +92,10 @@ var i18n = <?php
 
         var string = "Hi, my name is Alice! My favorite color is {%2}.";
 */
-function resolveI18N(key, ...args) {
+function resolveI18N(/* key, ...args */) {
+    var args = Array.prototype.slice.call(arguments);
+    var key = args.shift();
+
     if (i18n.hasOwnProperty(key)) {
         var resolv = i18n[key];
         for (var i = 0; i < args.length; i++) {

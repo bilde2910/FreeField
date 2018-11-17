@@ -150,6 +150,7 @@ $linkMod = array(
     "/css/main.css"         => filemtime("./css/main.css"),
     "/css/dark.css"         => filemtime("./css/dark.css"),
     "/css/light.css"        => filemtime("./css/light.css"),
+    "/js/ie-polyfill.js"    => filemtime("./js/ie-polyfill.js"),
     "/js/main.js"           => filemtime("./js/main.js"),
     "/js/option.js"         => filemtime("./js/option.js"),
     "/pwa/register-sw.js"   => filemtime("./pwa/register-sw.js")
@@ -175,6 +176,16 @@ Security::declareFrameOptionsHeader();
             true,
             Config::get("site/name")->value()
         ); ?></title>
+
+        <?php if (preg_match('/(MSIE|Trident)/', $_SERVER['HTTP_USER_AGENT'])) { ?>
+            <!--
+                Internet Explorer requires loading polyfills for certain
+                JavaScript functionality such as `String.prototype.startsWith()`
+                since it does not support ECMAScript 6.
+            -->
+            <script src="./js/ie-polyfill.js?t=<?php echo $linkMod["/js/ie-polyfill.js"]; ?>"></script>
+        <?php } ?>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
