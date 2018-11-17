@@ -151,6 +151,7 @@ __require("vendor/parsedown");
                                            class="button-submit install-button"
                                            data-version="<?php echo htmlspecialchars($release["version"], ENT_QUOTES); ?>"
                                            value="<?php echo I18N::resolveHTML("admin.section.updates.ui.update.name"); ?>">
+                                </p>
                             <?php
                         }
                     ?>
@@ -158,7 +159,6 @@ __require("vendor/parsedown");
             <?php
         }
     ?>
-    </p>
 </div>
 
 <!--
@@ -230,4 +230,4 @@ __require("vendor/parsedown");
 <!--
     /admin/js/updates.js contains additional functionality for this page.
 -->
-<script type="text/javascript" src="./js/updates.js"></script>
+<script src="./js/updates.js"></script>

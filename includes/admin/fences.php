@@ -96,4 +96,4 @@ __require("geo");
 <!--
     /admin/js/fences.js contains additional functionality for this page.
 -->
-<script type="text/javascript" src="./js/fences.js"></script>
+<script src="./js/fences.js"></script>

@@ -109,7 +109,7 @@
                                             </option>
                                         </select>
                                     </td>
-                                </td>
+                                </tr>
                             <?php
                         }
                     ?>
@@ -193,7 +193,7 @@
                                         </option>
                                     </select>
                                 </td>
-                            </td>
+                            </tr>
                         <?php
                     }
                 ?>
@@ -260,4 +260,4 @@
     cut down on the number of fields that are submitted to the server to avoid
     hitting the server-side `max_input_vars` limit of 1000.
 -->
-<script type="text/javascript" src="./js/limit-inputs.js"></script>
+<script src="./js/limit-inputs.js"></script>

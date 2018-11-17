@@ -165,7 +165,7 @@
                                         </p>
                                     </div>
                                     <div class="pure-u-2-3 full-on-mobile">
-                                        <p><?php echo $inst->html("update-hook-objective-param-{$param}-input", "parameter"); ?></p>
+                                        <?php echo $inst->html("update-hook-objective-param-{$param}-input", "parameter"); ?>
                                     </div>
                                 </div>
                             <?php
@@ -261,15 +261,13 @@
             <div class="cover-button-spacer"></div>
             <div class="pure-g">
                 <div class="pure-u-1-2 right-align">
-                    <span type="button"
-                          id="update-hook-objective-cancel"
+                    <span id="update-hook-objective-cancel"
                           class="button-standard split-button button-spaced left">
                                 <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
                     </span>
                 </div>
                 <div class="pure-u-1-2">
-                    <span type="button"
-                          id="update-hook-objective-submit"
+                    <span id="update-hook-objective-submit"
                           class="button-submit split-button button-spaced right">
                                 <?php echo I18N::resolveHTML("ui.button.done"); ?>
                     </span>
@@ -400,7 +398,7 @@
                                         </p>
                                     </div>
                                     <div class="pure-u-2-3 full-on-mobile">
-                                        <p><?php echo $inst->html("update-hook-reward-param-{$param}-input", "parameter"); ?></p>
+                                        <?php echo $inst->html("update-hook-reward-param-{$param}-input", "parameter"); ?>
                                     </div>
                                 </div>
                             <?php
@@ -495,15 +493,13 @@
             <div class="cover-button-spacer"></div>
             <div class="pure-g">
                 <div class="pure-u-1-2 right-align">
-                    <span type="button"
-                          id="update-hook-reward-cancel"
+                    <span id="update-hook-reward-cancel"
                           class="button-standard split-button button-spaced left">
                                 <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
                     </span>
                 </div>
                 <div class="pure-u-1-2">
-                    <span type="button"
-                          id="update-hook-reward-submit"
+                    <span id="update-hook-reward-submit"
                           class="button-submit split-button button-spaced right">
                                 <?php echo I18N::resolveHTML("ui.button.done"); ?>
                     </span>
@@ -546,15 +542,13 @@
             <div class="cover-button-spacer"></div>
             <div class="pure-g">
                 <div class="pure-u-1-2 right-align">
-                    <span type="button"
-                          id="select-tg-group-cancel"
+                    <span id="select-tg-group-cancel"
                           class="button-standard split-button button-spaced left">
                                 <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
                     </span>
                 </div>
                 <div class="pure-u-1-2">
-                    <span type="button"
-                          id="select-tg-group-submit"
+                    <span id="select-tg-group-submit"
                           class="button-submit split-button button-spaced right">
                                 <?php echo I18N::resolveHTML("ui.button.select"); ?>
                     </span>
@@ -705,15 +699,13 @@
             <div class="cover-button-spacer"></div>
             <div class="pure-g">
                 <div class="pure-u-1-2 right-align">
-                    <span type="button"
-                          id="add-hook-cancel"
+                    <span id="add-hook-cancel"
                           class="button-standard split-button button-spaced left">
                                 <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
                     </span>
                 </div>
                 <div class="pure-u-1-2">
-                    <span type="button"
-                          id="add-hook-submit"
+                    <span id="add-hook-submit"
                           class="button-submit split-button button-spaced right">
                                 <?php echo I18N::resolveHTML("ui.button.done"); ?>
                     </span>
@@ -1256,4 +1248,4 @@
     requires several of those objects (e.g. list of current webhooks) to
     function.
 -->
-<script type="text/javascript" src="./js/hooks.js"></script>
+<script src="./js/hooks.js"></script>

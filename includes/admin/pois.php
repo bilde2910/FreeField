@@ -124,9 +124,11 @@ __require("research");
                                     <img class="poi-table-marker"
                                          src="<?php echo $icons->getIconUrl($poi->getCurrentObjective()["type"]); ?>"
                                          title="<?php echo htmlspecialchars($objString, ENT_QUOTES); ?>"
+                                         alt="<?php echo htmlspecialchars($objString, ENT_QUOTES); ?>">
                                     <img class="poi-table-marker"
                                          src="<?php echo $icons->getIconUrl($poi->getCurrentReward()["type"]); ?>"
                                          title="<?php echo htmlspecialchars($rewString, ENT_QUOTES); ?>"
+                                         alt="<?php echo htmlspecialchars($rewString, ENT_QUOTES); ?>">
                                 </td>
                                 <td><?php echo $poi->getLastUpdatedString(); ?></td>
                                 <td style="line-height: 1.2em;">
@@ -163,7 +165,7 @@ __require("research");
                                         <?php echo I18N::resolveHTML("admin.section.pois.poi_list.action.delete"); ?>
                                     </option>
                                 </select></td>
-                            </td>
+                            </tr>
                         <?php
                     }
                 ?>
@@ -325,9 +327,9 @@ __require("research");
     cut down on the number of fields that are submitted to the server to avoid
     hitting the server-side `max_input_vars` limit of 1000.
 -->
-<script type="text/javascript" src="./js/limit-inputs.js"></script>
+<script src="./js/limit-inputs.js"></script>
 
 <!--
     /admin/js/pois.js contains additional functionality for this page.
 -->
-<script type="text/javascript" src="./js/pois.js"></script>
+<script src="./js/pois.js"></script>

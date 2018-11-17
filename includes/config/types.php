@@ -231,7 +231,7 @@ class ParagraphOption extends DefaultOption {
         }
 
         $attrString = parent::constructAttributes($attrs);
-        return '<textarea type="text"'.$attrString.'>'.$current.'</textarea>';
+        return '<textarea'.$attrString.'>'.$current.'</textarea>';
     }
 
     public function getFollowingBlock() {

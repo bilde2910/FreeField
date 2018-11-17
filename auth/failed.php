@@ -122,15 +122,13 @@ Security::declareFrameOptionsHeader();
                 <div class="cover-button-spacer"></div>
                 <div class="pure-g">
                     <div class="pure-u-1-2 right-align full-on-mobile">
-                        <span type="button"
-                              id="login-failed-cancel"
+                        <span id="login-failed-cancel"
                               class="button-standard split-button button-spaced">
                                     <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
                         </span>
                     </div>
                     <div class="pure-u-1-2 full-on-mobile">
-                        <span type="button"
-                              id="login-failed-retry"
+                        <span id="login-failed-retry"
                               class="button-submit split-button button-spaced">
                                     <?php echo I18N::resolveHTML("ui.button.retry"); ?>
                         </span>

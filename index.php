@@ -490,7 +490,7 @@ Security::declareFrameOptionsHeader();
                                 <div class="cover-button-spacer"></div>
                                 <div class="pure-g">
                                     <div class="pure-u-1-1 right-align">
-                                        <span type="button" id="poi-add-report"
+                                        <span id="poi-add-report"
                                               class="button-standard split-button">
                                             <?php echo I18N::resolveHTML("poi.report_research"); ?>
                                         </span>
@@ -504,15 +504,13 @@ Security::declareFrameOptionsHeader();
                                         ?>
                                             <div class="pure-g">
                                                 <div class="pure-u-1-2 right-align">
-                                                    <span type="button"
-                                                          id="poi-move"
+                                                    <span id="poi-move"
                                                           class="button-standard split-button button-spaced left">
                                                         <?php echo I18N::resolveHTML("poi.move"); ?>
                                                     </span>
                                                 </div>
                                                 <div class="pure-u-1-2">
-                                                    <span type="button"
-                                                          id="poi-delete"
+                                                    <span id="poi-delete"
                                                           class="button-standard split-button button-spaced right">
                                                         <?php echo I18N::resolveHTML("poi.delete"); ?>
                                                     </span>
@@ -523,15 +521,13 @@ Security::declareFrameOptionsHeader();
                                 ?>
                                 <div class="pure-g">
                                     <div class="pure-u-1-2 right-align">
-                                        <span type="button"
-                                              id="poi-directions"
+                                        <span id="poi-directions"
                                               class="button-standard split-button button-spaced left">
                                             <?php echo I18N::resolveHTML("poi.directions"); ?>
                                         </span>
                                     </div>
                                     <div class="pure-u-1-2">
-                                        <span type="button"
-                                              id="poi-close"
+                                        <span id="poi-close"
                                               class="button-standard split-button button-spaced right">
                                             <?php echo I18N::resolveHTML("ui.button.close"); ?>
                                         </span>
@@ -580,15 +576,13 @@ Security::declareFrameOptionsHeader();
                                 <div class="cover-button-spacer"></div>
                                 <div class="pure-g">
                                     <div class="pure-u-1-2 right-align">
-                                        <span type="button"
-                                              id="add-poi-cancel"
+                                        <span id="add-poi-cancel"
                                               class="button-standard split-button button-spaced left">
                                             <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
                                         </span>
                                     </div>
                                     <div class="pure-u-1-2">
-                                        <span type="button"
-                                              id="add-poi-submit"
+                                        <span id="add-poi-submit"
                                               class="button-submit split-button button-spaced right">
                                             <?php echo I18N::resolveHTML("poi.add.submit"); ?>
                                         </span>
@@ -774,10 +768,10 @@ Security::declareFrameOptionsHeader();
                                                             <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
                                                         </div>
                                                         <div class="pure-u-2-3 full-on-mobile">
-                                                            <p><?php echo $inst->html(
+                                                            <?php echo $inst->html(
                                                                 "update-poi-objective-param-{$param}-input",
                                                                 "parameter"
-                                                            ); ?></p>
+                                                            ); ?>
                                                         </div>
                                                     </div>
                                                 <?php
@@ -1001,10 +995,10 @@ Security::declareFrameOptionsHeader();
                                                             <p><?php echo I18N::resolveHTML("parameter.{$param}.label"); ?>:</p>
                                                         </div>
                                                         <div class="pure-u-2-3 full-on-mobile">
-                                                            <p><?php echo $inst->html(
+                                                            <?php echo $inst->html(
                                                                 "update-poi-reward-param-{$param}-input",
                                                                 "parameter"
-                                                            ); ?></p>
+                                                            ); ?>
                                                         </div>
                                                     </div>
                                                 <?php
@@ -1098,15 +1092,13 @@ Security::declareFrameOptionsHeader();
                                 <div class="cover-button-spacer"></div>
                                 <div class="pure-g">
                                     <div class="pure-u-1-2 right-align">
-                                        <span type="button"
-                                              id="update-poi-cancel"
+                                        <span id="update-poi-cancel"
                                               class="button-standard split-button button-spaced left">
                                                     <?php echo I18N::resolveHTML("ui.button.cancel"); ?>
                                         </span>
                                     </div>
                                     <div class="pure-u-1-2">
-                                        <span type="button"
-                                              id="update-poi-submit"
+                                        <span id="update-poi-submit"
                                               class="button-submit split-button button-spaced right">
                                                     <?php echo I18N::resolveHTML("poi.update.submit"); ?>
                                         </span>
@@ -1163,7 +1155,7 @@ Security::declareFrameOptionsHeader();
 
                                             <div class="pure-g">
                                                 <div class="pure-u-1-1 right-align">
-                                                    <span type="button" id="motd-close"
+                                                    <span id="motd-close"
                                                           class="button-standard split-button">
                                                         <?php echo I18N::resolveHTML("motd.close"); ?>
                                                     </span>

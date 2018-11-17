@@ -158,4 +158,4 @@
 <!--
     /admin/js/groups.js contains additional functionality for this page.
 -->
-<script type="text/javascript" src="./js/groups.js"></script>
+<script src="./js/groups.js"></script>
