@@ -605,6 +605,18 @@ h1.head-small {
     z-index: 11;
 }
 
+/* Leaflet markers are automatically assigned a z-index value that corresponds
+   to its latitude. This means that the southernmost markers are displayed on
+   top of all other markers. This can make it hard to find markers with research
+   tasks defined. Override this behavior using data attributes on the Leaflet
+   marker elements. */
+.leaflet-marker-icon {
+    z-index: 12 !important;
+}
+.leaflet-marker-icon[data-ff-icon="unknown"] {
+    z-index: 11 !important;
+}
+
 /* Markers as they appear in the list of POIs on the administration pages. These
    show the current research on each POI in the list. */
 .poi-table-marker {

@@ -370,7 +370,8 @@ function addMarkers(markers) {
                 openMarker(markerObj, marker.id);
             }, function(markerObj) {
                 closeMarker(markerObj);
-            }
+            },
+            marker[settings.get("markerComponent")].type
         );
         marker["implObject"] = implMarkerObj;
 
@@ -421,11 +422,13 @@ function refreshMarkers() {
                 case "reward":
                     if ($("#" + oldMarker.elementId).hasClass(oldReward)) {
                         $("#" + oldMarker.elementId).removeClass(oldReward).addClass(newReward);
+                        MapImpl.updateMarker(oldMarker.implObject, oldReward, newReward);
                     }
                     break;
                 case "objective":
                     if ($("#" + oldMarker.elementId).hasClass(oldObjective)) {
                         $("#" + oldMarker.elementId).removeClass(oldObjective).addClass(newObjective);
+                        MapImpl.updateMarker(oldMarker.implObject, oldObjective, newObjective);
                     }
                     break;
             }
@@ -1023,11 +1026,13 @@ function openMarker(markerObj, id) {
                         case "reward":
                             if ($("#" + poiObj.elementId).hasClass(oldReward)) {
                                 $("#" + poiObj.elementId).removeClass(oldReward).addClass(reward);
+                                MapImpl.updateMarker(poiObj.implObject, oldReward, reward);
                             }
                             break;
                         case "objective":
                             if ($("#" + poiObj.elementId).hasClass(oldObjective)) {
                                 $("#" + poiObj.elementId).removeClass(oldObjective).addClass(objective);
+                                MapImpl.updateMarker(poiObj.implObject, oldObjective, objective);
                             }
                             break;
                     }

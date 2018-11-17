@@ -93,13 +93,14 @@ var MapImpl = {
 
     /*
         This function is called to add a marker to the map. The function takes
-        five arguments - an HTML node representing the marker on the map, two
+        six arguments - an HTML node representing the marker on the map, two
         position arguments indicating the location that the marker is to be
         added at on the map, as well as two callback functions - one that is
         triggered when the marker node on the map is clicked, i.e. opened, and
-        one that is called when the marker is closed.
+        one that is called when the marker is closed - plus the ID of the icon
+        displayed for the marker, in the form of an objective or reward ID.
     */
-    addMarker: function(markerNode, lat, lon, openCallback, closeCallback) {
+    addMarker: function(markerNode, lat, lon, openCallback, closeCallback, iconID) {
         /*
             Define a Mapbox popup that is attached to the marker. This popup is
             just added to facilitate event handlers - we're making a custom
@@ -139,6 +140,18 @@ var MapImpl = {
     */
     moveMarker: function(implObject, lat, lon) {
         implObject.setLngLat([lon, lat]);
+    },
+
+    /*
+        This function is called when the icon of a marker is updated. The
+        function takes three arguments - a reference to the marker object
+        created and returned by `addMarker()`, and the old and new icons
+        assigned to the marker, in the form of objective or reward IDs.
+    */
+    updateMarker: function(implObject, oldIcon, newIcon) {
+        /*
+            This function does not do anything for mapbox-gl.js implementations.
+        */
     },
 
     /*

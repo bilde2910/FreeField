@@ -95,13 +95,14 @@ var MapImpl = {
 
     /*
         This function is called to add a marker to the map. The function takes
-        five arguments - an HTML node representing the marker on the map, two
+        six arguments - an HTML node representing the marker on the map, two
         position arguments indicating the location that the marker is to be
         added at on the map, as well as two callback functions - one that is
         triggered when the marker node on the map is clicked, i.e. opened, and
-        one that is called when the marker is closed.
+        one that is called when the marker is closed - plus the ID of the icon
+        displayed for the marker, in the form of an objective or reward ID.
     */
-    addMarker: function(markerNode, lat, lon, openCallback, closeCallback) {
+    addMarker: function(markerNode, lat, lon, openCallback, closeCallback, iconID) {
         /*
             Declare and add the Leaflet marker to the map.
         */
@@ -109,9 +110,15 @@ var MapImpl = {
             html: markerNode.outerHTML,
             iconAnchor: [25, 25]
         });
-        return L.marker([lat, lon], {icon: divIcon}).on("click", function() {
+        var marker = L.marker([lat, lon], {icon: divIcon}).on("click", function() {
             openCallback(closeCallback);
         }).addTo(leafletMap);
+        /*
+            Set `data-ff-icon`. This is used to layer the icons properly in CSS.
+            Search for this attribute in /css/main.css for implementation.
+        */
+        marker._icon.setAttribute("data-ff-icon", iconID);
+        return marker;
     },
 
     /*
@@ -122,6 +129,20 @@ var MapImpl = {
     */
     moveMarker: function(implObject, lat, lon) {
         implObject.setLatLng(new L.LatLng(lat, lon));
+    },
+
+    /*
+        This function is called when the icon of a marker is updated. The
+        function takes three arguments - a reference to the marker object
+        created and returned by `addMarker()`, and the old and new icons
+        assigned to the marker, in the form of objective or reward IDs.
+    */
+    updateMarker: function(implObject, oldIcon, newIcon) {
+        /*
+            Update `data-ff-icon`. This is used to layer the icons properly in
+            CSS. Search for this attribute in /css/main.css for implementation.
+        */
+        implObject._icon.setAttribute("data-ff-icon", newIcon);
     },
 
     /*
