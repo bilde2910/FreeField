@@ -13,29 +13,6 @@
 # --------------------------------------------------------------------------
 #     Event objectives
 # --------------------------------------------------------------------------
--
-    # Make an Excellent Throw
-    type: "throw_simple_excellent"
-    params:
-        quantity: 1
-    encounter_species:
-      - 132 # Ditto
--
-    # Hatch 2 Eggs
-    type: "hatch"
-    params:
-        quantity: 2
-    encounter_species:
-      - 142 # Aerodactyl
--
-    # Evolve 2 Anorith
-    type: "evolve_specific"
-    params:
-        species:
-          - 347 # Anorith
-        quantity: 2
-    encounter_species:
-      - 123 # Scyther
 
 # --------------------------------------------------------------------------
 #     Monthly objectives
@@ -269,11 +246,11 @@
     type: "throw_simple_great"
     params:
         quantity: 5
-#-
-#    # Make an Excellent Throw
-#    type: "throw_simple_excellent"
-#    params:
-#        quantity: 1
+-
+    # Make an Excellent Throw
+    type: "throw_simple_excellent"
+    params:
+        quantity: 1
 -
     # Make 3 Great Throws in a row
     type: "throw_simple_great_chain"
