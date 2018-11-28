@@ -24,6 +24,7 @@ below.
    webhooks/index
    appearance
    pwa
+   updating
 
 .. toctree::
    :maxdepth: 2
