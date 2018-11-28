@@ -20,6 +20,19 @@ nginx, may require completing additional setup steps. More information about
 configuring your webserver is explained in the `Setting up the web server`_
 section below.
 
+.. tip:: Setting up a web server with PHP is not in scope of this installation
+         guide. However, if you are new to server hosting, there are many good
+         guides you can follow, such as `this one by DigitalOcean
+         <https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-ubuntu-18-04>`_.
+         You should also follow `this guide
+         <https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04#step-4-%E2%80%94-managing-the-apache-process>`_
+         from section 4 and on to learn how to control Apache and how to set up
+         virtual hosts (which you will need for HTTPS, which FreeField strongly
+         recommends). Finally, `this guide helps you set up HTTPS
+         <https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-18-04>`_
+         for your installation, which is recommended to get the most out of your
+         FreeField installation.
+
 FreeField uses PDO to connect to the database backend. Please ensure that you
 have enabled PDO with your preferred database backend, e.g. ``pdo_mysql`` for
 MySQL, in your php.ini file.
