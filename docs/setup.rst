@@ -45,6 +45,53 @@ Please download the latest release from `GitHub
 downloaded archive to the directory on the server that you wish to install
 FreeField to.
 
+Rolling release
+^^^^^^^^^^^^^^^
+
+Some users may prefer installing FreeField as a rolling release directly from
+git. This is possible by running ``git clone
+https://github.com/bilde2910/FreeField.git``, although installation from point
+releases (i.e. published packaged releases) are generally recommended for most
+users. The following table outlines the differences between the two installation
+methods.
+
++--------------------+---------------------------+-----------------------------+
+| Feature            | Point releases (packages) | Rolling release (git clone) |
++====================+===========================+=============================+
+| Availability of    | Within anything from a    | Immediately upon push to    |
+| new features       | few hours (alpha) to      | FreeField repository        |
+|                    | days/weeks (stable)       |                             |
++--------------------+---------------------------+-----------------------------+
+| Stability          | Varies (alpha through     | Extremely unstable          |
+|                    | stable channels)          | (bleeding edge)             |
++--------------------+---------------------------+-----------------------------+
+| Installing new     | From web interface        | Requires shell access       |
+| updates            |                           |                             |
++--------------------+---------------------------+-----------------------------+
+| Specifying update  | Click to select desired   | Specify target hash using   |
+| to install         | version                   | ``git checkout``            |
++--------------------+---------------------------+-----------------------------+
+| Stability of       | Historically unstable,    | Extremely stable            |
+| update process     | see e.g. commit d76af3a_  |                             |
++--------------------+---------------------------+-----------------------------+
+| Can switch release | Yes, can switch to        | Yes, can switch to point    |
+| plans?             | rolling release; see e.g. | releases by deleting the    |
+|                    | `this post`_              | .git directory in FreeField |
++--------------------+---------------------------+-----------------------------+
+| Handling breaking  | Breaking changes listed   | Breaking changes listed on  |
+| changes            | in changelog visible      | Releases page on GitHub     |
+|                    | before installing update  | only up to latest point     |
+|                    |                           | release                     |
++--------------------+---------------------------+-----------------------------+
+| Dependency and     | Checked automatically     | Not checked                 |
+| prerequisite       | before updates are        |                             |
+| checks             | applied; update halted if |                             |
+|                    | necessary                 |                             |
++--------------------+---------------------------+-----------------------------+
+
+.. _d76af3a: https://github.com/bilde2910/FreeField/commit/d76af3a22cee17ae661684303961df30ba2c7482
+.. _this post: https://stackoverflow.com/q/37354989
+
 Setting up the web server
 -------------------------
 
