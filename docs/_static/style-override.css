@@ -10,3 +10,14 @@
         overflow: visible !important;
     }
 }
+
+/*
+    Override the neon yellow background color for code blocks and use the same
+    shade of gray that RTD themselves use in their demo pages:
+    https://sphinx-rtd-theme.readthedocs.io/en/latest/demo/demo.html
+*/
+@media screen {
+    .highlight {
+        background-color: #f8f8f8;
+    }
+}
