@@ -83,8 +83,8 @@ methods.
 |                    | before installing update  | only up to latest point     |
 |                    |                           | release                     |
 +--------------------+---------------------------+-----------------------------+
-| Dependency and     | Checked automatically     | Not checked                 |
-| prerequisite       | before updates are        |                             |
+| Dependency and     | Checked automatically     | Checked only on initial     |
+| prerequisite       | before updates are        | setup, not for updates      |
 | checks             | applied; update halted if |                             |
 |                    | necessary                 |                             |
 +--------------------+---------------------------+-----------------------------+
