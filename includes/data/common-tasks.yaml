@@ -18,67 +18,56 @@
 #     Monthly objectives
 # --------------------------------------------------------------------------
 -
+    # Catch 3 Grass, Water or Fire-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - grass
+          - water
+          - fire
+        quantity: 3
+    encounter_species:
+      - 322 # Numel
+-
+    # Make a Great Curveball Throw
+    type: "throw_curve_great"
+    params:
+        quantity: 1
+    encounter_species:
+      - 327 # Spinda
+-
+    # Make 3 Curveball Throws in a row
+    type: "throw_curve_chain"
+    params:
+        quantity: 3
+    encounter_species:
+      - 55 # Golduck
+-
     # Win a raid
     type: "win_raid"
     params:
         quantity: 1
     encounter_species:
-      - 204 # Pineco
+      - 137 # Porygon
 -
-    # Evolve 2 Pidgey
-    type: "evolve_specific"
+    # Transfer 10 Pokémon
+    type: "transfer"
     params:
-        species:
-          - 16 # Pidgey
-        quantity: 2
+        quantity: 10
     encounter_species:
-      - 10 # Caterpie
+      - 200 # Misdreavus
 -
-    # Send 5 Gifts to Friends
-    type: "send_gift"
-    params:
-        quantity: 5
-    encounter_species:
-      - 42 # Golbat
--
-    # Catch 5 Bug-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - bug
-        quantity: 5
-    encounter_species:
-      - 290 # Nincada
--
-    # Make 3 Nice Curveball Throws
-    type: "throw_curve_nice"
-    params:
-        quantity: 3
-    encounter_species:
-      - 327 # Spinda
--
-    # Earn a Candy walking with your buddy
-    type: "buddy_candy"
+    # Trade a Pokémon
+    type: "trade"
     params:
         quantity: 1
     encounter_species:
-      - 36 # Clefable
+      - 349 # Feebas
 -
-    # Make 5 Great Throws in a row
-    type: "throw_simple_great_chain"
+    # Power up Pokémon 10 times
+    type: "power_up"
     params:
-        quantity: 5
-    encounter_species:
-      - 40 # Wigglytuff
--
-    # Catch 5 Normal-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - normal
-        quantity: 5
-    encounter_species:
-      - 127 # Pinsir
+        quantity: 10
 
 # --------------------------------------------------------------------------
 #     Gym objectives
@@ -189,6 +178,7 @@
         quantity: 1
     encounter_species:
       - 102 # Exeggcute
+      - 171 # Lanturn
 -
     # Hatch 3 Eggs
     type: "hatch"
