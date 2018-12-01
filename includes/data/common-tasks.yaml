@@ -270,10 +270,20 @@
     type: "throw_curve_chain"
     params:
         quantity: 5
+-
+    # Make 2 Nice Curveball Throws in a row
+    type: "throw_curve_nice_chain"
+    params:
+        quantity: 2
 
 # --------------------------------------------------------------------------
 #     Exploration objectives
 # --------------------------------------------------------------------------
+-
+    # Spin 10 Pokéstops or Gyms
+    type: "visit_poi"
+    params:
+        quantity: 10
 
 # --------------------------------------------------------------------------
 #     Social objectives

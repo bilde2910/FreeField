@@ -337,7 +337,7 @@ throw_curve_excellent_chain:
 #     Exploration objectives
 # --------------------------------------------------------------------------
 
-# Spin a Pokéstop
+# Spin a Pokéstop or Gym
 visit_poi:
     params:
       - quantity
