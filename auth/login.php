@@ -32,6 +32,7 @@ $providerIcons = array(
     "discord"   => "fab fa-discord",
     "telegram"  => "fab fa-telegram-plane",
     "reddit"    => "fab fa-reddit-alien",
+    "line"      => "fab fa-line",
     "groupme"   => "fas fa-user" // No brand specific icon available at this time
 );
 

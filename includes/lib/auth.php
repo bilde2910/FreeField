@@ -30,6 +30,7 @@ class Auth {
             "discord" => ["client-id", "client-secret"],
             "telegram" => ["bot-username", "bot-token"],
             "reddit" => ["client-id", "client-secret"],
+            "line" => ["channel-id", "channel-secret"],
             "groupme" => ["client-id"]
         );
     }
@@ -740,6 +741,7 @@ class User {
             "discord"   => "fab fa-discord",
             "telegram"  => "fab fa-telegram-plane",
             "reddit"    => "fab fa-reddit-alien",
+            "line"      => "fab fa-line",
             "groupme"   => "fas fa-user" // No brand specific icon available at this time
         );
         return '<span>

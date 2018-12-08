@@ -104,6 +104,13 @@
     color: #FFFFFF;
     background-color: #FF4500;
 }
+.auth-provider-line {
+    color: #00C300;
+}
+.auth-provider-line-button {
+    color: #FFFFFF;
+    background-color: #00C300;
+}
 .auth-provider-groupme {
     color: #00AFF0;
 }

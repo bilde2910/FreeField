@@ -626,6 +626,16 @@ class ConfigDefinitions {
                     "option" => new PermissionOption()
                 ),
                 /*
+                    Allows users to change authentication settings for Line.
+                */
+                "permissions/level/admin/auth/section/line" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
                     Allows users to change authentication settings for GroupMe.
                 */
                 "permissions/level/admin/auth/section/groupme" => array(
@@ -1017,6 +1027,38 @@ class ConfigDefinitions {
             "auth/provider/reddit/client-secret" => array(
                 "domain" => "auth",
                 "section" => "reddit",
+                "default" => "",
+                "option" => new PasswordOption()
+            ),
+            /*
+                ------------------------------------------------------------
+                    LINE
+                ------------------------------------------------------------
+            */
+            /*
+                Enables usage of LINE for user authentication.
+            */
+            "auth/provider/line/enabled" => array(
+                "domain" => "auth",
+                "section" => "line",
+                "default" => false,
+                "option" => new BooleanOption()
+            ),
+            /*
+                The channel ID of your LINE Login application.
+            */
+            "auth/provider/line/channel-id" => array(
+                "domain" => "auth",
+                "section" => "line",
+                "default" => "",
+                "option" => new StringOption()
+            ),
+            /*
+                The channel secret of your LINE Login application.
+            */
+            "auth/provider/line/channel-secret" => array(
+                "domain" => "auth",
+                "section" => "line",
                 "default" => "",
                 "option" => new PasswordOption()
             ),

@@ -1167,6 +1167,11 @@ class ConfigSectionI18N {
             '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/reddit.html">',
             '</a>'
         ),
+        "auth/line" => array(
+            // admin.section.auth.line.desc
+            '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/line.html">',
+            '</a>'
+        ),
         "auth/groupme" => array(
             // admin.section.auth.groupme.desc
             '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/groupme.html">',
