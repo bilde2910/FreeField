@@ -158,6 +158,8 @@ Map personalization
    If checked, users are allowed to choose a different map theme than the
    default above for their own devices.
 
+.. _map-markers:
+
 Map markers
 -----------
 
