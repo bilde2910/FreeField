@@ -158,8 +158,8 @@ deep into the internal workings of the reported research task.
    objective or reward. Parameters can be any parameters listed in the developer
    documentation on research parameters. ``index`` is optional and used only to
    extract a particular value from the parameter data if the given parameter is
-   internally represented by an array (please refer to the developer
-   documentation to see if this is the case).
+   internally represented by an array (please refer to the :ref:`parameter-list`
+   to see if this is the case).
 
    -  If the requested parameter is not present in the reported research
       objective or reward, this token is substituted with an empty string.
