@@ -5,6 +5,14 @@
 */
 
 /*
+    Disable all caching.
+*/
+header("Expires: ".date("r", 0));
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+/*
     Ensure that the configuration file exists. If not, proceed to site setup.
 */
 if (!file_exists(__DIR__."/includes/userdata/config.json")) {
