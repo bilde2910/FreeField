@@ -1,0 +1,166 @@
+Internationalization
+====================
+
+All user-visible strings in FreeField must be internationalized and localized.
+Internationalization is done using the ``I18N`` class server-side, or using the
+`clientside-i18n.php
+<https://github.com/bilde2910/FreeField/blob/master/js/clientside-i18n.php>`_
+client-side. To make ``I18N`` available for usage in a script use the following:
+
+.. code-block:: php
+
+   require_once("../includes/lib/global.php");
+   __require("i18n");
+
+To include clientside-i18n.php for use in JavaScript, add the file to the HTML
+header of the page it is being used on, after jQuery, but before other scripts:
+
+.. code-block:: html
+
+   <head>
+       <!-- Meta tags, etc. -->
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                 crossorigin="anonymous"></script>
+       <script src="./js/clientside-i18n.php" async defer></script>
+       <!-- Other scripts -->
+   </head>
+
+For all static and server-side dynamically generated HTML, ``I18N`` should be
+used. clientside-i18n.php is only for use in standalone JavaScript files which
+are not parsed by the PHP parser.
+
+String assignment
+-----------------
+
+All strings are stored in the localization files assigned to a key (an
+"internationalization token"). Internationalization tokens act as identifiers
+for strings, and can consist of lowercase alphanumeric letters, periods and
+underscores. Here is an example of the structure of the localization file,
+showing the three tokens ``ui.button.close``, ``ui.button.cancel`` and
+``ui.button.select`` in the English localization files:
+
+.. code-block:: ini
+
+   ui.button.close = "Close"
+   ui.button.cancel = "Cancel"
+   ui.button.select = "Select"
+
+When requesting a localized string, you must use the internationalization token
+to refer to the string.
+
+Usage
+-----
+
+There are two types of strings that can be localized - simple strings, and
+parameterized strings. Simple strings are static, unchanging strings, and are
+used for most UI elements. Parameterized strings are strings that can change
+depending on data arguments passed to them, and can be identified by the
+appearance of substitution tokens within the strong. A substitution token is a
+percentage sign followed by a number, both wrapped together in curly braces -
+for example, ``{%1}``. These substitution tokens are substituted by other data,
+such as a number or another string at runtime. There can be any number of
+substitution tokens in a string, starting from ``{%1}`` with sequentially
+increasing numbers for each token.
+
+.. note:: Substitution tokens are normally ordered in increasing order from
+          their natural placement in the English-language variant of strings,
+          but this may not always be the case. Some strings do not start with
+          ``{%1}`` as the first token, and they may not necessarily be in
+          increasing order. While it is strongly advisable that the tokens do
+          appear in increasing order, switching them around may be preferable in
+          some cases where it is sensible due to programming or style.
+
+          One example of this is the ``quantity`` parameter for research
+          objectives. For singular variants of the strings, the substitution
+          token for ``quantity`` is typically replaced by an article such as "a"
+          or "an." To ensure that tokens start numbering from 1, and to avoid
+          "gaps" in the numbering sequence of tokens, ``quantity`` is given the
+          highest substitution token number to ensure that the numbering makes
+          sense if the token is omitted, even though it in most cases would
+          appear as the first token of the string and therefore be assigned
+          ``{%1}``.
+
+.. important:: When adding parameterized strings to the localization files,
+               examples and explanations should be made for each substitution
+               token in your string to assist translators in accurately
+               translating the string.
+
+.. important:: Any strings you want to use in clientside-i18n.php must be
+               declared in that file on the server - they will not work unless
+               their namespace have already been declared in the file from
+               before.
+
+.. note:: Strings for use in JavaScript on the administration pages must be
+          declared with internationalization tokens starting with
+          ``admin.clientside.`` and not under ``admin.`` directly.
+
+Using simple strings
+^^^^^^^^^^^^^^^^^^^^
+
+The basic ``I18N`` function to localize strings is ``I18N::resolve($token)``.
+This function takes an internationalization token as input and returns a
+localized string for the currently active language.
+
+.. code-block:: php
+
+   $str = I18N::resolve("ui.button.close");
+   echo $str; // Echoes "Close"
+
+.. danger:: Never use ``resolve()`` as part of output! See :doc:`security` for
+            information on ``resolveHTML()`` and other functions that should be
+            used instead for output in order to prevent security/XSS
+            vulnerabilities.
+
+The JavaScript equivalent with clientside-i18n.php is ``resolveI18N()``:
+
+.. code-block:: javascript
+
+   var str = resolveI18N("ui.button.close");
+   console.log(str); // Writes "Close" to console
+
+.. danger:: Never use ``.innerHTML`` or jQuery ``.html()`` to assign string
+            content to elements - use ``.textContent`` or jQuery ``.text()``
+            instead to prevent security/XSS vulnerabilities and character
+            encoding issues. Please see :doc:`security` for more information.
+
+Using parameterized strings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``I18N`` function to localize parameterized strings is
+``I18N::resolveArgs($token, ...$args)``. This function takes an
+internationalization token along with a list of arguments as input, and returns
+a localized string for the currently active language.
+
+.. code-block:: php
+
+   $str = I18N::resolveArgs("webhook.reported_by", "JohnDoe45");
+   echo $str; // Echoes "Reported by JohnDoe45"
+
+.. danger:: Never use ``resolveArgs()`` as part of output! See :doc:`security`
+            for information on ``resolveArgsHTML()`` and other functions that
+            should be used instead for output in order to prevent security/XSS
+            vulnerabilities.
+
+The JavaScript equivalent with clientside-i18n.php is the same as for simple
+strings:
+
+.. code-block:: javascript
+
+   var str = resolveI18N("webhook.reported_by", "JohnDoe45");
+   console.log(str); // Writes "Reported by JohnDoe45" to console
+
+.. danger:: Never use ``.innerHTML`` or jQuery ``.html()`` to assign string
+            content to elements - use ``.textContent`` or jQuery ``.text()``
+            instead to prevent security/XSS vulnerabilities and character
+            encoding issues. Please see :doc:`security` for more information.
+
+Localization file structure
+---------------------------
+
+If you want to add new internationalization tokens to the localization files,
+you should stay in line with the structure of the file. Pay attention to headers
+and ensure that strings you add are grouped with similar strings. For example,
+generic UI elements/buttons should be localized under the "USER INTERFACE"
+header near the top of the file. Please do not randomly tack any additional
+strings to the start or end of the file.

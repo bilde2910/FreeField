@@ -127,7 +127,7 @@ triggered.
    followed by the nickname of the user who reported field research.
 
 For more information on what localization tokens and arguments are, please refer
-to Internationalization in the developer documentation.
+to :doc:`/dev/i18n` in the developer documentation.
 
 .. tip:: Support for substitution of localization tokens was created in order
          for FreeField to support multiple languages out of the box for

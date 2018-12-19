@@ -55,8 +55,8 @@ path from the key of the setting array with slashes ``/`` converted to dots
 ``.`` and dashes ``-`` converted to underscores ``_``. For example,
 ``map/default/zoom`` are assigned the internationalization tokens
 ``setting.map.default.zoom.name`` for its label and
-``setting.map.default.zoom.desc`` for its description. Please see the docs on
-internationalization for more information.
+``setting.map.default.zoom.desc`` for its description. Please see :doc:`i18n`
+for more information.
 
 Domains and sections
 --------------------
