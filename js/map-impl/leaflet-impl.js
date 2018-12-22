@@ -62,8 +62,16 @@ var MapImpl = {
         /*
             Add controls for zooming and geolocation on the map.
         */
-        L.control.zoom({position: "topright"}).addTo(leafletMap);
-        L.control.locate({position: "topright"}).addTo(leafletMap);
+        L.control.zoom({
+            position: "topright"
+        }).addTo(leafletMap);
+
+        L.control.locate({
+            position: "topright",
+            locateOptions: {
+                maxZoom: 18
+            }
+        }).addTo(leafletMap);
     },
 
     /*
