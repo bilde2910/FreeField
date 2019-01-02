@@ -18,19 +18,21 @@
 #     Monthly objectives
 # --------------------------------------------------------------------------
 -
-    # Use 5 berries to help catch Pokémon
-    type: "use_berry"
+    # Battle in a raid
+    type: "battle_raid"
     params:
-        quantity: 5
+        quantity: 1
     encounter_species:
-      - 58 # Growlithe
+      - 96 # Drowzee
 -
-    # Transfer 3 Pokémon
-    type: "transfer"
+    # Catch 3 Grass, Water or Fire-type Pokémon
+    type: "catch_type"
     params:
+        type:
+          - grass
+          - water
+          - fire
         quantity: 3
-    encounter_species:
-      - 37 # Vulpix
 -
     # Catch 5 Fighting-type Pokémon
     type: "catch_type"
@@ -68,6 +70,20 @@
     encounter_species:
       - 140 # Kabuto
 -
+    # Earn 5 Candies walking with your buddy
+    type: "buddy_candy"
+    params:
+        quantity: 5
+    encounter_species:
+      - 73 # Tentacruel
+-
+    # Make 5 Great Curveball Throws in a row
+    type: "throw_curve_great_chain"
+    params:
+        quantity: 5
+    encounter_species:
+      - 327 # Spinda
+-
     # Send 2 Gifts to Friends
     type: "send_gift"
     params:
@@ -75,13 +91,19 @@
     encounter_species:
       - 92 # Gastly
 -
-    # Use 10 Pinap Berries while catching Pokémon
-    type: "use_item_encounter"
+    # Trade a Pokémon
+    type: "trade"
     params:
-        encounter_item: pinap_berry
-        quantity: 10
+        quantity: 1
     encounter_species:
-      - 129 # Magikarp
+      - 310 # Manectric
+-
+    # Transfer 3 Pokémon
+    type: "transfer"
+    params:
+        quantity: 3
+    encounter_species:
+      - 37 # Vulpix
 -
     # Use an item to evolve a Pokémon
     type: "evolve_item"
@@ -89,6 +111,13 @@
         quantity: 1
     encounter_species:
       - 142 # Aerodactyl
+-
+    # Use 5 berries to help catch Pokémon
+    type: "use_berry"
+    params:
+        quantity: 5
+    encounter_species:
+      - 58 # Growlithe
 -
     # Use 5 Razz Berries while catching Pokémon
     type: "use_item_encounter"
@@ -98,33 +127,13 @@
     encounter_species:
       - 104 # Cubone
 -
-    # Make 5 Great Curveball Throws in a row
-    type: "throw_curve_great_chain"
+    # Use 10 Pinap Berries while catching Pokémon
+    type: "use_item_encounter"
     params:
-        quantity: 5
+        encounter_item: pinap_berry
+        quantity: 10
     encounter_species:
-      - 327 # Spinda
--
-    # Trade a Pokémon
-    type: "trade"
-    params:
-        quantity: 1
-    encounter_species:
-      - 310 # Manectric
--
-    # Earn 5 Candies walking with your buddy
-    type: "buddy_candy"
-    params:
-        quantity: 5
-    encounter_species:
-      - 73 # Tentacruel
--
-    # Battle in a raid
-    type: "battle_raid"
-    params:
-        quantity: 1
-    encounter_species:
-      - 96 # Drowzee
+      - 129 # Magikarp
 -
     # Win a level 3 or higher raid
     type: "level_raid"
@@ -133,15 +142,6 @@
         quantity: 1
     encounter_species:
       - 138 # Omanyte
--
-    # Catch 3 Grass, Water or Fire-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - grass
-          - water
-          - fire
-        quantity: 3
 
 # --------------------------------------------------------------------------
 #     Gym objectives
