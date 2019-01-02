@@ -18,6 +18,122 @@
 #     Monthly objectives
 # --------------------------------------------------------------------------
 -
+    # Use 5 berries to help catch Pokémon
+    type: "use_berry"
+    params:
+        quantity: 5
+    encounter_species:
+      - 58 # Growlithe
+-
+    # Transfer 3 Pokémon
+    type: "transfer"
+    params:
+        quantity: 3
+    encounter_species:
+      - 37 # Vulpix
+-
+    # Catch 5 Fighting-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - fighting
+        quantity: 5
+    encounter_species:
+      - 81 # Magnemite
+-
+    # Catch 7 Dark-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - dark
+        quantity: 7
+    encounter_species:
+      - 347 # Anorith
+-
+    # Catch 10 Ground-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - ground
+        quantity: 10
+    encounter_species:
+      - 27 # Sandshrew
+-
+    # Catch 10 Ice-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - ice
+        quantity: 10
+    encounter_species:
+      - 140 # Kabuto
+-
+    # Send 2 Gifts to Friends
+    type: "send_gift"
+    params:
+        quantity: 2
+    encounter_species:
+      - 92 # Gastly
+-
+    # Use 10 Pinap Berries while catching Pokémon
+    type: "use_item_encounter"
+    params:
+        encounter_item: pinap_berry
+        quantity: 10
+    encounter_species:
+      - 129 # Magikarp
+-
+    # Use an item to evolve a Pokémon
+    type: "evolve_item"
+    params:
+        quantity: 1
+    encounter_species:
+      - 142 # Aerodactyl
+-
+    # Use 5 Razz Berries while catching Pokémon
+    type: "use_item_encounter"
+    params:
+        encounter_item: razz_berry
+        quantity: 5
+    encounter_species:
+      - 104 # Cubone
+-
+    # Make 5 Great Curveball Throws in a row
+    type: "throw_curve_great_chain"
+    params:
+        quantity: 5
+    encounter_species:
+      - 327 # Spinda
+-
+    # Trade a Pokémon
+    type: "trade"
+    params:
+        quantity: 1
+    encounter_species:
+      - 310 # Manectric
+-
+    # Earn 5 Candies walking with your buddy
+    type: "buddy_candy"
+    params:
+        quantity: 5
+    encounter_species:
+      - 73 # Tentacruel
+-
+    # Battle in a raid
+    type: "battle_raid"
+    params:
+        quantity: 1
+    encounter_species:
+      - 96 # Drowzee
+-
+    # Win a level 3 or higher raid
+    type: "level_raid"
+    params:
+        min_tier: 3
+        quantity: 1
+    encounter_species:
+      - 138 # Omanyte
+-
     # Catch 3 Grass, Water or Fire-type Pokémon
     type: "catch_type"
     params:
@@ -26,48 +142,6 @@
           - water
           - fire
         quantity: 3
-    encounter_species:
-      - 322 # Numel
--
-    # Make a Great Curveball Throw
-    type: "throw_curve_great"
-    params:
-        quantity: 1
-    encounter_species:
-      - 327 # Spinda
--
-    # Make 3 Curveball Throws in a row
-    type: "throw_curve_chain"
-    params:
-        quantity: 3
-    encounter_species:
-      - 55 # Golduck
--
-    # Win a raid
-    type: "win_raid"
-    params:
-        quantity: 1
-    encounter_species:
-      - 137 # Porygon
--
-    # Transfer 10 Pokémon
-    type: "transfer"
-    params:
-        quantity: 10
-    encounter_species:
-      - 200 # Misdreavus
--
-    # Trade a Pokémon
-    type: "trade"
-    params:
-        quantity: 1
-    encounter_species:
-      - 349 # Feebas
--
-    # Power up Pokémon 10 times
-    type: "power_up"
-    params:
-        quantity: 10
 
 # --------------------------------------------------------------------------
 #     Gym objectives
@@ -79,6 +153,7 @@
         quantity: 1
     encounter_species:
       - 56 # Mankey
+      - 66 # Machop
 -
     # Battle in a Gym 5 times
     type: "battle_gym"
@@ -108,18 +183,18 @@
     params:
         quantity: 5
     encounter_species:
-      - 66 # Machop
--
-    # Battle in a raid
-    type: "battle_raid"
-    params:
-        quantity: 1
--
-    # Win a level 3 or higher raid
-    type: "level_raid"
-    params:
-        min_tier: 3
-        quantity: 1
+      - 131 # Lapras
+#-
+#    # Battle in a raid
+#    type: "battle_raid"
+#    params:
+#        quantity: 1
+#-
+#    # Win a level 3 or higher raid
+#    type: "level_raid"
+#    params:
+#        min_tier: 3
+#        quantity: 1
 -
     # Use a Super Effective Charged Attack in a Gym battle
     type: "se_charge"
@@ -143,6 +218,7 @@
         quantity: 10
     encounter_species:
       - 129 # Magikarp
+      - 228 # Houndour
 -
     # Catch 5 Pokémon with Weather Boost
     type: "catch_weather"
@@ -178,7 +254,7 @@
         quantity: 1
     encounter_species:
       - 102 # Exeggcute
-      - 171 # Lanturn
+      - 209 # Snubbull
 -
     # Hatch 3 Eggs
     type: "hatch"
@@ -204,6 +280,7 @@
         quantity: 1
     encounter_species:
       - 133 # Eevee
+      - 191 # Sunkern
 -
     # Power up Pokémon 5 times
     type: "power_up"
@@ -223,7 +300,7 @@
     params:
         quantity: 5
     encounter_species:
-      - 100 # Voltorb
+      - 399 # Bidoof
 -
     # Make 3 Great Throws
     type: "throw_simple_great"
