@@ -43,15 +43,6 @@
     encounter_species:
       - 81 # Magnemite
 -
-    # Catch 7 Dark-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - dark
-        quantity: 7
-    encounter_species:
-      - 347 # Anorith
--
     # Catch 10 Ground-type Pokémon
     type: "catch_type"
     params:
@@ -105,27 +96,12 @@
     encounter_species:
       - 37 # Vulpix
 -
-    # Use an item to evolve a Pokémon
-    type: "evolve_item"
-    params:
-        quantity: 1
-    encounter_species:
-      - 142 # Aerodactyl
--
     # Use 5 berries to help catch Pokémon
     type: "use_berry"
     params:
         quantity: 5
     encounter_species:
       - 58 # Growlithe
--
-    # Use 5 Razz Berries while catching Pokémon
-    type: "use_item_encounter"
-    params:
-        encounter_item: razz_berry
-        quantity: 5
-    encounter_species:
-      - 104 # Cubone
 -
     # Use 10 Pinap Berries while catching Pokémon
     type: "use_item_encounter"
@@ -300,6 +276,7 @@
     params:
         quantity: 5
     encounter_species:
+      - 100 # Voltorb
       - 399 # Bidoof
 -
     # Make 3 Great Throws
