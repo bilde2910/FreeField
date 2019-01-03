@@ -132,7 +132,7 @@
     encounter_species:
       - 58 # Growlithe
 -
-    # Use 5 Razz Berries while catching Pokémon
+    # Use 5 Razz Berries to help catch Pokémon
     type: "use_item_encounter"
     params:
         encounter_item: razz_berry
@@ -140,7 +140,7 @@
     encounter_species:
       - 104 # Cubone
 -
-    # Use 10 Pinap Berries while catching Pokémon
+    # Use 10 Pinap Berries to help catch Pokémon
     type: "use_item_encounter"
     params:
         encounter_item: pinap_berry
