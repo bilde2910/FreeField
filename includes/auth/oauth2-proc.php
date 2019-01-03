@@ -88,7 +88,7 @@ if (!isset($_GET["code"])) {
         are missing, or there is a mismatch, assume that a CSRF attack is taking
         place and abort the authentication request.
     */
-    header("303 See Other");
+    header("HTTP/1.1 303 See Other");
 
     /*
         Unset cookies as they are no longer required.
@@ -132,7 +132,7 @@ try {
             is required to proceed, so we'll kick the user back to the "failed
             to authenticate" page and prompt them to try again.
         */
-        header("303 See Other");
+        header("HTTP/1.1 303 See Other");
 
         /*
             Unset cookies as they are no longer required.
@@ -163,7 +163,7 @@ try {
             unsuccessful. Redirect the user back to the "failed to authenticate"
             page and prompt them to try again.
         */
-        header("303 See Other");
+        header("HTTP/1.1 303 See Other");
 
         /*
             Unset cookies as they are no longer required.
@@ -191,7 +191,7 @@ try {
         redirected back to a page explaining that authentication failed,
         prompting them to try again or try another provider.
     */
-    header("303 See Other");
+    header("HTTP/1.1 303 See Other");
 
     /*
         Unset cookies as they are no longer required.

@@ -117,7 +117,7 @@ unset($_GET["continue"]);
     Perform CSRF validation.
 */
 if (!Security::validateCSRF()) {
-    header("303 See Other");
+    header("HTTP/1.1 303 See Other");
     header("Location: ".Config::getEndpointUri(
         "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
     ));
@@ -164,7 +164,7 @@ $verify = hash_hmac("SHA256", $data, $key);
 */
 
 if ($verify !== $hash || time() - intval($_GET["auth_date"]) > 600) {
-    header("303 See Other");
+    header("HTTP/1.1 303 See Other");
     header("Location: ".Config::getEndpointUri(
         "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
     ));
@@ -245,7 +245,7 @@ try {
     }
     exit;
 } catch (Exception $e) {
-    header("303 See Other");
+    header("HTTP/1.1 303 See Other");
     header("Location: ".Config::getEndpointUri(
         "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
     ));

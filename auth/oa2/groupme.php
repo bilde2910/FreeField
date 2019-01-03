@@ -82,7 +82,7 @@ set_error_handler(function($no, $str, $file, $line, $context) {
         The OAuth endpoint returned an error response code. Kick the user back
         to the "failed to authenticate" page and prompt them to try again.
     */
-    header("303 See Other");
+    header("HTTP/1.1 303 See Other");
     setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
     header("Location: ".Config::getEndpointUri(
         "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
@@ -102,7 +102,7 @@ try {
         The connection to the OAuth endpoint failed. Kick the user back to the
         "failed to authenticate" page and prompt them to try again.
     */
-    header("303 See Other");
+    header("HTTP/1.1 303 See Other");
     setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
     header("Location: ".Config::getEndpointUri(
         "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
@@ -117,7 +117,7 @@ if ($resp === null || $resp["meta"]["code"] !== 200) {
         The returned user object is null or invalid. Kick the user back to the
         "failed to authenticate" page and prompt them to try again.
     */
-    header("303 See Other");
+    header("HTTP/1.1 303 See Other");
     setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
     header("Location: ".Config::getEndpointUri(
         "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
