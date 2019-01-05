@@ -34,6 +34,17 @@
           - fire
         quantity: 3
 -
+    # Catch 5 Electric, Normal or Poison-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - electric
+          - normal
+          - poison
+        quantity: 5
+    encounter_species:
+      - 121 # Starmie
+-
     # Catch 5 Fighting-type Pokémon
     type: "catch_type"
     params:
@@ -53,17 +64,6 @@
         quantity: 7
     encounter_species:
       - 347 # Anorith
--
-    # Catch 7 Poison, Electric or Normal-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - poison
-          - electric
-          - normal
-        quantity: 7
-    encounter_species:
-      - 121 # Starmie
 -
     # Catch 10 Ground-type Pokémon
     type: "catch_type"
