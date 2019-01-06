@@ -155,6 +155,13 @@
         quantity: 1
     encounter_species:
       - 138 # Omanyte
+-
+    # Win 5 raids
+    type: "win_raid"
+    params:
+        quantity: 5
+    encounter_species:
+      - 142 # Aerodactyl
 
 # --------------------------------------------------------------------------
 #     Gym objectives
@@ -322,6 +329,8 @@
         quantity: 3
     encounter_species:
       - 92 # Gastly
+      - 345 # Lileep
+      - 347 # Anorith
 -
     # Make 5 Great Throws
     type: "throw_simple_great"
