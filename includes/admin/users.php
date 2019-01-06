@@ -150,10 +150,18 @@
             </thead>
             <tbody>
                 <?php
+                    $cu = Auth::getCurrentUser();
                     foreach ($users as $user) {
                         if (!$user->isApproved()) continue;
                         $uid = $user->getUserID();
                         $uidHTML = htmlspecialchars($uid, ENT_QUOTES);
+                        /*
+                            Disable some controls if the current user has
+                            permission to change their own rank, as a precaution
+                            against accidentally demoting or deleting their own
+                            account.
+                        */
+                        $protectActions = $cu->getUserID() == $uid && $cu->canChangeAtPermission($cu->getPermissionLevel());
                         ?>
                             <tr>
                                 <td<?php if ($user->getColor() !== null) echo ' style="color: #'.$user->getColor().';"'; ?>>
@@ -176,12 +184,30 @@
                                 </td>
                                 <!-- UNUSED: <td><?php /*echo $user->getLastLoginDate();*/ ?></td> -->
                                 <td>
-                                    <?php echo Auth::getPermissionSelector($uidHTML."[group]", null, $user->getPermissionLevel()); ?>
+                                    <?php
+                                        /*
+                                            Disable control if the current user has permission
+                                            to change their own rank, as a precaution against
+                                            accidentally demoting themselves.
+                                        */
+                                        echo Auth::getPermissionSelector($uidHTML."[group]", null, $user->getPermissionLevel(), $protectActions);
+                                        if ($protectActions) {
+                                            ?>
+                                                <small><a class="user-unlock">
+                                                    <?php echo I18N::resolveArgsHTML(
+                                                        "admin.section.users.user_list.unlock",
+                                                        false,
+                                                        '<i class="fas fa-unlock"></i>'
+                                                    ); ?>
+                                                </a></small>
+                                            <?php
+                                        }
+                                    ?>
                                 </td>
                                 <td>
                                     <select class="account-actions"
                                             name="<?php echo $uidHTML; ?>[action]"
-                                            <?php if (!Auth::getCurrentUser()->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>>
+                                            <?php if ($protectActions || !$cu->canChangeAtPermission($user->getPermissionLevel())) echo ' disabled'; ?>>
                                         <option value="none" selected>
                                             <?php echo I18N::resolveHTML("admin.section.users.user_list.action.none"); ?>
                                         </option>
@@ -192,6 +218,19 @@
                                             <?php echo I18N::resolveHTML("admin.section.users.user_list.action.invalidate"); ?>
                                         </option>
                                     </select>
+                                    <?php
+                                        if ($protectActions) {
+                                            ?>
+                                                <small><a class="user-unlock">
+                                                    <?php echo I18N::resolveArgsHTML(
+                                                        "admin.section.users.user_list.unlock",
+                                                        false,
+                                                        '<i class="fas fa-unlock"></i>'
+                                                    ); ?>
+                                                </a></small>
+                                            <?php
+                                        }
+                                    ?>
                                 </td>
                             </tr>
                         <?php
@@ -261,3 +300,7 @@
     hitting the server-side `max_input_vars` limit of 1000.
 -->
 <script src="./js/limit-inputs.js"></script>
+<!--
+    /admin/js/users.js contains additional functionality for this page.
+-->
+<script src="./js/users.js"></script>

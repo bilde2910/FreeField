@@ -584,7 +584,7 @@ class Auth {
         well as the current permission level selected. The select box will have
         the current level pre-selected.
     */
-    public static function getPermissionSelector($name = null, $id = null, $selectedLevel = 0) {
+    public static function getPermissionSelector($name = null, $id = null, $selectedLevel = 0, $disabled = false) {
         $user = self::getCurrentUser();
         $perms = self::listGroups();
         $opts = "";
@@ -631,7 +631,7 @@ class Auth {
 
         return '<select'.($name !== null ? ' name="'.$name.'"' : '').
                          ($id !== null ? ' id="'.$id.'"' : '').
-                         ($user->canChangeAtPermission($selectedLevel) ? '' : ' disabled').'>
+                         (!$disabled && $user->canChangeAtPermission($selectedLevel) ? '' : ' disabled').'>
                                 <optgroup label="'.I18N::resolveHTML("group.selector.current").'">
                                     '.$curopt.'
                                 </optgroup>
