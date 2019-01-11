@@ -171,6 +171,36 @@ __require("research");
                 ?>
             </tbody>
         </table>
+        <!--
+            ============================================================
+                CLEAR RESEARCH DATA SECTION
+            ============================================================
+        -->
+        <h2 class="content-subhead">
+            <?php echo I18N::resolveHTML("admin.section.pois.clear.name"); ?>
+        </h2>
+        <p>
+            <?php echo I18N::resolveHTML("admin.section.pois.clear.desc"); ?>
+        </p>
+        <div class="pure-g">
+            <div class="pure-u-1-3 full-on-mobile">
+                <p class="setting-name">
+                    <?php echo I18N::resolveHTML("admin.section.pois.clear.perform.name"); ?><span class="only-desktop">:</span>
+                </p>
+            </div>
+            <div class="pure-u-2-3 full-on-mobile">
+                <p>
+                    <input type="checkbox"
+                           id="clear-all-research"
+                           name="clear-all-research">
+                    <label for="clear-all-research">
+                        <?php echo I18N::resolveHTML(
+                            "admin.section.pois.clear.perform.label"
+                        ); ?>
+                    </label>
+                </p>
+            </div>
+        </div>
         <?php if (Auth::getCurrentUser()->hasPermission("admin/pois/import")) { ?>
             <!--
                 ============================================================

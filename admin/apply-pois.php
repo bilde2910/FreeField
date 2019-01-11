@@ -185,6 +185,38 @@ foreach ($_POST as $poi => $data) {
     insertions.
 */
 $db = Database::connect();
+
+/*
+    Check if all research data should be cleared.
+*/
+if (isset($_POST["clear-all-research"])) {
+    /*
+        Array with research data to be submitted to the database for each POI
+        eligible to be cleared.
+    */
+    $clearedData = array(
+        "objective"     => "unknown",
+        "reward"        => "unknown",
+        "obj_params"    => json_encode(array()),
+        "rew_params"    => json_encode(array()),
+        "updated_by"    => Auth::getCurrentUser()->getUserID(),
+        "last_updated"  => date("Y-m-d H:i:s")
+    );
+    /*
+        Clear only POIs which have a known objective and reward stored in the
+        database, and which has been modified since midnight, the combination of
+        which indicates that a research task is currently active on this POI.
+    */
+    $db
+        ->from("poi")
+        ->where(array(
+            "NOT objective" => "unknown",
+            "NOT reward" => "unknown",
+            "last_updated >" => date("Y-m-d H:i:s", strtotime("today midnight"))
+         ))
+        ->update($clearedData)
+        ->execute();
+}
 foreach ($updates as $poiid => $update) {
     $userdata = $db
         ->from("poi")
