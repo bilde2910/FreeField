@@ -65,11 +65,21 @@
                                 5.  Taking actions on the user (e.g. approving
                                     or rejecting their account)
                         -->
-                        <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.provider_identity.name"); ?></th>
-                        <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.provider.name"); ?></th>
-                        <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.nickname.name"); ?></th>
-                        <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.registered.name"); ?></th>
-                        <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.actions.name"); ?></th>
+                        <th data-sort-function="alphanumeric">
+                            <?php echo I18N::resolveHTML("admin.table.users.user_list.column.provider_identity.name"); ?>
+                        </th>
+                        <th data-sort-function="alphanumeric">
+                            <?php echo I18N::resolveHTML("admin.table.users.user_list.column.provider.name"); ?>
+                        </th>
+                        <th data-sort-function="alphanumeric">
+                            <?php echo I18N::resolveHTML("admin.table.users.user_list.column.nickname.name"); ?>
+                        </th>
+                        <th data-sort-function="alphanumeric">
+                            <?php echo I18N::resolveHTML("admin.table.users.user_list.column.registered.name"); ?>
+                        </th>
+                        <th>
+                            <?php echo I18N::resolveHTML("admin.table.users.user_list.column.actions.name"); ?>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -140,11 +150,11 @@
                             5.  Taking actions on the user (e.g. deleting their
                                 account)
                     -->
-                    <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.provider_identity.name"); ?></th>
-                    <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.provider.name"); ?></th>
-                    <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.nickname.name"); ?></th>
+                    <th data-sort-function="alphanumeric"><?php echo I18N::resolveHTML("admin.table.users.user_list.column.provider_identity.name"); ?></th>
+                    <th data-sort-function="alphanumeric"><?php echo I18N::resolveHTML("admin.table.users.user_list.column.provider.name"); ?></th>
+                    <th data-sort-function="input-value"><?php echo I18N::resolveHTML("admin.table.users.user_list.column.nickname.name"); ?></th>
                     <!-- UNUSED: <th>Last login</th> -->
-                    <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.group.name"); ?></th>
+                    <th data-sort-function="select-value"><?php echo I18N::resolveHTML("admin.table.users.user_list.column.group.name"); ?></th>
                     <th><?php echo I18N::resolveHTML("admin.table.users.user_list.column.actions.name"); ?></th>
                 </tr>
             </thead>
@@ -300,6 +310,11 @@
     hitting the server-side `max_input_vars` limit of 1000.
 -->
 <script src="./js/limit-inputs.js"></script>
+<!--
+    This page contains a potentially large table, so we should enable sorting
+    for it.
+-->
+<script src="./js/table-sort.js"></script>
 <!--
     /admin/js/users.js contains additional functionality for this page.
 -->

@@ -55,14 +55,30 @@ __require("research");
                                 display the POI on a mapping service
                             8.  Taking actions on the POI (e.g. deleting it)
                     -->
-                    <th><?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.poi_name.name"); ?></th>
-                    <th><?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.created_time.name"); ?></th>
-                    <th><?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.created_by.name"); ?></th>
-                    <th><?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.current_research.name"); ?></th>
-                    <th><?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.last_updated_time.name"); ?></th>
-                    <th><?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.last_updated_by.name"); ?></th>
-                    <th><?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.location.name"); ?></th>
-                    <th><?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.actions.name"); ?></th>
+                    <th data-sort-function="input-value">
+                        <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.poi_name.name"); ?>
+                    </th>
+                    <th data-sort-function="alphanumeric">
+                        <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.created_time.name"); ?>
+                    </th>
+                    <th data-sort-function="alphanumeric">
+                        <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.created_by.name"); ?>
+                    </th>
+                    <th data-sort-function="poi-dual-marker">
+                        <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.current_research.name"); ?>
+                    </th>
+                    <th data-sort-function="alphanumeric">
+                        <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.last_updated_time.name"); ?>
+                    </th>
+                    <th data-sort-function="alphanumeric">
+                        <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.last_updated_by.name"); ?>
+                    </th>
+                    <th data-sort-function="numeric">
+                        <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.location.name"); ?>
+                    </th>
+                    <th>
+                        <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.actions.name"); ?>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -124,11 +140,13 @@ __require("research");
                                     <img class="poi-table-marker"
                                          src="<?php echo $icons->getIconUrl($poi->getCurrentObjective()["type"]); ?>"
                                          title="<?php echo htmlspecialchars($objString, ENT_QUOTES); ?>"
-                                         alt="<?php echo htmlspecialchars($objString, ENT_QUOTES); ?>">
+                                         alt="<?php echo htmlspecialchars($objString, ENT_QUOTES); ?>"
+                                         data-marker-id="<?php echo $poi->getCurrentObjective()["type"]; ?>">
                                     <img class="poi-table-marker"
                                          src="<?php echo $icons->getIconUrl($poi->getCurrentReward()["type"]); ?>"
                                          title="<?php echo htmlspecialchars($rewString, ENT_QUOTES); ?>"
-                                         alt="<?php echo htmlspecialchars($rewString, ENT_QUOTES); ?>">
+                                         alt="<?php echo htmlspecialchars($rewString, ENT_QUOTES); ?>"
+                                         data-marker-id="<?php echo $poi->getCurrentReward()["type"]; ?>">
                                 </td>
                                 <td><?php echo $poi->getLastUpdatedString(); ?></td>
                                 <td style="line-height: 1.2em;">
@@ -358,6 +376,12 @@ __require("research");
     hitting the server-side `max_input_vars` limit of 1000.
 -->
 <script src="./js/limit-inputs.js"></script>
+
+<!--
+    This page contains a potentially large table, so we should enable sorting
+    for it.
+-->
+<script src="./js/table-sort.js"></script>
 
 <!--
     /admin/js/pois.js contains additional functionality for this page.
