@@ -4,6 +4,12 @@
     regular users on other pages on FreeField.
 */
 
+/* Column headers in tables with a defined sorting function should have a
+   pointer cursor to indicate that the table is sortable. */
+th[data-sort-function] {
+    cursor: pointer;
+}
+
 /* The POI name input field on the POI list. */
 .poi-name {
     min-width: 100px;
