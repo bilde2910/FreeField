@@ -37,6 +37,20 @@
         quantity: 2
     encounter_species:
       - 299 # Nosepass
+-
+    # Make 10 Great Throws
+    type: "throw_simple_great"
+    params:
+        quantity: 10
+    encounter_species:
+      - 349 # Feebas
+-
+    # Make 15 Nice Throws
+    type: "throw_simple_nice"
+    params:
+        quantity: 15
+    encounter_species:
+      - 349 # Feebas
 
 # --------------------------------------------------------------------------
 #     Monthly objectives
@@ -299,6 +313,7 @@
     encounter_species:
       - 102 # Exeggcute
       - 209 # Snubbull
+      - 349 # Feebas  ## TODO: Implement event research labels
 -
     # Hatch 3 Eggs
     type: "hatch"
