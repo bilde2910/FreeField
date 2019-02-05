@@ -14,29 +14,12 @@
 #     Event objectives
 # --------------------------------------------------------------------------
 -
-    # Catch 10 Zigzagoon or Taillow
-    type: "catch_specific"
+    # Trade 10 Pokémon
+    type: "trade"
     params:
-        species:
-          - 263 # Zigzagoon
-          - 276 # Taillow
         quantity: 10
--
-    # Evolve 3 Wurmple
-    type: "evolve_specific"
-    params:
-        species:
-          - 265 # Wurmple
-        quantity: 3
     encounter_species:
-      - 328 # Trapinch
--
-    # Hatch 2 eggs
-    type: "hatch"
-    params:
-        quantity: 2
-    encounter_species:
-      - 299 # Nosepass
+      - 390 # Chimchar
 
 # --------------------------------------------------------------------------
 #     Monthly objectives
