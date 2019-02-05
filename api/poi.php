@@ -849,7 +849,23 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                             in the webhook's payload body.
                         */
                         $body = replaceWebhookFields($poidata, $reportedTime, $theme, $hook["body"], function($str) {
-                            return $str;
+                            /*
+                                Escape any special Markdown or HTML characters
+                                in the webhook body according to the format of
+                                the message being sent.
+                            */
+                            global $hook;
+                            switch ($hook["options"]["parse-mode"]) {
+                                case "md":
+                                    // Markdown - escape \[*_`
+                                    return preg_replace("/([\\\[\*_`])/", "\\\\\\1", $str);
+                                case "html":
+                                    // HTML - escape special HTML chars
+                                    return htmlspecialchars($str, ENT_QUOTES);
+                                default:
+                                    // Plain text - do not escape strings
+                                    return $str;
+                            }
                         });
 
                         /*
