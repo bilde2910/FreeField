@@ -367,6 +367,9 @@ function replaceWebhookFields($poidata, $time, $theme, $spTheme, $useSpecies, $b
                     // <%REWARD_ICON(format,variant)%>
                     // format: "vector" (SVG) or "raster" (bitmap; PNG etc.)
                     // variant: "light" or "dark"
+                    foreach ($tokenArgs as $key => $value) {
+                        $tokenArgs[$key] = trim($value);
+                    }
                     if (count($tokenArgs) < 2) break;
                     if (!in_array($tokenArgs[1], array("dark", "light"))) break;
                     $theme->setVariant($tokenArgs[1]);
