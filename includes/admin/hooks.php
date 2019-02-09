@@ -1277,4 +1277,4 @@
     requires several of those objects (e.g. list of current webhooks) to
     function.
 -->
-<script src="./js/hooks.js"></script>
+<script src="./js/hooks.js?v=2"></script>
