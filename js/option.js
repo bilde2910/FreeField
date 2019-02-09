@@ -174,8 +174,7 @@ $(document).ready(function() {
             var logo = $("<img />");
             logo.attr("src",
                 optObj.baseuri
-                + "themes/icons/"
-                + theme + "/"
+                + "themes/" + type + "/" + theme + "/"
                 + tdata["logo"]
                     .split("{%variant%}")
                     .join(optObj.colortheme)
