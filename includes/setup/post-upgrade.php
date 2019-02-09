@@ -87,7 +87,7 @@ __END_STRING__;
                 /*
                     Update webhooks to include species icon information.
                 */
-                echo "Declaring default species icon sets in existing webhooks...";
+                if (!$silent) echo "Declaring default species icon sets in existing webhooks...";
                 $hooklist = Config::getRaw("webhooks");
                 if ($hooklist === null) $hooklist = array();
                 for ($i = 0; $i < count($hooklist); $i++) {
@@ -95,7 +95,7 @@ __END_STRING__;
                     $hooklist[$i]["show-species"] = true;
                 }
                 Config::set(array("webhooks" => $hooklist));
-                echo " ok\n";
+                if (!$silent) echo " ok\n";
         }
         /*
             Recheck for updates.
