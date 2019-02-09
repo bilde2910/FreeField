@@ -1408,7 +1408,7 @@ class ConfigDefinitions {
             "themes/species/default" => array(
                 "domain" => "themes",
                 "section" => "icons",
-                "default" => "freefield-compass-colorful-textual-en",
+                "default" => "freefield-se-colorful-textual-en",
                 "option" => new SpeciesSetOption()
             ),
             /*
