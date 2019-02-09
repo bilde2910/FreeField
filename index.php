@@ -200,18 +200,25 @@ Security::declareFrameOptionsHeader();
         <script src="./js/clientside-i18n.php" async defer></script>
         <script>
             /*
-                Display options for `IconSetOption` selectors; required by the
-                `IconSetOption` event handler in /js/option.js.
+                Display options for `IconSetOptionBase` selectors; required by
+                the `IconSetOption` event handler in /js/option.js.
             */
             var isc_opts = <?php
                 echo json_encode(array(
-                    "themedata" => IconSetOption::getIconSetDefinitions(),
-                    "icons" => Theme::listIcons(),
-                    "baseuri" => Config::getEndpointUri("/"),
-                    "colortheme" => Config::get("themes/color/user-settings/theme")->value()
+                    "icons" => array(
+                        "themedata" => IconSetOption::getIconSetDefinitions(),
+                        "icons" => Theme::listIcons(),
+                        "baseuri" => Config::getEndpointUri("/"),
+                        "colortheme" => Config::get("themes/color/user-settings/theme")->value()
+                    ),
+                    "species" => array(
+                        "themedata" => SpeciesSetOption::getIconSetDefinitions(),
+                        "highest" => ParamSpecies::getHighestSpecies(),
+                        "baseuri" => Config::getEndpointUri("/"),
+                        "colortheme" => Config::get("themes/color/user-settings/theme")->value()
+                    )
                 ));
             ?>;
-
             /*
                 Determine if user is signed in or not.
             */
@@ -1456,6 +1463,33 @@ Security::declareFrameOptionsHeader();
                                     <?php
                                 }
                             ?>
+                            <?php
+                                if (Config::get("themes/species/allow-personalization")->value()) {
+                                    $opt = new SpeciesSetOption("user_settings.value.default");
+                                    ?>
+                                        <!--
+                                            Icon set used for species markers.
+                                        -->
+                                        <div class="pure-g option-block-follows">
+                                            <div class="pure-u-1-3 full-on-mobile">
+                                                <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.species.name"); ?>:</p>
+                                            </div>
+                                            <div class="pure-u-2-3 full-on-mobile">
+                                                <p>
+                                                    <?php echo $opt->getControl(null, array(
+                                                        "id" => "species-selector",
+                                                        "data-key" => "speciesSet",
+                                                        "class" => "user-setting"
+                                                    )); ?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <?php
+                                            echo $opt->getFollowingBlock();
+                                        ?>
+                                    <?php
+                                }
+                            ?>
                             <!--
                                 Which markers are displayed on the map (research
                                 objectives or research rewards).
@@ -1519,6 +1553,7 @@ Security::declareFrameOptionsHeader();
             */
             var defaults = {
                 "iconSet": <?php echo Config::get("themes/icons/default")->valueJS(); ?>,
+                "speciesSet": <?php echo Config::get("themes/species/default")->valueJS(); ?>,
                 "mapProvider": "<?php echo $provider; ?>",
                 "naviProvider": <?php echo Config::get("map/provider/directions")->valueJS(); ?>,
                 "mapStyle-mapbox": <?php echo Config::get("themes/color/map/theme/mapbox")->valueJS(); ?>,

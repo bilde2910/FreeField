@@ -10,6 +10,8 @@
 $(document).ready(function() {
     $("select.icon-set-option-input").on("input", function() {
         var theme = $(this).val();
+        var type = $(this).attr("data-icon-set-type");
+        var optObj = isc_opts[type];
 
         /*
             Get the box used to preview icon sets.
@@ -54,38 +56,115 @@ $(document).ready(function() {
         /*
             Get the icon set metadata for the given theme.
         */
-        var tdata = isc_opts.themedata[theme];
+        var tdata = optObj.themedata[theme];
 
-        for (var i = 0; i < isc_opts.icons.length; i++) {
-            /*
-                For each available icon in FreeField, check if the icon set has
-                declared assets for the icon, either in vector or raster format,
-                and display the icon if so. If there are no assets for the given
-                icon, don't add it to the preview.
-            */
-            var uri = isc_opts.baseuri + "themes/icons/" + theme + "/";
-            if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(isc_opts.icons[i])) {
-                uri += tdata["vector"][isc_opts.icons[i]];
-            } else if (tdata.hasOwnProperty("raster") && tdata["raster"].hasOwnProperty(isc_opts.icons[i])) {
-                uri += tdata["raster"][isc_opts.icons[i]];
-            } else {
-                uri = null;
-            }
-
-            if (uri != null) {
-                for (var j = 0; j < variants.length; j++) {
+        /*
+            Different icon set types have different means to list the icons that
+            should be rendered. This object contains functions which will
+            perform this rendering for each type of icon set. The functions take
+            `varbox` as their argument, and use this object to append <img>
+            elements to the page.
+        */
+        var listIcons = {
+            "icons": function(box) {
+                for (var i = 0; i < optObj.icons.length; i++) {
                     /*
-                        Create <img> nodes referencing the marker and add one to
-                        each variant's icon container (a dark variant in the
-                        dark icon container and a light variant in the light
-                        icon container).
+                        For each available icon in FreeField, check if the icon
+                        set has declared assets for the icon, either in vector
+                        or raster format, and display the icon if so. If there
+                        are no assets for the given icon, don't add it to the
+                        preview.
                     */
-                    var icobox = $("<img />");
-                    icobox.attr("src", uri.split("{%variant%}").join(variants[j]));
-                    varbox[variants[j]].append(icobox);
+                    var uri = optObj.baseuri + "themes/icons/" + theme + "/";
+                    if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(optObj.icons[i])) {
+                        uri += tdata["vector"][optObj.icons[i]];
+                    } else if (tdata.hasOwnProperty("raster") && tdata["raster"].hasOwnProperty(optObj.icons[i])) {
+                        uri += tdata["raster"][optObj.icons[i]];
+                    } else {
+                        uri = null;
+                    }
+
+                    if (uri != null) {
+                        for (var j = 0; j < variants.length; j++) {
+                            /*
+                                Create <img> nodes referencing the marker and
+                                add one to each variant's icon container (a dark
+                                variant in the dark icon container and a light
+                                variant in the light icon container).
+                            */
+                            var icobox = $("<img />");
+                            icobox.attr("src", uri.split("{%variant%}").join(variants[j]));
+                            box[variants[j]].append(icobox);
+                        }
+                    }
+                }
+            },
+            "species": function(box) {
+                for (var i = 1; i <= 10; i++) {
+                    /*
+                        For each of the first 10 species, check if the icon set
+                        has declared assets for the icon, either in vector or
+                        raster format, and display the icon if so. If there are
+                        no assets for the given icon, don't add it to the
+                        preview. Search for an icon declared in a "range"
+                        section first.
+                    */
+                    var uri = optObj.baseuri + "themes/species/" + theme + "/";
+                    var range = null;
+                    for (var key in tdata) {
+                        if (!tdata.hasOwnProperty(key)) continue;
+                        if (key == "range" || key.startsWith("range")) {
+                            if (
+                                tdata[key]["range_start"] <= i &&
+                                tdata[key]["range_end"] >= i
+                            ) {
+                                range = tdata[key];
+                                break;
+                            }
+                        }
+                    }
+                    /*
+                        If no valid range section matches, fall back to the
+                        default section.
+                    */
+                    if (range == null) {
+                        for (var key in tdata) {
+                            if (!tdata.hasOwnProperty(key)) continue;
+                            if (key == "default") {
+                                range = tdata[key];
+                                break;
+                            }
+                        }
+                    }
+                    /*
+                        Create a URL from the path found in the range section.
+                    */
+                    if (range.hasOwnProperty("vector")) {
+                        uri += range.vector.split("{%n%}").join(i);
+                    } else if (tdata.hasOwnProperty("raster")) {
+                        uri += range.raster.split("{%n%}").join(i);
+                    } else {
+                        uri = null;
+                    }
+
+                    if (uri != null) {
+                        for (var j = 0; j < variants.length; j++) {
+                            /*
+                                Create <img> nodes referencing the marker and
+                                add one to each variant's icon container (a dark
+                                variant in the dark icon container and a light
+                                variant in the light icon container).
+                            */
+                            var icobox = $("<img />");
+                            icobox.attr("src", uri.split("{%variant%}").join(variants[j]));
+                            box[variants[j]].append(icobox);
+                        }
+                    }
                 }
             }
-        }
+        };
+
+        listIcons[type](varbox);
 
         /*
             If the icon set has a logo, display the logo at the top of the icon
@@ -94,12 +173,12 @@ $(document).ready(function() {
         if (tdata.hasOwnProperty("logo")) {
             var logo = $("<img />");
             logo.attr("src",
-                isc_opts.baseuri
+                optObj.baseuri
                 + "themes/icons/"
                 + theme + "/"
                 + tdata["logo"]
                     .split("{%variant%}")
-                    .join(isc_opts.colortheme)
+                    .join(optObj.colortheme)
             );
             logo.addClass("logo");
             box.append(logo);
@@ -110,7 +189,7 @@ $(document).ready(function() {
         */
         var name = $("<h2 />");
         name.text(tdata.name);
-        name.addClass("name " + isc_opts.colortheme);
+        name.addClass("name " + optObj.colortheme);
         box.append(name);
 
         /*

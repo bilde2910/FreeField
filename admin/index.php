@@ -32,6 +32,7 @@ __require("i18n");
 __require("theme");
 __require("security");
 __require("update");
+__require("research");
 
 Security::requireCSRFToken();
 
@@ -189,15 +190,23 @@ Security::declareFrameOptionsHeader();
         <script src="../js/clientside-i18n.php"></script>
         <script>
             /*
-                Display options for `IconSetOption` selectors; required by the
-                `IconSetOption` event handler in /js/option.js.
+                Display options for `IconSetOptionBase` selectors; required by
+                the `IconSetOption` event handler in /js/option.js.
             */
             var isc_opts = <?php
                 echo json_encode(array(
-                    "themedata" => IconSetOption::getIconSetDefinitions(),
-                    "icons" => Theme::listIcons(),
-                    "baseuri" => Config::getEndpointUri("/"),
-                    "colortheme" => Config::get("themes/color/admin")->value()
+                    "icons" => array(
+                        "themedata" => IconSetOption::getIconSetDefinitions(),
+                        "icons" => Theme::listIcons(),
+                        "baseuri" => Config::getEndpointUri("/"),
+                        "colortheme" => Config::get("themes/color/admin")->value()
+                    ),
+                    "species" => array(
+                        "themedata" => SpeciesSetOption::getIconSetDefinitions(),
+                        "highest" => ParamSpecies::getHighestSpecies(),
+                        "baseuri" => Config::getEndpointUri("/"),
+                        "colortheme" => Config::get("themes/color/admin")->value()
+                    )
                 ));
             ?>;
         </script>

@@ -153,6 +153,10 @@ class ParamSpecies {
     private static $last_species = null;
 
     public function __construct() {
+        self::getHighestSpecies();
+    }
+
+    public static function getHighestSpecies() {
         /*
             `$highest_species` is an integer representing the highest number
             across all available generations.
@@ -160,6 +164,7 @@ class ParamSpecies {
         if (self::$highest_species === null) {
             self::$highest_species = self::GENERATIONS_HIGHEST[count(self::GENERATIONS_HIGHEST) - 1];
         }
+        return self::$highest_species;
     }
 
     public function getAvailable() {

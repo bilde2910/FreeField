@@ -748,21 +748,32 @@ class PermissionOption extends DefaultOption {
 }
 
 /*
-    This option is used when a setting requires choosing an icon set. Icon sets
-    are collections of map markers that represent each type of field research
-    objective and reward. This renders as a selection box with an optional
+    This option is used when a setting requires choosing an icon set of any
+    type. Icon sets are collections of map markers, species icons etc. that are
+    used on the FreeField map. This renders as a selection box with an optional
     default field. If a non-default option is selected, a preview of all of the
     icons in the selected icon set should be displayed directly underneath the
     setting on the page.
+
+    This is extended by classes that specify the path ID of an icon set type.
+    See e.g. `IconSetOption` or `SpeciesSetOption` classes below for examples.
 */
-class IconSetOption extends DefaultOption {
+abstract class IconSetOptionBase extends DefaultOption {
     /*
         The `$packs` array is a list of available icon sets. This is declared
         `static` to prevent it from having to be populated once for every
         instance of `IconSetOption` on the page. The list is populated the first
         time this class is constructed, and reused for subsequent instances.
     */
-    private static $packs = null;
+    private static $packs = array();
+
+    /*
+        This class is a base class for various sub-types of icon sets. The
+        `$type` of an icon set is the directory under which icon sets can be
+        found in the /themes directory. For map marker icons, this is "icons,"
+        for species markers, this is "species."
+    */
+    private $type;
 
     /*
         If a default (fallback) option is present, `$includeDefault` is set to
@@ -770,15 +781,22 @@ class IconSetOption extends DefaultOption {
     */
     private $includeDefault;
 
-    public function __construct($includeDefault = null) {
+    public function __construct($type, $includeDefault = null) {
+        $this->type = $type;
         $this->includeDefault = $includeDefault;
-        if (self::$packs === null) {
-            self::getIconSetDefinitions();
+        if (!isset(self::$packs[$type])) {
+            self::getIconSetDefinitionsOfType($type);
         }
     }
 
     public function getControl($current = null, $attrs = array()) {
         __require("i18n");
+
+        /*
+            Add the type of icon set to the selection box for use with proper
+            parsing in /js/option.js.
+        */
+        $attrs["data-icon-set-type"] = $this->type;
 
         /*
             Add the `icon-set-option-input` class to the control to enable it to
@@ -799,7 +817,7 @@ class IconSetOption extends DefaultOption {
                      '</option>';
         }
 
-        foreach (self::$packs as $pack => $data) {
+        foreach (self::$packs[$this->type] as $pack => $data) {
             /*
                 Each option should use the name of the icon set and its author
                 as its label in the selection box.
@@ -819,19 +837,19 @@ class IconSetOption extends DefaultOption {
 
     /*
         This function is called by the administration pages when an
-        `IconSetOption` has been added to the page. The output of the function
-        is rendered as a block underneath the setting line. It contains a
-        preview of all of the icons in the icon set.
+        `IconSetOptionBase` child has been added to the page. The output of the
+        function is rendered as a block underneath the setting line. It contains
+        a preview of all of the icons in the icon set.
     */
     public function getFollowingBlock() {
         return '<div class="option-following-block"></div>';
     }
 
     /*
-        Returns an array of installed icon sets, together with their pack.ini
-        definitions.
+        Returns an array of installed icon sets of the given type, together with
+        their pack.ini definitions.
     */
-    public static function getIconSetDefinitions() {
+    protected static function getIconSetDefinitionsOfType($type) {
         /*
             Populate the list of installed icon sets. This function reads the
             content of all available pack.ini files (one for each icon set) and
@@ -839,18 +857,24 @@ class IconSetOption extends DefaultOption {
             ID of each icon set is the name of the directory in which the icon
             set resides.
         */
-        if (self::$packs === null) {
-            self::$packs = array();
-            $themepath = __DIR__."/../../themes/icons";
+        if (!isset(self::$packs[$type])) {
+            self::$packs[$type] = array();
+            $themepath = __DIR__."/../../themes/".$type;
             $themes = array_diff(scandir($themepath), array('..', '.'));
             foreach ($themes as $theme) {
                 if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
                 $data = parse_ini_file("{$themepath}/{$theme}/pack.ini", true);
-                self::$packs[$theme] = $data;
+                self::$packs[$type][$theme] = $data;
             }
         }
-        return self::$packs;
+        return self::$packs[$type];
     }
+
+    /*
+        Returns an array of installed icon sets of the type specified by the
+        extending class of `IconSetOptionBase`.
+    */
+    public abstract function getIconSetDefinitions();
 
     public function parseValue($data) {
         return strval($data);
@@ -858,7 +882,47 @@ class IconSetOption extends DefaultOption {
 
     public function isValid($data) {
         if (is_array($data)) return false;
-        return isset(self::$packs[$data]);
+        return isset(self::$packs[$this->type][$data]);
+    }
+}
+
+/*
+    This option is used when a setting requires choosing a map marker icon set.
+    These are collections of map markers that represent each type of field
+    research objective and reward. This renders as a selection box with an
+    optional default field. If a non-default option is selected, a preview of
+    all of the icons in the selected icon set should be displayed directly
+    underneath the setting on the page.
+*/
+class IconSetOption extends IconSetOptionBase {
+    const TYPE = "icons";
+
+    public function __construct($includeDefault = null) {
+        parent::__construct(self::TYPE, $includeDefault);
+    }
+
+    public function getIconSetDefinitions() {
+        return parent::getIconSetDefinitionsOfType(self::TYPE);
+    }
+}
+
+/*
+    This option is used when a setting requires choosing a species icon set.
+    These are collections of map markers that represent each type of species in
+    the game. This renders as a selection box with an optional default field. If
+    a non-default option is selected, a preview of all of the icons in the
+    selected icon set should be displayed directly underneath the setting on the
+    page.
+*/
+class SpeciesSetOption extends IconSetOptionBase {
+    const TYPE = "species";
+
+    public function __construct($includeDefault = null) {
+        parent::__construct(self::TYPE, $includeDefault);
+    }
+
+    public function getIconSetDefinitions() {
+        return parent::getIconSetDefinitionsOfType(self::TYPE);
     }
 }
 

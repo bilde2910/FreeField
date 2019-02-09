@@ -1403,6 +1403,25 @@ class ConfigDefinitions {
                 "option" => new BooleanOption()
             ),
             /*
+                Select the style of species markers used by default on the map.
+            */
+            "themes/species/default" => array(
+                "domain" => "themes",
+                "section" => "icons",
+                "default" => "freefield-compass-colorful-textual-en",
+                "option" => new SpeciesSetOption()
+            ),
+            /*
+                Whether to allow users to select their own species marker set
+                instead of the default for their own account.
+            */
+            "themes/species/allow-personalization" => array(
+                "domain" => "themes",
+                "section" => "icons",
+                "default" => true,
+                "option" => new BooleanOption()
+            ),
+            /*
 ================================================================================
     MAP SETTINGS
     Set up map settings and defaults

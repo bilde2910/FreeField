@@ -357,8 +357,22 @@ function addMarkers(markers) {
             + styleMap[settings.get("mapProvider")][settings.get("mapStyle-"+settings.get("mapProvider"))] + " "
 
             // Set the icon set from which marker icons are fetched
-            + settings.get("iconSet");
+            + settings.get("iconSet") + " "
 
+            // Set the species set from which species icons are fetched
+            + settings.get("speciesSet");
+
+        /*
+            Add the reward species if encounter reward, if known.
+        */
+        if (
+            settings.get("markerComponent") == "reward" &&
+            marker.reward.type == "encounter" &&
+            marker.reward.params.hasOwnProperty("species") &&
+            marker.reward.params.species.length == 1
+        ) {
+            e.className += " sp-" + marker.reward.params.species[0];
+        }
         marker["elementId"] = e.id;
 
         /*
@@ -418,16 +432,44 @@ function refreshMarkers() {
             var newObjective = marker.objective.type;
             var newReward = marker.reward.type;
 
+            var markerHtml = $("#" + oldMarker.elementId);
+
             switch (settings.get("markerComponent")) {
                 case "reward":
-                    if ($("#" + oldMarker.elementId).hasClass(oldReward)) {
-                        $("#" + oldMarker.elementId).removeClass(oldReward).addClass(newReward);
+                    /*
+                        Replace the reward marker.
+                    */
+                    if (markerHtml.hasClass(oldReward)) {
+                        markerHtml.removeClass(oldReward).addClass(newReward);
                         MapImpl.updateMarker(oldMarker.implObject, oldReward, newReward);
+                    }
+                    /*
+                        If the reward marker is an encounter, see if a species
+                        class has been defined. If so, remove it.
+                    */
+                    var cls;
+                    if (oldReward == "encounter" && (cls = markerHtml.attr("class").match(/\bsp-\d+\b/))) {
+                        markerHtml.removeClass(cls[0]);
+                    }
+                    /*
+                        If a singular species is available as reward from the
+                        research task, replace the marker with an icon for the
+                        species in question.
+                    */
+                    if (
+                        newReward == "encounter" &&
+                        marker.reward.params.hasOwnProperty("species") &&
+                        marker.reward.params.species.length == 1
+                    ) {
+                        markerHtml.addClass("sp-" + marker.reward.params.species[0]);
                     }
                     break;
                 case "objective":
-                    if ($("#" + oldMarker.elementId).hasClass(oldObjective)) {
-                        $("#" + oldMarker.elementId).removeClass(oldObjective).addClass(newObjective);
+                    /*
+                        Replace the objective marker.
+                    */
+                    if (markerHtml.hasClass(oldObjective)) {
+                        markerHtml.removeClass(oldObjective).addClass(newObjective);
                         MapImpl.updateMarker(oldMarker.implObject, oldObjective, newObjective);
                     }
                     break;
@@ -1245,6 +1287,9 @@ $("#menu-open-settings").on("click", function(e) {
     if ($("#icon-selector").length > 0) {
         $("#icon-selector").trigger("input");
     }
+    if ($("#species-selector").length > 0) {
+        $("#species-selector").trigger("input");
+    }
 
     /*
         Hides the map and map-specific sidebar items, and shows the settings
@@ -1448,7 +1493,8 @@ $("head").append('<link rel="stylesheet" ' +
 /*
     Configure the `IconSetOption` selector to use the correct user theme color.
 */
-isc_opts.colortheme = settings.get("theme");
+isc_opts.icons.colortheme = settings.get("theme");
+isc_opts.species.colortheme = settings.get("theme");
 
 /*
     Initialize the map.
