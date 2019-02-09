@@ -183,6 +183,7 @@ foreach ($_POST as $postid => $data) {
         there are no objective/reward filters on a webhook).
     */
     if (
+        isset($data["filterModeObjective"]) &&
         isset($hook["filter-mode"]["objectives"]) &&
         $hook["filter-mode"]["objectives"] !== $data["filterModeObjective"]
     ) {
@@ -193,6 +194,7 @@ foreach ($_POST as $postid => $data) {
     }
 
     if (
+        isset($data["filterModeReward"]) &&
         isset($hook["filter-mode"]["rewards"]) &&
         $hook["filter-mode"]["rewards"] !== $data["filterModeReward"]
     ) {
