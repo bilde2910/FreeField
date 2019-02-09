@@ -332,6 +332,68 @@ function resolveIconUrl(icon) {
 }
 
 /*
+    Gets an image URL for the given species, i.e. marker. This takes into
+    account the theme that the user has selected.
+
+    The URL may contain the {%variant%} token, which indicates that the icon
+    supports several different color variants. {%variant%}, if present, will be
+    replaced with `variant` ("light" or "dark") to get the correct variant based
+    on the color theme selected by the user in their local settings.
+*/
+function resolveSpeciesUrl(icon) {
+    var variant = settings.get("theme");
+    var set = isc_opts.species.themedata[settings.get("speciesSet")];
+
+    /*
+        Try to determine the range of icons in the icon set in which the species
+        icon can be found.
+    */
+    var range = null;
+    for (var key in set) {
+        if (!set.hasOwnProperty(key)) continue;
+        if (key == "range" || key.startsWith("range")) {
+            if (
+                set[key]["range_start"] <= icon &&
+                set[key]["range_end"] >= icon
+            ) {
+                range = set[key];
+                break;
+            }
+        }
+    }
+
+    /*
+        If no matching range was found, try the "default" section.
+    */
+    if (range == null) {
+        for (var key in set) {
+            if (!set.hasOwnProperty(key)) continue;
+            if (key == "default") {
+                range = set[key];
+                break;
+            }
+        }
+    }
+
+    /*
+        Create an URL for the species marker.
+    */
+    var uri = isc_opts.species.baseuri
+            + "themes/species/"
+            + settings.get("speciesSet")
+            + "/";
+
+    if (range.hasOwnProperty("vector")) {
+        uri += range.vector.split("{%n%}").join(icon).split("{%variant%}").join(variant);
+    } else if (tdata.hasOwnProperty("raster")) {
+        uri += range.raster.split("{%n%}").join(icon).split("{%variant%}").join(variant);
+    } else {
+        uri = null;
+    }
+    return uri;
+}
+
+/*
     Adds a set of marker icons to the map. The `markers` parameter is an array
     of objects, where each object describes the properties of one POI.
     format of the array is the same as the format output in JSON format by GET
@@ -482,7 +544,19 @@ function refreshMarkers() {
             */
             if (marker.id == currentMarker) {
                 $("#poi-objective-icon").attr("src", resolveIconUrl(marker.objective.type));
-                $("#poi-reward-icon").attr("src", resolveIconUrl(marker.reward.type));
+                if (
+                    /*
+                        If a single encounter species is known, display the icon of that
+                        species instead of the generic encounter reward icon.
+                    */
+                    marker.reward.type == "encounter" &&
+                    marker.reward.params.hasOwnProperty("species") &&
+                    marker.reward.params.species.length == 1
+                ) {
+                    $("#poi-reward-icon").attr("src", resolveSpeciesUrl(marker.reward.params.species[0]));
+                } else {
+                    $("#poi-reward-icon").attr("src", resolveIconUrl(marker.reward.type));
+                }
                 $("#poi-objective").text(resolveObjective(marker.objective));
                 $("#poi-reward").text(resolveReward(marker.reward));
             }
@@ -663,7 +737,19 @@ function openMarker(markerObj, id) {
     var poiObj = pois[id];
     $("#poi-name").text(poiObj.name);
     $("#poi-objective-icon").attr("src", resolveIconUrl(poiObj.objective.type));
-    $("#poi-reward-icon").attr("src", resolveIconUrl(poiObj.reward.type));
+    if (
+        /*
+            If a single encounter species is known, display the icon of that
+            species instead of the generic encounter reward icon.
+        */
+        poiObj.reward.type == "encounter" &&
+        poiObj.reward.params.hasOwnProperty("species") &&
+        poiObj.reward.params.species.length == 1
+    ) {
+        $("#poi-reward-icon").attr("src", resolveSpeciesUrl(poiObj.reward.params.species[0]));
+    } else {
+        $("#poi-reward-icon").attr("src", resolveIconUrl(poiObj.reward.type));
+    }
     $("#poi-objective").text(resolveObjective(poiObj.objective));
     $("#poi-reward").text(resolveReward(poiObj.reward));
 
