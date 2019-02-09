@@ -749,6 +749,7 @@
                 this class.
             */
             $optIcon = new IconSetOption("setting.hooks.hook_list.icons.option.default");
+            $optSpecies = new SpeciesSetOption("setting.hooks.hook_list.species.option.default");
             $optFence = new GeofenceOption();
 
             /*
@@ -817,6 +818,34 @@
                             "name" => "hook_{%ID%}[iconSet]",
                             "id" => "{%ID%}-icon-selector",
                             "class" => "hook-icon-set"
+                    )).'</p>
+                </div>
+            </div>
+            '.$optIcon->getFollowingBlock().'
+            <div class="pure-g">
+                <div class="pure-u-1-3 full-on-mobile">
+                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.show_species.name").':</p>
+                </div>
+                <div class="pure-u-2-3 full-on-mobile">
+                    <p><label for="{%ID%}-show-species">
+                        <input type="checkbox"
+                               id="{%ID%}-show-species"
+                               name="hook_{%ID%}[showSpecies]"
+                               class="hook-show-species"
+                               checked>
+                        '.I18N::resolveHTML("setting.hooks.hook_list.show_species.label").'
+                    </label></p>
+                </div>
+            </div>
+            <div class="pure-g option-block-follows">
+                <div class="pure-u-1-3 full-on-mobile">
+                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.species.name").':</p>
+                </div>
+                <div class="pure-u-2-3 full-on-mobile">
+                    <p>'.$optSpecies->getControl(null, array(
+                            "name" => "hook_{%ID%}[speciesSet]",
+                            "id" => "{%ID%}-species-selector",
+                            "class" => "hook-species-set"
                     )).'</p>
                 </div>
             </div>

@@ -44,7 +44,7 @@ header("Content-Type: application/json");
     values. This is done by passing a closure to `$escapeStr` that escapes a
     string passed to it and returns the result.
 */
-function replaceWebhookFields($poidata, $time, $theme, $body, $escapeStr) {
+function replaceWebhookFields($poidata, $time, $theme, $spTheme, $useSpecies, $body, $escapeStr) {
     __require("research");
 
     /*
@@ -370,6 +370,7 @@ function replaceWebhookFields($poidata, $time, $theme, $body, $escapeStr) {
                     if (count($tokenArgs) < 2) break;
                     if (!in_array($tokenArgs[1], array("dark", "light"))) break;
                     $theme->setVariant($tokenArgs[1]);
+                    $spTheme->setVariant($tokenArgs[1]);
                     $icon = $tokenName == "OBJECTIVE_ICON" ? $objective : $reward;
                     switch ($tokenArgs[0]) {
                         case "vector":
@@ -378,6 +379,23 @@ function replaceWebhookFields($poidata, $time, $theme, $body, $escapeStr) {
                         case "raster":
                             $replacement = $theme->getRasterUrl($icon);
                             break;
+                    }
+                    // Display species instead of encounter icon?
+                    if (
+                        $useSpecies &&
+                        $tokenName == "REWARD_ICON" &&
+                        $reward == "encounter" &&
+                        isset($rewParams["species"]) &&
+                        count($rewParams["species"] == 1)
+                    ) {
+                        switch ($tokenArgs[0]) {
+                            case "vector":
+                                $replacement = $spTheme->getIconUrl($rewParams["species"][0]);
+                                break;
+                            case "raster":
+                                $replacement = $spTheme->getRasterUrl($rewParams["species"][0]);
+                                break;
+                        }
                     }
                     break;
 
@@ -812,6 +830,21 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             }
 
             /*
+                Get the species icon set selected for the webhook. If none is
+                selected, fall back to the default icon set.
+            */
+            if (isset($hook["species"]) && $hook["species"] !== "") {
+                $spTheme = Theme::getSpeciesSet($hook["species"]);
+            } else {
+                $spTheme = Theme::getSpeciesSet();
+            }
+            if (isset($hook["show-species"])) {
+                $useSpecies = $hook["show-species"];
+            } else {
+                $useSpecies = true;
+            }
+
+            /*
                 Post the webhook.
             */
             try {
@@ -821,7 +854,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                             Replace text replacement strings (e.g. <%COORDS%>)
                             in the webhook's payload body.
                         */
-                        $body = replaceWebhookFields($poidata, $reportedTime, $theme, $hook["body"], function($str) {
+                        $body = replaceWebhookFields($poidata, $reportedTime, $theme, $spTheme, $useSpecies, $hook["body"], function($str) {
                             /*
                                 String escaping for JSON
                                 Convert to JSON string and remove leading and
@@ -848,7 +881,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                             Replace text replacement strings (e.g. <%COORDS%>)
                             in the webhook's payload body.
                         */
-                        $body = replaceWebhookFields($poidata, $reportedTime, $theme, $hook["body"], function($str) {
+                        $body = replaceWebhookFields($poidata, $reportedTime, $theme, $spTheme, $useSpecies, $hook["body"], function($str) {
                             /*
                                 Escape any special Markdown or HTML characters
                                 in the webhook body according to the format of

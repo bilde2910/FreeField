@@ -68,6 +68,34 @@ __END_STRING__;
                 if (empty(Config::get("map/updates/tz")->value())) {
                     Config::set(array("map/updates/tz" => "UTC"));
                 }
+            case "1.0-alpha.6":
+            case "1.0-alpha.7":
+            case "1.0-alpha.8":
+            case "1.0-alpha.9":
+            case "1.0-beta.1":
+            case "1.0-beta.2":
+            case "1.0-rc.1":
+            case "1.0-rc.2":
+            case "1.0-rc.3":
+            case "1.0":
+            case "1.0.1":
+            case "1.0.2":
+            case "1.0.3":
+            case "1.0.4":
+            case "1.0.5":
+            case "1.0.6":
+                /*
+                    Update webhooks to include species icon information.
+                */
+                echo "Declaring default species icon sets in existing webhooks...";
+                $hooklist = Config::getRaw("webhooks");
+                if ($hooklist === null) $hooklist = array();
+                for ($i = 0; $i < count($hooklist); $i++) {
+                    $hooklist[$i]["species"] = "";
+                    $hooklist[$i]["show-species"] = true;
+                }
+                Config::set(array("webhooks" => $hooklist));
+                echo " ok\n";
         }
         /*
             Recheck for updates.

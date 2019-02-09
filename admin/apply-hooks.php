@@ -91,6 +91,8 @@ foreach ($_POST as $postid => $data) {
             "active" => true,
             "language" => "en-US",
             "icons" => "",
+            "species" => "",
+            "show-species" => true,
             "body" => "",
             "filter-mode" => array(
                 "objectives" => "whitelist",
@@ -176,6 +178,14 @@ foreach ($_POST as $postid => $data) {
     if ($hook["icons"] !== $data["iconSet"]) {
         $hook["icons"] = $data["iconSet"];
     }
+
+    // The species set used in the webhook
+    if (!isset($hook["species"]) || $hook["species"] !== $data["speciesSet"]) {
+        $hook["species"] = $data["speciesSet"];
+    }
+
+    // Whether or not said icon should be shown
+    $hook["show-species"] = isset($data["showSpecies"]);
 
     /*
         Filter modes for objectives and rewards. This field will not be set if

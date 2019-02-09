@@ -1665,6 +1665,14 @@ for (var i = 0; i < hooks.length; i++) {
     if (hook.hasOwnProperty("geofence") && hook.geofence !== null) {
         node.find(".hook-geofence").val(hook.geofence);
     }
+    // Species set to use for the icon URLs passed to the webhook, if applicable
+    if (hook.hasOwnProperty("species")) {
+        node.find(".hook-species-set").val(hook.species);
+    }
+    // Whether or not to use said species icon set
+    if (hook.hasOwnProperty("show-species")) {
+        node.find(".hook-show-species").prop("checked", hook["show-species"]);
+    }
 
     /*
         There is no reason to enable an already active webhook, or disable one
