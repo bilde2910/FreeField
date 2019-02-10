@@ -68,13 +68,11 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
         header("Location: ".Config::getEndpointUri("/auth/login.php"));
         exit;
     } else {
+        /*
+            Execute X-Frame-Options same-origin policy.
+        */
+        Security::declareFrameOptionsHeader();
         ?>
-            <?php
-            /*
-                Execute X-Frame-Options same-origin policy.
-            */
-            Security::declareFrameOptionsHeader();
-            ?>
             <!DOCTYPE html>
             <html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
                 <head>
@@ -164,9 +162,6 @@ $linkMod = array(
     "/pwa/register-sw.js"   => filemtime("./pwa/register-sw.js")
 );
 
-?>
-
-<?php
 /*
     Execute X-Frame-Options same-origin policy.
 */
