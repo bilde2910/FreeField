@@ -42,8 +42,6 @@ if ($provider !== null && !in_array($provider, $providers)) {
     exit;
 }
 
-?>
-<?php
 /*
     Execute X-Frame-Options same-origin policy.
 */

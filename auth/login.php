@@ -36,8 +36,6 @@ $providerIcons = array(
     "groupme"   => "fas fa-user" // No brand specific icon available at this time
 );
 
-?>
-<?php
 /*
     Execute X-Frame-Options same-origin policy.
 */

@@ -24,6 +24,11 @@ if (!isset($_GET["euid"])) {
 }
 
 /*
+    Execute X-Frame-Options same-origin policy.
+*/
+Security::declareFrameOptionsHeader();
+
+/*
     Decrypt the user ID.
 */
 $id = Auth::getDecryptedUserID($_GET["euid"]);
@@ -34,12 +39,6 @@ $id = Auth::getDecryptedUserID($_GET["euid"]);
     administrator rather than opening it themselves.
 */
 if ($id === Auth::getCurrentUser()->getUserID()) {
-    ?>
-    <?php
-    /*
-        Execute X-Frame-Options same-origin policy.
-    */
-    Security::declareFrameOptionsHeader();
     ?>
     <!DOCTYPE html>
     <html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
@@ -118,12 +117,6 @@ $user = Auth::getUser($id);
 */
 if (!$user->exists() || $user->isApproved()) {
     ?>
-    <?php
-    /*
-        Execute X-Frame-Options same-origin policy.
-    */
-    Security::declareFrameOptionsHeader();
-    ?>
     <!DOCTYPE html>
     <html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
         <head>
@@ -185,13 +178,6 @@ if (!$user->exists() || $user->isApproved()) {
     From here on, the user exists, and the currently logged in user has the
     required privileges to approve or reject the user. Display the prompt.
 */
-
-?>
-<?php
-/*
-    Execute X-Frame-Options same-origin policy.
-*/
-Security::declareFrameOptionsHeader();
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">

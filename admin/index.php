@@ -140,8 +140,6 @@ $linkMod = array(
     "/js/option.js"         => filemtime("../js/option.js")
 );
 
-?>
-<?php
 /*
     Execute X-Frame-Options same-origin policy.
 */

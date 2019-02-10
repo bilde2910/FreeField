@@ -27,8 +27,6 @@ if (!Auth::isAuthenticated() || Auth::getCurrentUser()->isApproved()) {
 $approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
                urlencode(Auth::getCurrentUser()->getEncryptedUserID());
 
-?>
-<?php
 /*
     Execute X-Frame-Options same-origin policy.
 */
