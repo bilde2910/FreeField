@@ -340,6 +340,14 @@ __require("research");
                 </p>
             </div>
             <!--
+                Importing ~250 or more POIs at the same time may cause the
+                form to exceed the maximum number of allowed data fields per
+                HTTP request. To mitigate this, the following field will contain
+                a JSON-encoded representation of all the fields, and will be
+                updated as the form is submitted.
+            -->
+            <input type="hidden" name="n_json" id="import-poi-json" data-changed>
+            <!--
                 ============================================================
                     POI EXPORTS SECTION
                 ============================================================

@@ -215,7 +215,9 @@ function drawTable() {
             var colName = $(
                 '<td>' +
                     '<input type="text" ' +
-                           'name="pn_' + i + '[name]">' +
+                           'class="import-poi-data-field" ' +
+                           'data-new-id="' + i + '" ' +
+                           'data-new-key="name">' +
                 '</td>'
             );
             rowNode.append(colName);
@@ -224,7 +226,9 @@ function drawTable() {
                 '<td>' +
                     '<input type="number" ' +
                            'step="0.000000000001" ' +
-                           'name="pn_' + i + '[latitude]">' +
+                           'class="import-poi-data-field" ' +
+                           'data-new-id="' + i + '" ' +
+                           'data-new-key="latitude">' +
                 '</td>'
             );
             rowNode.append(colLatitude);
@@ -233,7 +237,9 @@ function drawTable() {
                 '<td>' +
                     '<input type="number" ' +
                            'step="0.000000000001" ' +
-                           'name="pn_' + i + '[longitude]">' +
+                           'class="import-poi-data-field" ' +
+                           'data-new-id="' + i + '" ' +
+                           'data-new-key="longitude">' +
                 '</td>'
             );
             rowNode.append(colLongitude);
@@ -250,8 +256,9 @@ function drawTable() {
             */
             var colInclude = $(
                 '<td>' +
-                    '<select name="pn_' + i + '[include]" ' +
-                            'class="import-action"' +
+                    '<select data-new-id="' + i + '" ' +
+                            'data-new-key="include" ' +
+                            'class="import-action import-poi-data-field" ' +
                             'data-changed="true">' +
                         '<option value="yes"></option>' +
                         '<option value="no"></option>' +
@@ -308,15 +315,15 @@ function renderPreview() {
                 parse the values and put them into the table.
             */
             if (fieldName != "" && row.hasOwnProperty(fieldName))
-                rowNode.find('input[name="pn_' + i + '[name]"]')
+                rowNode.find('input[data-new-id="' + i + '"][data-new-key="name"]')
                        .val(row[fieldName]);
 
             if (fieldLatitude != "" && row.hasOwnProperty(fieldLatitude))
-                rowNode.find('input[name="pn_' + i + '[latitude]"]')
+                rowNode.find('input[data-new-id="' + i + '"][data-new-key="latitude"]')
                        .val(parseFloat(row[fieldLatitude]));
 
             if (fieldLongitude != "" && row.hasOwnProperty(fieldLongitude))
-                rowNode.find('input[name="pn_' + i + '[longitude]"]')
+                rowNode.find('input[data-new-id="' + i + '"][data-new-key="longitude"]')
                        .val(parseFloat(row[fieldLongitude]));
         }
 
@@ -407,17 +414,34 @@ $(".poi-actions").on("change", function() {
     }
 });
 
-/*
-    Changes to inputs on the form are tracked to stop data being accidentally
-    discarded if the user tries to navigate away from the page without saving
-    the settings. Ensure that the warning isn't displayed if the user clicks on
-    the submit button.
 
-    This must be set manually on submit because the form on this page does not
-    use `require-validation`. Forms that use `require-validation` have this
-    handled automatically by the validation script. Please see the end of the
-    /admin/index.php script for more information.
-*/
-$("form").on("submit", function() {
+$("form").on("submit", function(ev) {
+    /*
+        Importing ~250 or more POIs at the same time may cause the form to
+        exceed the maximum number of allowed data fields per HTTP request. To
+        mitigate this, a hidden input field by id "import-poi-json" will contain
+        a JSON-encoded representation of all the fields. Populate this field as
+        we are about to submit the form.
+    */
+    var pnArray = [];
+    $(".import-poi-data-field").each(function(idx, e) {
+        var id = $(e).attr("data-new-id");
+        var key = $(e).attr("data-new-key");
+        if (typeof pnArray[id] === "undefined") pnArray[id] = {};
+        pnArray[id][key] = $(e).val();
+    });
+    $("#import-poi-json").val(JSON.stringify(pnArray));
+
+    /*
+        Changes to inputs on the form are tracked to stop data being
+        accidentally discarded if the user tries to navigate away from the page
+        without saving the settings. Ensure that the warning isn't displayed if
+        the user clicks on the submit button.
+
+        This must be set manually on submit because the form on this page does
+        not use `require-validation`. Forms that use `require-validation` have
+        this  handled automatically by the validation script. Please see the end
+        of the /admin/index.php script for more information.
+    */
     unsavedChanges = false;
 });
