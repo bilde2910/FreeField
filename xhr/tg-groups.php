@@ -109,7 +109,9 @@ if (isset($_GET["token"])) {
     foreach ($hooks as $hook) {
         if ($hook["id"] == $_GET["forId"]) {
             if (isset($hook["options"]["bot-token"])) {
-                $token = $hook["options"]["bot-token"];
+                $token = Security::decryptArray(
+                    $hook["options"]["bot-token"], "config", "token"
+                );
             }
             break;
         }
@@ -124,35 +126,21 @@ if ($token === null) {
     XHR::exitWith(400, array("reason" => "xhr.failed.reason.missing_fields"));
 }
 
-$opts = array(
-    "http" => array(
-        "method" => "GET",
-        "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()."\r\n".
-                    "Accept: application/json",
-        "timeout" => 15.0
-    )
-);
-$context = stream_context_create($opts);
-$time = time();
-
 /*
-    Gracefully handle upstream errors.
+    Attempt to make the request to Telegram's servers.
 */
-set_error_handler(function($no, $str, $file, $line, $context) {
-    if (0 === error_reporting()) {
-        return false;
-    }
-    XHR::exitWith(502, array("reason" => "xhr.failed.reason.upstream_failed"));
-}, E_WARNING);
+$ch = curl_init("https://api.telegram.org/bot".urlencode($token)."/getUpdates");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_FAILONERROR, true);
+curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion(),
+    "Accept: application/json"
+));
+$data = json_decode(curl_exec($ch), true);
 
-try {
-    $data = json_decode(file_get_contents(
-        "https://api.telegram.org/bot".urlencode($token)."/getUpdates",
-        false,
-        $context
-    ), true);
-} catch (Exception $e) {
-    if (time() >= ($time + 14)) {
+if (curl_error($ch)) {
+    if (curl_errno($ch) == 28) { // CURLE_OPERATION_TIMEDOUT
         /*
             15 second timeout exceeded.
         */
@@ -164,6 +152,8 @@ try {
         XHR::exitWith(502, array("reason" => "xhr.failed.reason.upstream_failed"));
     }
 }
+
+curl_close($ch);
 
 /*
     Check for errors in the returned data.

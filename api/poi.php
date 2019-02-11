@@ -866,17 +866,16 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                             return substr(json_encode($str), 1, -1);
                         });
 
-                        $opts = array(
-                            "http" => array(
-                                "method" => "POST",
-                                "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()."\r\n".
-                                            "Content-Type: application/json\r\n".
-                                            "Content-Length: ".strlen($body),
-                                "content" => $body
-                            )
-                        );
-                        $context = stream_context_create($opts);
-                        file_get_contents($hook["target"], false, $context);
+                        $ch = curl_init($hook["target"]);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                            "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion(),
+                            "Content-Type: application/json",
+                            "Content-Length: ".strlen($body)
+                        ));
+                        curl_exec($ch);
+                        curl_close($ch);
                         break;
 
                     case "telegram":
@@ -929,16 +928,6 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         }
                         $postdata = json_encode($postArray);
 
-                        $opts = array(
-                            "http" => array(
-                                "method" => "POST",
-                                "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()."\r\n".
-                                            "Content-Type: application/json\r\n".
-                                            "Content-Length: ".strlen($postdata),
-                                "content" => $postdata
-                            )
-                        );
-
                         __require("security");
                         $botToken = Security::decryptArray(
                             $hook["options"]["bot-token"],
@@ -946,13 +935,17 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                             "token"
                         );
 
-                        $context = stream_context_create($opts);
-                        file_get_contents(
-                            "https://api.telegram.org/bot".
-                                urlencode($botToken)."/sendMessage",
-                            false,
-                            $context
-                        );
+                        $ch = curl_init("https://api.telegram.org/bot".
+                            urlencode($botToken)."/sendMessage");
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                            "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion(),
+                            "Content-Type: application/json",
+                            "Content-Length: ".strlen($postdata)
+                        ));
+                        curl_exec($ch);
+                        curl_close($ch);
                         break;
                 }
             } catch (Exception $e) {

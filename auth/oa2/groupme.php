@@ -82,6 +82,8 @@ set_error_handler(function($no, $str, $file, $line, $context) {
         The OAuth endpoint returned an error response code. Kick the user back
         to the "failed to authenticate" page and prompt them to try again.
     */
+    global $service;
+    global $continueUrlSafe;
     header("HTTP/1.1 303 See Other");
     setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
     header("Location: ".Config::getEndpointUri(
@@ -90,18 +92,22 @@ set_error_handler(function($no, $str, $file, $line, $context) {
     exit;
 }, E_WARNING);
 
-$resp = null;
-try {
-    $resp = json_decode(file_get_contents(
-        $opts["identEndpoint"]."?token=".$_GET["access_token"], false, $context
-    ), true);
-} catch (Exception $e) {
+$ch = curl_init($opts["identEndpoint"]."?token=".$_GET["access_token"]);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_FAILONERROR, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()
+));
+$resp = curl_exec($ch);
+
+if (curl_error($ch)) {
     /*
         Stage II failure
 
         The connection to the OAuth endpoint failed. Kick the user back to the
         "failed to authenticate" page and prompt them to try again.
     */
+    curl_close($ch);
     header("HTTP/1.1 303 See Other");
     setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
     header("Location: ".Config::getEndpointUri(
@@ -109,6 +115,9 @@ try {
     ));
     exit;
 }
+
+curl_close($ch);
+$resp = json_decode($resp, true);
 
 if ($resp === null || $resp["meta"]["code"] !== 200) {
     /*
