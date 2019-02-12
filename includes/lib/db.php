@@ -146,6 +146,7 @@ class Database {
     const ACTION_INSERT = 1;
     const ACTION_UPDATE = 2;
     const ACTION_DELETE = 3;
+    const ACTION_INSERT_MANY = 4;
 
     // Current action for use in `execute()`.
     private $action = null;
@@ -537,6 +538,18 @@ class Database {
     }
 
     /*
+        Indicates that `execute()` should INSERT multiple rows of data.
+
+        $data
+            An array of rows of data to insert.
+    */
+    public function insertMany($data) {
+        $this->data = $data;
+        $this->action = self::ACTION_INSERT_MANY;
+        return $this;
+    }
+
+    /*
         Indicates that `execute()` should UPDATE data.
 
         $data
@@ -593,6 +606,41 @@ class Database {
 
                 $sql = "INSERT INTO {$table} ({$columns}) VALUES ({$placeholders})";
                 $values = array_values($this->data);
+                $this->pdo->prepare($sql)->execute($values);
+                break;
+
+            case self::ACTION_INSERT_MANY:
+                $table = $this->table;
+                $rowCount = count($this->data);
+                if ($rowCount < 1) break;
+                $columns = implode(", ", array_keys($this->data[0]));
+                $colCount = count($this->data[0]);
+
+                // Create an insert string with many named placeholders. (Non-
+                // named placeholders will not work!) Using ":ph<n>" for place-
+                // holders is fine.
+                $phArray = array();
+                $phNo = 0;
+                for ($i = 0; $i < $rowCount; $i++) {
+                    $placeholders = array();
+                    for ($j = 0; $j < $colCount; $j++) $placeholders[] = ":ph".($phNo++);
+                    $phArray[] = "(".implode(",", $placeholders).")";
+                }
+                $phString = implode(",", $phArray);
+
+                // Add all values to a single array, and set invalid if not all
+                // rows have same number of columns.
+                $valid = true;
+                $values = array();
+                $phNo = 0;
+                foreach ($this->data as $row) {
+                    if (count($row) !== $colCount) $valid = false;
+                    foreach ($row as $value) $values[":ph".($phNo++)] = $value;
+                }
+                if (!$valid) break;
+
+                $sql = "INSERT INTO {$table} ({$columns}) VALUES {$phString}";
+                //var_dump($sql); var_dump($values); exit;
                 $this->pdo->prepare($sql)->execute($values);
                 break;
 

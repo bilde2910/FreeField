@@ -235,12 +235,10 @@ foreach ($deletes as $poiid) {
         ->delete()
         ->execute();
 }
-foreach ($inserts as $data) {
-    $db
-        ->from("poi")
-        ->insert($data)
-        ->execute();
-}
+$db
+    ->from("poi")
+    ->insertMany($inserts)
+    ->execute();
 
 header("HTTP/1.1 303 See Other");
 header("Location: {$returnpath}");
