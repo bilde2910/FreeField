@@ -488,7 +488,16 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $pois = Geo::listPOIs();
         $geofence = Config::get("map/geofence/geofence")->value();
 
+        /*
+            Complete list of POI data to send back to the browser.
+        */
         $poidata = array();
+
+        /*
+            A list of IDs only, used to detect deletions when a limited range of
+            updates are requested.
+        */
+        $poiIDs = array();
 
         foreach ($pois as $poi) {
             /*
@@ -502,24 +511,39 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             ) {
                 continue;
             }
+
             /*
-                Add the POI to the list of returned POIs.
+                In order to save bandwidth, only send POIs updated after a
+                certain timestamp if the client requests it.
             */
-            $poidata[] = array(
-                "id" => intval($poi->getID()),
-                "name" => $poi->getName(),
-                "latitude" => $poi->getLatitude(),
-                "longitude" => $poi->getLongitude(),
-                "objective" => $poi->getCurrentObjective(),
-                "reward" => $poi->getCurrentReward(),
-                "updated" => array(
-                    "on" => $poi->getLastUpdatedTime(),
-                    "by" => $poi->getLastUser()->getUserID()
-                )
-            );
+            if (
+                !isset($_GET["updatedSince"]) ||
+                $poi->getLastUpdatedTime() >= intval($_GET["updatedSince"])
+            ) {
+                /*
+                    Add the POI to the list of returned POIs.
+                */
+                $poidata[] = array(
+                    "id" => intval($poi->getID()),
+                    "name" => $poi->getName(),
+                    "latitude" => $poi->getLatitude(),
+                    "longitude" => $poi->getLongitude(),
+                    "objective" => $poi->getCurrentObjective(),
+                    "reward" => $poi->getCurrentReward(),
+                    "updated" => array(
+                        "on" => $poi->getLastUpdatedTime(),
+                        "by" => $poi->getLastUser()->getUserID()
+                    )
+                );
+            }
+
+            /*
+                Add the ID of the POI to prove its existence.
+            */
+            $poiIDs[] = $poi->getID();
         }
 
-        XHR::exitWith(200, array("pois" => $poidata));
+        XHR::exitWith(200, array("pois" => $poidata, "idList" => $poiIDs));
     } catch (Exception $e) {
         /*
             `Geo::listPOIs()` may fail with a database error and throw an

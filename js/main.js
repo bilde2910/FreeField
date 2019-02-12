@@ -465,9 +465,13 @@ function addMarkers(markers) {
     This function is called periodically to ensure that the markers displayed on
     the map are up to date.
 */
+var lastRefresh = 0;
 function refreshMarkers() {
-    $.getJSON("./api/poi.php", function(data) {
+    var url = "./api/poi.php?updatedSince=" + lastRefresh;
+    lastRefresh = Math.floor(Date.now() / 1000);
+    $.getJSON(url, function(data) {
         var markers = data["pois"];
+        var ids = data["idList"];
 
         markers.forEach(function(marker) {
             /*
@@ -596,8 +600,8 @@ function refreshMarkers() {
         for (var i = 0; i < pois.length; i++) {
             if (pois[i] != null) {
                 var exists = false;
-                for (var j = 0; j < markers.length; j++) {
-                    if (pois[i].id == markers[j].id) {
+                for (var j = 0; j < ids.length; j++) {
+                    if (pois[i].id == ids[j]) {
                         exists = true;
                         break;
                     }
@@ -629,6 +633,7 @@ $(document).ready(function() {
         displayed. This is done after page load to ensure that all required DOM
         elements have loaded first.
     */
+    lastRefresh = Math.floor(Date.now() / 1000);
     $.getJSON("./api/poi.php", function(data) {
         addMarkers(data["pois"]);
         /*
