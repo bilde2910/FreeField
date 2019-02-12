@@ -314,7 +314,7 @@
     This page contains a potentially large table, so we should enable sorting
     for it.
 -->
-<script src="./js/table-sort.js"></script>
+<script src="./js/table-utils.js"></script>
 <!--
     /admin/js/users.js contains additional functionality for this page.
 -->

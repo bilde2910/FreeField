@@ -1,9 +1,16 @@
 /*
-    This script contains functions to enable table sorting on the administration
-    interface. Sorting is enabled for all column headers with the
-    `data-sort-function` attribute set. This attribute must contain the index of
-    a function in the `sortFunctions` object corresponding to the comparison
-    function for sorting that column.
+    This script contains table utilities, such as functions to enable table
+    sorting and pagination.
+
+    Sorting is enabled for all column headers with the `data-sort-function`
+    attribute set. This attribute must contain the index of a function in the
+    `sortFunctions` object corresponding to the comparison function for sorting
+    that column.
+
+    Pagination is enabled for all tables with the `paginate` class. Such tables
+    must be followed by a `.paginate-outer` block element containing a
+    `.paginate-inner` block element, which will contain navigation controls for
+    the table.
 */
 
 /*

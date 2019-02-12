@@ -390,11 +390,11 @@ __require("research");
 
 <!--
     This page contains a potentially large table, so we should enable sorting
-    for it.
+    and pagination for it.
 -->
-<script src="./js/table-sort.js"></script>
+<script src="./js/table-utils.js"></script>
 
 <!--
     /admin/js/pois.js contains additional functionality for this page.
 -->
-<script src="./js/pois.js"></script>
+<script src="./js/pois.js?v=2"></script>
