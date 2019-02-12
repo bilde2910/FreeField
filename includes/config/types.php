@@ -874,7 +874,7 @@ abstract class IconSetOptionBase extends DefaultOption {
         Returns an array of installed icon sets of the type specified by the
         extending class of `IconSetOptionBase`.
     */
-    public abstract function getIconSetDefinitions();
+    public abstract static function getIconSetDefinitions();
 
     public function parseValue($data) {
         return strval($data);
@@ -901,7 +901,7 @@ class IconSetOption extends IconSetOptionBase {
         parent::__construct(self::TYPE, $includeDefault);
     }
 
-    public function getIconSetDefinitions() {
+    public static function getIconSetDefinitions() {
         return parent::getIconSetDefinitionsOfType(self::TYPE);
     }
 }
@@ -921,7 +921,7 @@ class SpeciesSetOption extends IconSetOptionBase {
         parent::__construct(self::TYPE, $includeDefault);
     }
 
-    public function getIconSetDefinitions() {
+    public static function getIconSetDefinitions() {
         return parent::getIconSetDefinitionsOfType(self::TYPE);
     }
 }
