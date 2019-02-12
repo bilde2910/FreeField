@@ -414,7 +414,6 @@ $(".poi-actions").on("change", function() {
     }
 });
 
-
 $("form").on("submit", function(ev) {
     /*
         Importing ~250 or more POIs at the same time may cause the form to

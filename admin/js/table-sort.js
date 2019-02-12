@@ -105,4 +105,159 @@ $("th[data-sort-function]").click(function() {
         Replace the rows in the table with the sorted row array.
     */
     for (var i = 0; i < rows.length; i++) table.append(rows[i]);
+    /*
+        If the table uses pagination, reload it as the order of the rows have
+        changed.
+    */
+    if (table.is(".paginate")) reloadTablePagination(table);
 });
+
+/*
+    Initializes pagination for tables which have requested it with the
+    `paginate` class. Each table must have a block element with the
+    `paginate-outer` class at some point following the table on the same level
+    in the DOM. This element must contain a block element down in the hierarchy
+    with the `paginate-inner` class, to hold navigation controls for the
+    paginated table.
+*/
+$(document).ready(function() {
+    /*
+        Initialize navigation controls for paginated tables.
+    */
+    $(".paginate-inner").each(function(idx, e) {
+        /*
+            Paragraph box that contains all of the pagination controls.
+        */
+        var box = $('<p class="paginate-button-box">');
+        /*
+            An ellipsis sign, used to separate the first/prev/next/last buttons
+            from the numbered buttons indicating page numbers.
+        */
+        var ellipsis = $('<span class="fas fa-ellipsis-h paginate-ellipsis">');
+        /*
+            Navigation buttons.
+        */
+        box.append($('<span class="fas fa-angle-double-left paginate-first">'));
+        box.append($('<span class="fas fa-angle-left paginate-prev">'));
+        box.append(ellipsis);
+        box.append($('<span class="paginate-prev-2">'));
+        box.append($('<span class="paginate-prev-1">'));
+        box.append($('<span class="paginate-cur">'));
+        box.append($('<span class="paginate-next-1">'));
+        box.append($('<span class="paginate-next-2">'));
+        box.append(ellipsis.clone());
+        box.append($('<span class="fas fa-angle-right paginate-next">'));
+        box.append($('<span class="fas fa-angle-double-right paginate-last">'));
+        /*
+            Add event handler for the navigation buttons. Do not add this event
+            handler to ellipsis icons or to the current page button (as it would
+            go to the same page).
+        */
+        box.find("span:not(.paginate-ellipsis):not(.paginate-cur)").click(function() {
+            var table = $(this).closest(".paginate-outer").prev("table.paginate");
+            var to = parseInt($(this).attr("data-paginate-to"));
+            stepPage(table, box, to);
+        });
+        /*
+            Add an event handler to the current page button which instead
+            prompts the user for a particular page number to navigate to.
+        */
+        box.find("span.paginate-cur").click(function() {
+            var table = $(this).closest(".paginate-outer").prev("table.paginate");
+            var to = parseInt(prompt(resolveI18N("ui.paginate.go_to")));
+            if (!isNaN(to)) stepPage(table, box, to - 1);
+        });
+        /*
+            Add the paragraph box to the `.paginate-inner` container.
+        */
+        $(e).append(box);
+    });
+    /*
+        Populate the navigation buttons and perform row calculations on all
+        paginated tables.
+    */
+    $("table.paginate").each(function(idx, e) {
+        reloadTablePagination($(e));
+    });
+});
+
+/*
+    This function sets up or reloads pagination for any jQuery <table> element.
+*/
+function reloadTablePagination(table) {
+    /*
+        Calculate the 0-indexed page number that each row in the table should
+        appear on, and assign this to a data attribute for later use.
+    */
+    table.find("tbody tr").each(function(idx, e) {
+        $(e).attr("data-paginate-page", Math.floor(idx / 5));
+    });
+    /*
+        Find the current and last pages of the table. The last page can be found
+        by finding the page index of the last row in the table. If the current
+        page has not been specified, set it to 0 (first page).
+    */
+    var curPage = 0;
+    var lastPage = table.find("tbody tr:last-child").attr("data-paginate-page");
+    if (table.is("[data-paginate-current]")) {
+        curPage = parseInt(table.attr("data-paginate-current"));
+        /*
+            If, after a table reload, the current page exceeds the number of
+            pages in the table, set the current page to the last existing page.
+        */
+        if (curPage > lastPage) {
+            curPage = lastPage;
+        }
+    }
+    /*
+        Set these values in data attributes for later processing in
+        `stepPage()`.
+    */
+    table.attr("data-paginate-current", curPage);
+    table.attr("data-paginate-last", lastPage);
+    /*
+        Step to the `curPage`th page of the table. This effectively initializes/
+        updates the navigation buttons for the table.
+    */
+    stepPage(table, table.next(".paginate-outer").find(".paginate-inner p"), curPage);
+}
+
+/*
+    This function sets the given table to display the page in `to`. `box` refers
+    to the <p> element containing the navigation buttons for this table.
+*/
+function stepPage(table, box, to) {
+    /*
+        Find the current and last pages of the table.
+    */
+    var page = parseInt(table.attr("data-paginate-current"));
+    var last = parseInt(table.attr("data-paginate-last"));
+    /*
+        Check if the requested page is within these bounds. If not, fix them to
+        the bounds.
+    */
+    if (to < 0) to = 0;
+    if (to > last) to = last;
+    /*
+        Hide all rows, then display the ones on the current page.
+    */
+    $("table.paginate tbody tr").hide();
+    $("table.paginate tbody tr[data-paginate-page=" + to + "]").show();
+    /*
+        Update navigation buttons attribute values and display labels to reflect
+        the current page and its neighbors.
+    */
+    box.find(".paginate-first").attr("data-paginate-to", 0);
+    box.find(".paginate-prev").attr("data-paginate-to", to - 1);
+    box.find(".paginate-prev-2").attr("data-paginate-to", to - 2).text(to - 2 < 0 ? "\u200C" : to - 1);
+    box.find(".paginate-prev-1").attr("data-paginate-to", to - 1).text(to - 1 < 0 ? "\u200C" : to);
+    box.find(".paginate-cur").attr("data-paginate-to", to).text(to + 1);
+    box.find(".paginate-next-1").attr("data-paginate-to", to + 1).text(to + 1 > last ? "\u200C" : to + 2);
+    box.find(".paginate-next-2").attr("data-paginate-to", to + 2).text(to + 2 > last ? "\u200C" : to + 3);
+    box.find(".paginate-next").attr("data-paginate-to", to + 1);
+    box.find(".paginate-last").attr("data-paginate-to", last);
+    /*
+        Set the current page of the table to the requested table.
+    */
+    table.attr("data-paginate-current", to);
+}

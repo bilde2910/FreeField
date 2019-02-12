@@ -10,6 +10,34 @@ th[data-sort-function] {
     cursor: pointer;
 }
 
+table.paginate tbody tr {
+    display: none;
+}
+
+.paginate-button-box > span {
+    user-select: none;
+    display: inline-block;
+    padding: 3px;
+    height: 23px;
+    min-width: 30px;
+    line-height: 23px;
+    text-align: center;
+    background-color: #000;
+    border-radius: 3px;
+    border: 1px solid #333;
+    cursor: pointer;
+}
+
+.paginate-button-box > span.paginate-cur {
+    font-weight: bold;
+}
+
+.paginate-button-box > span.paginate-ellipsis {
+    background-color: transparent;
+    border: 1px solid transparent;
+    cursor: inherit;
+}
+
 /* The POI name input field on the POI list. */
 .poi-name {
     min-width: 100px;

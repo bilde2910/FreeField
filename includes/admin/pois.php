@@ -37,7 +37,7 @@ __require("research");
         <h2 class="content-subhead">
             <?php echo I18N::resolveHTML("admin.section.pois.poi_list.name"); ?>
         </h2>
-        <table class="pure-table force-fullwidth">
+        <table class="pure-table force-fullwidth paginate">
             <thead>
                 <tr>
                     <!--
@@ -189,6 +189,9 @@ __require("research");
                 ?>
             </tbody>
         </table>
+        <div class="paginate-outer">
+            <div class="paginate-inner"></div>
+        </div>
         <!--
             ============================================================
                 CLEAR RESEARCH DATA SECTION
