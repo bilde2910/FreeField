@@ -640,7 +640,6 @@ class Database {
                 if (!$valid) break;
 
                 $sql = "INSERT INTO {$table} ({$columns}) VALUES {$phString}";
-                //var_dump($sql); var_dump($values); exit;
                 $this->pdo->prepare($sql)->execute($values);
                 break;
 
