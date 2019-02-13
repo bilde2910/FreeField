@@ -70,6 +70,11 @@ tr[data-search-match="0"] {
     min-width: 100px;
 }
 
+/* Clickable link for the "current research" column on the POI list. */
+.poi-table-marker-link {
+    text-decoration: none;
+}
+
 /* The <div> that contains all input fields and data for any one webhook. */
 .hook-instance {
     margin-top: 15px;

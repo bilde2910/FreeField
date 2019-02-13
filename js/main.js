@@ -644,48 +644,7 @@ $(document).ready(function() {
         /*
             Handle deep-linking via URL hashes.
         */
-        var hashFound = false;
-        if (location.hash.length >= 2) {
-            if (location.hash.startsWith("#/poi/")) {
-                /*
-                    The link has a POI ID. Open the ID listed in the URL.
-                */
-                var poiId = location.hash.substring("#/poi/".length);
-                if (poiId.indexOf("/") >= 0) {
-                    poiId = poiId.substring(0, poiId.indexOf("/"));
-                }
-                /*
-                    If the POI is found, open it, otherwise, reset the hash back
-                    to the main map view ("#/").
-                */
-                poiId = parseInt(poiId);
-                if (!isNaN(poiId) && poiId >= 0 && poiId < pois.length) {
-                    var poi = pois[poiId];
-                    if (poi != null && poi.hasOwnProperty("elementId")) {
-                        hashFound = true;
-                        MapImpl.simulatePOIClick(poi);
-                    }
-                }
-            } else if (location.hash.startsWith("#/settings")) {
-                /*
-                    The link points directly to the user settings page.
-                */
-                hashFound = true;
-                $("#menu-open-settings").trigger("click");
-            }
-        }
-
-        /*
-            If no handler for the current URL was successful, reset the hash
-            value back to the default map view URL ("#/").
-        */
-        if (false && !hashFound) {
-            if (history.replaceState) {
-                history.replaceState(null, null, "#/");
-            } else {
-                location.hash = "#/";
-            }
-        }
+        handleDeepLinking();
     }).fail(function(xhr) {
         /*
             If the request failed, then the user should be informed of the
@@ -707,7 +666,84 @@ $(document).ready(function() {
             refreshMarkers();
         }, autoRefreshInterval);
     });
-})
+});
+
+/*
+    Handle deep-linking via URL hashes.
+*/
+$(window).on("hashchange", function() {
+    handleDeepLinking();
+});
+
+function handleDeepLinking() {
+    if (location.hash == "#/") return;
+    var hashFound = false;
+    if (location.hash.length >= 2) {
+        if (location.hash.startsWith("#/poi/")) {
+            /*
+                Ignore this if a POI is already open (otherwise, there will be
+                lots of conflicts with duplicate event handlers from open POIs).
+            */
+            if (currentMarker != -1) return;
+            /*
+                The link has a POI ID. Open the ID listed in the URL.
+            */
+            var poiId = location.hash.substring("#/poi/".length);
+            if (poiId.indexOf("/") >= 0) {
+                poiId = poiId.substring(0, poiId.indexOf("/"));
+            }
+            /*
+                If the POI is found, open it, otherwise, reset the hash back
+                to the main map view ("#/").
+            */
+            poiId = parseInt(poiId);
+            if (!isNaN(poiId) && poiId >= 0 && poiId < pois.length) {
+                var poi = pois[poiId];
+                if (poi != null && poi.hasOwnProperty("elementId")) {
+                    hashFound = true;
+                    MapImpl.simulatePOIClick(poi);
+                }
+            }
+        } else if (location.hash.startsWith("#/show/poi/")) {
+            /*
+                The link has a POI ID. Pan the map to its location.
+            */
+            var poiId = location.hash.substring("#/show/poi/".length);
+            if (poiId.indexOf("/") >= 0) {
+                poiId = poiId.substring(0, poiId.indexOf("/"));
+            }
+            /*
+                If the POI is found, pan to it, then reset the hash back to
+                the main map view ("#/").
+            */
+            poiId = parseInt(poiId);
+            if (!isNaN(poiId) && poiId >= 0 && poiId < pois.length) {
+                var poi = pois[poiId];
+                if (poi != null && poi.hasOwnProperty("elementId")) {
+                    MapImpl.panTo(poi.latitude, poi.longitude);
+                }
+            }
+        } else if (location.hash.startsWith("#/settings")) {
+            /*
+                The link points directly to the user settings page.
+            */
+            hashFound = true;
+            $("#menu-open-settings").trigger("click");
+        }
+    }
+
+    /*
+        If no handler for the current URL was successful, reset the hash
+        value back to the default map view URL ("#/").
+    */
+    if (!hashFound) {
+        if (history.replaceState) {
+            history.replaceState(null, null, "#/");
+        } else {
+            location.hash = "#/";
+        }
+    }
+}
 
 /*
     Whenever a marker is clicked on the map, this function is called with the

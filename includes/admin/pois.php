@@ -144,16 +144,20 @@ __require("research");
                                     );
                                 ?>
                                 <td class="no-wrap">
-                                    <img class="poi-table-marker"
-                                         src="<?php echo $icons->getIconUrl($poi->getCurrentObjective()["type"]); ?>"
-                                         title="<?php echo htmlspecialchars($objString, ENT_QUOTES); ?>"
-                                         alt="<?php echo htmlspecialchars($objString, ENT_QUOTES); ?>"
-                                         data-marker-id="<?php echo $poi->getCurrentObjective()["type"]; ?>">
-                                    <img class="poi-table-marker"
-                                         src="<?php echo $icons->getIconUrl($poi->getCurrentReward()["type"]); ?>"
-                                         title="<?php echo htmlspecialchars($rewString, ENT_QUOTES); ?>"
-                                         alt="<?php echo htmlspecialchars($rewString, ENT_QUOTES); ?>"
-                                         data-marker-id="<?php echo $poi->getCurrentReward()["type"]; ?>">
+                                    <a target="ffGoToPOI"
+                                       href="../#/poi/<?php echo $pid; ?>/"
+                                       class="poi-table-marker-link">
+                                        <img class="poi-table-marker"
+                                             src="<?php echo $icons->getIconUrl($poi->getCurrentObjective()["type"]); ?>"
+                                             title="<?php echo htmlspecialchars($objString, ENT_QUOTES); ?>"
+                                             alt="<?php echo htmlspecialchars($objString, ENT_QUOTES); ?>"
+                                             data-marker-id="<?php echo $poi->getCurrentObjective()["type"]; ?>">
+                                        <img class="poi-table-marker"
+                                             src="<?php echo $icons->getIconUrl($poi->getCurrentReward()["type"]); ?>"
+                                             title="<?php echo htmlspecialchars($rewString, ENT_QUOTES); ?>"
+                                             alt="<?php echo htmlspecialchars($rewString, ENT_QUOTES); ?>"
+                                             data-marker-id="<?php echo $poi->getCurrentReward()["type"]; ?>">
+                                    </a>
                                 </td>
                                 <td><?php echo $poi->getLastUpdatedString(); ?></td>
                                 <td style="line-height: 1.2em;">
@@ -163,18 +167,8 @@ __require("research");
                                         <?php echo $poi->getLastUser()->getProviderIdentityHTML(); ?>
                                     </span>
                                 </td>
-                                <?php
-                                    $naviUrl =
-                                        str_replace("{%LAT%}", urlencode($poi->getLatitude()),
-                                        str_replace("{%LON%}", urlencode($poi->getLongitude()),
-                                        str_replace("{%NAME%}", urlencode($poi->getName()),
-                                            Geo::listNavigationProviders()[
-                                                Config::get("map/provider/directions")->value()
-                                            ]
-                                        )));
-                                ?>
                                 <td>
-                                    <a target="_blank" href="<?php echo $naviUrl; ?>">
+                                    <a target="ffGoToPOI" href="../#/show/poi/<?php echo $pid; ?>/">
                                         <?php echo Geo::getLocationString($poi->getLatitude(), $poi->getLongitude()); ?>
                                     </a>
                                 </td>

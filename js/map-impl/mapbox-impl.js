@@ -190,6 +190,15 @@ var MapImpl = {
     },
 
     /*
+        Pans the map to the given coordinates.
+    */
+    panTo: function(lat, lon) {
+        var x = mapboxMap.flyTo({
+            center: [lon, lat]
+        });
+    },
+
+    /*
         Returns the center of the current map view on Mapbox.
     */
     getCenter: function() {

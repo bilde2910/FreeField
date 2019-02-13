@@ -189,6 +189,13 @@ var MapImpl = {
     },
 
     /*
+        Pans the map to the given coordinates.
+    */
+    panTo: function(lat, lon) {
+        leafletMap.flyTo([lat, lon]);
+    },
+
+    /*
         Returns the center of the current map view on Leaflet.
     */
     getCenter: function() {
