@@ -28,9 +28,10 @@ var MapImpl = {
     /*
         `init` is later called from /js/main.js. It is called when the Mapbox
         elements should be constructed on the page, and when the map should be
-        loaded and displayed.
+        loaded and displayed. `boundsChangeHandler` is a function that should be
+        called whenever the map is zoomed or panned.
     */
-    init: function(containerId, config) {
+    init: function(containerId, config, boundsChangeHandler) {
         /*
             Configure MapBox.
         */
@@ -52,6 +53,13 @@ var MapImpl = {
             },
             trackUserLocation: true
         }));
+
+        /*
+            Add handlers for when the bounds of the map are changed.
+        */
+        mapboxMap.on("moveend", function() {
+            boundsChangeHandler();
+        });
     },
 
     /*
@@ -197,5 +205,18 @@ var MapImpl = {
     */
     getZoomLevel: function() {
         return mapboxMap.getZoom();
+    },
+
+    /*
+        Returns the currently visible boundary of the map.
+    */
+    getBounds: function() {
+        var bounds = mapboxMap.getBounds();
+        return {
+            north: bounds.getNorth(),
+            south: bounds.getSouth(),
+            east: bounds.getEast(),
+            west: bounds.getWest()
+        };
     }
 }

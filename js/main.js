@@ -438,25 +438,30 @@ function addMarkers(markers) {
         marker["elementId"] = e.id;
 
         /*
-            Add the marker to the map itself. Get a reference to the marker
-            object itself, in case it has to be updated later.
+            Only add markers that are in bounds, to save on resources.
         */
-        var implMarkerObj = MapImpl.addMarker(e, marker.latitude, marker.longitude,
-            function(markerObj) {
-                openMarker(markerObj, marker.id);
-            }, function(markerObj) {
-                closeMarker(markerObj);
-            },
-            marker[settings.get("markerComponent")].type
-        );
-        marker["implObject"] = implMarkerObj;
+        marker.visible = shouldBeVisibleOnMap(marker);
+        if (marker.visible) {
+            /*
+                Add the marker to the map itself. Get a reference to the marker
+                object itself, in case it has to be updated later.
+            */
+            var implMarkerObj = MapImpl.addMarker(e, marker.latitude, marker.longitude,
+                function(markerObj) {
+                    openMarker(markerObj, marker.id);
+                }, function(markerObj) {
+                    closeMarker(markerObj);
+                },
+                marker[settings.get("markerComponent")].type
+            );
+            marker["implObject"] = implMarkerObj;
+        }
 
         /*
             Add the marker to the global `pois` array for easy properties lookup
             from elsewhere in the script.
         */
         pois[marker.id] = marker;
-
     });
 }
 
@@ -1590,7 +1595,71 @@ isc_opts.species.colortheme = settings.get("theme");
 /*
     Initialize the map.
 */
-MapImpl.init("map", settings);
+MapImpl.init("map", settings, function() {
+    /*
+        This function is a map update handler. It is called whenever the map is
+        zoomed or panned and is responsible for updating the list of POIs that
+        are currently visible on the map. Not all POIs are displayed on the map
+        at once to ensure higher performance on client devices.
+    */
+    for (var i = 0; i < pois.length; i++) {
+        /*
+            Ignore POIs in the array that do not exist.
+        */
+        if (typeof pois[i] == 'undefined' || pois[i] == null) continue;
+        /*
+            If the POI should be visible, but isn't currently, flag it as
+            visible and add it to the map. Inversely, if the POI is currently
+            visible, but shouldn't be, remove it from the map to save resources.
+        */
+        if (shouldBeVisibleOnMap(pois[i])) {
+            if (!pois[i].visible) {
+                pois[i].visible = true;
+                addMarkers([pois[i]]);
+            }
+        } else if (pois[i].visible) {
+            pois[i].visible = false;
+            MapImpl.removeMarker(pois[i].implObject);
+        }
+    }
+});
+
+/*
+    Checks whether or not the given POI is within the visible area of the map.
+*/
+function shouldBeVisibleOnMap(poi) {
+    /*
+        Get the bounding coordinates of the currently displayed portion of the
+        map.
+    */
+    var bounds = MapImpl.getBounds();
+    /*
+        Calculate the degree density (degrees per pixel) for latitude and
+        longitude, and multiply this by half the size of a marker (50px) to push
+        the rendering boundary 25 pixels off all edges of the map. This ensures
+        that markers which are visible, but whose center point is out of bounds,
+        still display the portion that are within bounds of the map.
+    */
+    var latOffset = (bounds.north - bounds.south) / $("#map").height() * 25;
+    var lonOffset = (bounds.east - bounds.west) / $("#map").width() * 25;
+    /*
+        Add the offsets to the boundaries.
+    */
+    bounds.north += latOffset;
+    bounds.south -= latOffset;
+    bounds.east += lonOffset;
+    bounds.west -= lonOffset;
+    /*
+        Return whether or not the POI is within bounds of the map and should be
+        displayed.
+    */
+    return (
+        poi.latitude > bounds.south &&
+        poi.latitude < bounds.north &&
+        poi.longitude > bounds.west &&
+        poi.longitude < bounds.east
+    );
+}
 
 /*
     Automatically save the current center point and zoom level of
