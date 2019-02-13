@@ -527,7 +527,8 @@ Security::declareFrameOptionsHeader();
                 page has a form that does not use `require-validation`.
             */
             $("form").on("change", ":input", function() {
-                unsavedChanges = true;
+                if (!$(this).is("[data-do-not-track-changes]"))
+                    unsavedChanges = true;
             });
             $(window).on("beforeunload", function() {
                 if (unsavedChanges) {

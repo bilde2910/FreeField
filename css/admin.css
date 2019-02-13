@@ -38,6 +38,27 @@ table.paginate tbody tr {
     cursor: inherit;
 }
 
+/* Table rows that do not match a specified search query should be hidden. */
+tr[data-search-match="0"] {
+    display: none !important;
+}
+
+/* Side-by-side controls for sorting and navigating tables. */
+.table-utils-controls {
+    width: 100%;
+    display: table;
+}
+
+.table-utils-controls .tu-control-search {
+    display: table-cell;
+    width: auto;
+}
+
+.table-utils-controls .tu-control-paginate {
+    display: table-cell;
+    width: 450px;
+}
+
 /* The POI name input field on the POI list. */
 .poi-name {
     min-width: 100px;

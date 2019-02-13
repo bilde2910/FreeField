@@ -37,7 +37,7 @@ __require("research");
         <h2 class="content-subhead">
             <?php echo I18N::resolveHTML("admin.section.pois.poi_list.name"); ?>
         </h2>
-        <table class="pure-table force-fullwidth paginate">
+        <table class="pure-table force-fullwidth paginate" id="table-poi">
             <thead>
                 <tr>
                     <!--
@@ -55,25 +55,32 @@ __require("research");
                                 display the POI on a mapping service
                             8.  Taking actions on the POI (e.g. deleting it)
                     -->
-                    <th data-sort-function="input-value">
+                    <th data-sort-function="input-value"
+                        data-search-function="input-value">
                         <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.poi_name.name"); ?>
                     </th>
-                    <th data-sort-function="alphanumeric">
+                    <th data-sort-function="alphanumeric"
+                        data-search-function="plain-text">
                         <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.created_time.name"); ?>
                     </th>
-                    <th data-sort-function="alphanumeric">
+                    <th data-sort-function="alphanumeric"
+                        data-search-function="plain-text">
                         <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.created_by.name"); ?>
                     </th>
-                    <th data-sort-function="poi-dual-marker">
+                    <th data-sort-function="poi-dual-marker"
+                        data-search-function="poi-dual-marker">
                         <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.current_research.name"); ?>
                     </th>
-                    <th data-sort-function="alphanumeric">
+                    <th data-sort-function="alphanumeric"
+                        data-search-function="plain-text">
                         <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.last_updated_time.name"); ?>
                     </th>
-                    <th data-sort-function="alphanumeric">
+                    <th data-sort-function="alphanumeric"
+                        data-search-function="plain-text">
                         <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.last_updated_by.name"); ?>
                     </th>
-                    <th data-sort-function="numeric">
+                    <th data-sort-function="numeric"
+                        data-search-function="plain-text">
                         <?php echo I18N::resolveHTML("admin.table.pois.poi_list.column.location.name"); ?>
                     </th>
                     <th>
@@ -189,8 +196,16 @@ __require("research");
                 ?>
             </tbody>
         </table>
-        <div class="paginate-outer">
-            <div class="paginate-inner"></div>
+        <div class="paginate-outer table-utils-controls">
+            <div class="tu-control-search">
+                <p>
+                    <input type="text"
+                           data-search-for="table-poi"
+                           placeholder="<?php echo I18N::resolveHTML("admin.section.pois.poi_list.search"); ?>"
+                           data-do-not-track-changes>
+                </p>
+            </div>
+            <div class="paginate-inner right-align tu-control-paginate"></div>
         </div>
         <!--
             ============================================================

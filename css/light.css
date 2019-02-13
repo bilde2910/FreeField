@@ -132,3 +132,8 @@ a {
 .para-xss-warning {
     color: #fff;
 }
+
+/* Table search matches should have the matching cell(s) highlighted. */
+td.search-match {
+    background-color: #e8e8e8;
+}

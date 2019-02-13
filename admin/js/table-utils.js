@@ -11,6 +11,10 @@
     must be followed by a `.paginate-outer` block element containing a
     `.paginate-inner` block element, which will contain navigation controls for
     the table.
+
+    Searching may be enabled for tables that use pagination by placing a text input
+    box with the `data-search-for` attribute set to the ID of the table that should
+    be searchable on the page. Pagination is a requirement to use this feature.
 */
 
 /*
@@ -194,10 +198,13 @@ $(document).ready(function() {
 function reloadTablePagination(table) {
     /*
         Calculate the 0-indexed page number that each row in the table should
-        appear on, and assign this to a data attribute for later use.
+        appear on, and assign this to a data attribute for later use. Make sure not
+        to include rows hidden by search.
     */
-    table.find("tbody tr").each(function(idx, e) {
-        $(e).attr("data-paginate-page", Math.floor(idx / 5));
+    var rPage = 0;
+    table.find('tbody tr:not([data-search-match="0"])').each(function(idx, e) {
+        rPage = Math.floor(idx / 5);
+        $(e).attr("data-paginate-page", rPage);
     });
     /*
         Find the current and last pages of the table. The last page can be found
@@ -205,7 +212,7 @@ function reloadTablePagination(table) {
         page has not been specified, set it to 0 (first page).
     */
     var curPage = 0;
-    var lastPage = table.find("tbody tr:last-child").attr("data-paginate-page");
+    var lastPage = rPage;
     if (table.is("[data-paginate-current]")) {
         curPage = parseInt(table.attr("data-paginate-current"));
         /*
@@ -268,3 +275,110 @@ function stepPage(table, box, to) {
     */
     table.attr("data-paginate-current", to);
 }
+
+/*
+    Returns a search function used to search for a string in a table cell. The
+    function is declared for each column via the `data-search-function` attribute
+    of the <th> element corresponding to each column in the table.
+*/
+function getSearchFunction(func) {
+    var searchFunctions = {
+        /*
+            Searches against the plain text contents of the cell.
+        */
+        "plain-text": function(cell, query) {
+            return cell.text().toLowerCase().includes(query);
+        },
+        /*
+            Searches against the value of text input boxes in the cell.
+        */
+        "input-value": function(cell, query) {
+            var found = false;
+            cell.find('input[type="text"]').each(function(idx, e) {
+                if ($(e).val().toLowerCase().includes(query)) found = true;
+            });
+            return found;
+        },
+        /*
+            Searches against objective and reward in the "Current research" column
+            of the cell.
+        */
+        "poi-dual-marker": function(cell, query) {
+            var found = false;
+            cell.find('img').each(function(idx, e) {
+                if ($(e).attr("alt").toLowerCase().includes(query)) found = true;
+            });
+            return found;
+        }
+    };
+
+    return searchFunctions[func];
+}
+
+/*
+    Set up search boxes. Search boxes are input boxes with a `data-search-for`
+    attribute containing the ID of the table that the search box should search in.
+    Searchable tables must also use pagination.
+*/
+$('input[type="text"][data-search-for]').on("input", function() {
+    var query = $(this).val().toLowerCase();
+    var table = $("#" + $(this).attr("data-search-for"));
+    /*
+        Each column in the table that is searchable has an attribute
+        `data-search-function` corresponding to one of the functions in
+        `getSearchFunction()` above. `searchFuncs` will contain a list of search
+        functions for each column, where the function of any particular column can
+        be looked up by the index of each table cell in its row.
+    */
+    var searchFuncs = [];
+    table.find("thead th").each(function(idx, e) {
+        if ($(e).is("[data-search-function]")) {
+            searchFuncs.push(getSearchFunction($(e).attr("data-search-function")));
+        } else {
+            searchFuncs.push(null);
+        }
+    });
+    /*
+        Remove the search match highlighting from all cells if there is no query in
+        the search box.
+    */
+    var tableBody = table.find("tbody");
+    if (query == "") {
+        tableBody.find("td").removeClass("search-match");
+    }
+    /*
+        Search the query against every cell in the table.
+    */
+    tableBody.find("tr").each(function(idx, e) {
+        var matches = false;
+        $(e).find("td").each(function(cIdx, cE) {
+            /*
+                Check if the cell matches the search query using the specified
+                search function for this column. If there is a match, add the
+                `search-match` class for highlighting.
+            */
+            if (searchFuncs[cIdx] != null && searchFuncs[cIdx]($(cE), query)) {
+                matches = true;
+                if (query != "") $(cE).addClass("search-match");
+            } else {
+                if (query != "") $(cE).removeClass("search-match");
+            }
+        });
+        /*
+            If there was a match in this row, add the `data-search-match` attribute
+            and set it to 1, otherwise, set it to 0. This is used to hide the rows
+            via CSS, and to specify that the rows should be ignored when setting up
+            table pagination.
+        */
+        if (matches) {
+            $(e).attr("data-search-match", 1);
+        } else {
+            $(e).attr("data-search-match", 0);
+        }
+    });
+    /*
+        Since we probably just removed or added a whole bunch of rows, set up table
+        pagination again with proper page counts.
+    */
+    reloadTablePagination(table);
+});
