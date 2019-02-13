@@ -395,15 +395,15 @@ __require("research");
     cut down on the number of fields that are submitted to the server to avoid
     hitting the server-side `max_input_vars` limit of 1000.
 -->
-<script src="./js/limit-inputs.js"></script>
+<script src="./js/limit-inputs.js?v=1"></script>
 
 <!--
     This page contains a potentially large table, so we should enable sorting
     and pagination for it.
 -->
-<script src="./js/table-utils.js"></script>
+<script src="./js/table-utils.js?v=2"></script>
 
 <!--
     /admin/js/pois.js contains additional functionality for this page.
 -->
-<script src="./js/pois.js?v=2"></script>
+<script src="./js/pois.js?v=3"></script>
