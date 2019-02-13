@@ -137,3 +137,10 @@ a {
 td.search-match {
     background-color: #e8e8e8;
 }
+
+/* `.paginate-button-box` contains navigation buttons (each a <span>) for
+   navigating the pages of the table. Style these as actual buttons. */
+.paginate-button-box > span {
+    background-color: #eee;
+    border: 1px solid #ccc;
+}

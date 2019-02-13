@@ -10,10 +10,14 @@ th[data-sort-function] {
     cursor: pointer;
 }
 
+/* Rows in tables that use pagination should be hidden by default; they are
+   displayed by JavaScript. */
 table.paginate tbody tr {
     display: none;
 }
 
+/* `.paginate-button-box` contains navigation buttons (each a <span>) for
+   navigating the pages of the table. Style these as actual buttons. */
 .paginate-button-box > span {
     user-select: none;
     display: inline-block;
@@ -22,16 +26,18 @@ table.paginate tbody tr {
     min-width: 30px;
     line-height: 23px;
     text-align: center;
-    background-color: #000;
     border-radius: 3px;
-    border: 1px solid #333;
     cursor: pointer;
 }
 
+/* The current page button of the pagination should be bold to highlight it. */
 .paginate-button-box > span.paginate-cur {
     font-weight: bold;
+    cursor: text;
 }
 
+/* Ellipsis elements in the navigation box are also <span>s, but should not be
+   styled as buttons. Reset their colors. */
 .paginate-button-box > span.paginate-ellipsis {
     background-color: transparent;
     border: 1px solid transparent;
