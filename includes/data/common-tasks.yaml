@@ -20,6 +20,22 @@
         quantity: 10
     encounter_species:
       - 390 # Chimchar
+-
+    # Catch a Chansey
+    type: "catch_specific"
+    params:
+        species:
+          - 113 # Chansey
+        quantity: 1
+-
+    # Catch 20 Luvdisc
+    type: "catch_specific"
+    params:
+        species:
+          - 370 # Luvdisc
+        quantity: 20
+    encounter_species:
+      - 113 # Chansey
 
 # --------------------------------------------------------------------------
 #     Monthly objectives
