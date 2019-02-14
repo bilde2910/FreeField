@@ -517,6 +517,8 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #fff;
+    text-decoration: none;
 }
 
 /* Basic overlay configuration. The cover-box is a full-screen block element

@@ -475,15 +475,18 @@ Security::declareFrameOptionsHeader();
                     -->
                     <div id="clustering-active-banner" class="top-banner">
                         <div class="triangle triangle-left"></div>
-                        <div class="top-banner-inner">
-                            <?php echo I18N::resolveArgsHTML(
-                                "clustering.banner",
-                                false,
-                                '<span id="clustering-active-count"></span>',
-                                '<span id="clustering-active-total"></span>',
-                                '<i class="fas fa-eye-slash"></i>'
-                            ); ?>
-                        </div>
+                        <a href="https://freefield.readthedocs.io/en/latest/faq.html#why-are-some-markers-hidden-from-the-map"
+                           target="_blank">
+                            <div class="top-banner-inner">
+                                <?php echo I18N::resolveArgsHTML(
+                                    "clustering.banner",
+                                    false,
+                                    '<span id="clustering-active-count"></span>',
+                                    '<span id="clustering-active-total"></span>',
+                                    '<i class="fas fa-eye-slash"></i>'
+                                ); ?>
+                            </div>
+                        </a>
                         <div class="triangle triangle-right"></div>
                     </div>
                     <!--
