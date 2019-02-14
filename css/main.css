@@ -517,6 +517,9 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.top-banner a {
     color: #fff;
     text-decoration: none;
 }
