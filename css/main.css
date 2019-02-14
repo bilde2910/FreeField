@@ -624,6 +624,13 @@ h1.head-small {
     z-index: 11 !important;
 }
 
+/* Due to the `z-index: 10` on `.marker`, Mapbox renders the markers on top of
+   other UI elements, such as the navigation buttons and menu icon. Fix this by
+   assigning these elements a higher `z-index`. */
+.mapboxgl-control-container > div, #menuLink {
+    z-index: 20;
+}
+
 /* Markers as they appear in the list of POIs on the administration pages. These
    show the current research on each POI in the list. */
 .poi-table-marker {
