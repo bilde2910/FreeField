@@ -470,6 +470,55 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     color: white;
 }
 
+/* The banner at the top of the page containing the counter for hidden POIs if there are more
+   POIs within bounds than allowed by user settings. */
+.top-banner {
+    position: absolute;
+    top: 0;
+    left: 150px;
+    right: 0;
+    margin: auto;
+    z-index: 90;
+    max-width: calc(100% - 150px);
+    width: 200px;
+    color: white;
+    display: none;
+}
+
+/* The banner has triangles on both sides to create a notch effect. */
+.top-banner .triangle {
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-style: solid;
+}
+
+.top-banner .triangle-left {
+    left: 0.1px;
+    top: 0;
+    border-width: 0 28px 28px 0;
+    border-color: transparent #7f0000 transparent transparent;
+}
+
+.top-banner .triangle-right {
+    right: 0.1px;
+    top: 0;
+    border-width: 28px 28px 0 0;
+    border-color: #7f0000 transparent transparent transparent;
+}
+
+.top-banner .top-banner-inner {
+    margin: 0 28px 0 28px;
+    background-color: #7f0000;
+    text-align: center;
+    padding-top: 4px;
+    font-size: 17px;
+    height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* Basic overlay configuration. The cover-box is a full-screen block element
    with a semi-transparent black background that darkens the map to draw more
    attention to the overlay. The overlay is declared as a block element within
@@ -543,6 +592,10 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     .banner {
         left: 0;
         width: 80%;
+    }
+    .top-banner {
+        left: 0;
+        max-width: calc(100% - 150px);
     }
     .cover-box {
         left: 0;

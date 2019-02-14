@@ -468,6 +468,25 @@ Security::declareFrameOptionsHeader();
                         </div>
                     </div>
                     <!--
+                        A banner that appears at the top of the map if the
+                        amount of POIs within the map's bounding box exceeds the
+                        amount that should reasonably be displayed at the same
+                        time as requested by the user.
+                    -->
+                    <div id="clustering-active-banner" class="top-banner">
+                        <div class="triangle triangle-left"></div>
+                        <div class="top-banner-inner">
+                            <?php echo I18N::resolveArgsHTML(
+                                "clustering.banner",
+                                false,
+                                '<span id="clustering-active-count"></span>',
+                                '<span id="clustering-active-total"></span>',
+                                '<i class="fas fa-eye-slash"></i>'
+                            ); ?>
+                        </div>
+                        <div class="triangle triangle-right"></div>
+                    </div>
+                    <!--
                         POI details overlay. Contains details such as the POI's
                         name, its current active field research, means of
                         reporting research to the POI (if permission is granted
@@ -1501,6 +1520,47 @@ Security::declareFrameOptionsHeader();
                                     </select></p>
                                 </div>
                             </div>
+                            <h2 class="content-subhead">
+                                <?php echo I18N::resolveHTML("user_settings.section.performance") ?>
+                            </h2>
+                            <div class="pure-g option-block-follows">
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.cluster_limit.name"); ?>:</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile">
+                                    <p><select class="user-setting" data-key="clusteringLimit">
+                                        <option value=""><?php echo I18N::resolveArgsHTML(
+                                            "user_setting.cluster_limit.option.default",
+                                            true,
+                                            Config::get("map/default/cluster-limit")->value()
+                                        ); ?></option>
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="75">75</option>
+                                        <option value="100">100</option>
+                                        <option value="150">150</option>
+                                        <option value="200">200</option>
+                                        <option value="250">250</option>
+                                        <option value="300">300</option>
+                                        <option value="400">400</option>
+                                        <option value="500">500</option>
+                                        <option value="750">700</option>
+                                        <option value="1000">1000</option>
+                                        <option value="1250">1250</option>
+                                        <option value="1500">1500</option>
+                                        <option value="1750">1750</option>
+                                        <option value="2000">2000</option>
+                                        <option value="2500">2500</option>
+                                        <option value="3000">3000</option>
+                                        <option value="4000">4000</option>
+                                        <option value="5000">5000</option>
+                                        <option value="6000">6000</option>
+                                        <option value="7500">7500</option>
+                                        <option value="10000">10000</option>
+                                    </select></p>
+                                </div>
+                            </div>
                             <p class="buttons">
                                 <input type="submit"
                                        class="button-submit"
@@ -1561,7 +1621,8 @@ Security::declareFrameOptionsHeader();
                 "zoom": <?php echo Config::get("map/default/zoom")->valueJS(); ?>,
                 "markerComponent": <?php echo Config::get("map/default/marker-component")->valueJS(); ?>,
                 "motdCurrentHash": "",
-                "motdDismissedHash": ""
+                "motdDismissedHash": "",
+                "clusteringLimit": "<?php echo Config::get("map/default/cluster-limit")->valueJS(); ?>"
             };
 
             /*

@@ -212,6 +212,11 @@ $("#add-poi-submit").on("click", function() {
                 spawnBanner("success", resolveI18N("poi.add.success", poiName));
                 $("#add-poi-details").fadeOut(150);
                 $("#add-poi-working").fadeOut(150);
+
+                /*
+                    Update the marker clustering prioritization list.
+                */
+                haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
             }
         }
     }).fail(function(xhr) {
@@ -400,20 +405,58 @@ function resolveSpeciesUrl(icon) {
     /api/poi.php.
 */
 function addMarkers(markers) {
+    /*
+        Add some basic display properties to the marker, then add it to the
+        global `pois` array for easy properties lookup from elsewhere in the
+        script.
+    */
     markers.forEach(function(marker) {
+        marker["elementId"] = "dynamic-marker-" + marker.id;
+        marker["visible"] = false;
+        pois[marker.id] = marker;
+    });
+
+    /*
+        Check if the POI is in bounds of the current map area. If so, add it to
+        the queue for element creation and rendering on the map.
+    */
+    var inBounds = [];
+    markers.forEach(function(marker) {
+        if (shouldBeVisibleOnMap(marker)) inBounds.push(marker.id);
+    });
+
+    /*
+        Check that the number of POIs does not exceed the amount allowed on the
+        map at the same time. If it does, create a prioritized list of POIs to
+        add and drop the rest from being displayed for now.
+    */
+    var visibleLimit = parseInt(settings.get("clusteringLimit"));
+    var visibleIDs;
+    updateHiddenPOIsBanner(inBounds.length - visibleLimit, inBounds.length);
+    if (inBounds.length > visibleLimit) {
+        visibleIDs = prioritizePOIsForClustering(inBounds, visibleLimit);
+    } else {
+        visibleIDs = inBounds;
+    }
+
+    /*
+        Loop over the IDs of all POIs that should be displayed on the map, and
+        set those POIs visible (rendering queue):
+    */
+    visibleIDs.forEach(function(id) {
         /*
             Create a marker element. This is the element that is displayed on
             the map itself and is rendered with the relevant icon to indicate
             the currently active field research on the POI.
         */
         var e = document.createElement("div");
-        e.id = "dynamic-marker-" + marker.id;
+        e.id = "dynamic-marker-" + id;
         e.className =
             // Basic map marker class
             "marker "
 
             // Render the icon for the current research active on the POI
-            + marker[settings.get("markerComponent")].type + " "
+            + pois[id][settings.get("markerComponent")].type + " "
 
             // Set the color theme of the markers depending on the map style
             + styleMap[settings.get("mapProvider")][settings.get("mapStyle-"+settings.get("mapProvider"))] + " "
@@ -429,39 +472,28 @@ function addMarkers(markers) {
         */
         if (
             settings.get("markerComponent") == "reward" &&
-            marker.reward.type == "encounter" &&
-            marker.reward.params.hasOwnProperty("species") &&
-            marker.reward.params.species.length == 1
+            pois[id].reward.type == "encounter" &&
+            pois[id].reward.params.hasOwnProperty("species") &&
+            pois[id].reward.params.species.length == 1
         ) {
-            e.className += " sp-" + marker.reward.params.species[0];
+            e.className += " sp-" + pois[id].reward.params.species[0];
         }
-        marker["elementId"] = e.id;
+        pois[id]["elementId"] = e.id;
 
         /*
-            Only add markers that are in bounds, to save on resources.
+            Add the marker to the map itself. Get a reference to the marker
+            object itself, in case it has to be updated later.
         */
-        marker.visible = shouldBeVisibleOnMap(marker);
-        if (marker.visible) {
-            /*
-                Add the marker to the map itself. Get a reference to the marker
-                object itself, in case it has to be updated later.
-            */
-            var implMarkerObj = MapImpl.addMarker(e, marker.latitude, marker.longitude,
-                function(markerObj) {
-                    openMarker(markerObj, marker.id);
-                }, function(markerObj) {
-                    closeMarker(markerObj);
-                },
-                marker[settings.get("markerComponent")].type
-            );
-            marker["implObject"] = implMarkerObj;
-        }
-
-        /*
-            Add the marker to the global `pois` array for easy properties lookup
-            from elsewhere in the script.
-        */
-        pois[marker.id] = marker;
+        var implMarkerObj = MapImpl.addMarker(e, pois[id].latitude, pois[id].longitude,
+            function(markerObj) {
+                openMarker(markerObj, id);
+            }, function(markerObj) {
+                closeMarker(markerObj);
+            },
+            pois[id][settings.get("markerComponent")].type
+        );
+        pois[id].visible = true;
+        pois[id]["implObject"] = implMarkerObj;
     });
 }
 
@@ -603,6 +635,7 @@ function refreshMarkers() {
             POIs can be deleted. If any locally stored POIs no longer exist,
             remove the relevant markers from the map. To do this, search
         */
+        var removed = false;
         for (var i = 0; i < pois.length; i++) {
             if (pois[i] != null) {
                 var exists = false;
@@ -615,8 +648,16 @@ function refreshMarkers() {
                 if (!exists) {
                     MapImpl.removeMarker(pois[i].implObject);
                     pois[i] = null;
+                    removed = true;
                 }
             }
+        }
+
+        /*
+            Update the marker clustering prioritization list.
+        */
+        if (markers.length > 0 || removed) {
+            haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
         }
     }).fail(function(xhr) {
         /*
@@ -669,6 +710,16 @@ $(document).ready(function() {
     });
 });
 
+function updateHiddenPOIsBanner(hidden, total) {
+    if (hidden > 0) {
+        $("#clustering-active-count").text(hidden);
+        $("#clustering-active-total").text(total);
+        $("#clustering-active-banner").show();
+    } else {
+        $("#clustering-active-banner").hide();
+    }
+}
+
 /*
     Checks whether or not the given POI is within the visible area of the map.
 */
@@ -704,6 +755,178 @@ function shouldBeVisibleOnMap(poi) {
         poi.longitude > bounds.west &&
         poi.longitude < bounds.east
     );
+}
+
+/*
+    Returns an array of all POIs' IDs. The IDs correspond to their position in
+    the `pois` array.
+*/
+function getIDsOfAllPOIs() {
+    var ids = [];
+    for (var i = 0; i < pois.length; i++) {
+        /*
+            Ignore POIs in the array that do not exist.
+        */
+        if (typeof pois[i] == 'undefined' || pois[i] == null) continue;
+        ids.push(i);
+    }
+    return ids;
+}
+
+/*
+    In order to improve the performance of the map, particularly on low-power
+    mobile devices, clustering has been implemented that prevents an excessive
+    number of POIs from being displayed on the map at the same time. In order to
+    determine which POIs to display, a prioritization algorithm must be
+    implemented that selects and drops POIs from the map, taking into account
+    the proximity of all POIs to each other, as well as whether or not there is
+    research of interest active on the POI.
+
+    This function takes a list of POI ID candidates for display, as well as a
+    limit to how many should actually be shown on the map. `haversineList`
+    contains a cached list of POI ID/weight value pairs to save processing
+    power for repeated uses of the list. This list is populated on first run of
+    the function below, and regenerated periodically when POIs are updated on
+    the map.
+*/
+var haversineList = [];
+function prioritizePOIsForClustering(idList, limit) {
+    /*
+        If the cache is empty, populate it.
+    */
+    if (!haversineList.length) haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+    /*
+        Create an array of IDs that should be returned for display. Limit this
+        array to `limit` items, and ensure that each POI that is added is part
+        of the requested `idList` of candidates.
+    */
+    var returnedIDs = [];
+    var returnCount = 0;
+    for (var i = 0; returnCount < limit && i < haversineList.length; i++) {
+        for (var j = 0; j < idList.length; j++) {
+            if (haversineList[i][0] == idList[j]) {
+                returnedIDs.push(haversineList[i][0]);
+                returnCount++;
+            }
+        }
+    }
+    return returnedIDs;
+}
+
+/*
+    This function generates the POI weights list based on all POIs available to
+    add to the map. It focuses particuarly on including POIs with active
+    research on them, giving them a higher score to ensure most of them are
+    displayed on the map even though they may be close to each other.
+*/
+function getPOIHaversineDistances(idList) {
+    /*
+        Weight multiplier to use for POIs with active research.
+    */
+    var RESEARCH_WEIGHT_MULTIPLIER = 5;
+    /*
+        Placeholder weight, set to an unrealistic weight value to ensure it does
+        not collide with any actual weight values.
+    */
+    var DEFAULT_WEIGHT = 10;
+    /*
+        The prioritized list of POI IDs.
+    */
+    var priorityList = [];
+    /*
+        A list of POIs for separate processing.
+    */
+    var reportedList = [];
+
+    for (var i = 0; i < idList.length; i++) {
+        /*
+            In the first run, we will only calculate the weights of POIs which
+            do not have active research on them. POIs with research are pushed
+            into a queue for separate weight calculation.
+        */
+        if (pois[idList[i]].objective.type != "unknown") {
+            reportedList.push(i);
+            continue;
+        }
+        /*
+            Calculate the Haversine distances between this POI and all other
+            POIs before it in the list, and set the weight of the POI in the
+            priority list to the lowest of these distances.
+        */
+        var distance, weight = DEFAULT_WEIGHT;
+        for (var j = 0; j < i; j++) {
+            distance = distanceHaversine(pois[idList[i]], pois[idList[j]]);
+            if (distance < weight) weight = distance;
+        }
+        /*
+            In the event that this POI was the first in the list, there will not
+            be a weight set for the POI above. Set it to a reasonable default.
+        */
+        if (weight == DEFAULT_WEIGHT) weight = 0.00001;
+        /*
+            Push the calculated weight onto the priority list.
+        */
+        priorityList.push([idList[i], weight]);
+    }
+    /*
+        After the list of POIs with no active research has been processed,
+        perform processing for the remaining POIs with highly beneficial
+        weights. This ensures that POIs with research active on them are always
+        displayed even though it would otherwise have been hidden due to
+        proximity to other POIs.
+    */
+    for (var i = 0; i < reportedList.length; i++) {
+        var distance, weight = DEFAULT_WEIGHT;
+        for (var j = 0; j < i; j++) {
+            distance = distanceHaversine(pois[idList[reportedList[i]]], pois[idList[reportedList[j]]]);
+            if (distance < weight) weight = distance;
+        }
+        if (weight == DEFAULT_WEIGHT) weight = 0.0001;
+        /*
+            Multiply the weight with a multiplier to allow much tighter
+            clustering than POIs with unknown research.
+        */
+        weight *= RESEARCH_WEIGHT_MULTIPLIER;
+        priorityList.push([idList[reportedList[i]], weight]);
+    }
+    /*
+        Sort the weighted list in order of decreasing weight. POIs at the end of
+        this array will be sliced off when the number of displayed POIs must be
+        limited.
+    */
+    priorityList.sort(function(a, b) {
+        return a[1] < b[1] ? 1 : (a[1] > b[1] ? -1 : 0);
+    });
+    return priorityList;
+}
+
+/*
+    This function calculates the distance between two POIs using the Haversine
+    formula.
+*/
+function distanceHaversine(poi1, poi2) {
+    /*
+        Degrees to radians; π/180
+    */
+    var d2r = 0.017453292519943295;
+    /*
+        Convert latitudes and longitudes to radian form.
+    */
+    var p1lat = poi1.latitude * d2r, p2lat = poi2.latitude * d2r;
+    var p1lon = poi1.longitude * d2r, p2lon = poi2.longitude * d2r;
+    /*
+        Calculate hav(lat2-lat1) and hav(lon2-lon1).
+    */
+    var havLat = Math.sin((p2lat - p1lat) / 2);
+    havLat *= havLat;
+    var havLon = Math.sin((p2lon - p1lon) / 2);
+    havLon *= havLon;
+    /*
+        Calculate Haversine distance `d`.
+    */
+    var hav = havLat + Math.cos(p1lat) * Math.cos(p2lat) * havLon;
+    var d = Math.asin(Math.sqrt(hav));
+    return d;
 }
 
 /*
@@ -1045,6 +1268,11 @@ function openMarker(markerObj, id) {
                             */
                             spawnBanner("success", resolveI18N("poi.move.success"));
                             $("#move-poi-working").fadeOut(150);
+
+                            /*
+                                Update the marker clustering prioritization list.
+                            */
+                            haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
                         }
                     }
                 }).fail(function(xhr) {
@@ -1097,6 +1325,11 @@ function openMarker(markerObj, id) {
                             */
                             spawnBanner("success", resolveI18N("poi.delete.success"));
                             $("#delete-poi-working").fadeOut(150);
+
+                            /*
+                                Update the marker clustering prioritization list.
+                            */
+                            haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
                         }
                     }
                 }).fail(function(xhr) {
@@ -1291,6 +1524,11 @@ function openMarker(markerObj, id) {
                     MapImpl.closeMarker(markerObj);
                     $("#update-poi-details").fadeOut(150);
                     $("#update-poi-working").fadeOut(150);
+
+                    /*
+                        Update the marker clustering prioritization list.
+                    */
+                    haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
                 }
             }
         }).fail(function(xhr) {
@@ -1676,26 +1914,55 @@ MapImpl.init("map", settings, function() {
         are currently visible on the map. Not all POIs are displayed on the map
         at once to ensure higher performance on client devices.
     */
-    for (var i = 0; i < pois.length; i++) {
-        /*
-            Ignore POIs in the array that do not exist.
-        */
-        if (typeof pois[i] == 'undefined' || pois[i] == null) continue;
+    var inBounds = [];
+    var visibleLimit = parseInt(settings.get("clusteringLimit"));
+    var idList = getIDsOfAllPOIs();
+    for (var i = 0; i < idList.length; i++) {
         /*
             If the POI should be visible, but isn't currently, flag it as
             visible and add it to the map. Inversely, if the POI is currently
             visible, but shouldn't be, remove it from the map to save resources.
         */
-        if (shouldBeVisibleOnMap(pois[i])) {
-            if (!pois[i].visible) {
-                pois[i].visible = true;
-                addMarkers([pois[i]]);
-            }
-        } else if (pois[i].visible) {
-            pois[i].visible = false;
-            MapImpl.removeMarker(pois[i].implObject);
+        if (shouldBeVisibleOnMap(pois[idList[i]])) {
+            inBounds.push(idList[i]);
+        } else if (pois[idList[i]].visible) {
+            pois[idList[i]].visible = false;
+            MapImpl.removeMarker(pois[idList[i]].implObject);
         }
     }
+
+    /*
+        Check that the number of POIs does not exceed the amount allowed on the
+        map at the same time. If it does, create a prioritized list of POIs to
+        add and drop the rest from being displayed for now.
+    */
+    var visibleIDs;
+    if (inBounds.length > visibleLimit) {
+        visibleIDs = prioritizePOIsForClustering(inBounds, visibleLimit);
+    } else {
+        visibleIDs = inBounds;
+    }
+
+    /*
+        Flag each POI as visible or hidden, and add or remove it from the map
+        appropriately.
+    */
+    visibleIDs.sort();
+    for (var i = 0, j = 0; i < inBounds.length; i++) {
+        var poiId = inBounds[i];
+        if (j < visibleIDs.length && poiId == visibleIDs[j]) {
+            j++;
+            if (!pois[poiId].visible) {
+                pois[poiId].visible = true;
+                addMarkers([pois[poiId]]);
+            }
+        } else if (pois[poiId].visible) {
+            pois[poiId].visible = false;
+            MapImpl.removeMarker(pois[poiId].implObject);
+        }
+    }
+
+    updateHiddenPOIsBanner(inBounds.length - visibleLimit, inBounds.length);
 });
 
 /*

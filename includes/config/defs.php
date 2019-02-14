@@ -1509,6 +1509,21 @@ class ConfigDefinitions {
                 "option" => new FloatOption(0.0, 20.0)
             ),
             /*
+                The maximum number of Pokéstops that should be visible on the
+                map for users by default. Lowering this value will put less
+                strain on your players' devices and increase panning and zooming
+                performance when on the map, but might prevent research tasks
+                from being displayed if they are clustered too closely to other
+                Pokéstops. Please see the players FAQ in the documentation for
+                more information.
+            */
+            "map/default/cluster-limit" => array(
+                "domain" => "map",
+                "section" => "default",
+                "default" => 100,
+                "option" => new IntegerOption(10, 10000)
+            ),
+            /*
                 The default research task component to use for map markers.
             */
             "map/default/marker-component" => array(

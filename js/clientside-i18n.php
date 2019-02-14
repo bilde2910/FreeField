@@ -47,8 +47,9 @@ var i18n = <?php
         // XMLHttpRequest responses
         "xhr.*",
 
-        // User interface
+        // User and map interface
         "ui.*",
+        "clustering.*",
 
         // Client-side user settings
         "user_settings.*",
