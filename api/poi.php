@@ -516,9 +516,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 In order to save bandwidth, only send POIs updated after a
                 certain timestamp if the client requests it.
             */
+            if (isset($_GET["updatedSince"])) {
+                $updatedSince = intval($_GET["updatedSince"]);
+                if ($updatedSince < 0) $updatedSince += time();
+            }
             if (
                 !isset($_GET["updatedSince"]) ||
-                $poi->getLastUpdatedTime() >= intval($_GET["updatedSince"])
+                $poi->getLastUpdatedTime() >= $updatedSince
             ) {
                 /*
                     Add the POI to the list of returned POIs.

@@ -472,8 +472,9 @@ function addMarkers(markers) {
 */
 var lastRefresh = 0;
 function refreshMarkers() {
-    var url = "./api/poi.php?updatedSince=" + lastRefresh;
-    lastRefresh = Math.floor(Date.now() / 1000);
+    var curTime = Math.floor(Date.now() / 1000);
+    var url = "./api/poi.php?updatedSince=" + (lastRefresh - curTime);
+    lastRefresh = curTime;
     $.getJSON(url, function(data) {
         var markers = data["pois"];
         var ids = data["idList"];
