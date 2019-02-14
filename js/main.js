@@ -670,6 +670,43 @@ $(document).ready(function() {
 });
 
 /*
+    Checks whether or not the given POI is within the visible area of the map.
+*/
+function shouldBeVisibleOnMap(poi) {
+    /*
+        Get the bounding coordinates of the currently displayed portion of the
+        map.
+    */
+    var bounds = MapImpl.getBounds();
+    /*
+        Calculate the degree density (degrees per pixel) for latitude and
+        longitude, and multiply this by half the size of a marker (50px) to push
+        the rendering boundary 25 pixels off all edges of the map. This ensures
+        that markers which are visible, but whose center point is out of bounds,
+        still display the portion that are within bounds of the map.
+    */
+    var latOffset = (bounds.north - bounds.south) / $("#map").height() * 25;
+    var lonOffset = (bounds.east - bounds.west) / $("#map").width() * 25;
+    /*
+        Add the offsets to the boundaries.
+    */
+    bounds.north += latOffset;
+    bounds.south -= latOffset;
+    bounds.east += lonOffset;
+    bounds.west -= lonOffset;
+    /*
+        Return whether or not the POI is within bounds of the map and should be
+        displayed.
+    */
+    return (
+        poi.latitude > bounds.south &&
+        poi.latitude < bounds.north &&
+        poi.longitude > bounds.west &&
+        poi.longitude < bounds.east
+    );
+}
+
+/*
     Handle deep-linking via URL hashes.
 */
 $(window).on("hashchange", function() {
@@ -1660,43 +1697,6 @@ MapImpl.init("map", settings, function() {
         }
     }
 });
-
-/*
-    Checks whether or not the given POI is within the visible area of the map.
-*/
-function shouldBeVisibleOnMap(poi) {
-    /*
-        Get the bounding coordinates of the currently displayed portion of the
-        map.
-    */
-    var bounds = MapImpl.getBounds();
-    /*
-        Calculate the degree density (degrees per pixel) for latitude and
-        longitude, and multiply this by half the size of a marker (50px) to push
-        the rendering boundary 25 pixels off all edges of the map. This ensures
-        that markers which are visible, but whose center point is out of bounds,
-        still display the portion that are within bounds of the map.
-    */
-    var latOffset = (bounds.north - bounds.south) / $("#map").height() * 25;
-    var lonOffset = (bounds.east - bounds.west) / $("#map").width() * 25;
-    /*
-        Add the offsets to the boundaries.
-    */
-    bounds.north += latOffset;
-    bounds.south -= latOffset;
-    bounds.east += lonOffset;
-    bounds.west -= lonOffset;
-    /*
-        Return whether or not the POI is within bounds of the map and should be
-        displayed.
-    */
-    return (
-        poi.latitude > bounds.south &&
-        poi.latitude < bounds.north &&
-        poi.longitude > bounds.west &&
-        poi.longitude < bounds.east
-    );
-}
 
 /*
     Automatically save the current center point and zoom level of
