@@ -509,7 +509,9 @@ Security::declareFrameOptionsHeader();
             var unsavedChangesMessage = <?php echo I18N::resolveJS("admin.validation.unsaved_changes"); ?>;
         </script>
         <!-- Script which offers client-side input validation -->
-        <script src="../js/input-validation.js"></script>
+        <script src="../js/input-validation.js?t=<?php
+            echo filemtime(__DIR__."/../js/input-validation.js");
+        ?>"></script>
         <script>
             /*
                 Track changes to the inputs on the form to stop data being

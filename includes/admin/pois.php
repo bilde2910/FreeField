@@ -395,15 +395,21 @@ __require("research");
     cut down on the number of fields that are submitted to the server to avoid
     hitting the server-side `max_input_vars` limit of 1000.
 -->
-<script src="./js/limit-inputs.js?v=1"></script>
+<script src="./js/limit-inputs.js?t=<?php
+    echo filemtime(__DIR__."/../../admin/js/limit-inputs.js");
+?>"></script>
 
 <!--
     This page contains a potentially large table, so we should enable sorting
     and pagination for it.
 -->
-<script src="./js/table-utils.js?v=2"></script>
+<script src="./js/table-utils.js?t=<?php
+    echo filemtime(__DIR__."/../../admin/js/table-utils.js");
+?>"></script>
 
 <!--
     /admin/js/pois.js contains additional functionality for this page.
 -->
-<script src="./js/pois.js?v=3"></script>
+<script src="./js/pois.js?t=<?php
+    echo filemtime(__DIR__."/../../admin/js/pois.js");
+?>"></script>

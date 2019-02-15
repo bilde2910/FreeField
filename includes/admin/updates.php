@@ -230,4 +230,6 @@ __require("vendor/parsedown");
 <!--
     /admin/js/updates.js contains additional functionality for this page.
 -->
-<script src="./js/updates.js"></script>
+<script src="./js/updates.js?t=<?php
+    echo filemtime(__DIR__."/../../admin/js/updates.js");
+?>"></script>
