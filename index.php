@@ -1873,7 +1873,7 @@ Security::declareFrameOptionsHeader();
                     */
                     $iconSet = Theme::getIconSet($theme);
                     foreach ($icons as $icon) {
-                        $output[$theme][$icon] = parse_url($iconSet->getIconUrl($icon), PHP_URL_PATH);
+                        $output[$theme][$icon] = $iconSet->getIconUrl($icon);
                     }
                 }
 

@@ -332,7 +332,8 @@ function dismiss(node) {
 */
 function resolveIconUrl(icon) {
     var variant = settings.get("theme");
-    var url = iconSets[settings.get("iconSet")][icon].split("{%variant%}").join(variant);
+    var set = settings.get("iconSet");
+    var url = iconSets[set][icon].split("{%variant%}").join(variant);
     return url;
 }
 
@@ -347,7 +348,8 @@ function resolveIconUrl(icon) {
 */
 function resolveSpeciesUrl(icon) {
     var variant = settings.get("theme");
-    var set = isc_opts.species.themedata[settings.get("speciesSet")];
+    var set = isc_opts.species.themedata[settings.get("speciesSet")]["data"];
+    var fetchPath = isc_opts.species.themedata[settings.get("speciesSet")]["path"];
 
     /*
         Try to determine the range of icons in the icon set in which the species
@@ -384,7 +386,7 @@ function resolveSpeciesUrl(icon) {
         Create an URL for the species marker.
     */
     var uri = isc_opts.species.baseuri
-            + "themes/species/"
+            + fetchPath
             + settings.get("speciesSet")
             + "/";
 
@@ -1835,6 +1837,26 @@ if (hasLocalStorageSupport()) {
         for (var i = 0; i < keys.length; i++) {
             settings[keys[i]] = storedSettings[keys[i]];
         }
+    }
+    /*
+        Check if any of the user's icon set preferences are invalid. If so,
+        reset those preferences and reload the map. Broken icon set references
+        can cause the map to not work correctly.
+    */
+    var brokenSets = false;
+    var iconSet = settings.get("iconSet");
+    if (iconSet != "" && !iconSets.hasOwnProperty(iconSet)) {
+        settings.iconSet = "";
+        brokenSets = true;
+    }
+    var speciesSet = settings.get("speciesSet");
+    if (speciesSet != "" && !isc_opts.species.themedata.hasOwnProperty(speciesSet)) {
+        settings.speciesSet = "";
+        brokenSets = true;
+    }
+    if (brokenSets) {
+        saveSettings();
+        location.reload();
     }
 }
 

@@ -56,7 +56,8 @@ $(document).ready(function() {
         /*
             Get the icon set metadata for the given theme.
         */
-        var tdata = optObj.themedata[theme];
+        var tdata = optObj.themedata[theme]["data"];
+        var fetchPath = optObj.themedata[theme]["path"];
 
         /*
             Different icon set types have different means to list the icons that
@@ -75,7 +76,7 @@ $(document).ready(function() {
                         are no assets for the given icon, don't add it to the
                         preview.
                     */
-                    var uri = optObj.baseuri + "themes/icons/" + theme + "/";
+                    var uri = optObj.baseuri + fetchPath + theme + "/";
                     if (tdata.hasOwnProperty("vector") && tdata["vector"].hasOwnProperty(optObj.icons[i])) {
                         uri += tdata["vector"][optObj.icons[i]];
                     } else if (tdata.hasOwnProperty("raster") && tdata["raster"].hasOwnProperty(optObj.icons[i])) {
@@ -109,7 +110,7 @@ $(document).ready(function() {
                         preview. Search for an icon declared in a "range"
                         section first.
                     */
-                    var uri = optObj.baseuri + "themes/species/" + theme + "/";
+                    var uri = optObj.baseuri + fetchPath + theme + "/";
                     var range = null;
                     for (var key in tdata) {
                         if (!tdata.hasOwnProperty(key)) continue;
@@ -174,7 +175,7 @@ $(document).ready(function() {
             var logo = $("<img />");
             logo.attr("src",
                 optObj.baseuri
-                + "themes/" + type + "/" + theme + "/"
+                + fetchPath + theme + "/"
                 + tdata["logo"]
                     .split("{%variant%}")
                     .join(optObj.colortheme)

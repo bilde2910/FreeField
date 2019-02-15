@@ -782,6 +782,7 @@ abstract class IconSetOptionBase extends DefaultOption {
     private $includeDefault;
 
     public function __construct($type, $includeDefault = null) {
+        __require("theme");
         $this->type = $type;
         $this->includeDefault = $includeDefault;
         if (!isset(self::$packs[$type])) {
@@ -827,8 +828,8 @@ abstract class IconSetOptionBase extends DefaultOption {
             $html .= '>'.I18N::resolveArgsHTML(
                 "theme.name_label",
                 true,
-                $data["name"],
-                $data["author"]
+                $data["data"]["name"],
+                $data["data"]["author"]
             ).'</option>';
         }
         $html .= '</select>';
@@ -859,12 +860,17 @@ abstract class IconSetOptionBase extends DefaultOption {
         */
         if (!isset(self::$packs[$type])) {
             self::$packs[$type] = array();
-            $themepath = __DIR__."/../../themes/".$type;
-            $themes = array_diff(scandir($themepath), array('..', '.'));
-            foreach ($themes as $theme) {
-                if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
-                $data = parse_ini_file("{$themepath}/{$theme}/pack.ini", true);
-                self::$packs[$type][$theme] = $data;
+            $themepaths = Theme::getPathsForType($type);
+            foreach ($themepaths as $themepath => $fetchpath) {
+                $themes = array_diff(scandir($themepath), array('..', '.'));
+                foreach ($themes as $theme) {
+                    if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
+                    $data = parse_ini_file("{$themepath}/{$theme}/pack.ini", true);
+                    self::$packs[$type][$theme] = array(
+                        "data" => $data,
+                        "path" => $fetchpath
+                    );
+                }
             }
         }
         return self::$packs[$type];

@@ -60,12 +60,14 @@ class Theme {
         so, adds it to the list of installed icon sets.
     */
     public static function listIconSets() {
-        $themepath = __DIR__."/../../themes/icons";
-        $themedirs = array_diff(scandir($themepath), array('..', '.'));
         $themelist = array();
-        foreach ($themedirs as $theme) {
-            if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
-            $themelist[] = $theme;
+        $themepaths = self::getPathsForType("icons");
+        foreach ($themepaths as $themepath => $fetchpath) {
+            $themedirs = array_diff(scandir($themepath), array('..', '.'));
+            foreach ($themedirs as $theme) {
+                if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
+                $themelist[] = $theme;
+            }
         }
         return $themelist;
     }
@@ -77,12 +79,14 @@ class Theme {
         metadata), and if so, adds it to the list of installed icon sets.
     */
     public static function listSpeciesSets() {
-        $setpath = __DIR__."/../../themes/species";
-        $setdirs = array_diff(scandir($setpath), array('..', '.'));
         $setlist = array();
-        foreach ($setdirs as $set) {
-            if (!file_exists("{$setpath}/{$set}/pack.ini")) continue;
-            $setlist[] = $set;
+        $setpaths = self::getPathsForType("species");
+        foreach ($setpaths as $setpath => $fetchpath) {
+            $setdirs = array_diff(scandir($setpath), array('..', '.'));
+            foreach ($setdirs as $set) {
+                if (!file_exists("{$setpath}/{$set}/pack.ini")) continue;
+                $setlist[] = $set;
+            }
         }
         return $setlist;
     }
@@ -115,13 +119,35 @@ class Theme {
         }
         return new SpeciesSet($set, $variant);
     }
+
+    /*
+        Returns a list of paths and corresponding client-side request URL base
+        paths that should be searched for icon sets.
+    */
+    public static function getPathsForType($type) {
+        $paths = array(
+            __DIR__."/../../themes/{$type}"
+                => "themes/{$type}/",
+            __DIR__."/../userdata/themes/{$type}"
+                => "themes/fetch-custom.php?type={$type}&path="
+        );
+        /*
+            Check that each path exists, and remove those that do not from the
+            path list.
+        */
+        foreach ($paths as $path => $fetch) {
+            if (!file_exists($path) || !is_dir($path)) unset($paths[$path]);
+        }
+        return $paths;
+    }
 }
 
-class BaseIconSet {
+abstract class BaseIconSet {
     private $set = null;
     private $data = array();
     private $variant = null;
     private $type = null;
+    private $fetchpath = null;
 
     protected function __construct($set, $variant, $type) {
         /*
@@ -132,9 +158,20 @@ class BaseIconSet {
         $this->set = $set;
         $this->variant = $variant;
         $this->type = $type;
-        $packini = __DIR__."/../../themes/{$type}/{$set}/pack.ini";
-        if (file_exists($packini)) {
-            $this->data = parse_ini_file($packini, true);
+
+        /*
+            Identify which file system path this icon set is stored within, and
+            update the object instance with the correct client-side request path
+            to use when requesting assets from the icon set.
+        */
+        $basepaths = Theme::getPathsForType($type);
+        foreach ($basepaths as $basepath => $fetchpath) {
+            $packini = "{$basepath}/{$set}/pack.ini";
+            if (file_exists($packini)) {
+                $this->data = parse_ini_file($packini, true);
+                $this->fetchpath = $fetchpath;
+                break;
+            }
         }
     }
 
@@ -174,7 +211,7 @@ class BaseIconSet {
         if ($this->variant !== null) {
             $url = str_replace("{%variant%}", $this->variant, $url);
         }
-        return Config::getEndpointUri("/themes/{$this->type}/{$pack}/{$url}");
+        return Config::getEndpointUri("/{$this->fetchpath}{$pack}/{$url}");
     }
 }
 
