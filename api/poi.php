@@ -309,7 +309,7 @@ function replaceWebhookFields($poidata, $time, $theme, $spTheme, $useSpecies, $b
                     if (count($tokenArgs) < 2) break;
                     $string = $tokenArgs[0];
                     $length = intval($tokenArgs[1]);
-                    $padString = count($tokenArgs >= 3) ? $tokenArgs[2] : " ";
+                    $padString = count($tokenArgs) >= 3 ? $tokenArgs[2] : " ";
                     $padType = $tokenName == "PAD_LEFT" ? STR_PAD_LEFT : STR_PAD_RIGHT;
                     $replacement = str_pad($string, $length, $padString, $padType);
                     break;

@@ -297,12 +297,21 @@ class I18N {
             `$i18ndefault`. If not, read the default I18N language file to an
             array and store it in `$i18ndefault` as the fallback language.
         */
-        if ($lang == self::DEFAULT_LANG) {
+        if (self::$currentLanguage == self::DEFAULT_LANG) {
             self::$i18ndefault = self::$i18ndata;
         } else {
             self::$i18ndefault = parse_ini_file(
                 __DIR__."/../i18n/".self::DEFAULT_LANG.".ini"
             );
+        }
+
+        /*
+            Catch if the current language is not set - set it to the default
+            language to prevent issues elsewhere.
+        */
+        if (self::$currentLanguage === null) {
+            self::$i18ndata = self::$i18ndefault;
+            self::$currentLanguage = self::DEFAULT_LANG;
         }
     }
 
