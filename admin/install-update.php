@@ -14,6 +14,11 @@ $pkgExtractPath = "{$pkgBasePath}/content";
 $pkgFilePath = "{$pkgBasePath}/updatepkg.tar.gz";
 $pkgTarPath = "{$pkgBasePath}/updatepkg.tar";
 $pkgAuthCookie = "update-token";
+$cacert = isset($_GET["cacert"]) && !empty($_GET["cacert"])
+        ? $_GET["cacert"]
+        : null;
+
+if ($cacert !== null && !file_exists($cacert)) $cacert = null;
 
 /*
     As this script is for submission only, only POST is supported. If a user
@@ -303,6 +308,17 @@ try {
     curl_setopt($curl, CURLOPT_PROGRESSFUNCTION, "progressUpdate");
     curl_setopt($curl, CURLOPT_NOPROGRESS, false);
     curl_setopt($curl, CURLOPT_WRITEFUNCTION, "writeFile");
+    if ($cacert !== null) {
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($curl, CURLOPT_CAINFO, $cacert);
+        echo "Using CA certificates bundle: ".htmlspecialchars($cacert, ENT_QUOTES)."\n";
+    } else {
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+        echo "Warning: SSL certificates not validated!\n";
+        echo "-> This setting can be changed in security settings.\n";
+    }
     curl_exec($curl);
     curl_close($curl);
     fclose($fh);

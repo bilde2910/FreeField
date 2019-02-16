@@ -878,6 +878,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             /*
                 Post the webhook.
             */
+            __require("http");
             try {
                 switch ($hook["type"]) {
                     case "json":
@@ -895,10 +896,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         });
 
                         $ch = curl_init($hook["target"]);
+                        HTTP::setOptions($ch);
                         curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                            "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion(),
                             "Content-Type: application/json",
                             "Content-Length: ".strlen($body)
                         ));
@@ -965,10 +965,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
                         $ch = curl_init("https://api.telegram.org/bot".
                             urlencode($botToken)."/sendMessage");
+                        HTTP::setOptions($ch);
                         curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                            "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion(),
                             "Content-Type: application/json",
                             "Content-Length: ".strlen($postdata)
                         ));

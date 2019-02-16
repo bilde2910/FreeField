@@ -14,6 +14,7 @@ require_once("../includes/lib/global.php");
 __require("config");
 __require("auth");
 __require("xhr");
+__require("http");
 
 /*
     Users must have access to the webhook administration page, where this script
@@ -130,11 +131,9 @@ if ($token === null) {
     Attempt to make the request to Telegram's servers.
 */
 $ch = curl_init("https://api.telegram.org/bot".urlencode($token)."/getUpdates");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_FAILONERROR, true);
+HTTP::setOptions($ch);
 curl_setopt($ch, CURLOPT_TIMEOUT, 15);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion(),
     "Accept: application/json"
 ));
 $data = json_decode(curl_exec($ch), true);

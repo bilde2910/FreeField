@@ -6,6 +6,7 @@
 require_once("../../includes/lib/global.php");
 __require("config");
 __require("auth");
+__require("http");
 
 $service = "groupme";
 
@@ -61,43 +62,8 @@ if (!isset($_GET["access_token"])) {
     verify the identity of the user.
 */
 
-$httpOpts = array(
-    "http" => array(
-        "method" => "GET",
-        "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()
-    )
-);
-
-/*
-    Set an error handler that catches HTTP errors from GroupMe's API.
-*/
-$context = stream_context_create($httpOpts);
-set_error_handler(function($no, $str, $file, $line, $context) {
-    if (0 === error_reporting()) {
-        return false;
-    }
-    /*
-        Stage II failure
-
-        The OAuth endpoint returned an error response code. Kick the user back
-        to the "failed to authenticate" page and prompt them to try again.
-    */
-    global $service;
-    global $continueUrlSafe;
-    header("HTTP/1.1 303 See Other");
-    setcookie("oa2-after-auth", "", time() - 3600, strtok($_SERVER["REQUEST_URI"], "?"));
-    header("Location: ".Config::getEndpointUri(
-        "/auth/failed.php?provider={$service}&continue={$continueUrlSafe}"
-    ));
-    exit;
-}, E_WARNING);
-
 $ch = curl_init($opts["identEndpoint"]."?token=".$_GET["access_token"]);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_FAILONERROR, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()
-));
+HTTP::setOptions($ch);
 $resp = curl_exec($ch);
 
 if (curl_error($ch)) {

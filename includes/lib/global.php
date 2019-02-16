@@ -81,6 +81,13 @@ function __require($require) {
             break;
 
         /*
+            Provides helper functions for outbound HTTP connections.
+        */
+        case "http":
+            include_once(__DIR__."/http.php");
+            break;
+
+        /*
             Lists all research objectives and rewards and more or less
             everything related to them, including I18N, parameters, validation
             and more.

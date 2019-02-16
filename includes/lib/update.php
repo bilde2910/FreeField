@@ -162,12 +162,11 @@ class Update {
                 Check the releases URL for updates and save rate limit
                 restrictions.
             */
+            __require("http");
             $ratelimit = array("reset" => time(), "remaining" => 0);
             $ch = curl_init(self::UPDATE_SEARCH_URL);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            HTTP::setOptions($ch);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion(),
                 "Accept: application/vnd.github.v3+json"
             ));
             curl_setopt($ch, CURLOPT_HEADERFUNCTION,

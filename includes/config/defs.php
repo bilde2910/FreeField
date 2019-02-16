@@ -576,6 +576,16 @@ class ConfigDefinitions {
                     "option" => new PermissionOption()
                 ),
                 /*
+                    Allows users to change outbound request security settings.
+                */
+                "permissions/level/admin/security/section/outbound" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
                     Allows users to change same-origin policy settings.
                 */
                 "permissions/level/admin/security/section/same-origin" => array(
@@ -905,6 +915,33 @@ class ConfigDefinitions {
                 "section" => "sessions",
                 "default" => false,
                 "option" => new BooleanOption()
+            ),
+            /*
+                ------------------------------------------------------------
+                    OUTBOUND REQUESTS
+                ------------------------------------------------------------
+            */
+            /*
+                Disabling certificate validation may resolve issues such as
+                webhooks not working, but eliminates protection against man-in-
+                the-middle attacks when performing outbound requests.
+            */
+            "security/curl/verify-certificates" => array(
+                "domain" => "security",
+                "section" => "outbound",
+                "default" => true,
+                "option" => new BooleanOption()
+            ),
+            /*
+                The client ID of your Discord API application.
+            */
+            "security/curl/cacert-path" => array(
+                "domain" => "security",
+                "section" => "outbound",
+                "default" => !empty(ini_get("curl.cainfo"))
+                           ? ini_get("curl.cainfo")
+                           : "/etc/ssl/certs/ca-certificates.crt",
+                "option" => new StringOption()
             ),
             /*
                 ------------------------------------------------------------
