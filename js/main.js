@@ -440,6 +440,9 @@ function addMarkers(markers) {
     } else {
         visibleIDs = inBounds;
     }
+    visibleIDs.sort(function(a, b) {
+        return a - b;
+    });
 
     /*
         Loop over the IDs of all POIs that should be displayed on the map, and
@@ -1964,12 +1967,14 @@ MapImpl.init("map", settings, function() {
     } else {
         visibleIDs = inBounds;
     }
+    visibleIDs.sort(function(a, b) {
+        return a - b;
+    });
 
     /*
         Flag each POI as visible or hidden, and add or remove it from the map
         appropriately.
     */
-    visibleIDs.sort();
     for (var i = 0, j = 0; i < inBounds.length; i++) {
         var poiId = inBounds[i];
         if (j < visibleIDs.length && poiId == visibleIDs[j]) {
