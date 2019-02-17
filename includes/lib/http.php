@@ -18,7 +18,7 @@ class HTTP {
         */
         if (Config::get("security/curl/verify-certificates")->value()) {
             $cacert = Config::get("security/curl/cacert-path")->value();
-            if (file_exists($cainfo)) {
+            if (file_exists($cacert)) {
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
                 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
                 curl_setopt($ch, CURLOPT_CAINFO, $cacert);
