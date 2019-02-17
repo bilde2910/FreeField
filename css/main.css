@@ -61,6 +61,30 @@
     color: darkorange !important;
 }
 
+/* The color of the "Filter" sidebar item should be highlighted in orange if
+   filters are applied to the map markers. */
+#menu-open-filters[data-active="1"] {
+    color: darkorange !important;
+}
+
+/* In the same case, there should also be a "filters active" icon underneath the
+   menu button for mobile devices. */
+.filter-overlay-icon {
+    cursor: pointer;
+    position: fixed;
+    display: none;
+    left: 0;
+    top: 44px;
+    font-size: 20px;
+    padding: 10px 0;
+    width: 52px;
+    text-align: center;
+    color: white;
+    background-color: darkorange;
+    opacity: 0.7;
+    z-index: 20;
+}
+
 /* Buttons displayed on the login page for signing in with various
    authentication providers. */
 .login-button {

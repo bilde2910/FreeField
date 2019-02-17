@@ -309,6 +309,10 @@ Security::declareFrameOptionsHeader();
                 <!-- Hamburger icon -->
                 <span></span>
             </a>
+            <div id="corner-filter-link" class="filter-overlay-icon">
+                <!-- Filter icon when active -->
+                <i class="fas fa-filter"></i>
+            </div>
 
             <div id="menu">
                 <div class="pure-menu">
@@ -366,6 +370,12 @@ Security::declareFrameOptionsHeader();
                                 </a>
                             </li>
                         <?php } ?>
+                        <li class="pure-menu-item">
+                            <a href="#" id="menu-open-filters" class="pure-menu-link">
+                                <i class="menu-fas fas fa-filter"></i>
+                                <?php echo I18N::resolveHTML("sidebar.filters"); ?>
+                            </a>
+                        </li>
                         <li class="pure-menu-item">
                             <a href="#" id="menu-open-settings" class="pure-menu-link">
                                 <i class="menu-fas fas fa-wrench"></i>
@@ -1133,6 +1143,193 @@ Security::declareFrameOptionsHeader();
                                         <span id="update-poi-submit"
                                               class="button-submit split-button button-spaced right">
                                                     <?php echo I18N::resolveHTML("poi.update.submit"); ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                        POI filtering dialog. If a user wishes to only display
+                        some types of research tasks on the map, this dialog
+                        shows up. It prompts the user for the type of objective
+                        and reward that constitutes the research task, but does
+                        not request task metadata (that level of granularity
+                        isn't required and would make filtering needlessly
+                        complicated).
+                    -->
+                    <div id="filters-poi" class="cover-box">
+                        <div class="cover-box-inner">
+                            <div class="header">
+                                <h1>
+                                    <?php echo I18N::resolveHTML("poi.filter.title"); ?>
+                                </h1>
+                            </div>
+                            <div class="cover-box-content content pure-form">
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p>
+                                            <?php echo I18N::resolveHTML("poi.filter.mode.title"); ?>
+                                        </p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><select id="filter-poi-mode">
+                                            <option value="only">
+                                                <?php echo I18N::resolveHTML("poi.filter.mode.only"); ?>
+                                            </option>
+                                            <option value="except">
+                                                <?php echo I18N::resolveHTML("poi.filter.mode.except"); ?>
+                                            </option>
+                                            <option value="unknown">
+                                                <?php echo I18N::resolveHTML("poi.filter.mode.unknown"); ?>
+                                            </option>
+                                        </select></p>
+                                    </div>
+                                </div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p>
+                                            <?php echo I18N::resolveHTML("poi.filter.objective.title"); ?>
+                                        </p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile"><p><select id="filter-poi-objective">
+                                        <!--
+                                            Default settings for the filtering options.
+                                        -->
+                                        <option value="any">
+                                            <?php echo I18N::resolveHTML("poi.filter.objective.any"); ?>
+                                        </option>
+                                        <?php
+                                            /*
+                                                Select box that contains a list of all possible research objectives.
+                                            */
+
+                                            /*
+                                                We'll sort the research objectives by their first respective categories.
+                                                Put all the research objectives into an array ($cats) of the structure
+                                                $cats[CATEGORY][RESEARCH OBJECTIVE][PARAMETERS ETC.]
+                                            */
+                                            $cats = array();
+                                            foreach (Research::listObjectives() as $objective => $data) {
+                                                // Skip unknown since it has already been displayed
+                                                if ($objective === "unknown") continue;
+                                                $cats[$data["categories"][0]][$objective] = $data;
+                                            }
+
+                                            /*
+                                                After the objectives have been sorted into proper categories, we'll resolve
+                                                the I18N string for each research objective, one category at a time.
+                                            */
+                                            foreach ($cats as $category => $categorizedObjectives) {
+                                                foreach ($categorizedObjectives as $objective => $data) {
+                                                    // Use the plural string of the objective by default
+                                                    $i18n = I18N::resolve("objective.{$objective}.plural");
+                                                    // If the objective is singular-only, use the singular string
+                                                    if (!in_array("quantity", $data["params"]))
+                                                        $i18n = I18N::resolve("objective.{$objective}.singular");
+                                                    // Replace parameters (e.g. {%1}) with placeholders
+                                                    for ($i = 0; $i < count($data["params"]); $i++) {
+                                                        $i18n = str_replace(
+                                                            "{%".($i+1)."}",
+                                                            I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
+                                                            $i18n
+                                                        );
+                                                    }
+                                                    // Now save the final localized string back into the objective
+                                                    $categorizedObjectives[$objective]["i18n"] = htmlspecialchars($i18n, ENT_QUOTES);
+                                                }
+
+                                                /*
+                                                    Create a group for each category of objectives, then output each of the
+                                                    objectives within that category to the selection box.
+                                                */
+                                                echo '<optgroup label="'.I18N::resolveHTML("category.objective.{$category}").'">';
+                                                foreach ($categorizedObjectives as $objective => $data) {
+                                                    echo '<option value="'.$objective.'">'.$data["i18n"].'</option>';
+                                                }
+                                                echo '</optgroup>';
+                                            }
+                                        ?>
+                                    </select></p></div>
+                                </div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p>
+                                            <?php echo I18N::resolveHTML("poi.filter.reward.title"); ?>
+                                        </p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile"><p><select id="filter-poi-reward">
+                                        <!--
+                                            Default settings for the filtering options.
+                                        -->
+                                        <option value="any">
+                                            <?php echo I18N::resolveHTML("poi.filter.reward.any"); ?>
+                                        </option>
+                                        <?php
+                                            /*
+                                                Select box that contains a list of all possible research rewards.
+                                            */
+
+                                            /*
+                                                We'll sort the research rewards by their first respective categories.
+                                                Put all the research rewards into an array ($cats) of the structure
+                                                $cats[CATEGORY][RESEARCH REWARD][PARAMETERS ETC.]
+                                            */
+                                            $cats = array();
+                                            foreach (Research::listRewards() as $reward => $data) {
+                                                // Skip unknown since it shouldn't be displayed
+                                                if ($reward === "unknown") continue;
+                                                $cats[$data["categories"][0]][$reward] = $data;
+                                            }
+
+                                            /*
+                                                After the rewards have been sorted into proper categories, we'll resolve
+                                                the I18N string for each research reward, one category at a time.
+                                            */
+                                            foreach ($cats as $category => $categorizedRewards) {
+                                                foreach ($categorizedRewards as $reward => $data) {
+                                                    // Use the plural string of the reward by default
+                                                    $i18n = I18N::resolve("reward.{$reward}.plural");
+                                                    // If the reward is singular-only, use the singular string
+                                                    if (!in_array("quantity", $data["params"]))
+                                                        $i18n = I18N::resolve("reward.{$reward}.singular");
+                                                    // Replace parameters (e.g. {%1}) with placeholders
+                                                    for ($i = 0; $i < count($data["params"]); $i++) {
+                                                        $i18n = str_replace(
+                                                            "{%".($i+1)."}",
+                                                            I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
+                                                            $i18n
+                                                        );
+                                                    }
+                                                    // Now save the final localized string back into the reward
+                                                    $categorizedRewards[$reward]["i18n"] = htmlspecialchars($i18n, ENT_QUOTES);
+                                                }
+
+                                                /*
+                                                    Create a group for each category of rewards, then output each of the
+                                                    rewards within that category to the selection box.
+                                                */
+                                                echo '<optgroup label="'.I18N::resolveHTML("category.reward.{$category}").'">';
+                                                foreach ($categorizedRewards as $reward => $data) {
+                                                    echo '<option value="'.$reward.'">'.$data["i18n"].'</option>';
+                                                }
+                                                echo '</optgroup>';
+                                            }
+                                        ?>
+                                    </select></p></div>
+                                </div>
+                                <div class="cover-button-spacer"></div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-2 right-align">
+                                        <span id="filter-poi-reset"
+                                              class="button-standard split-button button-spaced left">
+                                                    <?php echo I18N::resolveHTML("poi.filter.reset"); ?>
+                                        </span>
+                                    </div>
+                                    <div class="pure-u-1-2">
+                                        <span id="filter-poi-submit"
+                                              class="button-submit split-button button-spaced right">
+                                                    <?php echo I18N::resolveHTML("poi.filter.submit"); ?>
                                         </span>
                                     </div>
                                 </div>

@@ -217,6 +217,7 @@ $("#add-poi-submit").on("click", function() {
                     Update the marker clustering prioritization list.
                 */
                 haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+                updateVisiblePOIs();
             }
         }
     }).fail(function(xhr) {
@@ -663,6 +664,7 @@ function refreshMarkers() {
         */
         if (markers.length > 0 || removed) {
             haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+            updateVisiblePOIs();
         }
     }).fail(function(xhr) {
         /*
@@ -726,9 +728,26 @@ function updateHiddenPOIsBanner(hidden, total) {
 }
 
 /*
-    Checks whether or not the given POI is within the visible area of the map.
+    Checks whether or not the given POI is within the visible area of the map
+    and has a research task that matches filters, if any.
 */
 function shouldBeVisibleOnMap(poi) {
+    /*
+        Check whether the POI has research that matches filters.
+    */
+    if (filterMode == "unknown") {
+        if (poi.objective.type != "unknown" || poi.reward.type != "unknown") {
+            return false;
+        }
+    } else if (filterObjective != "any" || filterReward != "any") {
+        var shouldMatch = filterMode == "only";
+        if (filterObjective != "any") {
+            if ((poi.objective.type == filterObjective) != shouldMatch) return false;
+        }
+        if (filterReward != "any") {
+            if ((poi.reward.type == filterReward) != shouldMatch) return false;
+        }
+    }
     /*
         Get the bounding coordinates of the currently displayed portion of the
         map.
@@ -1534,6 +1553,7 @@ function openMarker(markerObj, id) {
                         Update the marker clustering prioritization list.
                     */
                     haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+                    updateVisiblePOIs();
                 }
             }
         }).fail(function(xhr) {
@@ -1622,6 +1642,146 @@ $("#update-poi-cancel").on("click", function() {
     $("#update-poi-details").hide();
     $("#poi-details").show();
 });
+
+/*
+    This function is a map update handler. It is called whenever the map is
+    zoomed or panned and is responsible for updating the list of POIs that are
+    currently visible on the map. Not all POIs are displayed on the map at once
+    to ensure higher performance on client devices.
+*/
+function updateVisiblePOIs() {
+    var inBounds = [];
+    var visibleLimit = parseInt(settings.get("clusteringLimit"));
+    var idList = getIDsOfAllPOIs();
+    for (var i = 0; i < idList.length; i++) {
+        /*
+            If the POI should be visible, but isn't currently, flag it as
+            visible and add it to the map. Inversely, if the POI is currently
+            visible, but shouldn't be, remove it from the map to save resources.
+        */
+        if (shouldBeVisibleOnMap(pois[idList[i]])) {
+            inBounds.push(idList[i]);
+        } else if (pois[idList[i]].visible) {
+            pois[idList[i]].visible = false;
+            MapImpl.removeMarker(pois[idList[i]].implObject);
+        }
+    }
+
+    /*
+        Check that the number of POIs does not exceed the amount allowed on the
+        map at the same time. If it does, create a prioritized list of POIs to
+        add and drop the rest from being displayed for now.
+    */
+    var visibleIDs;
+    if (inBounds.length > visibleLimit) {
+        visibleIDs = prioritizePOIsForClustering(inBounds, visibleLimit);
+    } else {
+        visibleIDs = inBounds;
+    }
+    visibleIDs.sort(function(a, b) {
+        return a - b;
+    });
+
+    /*
+        Flag each POI as visible or hidden, and add or remove it from the map
+        appropriately.
+    */
+    for (var i = 0, j = 0; i < inBounds.length; i++) {
+        var poiId = inBounds[i];
+        if (j < visibleIDs.length && poiId == visibleIDs[j]) {
+            j++;
+            if (!pois[poiId].visible) {
+                pois[poiId].visible = true;
+                addMarkers([pois[poiId]]);
+            }
+        } else if (pois[poiId].visible) {
+            pois[poiId].visible = false;
+            MapImpl.removeMarker(pois[poiId].implObject);
+        }
+    }
+
+    updateHiddenPOIsBanner(inBounds.length - visibleLimit, inBounds.length);
+}
+
+/*
+    ------------------------------------------------------------------------
+        RESEARCH FILTERS
+    ------------------------------------------------------------------------
+*/
+
+/*
+    Default filter settings (show all POIs).
+*/
+var filterMode = "only";
+var filterObjective = "any";
+var filterReward = "any";
+
+/*
+    Event handler for the sidebar button responsible for opening the filtering
+    menu. Displays a popup that allows the user to filter research tasks that
+    are of interest to them.
+*/
+$("#menu-open-filters, #corner-filter-link").on("click", function(e) {
+    e.preventDefault();
+
+    /*
+        Set the input options in the dialog to the current filter options.
+    */
+    $("#filter-poi-mode").val(filterMode);
+    $("#filter-poi-objective").val(filterObjective);
+    $("#filter-poi-reward").val(filterReward);
+
+    /*
+        Hides the map and map-specific sidebar items, and shows the filtering
+        popup.
+    */
+    $("#filters-poi").fadeIn(150);
+});
+
+/*
+    Event handler that resets POI filters. This is displayed as the "reset
+    filters" button on the POI filtering dialog. It hides the filtering dialog,
+    resetting the filters.
+*/
+$("#filter-poi-reset").on("click", function() {
+    setFilters("only", "any", "any");
+});
+
+/*
+    Event handler that cancels setting POI filters. This is displayed as the
+    "cancel" button on the POI filtering dialog. It hides the filtering dialog,
+    applying the filters.
+*/
+$("#filter-poi-submit").on("click", function() {
+    setFilters(
+        $("#filter-poi-mode").val(),
+        $("#filter-poi-objective").val(),
+        $("#filter-poi-reward").val()
+    );
+});
+
+function setFilters(fMode, fObjective, fReward) {
+    filterMode = fMode;
+    filterObjective = fObjective;
+    filterReward = fReward;
+    updateVisiblePOIs();
+    /*
+        If filters are active, show a small icon underneath the menu icon and
+        highlight the filters sidebar option to indicate this.
+    */
+    if (
+        filterMode == "unknown" ||
+        filterObjective != "any" ||
+        filterReward != "any"
+    ) {
+        $("#corner-filter-link").show();
+        $("#menu-open-filters").attr("data-active", "1");
+    } else {
+        $("#corner-filter-link").hide();
+        $("#menu-open-filters").attr("data-active", "0");
+    }
+    $("#filters-poi").fadeOut(150);
+}
 
 /*
     ------------------------------------------------------------------------
@@ -1932,65 +2092,7 @@ isc_opts.species.colortheme = settings.get("theme");
 /*
     Initialize the map.
 */
-MapImpl.init("map", settings, function() {
-    /*
-        This function is a map update handler. It is called whenever the map is
-        zoomed or panned and is responsible for updating the list of POIs that
-        are currently visible on the map. Not all POIs are displayed on the map
-        at once to ensure higher performance on client devices.
-    */
-    var inBounds = [];
-    var visibleLimit = parseInt(settings.get("clusteringLimit"));
-    var idList = getIDsOfAllPOIs();
-    for (var i = 0; i < idList.length; i++) {
-        /*
-            If the POI should be visible, but isn't currently, flag it as
-            visible and add it to the map. Inversely, if the POI is currently
-            visible, but shouldn't be, remove it from the map to save resources.
-        */
-        if (shouldBeVisibleOnMap(pois[idList[i]])) {
-            inBounds.push(idList[i]);
-        } else if (pois[idList[i]].visible) {
-            pois[idList[i]].visible = false;
-            MapImpl.removeMarker(pois[idList[i]].implObject);
-        }
-    }
-
-    /*
-        Check that the number of POIs does not exceed the amount allowed on the
-        map at the same time. If it does, create a prioritized list of POIs to
-        add and drop the rest from being displayed for now.
-    */
-    var visibleIDs;
-    if (inBounds.length > visibleLimit) {
-        visibleIDs = prioritizePOIsForClustering(inBounds, visibleLimit);
-    } else {
-        visibleIDs = inBounds;
-    }
-    visibleIDs.sort(function(a, b) {
-        return a - b;
-    });
-
-    /*
-        Flag each POI as visible or hidden, and add or remove it from the map
-        appropriately.
-    */
-    for (var i = 0, j = 0; i < inBounds.length; i++) {
-        var poiId = inBounds[i];
-        if (j < visibleIDs.length && poiId == visibleIDs[j]) {
-            j++;
-            if (!pois[poiId].visible) {
-                pois[poiId].visible = true;
-                addMarkers([pois[poiId]]);
-            }
-        } else if (pois[poiId].visible) {
-            pois[poiId].visible = false;
-            MapImpl.removeMarker(pois[poiId].implObject);
-        }
-    }
-
-    updateHiddenPOIsBanner(inBounds.length - visibleLimit, inBounds.length);
-});
+MapImpl.init("map", settings, updateVisiblePOIs);
 
 /*
     Automatically save the current center point and zoom level of
