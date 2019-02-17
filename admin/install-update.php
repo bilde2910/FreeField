@@ -14,11 +14,6 @@ $pkgExtractPath = "{$pkgBasePath}/content";
 $pkgFilePath = "{$pkgBasePath}/updatepkg.tar.gz";
 $pkgTarPath = "{$pkgBasePath}/updatepkg.tar";
 $pkgAuthCookie = "update-token";
-$cacert = isset($_GET["cacert"]) && !empty($_GET["cacert"])
-        ? $_GET["cacert"]
-        : null;
-
-if ($cacert !== null && !file_exists($cacert)) $cacert = null;
 
 /*
     As this script is for submission only, only POST is supported. If a user
@@ -82,6 +77,15 @@ if ($_COOKIE[$pkgAuthCookie] !== $updateData["token"]) {
     header("Location: {$returnpath}");
     exit;
 }
+
+/*
+    Set SSL connection information.
+*/
+$cacert = isset($updateData["cacert"]) && !empty($updateData["cacert"])
+        ? $updateData["cacert"]
+        : null;
+
+if ($cacert !== null && !file_exists($cacert)) $cacert = null;
 
 /*
     Proceed with the upgrade.

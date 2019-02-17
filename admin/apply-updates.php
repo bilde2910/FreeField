@@ -95,16 +95,17 @@ $data = array(
     "tarball" => $release["tgz-url"],
     "token" => $token
 );
-file_put_contents($pkgMetaPath, json_encode($data, JSON_PRETTY_PRINT));
-$cookieUrl = parse_url(Config::getEndpointUri("/admin/"), PHP_URL_PATH);
 
 /*
     Get SSL connection info for secure download of the update package.
 */
 $cacert = null;
 if (Config::get("security/curl/verify-certificates")->value()) {
-    $cacert = Config::get("security/curl/cacert-path")->value();
+    $data["cacert"] = Config::get("security/curl/cacert-path")->value();
 }
+
+file_put_contents($pkgMetaPath, json_encode($data, JSON_PRETTY_PRINT));
+$cookieUrl = parse_url(Config::getEndpointUri("/admin/"), PHP_URL_PATH);
 
 /*
     Redirect the user to the installation script to initiate and perform the
