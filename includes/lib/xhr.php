@@ -16,6 +16,7 @@ class XHR {
             403 => "Forbidden",
             405 => "Method Not Allowed",
             500 => "Internal Server Error",
+            501 => "Not Implemented",
             502 => "Bad Gateway",
             504 => "Gateway Timeout"
         );

@@ -788,7 +788,7 @@ class Research {
     /*
         Localizes an objective object to a human-readable string representation.
     */
-    public static function resolveObjective($type, $params) {
+    public static function resolveObjective($type, $params, $forcePlural = false) {
         __require("i18n");
 
         /*
@@ -808,7 +808,7 @@ class Research {
         */
         $i18nstring = I18N::resolve("objective.{$type}.singular");
         if (isset($params["quantity"])) {
-            if ($params["quantity"] != 1) {
+            if ($forcePlural || $params["quantity"] != 1) {
                 $i18nstring = I18N::resolve("objective.{$type}.plural");
             }
         }

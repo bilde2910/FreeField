@@ -529,7 +529,8 @@ function determinePOI($data) {
         return array(key($distances));
     }
     /*
-        3. Check if a POI name has been supplied. f
+        3. Check if a POI name has been supplied. Find the closest match (or
+           or exact match, if specified) from all POIs for the given name.
     */
     if (isset($data["name"])) {
         $name = $data["name"];
@@ -572,7 +573,91 @@ function determinePOI($data) {
         }
         return $candidates;
     }
+    /*
+        Fall back to `false` if there were no matches.
+    */
     return false;
+}
+
+/*
+    This function determines the research objectives that match most closely to
+    the data in the given objective data array. Order of matching:
+
+        1.  Match by objective data directly:
+              - $data["type"] (required)
+              - $data["params"] (required)
+        2.  Match by common objective string:
+              - $data["match"] (required)
+              - $data["allowUnknown"] (required (=false))
+*/
+function determineObjective($objData) {
+    /*
+        1. Check if valid objective data has been supplied directly. If so,
+           return it.
+    */
+    if (isset($objData["type"]) && isset($objData["params"])) return $objData;
+    /*
+        2. Check if a string match can be performed against the objective text.
+           Return the closest match.
+    */
+    if (isset($objData["match"]) && isset($objData["allowUnknown"])) {
+        if (!$objData["allowUnknown"]) {
+            return fuzzyMatchCommonObjective($objData["match"]);
+        } else {
+            return null;
+        }
+    }
+    /*
+        Fall back to `false` if there were no matches.
+    */
+    return false;
+}
+
+function fuzzyMatchCommonObjective($string) {
+    /*
+        First, get a list of all current research objectives.
+    */
+    $commonObjectives = Research::listCommonObjectives();
+    /*
+        Resolve their display texts in lowercase. Resolve both singular and
+        plural forms for those research tasks that are singular in quantity.
+    */
+    $stringMap = array();
+    for ($i = 0; $i < count($commonObjectives); $i++) {
+        $stringMap[strtolower(
+            Research::resolveObjective(
+                $commonObjectives[$i]["type"],
+                $commonObjectives[$i]["params"]
+            )
+        )] = $commonObjectives[$i];
+        $stringMap[strtolower(
+            Research::resolveObjective(
+                $commonObjectives[$i]["type"],
+                $commonObjectives[$i]["params"],
+                true
+            )
+        )] = $commonObjectives[$i];
+    }
+    /*
+        Calculate the similarity between the given objective string and all of
+        the common objective tasks.
+    */
+    $distances = array();
+    foreach ($stringMap as $candidate => $data) {
+        $perc1 = 0; $perc2 = 0;
+        similar_text(strtolower($string), $candidate, $perc1);
+        similar_text($candidate, strtolower($string), $perc2);
+        $distances[$candidate] = $perc1 + $perc2;
+    }
+    /*
+        Sort the list by decreasing similarity and return a list of
+        candidates with the highest equal scores (multiple POIs may have the
+        same name).
+    */
+    arsort($distances);
+    reset($distances);
+    $chosen = key($distances);
+    return $stringMap[$chosen];
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
@@ -809,7 +894,17 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             `type` and `params`. Params must additionally be an array or object.
         */
         if (
-            !is_array($patchdata["objective"]) ||
+            !is_array($patchdata["objective"])
+        ) {
+            XHR::exitWith(400, array("reason" => "invalid_data"));
+        }
+        $patchdata["objective"] = determineObjective($patchdata["objective"]);
+        if ($patchdata["objective"] === false) {
+            XHR::exitWith(400, array("reason" => "missing_fields"));
+        } elseif ($patchdata["objective"] === null) {
+            XHR::exitWith(501, array("reason" => "match_mode_not_implemented"));
+        }
+        if (
             !isset($patchdata["objective"]["type"]) ||
             !isset($patchdata["objective"]["params"]) ||
             !is_array($patchdata["objective"]["params"])
