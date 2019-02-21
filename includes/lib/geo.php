@@ -461,6 +461,12 @@ class Geo {
 */
 class POI {
     /*
+        Degrees to radians; π/180
+        Used to calculate distance between coordinates.
+    */
+    const D2R = 0.017453292519943295;
+
+    /*
         The array entries have the following keys:
 
             array_keys($data) == array(
@@ -527,6 +533,31 @@ class POI {
     public function isWithinGeofence($geofence) {
         if ($geofence === null) return true;
         return $geofence->containsPoint($this->getLatitude(), $this->getLongitude());
+    }
+
+    /*
+        Calculates the distance between the POI and a coordinate pair using the
+        Haversine formula.
+    */
+    public function getProximityTo($lat, $lon) {
+        /*
+            Convert latitudes and longitudes to radian form.
+        */
+        $p1lat = $this->getLatitude() * self::D2R; $p2lat = $lat * self::D2R;
+        $p1lon = $this->getLongitude() * self::D2R; $p2lon = $lon * self::D2R;
+        /*
+            Calculate hav(lat2-lat1) and hav(lon2-lon1).
+        */
+        $havLat = sin(($p2lat - $p1lat) / 2);
+        $havLat *= $havLat;
+        $havLon = sin(($p2lon - $p1lon) / 2);
+        $havLon *= $havLon;
+        /*
+            Calculate Haversine distance `d`.
+        */
+        $hav = $havLat + cos($p1lat) * cos($p2lat) * $havLon;
+        $d = asin(sqrt($hav));
+        return $d;
     }
 
     /*

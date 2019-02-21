@@ -486,6 +486,95 @@ function replaceWebhookFields($poidata, $time, $theme, $spTheme, $useSpecies, $b
     return $body;
 }
 
+/*
+    This function determines the IDs of the POIs that match most closely to the
+    data in the given data array. Order of matching:
+
+        1.  Match by POI ID (returns that POI):
+              - $data["id"] (required)
+        2.  Match by coordinates (returns closest POI):
+              - $data["latitude"] (required)
+              - $data["longitude"] (required)
+        3.  Match by POI name (returns list of best matches):
+              - $data["name"] (required)
+              - $data["matchExact"] (optional)
+              - $data["matchCase"] (optional)
+*/
+function determinePOI($data) {
+    /*
+        1. Check if an ID has been supplied. If so, return it.
+    */
+    if (isset($data["id"])) return array(intval($data["id"]));
+    /*
+        2. Check if a coordinate pair has been supplied. Find the closest POI
+           and return it.
+    */
+    if (isset($data["latitude"]) && isset($data["longitude"])) {
+        $lat = floatval($data["latitude"]);
+        $lon = floatval($data["longitude"]);
+        $pois = Geo::listPOIs();
+        if (count($pois) == 0) return array();
+        /*
+            Calculate the distances between the given point and all POIs.
+        */
+        $distances = array();
+        foreach ($pois as $poi) {
+            $distances[$poi->getID()] = $poi->getProximityTo($lat, $lon);
+        }
+        /*
+            Sort the list by increasing distance and return the first element.
+        */
+        asort($distances);
+        reset($distances);
+        return array(key($distances));
+    }
+    /*
+        3. Check if a POI name has been supplied. f
+    */
+    if (isset($data["name"])) {
+        $name = $data["name"];
+        $exactMatch = isset($data["matchExact"]) && !!$data["matchExact"];
+        $caseSensitive = !isset($data["matchCase"]) || !!$data["matchCase"];
+        $pois = Geo::listPOIs();
+        if (count($pois) == 0) return array();
+        /*
+            Calculate the similarity between the given name and the names of all
+            POIs. Take into consideration whether or not the matching should be
+            done in a case sensitive manner.
+        */
+        $distances = array();
+        foreach ($pois as $poi) {
+            $str1 = $poi->getName();
+            $str2 = $name;
+            if (!$caseSensitive) {
+                $str1 = strtolower($poi->getName());
+                $str2 = strtolower($name);
+            }
+            $perc1 = 0; $perc2 = 0;
+            similar_text($str1, $str2, $perc1);
+            similar_text($str2, $str1, $perc2);
+            $distances[$poi->getID()] = $perc1 + $perc2;
+        }
+        /*
+            Sort the list by decreasing similarity and return a list of
+            candidates with the highest equal scores (multiple POIs may have the
+            same name).
+        */
+        arsort($distances);
+        $closest = reset($distances);
+        $candidates = array();
+        foreach ($distances as $poiId => $distance) {
+            if ($distance == $closest) {
+                if (!$exactMatch || $distance >= 200) $candidates[] = $poiId;
+            } else {
+                break;
+            }
+        }
+        return $candidates;
+    }
+    return false;
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     /*
         GET request will list all available POIs.
@@ -659,8 +748,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 "params" => json_decode($poi["rew_params"], true)
             ),
             "updated" => array(
-                "on" => strtotime($poi["last_updated"]),
-                "by" => $poi["updated_by"]
+                "on" => strtotime($poi["last_updated"])/*,
+                // For future use
+                "by" => $poi["updated_by"]*/
             )
         );
 
@@ -695,12 +785,23 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             reward. Ensure that all of these fields are present in the received
             data.
         */
-        $reqfields = array("id", "objective", "reward");
+        $reqfields = array("objective", "reward");
 
         foreach ($reqfields as $field) {
             if (!isset($patchdata[$field])) {
                 XHR::exitWith(400, array("reason" => "missing_fields"));
             }
+        }
+
+        $id = determinePOI($patchdata);
+        if ($id === false) {
+            XHR::exitWith(400, array("reason" => "missing_fields"));
+        } elseif (count($id) == 0) {
+            XHR::exitWith(400, array("reason" => "no_poi_candidates"));
+        } elseif (count($id) > 1) {
+            XHR::exitWith(400, array("reason" => "poi_ambiguous", "candidates" => $id));
+        } else {
+            $id = $id[0];
         }
 
         /*
@@ -762,7 +863,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             able to see the POI on the map in the first place to perform the
             update.
         */
-        $poi = Geo::getPOI($patchdata["id"]);
+        $poi = Geo::getPOI($id);
         $geofence = Config::get("map/geofence/geofence")->value();
 
         if (
@@ -789,7 +890,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $db = Database::connect();
             $db
                 ->from("poi")
-                ->where("id", $patchdata["id"])
+                ->where("id", $id)
                 ->update($data)
                 ->execute();
 
@@ -798,7 +899,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 information here is used to trigger webhooks for field research
                 updates.
             */
-            $poidata = Geo::getPOI($patchdata["id"]);
+            $poidata = Geo::getPOI($id);
 
         } catch (Exception $e) {
             XHR::exitWith(500, array("reason" => "database_error"));
@@ -1010,12 +1111,23 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             Required fields are the POI ID and the new coordinates. Ensure that
             all of these fields are present in the received data.
         */
-        $reqfields = array("id", "moveTo");
+        $reqfields = array("moveTo");
 
         foreach ($reqfields as $field) {
             if (!isset($patchdata[$field])) {
                 XHR::exitWith(400, array("reason" => "missing_fields"));
             }
+        }
+
+        $id = determinePOI($patchdata);
+        if ($id === false) {
+            XHR::exitWith(400, array("reason" => "missing_fields"));
+        } elseif (count($id) == 0) {
+            XHR::exitWith(400, array("reason" => "no_poi_candidates"));
+        } elseif (count($id) > 1) {
+            XHR::exitWith(400, array("reason" => "poi_ambiguous", "candidates" => $id));
+        } else {
+            $id = $id[0];
         }
 
         /*
@@ -1071,7 +1183,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $db = Database::connect();
             $db
                 ->from("poi")
-                ->where("id", $patchdata["id"])
+                ->where("id", $id)
                 ->update($data)
                 ->execute();
 
@@ -1102,8 +1214,15 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         Required fields are the POI ID. Ensure that it is present in the
         received data.
     */
-    if (!isset($deletedata["id"])) {
+    $id = determinePOI($deletedata);
+    if ($id === false) {
         XHR::exitWith(400, array("reason" => "missing_fields"));
+    } elseif (count($id) == 0) {
+        XHR::exitWith(400, array("reason" => "no_poi_candidates"));
+    } elseif (count($id) > 1) {
+        XHR::exitWith(400, array("reason" => "poi_ambiguous", "candidates" => $id));
+    } else {
+        $id = $id[0];
     }
 
     /*
@@ -1115,7 +1234,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $db = Database::connect();
         $db
             ->from("poi")
-            ->where("id", $deletedata["id"])
+            ->where("id", $id)
             ->delete()
             ->execute();
 
