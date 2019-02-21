@@ -695,9 +695,24 @@ class User {
     public function getNickname() {
         if (!$this->exists()) {
             __require("i18n");
+            __require("api");
 
             if ($this->isLikelyDeletedUser()) {
-                return I18N::resolve("admin.table.users.deleted");
+                /*
+                    Determine if the deleted user was an API client or a real
+                    user. If it was an API client, the client ID would consist
+                    of "api:" followed by a number. Use the proper "DeletedUser"
+                    label depending on which type of user this was.
+                */
+                if (
+                    isset($this->data["id"]) &&
+                    substr($this->data["id"], 0, strlen(APIClient::USER_ID_PREFIX))
+                        == APIClient::USER_ID_PREFIX
+                ) {
+                    return I18N::resolve("admin.table.users.api_deleted");
+                } else {
+                    return I18N::resolve("admin.table.users.deleted");
+                }
             } else {
                 return I18N::resolve("admin.table.users.anonymous");
             }
@@ -742,7 +757,8 @@ class User {
             "telegram"  => "fab fa-telegram-plane",
             "reddit"    => "fab fa-reddit-alien",
             "line"      => "fab fa-line",
-            "groupme"   => "fas fa-user" // No brand specific icon available at this time
+            "groupme"   => "fas fa-user", // No brand specific icon available at this time
+            "api"       => "fas fa-code"
         );
         return '<span>
                     <i class="

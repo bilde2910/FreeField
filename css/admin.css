@@ -193,6 +193,19 @@ tr[data-search-match="0"] {
     color: red;
 }
 
+/* The label that displays a client's current permissions in the API clients
+   list table. On click, this label opens a popup dialog, so it should have a
+   pointer cursor to indicate that it can be clicked. */
+.api-table-access-label {
+    cursor: pointer;
+}
+
+/* The label that displays a client's current permission level in the API
+   clients list table. */
+.api-table-label-level-text {
+    font-weight: bold;
+}
+
 /* Warning header that is displayed on the updates section of the administration
    pages when FreeField is installed by pulling directly from GitHub. */
 .update-git-warning {

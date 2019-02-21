@@ -29,6 +29,9 @@ var i18n = <?php
         // Webhook body format headers
         "admin.section.hooks.body.*",
 
+        // Permissions strings for API access management
+        "setting.permissions.level.*",
+
         // Research objectives
         "objective.*",
 

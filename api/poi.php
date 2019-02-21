@@ -10,6 +10,7 @@ __require("db");
 __require("auth");
 __require("geo");
 __require("config");
+__require("api");
 
 /*
     Set correct timezone to ensure research resets at the proper time.
@@ -24,6 +25,14 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 header("Content-Type: application/json");
+
+/*
+    Identify the current user or API client that is submitting requests to this
+    API endpoint.
+*/
+$currentUser = API::getCurrentClient()->exists()
+             ? API::getCurrentClient()
+             : Auth::getCurrentUser();
 
 /*
     When the user enters a body payload for webhooks, they may choose to use
@@ -321,7 +330,7 @@ function replaceWebhookFields($poidata, $time, $theme, $spTheme, $useSpecies, $b
 
                 case "REPORTER":
                     // <%REPORTER%>
-                    $replacement = Auth::getCurrentUser()->getNickname();
+                    $replacement = $currentUser->getNickname();
                     break;
 
                 case "REWARD":
@@ -481,7 +490,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     /*
         GET request will list all available POIs.
     */
-    if (!Auth::getCurrentUser()->hasPermission("access")) {
+    if (!$currentUser->hasPermission("access")) {
         XHR::exitWith(403, array("reason" => "access_denied"));
     }
     try {
@@ -535,8 +544,15 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                     "objective" => $poi->getCurrentObjective(),
                     "reward" => $poi->getCurrentReward(),
                     "updated" => array(
-                        "on" => $poi->getLastUpdatedTime(),
-                        "by" => $poi->getLastUser()->getUserID()
+                        "on" => $poi->getLastUpdatedTime()/*,
+
+                        // For future use
+
+                        "by" => array(
+                            //"id" => $poi->getLastUser()->getUserID(),
+                            "nick" => $poi->getLastUser()->getNickname(),
+                            "color" => "#".$poi->getLastUser()->getColor()
+                        )*/
                     )
                 );
             }
@@ -562,7 +578,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     /*
         PUT request will add a new POI.
     */
-    if (!Auth::getCurrentUser()->hasPermission("submit-poi")) {
+    if (!$currentUser->hasPermission("submit-poi")) {
         XHR::exitWith(403, array("reason" => "access_denied"));
     }
 
@@ -587,8 +603,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         "name" => $putdata["name"],
         "latitude" => floatval($putdata["lat"]),
         "longitude" => floatval($putdata["lon"]),
-        "created_by" => Auth::getCurrentUser()->getUserID(),
-        "updated_by" => Auth::getCurrentUser()->getUserID(),
+        "created_by" => $currentUser->getUserID(),
+        "updated_by" => $currentUser->getUserID(),
         "objective" => "unknown",
         "obj_params" => json_encode(array()),
         "reward" => "unknown",
@@ -664,7 +680,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         /*
             Field research is being updated.
         */
-        if (!Auth::getCurrentUser()->hasPermission("report-research")) {
+        if (!$currentUser->hasPermission("report-research")) {
             XHR::exitWith(403, array("reason" => "access_denied"));
         }
 
@@ -731,7 +747,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             Create a database update array.
         */
         $data = array(
-            "updated_by" => Auth::getCurrentUser()->getUserID(),
+            "updated_by" => $currentUser->getUserID(),
             "last_updated" => date("Y-m-d H:i:s"),
             "objective" => $objective,
             "obj_params" => json_encode($objParams),
@@ -764,7 +780,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             to submit any kind of field research in the first place.
         */
         if ($poi->isUpdatedToday() && !$poi->isResearchUnknown()) {
-            if (!Auth::getCurrentUser()->hasPermission("overwrite-research")) {
+            if (!$currentUser->hasPermission("overwrite-research")) {
                 XHR::exitWith(403, array("reason" => "access_denied"));
             }
         }
@@ -986,7 +1002,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         /*
             A POI is being moved.
         */
-        if (!Auth::getCurrentUser()->hasPermission("admin/pois/general")) {
+        if (!$currentUser->hasPermission("admin/pois/general")) {
             XHR::exitWith(403, array("reason" => "access_denied"));
         }
 
@@ -1031,7 +1047,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             Create a database update array.
         */
         $data = array(
-            "updated_by" => Auth::getCurrentUser()->getUserID(),
+            "updated_by" => $currentUser->getUserID(),
             "last_updated" => date("Y-m-d H:i:s"),
             "latitude" => $latitude,
             "longitude" => $longitude
@@ -1078,7 +1094,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     */
     $deletedata = json_decode(file_get_contents("php://input"), true);
 
-    if (!Auth::getCurrentUser()->hasPermission("admin/pois/general")) {
+    if (!$currentUser->hasPermission("admin/pois/general")) {
         XHR::exitWith(403, array("reason" => "access_denied"));
     }
 

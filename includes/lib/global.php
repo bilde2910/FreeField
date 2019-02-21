@@ -60,6 +60,13 @@ function __require($require) {
             break;
 
         /*
+            Manages API client access.
+        */
+        case "api":
+            include_once(__DIR__."/api.php");
+            break;
+
+        /*
             Manages POIs and provides geo-related functions.
         */
         case "geo":

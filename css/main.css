@@ -143,6 +143,11 @@
     background-color: #00AFF0;
 }
 
+/* Pseudo-provider for API clients. */
+.auth-provider-api {
+    color: #1F8DD6;
+}
+
 /* Spacer to separate groups of elements in the sidebar. Creates an empty gap.
    Used to separate the userbox and login/logout buttons from the rest of the
    elements in the sidebar. */
@@ -167,6 +172,10 @@
 }
 .centered {
     text-align: center;
+}
+.monospaced {
+    font-family: monospace;
+    font-size: 1.2em;
 }
 
 /* Block element which contains `.button-submit` and/or `.button-standard`. */

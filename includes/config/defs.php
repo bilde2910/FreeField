@@ -793,6 +793,16 @@ class ConfigDefinitions {
                 "option" => new PermissionOption()
             ),
             /*
+                Allows users to set up and manage API clients that can interface
+                with FreeField.
+            */
+            "permissions/level/admin/api/general" => array(
+                "domain" => "perms",
+                "section" => "admin",
+                "default" => PermissionOption::LEVEL_ADMIN,
+                "option" => new PermissionOption()
+            ),
+            /*
                 Allows users to update FreeField.
             */
             "permissions/level/admin/updates/general" => array(

@@ -621,6 +621,12 @@ class Config {
                 "custom-handler" => true
             ),
 
+            // API and bots management
+            "api" => array(
+                "icon" => "code",
+                "custom-handler" => true
+            ),
+
             // Self-updates
             "updates" => array(
                 "icon" => "sync-alt",
