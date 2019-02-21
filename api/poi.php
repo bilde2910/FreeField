@@ -53,7 +53,7 @@ $currentUser = API::getCurrentClient()->exists()
     values. This is done by passing a closure to `$escapeStr` that escapes a
     string passed to it and returns the result.
 */
-function replaceWebhookFields($poidata, $time, $theme, $spTheme, $useSpecies, $body, $escapeStr) {
+function replaceWebhookFields($currentUser, $poidata, $time, $theme, $spTheme, $useSpecies, $body, $escapeStr) {
     __require("research");
 
     /*
@@ -1003,7 +1003,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                             Replace text replacement strings (e.g. <%COORDS%>)
                             in the webhook's payload body.
                         */
-                        $body = replaceWebhookFields($poidata, $reportedTime, $theme, $spTheme, $useSpecies, $hook["body"], function($str) {
+                        $body = replaceWebhookFields($currentUser, $poidata, $reportedTime, $theme, $spTheme, $useSpecies, $hook["body"], function($str) {
                             /*
                                 String escaping for JSON
                                 Convert to JSON string and remove leading and
@@ -1028,7 +1028,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                             Replace text replacement strings (e.g. <%COORDS%>)
                             in the webhook's payload body.
                         */
-                        $body = replaceWebhookFields($poidata, $reportedTime, $theme, $spTheme, $useSpecies, $hook["body"], function($str) {
+                        $body = replaceWebhookFields($currentUser, $poidata, $reportedTime, $theme, $spTheme, $useSpecies, $hook["body"], function($str) {
                             /*
                                 Escape any special Markdown or HTML characters
                                 in the webhook body according to the format of
