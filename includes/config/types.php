@@ -523,7 +523,7 @@ class GeofenceOption extends DefaultOption {
                 $selected = true;
                 $html .= ' selected';
             }
-            $html .= '>'.$fence->getLabel().'</option>';
+            $html .= '>'.$fence->getLabelHTML().'</option>';
         }
         $html .= '</optgroup></select>';
         return $html;

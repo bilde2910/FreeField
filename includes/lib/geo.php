@@ -828,11 +828,21 @@ class Geofence {
     }
 
     /*
-        Retrieves the user-defined name of the geofence.
+        Retrieves the user-defined name of the geofence. This function is not
+        HTML safe and may result in XSS attacks if output directly on the page.
     */
     public function getLabel() {
         if ($this->data === null) return null;
         return $this->data["label"];
+    }
+
+    /*
+        Retrieves the user-defined name of the geofence with special HTML
+        characters escaped.
+    */
+    public function getLabelHTML() {
+        if ($this->data === null) return null;
+        return htmlspecialchars($this->data["label"], ENT_QUOTES);
     }
 
     /*
