@@ -90,9 +90,9 @@ __require("research");
             </thead>
             <tbody>
                 <?php
+                    $icons = Theme::getIconSet(null, Config::get("themes/color/admin")->value());
                     foreach ($pois as $poi) {
                         $pid = $poi->getID();
-                        $icons = Theme::getIconSet(null, Config::get("themes/color/admin")->value());
                         ?>
                             <tr>
                                 <td>
