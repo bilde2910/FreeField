@@ -324,6 +324,15 @@ class ConfigDefinitions {
                 "option" => new PermissionOption()
             ),
             /*
+                Shows users who last submitted research on each POI.
+            */
+            "permissions/level/find-reporter" => array(
+                "domain" => "perms",
+                "section" => "map-access",
+                "default" => PermissionOption::LEVEL_REGISTERED,
+                "option" => new PermissionOption()
+            ),
+            /*
                 Allows users to report field research on POIs whose current
                 field research objective is unknown.
             */

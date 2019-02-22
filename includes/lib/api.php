@@ -14,6 +14,7 @@ class API {
     */
     const AVAILABLE_PERMS = array(
         "access",
+        "find-reporter",
         "report-research",
         "overwrite-research",
         "submit-poi",

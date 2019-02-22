@@ -402,6 +402,50 @@ function resolveSpeciesUrl(icon) {
 }
 
 /*
+    This function updates the "last update" paragraph on the POI details panel.
+    It takes an object as argument that contains elements `on` with a timestamp,
+    as well as an optional `by` object with the `nick` and `color` of the last
+    updating user.
+*/
+function setLastUpdate(updated) {
+    /*
+        Update the "last updated time" display label.
+    */
+    $("#poi-last-time").text(resolveI18N(
+        "poi.last.time",
+        new Date(updated.on * 1000).toLocaleDateString(currentLanguage, {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric"
+        })
+    ));
+    /*
+        Check if the current user has permission to view who last updated the
+        research task. If so, show the nickname and color of the user in
+        question; otherwise, hide it.
+    */
+    if (updated.hasOwnProperty("by")) {
+        $("#poi-last-user-text").html(
+            encodeHTML(resolveI18N("poi.last.user")).split("{%1}").join(
+                $("<span>")
+                    .css({
+                        "font-weight": "bold",
+                        "color": updated.by.color
+                    })
+                    .text(updated.by.nick)
+                    .prop("outerHTML")
+            )
+        );
+        $("#poi-last-user-box").show();
+    } else {
+        $("#poi-last-user-box").hide();
+    }
+}
+
+/*
     Adds a set of marker icons to the map. The `markers` parameter is an array
     of objects, where each object describes the properties of one POI.
     format of the array is the same as the format output in JSON format by GET
@@ -607,6 +651,7 @@ function refreshMarkers() {
                 }
                 $("#poi-objective").text(resolveObjective(marker.objective));
                 $("#poi-reward").text(resolveReward(marker.reward));
+                setLastUpdate(marker.updated);
             }
 
             /*
@@ -1083,6 +1128,7 @@ function openMarker(markerObj, id) {
     }
     $("#poi-objective").text(resolveObjective(poiObj.objective));
     $("#poi-reward").text(resolveReward(poiObj.reward));
+    setLastUpdate(poiObj.updated);
 
     /*
         Add event handlers to the directions and close buttons.

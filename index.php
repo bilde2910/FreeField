@@ -529,6 +529,13 @@ Security::declareFrameOptionsHeader();
                                         '<strong id="poi-reward" class="strong-color"></strong>'
                                     ); ?>
                                 </p>
+                                <p class="centered">
+                                    <span id="poi-last-time"></span>
+                                    <span id="poi-last-user-box">
+                                        <br />
+                                        <span id="poi-last-user-text"></span>
+                                    </span>
+                                </p>
                                 <div class="cover-button-spacer"></div>
                                 <div class="pure-g">
                                     <div class="pure-u-1-1 right-align">
@@ -2082,6 +2089,11 @@ Security::declareFrameOptionsHeader();
                 /js/main.js.
             */
             var linkMod = <?php echo json_encode($linkMod); ?>;
+
+            /*
+                Echo the current page language for usage in /js/main.js.
+            */
+            var currentLanguage = <?php echo json_encode(I18N::getLanguage()); ?>;
         </script>
         <script src="./js/ui.js"></script>
         <?php

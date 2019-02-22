@@ -710,6 +710,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 /*
                     Add the POI to the list of returned POIs.
                 */
+                $updatedArray = array("on" => $poi->getLastUpdatedTime());
+                if ($currentUser->hasPermission("find-reporter")) {
+                    $updatedArray["by"] = array(
+                        "nick" => $poi->getLastUser()->getNickname(),
+                        "color" => "#".$poi->getLastUser()->getColor()
+                    );
+                }
                 $poidata[] = array(
                     "id" => intval($poi->getID()),
                     "name" => $poi->getName(),
@@ -717,17 +724,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                     "longitude" => $poi->getLongitude(),
                     "objective" => $poi->getCurrentObjective(),
                     "reward" => $poi->getCurrentReward(),
-                    "updated" => array(
-                        "on" => $poi->getLastUpdatedTime()/*,
-
-                        // For future use
-
-                        "by" => array(
-                            //"id" => $poi->getLastUser()->getUserID(),
-                            "nick" => $poi->getLastUser()->getNickname(),
-                            "color" => "#".$poi->getLastUser()->getColor()
-                        )*/
-                    )
+                    "updated" => $updatedArray
                 );
             }
 
@@ -819,6 +816,13 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             ->where($data)
             ->one();
 
+        $updatedArray = array("on" => strtotime($poi["last_updated"]));
+        if ($currentUser->hasPermission("find-reporter")) {
+            $updatedArray["by"] = array(
+                "nick" => $currentUser->getNickname(),
+                "color" => "#".$currentUser->getColor()
+            );
+        }
         $poidata = array(
             "id" => intval($poi["id"]),
             "name" => $poi["name"],
@@ -832,11 +836,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 "type" => $poi["reward"],
                 "params" => json_decode($poi["rew_params"], true)
             ),
-            "updated" => array(
-                "on" => strtotime($poi["last_updated"])/*,
-                // For future use
-                "by" => $poi["updated_by"]*/
-            )
+            "updated" => $updatedArray
         );
 
         XHR::exitWith(201, array("poi" => $poidata));
