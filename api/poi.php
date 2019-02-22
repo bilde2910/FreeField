@@ -682,6 +682,16 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         */
         $poiIDs = array();
 
+        /*
+            In order to save bandwidth, only send POIs updated after a
+            certain timestamp if the client requests it.
+        */
+        $today = strtotime("today midnight");
+        if (isset($_GET["updatedSince"])) {
+            $updatedSince = intval($_GET["updatedSince"]);
+            if ($updatedSince < 0) $updatedSince += time();
+        }
+
         foreach ($pois as $poi) {
             /*
                 If FreeField is configured to hide POIs that are out of POI
@@ -699,12 +709,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 In order to save bandwidth, only send POIs updated after a
                 certain timestamp if the client requests it.
             */
-            if (isset($_GET["updatedSince"])) {
-                $updatedSince = intval($_GET["updatedSince"]);
-                if ($updatedSince < 0) $updatedSince += time();
-            }
             if (
                 !isset($_GET["updatedSince"]) ||
+                $updatedSince < $today ||
                 $poi->getLastUpdatedTime() >= $updatedSince
             ) {
                 /*
