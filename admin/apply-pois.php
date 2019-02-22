@@ -129,6 +129,59 @@ foreach ($_POST as $poi => $data) {
 }
 
 /*
+    Process any batch (geofence) updates.
+*/
+foreach ($_POST as $fence => $data) {
+    /*
+        Ensure that the POST field we're working on now is a geofence field.
+        These all have field names in the format "f<fenceID>". If this matches,
+        extract the geofence ID from the field name.
+    */
+    if (strlen($fence) < 1 || substr($fence, 0, 1) !== "f") continue;
+    $fid = substr($fence, 1);
+
+    if (isset($data["action"])) {
+        if ($data["action"] === "delete") {
+            /*
+                If POI deletion is requested, add the POIs to the deletion queue
+                and do not process further changes.
+            */
+            foreach ($poilist as $poi) {
+                if ($poi->isWithinGeofence(Geo::getGeofence($fid))) {
+                    $deletes[] = $poi->getID();
+                }
+            }
+            continue;
+
+        } elseif ($data["action"] === "clear") {
+            /*
+                If the user requests clearing the research objective and
+                reward currently active on the POIs, the best way to do this
+                is to set the active research objective and reward to
+                "unknown" and clearing the parameter list for both.
+            */
+            foreach ($poilist as $poi) {
+                $pid = $poi->getID();
+                if (
+                    $poi->isWithinGeofence(Geo::getGeofence($fid)) &&
+                    (
+                        !$pois_assoc[$pid]->isObjectiveUnknown() ||
+                        !$pois_assoc[$pid]->isRewardUnknown()
+                    )
+                ) {
+                    $updates[$pid]["objective"] = "unknown";
+                    $updates[$pid]["reward"] = "unknown";
+                    $updates[$pid]["obj_params"] = json_encode(array());
+                    $updates[$pid]["rew_params"] = json_encode(array());
+                    $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
+                    $updates[$pid]["last_updated"] = date("Y-m-d H:i:s");
+                }
+            }
+        }
+    }
+}
+
+/*
     Check if the user is importing new POIs.
 */
 if (isset($_POST["n_json"])) {

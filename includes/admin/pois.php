@@ -27,6 +27,24 @@ __require("research");
             $pois = Geo::listPOIs();
 
             /*
+                Get a list of available geofences from the configuration file.
+
+                This function returns an array of instance of the Geofence class
+                from /includes/lib/geo.php. Please see that file for class
+                implementation details.
+            */
+            $fences = Geo::listGeofences();
+
+            /*
+                Create an array for counting the number of POIs within each
+                geofence.
+            */
+            $fencedPoiCounts = array();
+            foreach ($fences as $fence) {
+                $fencedPoiCounts[$fence->getID()] = 0;
+            }
+
+            /*
                 Sort the POI list in ascending order by their name.
             */
             usort($pois, function($a, $b) {
@@ -93,6 +111,11 @@ __require("research");
                     $icons = Theme::getIconSet(null, Config::get("themes/color/admin")->value());
                     foreach ($pois as $poi) {
                         $pid = $poi->getID();
+                        foreach ($fences as $fence) {
+                            if ($poi->isWithinGeofence($fence)) {
+                                $fencedPoiCounts[$fence->getID()]++;
+                            }
+                        }
                         ?>
                             <tr>
                                 <td>
@@ -201,6 +224,87 @@ __require("research");
             </div>
             <div class="paginate-inner right-align tu-control-paginate"
                  data-paginate-for="table-poi"></div>
+        </div>
+        <!--
+            ============================================================
+                BATCH PROCESSING SECTION
+            ============================================================
+        -->
+        <h2 class="content-subhead">
+            <?php echo I18N::resolveHTML("admin.section.pois.batch.name"); ?>
+        </h2>
+        <p>
+            <?php echo I18N::resolveArgsHTML(
+                "admin.section.pois.batch.desc", false,
+                '<a href="./?d=fences">',
+                '</a>'
+            ); ?>
+        </p>
+        <table class="pure-table force-fullwidth paginate" id="table-geofence-poi">
+            <thead>
+                <tr>
+                    <!--
+                        Table header defining columns for:
+
+                            1.  Showing the name of the geofence
+                            2.  Taking actions on POIs within the geofence (e.g.
+                                deleting them)
+                    -->
+                    <th data-sort-function="alphanumeric"
+                        data-search-function="plain-text">
+                        <?php echo I18N::resolveHTML("admin.table.pois.batch_list.column.label.name"); ?>
+                    </th>
+                    <th data-sort-function="numeric"
+                        data-search-function="plain-text">
+                        <?php echo I18N::resolveHTML("admin.table.pois.batch_list.column.poi_count.name"); ?>
+                    </th>
+                    <th>
+                        <?php echo I18N::resolveHTML("admin.table.pois.batch_list.column.actions.name"); ?>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    foreach ($fences as $fence) {
+                        $fid = $fence->getID();
+                        $fidHTML = htmlspecialchars($fid, ENT_QUOTES);
+                        ?>
+                            <tr>
+                                <td>
+                                    <p><?php echo $fence->getLabelHTML(); ?></p>
+                                </td>
+                                <td>
+                                    <p><?php echo $fencedPoiCounts[$fid]; ?></p>
+                                </td>
+                                <td><select class="poi-actions" name="f<?php echo $fidHTML; ?>[action]">
+                                    <option value="none" selected>
+                                        <?php echo I18N::resolveHTML("admin.section.pois.batch_list.action.none"); ?>
+                                    </option>
+                                    <!-- "Clear" resets the field research back to "unknown" -->
+                                    <option value="clear">
+                                        <?php echo I18N::resolveHTML("admin.section.pois.batch_list.action.clear"); ?>
+                                    </option>
+                                    <option value="delete">
+                                        <?php echo I18N::resolveHTML("admin.section.pois.batch_list.action.delete"); ?>
+                                    </option>
+                                </select></td>
+                            </tr>
+                        <?php
+                    }
+                ?>
+            </tbody>
+        </table>
+        <div class="paginate-outer table-utils-controls">
+            <div class="tu-control-search">
+                <p>
+                    <input type="text"
+                           data-search-for="table-geofence-poi"
+                           placeholder="<?php echo I18N::resolveHTML("admin.section.pois.batch_list.search"); ?>"
+                           data-do-not-track-changes>
+                </p>
+            </div>
+            <div class="paginate-inner right-align tu-control-paginate"
+                 data-paginate-for="table-geofence-poi"></div>
         </div>
         <!--
             ============================================================
