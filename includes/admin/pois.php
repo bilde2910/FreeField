@@ -199,7 +199,8 @@ __require("research");
                            data-do-not-track-changes>
                 </p>
             </div>
-            <div class="paginate-inner right-align tu-control-paginate"></div>
+            <div class="paginate-inner right-align tu-control-paginate"
+                 data-paginate-for="table-poi"></div>
         </div>
         <!--
             ============================================================

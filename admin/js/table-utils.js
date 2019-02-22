@@ -9,8 +9,9 @@
 
     Pagination is enabled for all tables with the `paginate` class. Such tables
     must be followed by a `.paginate-outer` block element containing a
-    `.paginate-inner` block element, which will contain navigation controls for
-    the table.
+    `.paginate-inner` block element with a `data-paginate-for` attribute
+    pointing to the ID of the associated table, which will contain navigation
+    controls for the table.
 
     Searching may be enabled for tables that use pagination by placing a text input
     box with the `data-search-for` attribute set to the ID of the table that should
@@ -128,14 +129,18 @@ $("th[data-sort-function]").click(function() {
     `paginate` class. Each table must have a block element with the
     `paginate-outer` class at some point following the table on the same level
     in the DOM. This element must contain a block element down in the hierarchy
-    with the `paginate-inner` class, to hold navigation controls for the
-    paginated table.
+    with the `paginate-inner` class and a `data-paginate-for` attribute pointing
+    to the ID of the table, to hold navigation controls for the paginated table.
 */
 $(document).ready(function() {
     /*
         Initialize navigation controls for paginated tables.
     */
     $(".paginate-inner").each(function(idx, e) {
+        /*
+            The table ID that this pagination control is for.
+        */
+        var tableId = $(e).attr("data-paginate-for");
         /*
             Paragraph box that contains all of the pagination controls.
         */
@@ -165,7 +170,7 @@ $(document).ready(function() {
             go to the same page).
         */
         box.find("span:not(.paginate-ellipsis):not(.paginate-cur)").click(function() {
-            var table = $(this).closest(".paginate-outer").prev("table.paginate");
+            var table = $("#" + tableId);
             var to = parseInt($(this).attr("data-paginate-to"));
             stepPage(table, box, to);
         });
@@ -174,7 +179,7 @@ $(document).ready(function() {
             prompts the user for a particular page number to navigate to.
         */
         box.find("span.paginate-cur").click(function() {
-            var table = $(this).closest(".paginate-outer").prev("table.paginate");
+            var table = $("#" + tableId);
             var to = parseInt(prompt(resolveI18N("ui.paginate.go_to")));
             if (!isNaN(to)) stepPage(table, box, to - 1);
         });
@@ -255,8 +260,8 @@ function stepPage(table, box, to) {
     /*
         Hide all rows, then display the ones on the current page.
     */
-    $("table.paginate tbody tr").hide();
-    $("table.paginate tbody tr[data-paginate-page=" + to + "]").show();
+    table.find("tbody tr").hide();
+    table.find("tbody tr[data-paginate-page=" + to + "]").show();
     /*
         Update navigation buttons attribute values and display labels to reflect
         the current page and its neighbors.
