@@ -53,7 +53,10 @@ __require("research");
             });
         ?>
         <h2 class="content-subhead">
-            <?php echo I18N::resolveHTML("admin.section.pois.poi_list.name"); ?>
+            <?php echo I18N::resolveArgsHTML(
+                "admin.section.pois.poi_list.name", true,
+                count($pois)
+            ); ?>
         </h2>
         <table class="pure-table force-fullwidth paginate" id="table-poi">
             <thead>
