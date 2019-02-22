@@ -84,6 +84,7 @@ __END_STRING__;
             case "1.0.4":
             case "1.0.5":
             case "1.0.6":
+            case "1.0.7":
                 /*
                     Update webhooks to include species icon information.
                 */
@@ -96,6 +97,32 @@ __END_STRING__;
                 }
                 Config::set(array("webhooks" => $hooklist));
                 if (!$silent) echo " ok\n";
+
+            case "1.1-alpha.1":
+            case "1.1-alpha.2":
+            case "1.1-alpha.3":
+            case "1.1-alpha.4":
+            case "1.1-alpha.5":
+                /*
+                    Add table to database for API clients.
+                */
+                if (!$silent) echo "Adding API clients table to database...";
+                $sql = <<<__END_STRING__
+CREATE TABLE {$prefix}api (
+    id              int(11)         NOT NULL AUTO_INCREMENT,
+    user_id         varchar(16)     DEFAULT NULL,
+    name            varchar(64)     NOT NULL,
+    color           char(6)         NOT NULL,
+    token           char(64)        NOT NULL,
+    access          varchar(1024)   NOT NULL,
+    level           smallint(6)     NOT NULL,
+    seen            timestamp       DEFAULT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY level (user_id)
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+__END_STRING__;
+            $db->execute($sql);
+            if (!$silent) echo " ok\n";
         }
         /*
             Recheck for updates.
