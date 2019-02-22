@@ -93,9 +93,19 @@ class API {
             given access token, this returns null. Create an appropriate
             `APIClient` instance, cache it for future lookups, and return it.
         */
-        return self::setReturnClient(
-            self::getClientByToken($_SERVER["HTTP_X_ACCESS_TOKEN"])
-        );
+        $client = self::getClientByToken($_SERVER["HTTP_X_ACCESS_TOKEN"]);
+
+        /*
+            Update the "last seen" date of this API client.
+        */
+        $db = Database::connect();
+        $db
+            ->from("api")
+            ->where("id", $client->getClientID())
+            ->update(array("seen" => date("Y-m-d H:i:s")))
+            ->execute();
+
+        return self::setReturnClient($client);
     }
 
     /*
