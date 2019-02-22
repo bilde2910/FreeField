@@ -42,7 +42,7 @@ CREATE TABLE {%TablePrefix%}api (
     token           char(64)        NOT NULL,
     access          varchar(1024)   NOT NULL,
     level           smallint(6)     NOT NULL,
-    seen            timestamp       DEFAULT NULL,
+    seen            timestamp       NULL DEFAULT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY level (user_id)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
