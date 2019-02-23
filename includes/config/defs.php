@@ -645,6 +645,16 @@ class ConfigDefinitions {
                     "option" => new PermissionOption()
                 ),
                 /*
+                    Allows users to change authentication settings for Facebook.
+                */
+                "permissions/level/admin/auth/section/facebook" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
                     Allows users to change authentication settings for Line.
                 */
                 "permissions/level/admin/auth/section/line" => array(
@@ -1083,6 +1093,38 @@ class ConfigDefinitions {
             "auth/provider/reddit/client-secret" => array(
                 "domain" => "auth",
                 "section" => "reddit",
+                "default" => "",
+                "option" => new PasswordOption()
+            ),
+            /*
+                ------------------------------------------------------------
+                    FACEBOOK
+                ------------------------------------------------------------
+            */
+            /*
+                Enables usage of Facebook for user authentication.
+            */
+            "auth/provider/facebook/enabled" => array(
+                "domain" => "auth",
+                "section" => "facebook",
+                "default" => false,
+                "option" => new BooleanOption()
+            ),
+            /*
+                The app ID of your Facebook API application.
+            */
+            "auth/provider/facebook/app-id" => array(
+                "domain" => "auth",
+                "section" => "facebook",
+                "default" => "",
+                "option" => new StringOption()
+            ),
+            /*
+                The app secret of your Facebook API application.
+            */
+            "auth/provider/facebook/app-secret" => array(
+                "domain" => "auth",
+                "section" => "facebook",
                 "default" => "",
                 "option" => new PasswordOption()
             ),

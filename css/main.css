@@ -128,6 +128,13 @@
     color: #FFFFFF;
     background-color: #FF4500;
 }
+.auth-provider-facebook {
+    color: #4267B2;
+}
+.auth-provider-facebook-button {
+    color: #FFFFFF;
+    background-color: #4267B2;
+}
 .auth-provider-line {
     color: #00C300;
 }

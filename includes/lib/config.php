@@ -1173,6 +1173,11 @@ class ConfigSectionI18N {
             '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/reddit.html">',
             '</a>'
         ),
+        "auth/facebook" => array(
+            // admin.section.auth.facebook.desc
+            '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/facebook.html">',
+            '</a>'
+        ),
         "auth/line" => array(
             // admin.section.auth.line.desc
             '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/line.html">',
