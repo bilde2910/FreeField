@@ -2034,7 +2034,7 @@ Security::declareFrameOptionsHeader();
 
                     $permsJson = array();
                     foreach ($clientside_perms as $perm) {
-                        $permsJson[$perm] = Auth::getCurrentUser()->hasPermission($clientside_perms[$i]);
+                        $permsJson[$perm] = Auth::getCurrentUser()->hasPermission($perm);
                     }
                     echo json_encode($permsJson);
                 ?>;
