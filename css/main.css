@@ -85,6 +85,33 @@
     z-index: 20;
 }
 
+/* The content div of the POI search dialog. */
+.search-overlay-content {
+    padding: 12px !important;
+    margin: 20px !important;
+}
+
+/* Result row in the POI search dialog. */
+.search-overlay-result {
+    width: calc(100% - 24px);
+    padding: 3px 10px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+/* Position cell of the result row, indicating distance to the POI or its
+   coordinates if no position could be found. */
+.search-overlay-pos {
+    text-align: right;
+    font-size: 0.8em;
+}
+
+/* Direction of the POI from the user's current position, if known. */
+.search-overlay-dir {
+    display: inline-block;
+    margin-right: 5px;
+}
+
 /* Buttons displayed on the login page for signing in with various
    authentication providers. */
 .login-button {
@@ -459,6 +486,13 @@ input[type=text], input[type=password], input[type=number], select, textarea {
        the name is also bolded. */
     .setting-name {
         font-weight: bold;
+    }
+
+    /* On mobile, the position of the POI in search result rows are displayed on
+       their own line underneath the POI name, and should therefore not be right
+       aligned. */
+    .search-overlay-pos {
+        text-align: left;
     }
 }
 

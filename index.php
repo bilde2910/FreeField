@@ -371,6 +371,12 @@ Security::declareFrameOptionsHeader();
                             </li>
                         <?php } ?>
                         <li class="pure-menu-item">
+                            <a href="#" id="menu-open-search" class="pure-menu-link">
+                                <i class="menu-fas fas fa-search"></i>
+                                <?php echo I18N::resolveHTML("sidebar.search"); ?>
+                            </a>
+                        </li>
+                        <li class="pure-menu-item">
                             <a href="#" id="menu-open-filters" class="pure-menu-link">
                                 <i class="menu-fas fas fa-filter"></i>
                                 <?php echo I18N::resolveHTML("sidebar.filters"); ?>
@@ -1337,6 +1343,47 @@ Security::declareFrameOptionsHeader();
                                         <span id="filter-poi-submit"
                                               class="button-submit split-button button-spaced right">
                                                     <?php echo I18N::resolveHTML("poi.filter.submit"); ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                        The POI search overlay. The overlay is opened whenever
+                        the user clicks on the "Search" button in the sidebar.
+                    -->
+                    <div id="search-poi" class="cover-box">
+                        <div class="cover-box-inner">
+                            <div class="cover-box-content content pure-form search-overlay-content">
+                                <div class="pure-g">
+                                    <div class="pure-u-5-5 full-on-mobile">
+                                        <input type="text"
+                                               id="search-overlay-input"
+                                               placeholder="<?php echo I18N::resolveHTML("poi.search.placeholder"); ?>">
+                                    </div>
+                                </div>
+                                <div class="cover-button-spacer"></div>
+
+                                <!--
+                                    Show up to 10 result rows.
+                                -->
+                                <?php for ($i = 0; $i < 10; $i++) { ?>
+                                    <div class="pure-g search-overlay-result">
+                                        <div class="pure-u-3-5 full-on-mobile search-overlay-name">?</div>
+                                        <div class="pure-u-2-5 full-on-mobile search-overlay-pos">
+                                            <span class="search-overlay-dir">&#x2794;</span>
+                                            <span class="search-overlay-loc"></span>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+
+                                <div class="cover-button-spacer"></div>
+                                <div class="pure-g">
+                                    <div class="pure-u-5-5">
+                                        <span id="search-poi-close"
+                                              class="button-standard split-button button-spaced left">
+                                            <?php echo I18N::resolveHTML("ui.button.close"); ?>
                                         </span>
                                     </div>
                                 </div>

@@ -47,6 +47,9 @@ var i18n = <?php
         // POI strings
         "poi.*",
 
+        // Geo string formatting
+        "geo.*",
+
         // XMLHttpRequest responses
         "xhr.*",
 

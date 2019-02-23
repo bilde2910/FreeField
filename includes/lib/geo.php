@@ -54,7 +54,7 @@ class Geo {
         Converts a coordinate pair to a coordinate string in DD format. E.g.
 
             Geo::getLocationString(42.63445, -87.12012)
-            ->  "42.63445°N, 87.12012°E"
+            ->  "42.63445°N, 87.12012°W"
 
         `$precision` is an optional parameter for specifying the desired
         precision in number of decimal digits.
@@ -75,8 +75,8 @@ class Geo {
             coordinates, this is the I18N token that corresponds to North. For
             negative ones, it is the token that corresponds to South. These
             tokens are resolved with the absolute value of the coordinates to
-            ensure that coordinates are displayed as e.g. "87°E" rather than
-            "-87°W".
+            ensure that coordinates are displayed as e.g. "87°W" rather than
+            "-87°E".
 
             The same applies for `$ew`, the longitude I18N token.
         */

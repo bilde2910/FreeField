@@ -192,7 +192,7 @@ var MapImpl = {
         Pans the map to the given coordinates.
     */
     panTo: function(lat, lon) {
-        leafletMap.flyTo([lat, lon]);
+        leafletMap.flyTo([lat, lon], 18);
     },
 
     /*

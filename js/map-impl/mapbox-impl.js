@@ -194,7 +194,8 @@ var MapImpl = {
     */
     panTo: function(lat, lon) {
         var x = mapboxMap.flyTo({
-            center: [lon, lat]
+            center: [lon, lat],
+            zoom: 18
         });
     },
 

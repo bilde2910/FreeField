@@ -999,6 +999,34 @@ function distanceHaversine(poi1, poi2) {
 }
 
 /*
+    This function calculates the bearing from one location/POI to another in
+    degrees.
+*/
+function getBearingDegrees(from, to) {
+    /*
+        Degrees to radians; π/180
+    */
+    var d2r = 0.017453292519943295;
+    /*
+        Convert latitudes and longitudes to radian form.
+    */
+    var fromLat = from.latitude * d2r, toLat = to.latitude * d2r;
+    var fromLon = from.longitude * d2r, toLon = to.longitude * d2r;
+    /*
+        Calculation code by krishnar from
+        https://stackoverflow.com/a/52079217
+    */
+    var x = Math.cos(fromLat) * Math.sin(toLat)
+          - Math.sin(fromLat) * Math.cos(toLat) * Math.cos(toLon - fromLon);
+    var y = Math.sin(toLon - fromLon) * Math.cos(toLat);
+    var heading = Math.atan2(y, x) / d2r;
+    /*
+        Normalize degrees result to a positive number.
+    */
+    return (heading + 360) % 360;
+}
+
+/*
     Handle deep-linking via URL hashes.
 */
 $(window).on("hashchange", function() {
@@ -1747,6 +1775,196 @@ function updateVisiblePOIs() {
     }
 
     updateHiddenPOIsBanner(inBounds.length - visibleLimit, inBounds.length);
+}
+
+/*
+    ------------------------------------------------------------------------
+        POI SEARCH
+    ------------------------------------------------------------------------
+*/
+
+/*
+    Current user position. If set to null, coordinates are displayed in the
+    search results, otherwise, direction and distance to each POI are displayed.
+*/
+var currentPos = null;
+
+/*
+    Radius of the earth in kilometers, for distance calculations.
+*/
+var EARTH_RADIUS = 6371;
+
+/*
+    If the user clicks on the "locate me" map control before opening search,
+    geolocation does not work properly. To mitigate this, ask for user position
+    as soon as the map loads. This causes geolocation from this script to work
+    properly even after the "locate me" control has been clicked later.
+*/
+$(document).ready(function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function() {});
+    };
+});
+
+/*
+    Event handler for the "Search" setting in the sidebar on the map. When
+    clicked, it displays a popup allowing the user to search for POIs in their
+    proximity.
+*/
+$("#menu-open-search").on("click", function() {
+    currentPos = null;
+    // Pre-populate the search results list.
+    $("#search-overlay-input").trigger("input");
+    // Attempt to use geolocation to show distances to each POI rather than
+    // coordinates.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            // If position is found, re-populate the search results so that it
+            // shows distance instead of coordinates.
+            currentPos = pos.coords;
+            $("#search-overlay-input").trigger("input");
+        });
+    }
+    $("#search-poi").fadeIn(150);
+});
+
+/*
+    Event handler for the close button on the POI search dialog. Hides the
+    dialog when clicked.
+*/
+$("#search-poi-close").on("click", function() {
+    $("#search-poi").fadeOut(150);
+})
+
+/*
+    Event handler for text input in the search field on the POI search dialog.
+    This changes the list of displayed POIs live as the user types.
+*/
+$("#search-overlay-input").on("input", function() {
+    // Get user search query.
+    var query = $(this).val().toLowerCase();
+    // Make a list of candidates that match the search query.
+    var candidates = [];
+    // Get a list of POI IDs to loop over to check for eligibility,
+    var poiIDList = getIDsOfAllPOIs();
+    // Determine whether geolocation is available.
+    var useDistance = currentPos != null;
+
+    for (var i = 0; i < poiIDList.length; i++) {
+        // Do case-insensitive substring search for the query on each POI name.
+        if (pois[poiIDList[i]].name.toLowerCase().indexOf(query) !== -1) {    // L
+            // Create a candidate object with the ID of the POI.
+            var cand = {
+                id: poiIDList[i]
+            };
+            // If geolocation is available, calculate and add the distance from
+            // the user to the POI in question to the object. This is used for
+            // sorting.
+            if (useDistance) {
+                cand.distance = EARTH_RADIUS * 2 * distanceHaversine(
+                    pois[poiIDList[i]],
+                    currentPos
+                );
+            }
+            // Add the candidate to the array.
+            candidates.push(cand);
+        }
+    }
+    // Sort the candidates list by distance (if available) or names
+    // alphanumerically (as fallback).
+    candidates.sort(function(a, b) {
+        if (useDistance) {
+            return a.distance - b.distance;
+        } else {
+            return pois[a.id].name.localeCompare(pois[b.id].name);
+        }
+    });
+    // Add a search result into each of the search result rows on the dialog.
+    $(".search-overlay-result").each(function(idx, e) {
+        if (candidates.length > idx) {
+            // Bind the POI ID to the row for panning if clicked.
+            $(e).attr("data-poi-id", candidates[idx].id);
+            // Update the result row with the data (name, distance, etc.) of the
+            // POI.
+            $(e).find(".search-overlay-name").text(pois[candidates[idx].id].name);
+            if (useDistance) {
+                // If distance is available, show the distance and bearing from
+                // the user to the POI.
+                var distanceKm = candidates[idx].distance.toFixed(2);
+                var bearing = getBearingDegrees(currentPos, pois[candidates[idx].id]);
+                bearing -= 90; // Icon offset (arrow points right)
+                $(e).find(".search-overlay-dir").show();
+                $(e).find(".search-overlay-dir").css(
+                    "transform", "rotate(" + bearing + "deg)"
+                );
+                $(e).find(".search-overlay-loc").text(
+                    resolveI18N("poi.search.distance", distanceKm)
+                );
+            } else {
+                // Otherwise, show coordinate pairs for the POI.
+                $(e).find(".search-overlay-dir").hide();
+                $(e).find(".search-overlay-loc").text(getLocationString(
+                    pois[candidates[idx].id].latitude,
+                    pois[candidates[idx].id].longitude
+                ));
+            }
+            $(e).show();
+        } else {
+            // If there are more result rows than candidates, hide the excess
+            // rows to clean up the list.
+            $(e).hide();
+        }
+    });
+});
+
+/*
+    Event handler for the result rows on the POI search dialog. When clicked,
+    these result rows hide the dialog window and pan the map to the location of
+    the POI that was clicked.
+*/
+$(".search-overlay-result").on("click", function() {
+    $("#search-poi").fadeOut(150);
+    var id = parseInt($(this).attr("data-poi-id"));
+    MapImpl.panTo(pois[id].latitude, pois[id].longitude);
+});
+
+/*
+    Converts a coordinate pair to a coordinate string in DD format. E.g.
+
+        getLocationString(42.63445, -87.12012)
+        ->  "42.6345°N, 87.1201°W"
+
+    `precision` is an optional parameter for specifying the desired precision in
+    number of decimal digits.
+*/
+function getLocationString(lat, lon) {
+    var precision = 4;
+
+    /*
+        `ns` is the I18N token to use for latitude. For positive coordinates,
+        this is the I18N token that corresponds to North. For negative ones, it
+        is the token that corresponds to South. These tokens are resolved with
+        the absolute value of the coordinates to ensure that coordinates are
+        displayed as e.g. "87°W" rather than "-87°E".
+
+        The same applies for `ew`, the longitude I18N token.
+    */
+    var ns = "geo.direction.deg_north";
+    var ew = "geo.direction.deg_east";
+    if (lat < 0) {
+        lat *= -1;
+        ns = "geo.direction.deg_south";
+    }
+    if (lon < 0) {
+        lon *= -1;
+        ew = "geo.direction.deg_west";
+    }
+
+    return resolveI18N(
+        "geo.location.string",
+        resolveI18N(ns, lat.toFixed(precision)),
+        resolveI18N(ew, lon.toFixed(precision))
+    );
 }
 
 /*

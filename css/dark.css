@@ -25,6 +25,11 @@ body {
     color: #777;
 }
 
+/* Result row in the POI search dialog. */
+.search-overlay-result {
+    background-color: #111;
+}
+
 /* Submit button on forms. Highlighted in a vibrant color to visually indicate
    that this button applies changes. */
 .button-submit {
