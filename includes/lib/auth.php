@@ -663,6 +663,13 @@ class User {
     }
 
     /*
+        Returns whether or not the user is a human. Always returns true.
+    */
+    public function isRealUser() {
+        return true;
+    }
+
+    /*
         Gets whether or not the user exists. Anonymous users and users with an
         invalid session will have `null` assigned to `$this->data`. Therefore,
         we can just check whether that variable is null (and whether the user

@@ -497,14 +497,19 @@ function replaceWebhookFields($currentUser, $poidata, $time, $theme, $spTheme, $
               - $data["longitude"] (required)
         3.  Match by POI name (returns list of best matches):
               - $data["name"] (required)
-              - $data["matchExact"] (optional)
-              - $data["matchCase"] (optional)
+              - $data["match_exact"] (optional)
+              - $data["match_case"] (optional)
 */
 function determinePOI($data) {
     /*
         1. Check if an ID has been supplied. If so, return it.
     */
     if (isset($data["id"])) return array(intval($data["id"]));
+    /*
+        Only API clients should be allowed to match by other things than ID.
+    */
+    global $currentUser;
+    if ($currentUser->isRealUser()) return false;
     /*
         2. Check if a coordinate pair has been supplied. Find the closest POI
            and return it.
@@ -580,31 +585,53 @@ function determinePOI($data) {
 }
 
 /*
-    This function determines the research objectives that match most closely to
-    the data in the given objective data array. Order of matching:
+    This function determines the research objectives/rewards that match most
+    closely to the data in the given objective/reward data array. Order of
+    matching:
 
-        1.  Match by objective data directly:
+        1.  Match by objective/reward data directly:
               - $data["type"] (required)
               - $data["params"] (required)
-        2.  Match by common objective string:
+        2.  Fuzzy match by objective/reward localized string:
               - $data["match"] (required)
-              - $data["allowUnknown"] (required (=false))
+              - $data["match_algo"] (optional)
 */
-function determineObjective($objData) {
+function determineResearchComponent($taskdata, $component) {
     /*
-        1. Check if valid objective data has been supplied directly. If so,
-           return it.
+        1. Check if valid objective/reward data has been supplied directly. If
+           so, return it.
     */
-    if (isset($objData["type"]) && isset($objData["params"])) return $objData;
+    if (isset($taskdata["type"]) && isset($taskdata["params"])) return $taskdata;
     /*
-        2. Check if a string match can be performed against the objective text.
-           Return the closest match.
+        Only API clients should be allowed to match by other things than valid
+        objective/reward data.
     */
-    if (isset($objData["match"]) && isset($objData["allowUnknown"])) {
-        if (!$objData["allowUnknown"]) {
-            return fuzzyMatchCommonObjective($objData["match"]);
-        } else {
-            return null;
+    global $currentUser;
+    if ($currentUser->isRealUser()) return false;
+    /*
+        2. Check if a string match can be performed against the objective/reward
+           text. Return the closest match.
+    */
+    if (isset($taskdata["match"])) {
+        // Determine the matching algorithm to use.
+        $algo = isset($taskdata["match_algo"]) ? intval($taskdata["match_algo"]) : 2;
+        switch ($component) {
+            case "objective":
+                switch ($algo) {
+                    case 1: // Fuzzy match against common-objectives.yaml
+                        return fuzzyMatchCommonObjective($taskdata["match"]);
+                    case 2: // Search for closest match of any objectives/parameters
+                        return Research::matchObjective($taskdata["match"]);
+                    default:
+                        return null;
+                }
+            case "reward":
+                switch ($algo) {
+                    case 2: // Search for closest match of any rewards/parameters
+                        return Research::matchReward($taskdata["match"]);
+                    default:
+                        return null;
+                }
         }
     }
     /*
@@ -613,6 +640,21 @@ function determineObjective($objData) {
     return false;
 }
 
+/*
+    The following functions are wrappers for `determineResearchComponent()` for
+    objective and rewards, respectively.
+*/
+function determineObjective($objData) {
+    return determineResearchComponent($objData, "objective");
+}
+function determineReward($rewData) {
+    return determineResearchComponent($rewData, "reward");
+}
+
+/*
+    This function attempts to match the given user-provided string against the
+    current list of common research objectives from common-objectives.yaml.
+*/
 function fuzzyMatchCommonObjective($string) {
     /*
         First, get a list of all current research objectives.
@@ -899,6 +941,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         /*
             `objective` and `reward` must both be arrays with keys defined for
             `type` and `params`. Params must additionally be an array or object.
+            Validate the research objective first.
         */
         if (
             !is_array($patchdata["objective"])
@@ -917,6 +960,16 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             !is_array($patchdata["objective"]["params"])
         ) {
             XHR::exitWith(400, array("reason" => "invalid_data"));
+        }
+
+        /*
+            Validate the research reward as well.
+        */
+        $patchdata["reward"] = determineReward($patchdata["reward"]);
+        if ($patchdata["reward"] === false) {
+            XHR::exitWith(400, array("reason" => "missing_fields"));
+        } elseif ($patchdata["reward"] === null) {
+            XHR::exitWith(501, array("reason" => "match_mode_not_implemented"));
         }
         if (
             !is_array($patchdata["reward"]) ||

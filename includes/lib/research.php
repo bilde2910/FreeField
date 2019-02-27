@@ -51,6 +51,15 @@
         true if $data is a valid instance of the given parameter, and false
         otherwise.
 
+    bestMatch($matchFunc)
+        A PHP function that tries to find the research parameter value that best
+        matches a given match string. `$matchFunc` is a callable that is called
+        with a valid instance of the given parameter, and returns a percentage
+        score that indicates how well the parameter matched against the match
+        string. `bestMatch()` should brute force a reasonable number of
+        parameter instances and then return the data instance that got the
+        highest match score when passed to `$matchFunc()`.
+
     html(), writeJS() and parseJS() will be given an argument $id that should be
     used to designate the ID of the input fields used in HTML and JavaScript and
     is set aside for that parameter. $id is replaced with the correct ID at
@@ -104,6 +113,33 @@ class ParamQuantity {
     public function isValid($data) {
         return is_int($data) && $data >= 1;
     }
+    public function bestMatch($matchFunc) {
+        /*
+            Search for the following values:
+
+              - Every value from 1 to 100
+              - Every ten values from 100 to 1000
+              - Every hundred values from 1000 to 10000
+        */
+        $matches = array();
+        for ($i =    1; $i <   100; $i +=   1) $matches[$i] = $matchFunc($i);
+        for ($i =  100; $i <  1000; $i +=  10) $matches[$i] = $matchFunc($i);
+        for ($i = 1000; $i < 10000; $i += 100) $matches[$i] = $matchFunc($i);
+
+        /*
+            The best match is the one that got the highest score from
+            `$matchFunc()` above. Return this match.
+        */
+        $highestScore = 0;
+        $bestMatch = 0;
+        foreach ($matches as $data => $score) {
+            if ($score > $highestScore) {
+                $highestScore = $score;
+                $bestMatch = $data;
+            }
+        }
+        return $bestMatch;
+    }
 }
 /*
     Adds a number box to the field research box promoting the user for the
@@ -135,6 +171,30 @@ class ParamMinTier {
     }
     public function isValid($data) {
         return is_int($data) && $data >= 1 && $data <= 5;
+    }
+    public function bestMatch($matchFunc) {
+        /*
+            Search for all raid tiers between 1 and 5, which are the currently
+            available raid tiers.
+        */
+        $matches = array();
+        for ($i = 1; $i <= 5; $i++) {
+            $matches[$i] = $matchFunc($i);
+        }
+
+        /*
+            The best match is the one that got the highest score from
+            `$matchFunc()` above. Return this match.
+        */
+        $highestScore = 0;
+        $bestMatch = 0;
+        foreach ($matches as $data => $score) {
+            if ($score > $highestScore) {
+                $highestScore = $score;
+                $bestMatch = $data;
+            }
+        }
+        return $bestMatch;
     }
 }
 /*
@@ -348,6 +408,64 @@ class ParamSpecies {
 
         return true;
     }
+    public function bestMatch($matchFunc) {
+        /*
+            With 500 possible species, the number of total combinations between
+            all species is 124.5M. Brute-forcing this many combinations for the
+            best match is infeasible. To remedy this, we match each of the
+            species individually instead, and then figure out which one(s) got
+            the highest scores and are therefore likely part of the match
+            string.
+        */
+        $bestSpecies = array();
+        for ($i = 1; $i <= self::$highest_species; $i++) {
+            $bestSpecies[$i] = $matchFunc(array($i));
+        }
+
+        /*
+            Limit the search space to the top 15 matches. This reduces the
+            search space from 124.5M to 2.9k possible combinations. The
+            likelihood that the species in the match string are not all
+            represented in this subset of species is negligible.
+        */
+        arsort($bestSpecies);
+        $selection = array_keys(array_slice($bestSpecies, 0, 15, true));
+
+        /*
+            Search for one, two and three species combinations from the species
+            subset defined above, avoiding duplicates in the combination. Each
+            of these are rated against the matching function.
+        */
+        $matches = array();
+        foreach ($selection as $spec1) {
+            $arr = array($spec1);
+            $matches[$matchFunc($arr)] = $arr;
+            foreach ($selection as $spec2) {
+                if ($spec1 == $spec2) continue;
+                $arr = array($spec1, $spec2);
+                $matches[$matchFunc($arr)] = $arr;
+                foreach ($selection as $spec3) {
+                    if ($spec1 == $spec3 || $spec2 == $spec3) continue;
+                    $arr = array($spec1, $spec2, $spec3);
+                    $matches[$matchFunc($arr)] = $arr;
+                }
+            }
+        }
+
+        /*
+            The best match is the one that got the highest score from
+            `$matchFunc()` above. Return this match.
+        */
+        $highestScore = 0;
+        $bestMatch = 0;
+        foreach ($matches as $score => $data) {
+            if ($score > $highestScore) {
+                $highestScore = $score;
+                $bestMatch = $data;
+            }
+        }
+        return $bestMatch;
+    }
 }
 /*
     Adds a selection box prompting the user for up to three species types
@@ -473,6 +591,42 @@ class ParamType {
 
         return true;
     }
+    public function bestMatch($matchFunc) {
+        /*
+            Search for one, two and three type combinations from the type list,
+            avoiding duplicates in the combination. This is a total of 5.2k
+            possible combinations to brute-force against the matching function.
+        */
+        $matches = array();
+        foreach (self::TYPES as $type1) {
+            $arr = array($type1);
+            $matches[$matchFunc($arr)] = $arr;
+            foreach (self::TYPES as $type2) {
+                if ($type1 == $type2) continue;
+                $arr = array($type1, $type2);
+                $matches[$matchFunc($arr)] = $arr;
+                foreach (self::TYPES as $type3) {
+                    if ($type1 == $type3 || $type2 == $type3) continue;
+                    $arr = array($type1, $type2, $type3);
+                    $matches[$matchFunc($arr)] = $arr;
+                }
+            }
+        }
+
+        /*
+            The best match is the one that got the highest score from
+            `$matchFunc()` above. Return this match.
+        */
+        $highestScore = 0;
+        $bestMatch = 0;
+        foreach ($matches as $score => $data) {
+            if ($score > $highestScore) {
+                $highestScore = $score;
+                $bestMatch = $data;
+            }
+        }
+        return $bestMatch;
+    }
 }
 /*
     Adds a selection box prompting the user for an item. This parameter is
@@ -579,6 +733,33 @@ class ParamReward {
         }
 
         return false;
+    }
+    public function bestMatch($matchFunc) {
+        /*
+            Find the best match against all items that this parameter supports.
+            The total number of combinations to brute-force is low, as there is
+            a limited number of items, and no combinations between them.
+        */
+        $matches = array();
+        foreach ($this->usableRewards as $category => $rewards) {
+            foreach ($rewards as $reward) {
+                $matches[$reward] = $matchFunc($reward);
+            }
+        }
+
+        /*
+            The best match is the one that got the highest score from
+            `$matchFunc()` above. Return this match.
+        */
+        $highestScore = 0;
+        $bestMatch = 0;
+        foreach ($matches as $data => $score) {
+            if ($score > $highestScore) {
+                $highestScore = $score;
+                $bestMatch = $data;
+            }
+        }
+        return $bestMatch;
     }
 }
 /*
@@ -818,13 +999,15 @@ class Research {
         */
         for ($i = 0; $i < count($objdef["params"]); $i++) {
             $param = $objdef["params"][$i];
-            $i18nstring = str_replace(
-                "{%" . ($i + 1) . "}",
-                self::parameterToString(
-                    $param, $params[$param], $params
-                ),
-                $i18nstring
-            );
+            if (isset($params[$param])) {
+                $i18nstring = str_replace(
+                    "{%" . ($i + 1) . "}",
+                    self::parameterToString(
+                        $param, $params[$param], $params
+                    ),
+                    $i18nstring
+                );
+            }
         }
 
         return $i18nstring;
@@ -879,16 +1062,162 @@ class Research {
         */
         for ($i = 0; $i < count($rewdef["params"]); $i++) {
             $param = $rewdef["params"][$i];
-            $i18nstring = str_replace(
-                "{%" . ($i + 1) . "}",
-                self::parameterToString(
-                    $param, $params[$param], $params
-                ),
-                $i18nstring
-            );
+            if (isset($params[$param])) {
+                $i18nstring = str_replace(
+                    "{%" . ($i + 1) . "}",
+                    self::parameterToString(
+                        $param, $params[$param], $params
+                    ),
+                    $i18nstring
+                );
+            }
         }
 
         return $i18nstring;
+    }
+
+    /*
+        This function attempts to match the given human-readable objective
+        string to an objective type ID and parameter set. Please see
+        `matchComponent()` for more information.
+    */
+    public static function matchObjective($str) {
+        return self::matchComponent(
+            $str, self::listObjectives(), "Research::resolveObjective"
+        );
+    }
+
+    /*
+        This function attempts to match the given human-readable reward string
+        to a reward type ID and parameter set. Please see `matchComponent()` for
+        more information.
+    */
+    public static function matchReward($str) {
+        return self::matchComponent(
+            $str, self::listRewards(), "Research::resolveReward"
+        );
+    }
+
+    /*
+        This function attempts to match the given human-readable `$str` to an
+        objective or reward by brute-forcing objective and parameter
+        combinations from `$defList` using a research string resolution function
+        `$resolveFunc`. As of v1.1, this function attempts to brute-force the
+        string against ~30k possible combinations, selected intelligently by
+        each research parameter's class implementation to cut down on the amount
+        of research task combinations available (which in total is technically
+        infinite).
+    */
+    private static function matchComponent($str, $defList, $resolveFunc) {
+        /*
+            Ignore casing on the string by lowercasing everything.
+        */
+        $matchStr = strtolower($str);
+        /*
+            We will try to match the search string against every objective/
+            reward available in objectives.yaml/rewards.yaml. We will find the
+            parameter set that best matches the search string for each of these
+            objectives, and at the end, pick the resulting objective that has
+            the best overall match against the match string.
+        */
+        $bestForEach = array();
+        foreach ($defList as $type => $defData) {
+            /*
+                For each objective/reward, loop over its required parameters to
+                find the best match for each of them against the match string.
+            */
+            $params = array();
+            $paramDef = $defData["params"];
+            foreach ($paramDef as $param) {
+                /*
+                    Construct an instance of the parameter class in order to run
+                    its `bestMatch()` function against the given string.
+                */
+                $paramClass = self::PARAMETERS[$param];
+                $inst = new $paramClass();
+                $params[$param] = $inst->bestMatch(
+                    function ($try) use (
+                        $matchStr, $type, $param, $params, &$resolveFunc
+                    ) {
+                        /*
+                            `$try` is the parameter value proposed by the
+                            instance's `bestMatch()` function as a possible
+                            match against the string. The value should be
+                            matched against the provided match string to
+                            determine how well it matches when substituted into
+                            the research task proposal. The returned score is a
+                            percentage value from 0 to 100. `bestMatch()` uses
+                            this score to rank the value proposals for the
+                            parameter, and finally returns the best matching
+                            parameter value.
+                        */
+                        $params[$param] = $try;
+                        return self::scoreMatch(
+                            $resolveFunc, $type, $params, $matchStr
+                        );
+                    }
+                );
+            }
+            /*
+                When the best possible values have been chosen for all
+                parameters, we calculate the overall match score for this
+                objective/reward and insert the entire objective/reward into the
+                `$bestForEach` array for final ranking.
+            */
+            $overallScore = self::scoreMatch(
+                $resolveFunc, $type, $params, $matchStr
+            );
+            $bestForEach[$overallScore] = array(
+                "text" => $resolveFunc($type, $params),
+                "type" => $type,
+                "params" => $params
+            );
+        }
+
+        /*
+            Sort the `$bestForEach` array in order from highest to lowest score
+            and pick the objective/reward that has the highest score. The
+            objective/reward that is picked is the one that has the best overall
+            match against the match string, and should be returned.
+        */
+        krsort($bestForEach);
+        return reset($bestForEach);
+    }
+
+    /*
+        This function resolves the given objective/reward `$type` ID and
+        `$params` to a human-readable string using `$resolveFunc()` and checks
+        its similarity against the given `$match` string. This function is used
+        to rank research task candidates against a user-supplied match string to
+        identify the best possible research task match against `$match`.
+    */
+    private static function scoreMatch($resolveFunc, $type, $params, $match) {
+        /*
+            Check against both singular and plural versions of the research task
+            provided.
+        */
+        $strDefault = strtolower($resolveFunc($type, $params, false));
+        $strPlural = strtolower($resolveFunc($type, $params, true));
+
+        $perc1 = 0;
+        similar_text($match, $strDefault, $perc1);
+
+        if ($strDefault == $strPlural) {
+            /*
+                If the singular and plural variants resolve to the same string,
+                only check one of them and return its result.
+            */
+            return $perc1;
+        } else {
+            /*
+                Otherwise, compare similarity against both strings and return
+                the highest score of the two. This is to ensure that e.g. "Catch
+                a" and "Catch 1" are considered equivalent.
+            */
+            $perc2 = 0;
+            similar_text($match, $strPlural, $perc2);
+            return max($perc1, $perc2);
+        }
     }
 
     /*

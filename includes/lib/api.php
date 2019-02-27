@@ -162,6 +162,14 @@ class APIClient {
     }
 
     /*
+        Returns whether or not the API client is a human user. Always returns
+        false.
+    */
+    public function isRealUser() {
+        return false;
+    }
+
+    /*
         Gets whether or not the client exists. Invalid/non-existing clients will
         have `null` assigned to `$this->data`. Therefore, we can just check
         whether that variable is null (and whether the client data array
