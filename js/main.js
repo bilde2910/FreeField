@@ -188,7 +188,8 @@ $("#add-poi-submit").on("click", function() {
         before the script can proceed from here. Display a loading animation
         while we wait for the call to complete.
     */
-    $("#add-poi-working").fadeIn(150);
+    $("#poi-working-text").text(resolveI18N("poi.add.processing"));
+    $("#poi-working-spinner").fadeIn(150);
     $.ajax({
         url: "./api/poi.php",
         type: "PUT",
@@ -211,7 +212,7 @@ $("#add-poi-submit").on("click", function() {
                 mapClickHandlerActive = false;
                 spawnBanner("success", resolveI18N("poi.add.success", poiName));
                 $("#add-poi-details").fadeOut(150);
-                $("#add-poi-working").fadeOut(150);
+                $("#poi-working-spinner").fadeOut(150);
 
                 /*
                     Update the marker clustering prioritization list.
@@ -237,7 +238,7 @@ $("#add-poi-submit").on("click", function() {
             poiName,
             reason
         ));
-        $("#add-poi-working").fadeOut(150);
+        $("#poi-working-spinner").fadeOut(150);
         /*
             Re-enable the submit button that was previously disabled, to allow
             the user to make more attempts at adding the POI once the submission
@@ -1336,7 +1337,8 @@ function openMarker(markerObj, id) {
                     the user that the POI is being moved.
                 */
                 disableAddMovePOI(true);
-                $("#move-poi-working").fadeIn(150);
+                $("#poi-working-text").text(resolveI18N("poi.move.processing"));
+                $("#poi-working-spinner").fadeIn(150);
                 $.ajax({
                     url: "./api/poi.php",
                     type: "PATCH",
@@ -1365,7 +1367,7 @@ function openMarker(markerObj, id) {
                                 moved, and then close the waiting popup.
                             */
                             spawnBanner("success", resolveI18N("poi.move.success"));
-                            $("#move-poi-working").fadeOut(150);
+                            $("#poi-working-spinner").fadeOut(150);
 
                             /*
                                 Update the marker clustering prioritization list.
@@ -1385,9 +1387,150 @@ function openMarker(markerObj, id) {
                         reason = resolveI18N("xhr.failed.reason." + data["reason"]);
                     }
                     spawnBanner("failed", resolveI18N("poi.move.failed.message", reason));
-                    $("#move-poi-working").fadeOut(150);
+                    $("#poi-working-spinner").fadeOut(150);
                 });
             });
+        });
+        /*
+            Event handler for the "Rename POI" button. When clicked, this button
+            starts the process for renaming a POI on the map.
+        */
+        $("#poi-rename").on("click", function() {
+            var newName = prompt(resolveI18N("poi.rename.prompt"), poiObj.name);
+            if (newName != null && newName.trim() != "") {
+                MapImpl.closeMarker(markerObj);
+                /*
+                    Since we're initiating a request to the server, display a
+                    "working" spinner popup to visually invidate to the user
+                    that the POI is being renamed.
+                */
+                $("#poi-working-text").text(resolveI18N("poi.rename.processing"));
+                $("#poi-working-spinner").fadeIn(150);
+                newName = newName.trim();
+                $.ajax({
+                    url: "./api/poi.php",
+                    type: "PATCH",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        id: poiObj.id,
+                        renameTo: newName
+                    }),
+                    statusCode: {
+                        204: function(data) {
+                            /*
+                                If the request was successful, update the
+                                instance of the object in `pois` with the new
+                                name.
+                            */
+                            poiObj.name = newName;
+
+                            /*
+                                Let the user know that the POI was successfully
+                                moved, and then close the waiting popup.
+                            */
+                            spawnBanner("success", resolveI18N("poi.rename.success"));
+                            $("#poi-working-spinner").fadeOut(150);
+                        }
+                    }
+                }).fail(function(xhr) {
+                    /*
+                        If the update request failed, then the user should be
+                        informed of the reason with a red banner.
+                    */
+                    var data = xhr.responseJSON;
+                    var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+                    if (data !== undefined && data.hasOwnProperty("reason")) {
+                        reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+                    }
+                    spawnBanner("failed", resolveI18N("poi.rename.failed.message", reason));
+                    $("#poi-working-spinner").fadeOut(150);
+                });
+            };
+        });
+        /*
+            Event handler for the "Clear POI research" button. When clicked,
+            this button starts the process for resetting the current research
+            task for one POI on the map.
+        */
+        $("#poi-clear").on("click", function() {
+            if (confirm(resolveI18N("poi.clear.confirm"))) {
+                MapImpl.closeMarker(markerObj);
+                /*
+                    Since we're initiating a request to the server, display a
+                    "working" spinner popup to visually invidate to the user
+                    that the POI is being renamed.
+                */
+                $("#poi-working-text").text(resolveI18N("poi.clear.processing"));
+                $("#poi-working-spinner").fadeIn(150);
+                $.ajax({
+                    url: "./api/poi.php",
+                    type: "PATCH",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        id: poiObj.id,
+                        resetResearch: true
+                    }),
+                    statusCode: {
+                        204: function(data) {
+                            /*
+                                If the request was successful, update the
+                                display of the marker on the map to show the
+                                updated research task. Also update the instance
+                                of the object in `pois` with the new research
+                                task.
+                            */
+                            var objective = "unknown";
+                            var reward = "unknown";
+                            var oldObjective = poiObj.objective.type;
+                            var oldReward = poiObj.reward.type;
+
+                            switch (settings.get("markerComponent")) {
+                                case "reward":
+                                    if ($("#" + poiObj.elementId).hasClass(oldReward)) {
+                                        $("#" + poiObj.elementId).removeClass(oldReward).addClass(reward);
+                                        MapImpl.updateMarker(poiObj.implObject, oldReward, reward);
+                                    }
+                                    break;
+                                case "objective":
+                                    if ($("#" + poiObj.elementId).hasClass(oldObjective)) {
+                                        $("#" + poiObj.elementId).removeClass(oldObjective).addClass(objective);
+                                        MapImpl.updateMarker(poiObj.implObject, oldObjective, objective);
+                                    }
+                                    break;
+                            }
+                            poiObj.objective = {
+                                type: objective,
+                                params: []
+                            };
+                            poiObj.reward = {
+                                type: reward,
+                                params: []
+                            };
+
+                            /*
+                                Let the user know that the POI was successfully
+                                moved, and then close the waiting popup.
+                            */
+                            spawnBanner("success", resolveI18N("poi.clear.success"));
+                            $("#poi-working-spinner").fadeOut(150);
+                        }
+                    }
+                }).fail(function(xhr) {
+                    /*
+                        If the update request failed, then the user should be
+                        informed of the reason with a red banner.
+                    */
+                    var data = xhr.responseJSON;
+                    var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+                    if (data !== undefined && data.hasOwnProperty("reason")) {
+                        reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+                    }
+                    spawnBanner("failed", resolveI18N("poi.clear.failed.message", reason));
+                    $("#poi-working-spinner").fadeOut(150);
+                });
+            };
         });
         /*
             Event handler for the "Delete POI" button. When clicked, this button
@@ -1401,7 +1544,8 @@ function openMarker(markerObj, id) {
                     "working" spinner popup to visually invidate to the user
                     that the POI is being deleted.
                 */
-                $("#delete-poi-working").fadeIn(150);
+                $("#poi-working-text").text(resolveI18N("poi.delete.processing"));
+                $("#poi-working-spinner").fadeIn(150);
                 $.ajax({
                     url: "./api/poi.php",
                     type: "DELETE",
@@ -1422,7 +1566,7 @@ function openMarker(markerObj, id) {
                                 moved, and then close the waiting popup.
                             */
                             spawnBanner("success", resolveI18N("poi.delete.success"));
-                            $("#delete-poi-working").fadeOut(150);
+                            $("#poi-working-spinner").fadeOut(150);
 
                             /*
                                 Update the marker clustering prioritization list.
@@ -1442,7 +1586,7 @@ function openMarker(markerObj, id) {
                         reason = resolveI18N("xhr.failed.reason." + data["reason"]);
                     }
                     spawnBanner("failed", resolveI18N("poi.delete.failed.message", reason));
-                    $("#delete-poi-working").fadeOut(150);
+                    $("#poi-working-spinner").fadeOut(150);
                 });
             }
         });
@@ -1534,11 +1678,12 @@ function openMarker(markerObj, id) {
 
             Since updating the research requires a call to the server, the task
             doesn't complete immediately, thus a "processing" indicator
-            (`#update-poi-working`) should be displayed to the user to let them
+            (`#poi-working-spinner`) should be displayed to the user to let them
             know that the research update call is in progress.
         */
         $("#update-poi-submit").prop("disabled", true);
-        $("#update-poi-working").fadeIn(150);
+        $("#poi-working-text").text(resolveI18N("poi.update.processing"));
+        $("#poi-working-spinner").fadeIn(150);
         $.ajax({
             url: "./api/poi.php",
             type: "PATCH",
@@ -1621,7 +1766,7 @@ function openMarker(markerObj, id) {
                     spawnBanner("success", resolveI18N("poi.update.success", poiObj.name));
                     MapImpl.closeMarker(markerObj);
                     $("#update-poi-details").fadeOut(150);
-                    $("#update-poi-working").fadeOut(150);
+                    $("#poi-working-spinner").fadeOut(150);
 
                     /*
                         Update the marker clustering prioritization list.
@@ -1642,7 +1787,7 @@ function openMarker(markerObj, id) {
                 reason = resolveI18N("xhr.failed.reason." + data["reason"]);
             }
             spawnBanner("failed", resolveI18N("poi.update.failed.message", reason));
-            $("#update-poi-working").fadeOut(150);
+            $("#poi-working-spinner").fadeOut(150);
             $("#update-poi-submit").prop("disabled", false);
         });
     });
@@ -1685,6 +1830,8 @@ function closeMarker(markerObj) {
         }
 
         $("#poi-move").off();
+        $("#poi-rename").off();
+        $("#poi-clear").off();
         $("#poi-delete").off();
         $("#poi-directions").off();
         $("#poi-close").off();

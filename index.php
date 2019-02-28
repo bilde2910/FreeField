@@ -558,16 +558,28 @@ Security::declareFrameOptionsHeader();
                                         */
                                         ?>
                                             <div class="pure-g">
-                                                <div class="pure-u-1-2 right-align">
+                                                <div class="pure-u-1-4 right-align">
                                                     <span id="poi-move"
-                                                          class="button-standard split-button button-spaced left">
-                                                        <?php echo I18N::resolveHTML("poi.move"); ?>
+                                                          class="button-standard split-button button-spaced left fas fa-arrows-alt"
+                                                          title="<?php echo I18N::resolveHTML("poi.move"); ?>">
                                                     </span>
                                                 </div>
-                                                <div class="pure-u-1-2">
+                                                <div class="pure-u-1-4">
+                                                    <span id="poi-rename"
+                                                          class="button-standard split-button button-spaced fas fa-tag"
+                                                          title="<?php echo I18N::resolveHTML("poi.rename"); ?>">
+                                                    </span>
+                                                </div>
+                                                <div class="pure-u-1-4">
+                                                    <span id="poi-clear"
+                                                          class="button-standard split-button button-spaced fas fa-broom"
+                                                          title="<?php echo I18N::resolveHTML("poi.clear"); ?>">
+                                                    </span>
+                                                </div>
+                                                <div class="pure-u-1-4">
                                                     <span id="poi-delete"
-                                                          class="button-standard split-button button-spaced right">
-                                                        <?php echo I18N::resolveHTML("poi.delete"); ?>
+                                                          class="button-standard split-button button-spaced right fas fa-trash-alt"
+                                                          title="<?php echo I18N::resolveHTML("poi.delete"); ?>">
                                                     </span>
                                                 </div>
                                             </div>
@@ -1459,66 +1471,13 @@ Security::declareFrameOptionsHeader();
                         indicator has a spinning loading icon that automatically
                         disappears when the server request is complete.
                     -->
-                    <div id="add-poi-working" class="cover-box">
+                    <div id="poi-working-spinner" class="cover-box">
                         <div class="cover-box-inner tiny">
                             <div class="cover-box-content">
                                 <div>
                                     <i class="fas fa-spinner loading-spinner spinner-large"></i>
                                 </div>
-                                <p>
-                                    <?php echo I18N::resolveHTML("poi.add.processing"); ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                        "Working" indicator for reporting field research. This
-                        is functionally the same as `#add-poi-working`, but with
-                        a different text label.
-                    -->
-                    <div id="update-poi-working" class="cover-box">
-                        <div class="cover-box-inner tiny">
-                            <div class="cover-box-content">
-                                <div>
-                                    <i class="fas fa-spinner loading-spinner spinner-large"></i>
-                                </div>
-                                <p>
-                                    <?php echo I18N::resolveHTML("poi.update.processing"); ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                        "Working" indicator for moving POIs. This is
-                        functionally the same as `#add-poi-working`, but with a
-                        different text label.
-                    -->
-                    <div id="move-poi-working" class="cover-box">
-                        <div class="cover-box-inner tiny">
-                            <div class="cover-box-content">
-                                <div>
-                                    <i class="fas fa-spinner loading-spinner spinner-large"></i>
-                                </div>
-                                <p>
-                                    <?php echo I18N::resolveHTML("poi.move.processing"); ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                        "Working" indicator for deleting POIs. This is
-                        functionally the same as `#add-poi-working`, but with a
-                        different text label.
-                    -->
-                    <div id="delete-poi-working" class="cover-box">
-                        <div class="cover-box-inner tiny">
-                            <div class="cover-box-content">
-                                <div>
-                                    <i class="fas fa-spinner loading-spinner spinner-large"></i>
-                                </div>
-                                <p>
-                                    <?php echo I18N::resolveHTML("poi.delete.processing"); ?>
-                                </p>
+                                <p id="poi-working-text"></p>
                             </div>
                         </div>
                     </div>
