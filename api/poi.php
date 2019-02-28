@@ -1262,18 +1262,6 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             XHR::exitWith(403, array("reason" => "access_denied"));
         }
 
-        /*
-            Required fields are the POI ID and the new coordinates. Ensure that
-            all of these fields are present in the received data.
-        */
-        $reqfields = array("move_to");
-
-        foreach ($reqfields as $field) {
-            if (!isset($patchdata[$field])) {
-                XHR::exitWith(400, array("reason" => "missing_fields"));
-            }
-        }
-
         $id = determinePOI($patchdata);
         if ($id === false) {
             XHR::exitWith(400, array("reason" => "missing_fields"));
@@ -1354,18 +1342,6 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         */
         if (!$currentUser->hasPermission("admin/pois/general")) {
             XHR::exitWith(403, array("reason" => "access_denied"));
-        }
-
-        /*
-            Required fields are the POI ID and the new name. Ensure that all of
-            these fields are present in the received data.
-        */
-        $reqfields = array("rename_to");
-
-        foreach ($reqfields as $field) {
-            if (!isset($patchdata[$field])) {
-                XHR::exitWith(400, array("reason" => "missing_fields"));
-            }
         }
 
         $id = determinePOI($patchdata);
