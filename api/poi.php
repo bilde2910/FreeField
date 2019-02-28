@@ -539,8 +539,8 @@ function determinePOI($data) {
     */
     if (isset($data["name"])) {
         $name = $data["name"];
-        $exactMatch = isset($data["matchExact"]) && !!$data["matchExact"];
-        $caseSensitive = !isset($data["matchCase"]) || !!$data["matchCase"];
+        $exactMatch = isset($data["match_exact"]) && !!$data["match_exact"];
+        $caseSensitive = !isset($data["match_case"]) || !!$data["match_case"];
         $pois = Geo::listPOIs();
         if (count($pois) == 0) return array();
         /*
@@ -1254,7 +1254,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         XHR::exitWith(204, null);
 
-    } elseif (isset($patchdata["moveTo"])) {
+    } elseif (isset($patchdata["move_to"])) {
         /*
             A POI is being moved.
         */
@@ -1266,7 +1266,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             Required fields are the POI ID and the new coordinates. Ensure that
             all of these fields are present in the received data.
         */
-        $reqfields = array("moveTo");
+        $reqfields = array("move_to");
 
         foreach ($reqfields as $field) {
             if (!isset($patchdata[$field])) {
@@ -1286,21 +1286,21 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         }
 
         /*
-            `moveTo` must be an arrays with keys defined for `latitude` and
+            `move_to` must be an arrays with keys defined for `latitude` and
             `longitude`, both of which must be numbers within valid bounds.
         */
         if (
-            !is_array($patchdata["moveTo"]) ||
-            !isset($patchdata["moveTo"]["latitude"]) ||
-            !isset($patchdata["moveTo"]["longitude"]) ||
-            !is_numeric($patchdata["moveTo"]["latitude"]) ||
-            !is_numeric($patchdata["moveTo"]["longitude"])
+            !is_array($patchdata["move_to"]) ||
+            !isset($patchdata["move_to"]["latitude"]) ||
+            !isset($patchdata["move_to"]["longitude"]) ||
+            !is_numeric($patchdata["move_to"]["latitude"]) ||
+            !is_numeric($patchdata["move_to"]["longitude"])
         ) {
             XHR::exitWith(400, array("reason" => "invalid_data"));
         }
 
-        $latitude = floatval($patchdata["moveTo"]["latitude"]);
-        $longitude = floatval($patchdata["moveTo"]["longitude"]);
+        $latitude = floatval($patchdata["move_to"]["latitude"]);
+        $longitude = floatval($patchdata["move_to"]["longitude"]);
         if (
             $latitude < -90 || $latitude > 90 ||
             $longitude < -180 || $longitude > 180
@@ -1348,7 +1348,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         XHR::exitWith(204, null);
 
-    } elseif (isset($patchdata["renameTo"])) {
+    } elseif (isset($patchdata["rename_to"])) {
         /*
             A POI is being renamed.
         */
@@ -1360,7 +1360,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             Required fields are the POI ID and the new name. Ensure that all of
             these fields are present in the received data.
         */
-        $reqfields = array("renameTo");
+        $reqfields = array("rename_to");
 
         foreach ($reqfields as $field) {
             if (!isset($patchdata[$field])) {
@@ -1380,9 +1380,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         }
 
         /*
-            `renameTo` must be a non-empty string.
+            `rename_to` must be a non-empty string.
         */
-        $newName = strval($patchdata["renameTo"]);
+        $newName = strval($patchdata["rename_to"]);
         if ($newName == "") {
             XHR::exitWith(400, array("reason" => "missing_fields"));
         }
@@ -1412,7 +1412,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         XHR::exitWith(204, null);
 
-    } elseif (isset($patchdata["resetResearch"]) && $patchdata["resetResearch"]) {
+    } elseif (isset($patchdata["reset_research"]) && $patchdata["reset_research"]) {
         /*
             A POI is having its research cleared.
         */

@@ -1345,7 +1345,7 @@ function openMarker(markerObj, id) {
                     dataType: "json",
                     data: JSON.stringify({
                         id: poiObj.id,
-                        moveTo: {
+                        move_to: {
                             latitude: lat,
                             longitude: lon
                         }
@@ -1413,7 +1413,7 @@ function openMarker(markerObj, id) {
                     dataType: "json",
                     data: JSON.stringify({
                         id: poiObj.id,
-                        renameTo: newName
+                        rename_to: newName
                     }),
                     statusCode: {
                         204: function(data) {
@@ -1469,7 +1469,7 @@ function openMarker(markerObj, id) {
                     dataType: "json",
                     data: JSON.stringify({
                         id: poiObj.id,
-                        resetResearch: true
+                        reset_research: true
                     }),
                     statusCode: {
                         204: function(data) {
