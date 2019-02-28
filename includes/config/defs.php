@@ -366,6 +366,31 @@ class ConfigDefinitions {
             ),
             /*
                 ------------------------------------------------------------
+                    PERSONALIZATION ACCESS
+                ------------------------------------------------------------
+            */
+            /*
+                Allows users to select their own map marker set instead of the
+                default for their own account.
+            */
+            "permissions/level/personalization/icons" => array(
+                "domain" => "perms",
+                "section" => "personalization",
+                "default" => PermissionOption::LEVEL_ANONYMOUS,
+                "option" => new PermissionOption()
+            ),
+            /*
+                Allows users to select their own species icon set instead of the
+                default for their own account.
+            */
+            "permissions/level/personalization/species" => array(
+                "domain" => "perms",
+                "section" => "personalization",
+                "default" => PermissionOption::LEVEL_ANONYMOUS,
+                "option" => new PermissionOption()
+            ),
+            /*
+                ------------------------------------------------------------
                     ADMINISTRATIVE PERMISSIONS
                 ------------------------------------------------------------
             */
@@ -537,6 +562,17 @@ class ConfigDefinitions {
                     Allows users to manage map access restrictions.
                 */
                 "permissions/level/admin/perms/section/map-access" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to manage map personalization restrictions,
+                    such as restrictions on which icon sets can be used.
+                */
+                "permissions/level/admin/perms/section/personalization" => array(
                     "domain" => "perms",
                     "section" => "admin",
                     "indentation" => 1,
@@ -1491,16 +1527,6 @@ class ConfigDefinitions {
                 "option" => new IconSetOption()
             ),
             /*
-                Whether to allow users to select their own map marker set
-                instead of the default for their own account.
-            */
-            "themes/icons/allow-personalization" => array(
-                "domain" => "themes",
-                "section" => "icons",
-                "default" => true,
-                "option" => new BooleanOption()
-            ),
-            /*
                 Select the style of species markers used by default on the map.
             */
             "themes/species/default" => array(
@@ -1508,16 +1534,6 @@ class ConfigDefinitions {
                 "section" => "icons",
                 "default" => "freefield-se-colorful-textual-en",
                 "option" => new SpeciesSetOption()
-            ),
-            /*
-                Whether to allow users to select their own species marker set
-                instead of the default for their own account.
-            */
-            "themes/species/allow-personalization" => array(
-                "domain" => "themes",
-                "section" => "icons",
-                "default" => true,
-                "option" => new BooleanOption()
             ),
             /*
 ================================================================================

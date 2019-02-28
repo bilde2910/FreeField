@@ -11,6 +11,7 @@
 require_once("../includes/lib/global.php");
 __require("theme");
 __require("config");
+__require("auth");
 __require("research");
 
 header("Content-Type: text/css");
@@ -42,8 +43,8 @@ foreach ($themes as $theme) {
         displayed.
     */
     if (
-        !Config::get("themes/icons/allow-personalization")->value() &&
-        in_array($theme, $restrictiveLoadThemes)
+        !Auth::getCurrentUser()->hasPermission("personalization/icons") &&
+        !in_array($theme, $restrictiveLoadThemes)
     ) return;
 
     /*
@@ -83,8 +84,8 @@ foreach ($spThemes as $theme) {
         displayed.
     */
     if (
-        !Config::get("themes/species/allow-personalization")->value() &&
-        in_array($theme, $restrictiveLoadThemes)
+        !Auth::getCurrentUser()->hasPermission("personalization/species") &&
+        !in_array($theme, $restrictiveLoadThemes)
     ) return;
 
     /*

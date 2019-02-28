@@ -1664,7 +1664,7 @@ Security::declareFrameOptionsHeader();
                                 }
                             ?>
                             <?php
-                                if (Config::get("themes/icons/allow-personalization")->value()) {
+                                if (Auth::getCurrentUser()->hasPermission("personalization/icons")) {
                                     $opt = new IconSetOption("user_settings.value.default");
                                     ?>
                                         <!--
@@ -1691,7 +1691,7 @@ Security::declareFrameOptionsHeader();
                                 }
                             ?>
                             <?php
-                                if (Config::get("themes/species/allow-personalization")->value()) {
+                                if (Auth::getCurrentUser()->hasPermission("personalization/species")) {
                                     $opt = new SpeciesSetOption("user_settings.value.default");
                                     ?>
                                         <!--
@@ -1855,7 +1855,7 @@ Security::declareFrameOptionsHeader();
                         $forced[] = '"mapStyle-mapbox"';
                         $forced[] = '"mapStyle-thunderforest"';
                     }
-                    if (!Config::get("themes/icons/allow-personalization")->value()) {
+                    if (!Auth::getCurrentUser()->hasPermission("personalization/icons")) {
                         $forced[] = '"iconSet"';
                     }
                     echo implode(', ', $forced);
@@ -2070,8 +2070,8 @@ Security::declareFrameOptionsHeader();
 
                 foreach ($themes as $theme) {
                     if (
-                        !Config::get("themes/icons/allow-personalization")->value() &&
-                        in_array($theme, $restrictiveLoadThemes)
+                        !Auth::getCurrentUser()->hasPermission("personalization/icons") &&
+                        !in_array($theme, $restrictiveLoadThemes)
                     ) {
                         return;
                     }
