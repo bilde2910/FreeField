@@ -36,6 +36,24 @@ class PostUpgrade {
         $prefix = Config::get("database/table-prefix")->value();
 
         /*
+            Settings in the configuration that use FileOption have default
+            templates stored in /includes/setup/templates/files. Copy these over
+            to the /includes/userdata/files directory, where uploaded files for
+            these settings are normally stored, if any of the files are missing.
+        */
+        $sourcePath = __DIR__."/templates/files";
+        $targetPath = __DIR__."/../userdata/files";
+
+        $files = array_diff(scandir($sourcePath), array('..', '.'));
+        foreach ($files as $file) {
+            if (!file_exists("{$targetPath}/{$file}")) {
+                if (!$silent) echo "Copying new default file {$file} to userdata...";
+                copy("{$sourcePath}/{$file}", "{$targetPath}/{$file}");
+                if (!$silent) echo " ok\n";
+            }
+        }
+
+        /*
             Perform step-by-step upgrades through each released FreeField
             version using a cascading `switch` block, starting at the version
             corresponding to the previously installed version and proceeding

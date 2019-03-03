@@ -27,6 +27,10 @@
     text-overflow: ellipsis;
 }
 
+.pure-menu-heading img {
+    width: calc(100% - 10px);
+}
+
 /* Menus in the sidebar. Override default side-menu behavior of adding a 1px
    solid top border to menus. */
 #menu .pure-menu ul, #menu .pure-menu .menu-item-divided {

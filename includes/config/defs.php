@@ -136,6 +136,43 @@ class ConfigDefinitions {
                 "option" => new StringOption()
             ),
             /*
+                An image displayed at the top of the sidebar instead of the
+                header text above. *.png, *.gif, *.jpg, and *.svg files are
+                allowed. Must not exceed 128 KiB.
+            */
+            "site/menu-image" => array(
+                "domain" => "main",
+                "section" => "instance",
+                "default" => array(
+                    "type"   => "image/svg+xml",
+                    "name"   => "default-menu-image.svg",
+                    "size"   => 3089,
+                    "sha256" => "33efc2f136c5b9c435824dc281444d3f165c801c194ba0d353565f2fe2cba317"
+                ),
+                "option" => new FileOption(
+                    "site/menu-image",
+                    array(
+                        "image/png" => "png",
+                        "image/gif" => "gif",
+                        "image/jpeg" => "jpg",
+                        "image/svg+xml" => "svg"
+                    ), 128 * 1024 // Max 128 KiB
+                )
+            ),
+            /*
+                Choose whether to display text or an image in the sidebar.
+            */
+            "site/header-style" => array(
+                "domain" => "main",
+                "section" => "instance",
+                "default" => "text",
+                "option" => new SelectOption(array(
+                    "text",
+                    "image",
+                    "image-plain"
+                ))
+            ),
+            /*
                 ------------------------------------------------------------
                     MESSAGE OF THE DAY
                 ------------------------------------------------------------

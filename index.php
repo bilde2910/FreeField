@@ -324,8 +324,21 @@ Security::declareFrameOptionsHeader();
 
             <div id="menu">
                 <div class="pure-menu">
-                    <a class="pure-menu-heading" href=".">
-                        <?php echo Config::get("site/menu-header")->valueHTML(); ?>
+                    <a class="pure-menu-heading" href=".."<?php
+                        if (Config::get("site/header-style")->value() == "image-plain")
+                            echo ' style="background: none !important; padding-bottom: 0;"';
+                    ?>>
+                        <?php
+                            switch (Config::get("site/header-style")->value()) {
+                                case "text":
+                                    echo Config::get("site/menu-header")->valueHTML();
+                                    break;
+                                case "image":
+                                case "image-plain":
+                                    echo '<img src="./themes/sidebar-image.php">';
+                                    break;
+                            }
+                        ?>
                     </a>
 
                     <?php if (Auth::isAuthenticated()) { ?>
