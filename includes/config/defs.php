@@ -1387,8 +1387,8 @@ class ConfigDefinitions {
                 "default" => array(
                     "type"   => "image/svg+xml",
                     "name"   => "default-pwa-launch.svg",
-                    "size"   => 978,
-                    "sha256" => "177998f2201056ed49f724264399aecb3f024e16be45e97af998199b8695e5a2"
+                    "size"   => 962,
+                    "sha256" => "7ecc64e21eb818d0a0f901a64d54bf30d73b5aa25df71a6b46b8105ae27276a6"
                 ),
                 "option" => new FileOption(
                     "mobile/pwa/icon/launch",
