@@ -66,6 +66,7 @@ if ($id === Auth::getCurrentUser()->getUserID()) {
                   crossorigin="anonymous">
             <link rel="stylesheet" href="../css/main.css">
             <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
+            <link rel="stylesheet" href="../css/theming.php?<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>">
 
             <!--[if lte IE 8]>
                 <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
@@ -143,6 +144,7 @@ if (!$user->exists() || $user->isApproved()) {
                   crossorigin="anonymous">
             <link rel="stylesheet" href="../css/main.css">
             <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
+            <link rel="stylesheet" href="../css/theming.php?<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>">
 
             <!--[if lte IE 8]>
                 <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
@@ -209,6 +211,7 @@ if (!$user->exists() || $user->isApproved()) {
               crossorigin="anonymous">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/admin")->valueHTML(); ?>.css">
+        <link rel="stylesheet" href="../css/theming.php?<?php echo Config::get("themes/color/admin")->valueHTML(); ?>">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">

@@ -1433,6 +1433,12 @@ class ConfigDefinitions {
                     COLOR THEME
                 ------------------------------------------------------------
             */
+            "themes/color/site" => array(
+                "domain" => "themes",
+                "section" => "color",
+                "default" => "#1f8dd6",
+                "option" => new ColorOption()
+            ),
             /*
                 Select the color theme of the administration pages.
             */

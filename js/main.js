@@ -2494,6 +2494,10 @@ $("head").append('<link rel="stylesheet" ' +
                                  "/css/" + settings.get("theme") + ".css"
                              ] + '">');
 
+$("head").append('<link rel="stylesheet" ' +
+                       'type="text/css" ' +
+                       'href="./css/theming.php?' + settings.get("theme") + '">');
+
 /*
     Configure the `IconSetOption` selector to use the correct user theme color.
 */

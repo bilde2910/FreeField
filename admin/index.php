@@ -231,6 +231,7 @@ Security::declareFrameOptionsHeader();
             $adminThemeColor = Config::get("themes/color/admin")->valueHTML();
         ?>
         <link rel="stylesheet" href="../css/<?php echo $adminThemeColor ?>.css?t=<?php echo $linkMod["/css/{$adminThemeColor}.css"]; ?>">
+        <link rel="stylesheet" href="../css/theming.php?<?php echo $adminThemeColor ?>">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="../css/layouts/side-menu-old-ie.css">
