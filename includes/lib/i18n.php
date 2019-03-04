@@ -269,15 +269,25 @@ class I18N {
             and will be used for localization.
         */
         foreach ($requested as $lang => $q) {
-            if (in_array($lang, $available)) {
+            $isAvailable = false;
+            foreach ($available as $avail) {
+                if (
+                    $avail == $lang ||
+                    substr($avail, 0, 2) == substr($lang, 0, 2)
+                ) {
+                    $isAvailable = true;
+                    break;
+                }
+            }
+            if ($isAvailable) {
                 /*
                     If the given language is already loaded, don't load it
                     again.
                 */
-                if ($lang == self::$currentLanguage) return;
+                if ($avail == self::$currentLanguage) return;
 
-                self::$i18ndata = parse_ini_file(__DIR__."/../i18n/$lang.ini");
-                self::$currentLanguage = $lang;
+                self::$i18ndata = parse_ini_file(__DIR__."/../i18n/$avail.ini");
+                self::$currentLanguage = $avail;
                 break;
             }
         }
