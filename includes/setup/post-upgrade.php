@@ -103,6 +103,7 @@ __END_STRING__;
             case "1.0.5":
             case "1.0.6":
             case "1.0.7":
+            case "1.0.8":
                 /*
                     Update webhooks to include species icon information.
                 */
