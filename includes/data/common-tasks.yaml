@@ -14,28 +14,36 @@
 #     Event objectives
 # --------------------------------------------------------------------------
 -
-    # Trade 10 Pokémon
-    type: "trade"
+    # Win 3 raids
+    type: "win_raid"
     params:
-        quantity: 10
-    encounter_species:
-      - 390 # Chimchar
+        quantity: 3
 -
-    # Catch a Chansey
+    # Make 2 Excellent Throws in a row
+    type: "throw_simple_excellent_chain"
+    params:
+        quantity: 2
+    encounter_species:
+      - 107 # Hitmonchan
+-
+    # Catch 3 Makuhita or Meditite
     type: "catch_specific"
     params:
         species:
-          - 113 # Chansey
-        quantity: 1
--
-    # Catch 20 Luvdisc
-    type: "catch_specific"
-    params:
-        species:
-          - 370 # Luvdisc
-        quantity: 20
+          - 296 # Makuhita
+          - 307 # Meditite
+        quantity: 3
     encounter_species:
-      - 113 # Chansey
+      - 256 # Combusken
+-
+    # Catch 5 Fighting-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - fighting
+        quantity: 5
+    encounter_species:
+      - 67 # Machoke
 
 # --------------------------------------------------------------------------
 #     Monthly objectives
@@ -67,15 +75,15 @@
         quantity: 5
     encounter_species:
       - 121 # Starmie
--
-    # Catch 5 Fighting-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - fighting
-        quantity: 5
-    encounter_species:
-      - 81 # Magnemite
+#-
+#    # Catch 5 Fighting-type Pokémon
+#    type: "catch_type"
+#    params:
+#        type:
+#          - fighting
+#        quantity: 5
+#    encounter_species:
+#      - 81 # Magnemite
 -
     # Catch 7 Flying, Psychic or Dark-type Pokémon
     type: "catch_type"
@@ -238,6 +246,11 @@
 #    params:
 #        min_tier: 3
 #        quantity: 1
+-
+    # Win a raid
+    type: "win_raid"
+    params:
+        quantity: 1
 -
     # Use a Super Effective Charged Attack in a Gym battle
     type: "se_charge"
