@@ -25,9 +25,11 @@ class PostUpgrade {
             an older version of the library files will be parsed.
         */
         $libpath = __DIR__."/../lib";
-        $libs = array_diff(scandir($libpath), array('..', '.'));
-        foreach ($libs as $lib) {
-            opcache_invalidate("$libpath/$lib");
+        if (function_exists("opcache_invalidate")) {
+            $libs = array_diff(scandir($libpath), array('..', '.'));
+            foreach ($libs as $lib) {
+                opcache_invalidate("$libpath/$lib");
+            }
         }
 
         require_once("$libpath/global.php");
