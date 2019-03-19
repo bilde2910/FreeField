@@ -1999,7 +1999,7 @@ $("#search-overlay-input").on("input", function() {
 
     for (var i = 0; i < poiIDList.length; i++) {
         // Do case-insensitive substring search for the query on each POI name.
-        if (pois[poiIDList[i]].name.toLowerCase().indexOf(query) !== -1) {    // L
+        if (pois[poiIDList[i]].name.toLowerCase().indexOf(query) !== -1) {
             // Create a candidate object with the ID of the POI.
             var cand = {
                 id: poiIDList[i]
