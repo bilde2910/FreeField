@@ -20,7 +20,17 @@ class PostUpgrade {
         updated version of FreeField works properly.
     */
     public static function finalizeUpgrade($fromVersion, $silent = false) {
-        require_once(__DIR__."/../lib/global.php");
+        /*
+            Included library files must be invalidated in the opcache, otherwise
+            an older version of the library files will be parsed.
+        */
+        $libpath = __DIR__."/../lib";
+        $libs = array_diff(scandir($libpath), array('..', '.'));
+        foreach ($libs as $lib) {
+            opcache_invalidate("$libpath/$lib");
+        }
+
+        require_once("$libpath/global.php");
         __require("config");
         Config::set(array(
             "install/version-compatible" => FF_VERSION
