@@ -14,36 +14,40 @@
 #     Event objectives
 # --------------------------------------------------------------------------
 -
-    # Win 3 raids
-    type: "win_raid"
+    # Evolve 2 Grass-type Pokémon
+    type: "evolve_type"
     params:
-        quantity: 3
--
-    # Make 2 Excellent Throws in a row
-    type: "throw_simple_excellent_chain"
-    params:
+        type:
+          - grass
         quantity: 2
     encounter_species:
-      - 107 # Hitmonchan
+      - 114 # Tangela
 -
-    # Catch 3 Makuhita or Meditite
+    # Evolve 5 Grass-type Pokémon
+    type: "evolve_type"
+    params:
+        type:
+          - grass
+        quantity: 5
+    encounter_species:
+      - 3 # Venusaur
+-
+    # Catch 3 Bulbasaur or Chikorita
     type: "catch_specific"
     params:
         species:
-          - 296 # Makuhita
-          - 307 # Meditite
+          - 1 # Bulbasaur
+          - 152 # Chikorita
         quantity: 3
     encounter_species:
-      - 256 # Combusken
+      - 387 # Turtwig
 -
-    # Catch 5 Fighting-type Pokémon
+    # Catch 10 Grass-type Pokémon
     type: "catch_type"
     params:
         type:
-          - fighting
-        quantity: 5
-    encounter_species:
-      - 67 # Machoke
+          - grass
+        quantity: 10
 
 # --------------------------------------------------------------------------
 #     Monthly objectives
@@ -75,15 +79,15 @@
         quantity: 5
     encounter_species:
       - 121 # Starmie
-#-
-#    # Catch 5 Fighting-type Pokémon
-#    type: "catch_type"
-#    params:
-#        type:
-#          - fighting
-#        quantity: 5
-#    encounter_species:
-#      - 81 # Magnemite
+-
+    # Catch 5 Fighting-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - fighting
+        quantity: 5
+    encounter_species:
+      - 81 # Magnemite
 -
     # Catch 7 Flying, Psychic or Dark-type Pokémon
     type: "catch_type"
@@ -186,6 +190,7 @@
         quantity: 1
     encounter_species:
       - 138 # Omanyte
+      - 140 # Kabuto
 -
     # Win 5 raids
     type: "win_raid"
@@ -284,6 +289,11 @@
       - 37 # Vulpix
       - 60 # Poliwag
 -
+    # Catch 10 Pokémon with Weather Boost
+    type: "catch_weather"
+    params:
+        quantity: 10
+-
     # Catch a Dragon-type Pokémon
     type: "catch_type"
     params:
@@ -292,6 +302,13 @@
         quantity: 1
     encounter_species:
       - 147 # Dratini
+-
+    # Catch 10 Normal-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - normal
+        quantity: 10
 -
     # Catch a Ditto
     type: "catch_specific"
@@ -377,6 +394,11 @@
     type: "throw_simple_excellent"
     params:
         quantity: 1
+-
+    # Make 3 Nice Throws in a row
+    type: "throw_simple_nice_chain"
+    params:
+        quantity: 3
 -
     # Make 3 Great Throws in a row
     type: "throw_simple_great_chain"
