@@ -31,7 +31,7 @@ If a Pokéstop is wrongly located, you can move it to another location directly
 from the map view. This requires the "Manage Pokéstops" permission.
 
 1. Click on the Pokéstop on the map that is wrongly located.
-2. Click :guilabel:`Move`.
+2. Click the "Move" button (indicated by a four arrows icon).
 3. Click on the map at the location that the Pokéstop should be moved to.
 
 .. image:: _images/manage-poi-02-move.png
@@ -46,7 +46,7 @@ Removing from the map view
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. Click on the Pokéstop on the map that should be removed.
-2. Click :guilabel:`Delete`.
+2. Click the "Delete" button (indicated by a trash bin icon).
 3. In the popup that appears, click :guilabel:`OK` to confirm removal of the
    Pokéstop.
 
@@ -66,12 +66,46 @@ Clearing field research
 -----------------------
 
 To clear the currently active field research on a Pokéstop and reset it to the
-"unknown" research task, do the following:
+"unknown" research task, do either of the following:
+
+Clearing from the map view
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. Click on the Pokéstop on the map that you want to clear the research task
+   for.
+2. Click the "Clear research" button (indicated by a brush icon).
+3. In the popup that appears, click :guilabel:`OK` to confirm that you wish to
+   clear the currently active research from the Pokéstop.
+
+Clearing from the administration pages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. Navigate to the "Pokéstops" section on the administration pages.
 2. In the list of Pokéstops, look for the Pokéstop(s) whose active research task
    you want to clear.
 3. In the "Actions" column for the Pokéstop(s), select "Clear research task."
+4. Click on :guilabel:`Save settings` at the bottom of the page.
+
+Renaming Pokéstops
+------------------
+
+You can rename a Pokéstop either from the map or from the administration pages:
+
+Renaming from the map view
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. Click on the Pokéstop on the map that you want to rename.
+2. Click the "Rename" button (indicated by a tag icon).
+3. In the popup that appears, enter a new name for the Pokéstop and click
+   :guilabel:`OK` to submit the name change.
+
+Renaming from the administration pages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. Navigate to the "Pokéstops" section on the administration pages.
+2. In the list of Pokéstops, look for the Pokéstop(s) you want to rename.
+3. In the "Name" column for the Pokéstop(s), enter the new name for the
+   Pokéstop(s).
 4. Click on :guilabel:`Save settings` at the bottom of the page.
 
 Managing Pokéstops
