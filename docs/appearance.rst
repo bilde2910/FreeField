@@ -175,3 +175,11 @@ icon pack contains.
 You can choose to deny users their ability to choose their own icon set. Keep in
 mind that users will only be able to choose from the installed icon sets either
 way, and cannot upload or use their own custom icons on your site.
+
+In addition to a set of map markers, you can select a set of species markers,
+which are displayed in place of the standard grass "encounter" icon when the
+species rewarded by a research task is unambiguous and known. When the species
+rewarded by a research task is ambiguous or unknown, the encounter icon is
+displayed instead. FreeField comes with one species set by default; this can be
+configured from the same place as the standard map markers under the "Map
+markers" heading of the "Appearance" section in the administration pages.
