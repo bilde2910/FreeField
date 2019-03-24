@@ -31,6 +31,7 @@ below.
    :caption: For players
 
    reporting-research
+   filters
 
 .. toctree::
    :maxdepth: 2
