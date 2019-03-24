@@ -39,4 +39,5 @@ below.
    :caption: Developer documentation
    :glob:
 
+   dev/api/index
    dev/*
