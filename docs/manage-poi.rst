@@ -145,9 +145,7 @@ Updated by
 
 Location
    Shows the coordinates of each Pokéstop. This field is a link that can be
-   clicked to display the Pokéstop on a map of your choosing. The map that is
-   used is the one that is configured as the default navigation provider in the
-   "Map settings" section of the administration pages.
+   clicked to pan the FreeField map to the location of the Pokéstop.
 
 Actions
    Allows performing actions on the given Pokéstop, such as deleting it, or
