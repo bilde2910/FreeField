@@ -133,6 +133,8 @@ Created by
 
 Current research
    Shows a brief summary of the currently active research task on this Pokéstop.
+   The icons in this field can be clicked to open the details dialog popup for
+   the Pokéstop on the FreeField map, where new research can be reported.
 
 Last updated
    Shows the last time an update was made to a Pokéstop. Updates include
