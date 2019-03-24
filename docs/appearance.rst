@@ -135,6 +135,20 @@ dark blue background, r=8, g=38, b=58, in Chrome on Android.
 
 .. image:: _images/appearance-03-title-bar-color.png
 
+Site theme color
+----------------
+
+The default FreeField theme color is light blue, but this can be freely
+configured to any color. The theme color is used in the sidebar, for links, and
+on some buttons on the user interface.
+
+.. note:: The default FreeField color is #1f8dd6 (r=31, g=141, b=214).
+
+.. tip:: Choose a moderately light color to ensure UI elements have enough
+         contrast and are shaded correctly. For reference, FreeField's default
+         color has brightness and saturation values of 84% and 86%,
+         respectively.
+
 UI and map themes
 -----------------
 
