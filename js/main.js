@@ -560,7 +560,7 @@ function refreshMarkers() {
     lastRefresh = curTime;
     $.getJSON(url, function(data) {
         var markers = data["pois"];
-        var ids = data["idList"];
+        var ids = data["id_list"];
 
         markers.forEach(function(marker) {
             /*

@@ -27,7 +27,7 @@ class XHR {
                 Ensure the FreeField version number is included to ensure third
                 party clients can properly parse the response from the API.
             */
-            $data = array_merge(array("ff-version" => FF_VERSION), $data);
+            $data = array_merge(array("ff_version" => FF_VERSION), $data);
             header("Content-Type: application/json");
             echo json_encode($data, JSON_PRETTY_PRINT);
         }

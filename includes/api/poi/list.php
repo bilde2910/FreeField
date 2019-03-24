@@ -79,7 +79,7 @@ try {
         $poiIDs[] = $poi->getID();
     }
 
-    XHR::exitWith(200, array("pois" => $poidata, "idList" => $poiIDs));
+    XHR::exitWith(200, array("pois" => $poidata, "id_list" => $poiIDs));
 } catch (Exception $e) {
     /*
         `Geo::listPOIs()` may fail with a database error and throw an exception.
