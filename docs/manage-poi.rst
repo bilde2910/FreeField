@@ -153,6 +153,23 @@ Actions
    Allows performing actions on the given Pokéstop, such as deleting it, or
    clearing its field research.
 
+Batch processing
+^^^^^^^^^^^^^^^^
+
+It is possible to clear research from, and delete, Pokéstops in batches. This is
+done under the "Batch processing" heading of the "Pokéstops" section of the
+administration pages.
+
+Batch processing is performed using geofences. When you perform an action on a
+geofence, the action affects all Pokéstops within that area. Please see
+:doc:`/geofencing` for information on setting up geofences.
+
+.. caution:: Geofences do not function as masks. If you have one geofence within
+             another, and you perform an action on the larger geofence while
+             keeping the smaller one at "no action," the action will still
+             affect Pokéstops in the smaller area, given that those Pokéstops
+             are also within the bounds of the larger geofence.
+
 Exporting and importing Pokéstops
 ---------------------------------
 
