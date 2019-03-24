@@ -32,6 +32,7 @@ below.
 
    reporting-research
    filters
+   searching
 
 .. toctree::
    :maxdepth: 2
