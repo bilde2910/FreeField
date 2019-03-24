@@ -21,6 +21,21 @@ site name is set to "FreeField" and the sidebar header set to "FREEFIELD."
           sidebar header string that is short enough to fit within its box in
           the sidebar.
 
+Using an image in the sidebar
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is possible to use an image in the sidebar header instead of text. To upload
+an image, go to the "Site settings" section of the administration pages and look
+for the "Sidebar image" setting. Upload your preferred image, then select a
+sidebar header style underneath the file upload box that shows the image instead
+of a text header.
+
+.. note:: Sidebar images should must be at least 130 px wide to ensure it is
+          displayed clearly in 1:1-scaled browsers, though 400 px or higher is
+          strongly recommended to ensure it also displays in high resolution on
+          mobile devices. Images must be in PNG, GIF, JPEG or SVG format and
+          must not exceed 128 KiB.
+
 Message of the Day
 ------------------
 
