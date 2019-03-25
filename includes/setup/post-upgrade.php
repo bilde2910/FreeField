@@ -24,11 +24,16 @@ class PostUpgrade {
             Included library files must be invalidated in the opcache, otherwise
             an older version of the library files will be parsed.
         */
+        $confpath = __DIR__."/../config";
         $libpath = __DIR__."/../lib";
         if (function_exists("opcache_invalidate")) {
             $libs = array_diff(scandir($libpath), array('..', '.'));
             foreach ($libs as $lib) {
                 opcache_invalidate("$libpath/$lib");
+            }
+            $confs = array_diff(scandir($confpath), array('..', '.'));
+            foreach ($confs as $conf) {
+                opcache_invalidate("$confpath/$conf");
             }
         }
 
