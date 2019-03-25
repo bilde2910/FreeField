@@ -31,6 +31,8 @@ below.
    :caption: For players
 
    reporting-research
+   filters
+   searching
    faq
 
 .. toctree::
