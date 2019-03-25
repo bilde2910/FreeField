@@ -46,6 +46,24 @@ click on :guilabel:`Add new client`.
 **To authenticate your client against the API, set the** ``X-Access-Token``
 **header of every request to the access token from step 5 above.**
 
+Response format
+---------------
+
+All requests to the API will return some kind of response. The response is sent
+as an object using ``Content-Type: application/json``. Responses will use an
+appropriate HTTP response code depending on the success state of the request.
+Clients should treat all 2xx status codes as a successful request, all 4xx
+status codes as a client error, and all 5xx status codes as a server error.
+
+.. note:: Requests resulting in a 204 No Content status code will not have a
+          response body.
+
+All responses that have a JSON body will have the field ``ff_version``
+indicating the version number of the current FreeField installation. All error
+codes (4xx, 5xx) will additionally have a ``reason`` field containing an error
+code. Error codes and their meaning are explained in detail for each request
+type under `Method reference`_.
+
 Object reference
 ----------------
 
