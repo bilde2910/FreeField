@@ -21,3 +21,11 @@
         background-color: #f8f8f8;
     }
 }
+
+/*
+    Enable strike-through text.
+*/
+.strike {
+    text-decoration: line-through;
+    color: #9f9f9f;
+}
