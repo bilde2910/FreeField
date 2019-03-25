@@ -269,15 +269,25 @@ class I18N {
             and will be used for localization.
         */
         foreach ($requested as $lang => $q) {
-            if (in_array($lang, $available)) {
+            $isAvailable = false;
+            foreach ($available as $avail) {
+                if (
+                    $avail == $lang ||
+                    substr($avail, 0, 2) == substr($lang, 0, 2)
+                ) {
+                    $isAvailable = true;
+                    break;
+                }
+            }
+            if ($isAvailable) {
                 /*
                     If the given language is already loaded, don't load it
                     again.
                 */
-                if ($lang == self::$currentLanguage) return;
+                if ($avail == self::$currentLanguage) return;
 
-                self::$i18ndata = parse_ini_file(__DIR__."/../i18n/$lang.ini");
-                self::$currentLanguage = $lang;
+                self::$i18ndata = parse_ini_file(__DIR__."/../i18n/$avail.ini");
+                self::$currentLanguage = $avail;
                 break;
             }
         }
@@ -297,12 +307,21 @@ class I18N {
             `$i18ndefault`. If not, read the default I18N language file to an
             array and store it in `$i18ndefault` as the fallback language.
         */
-        if ($lang == self::DEFAULT_LANG) {
+        if (self::$currentLanguage == self::DEFAULT_LANG) {
             self::$i18ndefault = self::$i18ndata;
         } else {
             self::$i18ndefault = parse_ini_file(
                 __DIR__."/../i18n/".self::DEFAULT_LANG.".ini"
             );
+        }
+
+        /*
+            Catch if the current language is not set - set it to the default
+            language to prevent issues elsewhere.
+        */
+        if (self::$currentLanguage === null) {
+            self::$i18ndata = self::$i18ndefault;
+            self::$currentLanguage = self::DEFAULT_LANG;
         }
     }
 

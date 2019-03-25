@@ -27,8 +27,6 @@ if (!Auth::isAuthenticated() || Auth::getCurrentUser()->isApproved()) {
 $approvalUrl = Config::getEndpointUri("/admin/approve.php?euid=").
                urlencode(Auth::getCurrentUser()->getEncryptedUserID());
 
-?>
-<?php
 /*
     Execute X-Frame-Options same-origin policy.
 */
@@ -67,6 +65,7 @@ Security::declareFrameOptionsHeader();
               crossorigin="anonymous">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
+        <link rel="stylesheet" href="../css/theming.php?<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">

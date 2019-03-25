@@ -33,13 +33,11 @@ Security::requireCSRFToken();
     Clicking on the sign-in button on this page launches auth stage I
     client-side.
 */
-if (!isset($_GET["hash"])) { ?>
-
-<?php
-/*
-    Execute X-Frame-Options same-origin policy.
-*/
-Security::declareFrameOptionsHeader();
+if (!isset($_GET["hash"])) {
+    /*
+        Execute X-Frame-Options same-origin policy.
+    */
+    Security::declareFrameOptionsHeader();
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">

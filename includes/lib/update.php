@@ -159,23 +159,38 @@ class Update {
 
         try {
             /*
-                Check the releases URL for updates.
+                Check the releases URL for updates and save rate limit
+                restrictions.
             */
-            $continue = true;
-            $opts = array(
-                "http" => array(
-                    "method" => "GET",
-                    "header" => "User-Agent: FreeField/".FF_VERSION." PHP/".phpversion()."\r\n".
-                                "Accept: application/vnd.github.v3+json"
-                )
+            __require("http");
+            $ratelimit = array("reset" => time(), "remaining" => 0);
+            $ch = curl_init(self::UPDATE_SEARCH_URL);
+            HTTP::setOptions($ch);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                "Accept: application/vnd.github.v3+json"
+            ));
+            curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+                function($curl, $headLine) use (&$ratelimit) {
+                    $headerLen = strlen($headLine);
+                    $header = explode(":", $headLine, 2);
+                    if (count($header) < 2) return $headerLen;
+                    $k = strtolower(trim($header[0]));
+                    $v = trim($header[1]);
+                    switch ($k) {
+                        case "x-ratelimit-reset":
+                            $ratelimit["reset"] = intval($v);
+                            break;
+                        case "x-ratelimit-remaining":
+                            $ratelimit["remaining"] = intval($v);
+                            break;
+                    }
+                    return $headerLen;
+                }
             );
-            $context = stream_context_create($opts);
-            set_error_handler(function($no, $str, $file, $line, $context) {
-                global $continue;
-                $continue = false;
-            }, E_WARNING);
-            $data = json_decode(file_get_contents(self::UPDATE_SEARCH_URL, false, $context), true);
-            if (!$continue || $data === null) return;
+            $data = json_decode(curl_exec($ch), true);
+
+            if (curl_error($ch) || $data === null) return;
+            curl_close($ch);
 
             /*
                 Build an array of available releases to cache in the releases
@@ -195,25 +210,6 @@ class Update {
                     "body" => $release["body"]
                 );
                 $releases[] = $version;
-            }
-
-            /*
-                Save rate limit restrictions.
-            */
-            $ratelimit = array("reset" => time(), "remaining" => 0);
-            foreach ($http_response_header as $headerString) {
-                $header = explode(":", $headerString);
-                if (count($header) <= 1) continue;
-                $k = strtolower(trim($header[0]));
-                $v = trim($header[1]);
-                switch ($k) {
-                    case "x-ratelimit-reset":
-                        $ratelimit["reset"] = intval($v);
-                        break;
-                    case "x-ratelimit-remaining":
-                        $ratelimit["remaining"] = intval($v);
-                        break;
-                }
             }
 
             /*

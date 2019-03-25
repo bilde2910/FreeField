@@ -45,6 +45,8 @@ text box in the "Vertices" column.
 Finally, click :guilabel:`Save settings`. Your geofence is now saved and ready
 to be used elsewhere.
 
+.. _limit-poi-bounds:
+
 Limiting Pokéstop submission
 ----------------------------
 

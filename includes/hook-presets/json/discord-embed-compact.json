@@ -2,7 +2,7 @@
     "embeds": [{
         "description": ":clipboard: <%OBJECTIVE%>\n:gift: <%REWARD%>\n:large_blue_diamond: [<%POI%>](<%NAVURL%>)\n<%I18N(webhook.reported_by,<%REPORTER%>)%> @ [link](<%SITEURL%>)",
         "thumbnail": {
-            "url": "<%REWARD_ICON(raster, dark)%>"
+            "url": "<%REWARD_ICON(raster,dark)%>"
         },
         "timestamp": "<%TIME(c)%>"
     }]

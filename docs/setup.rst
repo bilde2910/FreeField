@@ -195,14 +195,6 @@ cURL extension loaded
    ensure that the PHP cURL extension is available on your system, and that it
    is enabled in php.ini.
 
-fopen() allows URLs
-   ``fopen()`` is used to make requests to webhooks and in some cases, to
-   facilitate user authentication. Some installations of PHP have ``fopen()``
-   set to deny reading from URLs. This can cause FreeField to fail if webhooks
-   are called, and in some cases, when users authenticate with certain
-   authentication providers. To enable this setting, ensure that
-   ``allow_url_fopen`` is set to ``1`` in php.ini.
-
 gd extension loaded
    If FreeField is configured to require approval of newly registered users, the
    user approval requirements notice page displayed to the newly registered

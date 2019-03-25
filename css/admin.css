@@ -10,9 +10,69 @@ th[data-sort-function] {
     cursor: pointer;
 }
 
+/* Rows in tables that use pagination should be hidden by default; they are
+   displayed by JavaScript. */
+table.paginate tbody tr {
+    display: none;
+}
+
+/* `.paginate-button-box` contains navigation buttons (each a <span>) for
+   navigating the pages of the table. Style these as actual buttons. */
+.paginate-button-box > span {
+    user-select: none;
+    display: inline-block;
+    padding: 3px;
+    height: 23px;
+    min-width: 30px;
+    line-height: 23px;
+    text-align: center;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* The current page button of the pagination should be bold to highlight it. */
+.paginate-button-box > span.paginate-cur {
+    font-weight: bold;
+    cursor: text;
+}
+
+/* Ellipsis elements in the navigation box are also <span>s, but should not be
+   styled as buttons. Reset their colors. */
+.paginate-button-box > span.paginate-ellipsis {
+    background-color: transparent;
+    border: 1px solid transparent;
+    cursor: inherit;
+}
+
+/* Table rows that do not match a specified search query should be hidden. */
+tr[data-search-match="0"] {
+    display: none !important;
+}
+
+/* Side-by-side controls for sorting and navigating tables. */
+.table-utils-controls {
+    width: 100%;
+    display: table;
+}
+
+.table-utils-controls .tu-control-search {
+    display: table-cell;
+    width: auto;
+}
+
+.table-utils-controls .tu-control-paginate {
+    display: table-cell;
+    width: 450px;
+}
+
 /* The POI name input field on the POI list. */
 .poi-name {
     min-width: 100px;
+}
+
+/* Clickable link for the "current research" column on the POI list. */
+.poi-table-marker-link {
+    text-decoration: none;
 }
 
 /* The <div> that contains all input fields and data for any one webhook. */
@@ -131,6 +191,19 @@ th[data-sort-function] {
 /* The Delete button in `.hook-filter-actions`. */
 .hook-delete {
     color: red;
+}
+
+/* The label that displays a client's current permissions in the API clients
+   list table. On click, this label opens a popup dialog, so it should have a
+   pointer cursor to indicate that it can be clicked. */
+.api-table-access-label {
+    cursor: pointer;
+}
+
+/* The label that displays a client's current permission level in the API
+   clients list table. */
+.api-table-label-level-text {
+    font-weight: bold;
 }
 
 /* Warning header that is displayed on the updates section of the administration

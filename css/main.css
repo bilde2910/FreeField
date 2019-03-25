@@ -27,6 +27,10 @@
     text-overflow: ellipsis;
 }
 
+.pure-menu-heading img {
+    width: calc(100% - 10px);
+}
+
 /* Menus in the sidebar. Override default side-menu behavior of adding a 1px
    solid top border to menus. */
 #menu .pure-menu ul, #menu .pure-menu .menu-item-divided {
@@ -59,6 +63,57 @@
    there is an available FreeField software update. */
 .menu-update-available {
     color: darkorange !important;
+}
+
+/* The color of the "Filter" sidebar item should be highlighted in orange if
+   filters are applied to the map markers. */
+#menu-open-filters[data-active="1"] {
+    color: darkorange !important;
+}
+
+/* In the same case, there should also be a "filters active" icon underneath the
+   menu button for mobile devices. */
+.filter-overlay-icon {
+    cursor: pointer;
+    position: fixed;
+    display: none;
+    left: 0;
+    top: 44px;
+    font-size: 20px;
+    padding: 10px 0;
+    width: 52px;
+    text-align: center;
+    color: white;
+    background-color: darkorange;
+    opacity: 0.7;
+    z-index: 20;
+}
+
+/* The content div of the POI search dialog. */
+.search-overlay-content {
+    padding: 12px !important;
+    margin: 20px !important;
+}
+
+/* Result row in the POI search dialog. */
+.search-overlay-result {
+    width: calc(100% - 24px);
+    padding: 3px 10px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+/* Position cell of the result row, indicating distance to the POI or its
+   coordinates if no position could be found. */
+.search-overlay-pos {
+    text-align: right;
+    font-size: 0.8em;
+}
+
+/* Direction of the POI from the user's current position, if known. */
+.search-overlay-dir {
+    display: inline-block;
+    margin-right: 5px;
 }
 
 /* Buttons displayed on the login page for signing in with various
@@ -104,6 +159,13 @@
     color: #FFFFFF;
     background-color: #FF4500;
 }
+.auth-provider-facebook {
+    color: #4267B2;
+}
+.auth-provider-facebook-button {
+    color: #FFFFFF;
+    background-color: #4267B2;
+}
 .auth-provider-line {
     color: #00C300;
 }
@@ -117,6 +179,11 @@
 .auth-provider-groupme-button {
     color: #FFFFFF;
     background-color: #00AFF0;
+}
+
+/* Pseudo-provider for API clients. */
+.auth-provider-api {
+    color: #1F8DD6;
 }
 
 /* Spacer to separate groups of elements in the sidebar. Creates an empty gap.
@@ -144,6 +211,10 @@
 .centered {
     text-align: center;
 }
+.monospaced {
+    font-family: monospace;
+    font-size: 1.2em;
+}
 
 /* Block element which contains `.button-submit` and/or `.button-standard`. */
 .buttons {
@@ -162,6 +233,10 @@
 }
 .button-submit[disabled], .button-standard[disabled] {
     cursor: not-allowed;
+}
+.button-submit.fas, .button-standard.fas {
+    font-size: 1.2em;
+    padding: 0.75em 0 0.25em 0;
 }
 
 /* Span and input elements render with different sizes, so we'll force the same
@@ -420,6 +495,13 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     .setting-name {
         font-weight: bold;
     }
+
+    /* On mobile, the position of the POI in search result rows are displayed on
+       their own line underneath the POI name, and should therefore not be right
+       aligned. */
+    .search-overlay-pos {
+        text-align: left;
+    }
 }
 
 /*
@@ -468,6 +550,60 @@ input[type=text], input[type=password], input[type=number], select, textarea {
 }
 .banner-inner a {
     color: white;
+}
+
+/* The banner at the top of the page containing the counter for hidden POIs if there are more
+   POIs within bounds than allowed by user settings. */
+.top-banner {
+    position: absolute;
+    top: 0;
+    left: 150px;
+    right: 0;
+    margin: auto;
+    z-index: 90;
+    max-width: calc(100% - 150px);
+    width: 200px;
+    color: white;
+    display: none;
+}
+
+/* The banner has triangles on both sides to create a notch effect. */
+.top-banner .triangle {
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-style: solid;
+}
+
+.top-banner .triangle-left {
+    left: 0.1px;
+    top: 0;
+    border-width: 0 28px 28px 0;
+    border-color: transparent #7f0000 transparent transparent;
+}
+
+.top-banner .triangle-right {
+    right: 0.1px;
+    top: 0;
+    border-width: 28px 28px 0 0;
+    border-color: #7f0000 transparent transparent transparent;
+}
+
+.top-banner .top-banner-inner {
+    margin: 0 28px 0 28px;
+    background-color: #7f0000;
+    text-align: center;
+    padding-top: 4px;
+    font-size: 17px;
+    height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-banner a {
+    color: #fff;
+    text-decoration: none;
 }
 
 /* Basic overlay configuration. The cover-box is a full-screen block element
@@ -543,6 +679,10 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     .banner {
         left: 0;
         width: 80%;
+    }
+    .top-banner {
+        left: 0;
+        max-width: calc(100% - 150px);
     }
     .cover-box {
         left: 0;
@@ -622,6 +762,13 @@ h1.head-small {
 }
 .leaflet-marker-icon[data-ff-icon="unknown"] {
     z-index: 11 !important;
+}
+
+/* Due to the `z-index: 10` on `.marker`, Mapbox renders the markers on top of
+   other UI elements, such as the navigation buttons and menu icon. Fix this by
+   assigning these elements a higher `z-index`. */
+.mapboxgl-control-container > div, #menuLink {
+    z-index: 20;
 }
 
 /* Markers as they appear in the list of POIs on the administration pages. These

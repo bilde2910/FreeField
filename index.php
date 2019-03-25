@@ -68,13 +68,11 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
         header("Location: ".Config::getEndpointUri("/auth/login.php"));
         exit;
     } else {
+        /*
+            Execute X-Frame-Options same-origin policy.
+        */
+        Security::declareFrameOptionsHeader();
         ?>
-            <?php
-            /*
-                Execute X-Frame-Options same-origin policy.
-            */
-            Security::declareFrameOptionsHeader();
-            ?>
             <!DOCTYPE html>
             <html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
                 <head>
@@ -106,6 +104,7 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
                           crossorigin="anonymous">
                     <link rel="stylesheet" href="./css/main.css">
                     <link rel="stylesheet" href="./css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
+                    <link rel="stylesheet" href="./css/theming.php?<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>">
 
                     <!--[if lte IE 8]>
                         <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
@@ -164,9 +163,6 @@ $linkMod = array(
     "/pwa/register-sw.js"   => filemtime("./pwa/register-sw.js")
 );
 
-?>
-
-<?php
 /*
     Execute X-Frame-Options same-origin policy.
 */
@@ -200,18 +196,25 @@ Security::declareFrameOptionsHeader();
         <script src="./js/clientside-i18n.php" async defer></script>
         <script>
             /*
-                Display options for `IconSetOption` selectors; required by the
-                `IconSetOption` event handler in /js/option.js.
+                Display options for `IconSetOptionBase` selectors; required by
+                the `IconSetOption` event handler in /js/option.js.
             */
             var isc_opts = <?php
                 echo json_encode(array(
-                    "themedata" => IconSetOption::getIconSetDefinitions(),
-                    "icons" => Theme::listIcons(),
-                    "baseuri" => Config::getEndpointUri("/"),
-                    "colortheme" => Config::get("themes/color/user-settings/theme")->value()
+                    "icons" => array(
+                        "themedata" => IconSetOption::getIconSetDefinitions(),
+                        "icons" => Theme::listIcons(),
+                        "baseuri" => Config::getEndpointUri("/"),
+                        "colortheme" => Config::get("themes/color/user-settings/theme")->value()
+                    ),
+                    "species" => array(
+                        "themedata" => SpeciesSetOption::getIconSetDefinitions(),
+                        "highest" => ParamSpecies::getHighestSpecies(),
+                        "baseuri" => Config::getEndpointUri("/"),
+                        "colortheme" => Config::get("themes/color/user-settings/theme")->value()
+                    )
                 ));
             ?>;
-
             /*
                 Determine if user is signed in or not.
             */
@@ -283,6 +286,13 @@ Security::declareFrameOptionsHeader();
         <link rel="stylesheet" href="./css/map-markers.php"
               media="none"
               onload="if(media!=='all')media='all'">
+        <!--
+            Preload the default theme colors; this will be overridden once the
+            page has finished loading depending on the color theme the user has
+            chosen.
+        -->
+        <link rel="stylesheet"
+              href="./css/theming.php?<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>">
         <?php
             if (Config::get("mobile/pwa/enabled")->value()) {
                 ?>
@@ -307,11 +317,28 @@ Security::declareFrameOptionsHeader();
                 <!-- Hamburger icon -->
                 <span></span>
             </a>
+            <div id="corner-filter-link" class="filter-overlay-icon">
+                <!-- Filter icon when active -->
+                <i class="fas fa-filter"></i>
+            </div>
 
             <div id="menu">
                 <div class="pure-menu">
-                    <a class="pure-menu-heading" href=".">
-                        <?php echo Config::get("site/menu-header")->valueHTML(); ?>
+                    <a class="pure-menu-heading" href=".."<?php
+                        if (Config::get("site/header-style")->value() == "image-plain")
+                            echo ' style="background: none !important; padding-bottom: 0;"';
+                    ?>>
+                        <?php
+                            switch (Config::get("site/header-style")->value()) {
+                                case "text":
+                                    echo Config::get("site/menu-header")->valueHTML();
+                                    break;
+                                case "image":
+                                case "image-plain":
+                                    echo '<img src="./themes/sidebar-image.php">';
+                                    break;
+                            }
+                        ?>
                     </a>
 
                     <?php if (Auth::isAuthenticated()) { ?>
@@ -364,6 +391,18 @@ Security::declareFrameOptionsHeader();
                                 </a>
                             </li>
                         <?php } ?>
+                        <li class="pure-menu-item">
+                            <a href="#" id="menu-open-search" class="pure-menu-link">
+                                <i class="menu-fas fas fa-search"></i>
+                                <?php echo I18N::resolveHTML("sidebar.search"); ?>
+                            </a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" id="menu-open-filters" class="pure-menu-link">
+                                <i class="menu-fas fas fa-filter"></i>
+                                <?php echo I18N::resolveHTML("sidebar.filters"); ?>
+                            </a>
+                        </li>
                         <li class="pure-menu-item">
                             <a href="#" id="menu-open-settings" class="pure-menu-link">
                                 <i class="menu-fas fas fa-wrench"></i>
@@ -466,6 +505,28 @@ Security::declareFrameOptionsHeader();
                         </div>
                     </div>
                     <!--
+                        A banner that appears at the top of the map if the
+                        amount of POIs within the map's bounding box exceeds the
+                        amount that should reasonably be displayed at the same
+                        time as requested by the user.
+                    -->
+                    <div id="clustering-active-banner" class="top-banner">
+                        <div class="triangle triangle-left"></div>
+                        <a href="https://freefield.readthedocs.io/en/latest/faq.html#why-are-some-markers-hidden-from-the-map"
+                           target="_blank">
+                            <div class="top-banner-inner">
+                                <?php echo I18N::resolveArgsHTML(
+                                    "clustering.banner",
+                                    false,
+                                    '<span id="clustering-active-count"></span>',
+                                    '<span id="clustering-active-total"></span>',
+                                    '<i class="fas fa-eye-slash"></i>'
+                                ); ?>
+                            </div>
+                        </a>
+                        <div class="triangle triangle-right"></div>
+                    </div>
+                    <!--
                         POI details overlay. Contains details such as the POI's
                         name, its current active field research, means of
                         reporting research to the POI (if permission is granted
@@ -495,6 +556,13 @@ Security::declareFrameOptionsHeader();
                                         '<strong id="poi-reward" class="strong-color"></strong>'
                                     ); ?>
                                 </p>
+                                <p class="centered">
+                                    <span id="poi-last-time"></span>
+                                    <span id="poi-last-user-box">
+                                        <br />
+                                        <span id="poi-last-user-text"></span>
+                                    </span>
+                                </p>
                                 <div class="cover-button-spacer"></div>
                                 <div class="pure-g">
                                     <div class="pure-u-1-1 right-align">
@@ -511,16 +579,28 @@ Security::declareFrameOptionsHeader();
                                         */
                                         ?>
                                             <div class="pure-g">
-                                                <div class="pure-u-1-2 right-align">
+                                                <div class="pure-u-1-4 right-align">
                                                     <span id="poi-move"
-                                                          class="button-standard split-button button-spaced left">
-                                                        <?php echo I18N::resolveHTML("poi.move"); ?>
+                                                          class="button-standard split-button button-spaced left fas fa-arrows-alt"
+                                                          title="<?php echo I18N::resolveHTML("poi.move"); ?>">
                                                     </span>
                                                 </div>
-                                                <div class="pure-u-1-2">
+                                                <div class="pure-u-1-4">
+                                                    <span id="poi-rename"
+                                                          class="button-standard split-button button-spaced fas fa-tag"
+                                                          title="<?php echo I18N::resolveHTML("poi.rename"); ?>">
+                                                    </span>
+                                                </div>
+                                                <div class="pure-u-1-4">
+                                                    <span id="poi-clear"
+                                                          class="button-standard split-button button-spaced fas fa-broom"
+                                                          title="<?php echo I18N::resolveHTML("poi.clear"); ?>">
+                                                    </span>
+                                                </div>
+                                                <div class="pure-u-1-4">
                                                     <span id="poi-delete"
-                                                          class="button-standard split-button button-spaced right">
-                                                        <?php echo I18N::resolveHTML("poi.delete"); ?>
+                                                          class="button-standard split-button button-spaced right fas fa-trash-alt"
+                                                          title="<?php echo I18N::resolveHTML("poi.delete"); ?>">
                                                     </span>
                                                 </div>
                                             </div>
@@ -1116,6 +1196,234 @@ Security::declareFrameOptionsHeader();
                         </div>
                     </div>
                     <!--
+                        POI filtering dialog. If a user wishes to only display
+                        some types of research tasks on the map, this dialog
+                        shows up. It prompts the user for the type of objective
+                        and reward that constitutes the research task, but does
+                        not request task metadata (that level of granularity
+                        isn't required and would make filtering needlessly
+                        complicated).
+                    -->
+                    <div id="filters-poi" class="cover-box">
+                        <div class="cover-box-inner">
+                            <div class="header">
+                                <h1>
+                                    <?php echo I18N::resolveHTML("poi.filter.title"); ?>
+                                </h1>
+                            </div>
+                            <div class="cover-box-content content pure-form">
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p>
+                                            <?php echo I18N::resolveHTML("poi.filter.mode.title"); ?>
+                                        </p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile">
+                                        <p><select id="filter-poi-mode">
+                                            <option value="only">
+                                                <?php echo I18N::resolveHTML("poi.filter.mode.only"); ?>
+                                            </option>
+                                            <option value="except">
+                                                <?php echo I18N::resolveHTML("poi.filter.mode.except"); ?>
+                                            </option>
+                                            <option value="unknown">
+                                                <?php echo I18N::resolveHTML("poi.filter.mode.unknown"); ?>
+                                            </option>
+                                        </select></p>
+                                    </div>
+                                </div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p>
+                                            <?php echo I18N::resolveHTML("poi.filter.objective.title"); ?>
+                                        </p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile"><p><select id="filter-poi-objective">
+                                        <!--
+                                            Default settings for the filtering options.
+                                        -->
+                                        <option value="any">
+                                            <?php echo I18N::resolveHTML("poi.filter.objective.any"); ?>
+                                        </option>
+                                        <?php
+                                            /*
+                                                Select box that contains a list of all possible research objectives.
+                                            */
+
+                                            /*
+                                                We'll sort the research objectives by their first respective categories.
+                                                Put all the research objectives into an array ($cats) of the structure
+                                                $cats[CATEGORY][RESEARCH OBJECTIVE][PARAMETERS ETC.]
+                                            */
+                                            $cats = array();
+                                            foreach (Research::listObjectives() as $objective => $data) {
+                                                // Skip unknown since it has already been displayed
+                                                if ($objective === "unknown") continue;
+                                                $cats[$data["categories"][0]][$objective] = $data;
+                                            }
+
+                                            /*
+                                                After the objectives have been sorted into proper categories, we'll resolve
+                                                the I18N string for each research objective, one category at a time.
+                                            */
+                                            foreach ($cats as $category => $categorizedObjectives) {
+                                                foreach ($categorizedObjectives as $objective => $data) {
+                                                    // Use the plural string of the objective by default
+                                                    $i18n = I18N::resolve("objective.{$objective}.plural");
+                                                    // If the objective is singular-only, use the singular string
+                                                    if (!in_array("quantity", $data["params"]))
+                                                        $i18n = I18N::resolve("objective.{$objective}.singular");
+                                                    // Replace parameters (e.g. {%1}) with placeholders
+                                                    for ($i = 0; $i < count($data["params"]); $i++) {
+                                                        $i18n = str_replace(
+                                                            "{%".($i+1)."}",
+                                                            I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
+                                                            $i18n
+                                                        );
+                                                    }
+                                                    // Now save the final localized string back into the objective
+                                                    $categorizedObjectives[$objective]["i18n"] = htmlspecialchars($i18n, ENT_QUOTES);
+                                                }
+
+                                                /*
+                                                    Create a group for each category of objectives, then output each of the
+                                                    objectives within that category to the selection box.
+                                                */
+                                                echo '<optgroup label="'.I18N::resolveHTML("category.objective.{$category}").'">';
+                                                foreach ($categorizedObjectives as $objective => $data) {
+                                                    echo '<option value="'.$objective.'">'.$data["i18n"].'</option>';
+                                                }
+                                                echo '</optgroup>';
+                                            }
+                                        ?>
+                                    </select></p></div>
+                                </div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-3 full-on-mobile">
+                                        <p>
+                                            <?php echo I18N::resolveHTML("poi.filter.reward.title"); ?>
+                                        </p>
+                                    </div>
+                                    <div class="pure-u-2-3 full-on-mobile"><p><select id="filter-poi-reward">
+                                        <!--
+                                            Default settings for the filtering options.
+                                        -->
+                                        <option value="any">
+                                            <?php echo I18N::resolveHTML("poi.filter.reward.any"); ?>
+                                        </option>
+                                        <?php
+                                            /*
+                                                Select box that contains a list of all possible research rewards.
+                                            */
+
+                                            /*
+                                                We'll sort the research rewards by their first respective categories.
+                                                Put all the research rewards into an array ($cats) of the structure
+                                                $cats[CATEGORY][RESEARCH REWARD][PARAMETERS ETC.]
+                                            */
+                                            $cats = array();
+                                            foreach (Research::listRewards() as $reward => $data) {
+                                                // Skip unknown since it shouldn't be displayed
+                                                if ($reward === "unknown") continue;
+                                                $cats[$data["categories"][0]][$reward] = $data;
+                                            }
+
+                                            /*
+                                                After the rewards have been sorted into proper categories, we'll resolve
+                                                the I18N string for each research reward, one category at a time.
+                                            */
+                                            foreach ($cats as $category => $categorizedRewards) {
+                                                foreach ($categorizedRewards as $reward => $data) {
+                                                    // Use the plural string of the reward by default
+                                                    $i18n = I18N::resolve("reward.{$reward}.plural");
+                                                    // If the reward is singular-only, use the singular string
+                                                    if (!in_array("quantity", $data["params"]))
+                                                        $i18n = I18N::resolve("reward.{$reward}.singular");
+                                                    // Replace parameters (e.g. {%1}) with placeholders
+                                                    for ($i = 0; $i < count($data["params"]); $i++) {
+                                                        $i18n = str_replace(
+                                                            "{%".($i+1)."}",
+                                                            I18N::resolve("parameter.".$data["params"][$i].".placeholder"),
+                                                            $i18n
+                                                        );
+                                                    }
+                                                    // Now save the final localized string back into the reward
+                                                    $categorizedRewards[$reward]["i18n"] = htmlspecialchars($i18n, ENT_QUOTES);
+                                                }
+
+                                                /*
+                                                    Create a group for each category of rewards, then output each of the
+                                                    rewards within that category to the selection box.
+                                                */
+                                                echo '<optgroup label="'.I18N::resolveHTML("category.reward.{$category}").'">';
+                                                foreach ($categorizedRewards as $reward => $data) {
+                                                    echo '<option value="'.$reward.'">'.$data["i18n"].'</option>';
+                                                }
+                                                echo '</optgroup>';
+                                            }
+                                        ?>
+                                    </select></p></div>
+                                </div>
+                                <div class="cover-button-spacer"></div>
+                                <div class="pure-g">
+                                    <div class="pure-u-1-2 right-align">
+                                        <span id="filter-poi-reset"
+                                              class="button-standard split-button button-spaced left">
+                                                    <?php echo I18N::resolveHTML("poi.filter.reset"); ?>
+                                        </span>
+                                    </div>
+                                    <div class="pure-u-1-2">
+                                        <span id="filter-poi-submit"
+                                              class="button-submit split-button button-spaced right">
+                                                    <?php echo I18N::resolveHTML("poi.filter.submit"); ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                        The POI search overlay. The overlay is opened whenever
+                        the user clicks on the "Search" button in the sidebar.
+                    -->
+                    <div id="search-poi" class="cover-box">
+                        <div class="cover-box-inner">
+                            <div class="cover-box-content content pure-form search-overlay-content">
+                                <div class="pure-g">
+                                    <div class="pure-u-5-5 full-on-mobile">
+                                        <input type="text"
+                                               id="search-overlay-input"
+                                               placeholder="<?php echo I18N::resolveHTML("poi.search.placeholder"); ?>">
+                                    </div>
+                                </div>
+                                <div class="cover-button-spacer"></div>
+
+                                <!--
+                                    Show up to 10 result rows.
+                                -->
+                                <?php for ($i = 0; $i < 10; $i++) { ?>
+                                    <div class="pure-g search-overlay-result">
+                                        <div class="pure-u-3-5 full-on-mobile search-overlay-name">?</div>
+                                        <div class="pure-u-2-5 full-on-mobile search-overlay-pos">
+                                            <span class="search-overlay-dir">&#x2794;</span>
+                                            <span class="search-overlay-loc"></span>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+
+                                <div class="cover-button-spacer"></div>
+                                <div class="pure-g">
+                                    <div class="pure-u-5-5">
+                                        <span id="search-poi-close"
+                                              class="button-standard split-button button-spaced left">
+                                            <?php echo I18N::resolveHTML("ui.button.close"); ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
                         The Message of the Day overlay. The overlay is opened
                         when the page is loaded, or whenever the user clicks on
                         the "Show MotD" button in the sidebar, depending on the
@@ -1184,66 +1492,13 @@ Security::declareFrameOptionsHeader();
                         indicator has a spinning loading icon that automatically
                         disappears when the server request is complete.
                     -->
-                    <div id="add-poi-working" class="cover-box">
+                    <div id="poi-working-spinner" class="cover-box">
                         <div class="cover-box-inner tiny">
                             <div class="cover-box-content">
                                 <div>
                                     <i class="fas fa-spinner loading-spinner spinner-large"></i>
                                 </div>
-                                <p>
-                                    <?php echo I18N::resolveHTML("poi.add.processing"); ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                        "Working" indicator for reporting field research. This
-                        is functionally the same as `#add-poi-working`, but with
-                        a different text label.
-                    -->
-                    <div id="update-poi-working" class="cover-box">
-                        <div class="cover-box-inner tiny">
-                            <div class="cover-box-content">
-                                <div>
-                                    <i class="fas fa-spinner loading-spinner spinner-large"></i>
-                                </div>
-                                <p>
-                                    <?php echo I18N::resolveHTML("poi.update.processing"); ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                        "Working" indicator for moving POIs. This is
-                        functionally the same as `#add-poi-working`, but with a
-                        different text label.
-                    -->
-                    <div id="move-poi-working" class="cover-box">
-                        <div class="cover-box-inner tiny">
-                            <div class="cover-box-content">
-                                <div>
-                                    <i class="fas fa-spinner loading-spinner spinner-large"></i>
-                                </div>
-                                <p>
-                                    <?php echo I18N::resolveHTML("poi.move.processing"); ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                        "Working" indicator for deleting POIs. This is
-                        functionally the same as `#add-poi-working`, but with a
-                        different text label.
-                    -->
-                    <div id="delete-poi-working" class="cover-box">
-                        <div class="cover-box-inner tiny">
-                            <div class="cover-box-content">
-                                <div>
-                                    <i class="fas fa-spinner loading-spinner spinner-large"></i>
-                                </div>
-                                <p>
-                                    <?php echo I18N::resolveHTML("poi.delete.processing"); ?>
-                                </p>
+                                <p id="poi-working-text"></p>
                             </div>
                         </div>
                     </div>
@@ -1430,7 +1685,7 @@ Security::declareFrameOptionsHeader();
                                 }
                             ?>
                             <?php
-                                if (Config::get("themes/icons/allow-personalization")->value()) {
+                                if (Auth::getCurrentUser()->hasPermission("personalization/icons")) {
                                     $opt = new IconSetOption("user_settings.value.default");
                                     ?>
                                         <!--
@@ -1456,6 +1711,33 @@ Security::declareFrameOptionsHeader();
                                     <?php
                                 }
                             ?>
+                            <?php
+                                if (Auth::getCurrentUser()->hasPermission("personalization/species")) {
+                                    $opt = new SpeciesSetOption("user_settings.value.default");
+                                    ?>
+                                        <!--
+                                            Icon set used for species markers.
+                                        -->
+                                        <div class="pure-g option-block-follows">
+                                            <div class="pure-u-1-3 full-on-mobile">
+                                                <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.species.name"); ?>:</p>
+                                            </div>
+                                            <div class="pure-u-2-3 full-on-mobile">
+                                                <p>
+                                                    <?php echo $opt->getControl(null, array(
+                                                        "id" => "species-selector",
+                                                        "data-key" => "speciesSet",
+                                                        "class" => "user-setting"
+                                                    )); ?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <?php
+                                            echo $opt->getFollowingBlock();
+                                        ?>
+                                    <?php
+                                }
+                            ?>
                             <!--
                                 Which markers are displayed on the map (research
                                 objectives or research rewards).
@@ -1469,6 +1751,47 @@ Security::declareFrameOptionsHeader();
                                         <option value=""><?php echo I18N::resolveHTML("user_settings.value.default"); ?></option>
                                         <option value="objective"><?php echo I18N::resolveHTML("setting.map.default.marker_component.option.objective"); ?></option>
                                         <option value="reward"><?php echo I18N::resolveHTML("setting.map.default.marker_component.option.reward"); ?></option>
+                                    </select></p>
+                                </div>
+                            </div>
+                            <h2 class="content-subhead">
+                                <?php echo I18N::resolveHTML("user_settings.section.performance") ?>
+                            </h2>
+                            <div class="pure-g option-block-follows">
+                                <div class="pure-u-1-3 full-on-mobile">
+                                    <p class="setting-name"><?php echo I18N::resolveHTML("user_setting.cluster_limit.name"); ?>:</p>
+                                </div>
+                                <div class="pure-u-2-3 full-on-mobile">
+                                    <p><select class="user-setting" data-key="clusteringLimit">
+                                        <option value=""><?php echo I18N::resolveArgsHTML(
+                                            "user_setting.cluster_limit.option.default",
+                                            true,
+                                            Config::get("map/default/cluster-limit")->value()
+                                        ); ?></option>
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="75">75</option>
+                                        <option value="100">100</option>
+                                        <option value="150">150</option>
+                                        <option value="200">200</option>
+                                        <option value="250">250</option>
+                                        <option value="300">300</option>
+                                        <option value="400">400</option>
+                                        <option value="500">500</option>
+                                        <option value="750">700</option>
+                                        <option value="1000">1000</option>
+                                        <option value="1250">1250</option>
+                                        <option value="1500">1500</option>
+                                        <option value="1750">1750</option>
+                                        <option value="2000">2000</option>
+                                        <option value="2500">2500</option>
+                                        <option value="3000">3000</option>
+                                        <option value="4000">4000</option>
+                                        <option value="5000">5000</option>
+                                        <option value="6000">6000</option>
+                                        <option value="7500">7500</option>
+                                        <option value="10000">10000</option>
                                     </select></p>
                                 </div>
                             </div>
@@ -1519,6 +1842,7 @@ Security::declareFrameOptionsHeader();
             */
             var defaults = {
                 "iconSet": <?php echo Config::get("themes/icons/default")->valueJS(); ?>,
+                "speciesSet": <?php echo Config::get("themes/species/default")->valueJS(); ?>,
                 "mapProvider": "<?php echo $provider; ?>",
                 "naviProvider": <?php echo Config::get("map/provider/directions")->valueJS(); ?>,
                 "mapStyle-mapbox": <?php echo Config::get("themes/color/map/theme/mapbox")->valueJS(); ?>,
@@ -1531,7 +1855,8 @@ Security::declareFrameOptionsHeader();
                 "zoom": <?php echo Config::get("map/default/zoom")->valueJS(); ?>,
                 "markerComponent": <?php echo Config::get("map/default/marker-component")->valueJS(); ?>,
                 "motdCurrentHash": "",
-                "motdDismissedHash": ""
+                "motdDismissedHash": "",
+                "clusteringLimit": "<?php echo Config::get("map/default/cluster-limit")->valueJS(); ?>"
             };
 
             /*
@@ -1551,7 +1876,7 @@ Security::declareFrameOptionsHeader();
                         $forced[] = '"mapStyle-mapbox"';
                         $forced[] = '"mapStyle-thunderforest"';
                     }
-                    if (!Config::get("themes/icons/allow-personalization")->value()) {
+                    if (!Auth::getCurrentUser()->hasPermission("personalization/icons")) {
                         $forced[] = '"iconSet"';
                     }
                     echo implode(', ', $forced);
@@ -1736,7 +2061,7 @@ Security::declareFrameOptionsHeader();
 
                     $permsJson = array();
                     foreach ($clientside_perms as $perm) {
-                        $permsJson[$perm] = Auth::getCurrentUser()->hasPermission($clientside_perms[$i]);
+                        $permsJson[$perm] = Auth::getCurrentUser()->hasPermission($perm);
                     }
                     echo json_encode($permsJson);
                 ?>;
@@ -1766,8 +2091,8 @@ Security::declareFrameOptionsHeader();
 
                 foreach ($themes as $theme) {
                     if (
-                        !Config::get("themes/icons/allow-personalization")->value() &&
-                        in_array($theme, $restrictiveLoadThemes)
+                        !Auth::getCurrentUser()->hasPermission("personalization/icons") &&
+                        !in_array($theme, $restrictiveLoadThemes)
                     ) {
                         return;
                     }
@@ -1779,7 +2104,7 @@ Security::declareFrameOptionsHeader();
                     */
                     $iconSet = Theme::getIconSet($theme);
                     foreach ($icons as $icon) {
-                        $output[$theme][$icon] = parse_url($iconSet->getIconUrl($icon), PHP_URL_PATH);
+                        $output[$theme][$icon] = $iconSet->getIconUrl($icon);
                     }
                 }
 
@@ -1791,6 +2116,11 @@ Security::declareFrameOptionsHeader();
                 /js/main.js.
             */
             var linkMod = <?php echo json_encode($linkMod); ?>;
+
+            /*
+                Echo the current page language for usage in /js/main.js.
+            */
+            var currentLanguage = <?php echo json_encode(I18N::getLanguage()); ?>;
         </script>
         <script src="./js/ui.js"></script>
         <?php

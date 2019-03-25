@@ -30,6 +30,7 @@ class Auth {
             "discord" => ["client-id", "client-secret"],
             "telegram" => ["bot-username", "bot-token"],
             "reddit" => ["client-id", "client-secret"],
+            "facebook" => ["app-id", "app-secret"],
             "line" => ["channel-id", "channel-secret"],
             "groupme" => ["client-id"]
         );
@@ -662,6 +663,13 @@ class User {
     }
 
     /*
+        Returns whether or not the user is a human. Always returns true.
+    */
+    public function isRealUser() {
+        return true;
+    }
+
+    /*
         Gets whether or not the user exists. Anonymous users and users with an
         invalid session will have `null` assigned to `$this->data`. Therefore,
         we can just check whether that variable is null (and whether the user
@@ -695,9 +703,24 @@ class User {
     public function getNickname() {
         if (!$this->exists()) {
             __require("i18n");
+            __require("api");
 
             if ($this->isLikelyDeletedUser()) {
-                return I18N::resolve("admin.table.users.deleted");
+                /*
+                    Determine if the deleted user was an API client or a real
+                    user. If it was an API client, the client ID would consist
+                    of "api:" followed by a number. Use the proper "DeletedUser"
+                    label depending on which type of user this was.
+                */
+                if (
+                    isset($this->data["id"]) &&
+                    substr($this->data["id"], 0, strlen(APIClient::USER_ID_PREFIX))
+                        == APIClient::USER_ID_PREFIX
+                ) {
+                    return I18N::resolve("admin.table.users.api_deleted");
+                } else {
+                    return I18N::resolve("admin.table.users.deleted");
+                }
             } else {
                 return I18N::resolve("admin.table.users.anonymous");
             }
@@ -741,8 +764,10 @@ class User {
             "discord"   => "fab fa-discord",
             "telegram"  => "fab fa-telegram-plane",
             "reddit"    => "fab fa-reddit-alien",
+            "facebook"  => "fab fa-facebook",
             "line"      => "fab fa-line",
-            "groupme"   => "fas fa-user" // No brand specific icon available at this time
+            "groupme"   => "fas fa-user", // No brand specific icon available at this time
+            "api"       => "fas fa-code"
         );
         return '<span>
                     <i class="

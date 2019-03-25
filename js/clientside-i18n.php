@@ -29,6 +29,9 @@ var i18n = <?php
         // Webhook body format headers
         "admin.section.hooks.body.*",
 
+        // Permissions strings for API access management
+        "setting.permissions.level.*",
+
         // Research objectives
         "objective.*",
 
@@ -44,8 +47,15 @@ var i18n = <?php
         // POI strings
         "poi.*",
 
+        // Geo string formatting
+        "geo.*",
+
         // XMLHttpRequest responses
         "xhr.*",
+
+        // User and map interface
+        "ui.*",
+        "clustering.*",
 
         // Client-side user settings
         "user_settings.*",

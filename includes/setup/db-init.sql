@@ -34,6 +34,19 @@ CREATE TABLE {%TablePrefix%}user (
     PRIMARY KEY (id)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE {%TablePrefix%}api (
+    id              int(11)         NOT NULL AUTO_INCREMENT,
+    user_id         varchar(16)     DEFAULT NULL,
+    name            varchar(64)     NOT NULL,
+    color           char(6)         NOT NULL,
+    token           char(64)        NOT NULL,
+    access          varchar(1024)   NOT NULL,
+    level           smallint(6)     NOT NULL,
+    seen            timestamp       NULL DEFAULT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY level (user_id)
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 INSERT INTO {%TablePrefix%}group (level, label, color) VALUES
     (0,     '{i18n:group.level.anonymous}',     NULL    ),
     (40,    '{i18n:group.level.read_only}',     NULL    ),

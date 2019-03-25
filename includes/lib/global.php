@@ -10,7 +10,7 @@
     then call the proper module using `__require()`.
 */
 
-const FF_VERSION = "1.0.9";
+const FF_VERSION = "1.1-rc.1";
 
 function __require($require) {
     switch ($require) {
@@ -60,6 +60,13 @@ function __require($require) {
             break;
 
         /*
+            Manages API client access.
+        */
+        case "api":
+            include_once(__DIR__."/api.php");
+            break;
+
+        /*
             Manages POIs and provides geo-related functions.
         */
         case "geo":
@@ -78,6 +85,13 @@ function __require($require) {
         */
         case "xhr":
             include_once(__DIR__."/xhr.php");
+            break;
+
+        /*
+            Provides helper functions for outbound HTTP connections.
+        */
+        case "http":
+            include_once(__DIR__."/http.php");
             break;
 
         /*

@@ -21,6 +21,21 @@ site name is set to "FreeField" and the sidebar header set to "FREEFIELD."
           sidebar header string that is short enough to fit within its box in
           the sidebar.
 
+Using an image in the sidebar
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is possible to use an image in the sidebar header instead of text. To upload
+an image, go to the "Site settings" section of the administration pages and look
+for the "Sidebar image" setting. Upload your preferred image, then select a
+sidebar header style underneath the file upload box that shows the image instead
+of a text header.
+
+.. note:: Sidebar images should must be at least 130 px wide to ensure it is
+          displayed clearly in 1:1-scaled browsers, though 400 px or higher is
+          strongly recommended to ensure it also displays in high resolution on
+          mobile devices. Images must be in PNG, GIF, JPEG or SVG format and
+          must not exceed 128 KiB.
+
 Message of the Day
 ------------------
 
@@ -120,6 +135,20 @@ dark blue background, r=8, g=38, b=58, in Chrome on Android.
 
 .. image:: _images/appearance-03-title-bar-color.png
 
+Site theme color
+----------------
+
+The default FreeField theme color is light blue, but this can be freely
+configured to any color. The theme color is used in the sidebar, for links, and
+on some buttons on the user interface.
+
+.. note:: The default FreeField color is #1f8dd6 (r=31, g=141, b=214).
+
+.. tip:: Choose a moderately light color to ensure UI elements have enough
+         contrast and are shaded correctly. For reference, FreeField's default
+         color has brightness and saturation values of 84% and 86%,
+         respectively.
+
 UI and map themes
 -----------------
 
@@ -175,3 +204,11 @@ icon pack contains.
 You can choose to deny users their ability to choose their own icon set. Keep in
 mind that users will only be able to choose from the installed icon sets either
 way, and cannot upload or use their own custom icons on your site.
+
+In addition to a set of map markers, you can select a set of species markers,
+which are displayed in place of the standard grass "encounter" icon when the
+species rewarded by a research task is unambiguous and known. When the species
+rewarded by a research task is ambiguous or unknown, the encounter icon is
+displayed instead. FreeField comes with one species set by default; this can be
+configured from the same place as the standard map markers under the "Map
+markers" heading of the "Appearance" section in the administration pages.

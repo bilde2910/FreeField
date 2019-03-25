@@ -188,7 +188,8 @@ $("#add-poi-submit").on("click", function() {
         before the script can proceed from here. Display a loading animation
         while we wait for the call to complete.
     */
-    $("#add-poi-working").fadeIn(150);
+    $("#poi-working-text").text(resolveI18N("poi.add.processing"));
+    $("#poi-working-spinner").fadeIn(150);
     $.ajax({
         url: "./api/poi.php",
         type: "PUT",
@@ -211,7 +212,13 @@ $("#add-poi-submit").on("click", function() {
                 mapClickHandlerActive = false;
                 spawnBanner("success", resolveI18N("poi.add.success", poiName));
                 $("#add-poi-details").fadeOut(150);
-                $("#add-poi-working").fadeOut(150);
+                $("#poi-working-spinner").fadeOut(150);
+
+                /*
+                    Update the marker clustering prioritization list.
+                */
+                haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+                updateVisiblePOIs();
             }
         }
     }).fail(function(xhr) {
@@ -231,7 +238,7 @@ $("#add-poi-submit").on("click", function() {
             poiName,
             reason
         ));
-        $("#add-poi-working").fadeOut(150);
+        $("#poi-working-spinner").fadeOut(150);
         /*
             Re-enable the submit button that was previously disabled, to allow
             the user to make more attempts at adding the POI once the submission
@@ -327,8 +334,116 @@ function dismiss(node) {
 */
 function resolveIconUrl(icon) {
     var variant = settings.get("theme");
-    var url = iconSets[settings.get("iconSet")][icon].split("{%variant%}").join(variant);
+    var set = settings.get("iconSet");
+    var url = iconSets[set][icon].split("{%variant%}").join(variant);
     return url;
+}
+
+/*
+    Gets an image URL for the given species, i.e. marker. This takes into
+    account the theme that the user has selected.
+
+    The URL may contain the {%variant%} token, which indicates that the icon
+    supports several different color variants. {%variant%}, if present, will be
+    replaced with `variant` ("light" or "dark") to get the correct variant based
+    on the color theme selected by the user in their local settings.
+*/
+function resolveSpeciesUrl(icon) {
+    var variant = settings.get("theme");
+    var set = isc_opts.species.themedata[settings.get("speciesSet")]["data"];
+    var fetchPath = isc_opts.species.themedata[settings.get("speciesSet")]["path"];
+
+    /*
+        Try to determine the range of icons in the icon set in which the species
+        icon can be found.
+    */
+    var range = null;
+    for (var key in set) {
+        if (!set.hasOwnProperty(key)) continue;
+        if (key == "range" || key.startsWith("range")) {
+            if (
+                set[key]["range_start"] <= icon &&
+                set[key]["range_end"] >= icon
+            ) {
+                range = set[key];
+                break;
+            }
+        }
+    }
+
+    /*
+        If no matching range was found, try the "default" section.
+    */
+    if (range == null) {
+        for (var key in set) {
+            if (!set.hasOwnProperty(key)) continue;
+            if (key == "default") {
+                range = set[key];
+                break;
+            }
+        }
+    }
+
+    /*
+        Create an URL for the species marker.
+    */
+    var uri = isc_opts.species.baseuri
+            + fetchPath
+            + settings.get("speciesSet")
+            + "/";
+
+    if (range.hasOwnProperty("vector")) {
+        uri += range.vector.split("{%n%}").join(icon).split("{%variant%}").join(variant);
+    } else if (tdata.hasOwnProperty("raster")) {
+        uri += range.raster.split("{%n%}").join(icon).split("{%variant%}").join(variant);
+    } else {
+        uri = null;
+    }
+    return uri;
+}
+
+/*
+    This function updates the "last update" paragraph on the POI details panel.
+    It takes an object as argument that contains elements `on` with a timestamp,
+    as well as an optional `by` object with the `nick` and `color` of the last
+    updating user.
+*/
+function setLastUpdate(updated) {
+    /*
+        Update the "last updated time" display label.
+    */
+    $("#poi-last-time").text(resolveI18N(
+        "poi.last.time",
+        new Date(updated.on * 1000).toLocaleDateString(currentLanguage, {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric"
+        })
+    ));
+    /*
+        Check if the current user has permission to view who last updated the
+        research task. If so, show the nickname and color of the user in
+        question; otherwise, hide it.
+    */
+    if (updated.hasOwnProperty("by")) {
+        $("#poi-last-user-text").html(
+            encodeHTML(resolveI18N("poi.last.user")).split("{%1}").join(
+                $("<span>")
+                    .css({
+                        "font-weight": "bold",
+                        "color": updated.by.color
+                    })
+                    .text(updated.by.nick)
+                    .prop("outerHTML")
+            )
+        );
+        $("#poi-last-user-box").show();
+    } else {
+        $("#poi-last-user-box").hide();
+    }
 }
 
 /*
@@ -338,49 +453,98 @@ function resolveIconUrl(icon) {
     /api/poi.php.
 */
 function addMarkers(markers) {
+    /*
+        Add some basic display properties to the marker, then add it to the
+        global `pois` array for easy properties lookup from elsewhere in the
+        script.
+    */
     markers.forEach(function(marker) {
+        marker["elementId"] = "dynamic-marker-" + marker.id;
+        marker["visible"] = false;
+        pois[marker.id] = marker;
+    });
+
+    /*
+        Check if the POI is in bounds of the current map area. If so, add it to
+        the queue for element creation and rendering on the map.
+    */
+    var inBounds = [];
+    markers.forEach(function(marker) {
+        if (shouldBeVisibleOnMap(marker)) inBounds.push(marker.id);
+    });
+
+    /*
+        Check that the number of POIs does not exceed the amount allowed on the
+        map at the same time. If it does, create a prioritized list of POIs to
+        add and drop the rest from being displayed for now.
+    */
+    var visibleLimit = parseInt(settings.get("clusteringLimit"));
+    var visibleIDs;
+    updateHiddenPOIsBanner(inBounds.length - visibleLimit, inBounds.length);
+    if (inBounds.length > visibleLimit) {
+        visibleIDs = prioritizePOIsForClustering(inBounds, visibleLimit);
+    } else {
+        visibleIDs = inBounds;
+    }
+    visibleIDs.sort(function(a, b) {
+        return a - b;
+    });
+
+    /*
+        Loop over the IDs of all POIs that should be displayed on the map, and
+        set those POIs visible (rendering queue):
+    */
+    visibleIDs.forEach(function(id) {
         /*
             Create a marker element. This is the element that is displayed on
             the map itself and is rendered with the relevant icon to indicate
             the currently active field research on the POI.
         */
         var e = document.createElement("div");
-        e.id = "dynamic-marker-" + marker.id;
+        e.id = "dynamic-marker-" + id;
         e.className =
             // Basic map marker class
             "marker "
 
             // Render the icon for the current research active on the POI
-            + marker[settings.get("markerComponent")].type + " "
+            + pois[id][settings.get("markerComponent")].type + " "
 
             // Set the color theme of the markers depending on the map style
             + styleMap[settings.get("mapProvider")][settings.get("mapStyle-"+settings.get("mapProvider"))] + " "
 
             // Set the icon set from which marker icons are fetched
-            + settings.get("iconSet");
+            + settings.get("iconSet") + " "
 
-        marker["elementId"] = e.id;
+            // Set the species set from which species icons are fetched
+            + settings.get("speciesSet");
+
+        /*
+            Add the reward species if encounter reward, if known.
+        */
+        if (
+            settings.get("markerComponent") == "reward" &&
+            pois[id].reward.type == "encounter" &&
+            pois[id].reward.params.hasOwnProperty("species") &&
+            pois[id].reward.params.species.length == 1
+        ) {
+            e.className += " sp-" + pois[id].reward.params.species[0];
+        }
+        pois[id]["elementId"] = e.id;
 
         /*
             Add the marker to the map itself. Get a reference to the marker
             object itself, in case it has to be updated later.
         */
-        var implMarkerObj = MapImpl.addMarker(e, marker.latitude, marker.longitude,
+        var implMarkerObj = MapImpl.addMarker(e, pois[id].latitude, pois[id].longitude,
             function(markerObj) {
-                openMarker(markerObj, marker.id);
+                openMarker(markerObj, id);
             }, function(markerObj) {
                 closeMarker(markerObj);
             },
-            marker[settings.get("markerComponent")].type
+            pois[id][settings.get("markerComponent")].type
         );
-        marker["implObject"] = implMarkerObj;
-
-        /*
-            Add the marker to the global `pois` array for easy properties lookup
-            from elsewhere in the script.
-        */
-        pois[marker.id] = marker;
-
+        pois[id].visible = true;
+        pois[id]["implObject"] = implMarkerObj;
     });
 }
 
@@ -389,9 +553,14 @@ function addMarkers(markers) {
     This function is called periodically to ensure that the markers displayed on
     the map are up to date.
 */
+var lastRefresh = 0;
 function refreshMarkers() {
-    $.getJSON("./api/poi.php", function(data) {
+    var curTime = Math.floor(Date.now() / 1000);
+    var url = "./api/poi.php?updatedSince=" + (lastRefresh - curTime);
+    lastRefresh = curTime;
+    $.getJSON(url, function(data) {
         var markers = data["pois"];
+        var ids = data["id_list"];
 
         markers.forEach(function(marker) {
             /*
@@ -418,16 +587,44 @@ function refreshMarkers() {
             var newObjective = marker.objective.type;
             var newReward = marker.reward.type;
 
+            var markerHtml = $("#" + oldMarker.elementId);
+
             switch (settings.get("markerComponent")) {
                 case "reward":
-                    if ($("#" + oldMarker.elementId).hasClass(oldReward)) {
-                        $("#" + oldMarker.elementId).removeClass(oldReward).addClass(newReward);
+                    /*
+                        Replace the reward marker.
+                    */
+                    if (markerHtml.hasClass(oldReward)) {
+                        markerHtml.removeClass(oldReward).addClass(newReward);
                         MapImpl.updateMarker(oldMarker.implObject, oldReward, newReward);
+                    }
+                    /*
+                        If the reward marker is an encounter, see if a species
+                        class has been defined. If so, remove it.
+                    */
+                    var cls;
+                    if (oldReward == "encounter" && (cls = markerHtml.attr("class").match(/\bsp-\d+\b/))) {
+                        markerHtml.removeClass(cls[0]);
+                    }
+                    /*
+                        If a singular species is available as reward from the
+                        research task, replace the marker with an icon for the
+                        species in question.
+                    */
+                    if (
+                        newReward == "encounter" &&
+                        marker.reward.params.hasOwnProperty("species") &&
+                        marker.reward.params.species.length == 1
+                    ) {
+                        markerHtml.addClass("sp-" + marker.reward.params.species[0]);
                     }
                     break;
                 case "objective":
-                    if ($("#" + oldMarker.elementId).hasClass(oldObjective)) {
-                        $("#" + oldMarker.elementId).removeClass(oldObjective).addClass(newObjective);
+                    /*
+                        Replace the objective marker.
+                    */
+                    if (markerHtml.hasClass(oldObjective)) {
+                        markerHtml.removeClass(oldObjective).addClass(newObjective);
                         MapImpl.updateMarker(oldMarker.implObject, oldObjective, newObjective);
                     }
                     break;
@@ -440,9 +637,22 @@ function refreshMarkers() {
             */
             if (marker.id == currentMarker) {
                 $("#poi-objective-icon").attr("src", resolveIconUrl(marker.objective.type));
-                $("#poi-reward-icon").attr("src", resolveIconUrl(marker.reward.type));
+                if (
+                    /*
+                        If a single encounter species is known, display the icon of that
+                        species instead of the generic encounter reward icon.
+                    */
+                    marker.reward.type == "encounter" &&
+                    marker.reward.params.hasOwnProperty("species") &&
+                    marker.reward.params.species.length == 1
+                ) {
+                    $("#poi-reward-icon").attr("src", resolveSpeciesUrl(marker.reward.params.species[0]));
+                } else {
+                    $("#poi-reward-icon").attr("src", resolveIconUrl(marker.reward.type));
+                }
                 $("#poi-objective").text(resolveObjective(marker.objective));
                 $("#poi-reward").text(resolveReward(marker.reward));
+                setLastUpdate(marker.updated);
             }
 
             /*
@@ -477,11 +687,12 @@ function refreshMarkers() {
             POIs can be deleted. If any locally stored POIs no longer exist,
             remove the relevant markers from the map. To do this, search
         */
+        var removed = false;
         for (var i = 0; i < pois.length; i++) {
             if (pois[i] != null) {
                 var exists = false;
-                for (var j = 0; j < markers.length; j++) {
-                    if (pois[i].id == markers[j].id) {
+                for (var j = 0; j < ids.length; j++) {
+                    if (pois[i].id == ids[j]) {
                         exists = true;
                         break;
                     }
@@ -489,8 +700,17 @@ function refreshMarkers() {
                 if (!exists) {
                     MapImpl.removeMarker(pois[i].implObject);
                     pois[i] = null;
+                    removed = true;
                 }
             }
+        }
+
+        /*
+            Update the marker clustering prioritization list.
+        */
+        if (markers.length > 0 || removed) {
+            haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+            updateVisiblePOIs();
         }
     }).fail(function(xhr) {
         /*
@@ -513,53 +733,13 @@ $(document).ready(function() {
         displayed. This is done after page load to ensure that all required DOM
         elements have loaded first.
     */
+    lastRefresh = Math.floor(Date.now() / 1000);
     $.getJSON("./api/poi.php", function(data) {
         addMarkers(data["pois"]);
         /*
             Handle deep-linking via URL hashes.
         */
-        var hashFound = false;
-        if (location.hash.length >= 2) {
-            if (location.hash.startsWith("#/poi/")) {
-                /*
-                    The link has a POI ID. Open the ID listed in the URL.
-                */
-                var poiId = location.hash.substring("#/poi/".length);
-                if (poiId.indexOf("/") >= 0) {
-                    poiId = poiId.substring(0, poiId.indexOf("/"));
-                }
-                /*
-                    If the POI is found, open it, otherwise, reset the hash back
-                    to the main map view ("#/").
-                */
-                poiId = parseInt(poiId);
-                if (!isNaN(poiId) && poiId >= 0 && poiId < pois.length) {
-                    var poi = pois[poiId];
-                    if (poi != null && poi.hasOwnProperty("elementId")) {
-                        hashFound = true;
-                        MapImpl.simulatePOIClick(poi);
-                    }
-                }
-            } else if (location.hash.startsWith("#/settings")) {
-                /*
-                    The link points directly to the user settings page.
-                */
-                hashFound = true;
-                $("#menu-open-settings").trigger("click");
-            }
-        }
-
-        /*
-            If no handler for the current URL was successful, reset the hash
-            value back to the default map view URL ("#/").
-        */
-        if (false && !hashFound) {
-            if (history.replaceState) {
-                history.replaceState(null, null, "#/");
-            } else {
-                location.hash = "#/";
-            }
-        }
+        handleDeepLinking();
     }).fail(function(xhr) {
         /*
             If the request failed, then the user should be informed of the
@@ -581,7 +761,348 @@ $(document).ready(function() {
             refreshMarkers();
         }, autoRefreshInterval);
     });
-})
+});
+
+function updateHiddenPOIsBanner(hidden, total) {
+    if (hidden > 0) {
+        $("#clustering-active-count").text(hidden);
+        $("#clustering-active-total").text(total);
+        $("#clustering-active-banner").show();
+    } else {
+        $("#clustering-active-banner").hide();
+    }
+}
+
+/*
+    Checks whether or not the given POI is within the visible area of the map
+    and has a research task that matches filters, if any.
+*/
+function shouldBeVisibleOnMap(poi) {
+    /*
+        Check whether the POI has research that matches filters.
+    */
+    if (filterMode == "unknown") {
+        if (poi.objective.type != "unknown" || poi.reward.type != "unknown") {
+            return false;
+        }
+    } else if (filterObjective != "any" || filterReward != "any") {
+        var shouldMatch = filterMode == "only";
+        if (filterObjective != "any") {
+            if ((poi.objective.type == filterObjective) != shouldMatch) return false;
+        }
+        if (filterReward != "any") {
+            if ((poi.reward.type == filterReward) != shouldMatch) return false;
+        }
+    }
+    /*
+        Get the bounding coordinates of the currently displayed portion of the
+        map.
+    */
+    var bounds = MapImpl.getBounds();
+    /*
+        Calculate the degree density (degrees per pixel) for latitude and
+        longitude, and multiply this by half the size of a marker (50px) to push
+        the rendering boundary 25 pixels off all edges of the map. This ensures
+        that markers which are visible, but whose center point is out of bounds,
+        still display the portion that are within bounds of the map.
+    */
+    var latOffset = (bounds.north - bounds.south) / $("#map").height() * 25;
+    var lonOffset = (bounds.east - bounds.west) / $("#map").width() * 25;
+    /*
+        Add the offsets to the boundaries.
+    */
+    bounds.north += latOffset;
+    bounds.south -= latOffset;
+    bounds.east += lonOffset;
+    bounds.west -= lonOffset;
+    /*
+        Return whether or not the POI is within bounds of the map and should be
+        displayed.
+    */
+    return (
+        poi.latitude > bounds.south &&
+        poi.latitude < bounds.north &&
+        poi.longitude > bounds.west &&
+        poi.longitude < bounds.east
+    );
+}
+
+/*
+    Returns an array of all POIs' IDs. The IDs correspond to their position in
+    the `pois` array.
+*/
+function getIDsOfAllPOIs() {
+    var ids = [];
+    for (var i = 0; i < pois.length; i++) {
+        /*
+            Ignore POIs in the array that do not exist.
+        */
+        if (typeof pois[i] == 'undefined' || pois[i] == null) continue;
+        ids.push(i);
+    }
+    return ids;
+}
+
+/*
+    In order to improve the performance of the map, particularly on low-power
+    mobile devices, clustering has been implemented that prevents an excessive
+    number of POIs from being displayed on the map at the same time. In order to
+    determine which POIs to display, a prioritization algorithm must be
+    implemented that selects and drops POIs from the map, taking into account
+    the proximity of all POIs to each other, as well as whether or not there is
+    research of interest active on the POI.
+
+    This function takes a list of POI ID candidates for display, as well as a
+    limit to how many should actually be shown on the map. `haversineList`
+    contains a cached list of POI ID/weight value pairs to save processing
+    power for repeated uses of the list. This list is populated on first run of
+    the function below, and regenerated periodically when POIs are updated on
+    the map.
+*/
+var haversineList = [];
+function prioritizePOIsForClustering(idList, limit) {
+    /*
+        If the cache is empty, populate it.
+    */
+    if (!haversineList.length) haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+    /*
+        Create an array of IDs that should be returned for display. Limit this
+        array to `limit` items, and ensure that each POI that is added is part
+        of the requested `idList` of candidates.
+    */
+    var returnedIDs = [];
+    var returnCount = 0;
+    for (var i = 0; returnCount < limit && i < haversineList.length; i++) {
+        for (var j = 0; j < idList.length; j++) {
+            if (haversineList[i][0] == idList[j]) {
+                returnedIDs.push(haversineList[i][0]);
+                returnCount++;
+            }
+        }
+    }
+    return returnedIDs;
+}
+
+/*
+    This function generates the POI weights list based on all POIs available to
+    add to the map. It focuses particuarly on including POIs with active
+    research on them, giving them a higher score to ensure most of them are
+    displayed on the map even though they may be close to each other.
+*/
+function getPOIHaversineDistances(idList) {
+    /*
+        Weight multiplier to use for POIs with active research.
+    */
+    var RESEARCH_WEIGHT_MULTIPLIER = 5;
+    /*
+        Placeholder weight, set to an unrealistic weight value to ensure it does
+        not collide with any actual weight values.
+    */
+    var DEFAULT_WEIGHT = 10;
+    /*
+        The prioritized list of POI IDs.
+    */
+    var priorityList = [];
+    /*
+        A list of POIs for separate processing.
+    */
+    var reportedList = [];
+
+    for (var i = 0; i < idList.length; i++) {
+        /*
+            In the first run, we will only calculate the weights of POIs which
+            do not have active research on them. POIs with research are pushed
+            into a queue for separate weight calculation.
+        */
+        if (pois[idList[i]].objective.type != "unknown") {
+            reportedList.push(i);
+            continue;
+        }
+        /*
+            Calculate the Haversine distances between this POI and all other
+            POIs before it in the list, and set the weight of the POI in the
+            priority list to the lowest of these distances.
+        */
+        var distance, weight = DEFAULT_WEIGHT;
+        for (var j = 0; j < i; j++) {
+            distance = distanceHaversine(pois[idList[i]], pois[idList[j]]);
+            if (distance < weight) weight = distance;
+        }
+        /*
+            In the event that this POI was the first in the list, there will not
+            be a weight set for the POI above. Set it to a reasonable default.
+        */
+        if (weight == DEFAULT_WEIGHT) weight = 0.00001;
+        /*
+            Push the calculated weight onto the priority list.
+        */
+        priorityList.push([idList[i], weight]);
+    }
+    /*
+        After the list of POIs with no active research has been processed,
+        perform processing for the remaining POIs with highly beneficial
+        weights. This ensures that POIs with research active on them are always
+        displayed even though it would otherwise have been hidden due to
+        proximity to other POIs.
+    */
+    for (var i = 0; i < reportedList.length; i++) {
+        var distance, weight = DEFAULT_WEIGHT;
+        for (var j = 0; j < i; j++) {
+            distance = distanceHaversine(pois[idList[reportedList[i]]], pois[idList[reportedList[j]]]);
+            if (distance < weight) weight = distance;
+        }
+        if (weight == DEFAULT_WEIGHT) weight = 0.0001;
+        /*
+            Multiply the weight with a multiplier to allow much tighter
+            clustering than POIs with unknown research.
+        */
+        weight *= RESEARCH_WEIGHT_MULTIPLIER;
+        priorityList.push([idList[reportedList[i]], weight]);
+    }
+    /*
+        Sort the weighted list in order of decreasing weight. POIs at the end of
+        this array will be sliced off when the number of displayed POIs must be
+        limited.
+    */
+    priorityList.sort(function(a, b) {
+        return a[1] < b[1] ? 1 : (a[1] > b[1] ? -1 : 0);
+    });
+    return priorityList;
+}
+
+/*
+    This function calculates the distance between two POIs using the Haversine
+    formula.
+*/
+function distanceHaversine(poi1, poi2) {
+    /*
+        Degrees to radians; π/180
+    */
+    var d2r = 0.017453292519943295;
+    /*
+        Convert latitudes and longitudes to radian form.
+    */
+    var p1lat = poi1.latitude * d2r, p2lat = poi2.latitude * d2r;
+    var p1lon = poi1.longitude * d2r, p2lon = poi2.longitude * d2r;
+    /*
+        Calculate hav(lat2-lat1) and hav(lon2-lon1).
+    */
+    var havLat = Math.sin((p2lat - p1lat) / 2);
+    havLat *= havLat;
+    var havLon = Math.sin((p2lon - p1lon) / 2);
+    havLon *= havLon;
+    /*
+        Calculate Haversine distance `d`.
+    */
+    var hav = havLat + Math.cos(p1lat) * Math.cos(p2lat) * havLon;
+    var d = Math.asin(Math.sqrt(hav));
+    return d;
+}
+
+/*
+    This function calculates the bearing from one location/POI to another in
+    degrees.
+*/
+function getBearingDegrees(from, to) {
+    /*
+        Degrees to radians; π/180
+    */
+    var d2r = 0.017453292519943295;
+    /*
+        Convert latitudes and longitudes to radian form.
+    */
+    var fromLat = from.latitude * d2r, toLat = to.latitude * d2r;
+    var fromLon = from.longitude * d2r, toLon = to.longitude * d2r;
+    /*
+        Calculation code by krishnar from
+        https://stackoverflow.com/a/52079217
+    */
+    var x = Math.cos(fromLat) * Math.sin(toLat)
+          - Math.sin(fromLat) * Math.cos(toLat) * Math.cos(toLon - fromLon);
+    var y = Math.sin(toLon - fromLon) * Math.cos(toLat);
+    var heading = Math.atan2(y, x) / d2r;
+    /*
+        Normalize degrees result to a positive number.
+    */
+    return (heading + 360) % 360;
+}
+
+/*
+    Handle deep-linking via URL hashes.
+*/
+$(window).on("hashchange", function() {
+    handleDeepLinking();
+});
+
+function handleDeepLinking() {
+    if (location.hash == "#/") return;
+    var hashFound = false;
+    if (location.hash.length >= 2) {
+        if (location.hash.startsWith("#/poi/")) {
+            /*
+                Ignore this if a POI is already open (otherwise, there will be
+                lots of conflicts with duplicate event handlers from open POIs).
+            */
+            if (currentMarker != -1) return;
+            /*
+                The link has a POI ID. Open the ID listed in the URL.
+            */
+            var poiId = location.hash.substring("#/poi/".length);
+            if (poiId.indexOf("/") >= 0) {
+                poiId = poiId.substring(0, poiId.indexOf("/"));
+            }
+            /*
+                If the POI is found, open it, otherwise, reset the hash back
+                to the main map view ("#/").
+            */
+            poiId = parseInt(poiId);
+            if (!isNaN(poiId) && poiId >= 0 && poiId < pois.length) {
+                var poi = pois[poiId];
+                if (poi != null && poi.hasOwnProperty("elementId")) {
+                    hashFound = true;
+                    MapImpl.simulatePOIClick(poi);
+                }
+            }
+        } else if (location.hash.startsWith("#/show/poi/")) {
+            /*
+                The link has a POI ID. Pan the map to its location.
+            */
+            var poiId = location.hash.substring("#/show/poi/".length);
+            if (poiId.indexOf("/") >= 0) {
+                poiId = poiId.substring(0, poiId.indexOf("/"));
+            }
+            /*
+                If the POI is found, pan to it, then reset the hash back to
+                the main map view ("#/").
+            */
+            poiId = parseInt(poiId);
+            if (!isNaN(poiId) && poiId >= 0 && poiId < pois.length) {
+                var poi = pois[poiId];
+                if (poi != null && poi.hasOwnProperty("elementId")) {
+                    MapImpl.panTo(poi.latitude, poi.longitude);
+                }
+            }
+        } else if (location.hash.startsWith("#/settings")) {
+            /*
+                The link points directly to the user settings page.
+            */
+            hashFound = true;
+            $("#menu-open-settings").trigger("click");
+        }
+    }
+
+    /*
+        If no handler for the current URL was successful, reset the hash
+        value back to the default map view URL ("#/").
+    */
+    if (!hashFound) {
+        if (history.replaceState) {
+            history.replaceState(null, null, "#/");
+        } else {
+            location.hash = "#/";
+        }
+    }
+}
 
 /*
     Whenever a marker is clicked on the map, this function is called with the
@@ -621,9 +1142,22 @@ function openMarker(markerObj, id) {
     var poiObj = pois[id];
     $("#poi-name").text(poiObj.name);
     $("#poi-objective-icon").attr("src", resolveIconUrl(poiObj.objective.type));
-    $("#poi-reward-icon").attr("src", resolveIconUrl(poiObj.reward.type));
+    if (
+        /*
+            If a single encounter species is known, display the icon of that
+            species instead of the generic encounter reward icon.
+        */
+        poiObj.reward.type == "encounter" &&
+        poiObj.reward.params.hasOwnProperty("species") &&
+        poiObj.reward.params.species.length == 1
+    ) {
+        $("#poi-reward-icon").attr("src", resolveSpeciesUrl(poiObj.reward.params.species[0]));
+    } else {
+        $("#poi-reward-icon").attr("src", resolveIconUrl(poiObj.reward.type));
+    }
     $("#poi-objective").text(resolveObjective(poiObj.objective));
     $("#poi-reward").text(resolveReward(poiObj.reward));
+    setLastUpdate(poiObj.updated);
 
     /*
         Add event handlers to the directions and close buttons.
@@ -803,14 +1337,15 @@ function openMarker(markerObj, id) {
                     the user that the POI is being moved.
                 */
                 disableAddMovePOI(true);
-                $("#move-poi-working").fadeIn(150);
+                $("#poi-working-text").text(resolveI18N("poi.move.processing"));
+                $("#poi-working-spinner").fadeIn(150);
                 $.ajax({
                     url: "./api/poi.php",
                     type: "PATCH",
                     dataType: "json",
                     data: JSON.stringify({
                         id: poiObj.id,
-                        moveTo: {
+                        move_to: {
                             latitude: lat,
                             longitude: lon
                         }
@@ -832,7 +1367,12 @@ function openMarker(markerObj, id) {
                                 moved, and then close the waiting popup.
                             */
                             spawnBanner("success", resolveI18N("poi.move.success"));
-                            $("#move-poi-working").fadeOut(150);
+                            $("#poi-working-spinner").fadeOut(150);
+
+                            /*
+                                Update the marker clustering prioritization list.
+                            */
+                            haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
                         }
                     }
                 }).fail(function(xhr) {
@@ -847,9 +1387,150 @@ function openMarker(markerObj, id) {
                         reason = resolveI18N("xhr.failed.reason." + data["reason"]);
                     }
                     spawnBanner("failed", resolveI18N("poi.move.failed.message", reason));
-                    $("#move-poi-working").fadeOut(150);
+                    $("#poi-working-spinner").fadeOut(150);
                 });
             });
+        });
+        /*
+            Event handler for the "Rename POI" button. When clicked, this button
+            starts the process for renaming a POI on the map.
+        */
+        $("#poi-rename").on("click", function() {
+            var newName = prompt(resolveI18N("poi.rename.prompt"), poiObj.name);
+            if (newName != null && newName.trim() != "") {
+                MapImpl.closeMarker(markerObj);
+                /*
+                    Since we're initiating a request to the server, display a
+                    "working" spinner popup to visually invidate to the user
+                    that the POI is being renamed.
+                */
+                $("#poi-working-text").text(resolveI18N("poi.rename.processing"));
+                $("#poi-working-spinner").fadeIn(150);
+                newName = newName.trim();
+                $.ajax({
+                    url: "./api/poi.php",
+                    type: "PATCH",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        id: poiObj.id,
+                        rename_to: newName
+                    }),
+                    statusCode: {
+                        204: function(data) {
+                            /*
+                                If the request was successful, update the
+                                instance of the object in `pois` with the new
+                                name.
+                            */
+                            poiObj.name = newName;
+
+                            /*
+                                Let the user know that the POI was successfully
+                                moved, and then close the waiting popup.
+                            */
+                            spawnBanner("success", resolveI18N("poi.rename.success"));
+                            $("#poi-working-spinner").fadeOut(150);
+                        }
+                    }
+                }).fail(function(xhr) {
+                    /*
+                        If the update request failed, then the user should be
+                        informed of the reason with a red banner.
+                    */
+                    var data = xhr.responseJSON;
+                    var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+                    if (data !== undefined && data.hasOwnProperty("reason")) {
+                        reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+                    }
+                    spawnBanner("failed", resolveI18N("poi.rename.failed.message", reason));
+                    $("#poi-working-spinner").fadeOut(150);
+                });
+            };
+        });
+        /*
+            Event handler for the "Clear POI research" button. When clicked,
+            this button starts the process for resetting the current research
+            task for one POI on the map.
+        */
+        $("#poi-clear").on("click", function() {
+            if (confirm(resolveI18N("poi.clear.confirm"))) {
+                MapImpl.closeMarker(markerObj);
+                /*
+                    Since we're initiating a request to the server, display a
+                    "working" spinner popup to visually invidate to the user
+                    that the POI is being renamed.
+                */
+                $("#poi-working-text").text(resolveI18N("poi.clear.processing"));
+                $("#poi-working-spinner").fadeIn(150);
+                $.ajax({
+                    url: "./api/poi.php",
+                    type: "PATCH",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        id: poiObj.id,
+                        reset_research: true
+                    }),
+                    statusCode: {
+                        204: function(data) {
+                            /*
+                                If the request was successful, update the
+                                display of the marker on the map to show the
+                                updated research task. Also update the instance
+                                of the object in `pois` with the new research
+                                task.
+                            */
+                            var objective = "unknown";
+                            var reward = "unknown";
+                            var oldObjective = poiObj.objective.type;
+                            var oldReward = poiObj.reward.type;
+
+                            switch (settings.get("markerComponent")) {
+                                case "reward":
+                                    if ($("#" + poiObj.elementId).hasClass(oldReward)) {
+                                        $("#" + poiObj.elementId).removeClass(oldReward).addClass(reward);
+                                        MapImpl.updateMarker(poiObj.implObject, oldReward, reward);
+                                    }
+                                    break;
+                                case "objective":
+                                    if ($("#" + poiObj.elementId).hasClass(oldObjective)) {
+                                        $("#" + poiObj.elementId).removeClass(oldObjective).addClass(objective);
+                                        MapImpl.updateMarker(poiObj.implObject, oldObjective, objective);
+                                    }
+                                    break;
+                            }
+                            poiObj.objective = {
+                                type: objective,
+                                params: []
+                            };
+                            poiObj.reward = {
+                                type: reward,
+                                params: []
+                            };
+
+                            /*
+                                Let the user know that the POI was successfully
+                                moved, and then close the waiting popup.
+                            */
+                            spawnBanner("success", resolveI18N("poi.clear.success"));
+                            $("#poi-working-spinner").fadeOut(150);
+                        }
+                    }
+                }).fail(function(xhr) {
+                    /*
+                        If the update request failed, then the user should be
+                        informed of the reason with a red banner.
+                    */
+                    var data = xhr.responseJSON;
+                    var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+                    if (data !== undefined && data.hasOwnProperty("reason")) {
+                        reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+                    }
+                    spawnBanner("failed", resolveI18N("poi.clear.failed.message", reason));
+                    $("#poi-working-spinner").fadeOut(150);
+                });
+            };
         });
         /*
             Event handler for the "Delete POI" button. When clicked, this button
@@ -863,7 +1544,8 @@ function openMarker(markerObj, id) {
                     "working" spinner popup to visually invidate to the user
                     that the POI is being deleted.
                 */
-                $("#delete-poi-working").fadeIn(150);
+                $("#poi-working-text").text(resolveI18N("poi.delete.processing"));
+                $("#poi-working-spinner").fadeIn(150);
                 $.ajax({
                     url: "./api/poi.php",
                     type: "DELETE",
@@ -884,7 +1566,12 @@ function openMarker(markerObj, id) {
                                 moved, and then close the waiting popup.
                             */
                             spawnBanner("success", resolveI18N("poi.delete.success"));
-                            $("#delete-poi-working").fadeOut(150);
+                            $("#poi-working-spinner").fadeOut(150);
+
+                            /*
+                                Update the marker clustering prioritization list.
+                            */
+                            haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
                         }
                     }
                 }).fail(function(xhr) {
@@ -899,7 +1586,7 @@ function openMarker(markerObj, id) {
                         reason = resolveI18N("xhr.failed.reason." + data["reason"]);
                     }
                     spawnBanner("failed", resolveI18N("poi.delete.failed.message", reason));
-                    $("#delete-poi-working").fadeOut(150);
+                    $("#poi-working-spinner").fadeOut(150);
                 });
             }
         });
@@ -991,11 +1678,12 @@ function openMarker(markerObj, id) {
 
             Since updating the research requires a call to the server, the task
             doesn't complete immediately, thus a "processing" indicator
-            (`#update-poi-working`) should be displayed to the user to let them
+            (`#poi-working-spinner`) should be displayed to the user to let them
             know that the research update call is in progress.
         */
         $("#update-poi-submit").prop("disabled", true);
-        $("#update-poi-working").fadeIn(150);
+        $("#poi-working-text").text(resolveI18N("poi.update.processing"));
+        $("#poi-working-spinner").fadeIn(150);
         $.ajax({
             url: "./api/poi.php",
             type: "PATCH",
@@ -1078,7 +1766,13 @@ function openMarker(markerObj, id) {
                     spawnBanner("success", resolveI18N("poi.update.success", poiObj.name));
                     MapImpl.closeMarker(markerObj);
                     $("#update-poi-details").fadeOut(150);
-                    $("#update-poi-working").fadeOut(150);
+                    $("#poi-working-spinner").fadeOut(150);
+
+                    /*
+                        Update the marker clustering prioritization list.
+                    */
+                    haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+                    updateVisiblePOIs();
                 }
             }
         }).fail(function(xhr) {
@@ -1093,7 +1787,7 @@ function openMarker(markerObj, id) {
                 reason = resolveI18N("xhr.failed.reason." + data["reason"]);
             }
             spawnBanner("failed", resolveI18N("poi.update.failed.message", reason));
-            $("#update-poi-working").fadeOut(150);
+            $("#poi-working-spinner").fadeOut(150);
             $("#update-poi-submit").prop("disabled", false);
         });
     });
@@ -1136,6 +1830,8 @@ function closeMarker(markerObj) {
         }
 
         $("#poi-move").off();
+        $("#poi-rename").off();
+        $("#poi-clear").off();
         $("#poi-delete").off();
         $("#poi-directions").off();
         $("#poi-close").off();
@@ -1167,6 +1863,336 @@ $("#update-poi-cancel").on("click", function() {
     $("#update-poi-details").hide();
     $("#poi-details").show();
 });
+
+/*
+    This function is a map update handler. It is called whenever the map is
+    zoomed or panned and is responsible for updating the list of POIs that are
+    currently visible on the map. Not all POIs are displayed on the map at once
+    to ensure higher performance on client devices.
+*/
+function updateVisiblePOIs() {
+    var inBounds = [];
+    var visibleLimit = parseInt(settings.get("clusteringLimit"));
+    var idList = getIDsOfAllPOIs();
+    for (var i = 0; i < idList.length; i++) {
+        /*
+            If the POI should be visible, but isn't currently, flag it as
+            visible and add it to the map. Inversely, if the POI is currently
+            visible, but shouldn't be, remove it from the map to save resources.
+        */
+        if (shouldBeVisibleOnMap(pois[idList[i]])) {
+            inBounds.push(idList[i]);
+        } else if (pois[idList[i]].visible) {
+            pois[idList[i]].visible = false;
+            MapImpl.removeMarker(pois[idList[i]].implObject);
+        }
+    }
+
+    /*
+        Check that the number of POIs does not exceed the amount allowed on the
+        map at the same time. If it does, create a prioritized list of POIs to
+        add and drop the rest from being displayed for now.
+    */
+    var visibleIDs;
+    if (inBounds.length > visibleLimit) {
+        visibleIDs = prioritizePOIsForClustering(inBounds, visibleLimit);
+    } else {
+        visibleIDs = inBounds;
+    }
+    visibleIDs.sort(function(a, b) {
+        return a - b;
+    });
+
+    /*
+        Flag each POI as visible or hidden, and add or remove it from the map
+        appropriately.
+    */
+    for (var i = 0, j = 0; i < inBounds.length; i++) {
+        var poiId = inBounds[i];
+        if (j < visibleIDs.length && poiId == visibleIDs[j]) {
+            j++;
+            if (!pois[poiId].visible) {
+                pois[poiId].visible = true;
+                addMarkers([pois[poiId]]);
+            }
+        } else if (pois[poiId].visible) {
+            pois[poiId].visible = false;
+            MapImpl.removeMarker(pois[poiId].implObject);
+        }
+    }
+
+    updateHiddenPOIsBanner(inBounds.length - visibleLimit, inBounds.length);
+}
+
+/*
+    ------------------------------------------------------------------------
+        POI SEARCH
+    ------------------------------------------------------------------------
+*/
+
+/*
+    Current user position. If set to null, coordinates are displayed in the
+    search results, otherwise, direction and distance to each POI are displayed.
+*/
+var currentPos = null;
+
+/*
+    Radius of the earth in kilometers, for distance calculations.
+*/
+var EARTH_RADIUS = 6371;
+
+/*
+    If the user clicks on the "locate me" map control before opening search,
+    geolocation does not work properly. To mitigate this, ask for user position
+    as soon as the map loads. This causes geolocation from this script to work
+    properly even after the "locate me" control has been clicked later.
+*/
+$(document).ready(function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function() {});
+    };
+});
+
+/*
+    Event handler for the "Search" setting in the sidebar on the map. When
+    clicked, it displays a popup allowing the user to search for POIs in their
+    proximity.
+*/
+$("#menu-open-search").on("click", function() {
+    currentPos = null;
+    // Pre-populate the search results list.
+    $("#search-overlay-input").trigger("input");
+    // Attempt to use geolocation to show distances to each POI rather than
+    // coordinates.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            // If position is found, re-populate the search results so that it
+            // shows distance instead of coordinates.
+            currentPos = pos.coords;
+            $("#search-overlay-input").trigger("input");
+        });
+    }
+    $("#search-poi").fadeIn(150);
+});
+
+/*
+    Event handler for the close button on the POI search dialog. Hides the
+    dialog when clicked.
+*/
+$("#search-poi-close").on("click", function() {
+    $("#search-poi").fadeOut(150);
+})
+
+/*
+    Event handler for text input in the search field on the POI search dialog.
+    This changes the list of displayed POIs live as the user types.
+*/
+$("#search-overlay-input").on("input", function() {
+    // Get user search query.
+    var query = $(this).val().toLowerCase();
+    // Make a list of candidates that match the search query.
+    var candidates = [];
+    // Get a list of POI IDs to loop over to check for eligibility,
+    var poiIDList = getIDsOfAllPOIs();
+    // Determine whether geolocation is available.
+    var useDistance = currentPos != null;
+
+    for (var i = 0; i < poiIDList.length; i++) {
+        // Do case-insensitive substring search for the query on each POI name.
+        if (pois[poiIDList[i]].name.toLowerCase().indexOf(query) !== -1) {
+            // Create a candidate object with the ID of the POI.
+            var cand = {
+                id: poiIDList[i]
+            };
+            // If geolocation is available, calculate and add the distance from
+            // the user to the POI in question to the object. This is used for
+            // sorting.
+            if (useDistance) {
+                cand.distance = EARTH_RADIUS * 2 * distanceHaversine(
+                    pois[poiIDList[i]],
+                    currentPos
+                );
+            }
+            // Add the candidate to the array.
+            candidates.push(cand);
+        }
+    }
+    // Sort the candidates list by distance (if available) or names
+    // alphanumerically (as fallback).
+    candidates.sort(function(a, b) {
+        if (useDistance) {
+            return a.distance - b.distance;
+        } else {
+            return pois[a.id].name.localeCompare(pois[b.id].name);
+        }
+    });
+    // Add a search result into each of the search result rows on the dialog.
+    $(".search-overlay-result").each(function(idx, e) {
+        if (candidates.length > idx) {
+            // Bind the POI ID to the row for panning if clicked.
+            $(e).attr("data-poi-id", candidates[idx].id);
+            // Update the result row with the data (name, distance, etc.) of the
+            // POI.
+            $(e).find(".search-overlay-name").text(pois[candidates[idx].id].name);
+            if (useDistance) {
+                // If distance is available, show the distance and bearing from
+                // the user to the POI.
+                var distanceKm = candidates[idx].distance.toFixed(2);
+                var bearing = getBearingDegrees(currentPos, pois[candidates[idx].id]);
+                bearing -= 90; // Icon offset (arrow points right)
+                $(e).find(".search-overlay-dir").show();
+                $(e).find(".search-overlay-dir").css(
+                    "transform", "rotate(" + bearing + "deg)"
+                );
+                $(e).find(".search-overlay-loc").text(
+                    resolveI18N("poi.search.distance", distanceKm)
+                );
+            } else {
+                // Otherwise, show coordinate pairs for the POI.
+                $(e).find(".search-overlay-dir").hide();
+                $(e).find(".search-overlay-loc").text(getLocationString(
+                    pois[candidates[idx].id].latitude,
+                    pois[candidates[idx].id].longitude
+                ));
+            }
+            $(e).show();
+        } else {
+            // If there are more result rows than candidates, hide the excess
+            // rows to clean up the list.
+            $(e).hide();
+        }
+    });
+});
+
+/*
+    Event handler for the result rows on the POI search dialog. When clicked,
+    these result rows hide the dialog window and pan the map to the location of
+    the POI that was clicked.
+*/
+$(".search-overlay-result").on("click", function() {
+    $("#search-poi").fadeOut(150);
+    var id = parseInt($(this).attr("data-poi-id"));
+    MapImpl.panTo(pois[id].latitude, pois[id].longitude);
+});
+
+/*
+    Converts a coordinate pair to a coordinate string in DD format. E.g.
+
+        getLocationString(42.63445, -87.12012)
+        ->  "42.6345°N, 87.1201°W"
+
+    `precision` is an optional parameter for specifying the desired precision in
+    number of decimal digits.
+*/
+function getLocationString(lat, lon) {
+    var precision = 4;
+
+    /*
+        `ns` is the I18N token to use for latitude. For positive coordinates,
+        this is the I18N token that corresponds to North. For negative ones, it
+        is the token that corresponds to South. These tokens are resolved with
+        the absolute value of the coordinates to ensure that coordinates are
+        displayed as e.g. "87°W" rather than "-87°E".
+
+        The same applies for `ew`, the longitude I18N token.
+    */
+    var ns = "geo.direction.deg_north";
+    var ew = "geo.direction.deg_east";
+    if (lat < 0) {
+        lat *= -1;
+        ns = "geo.direction.deg_south";
+    }
+    if (lon < 0) {
+        lon *= -1;
+        ew = "geo.direction.deg_west";
+    }
+
+    return resolveI18N(
+        "geo.location.string",
+        resolveI18N(ns, lat.toFixed(precision)),
+        resolveI18N(ew, lon.toFixed(precision))
+    );
+}
+
+/*
+    ------------------------------------------------------------------------
+        RESEARCH FILTERS
+    ------------------------------------------------------------------------
+*/
+
+/*
+    Default filter settings (show all POIs).
+*/
+var filterMode = "only";
+var filterObjective = "any";
+var filterReward = "any";
+
+/*
+    Event handler for the sidebar button responsible for opening the filtering
+    menu. Displays a popup that allows the user to filter research tasks that
+    are of interest to them.
+*/
+$("#menu-open-filters, #corner-filter-link").on("click", function(e) {
+    e.preventDefault();
+
+    /*
+        Set the input options in the dialog to the current filter options.
+    */
+    $("#filter-poi-mode").val(filterMode);
+    $("#filter-poi-objective").val(filterObjective);
+    $("#filter-poi-reward").val(filterReward);
+
+    /*
+        Hides the map and map-specific sidebar items, and shows the filtering
+        popup.
+    */
+    $("#filters-poi").fadeIn(150);
+});
+
+/*
+    Event handler that resets POI filters. This is displayed as the "reset
+    filters" button on the POI filtering dialog. It hides the filtering dialog,
+    resetting the filters.
+*/
+$("#filter-poi-reset").on("click", function() {
+    setFilters("only", "any", "any");
+});
+
+/*
+    Event handler that cancels setting POI filters. This is displayed as the
+    "cancel" button on the POI filtering dialog. It hides the filtering dialog,
+    applying the filters.
+*/
+$("#filter-poi-submit").on("click", function() {
+    setFilters(
+        $("#filter-poi-mode").val(),
+        $("#filter-poi-objective").val(),
+        $("#filter-poi-reward").val()
+    );
+});
+
+function setFilters(fMode, fObjective, fReward) {
+    filterMode = fMode;
+    filterObjective = fObjective;
+    filterReward = fReward;
+    updateVisiblePOIs();
+    /*
+        If filters are active, show a small icon underneath the menu icon and
+        highlight the filters sidebar option to indicate this.
+    */
+    if (
+        filterMode == "unknown" ||
+        filterObjective != "any" ||
+        filterReward != "any"
+    ) {
+        $("#corner-filter-link").show();
+        $("#menu-open-filters").attr("data-active", "1");
+    } else {
+        $("#corner-filter-link").hide();
+        $("#menu-open-filters").attr("data-active", "0");
+    }
+    $("#filters-poi").fadeOut(150);
+}
 
 /*
     ------------------------------------------------------------------------
@@ -1244,6 +2270,9 @@ $("#menu-open-settings").on("click", function(e) {
     */
     if ($("#icon-selector").length > 0) {
         $("#icon-selector").trigger("input");
+    }
+    if ($("#species-selector").length > 0) {
+        $("#species-selector").trigger("input");
     }
 
     /*
@@ -1383,6 +2412,26 @@ if (hasLocalStorageSupport()) {
             settings[keys[i]] = storedSettings[keys[i]];
         }
     }
+    /*
+        Check if any of the user's icon set preferences are invalid. If so,
+        reset those preferences and reload the map. Broken icon set references
+        can cause the map to not work correctly.
+    */
+    var brokenSets = false;
+    var iconSet = settings.get("iconSet");
+    if (iconSet != "" && !iconSets.hasOwnProperty(iconSet)) {
+        settings.iconSet = "";
+        brokenSets = true;
+    }
+    var speciesSet = settings.get("speciesSet");
+    if (speciesSet != "" && !isc_opts.species.themedata.hasOwnProperty(speciesSet)) {
+        settings.speciesSet = "";
+        brokenSets = true;
+    }
+    if (brokenSets) {
+        saveSettings();
+        location.reload();
+    }
 }
 
 /*
@@ -1445,15 +2494,20 @@ $("head").append('<link rel="stylesheet" ' +
                                  "/css/" + settings.get("theme") + ".css"
                              ] + '">');
 
+$("head").append('<link rel="stylesheet" ' +
+                       'type="text/css" ' +
+                       'href="./css/theming.php?' + settings.get("theme") + '">');
+
 /*
     Configure the `IconSetOption` selector to use the correct user theme color.
 */
-isc_opts.colortheme = settings.get("theme");
+isc_opts.icons.colortheme = settings.get("theme");
+isc_opts.species.colortheme = settings.get("theme");
 
 /*
     Initialize the map.
 */
-MapImpl.init("map", settings);
+MapImpl.init("map", settings, updateVisiblePOIs);
 
 /*
     Automatically save the current center point and zoom level of

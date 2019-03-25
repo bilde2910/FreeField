@@ -621,6 +621,12 @@ class Config {
                 "custom-handler" => true
             ),
 
+            // API and bots management
+            "api" => array(
+                "icon" => "code",
+                "custom-handler" => true
+            ),
+
             // Self-updates
             "updates" => array(
                 "icon" => "sync-alt",
@@ -1165,6 +1171,11 @@ class ConfigSectionI18N {
         "auth/reddit" => array(
             // admin.section.auth.reddit.desc
             '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/reddit.html">',
+            '</a>'
+        ),
+        "auth/facebook" => array(
+            // admin.section.auth.facebook.desc
+            '<a target="_blank" href="https://freefield.readthedocs.io/en/latest/auth/facebook.html">',
             '</a>'
         ),
         "auth/line" => array(

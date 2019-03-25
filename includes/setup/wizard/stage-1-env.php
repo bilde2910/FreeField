@@ -66,14 +66,6 @@ if (!file_exists("../includes/userdata/config.json") && $_SERVER["REQUEST_METHOD
                 */
                 return function_exists("curl_version");
             });
-            $r += echoAssert("install.stage.{$stage}.assert.url_fopen_allowed", true, function() {
-                /*
-                    Check if `fopen()` can be used on URLs. Required for
-                    authentication with most authentication provider
-                    implementations in FreeField.
-                */
-                return ini_get("allow_url_fopen") == "1";
-            });
             $r += echoAssert("install.stage.{$stage}.assert.gd_available", false, function() {
                 /*
                     Check for gd extension availability. Required for QR code

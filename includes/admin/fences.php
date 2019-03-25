@@ -58,7 +58,7 @@ __require("geo");
                                 <td>
                                     <input type="text"
                                            name="fence_<?php echo $fid; ?>[label]"
-                                           value="<?php echo $fence->getLabel(); ?>">
+                                           value="<?php echo $fence->getLabelHTML(); ?>">
                                 </td>
                                 <td>
                                     <textarea data-validate-as="geofence"
@@ -96,4 +96,6 @@ __require("geo");
 <!--
     /admin/js/fences.js contains additional functionality for this page.
 -->
-<script src="./js/fences.js"></script>
+<script src="./js/fences.js?t=<?php
+    echo filemtime(__DIR__."/../../admin/js/fences.js");
+?>"></script>

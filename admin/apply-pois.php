@@ -74,6 +74,9 @@ $updates = array();
 $deletes = array();
 $inserts = array();
 
+/*
+    Process any updates to existing POIs.
+*/
 foreach ($_POST as $poi => $data) {
     /*
         Ensure that the POST field we're working on now is a POI change field.
@@ -83,79 +86,88 @@ foreach ($_POST as $poi => $data) {
     if (strlen($poi) < 1 || substr($poi, 0, 1) !== "p") continue;
     $pid = substr($poi, 1);
 
+    if (isset($data["action"])) {
+        if ($data["action"] === "delete") {
+            /*
+                If POI deletion is requested, add it to the deletion queue
+                and do not process further changes.
+            */
+            $deletes[] = $pid;
+            continue;
+
+        } elseif ($data["action"] === "clear") {
+            /*
+                If the user requests clearing the research objective and
+                reward currently active on the POI, the best way to do this
+                is to set the active research objective and reward to
+                "unknown" and clearing the parameter list for both.
+            */
+            if (
+                !$pois_assoc[$pid]->isObjectiveUnknown() ||
+                !$pois_assoc[$pid]->isRewardUnknown()
+            ) {
+                $updates[$pid]["objective"] = "unknown";
+                $updates[$pid]["reward"] = "unknown";
+                $updates[$pid]["obj_params"] = json_encode(array());
+                $updates[$pid]["rew_params"] = json_encode(array());
+                $updates[$pid]["updated_by"] = Auth::getCurrentUser()->getUserID();
+                $updates[$pid]["last_updated"] = date("Y-m-d H:i:s");
+            }
+        }
+    }
+
     /*
-        Check if this is a new (imported) POI.
+        Handle changes to the POI parameters, such as the POI's name. If
+        there are changes, they should be added to the updates queue.
     */
-    $imported = strlen($poi) >= 3 && substr($pid, 0, 2) == "n_";
-    if ($imported) {
-        /*
-            Check if the user has permission to import POIs.
-        */
-        if (!Auth::getCurrentUser()->hasPermission("admin/pois/import")) continue;
+    if (
+        isset($data["name"]) &&
+        $pois_assoc[$pid]->getName() !== $data["name"]
+    ) {
+        $updates[$pid]["name"] = $data["name"];
+    }
+}
 
-        /*
-            Check if all data is required and the POI is flagged for importing.
-        */
-        if (!isset($data["name"]) || $data["name"] == "") continue;
-        if (!isset($data["latitude"]) || $data["latitude"] == "") continue;
-        if (!isset($data["longitude"]) || $data["longitude"] == "") continue;
-        if (!isset($data["include"]) || $data["include"] !== "yes") continue;
+/*
+    Process any batch (geofence) updates.
+*/
+foreach ($_POST as $fence => $data) {
+    /*
+        Ensure that the POST field we're working on now is a geofence field.
+        These all have field names in the format "f<fenceID>". If this matches,
+        extract the geofence ID from the field name.
+    */
+    if (strlen($fence) < 1 || substr($fence, 0, 1) !== "f") continue;
+    $fid = substr($fence, 1);
 
-        /*
-            Check that the latitude and longitude is valid.
-        */
-        if (!is_numeric($data["latitude"])) continue;
-        if (!is_numeric($data["longitude"])) continue;
+    if (isset($data["action"])) {
+        if ($data["action"] === "delete") {
+            /*
+                If POI deletion is requested, add the POIs to the deletion queue
+                and do not process further changes.
+            */
+            foreach ($poilist as $poi) {
+                if ($poi->isWithinGeofence(Geo::getGeofence($fid))) {
+                    $deletes[] = $poi->getID();
+                }
+            }
+            continue;
 
-        /*
-            Create a database entry associative array containing the required
-            data for storage of the POI in the database. Default to to "unknown"
-            field research for the POI, since no research has been reported for
-            it yet.
-        */
-        $newPoi = array(
-            "name" => $data["name"],
-            "latitude" => floatval($data["latitude"]),
-            "longitude" => floatval($data["longitude"]),
-            "created_by" => Auth::getCurrentUser()->getUserID(),
-            "updated_by" => Auth::getCurrentUser()->getUserID(),
-            "objective" => "unknown",
-            "obj_params" => json_encode(array()),
-            "reward" => "unknown",
-            "rew_params" => json_encode(array())
-        );
-
-        /*
-            If any of the users are null, unset the values as they default to
-            null.
-        */
-        if ($newPoi["created_by"] === null) unset($newPoi["created_by"]);
-        if ($newPoi["updated_by"] === null) unset($newPoi["updated_by"]);
-
-        $inserts[] = $newPoi;
-    } else {
-        /*
-            POI is pre-existing.
-        */
-        if (isset($data["action"])) {
-            if ($data["action"] === "delete") {
-                /*
-                    If POI deletion is requested, add it to the deletion queue
-                    and do not process further changes.
-                */
-                $deletes[] = $pid;
-                continue;
-
-            } elseif ($data["action"] === "clear") {
-                /*
-                    If the user requests clearing the research objective and
-                    reward currently active on the POI, the best way to do this
-                    is to set the active research objective and reward to
-                    "unknown" and clearing the parameter list for both.
-                */
+        } elseif ($data["action"] === "clear") {
+            /*
+                If the user requests clearing the research objective and
+                reward currently active on the POIs, the best way to do this
+                is to set the active research objective and reward to
+                "unknown" and clearing the parameter list for both.
+            */
+            foreach ($poilist as $poi) {
+                $pid = $poi->getID();
                 if (
-                    !$pois_assoc[$pid]->isObjectiveUnknown() ||
-                    !$pois_assoc[$pid]->isRewardUnknown()
+                    $poi->isWithinGeofence(Geo::getGeofence($fid)) &&
+                    (
+                        !$pois_assoc[$pid]->isObjectiveUnknown() ||
+                        !$pois_assoc[$pid]->isRewardUnknown()
+                    )
                 ) {
                     $updates[$pid]["objective"] = "unknown";
                     $updates[$pid]["reward"] = "unknown";
@@ -166,16 +178,61 @@ foreach ($_POST as $poi => $data) {
                 }
             }
         }
+    }
+}
 
+/*
+    Check if the user is importing new POIs.
+*/
+if (isset($_POST["n_json"])) {
+    $newPois = json_decode($_POST["n_json"], true);
+    if ($newPois !== null) {
         /*
-            Handle changes to the POI parameters, such as the POI's name. If
-            there are changes, they should be added to the updates queue.
+            Check if the user has permission to import POIs.
         */
-        if (
-            isset($data["name"]) &&
-            $pois_assoc[$pid]->getName() !== $data["name"]
-        ) {
-            $updates[$pid]["name"] = $data["name"];
+        if (Auth::getCurrentUser()->hasPermission("admin/pois/import")) {
+            foreach ($newPois as $data) {
+                /*
+                    Check if all data is required and the POI is flagged for importing.
+                */
+                if (!isset($data["name"]) || $data["name"] == "") continue;
+                if (!isset($data["latitude"]) || $data["latitude"] == "") continue;
+                if (!isset($data["longitude"]) || $data["longitude"] == "") continue;
+                if (!isset($data["include"]) || $data["include"] !== "yes") continue;
+
+                /*
+                    Check that the latitude and longitude is valid.
+                */
+                if (!is_numeric($data["latitude"])) continue;
+                if (!is_numeric($data["longitude"])) continue;
+
+                /*
+                    Create a database entry associative array containing the required
+                    data for storage of the POI in the database. Default to to "unknown"
+                    field research for the POI, since no research has been reported for
+                    it yet.
+                */
+                $newPoi = array(
+                    "name" => $data["name"],
+                    "latitude" => floatval($data["latitude"]),
+                    "longitude" => floatval($data["longitude"]),
+                    "created_by" => Auth::getCurrentUser()->getUserID(),
+                    "updated_by" => Auth::getCurrentUser()->getUserID(),
+                    "objective" => "unknown",
+                    "obj_params" => json_encode(array()),
+                    "reward" => "unknown",
+                    "rew_params" => json_encode(array())
+                );
+
+                /*
+                    If any of the users are null, unset the values as they default to
+                    null.
+                */
+                if ($newPoi["created_by"] === null) unset($newPoi["created_by"]);
+                if ($newPoi["updated_by"] === null) unset($newPoi["updated_by"]);
+
+                $inserts[] = $newPoi;
+            }
         }
     }
 }
@@ -231,12 +288,10 @@ foreach ($deletes as $poiid) {
         ->delete()
         ->execute();
 }
-foreach ($inserts as $data) {
-    $db
-        ->from("poi")
-        ->insert($data)
-        ->execute();
-}
+$db
+    ->from("poi")
+    ->insertMany($inserts)
+    ->execute();
 
 header("HTTP/1.1 303 See Other");
 header("Location: {$returnpath}");

@@ -136,6 +136,43 @@ class ConfigDefinitions {
                 "option" => new StringOption()
             ),
             /*
+                An image displayed at the top of the sidebar instead of the
+                header text above. *.png, *.gif, *.jpg, and *.svg files are
+                allowed. Must not exceed 128 KiB.
+            */
+            "site/menu-image" => array(
+                "domain" => "main",
+                "section" => "instance",
+                "default" => array(
+                    "type"   => "image/svg+xml",
+                    "name"   => "default-menu-image.svg",
+                    "size"   => 3089,
+                    "sha256" => "33efc2f136c5b9c435824dc281444d3f165c801c194ba0d353565f2fe2cba317"
+                ),
+                "option" => new FileOption(
+                    "site/menu-image",
+                    array(
+                        "image/png" => "png",
+                        "image/gif" => "gif",
+                        "image/jpeg" => "jpg",
+                        "image/svg+xml" => "svg"
+                    ), 128 * 1024 // Max 128 KiB
+                )
+            ),
+            /*
+                Choose whether to display text or an image in the sidebar.
+            */
+            "site/header-style" => array(
+                "domain" => "main",
+                "section" => "instance",
+                "default" => "text",
+                "option" => new SelectOption(array(
+                    "text",
+                    "image",
+                    "image-plain"
+                ))
+            ),
+            /*
                 ------------------------------------------------------------
                     MESSAGE OF THE DAY
                 ------------------------------------------------------------
@@ -324,6 +361,15 @@ class ConfigDefinitions {
                 "option" => new PermissionOption()
             ),
             /*
+                Shows users who last submitted research on each POI.
+            */
+            "permissions/level/find-reporter" => array(
+                "domain" => "perms",
+                "section" => "map-access",
+                "default" => PermissionOption::LEVEL_REGISTERED,
+                "option" => new PermissionOption()
+            ),
+            /*
                 Allows users to report field research on POIs whose current
                 field research objective is unknown.
             */
@@ -353,6 +399,31 @@ class ConfigDefinitions {
                 "domain" => "perms",
                 "section" => "map-access",
                 "default" => PermissionOption::LEVEL_SUBMITTER,
+                "option" => new PermissionOption()
+            ),
+            /*
+                ------------------------------------------------------------
+                    PERSONALIZATION ACCESS
+                ------------------------------------------------------------
+            */
+            /*
+                Allows users to select their own map marker set instead of the
+                default for their own account.
+            */
+            "permissions/level/personalization/icons" => array(
+                "domain" => "perms",
+                "section" => "personalization",
+                "default" => PermissionOption::LEVEL_ANONYMOUS,
+                "option" => new PermissionOption()
+            ),
+            /*
+                Allows users to select their own species icon set instead of the
+                default for their own account.
+            */
+            "permissions/level/personalization/species" => array(
+                "domain" => "perms",
+                "section" => "personalization",
+                "default" => PermissionOption::LEVEL_ANONYMOUS,
                 "option" => new PermissionOption()
             ),
             /*
@@ -535,6 +606,17 @@ class ConfigDefinitions {
                     "option" => new PermissionOption()
                 ),
                 /*
+                    Allows users to manage map personalization restrictions,
+                    such as restrictions on which icon sets can be used.
+                */
+                "permissions/level/admin/perms/section/personalization" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
                     Allows users to manage administrative permissions (such as
                     this one).
                 */
@@ -569,6 +651,16 @@ class ConfigDefinitions {
                     Allows users to change session security settings.
                 */
                 "permissions/level/admin/security/section/sessions" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_ADMIN,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change outbound request security settings.
+                */
+                "permissions/level/admin/security/section/outbound" => array(
                     "domain" => "perms",
                     "section" => "admin",
                     "indentation" => 1,
@@ -619,6 +711,16 @@ class ConfigDefinitions {
                     Allows users to change authentication settings for Reddit.
                 */
                 "permissions/level/admin/auth/section/reddit" => array(
+                    "domain" => "perms",
+                    "section" => "admin",
+                    "indentation" => 1,
+                    "default" => PermissionOption::LEVEL_HOST,
+                    "option" => new PermissionOption()
+                ),
+                /*
+                    Allows users to change authentication settings for Facebook.
+                */
+                "permissions/level/admin/auth/section/facebook" => array(
                     "domain" => "perms",
                     "section" => "admin",
                     "indentation" => 1,
@@ -783,6 +885,16 @@ class ConfigDefinitions {
                 "option" => new PermissionOption()
             ),
             /*
+                Allows users to set up and manage API clients that can interface
+                with FreeField.
+            */
+            "permissions/level/admin/api/general" => array(
+                "domain" => "perms",
+                "section" => "admin",
+                "default" => PermissionOption::LEVEL_ADMIN,
+                "option" => new PermissionOption()
+            ),
+            /*
                 Allows users to update FreeField.
             */
             "permissions/level/admin/updates/general" => array(
@@ -908,6 +1020,33 @@ class ConfigDefinitions {
             ),
             /*
                 ------------------------------------------------------------
+                    OUTBOUND REQUESTS
+                ------------------------------------------------------------
+            */
+            /*
+                Disabling certificate validation may resolve issues such as
+                webhooks not working, but eliminates protection against man-in-
+                the-middle attacks when performing outbound requests.
+            */
+            "security/curl/verify-certificates" => array(
+                "domain" => "security",
+                "section" => "outbound",
+                "default" => true,
+                "option" => new BooleanOption()
+            ),
+            /*
+                The client ID of your Discord API application.
+            */
+            "security/curl/cacert-path" => array(
+                "domain" => "security",
+                "section" => "outbound",
+                "default" => !empty(ini_get("curl.cainfo"))
+                           ? ini_get("curl.cainfo")
+                           : "/etc/ssl/certs/ca-certificates.crt",
+                "option" => new StringOption()
+            ),
+            /*
+                ------------------------------------------------------------
                     SAME-ORIGIN POLICY
                 ------------------------------------------------------------
             */
@@ -1027,6 +1166,38 @@ class ConfigDefinitions {
             "auth/provider/reddit/client-secret" => array(
                 "domain" => "auth",
                 "section" => "reddit",
+                "default" => "",
+                "option" => new PasswordOption()
+            ),
+            /*
+                ------------------------------------------------------------
+                    FACEBOOK
+                ------------------------------------------------------------
+            */
+            /*
+                Enables usage of Facebook for user authentication.
+            */
+            "auth/provider/facebook/enabled" => array(
+                "domain" => "auth",
+                "section" => "facebook",
+                "default" => false,
+                "option" => new BooleanOption()
+            ),
+            /*
+                The app ID of your Facebook API application.
+            */
+            "auth/provider/facebook/app-id" => array(
+                "domain" => "auth",
+                "section" => "facebook",
+                "default" => "",
+                "option" => new StringOption()
+            ),
+            /*
+                The app secret of your Facebook API application.
+            */
+            "auth/provider/facebook/app-secret" => array(
+                "domain" => "auth",
+                "section" => "facebook",
                 "default" => "",
                 "option" => new PasswordOption()
             ),
@@ -1216,8 +1387,8 @@ class ConfigDefinitions {
                 "default" => array(
                     "type"   => "image/svg+xml",
                     "name"   => "default-pwa-launch.svg",
-                    "size"   => 978,
-                    "sha256" => "177998f2201056ed49f724264399aecb3f024e16be45e97af998199b8695e5a2"
+                    "size"   => 962,
+                    "sha256" => "7ecc64e21eb818d0a0f901a64d54bf30d73b5aa25df71a6b46b8105ae27276a6"
                 ),
                 "option" => new FileOption(
                     "mobile/pwa/icon/launch",
@@ -1299,6 +1470,12 @@ class ConfigDefinitions {
                     COLOR THEME
                 ------------------------------------------------------------
             */
+            "themes/color/site" => array(
+                "domain" => "themes",
+                "section" => "color",
+                "default" => "#1f8dd6",
+                "option" => new ColorOption()
+            ),
             /*
                 Select the color theme of the administration pages.
             */
@@ -1393,14 +1570,13 @@ class ConfigDefinitions {
                 "option" => new IconSetOption()
             ),
             /*
-                Whether to allow users to select their own map marker set
-                instead of the default for their own account.
+                Select the style of species markers used by default on the map.
             */
-            "themes/icons/allow-personalization" => array(
+            "themes/species/default" => array(
                 "domain" => "themes",
                 "section" => "icons",
-                "default" => true,
-                "option" => new BooleanOption()
+                "default" => "freefield-se-colorful-textual-en",
+                "option" => new SpeciesSetOption()
             ),
             /*
 ================================================================================
@@ -1488,6 +1664,21 @@ class ConfigDefinitions {
                 "section" => "default",
                 "default" => 14.0,
                 "option" => new FloatOption(0.0, 20.0)
+            ),
+            /*
+                The maximum number of Pokéstops that should be visible on the
+                map for users by default. Lowering this value will put less
+                strain on your players' devices and increase panning and zooming
+                performance when on the map, but might prevent research tasks
+                from being displayed if they are clustered too closely to other
+                Pokéstops. Please see the players FAQ in the documentation for
+                more information.
+            */
+            "map/default/cluster-limit" => array(
+                "domain" => "map",
+                "section" => "default",
+                "default" => 100,
+                "option" => new IntegerOption(10, 10000)
             ),
             /*
                 The default research task component to use for map markers.

@@ -125,6 +125,19 @@ payload. Substitution tokens are explained in greater detail in `Substitution
 tokens`_, while implementation details specific to icon set image URLs can be
 found in the :doc:`/webhooks/tokenref`.
 
+Species icons
+^^^^^^^^^^^^^
+
+To make it easier to spot particular rewards in webhook messages, FreeField
+configures webhooks to use species icons for webhooks when available by default.
+If enabled, an image representing a particular Pokémon species will be used
+instead of the default grass "encounter" icon when using reward icon
+substitution tokens, if the species rewarded by the research task is unambiguous
+and known. If the encounter species is ambiguous or unknown, the default
+encounter icon will be used instead. You can select which species icon set you
+want to use in the "Species icons" setting. This behavior can be disabled by
+unchecking the "Show icon for Pokémon" checkbox.
+
 Geofence
 ^^^^^^^^
 

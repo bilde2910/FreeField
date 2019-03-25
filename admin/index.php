@@ -32,6 +32,7 @@ __require("i18n");
 __require("theme");
 __require("security");
 __require("update");
+__require("research");
 
 Security::requireCSRFToken();
 
@@ -139,8 +140,6 @@ $linkMod = array(
     "/js/option.js"         => filemtime("../js/option.js")
 );
 
-?>
-<?php
 /*
     Execute X-Frame-Options same-origin policy.
 */
@@ -189,15 +188,23 @@ Security::declareFrameOptionsHeader();
         <script src="../js/clientside-i18n.php"></script>
         <script>
             /*
-                Display options for `IconSetOption` selectors; required by the
-                `IconSetOption` event handler in /js/option.js.
+                Display options for `IconSetOptionBase` selectors; required by
+                the `IconSetOption` event handler in /js/option.js.
             */
             var isc_opts = <?php
                 echo json_encode(array(
-                    "themedata" => IconSetOption::getIconSetDefinitions(),
-                    "icons" => Theme::listIcons(),
-                    "baseuri" => Config::getEndpointUri("/"),
-                    "colortheme" => Config::get("themes/color/admin")->value()
+                    "icons" => array(
+                        "themedata" => IconSetOption::getIconSetDefinitions(),
+                        "icons" => Theme::listIcons(),
+                        "baseuri" => Config::getEndpointUri("/"),
+                        "colortheme" => Config::get("themes/color/admin")->value()
+                    ),
+                    "species" => array(
+                        "themedata" => SpeciesSetOption::getIconSetDefinitions(),
+                        "highest" => ParamSpecies::getHighestSpecies(),
+                        "baseuri" => Config::getEndpointUri("/"),
+                        "colortheme" => Config::get("themes/color/admin")->value()
+                    )
                 ));
             ?>;
         </script>
@@ -224,6 +231,7 @@ Security::declareFrameOptionsHeader();
             $adminThemeColor = Config::get("themes/color/admin")->valueHTML();
         ?>
         <link rel="stylesheet" href="../css/<?php echo $adminThemeColor ?>.css?t=<?php echo $linkMod["/css/{$adminThemeColor}.css"]; ?>">
+        <link rel="stylesheet" href="../css/theming.php?<?php echo $adminThemeColor ?>">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="../css/layouts/side-menu-old-ie.css">
@@ -242,8 +250,21 @@ Security::declareFrameOptionsHeader();
 
             <div id="menu">
                 <div class="pure-menu">
-                    <a class="pure-menu-heading" href="..">
-                        <?php echo Config::get("site/menu-header")->valueHTML(); ?>
+                    <a class="pure-menu-heading" href=".."<?php
+                        if (Config::get("site/header-style")->value() == "image-plain")
+                            echo ' style="background: none !important; padding-bottom: 0;"';
+                    ?>>
+                        <?php
+                            switch (Config::get("site/header-style")->value()) {
+                                case "text":
+                                    echo Config::get("site/menu-header")->valueHTML();
+                                    break;
+                                case "image":
+                                case "image-plain":
+                                    echo '<img src="../themes/sidebar-image.php">';
+                                    break;
+                            }
+                        ?>
                     </a>
 
                     <?php if (Auth::isAuthenticated()) { ?>
@@ -502,7 +523,9 @@ Security::declareFrameOptionsHeader();
             var unsavedChangesMessage = <?php echo I18N::resolveJS("admin.validation.unsaved_changes"); ?>;
         </script>
         <!-- Script which offers client-side input validation -->
-        <script src="../js/input-validation.js"></script>
+        <script src="../js/input-validation.js?t=<?php
+            echo filemtime(__DIR__."/../js/input-validation.js");
+        ?>"></script>
         <script>
             /*
                 Track changes to the inputs on the form to stop data being
@@ -520,7 +543,8 @@ Security::declareFrameOptionsHeader();
                 page has a form that does not use `require-validation`.
             */
             $("form").on("change", ":input", function() {
-                unsavedChanges = true;
+                if (!$(this).is("[data-do-not-track-changes]"))
+                    unsavedChanges = true;
             });
             $(window).on("beforeunload", function() {
                 if (unsavedChanges) {

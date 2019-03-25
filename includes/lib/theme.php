@@ -60,14 +60,35 @@ class Theme {
         so, adds it to the list of installed icon sets.
     */
     public static function listIconSets() {
-        $themepath = __DIR__."/../../themes/icons";
-        $themedirs = array_diff(scandir($themepath), array('..', '.'));
         $themelist = array();
-        foreach ($themedirs as $theme) {
-            if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
-            $themelist[] = $theme;
+        $themepaths = self::getPathsForType("icons");
+        foreach ($themepaths as $themepath => $fetchpath) {
+            $themedirs = array_diff(scandir($themepath), array('..', '.'));
+            foreach ($themedirs as $theme) {
+                if (!file_exists("{$themepath}/{$theme}/pack.ini")) continue;
+                $themelist[] = $theme;
+            }
         }
         return $themelist;
+    }
+
+    /*
+        Returns an array of all species icon sets present in the FreeField
+        installation. This function scans the species set directory, checks if
+        each subdirectory has the pack.ini file present (which contains set
+        metadata), and if so, adds it to the list of installed icon sets.
+    */
+    public static function listSpeciesSets() {
+        $setlist = array();
+        $setpaths = self::getPathsForType("species");
+        foreach ($setpaths as $setpath => $fetchpath) {
+            $setdirs = array_diff(scandir($setpath), array('..', '.'));
+            foreach ($setdirs as $set) {
+                if (!file_exists("{$setpath}/{$set}/pack.ini")) continue;
+                $setlist[] = $set;
+            }
+        }
+        return $setlist;
     }
 
     /*
@@ -83,18 +104,52 @@ class Theme {
         }
         return new IconSet($set, $variant);
     }
+
+    /*
+        Returns a `SpeciesSet` instance representing the given species icon set
+        and variant (dark or light). If no icon set is specified, use the
+        default set from the configuration. If no variant is specified, return a
+        variant-neutral `SpeciesSet` with "{%variant%}" path placeholders
+        intact.
+    */
+    public static function getSpeciesSet($set = null, $variant = null) {
+        if ($set === null) {
+            __require("config");
+            $set = Config::get("themes/species/default")->value();
+        }
+        return new SpeciesSet($set, $variant);
+    }
+
+    /*
+        Returns a list of paths and corresponding client-side request URL base
+        paths that should be searched for icon sets.
+    */
+    public static function getPathsForType($type) {
+        $paths = array(
+            __DIR__."/../../themes/{$type}"
+                => "themes/{$type}/",
+            __DIR__."/../userdata/themes/{$type}"
+                => "themes/fetch-custom.php?type={$type}&path="
+        );
+        /*
+            Check that each path exists, and remove those that do not from the
+            path list.
+        */
+        foreach ($paths as $path => $fetch) {
+            if (!file_exists($path) || !is_dir($path)) unset($paths[$path]);
+        }
+        return $paths;
+    }
 }
 
-/*
-    This class contains functions to get URLs from a particular icon set. It is
-    constructed from and returned by `Theme::getIconSet()`.
-*/
-class IconSet {
+abstract class BaseIconSet {
     private $set = null;
     private $data = array();
     private $variant = null;
+    private $type = null;
+    private $fetchpath = null;
 
-    public function __construct($set, $variant) {
+    protected function __construct($set, $variant, $type) {
         /*
             Store the name of the icon set and the chosen variant ("dark",
             "light" or null), and find and read the contents of the icon set
@@ -102,9 +157,21 @@ class IconSet {
         */
         $this->set = $set;
         $this->variant = $variant;
-        $packini = __DIR__."/../../themes/icons/{$set}/pack.ini";
-        if (file_exists($packini)) {
-            $this->data = parse_ini_file($packini, true);
+        $this->type = $type;
+
+        /*
+            Identify which file system path this icon set is stored within, and
+            update the object instance with the correct client-side request path
+            to use when requesting assets from the icon set.
+        */
+        $basepaths = Theme::getPathsForType($type);
+        foreach ($basepaths as $basepath => $fetchpath) {
+            $packini = "{$basepath}/{$set}/pack.ini";
+            if (file_exists($packini)) {
+                $this->data = parse_ini_file($packini, true);
+                $this->fetchpath = $fetchpath;
+                break;
+            }
         }
     }
 
@@ -122,6 +189,42 @@ class IconSet {
     */
     public function setVariant($variant) {
         $this->variant = $variant;
+    }
+
+    /*
+        Returns the metadata array (from pack.ini) for this icon set.
+    */
+    protected function getData() {
+        return $this->data;
+    }
+
+    /*
+        Returns the full URL for the given icon resource path. If a variant is
+        not set either via the constructor or via `setVariant()`, replacement
+        tokens "{%variant%}" will not be replaced with the variant name ("light"
+        or "dark") and replacement may have to be done elsewhere (e.g. client-
+        side) for the URL to be valid.
+    */
+    protected function formatUrl($url) {
+        __require("config");
+        $pack = urlencode($this->set);
+        if ($this->variant !== null) {
+            $url = str_replace("{%variant%}", $this->variant, $url);
+        }
+        return Config::getEndpointUri("/{$this->fetchpath}{$pack}/{$url}");
+    }
+}
+
+/*
+    This class contains functions to get URLs from a particular icon set. It is
+    constructed from and returned by `Theme::getIconSet()`.
+*/
+class IconSet extends BaseIconSet {
+    /*
+        Construct the icon set from set metadata.
+    */
+    public function __construct($set, $variant) {
+        parent::__construct($set, $variant, "icons");
     }
 
     /*
@@ -165,8 +268,8 @@ class IconSet {
         found as either vector or raster, `null` is returned.
     */
     private function getExplicitIconUrl($icon) {
-        if (isset($this->data["vector"][$icon])) {
-            return $this->formatUrl($this->data["vector"][$icon]);
+        if (isset(parent::getData()["vector"][$icon])) {
+            return parent::formatUrl(parent::getData()["vector"][$icon]);
         } else {
             return $this->getExplicitRasterUrl($icon);
         }
@@ -211,27 +314,105 @@ class IconSet {
         specified icon is not found.
     */
     private function getExplicitRasterUrl($icon) {
-        if (isset($this->data["raster"][$icon])) {
-            return $this->formatUrl($this->data["raster"][$icon]);
+        if (isset(parent::getData()["raster"][$icon])) {
+            return parent::formatUrl(parent::getData()["raster"][$icon]);
         } else {
             return null;
         }
     }
+}
+
+/*
+    This class contains functions to get URLs from a particular icon set. It is
+    constructed from and returned by `Theme::getIconSet()`.
+*/
+class SpeciesSet extends BaseIconSet {
+    /*
+        Construct the icon set from set metadata.
+    */
+    public function __construct($set, $variant) {
+        parent::__construct($set, $variant, "species");
+    }
 
     /*
-        Returns the full URL for the given icon resource path. If a variant is
-        not set either via the constructor or via `setVariant()`, replacement
-        tokens "{%variant%}" will not be replaced with the variant name ("light"
-        or "dark") and replacement may have to be done elsewhere (e.g. client-
-        side) for the URL to be valid.
+        Find the icon range that holds the requested icon. Returns `null` if a
+        suitable range is not found.
     */
-    private function formatUrl($url) {
-        __require("config");
-        $pack = urlencode($this->set);
-        if ($this->variant !== null) {
-            $url = str_replace("{%variant%}", $this->variant, $url);
+    private function getRange($icon) {
+        /*
+            First, check for sections starting with the keyword "range." These
+            hold block definitions for batches of icons.
+        */
+        foreach (parent::getData() as $key => $value) {
+            if ($key == "range" || substr($key, 0, 6) == "range|") {
+                if (
+                    $value["range_start"] <= $icon &&
+                    $value["range_end"] >= $icon
+                ) {
+                    return $value;
+                }
+            }
         }
-        return Config::getEndpointUri("/themes/icons/{$pack}/{$url}");
+
+        /*
+            If no "range" block is found, use the fallback "default" block.
+        */
+        foreach (parent::getData() as $key => $value) {
+            if ($key == "default") {
+                return $value;
+            }
+        }
+
+        /*
+            If there is still no valid block containing the requested icon,
+            return `null`.
+        */
+        return null;
+    }
+
+    /*
+        Gets the URL representing a particular species' icon. Returns a vector
+        URL if possible, and falls back to a raster URL or `null` if none is
+        found.
+    */
+    public function getIconUrl($icon) {
+        /*
+            Get a range block that contains icon path definitions for this icon.
+        */
+        $range = self::getRange($icon);
+        if ($range === null) return null;
+
+        /*
+            Return the vector URL if possible, falling back on the raster URL
+            if not present.
+        */
+        if (isset($range["vector"])) {
+            return parent::formatUrl(str_replace("{%n%}", $icon, $range["vector"]));
+        } else {
+            return self::getRasterUrl($icon);
+        }
+    }
+
+    /*
+        Gets the URL representing a particular species' icon. Returns a raster
+        URL if possible, or `null` if no suitable icon is found.
+    */
+    public function getRasterUrl($icon) {
+        /*
+            Get a range block that contains icon path definitions for this icon.
+        */
+        $range = self::getRange($icon);
+        if ($range === null) return null;
+
+        /*
+            Return the vector URL if possible, falling back on the raster URL
+            if not present.
+        */
+        if (isset($range["raster"])) {
+            return parent::formatUrl(str_replace("{%n%}", $icon, $range["raster"]));
+        } else {
+            return null;
+        }
     }
 }
 

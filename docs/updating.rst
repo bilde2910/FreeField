@@ -105,6 +105,11 @@ Non-fatal errors
    connects to api.github.com over HTTPS (port 443/tcp) to check for and
    download update packages.
 
+-  Check that you have the latest CA certificate bundle installed on the server
+   (e.g. package ``ca-certificates`` on Debian-based systems), or disable HTTPS
+   validation in the "Security" section of the administration pages if
+   connection errors persist (dangerous - not recommended).
+
 -  Search for issues on the issue tracker on GitHub, or create a new one,
    pasting the output of the update log in the issue to seek further help.
 

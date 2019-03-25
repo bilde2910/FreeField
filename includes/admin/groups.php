@@ -158,4 +158,6 @@
 <!--
     /admin/js/groups.js contains additional functionality for this page.
 -->
-<script src="./js/groups.js"></script>
+<script src="./js/groups.js?t=<?php
+    echo filemtime(__DIR__."/../../admin/js/groups.js");
+?>"></script>

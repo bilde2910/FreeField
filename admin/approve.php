@@ -24,6 +24,11 @@ if (!isset($_GET["euid"])) {
 }
 
 /*
+    Execute X-Frame-Options same-origin policy.
+*/
+Security::declareFrameOptionsHeader();
+
+/*
     Decrypt the user ID.
 */
 $id = Auth::getDecryptedUserID($_GET["euid"]);
@@ -34,12 +39,6 @@ $id = Auth::getDecryptedUserID($_GET["euid"]);
     administrator rather than opening it themselves.
 */
 if ($id === Auth::getCurrentUser()->getUserID()) {
-    ?>
-    <?php
-    /*
-        Execute X-Frame-Options same-origin policy.
-    */
-    Security::declareFrameOptionsHeader();
     ?>
     <!DOCTYPE html>
     <html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
@@ -67,6 +66,7 @@ if ($id === Auth::getCurrentUser()->getUserID()) {
                   crossorigin="anonymous">
             <link rel="stylesheet" href="../css/main.css">
             <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
+            <link rel="stylesheet" href="../css/theming.php?<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>">
 
             <!--[if lte IE 8]>
                 <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
@@ -118,12 +118,6 @@ $user = Auth::getUser($id);
 */
 if (!$user->exists() || $user->isApproved()) {
     ?>
-    <?php
-    /*
-        Execute X-Frame-Options same-origin policy.
-    */
-    Security::declareFrameOptionsHeader();
-    ?>
     <!DOCTYPE html>
     <html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
         <head>
@@ -150,6 +144,7 @@ if (!$user->exists() || $user->isApproved()) {
                   crossorigin="anonymous">
             <link rel="stylesheet" href="../css/main.css">
             <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
+            <link rel="stylesheet" href="../css/theming.php?<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>">
 
             <!--[if lte IE 8]>
                 <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">
@@ -185,13 +180,6 @@ if (!$user->exists() || $user->isApproved()) {
     From here on, the user exists, and the currently logged in user has the
     required privileges to approve or reject the user. Display the prompt.
 */
-
-?>
-<?php
-/*
-    Execute X-Frame-Options same-origin policy.
-*/
-Security::declareFrameOptionsHeader();
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo htmlspecialchars(I18N::getLanguage(), ENT_QUOTES); ?>">
@@ -223,6 +211,7 @@ Security::declareFrameOptionsHeader();
               crossorigin="anonymous">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/admin")->valueHTML(); ?>.css">
+        <link rel="stylesheet" href="../css/theming.php?<?php echo Config::get("themes/color/admin")->valueHTML(); ?>">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="./css/layouts/side-menu-old-ie.css">

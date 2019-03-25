@@ -32,12 +32,11 @@ $providerIcons = array(
     "discord"   => "fab fa-discord",
     "telegram"  => "fab fa-telegram-plane",
     "reddit"    => "fab fa-reddit-alien",
+    "facebook"  => "fab fa-facebook",
     "line"      => "fab fa-line",
     "groupme"   => "fas fa-user" // No brand specific icon available at this time
 );
 
-?>
-<?php
 /*
     Execute X-Frame-Options same-origin policy.
 */
@@ -73,6 +72,7 @@ Security::declareFrameOptionsHeader();
               crossorigin="anonymous">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
+        <link rel="stylesheet" href="../css/theming.php?<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>">
 
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="../css/layouts/side-menu-old-ie.css">

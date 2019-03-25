@@ -95,6 +95,15 @@ $data = array(
     "tarball" => $release["tgz-url"],
     "token" => $token
 );
+
+/*
+    Get SSL connection info for secure download of the update package.
+*/
+$cacert = null;
+if (Config::get("security/curl/verify-certificates")->value()) {
+    $data["cacert"] = Config::get("security/curl/cacert-path")->value();
+}
+
 file_put_contents($pkgMetaPath, json_encode($data, JSON_PRETTY_PRINT));
 $cookieUrl = parse_url(Config::getEndpointUri("/admin/"), PHP_URL_PATH);
 
@@ -104,7 +113,11 @@ $cookieUrl = parse_url(Config::getEndpointUri("/admin/"), PHP_URL_PATH);
 */
 header("HTTP/1.1 307 Temporary Redirect");
 setcookie($pkgAuthCookie, $token, 0, $cookieUrl);
-header("Location: ./install-update.php");
+if ($cacert !== null) {
+    header("Location: ./install-update.php?cacert=".urlencode($cacert));
+} else {
+    header("Location: ./install-update.php");
+}
 exit;
 
 ?>

@@ -54,7 +54,7 @@ class Geo {
         Converts a coordinate pair to a coordinate string in DD format. E.g.
 
             Geo::getLocationString(42.63445, -87.12012)
-            ->  "42.63445°N, 87.12012°E"
+            ->  "42.63445°N, 87.12012°W"
 
         `$precision` is an optional parameter for specifying the desired
         precision in number of decimal digits.
@@ -75,8 +75,8 @@ class Geo {
             coordinates, this is the I18N token that corresponds to North. For
             negative ones, it is the token that corresponds to South. These
             tokens are resolved with the absolute value of the coordinates to
-            ensure that coordinates are displayed as e.g. "87°E" rather than
-            "-87°W".
+            ensure that coordinates are displayed as e.g. "87°W" rather than
+            "-87°E".
 
             The same applies for `$ew`, the longitude I18N token.
         */
@@ -122,6 +122,9 @@ class Geo {
                 group membership of the user who created the POI
                 (`c_user.permission` matches `c_group.level`)
             */
+            ->leftJoin("api c_api", array(
+                "poi.created_by" => "~c_api.user_id"
+            ))
             ->leftJoin("user c_user", array(
                 "poi.created_by" => "~c_user.id"
             ))
@@ -133,6 +136,9 @@ class Geo {
                 Do the same for the user who last updated the POI, with "u_"
                 aliases for "updated" rather than "c_" for "created"
             */
+            ->leftJoin("api u_api", array(
+                "poi.updated_by" => "~u_api.user_id"
+            ))
             ->leftJoin("user u_user", array(
                 "poi.updated_by" => "~u_user.id"
             ))
@@ -157,11 +163,19 @@ class Geo {
                     Nickname of the user who created the POI
                     Alias `creator_nick`
 
+                    Name of the API client that created the POI (if applicable)
+                    Alias `creator_api_name`
+
+                    Display color of the API client that created the POI
+                    Alias `creator_api_color`
+
                     Display color of the group that the creator is in
                     Alias `creator_color`
                 */
                 "c_user.provider_id creator_provider_id",
                 "c_user.nick creator_nick",
+                "c_api.name creator_api_name",
+                "c_api.color creator_api_color",
                 "c_group.color creator_color",
                 /*
                     Provider identity of the user who last updated the POI
@@ -170,11 +184,19 @@ class Geo {
                     Nickname of the user who last updated the POI
                     Alias `updater_nick`
 
+                    Name of the API client that last updated the POI
+                    Alias `updater_api_name`
+
+                    Display color of the API client that last updated the POI
+                    Alias `updater_api_color`
+
                     Display color of the group that the last updater is in
                     Alias `updater_color`
                 */
                 "u_user.provider_id updater_provider_id",
                 "u_user.nick updater_nick",
+                "u_api.name updater_api_name",
+                "u_api.color updater_api_color",
                 "u_group.color updater_color"
               ))
 
@@ -185,8 +207,10 @@ class Geo {
                         "id", "name", "latitude", "Longitude", "created_on",
                         "created_by", "last_updated", "updated_by", "objective",
                         "obj_params", "reward", "rew_params",
-                        "creator_provider_id", "creator_nick", "creator_color",
-                        "updater_provider_id", "updater_nick", "updater_color"
+                        "creator_provider_id", "creator_nick",
+                        "creator_api_name", "creator_api_color",
+                        "creator_color", "updater_provider_id", "updater_nick",
+                        "updater_api_name", "updater_api_color", "updater_color"
                     );
 
                 Please see /includes/lib/db.php for a list of what each of the
@@ -222,6 +246,9 @@ class Geo {
                 group memberships of the users who created the POIs
                 (`c_user.permission` matches `c_group.level`)
             */
+            ->leftJoin("api c_api", array(
+                "poi.created_by" => "~c_api.user_id"
+            ))
             ->leftJoin("user c_user", array(
                 "poi.created_by" => "~c_user.id"
             ))
@@ -233,6 +260,9 @@ class Geo {
                 Do the same for the users who last updated the POI, with "u_"
                 aliases for "updated" rather than "c_" for "created"
             */
+            ->leftJoin("api u_api", array(
+                "poi.updated_by" => "~u_api.user_id"
+            ))
             ->leftJoin("user u_user", array(
                 "poi.updated_by" => "~u_user.id"
             ))
@@ -252,11 +282,19 @@ class Geo {
                     Nicknames of the users who created the POI
                     Alias `creator_nick`
 
+                    Name of the API client that created the POI (if applicable)
+                    Alias `creator_api_name`
+
+                    Display color of the API client that created the POI
+                    Alias `creator_api_color`
+
                     Display colors of the groups that the creators are in
                     Alias `creator_color`
                 */
                 "c_user.provider_id creator_provider_id",
                 "c_user.nick creator_nick",
+                "c_api.name creator_api_name",
+                "c_api.color creator_api_color",
                 "c_group.color creator_color",
                 /*
                     Provider identities of the users who last updated the POIs
@@ -265,11 +303,19 @@ class Geo {
                     Nicknames of the users who last updated the POIs
                     Alias `updater_nick`
 
+                    Name of the API client that last updated the POI
+                    Alias `updater_api_name`
+
+                    Display color of the API client that last updated the POI
+                    Alias `updater_api_color`
+
                     Display colors of the groups that the last updaters are in
                     Alias `updater_color`
                 */
                 "u_user.provider_id updater_provider_id",
                 "u_user.nick updater_nick",
+                "u_api.name updater_api_name",
+                "u_api.color updater_api_color",
                 "u_group.color updater_color"
               ))
 
@@ -280,8 +326,10 @@ class Geo {
                         "id", "name", "latitude", "Longitude", "created_on",
                         "created_by", "last_updated", "updated_by", "objective",
                         "obj_params", "reward", "rew_params",
-                        "creator_provider_id", "creator_nick", "creator_color",
-                        "updater_provider_id", "updater_nick", "updater_color"
+                        "creator_provider_id", "creator_nick",
+                        "creator_api_name", "creator_api_color",
+                        "creator_color", "updater_provider_id", "updater_nick",
+                        "updater_api_name", "updater_api_color", "updater_color"
                     );
 
                 Please see /includes/lib/db.php for a list of what each of the
@@ -413,6 +461,12 @@ class Geo {
 */
 class POI {
     /*
+        Degrees to radians; π/180
+        Used to calculate distance between coordinates.
+    */
+    const D2R = 0.017453292519943295;
+
+    /*
         The array entries have the following keys:
 
             array_keys($data) == array(
@@ -479,6 +533,31 @@ class POI {
     public function isWithinGeofence($geofence) {
         if ($geofence === null) return true;
         return $geofence->containsPoint($this->getLatitude(), $this->getLongitude());
+    }
+
+    /*
+        Calculates the distance between the POI and a coordinate pair using the
+        Haversine formula.
+    */
+    public function getProximityTo($lat, $lon) {
+        /*
+            Convert latitudes and longitudes to radian form.
+        */
+        $p1lat = $this->getLatitude() * self::D2R; $p2lat = $lat * self::D2R;
+        $p1lon = $this->getLongitude() * self::D2R; $p2lon = $lon * self::D2R;
+        /*
+            Calculate hav(lat2-lat1) and hav(lon2-lon1).
+        */
+        $havLat = sin(($p2lat - $p1lat) / 2);
+        $havLat *= $havLat;
+        $havLon = sin(($p2lon - $p1lon) / 2);
+        $havLon *= $havLon;
+        /*
+            Calculate Haversine distance `d`.
+        */
+        $hav = $havLat + cos($p1lat) * cos($p2lat) * $havLon;
+        $d = asin(sqrt($hav));
+        return $d;
     }
 
     /*
@@ -637,17 +716,32 @@ class POI {
     */
     public function getCreator() {
         __require("auth");
+        __require("api");
         /*
             This object will only be used for displaying information about the
             identity of the user, so querying the group to get permission/group
             information for the user is not necessary.
         */
-        return new User(array(
-            "id" => $this->data["created_by"],
-            "nick" => $this->data["creator_nick"],
-            "color" => $this->data["creator_color"],
-            "provider_id" => $this->data["creator_provider_id"]
-        ));
+        if (substr($this->data["created_by"], 0, strlen(APIClient::USER_ID_PREFIX))
+            === APIClient::USER_ID_PREFIX) {
+            /*
+                If the POI was created by an API client, create a fake `User`
+                object for the purpose of displaying its identity only.
+            */
+            return new User(array(
+                "id" => $this->data["created_by"],
+                "nick" => $this->data["creator_api_name"],
+                "color" => $this->data["creator_api_color"],
+                "provider_id" => $this->data["creator_api_name"]
+            ));
+        } else {
+            return new User(array(
+                "id" => $this->data["created_by"],
+                "nick" => $this->data["creator_nick"],
+                "color" => $this->data["creator_color"],
+                "provider_id" => $this->data["creator_provider_id"]
+            ));
+        }
     }
 
     /*
@@ -663,12 +757,26 @@ class POI {
             identity of the user, so querying the group to get permission/group
             information for the user is not necessary.
         */
-        return new User(array(
-            "id" => $this->data["updated_by"],
-            "nick" => $this->data["updater_nick"],
-            "color" => $this->data["updater_color"],
-            "provider_id" => $this->data["updater_provider_id"]
-        ));
+        if (substr($this->data["updated_by"], 0, strlen(APIClient::USER_ID_PREFIX))
+            === APIClient::USER_ID_PREFIX) {
+            /*
+                If the POI was last updated by an API client, create a fake
+                `User` object for the purpose of displaying its identity only.
+            */
+            return new User(array(
+                "id" => $this->data["updated_by"],
+                "nick" => $this->data["updater_api_name"],
+                "color" => $this->data["updater_api_color"],
+                "provider_id" => $this->data["updater_api_name"]
+            ));
+        } else {
+            return new User(array(
+                "id" => $this->data["updated_by"],
+                "nick" => $this->data["updater_nick"],
+                "color" => $this->data["updater_color"],
+                "provider_id" => $this->data["updater_provider_id"]
+            ));
+        }
     }
 }
 
@@ -720,11 +828,21 @@ class Geofence {
     }
 
     /*
-        Retrieves the user-defined name of the geofence.
+        Retrieves the user-defined name of the geofence. This function is not
+        HTML safe and may result in XSS attacks if output directly on the page.
     */
     public function getLabel() {
         if ($this->data === null) return null;
         return $this->data["label"];
+    }
+
+    /*
+        Retrieves the user-defined name of the geofence with special HTML
+        characters escaped.
+    */
+    public function getLabelHTML() {
+        if ($this->data === null) return null;
+        return htmlspecialchars($this->data["label"], ENT_QUOTES);
     }
 
     /*
