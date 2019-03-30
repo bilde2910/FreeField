@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Current group\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/group.po\n"
+"Project-Id-Version: freefield\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"PO-Revision-Date: 2019-03-30 22:44\n"
+
+msgid "group.selector.current"
+msgstr ""
+
+msgid "group.selector.available"
+msgstr ""
+
+msgid "group.level.unknown"
+msgstr ""
+
+msgid "group.level.anonymous"
+msgstr ""
+
+msgid "group.level.read_only"
+msgstr ""
+
+msgid "group.level.registered"
+msgstr ""
+
+msgid "group.level.submitter"
+msgstr ""
+
+msgid "group.level.moderator"
+msgstr ""
+
+msgid "group.level.admin"
+msgstr ""
+
+msgid "group.level.host"
+msgstr ""
+
