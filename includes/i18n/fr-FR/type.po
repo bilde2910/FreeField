@@ -1,0 +1,69 @@
+msgid ""
+msgstr ""
+"Normal\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: fr\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/type.po\n"
+"Project-Id-Version: freefield\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"PO-Revision-Date: 2019-03-30 22:31\n"
+
+msgid "type.normal"
+msgstr ""
+
+msgid "type.fighting"
+msgstr ""
+
+msgid "type.flying"
+msgstr ""
+
+msgid "type.poison"
+msgstr ""
+
+msgid "type.ground"
+msgstr ""
+
+msgid "type.rock"
+msgstr ""
+
+msgid "type.bug"
+msgstr ""
+
+msgid "type.ghost"
+msgstr ""
+
+msgid "type.steel"
+msgstr ""
+
+msgid "type.fire"
+msgstr ""
+
+msgid "type.water"
+msgstr ""
+
+msgid "type.grass"
+msgstr ""
+
+msgid "type.electric"
+msgstr ""
+
+msgid "type.psychic"
+msgstr ""
+
+msgid "type.ice"
+msgstr ""
+
+msgid "type.dragon"
+msgstr ""
+
+msgid "type.dark"
+msgstr ""
+
+msgid "type.fairy"
+msgstr ""
+
