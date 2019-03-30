@@ -1,0 +1,22 @@
+#  This string determines how coordinate strings are displayed (consider the
+#  order of the coordinates, whether there should be a comma, etc.)
+#  %1 = Latitude, %2 = Longitude
+#  E.g. %1 = "40.1234°N", %2 = "10.4321°E"
+msgid "geo.location.string"
+msgstr "{%1}, {%2}"
+
+#  %1 = Degrees
+msgid "geo.direction.deg_north"
+msgstr "{%1}°N"
+
+#  %1 = Degrees
+msgid "geo.direction.deg_south"
+msgstr "{%1}°S"
+
+#  %1 = Degrees
+msgid "geo.direction.deg_east"
+msgstr "{%1}°E"
+
+#  %1 = Degrees
+msgid "geo.direction.deg_west"
+msgstr "{%1}°W"

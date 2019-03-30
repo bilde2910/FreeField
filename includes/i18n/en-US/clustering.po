@@ -1,0 +1,5 @@
+#  %1 = Number of POIs hidden from map
+#  %2 = Total number of POIs that are supposed to be visible in the map view
+#  %3 = "Hidden" icon graphic
+msgid "clustering.banner"
+msgstr "{%3} {%1}/{%2}"

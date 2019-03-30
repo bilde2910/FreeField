@@ -1,0 +1,1197 @@
+msgid "setting.site.uri.name"
+msgstr "Installation URI"
+
+msgid "setting.site.uri.desc"
+msgstr "The base location of the FreeField installation."
+
+msgid "setting.site.name.name"
+msgstr "Site name"
+
+msgid "setting.site.name.desc"
+msgstr "The name of the FreeField instance (e.g. '[City Name] FreeField')"
+
+msgid "setting.site.menu_header.name"
+msgstr "Sidebar header"
+
+msgid "setting.site.menu_header.desc"
+msgstr "The text displayed at the top of the menu sidebar."
+
+msgid "setting.site.menu_image.name"
+msgstr "Sidebar image"
+
+msgid "setting.site.menu_image.desc"
+msgstr "An image displayed at the top of the sidebar instead of the header text above. *.png, *.gif, *.jpg, and *.svg files are allowed. Must not exceed 128 KiB."
+
+msgid "setting.site.header_style.name"
+msgstr "Sidebar header style"
+
+msgid "setting.site.header_style.desc"
+msgstr "Choose whether to display text or an image in the sidebar."
+
+msgid "setting.site.header_style.option.text"
+msgstr "Show header text"
+
+msgid "setting.site.header_style.option.image"
+msgstr "Show header image (with background color)"
+
+msgid "setting.site.header_style.option.image_plain"
+msgstr "Show header image (without background color)"
+
+msgid "setting.motd.display_mode.name"
+msgstr "Display mode"
+
+msgid "setting.motd.display_mode.desc"
+msgstr "Determines how the Message of the Day is displayed."
+
+msgid "setting.motd.display_mode.option.forced"
+msgstr "Always display the Message of the Day on every page load"
+
+msgid "setting.motd.display_mode.option.always"
+msgstr "Always display by default, but allow users to dismiss it until it is next changed"
+
+msgid "setting.motd.display_mode.option.on_change"
+msgstr "Display once if the message is changed, then hide it for subsequent visits"
+
+msgid "setting.motd.display_mode.option.on_request"
+msgstr "Display only if the user manually requests to view the message"
+
+msgid "setting.motd.display_mode.option.never"
+msgstr "Completely disable the Message of the Day"
+
+msgid "setting.motd.title.name"
+msgstr "Custom message title"
+
+msgid "setting.motd.title.desc"
+msgstr "The title on the Message of the Day popup box. Defaults to \"Message of the Day\" if left blank."
+
+msgid "setting.motd.content.name"
+msgstr "Message content"
+
+msgid "setting.motd.content.desc"
+msgstr "A message displayed to all users in a popup box every time FreeField is opened. Markdown formatting accepted."
+
+msgid "setting.spiders.robots_policy.name"
+msgstr "Robots policy"
+
+msgid "setting.spiders.robots_policy.desc"
+msgstr "Declares how robots (such as search engines and other web scrapers) may crawl and index this site."
+
+msgid "setting.spiders.robots_policy.option.all"
+msgstr "Allow all indexation and crawling (all)"
+
+msgid "setting.spiders.robots_policy.option.nofollow"
+msgstr "Allow indexation, but do not follow page links (nofollow)"
+
+msgid "setting.spiders.robots_policy.option.noindex"
+msgstr "Deny indexation, but allow following page links (noindex)"
+
+msgid "setting.spiders.robots_policy.option.noindex_nofollow"
+msgstr "Deny all indexation and crawling (noindex,nofollow)"
+
+msgid "setting.database.type.name"
+msgstr "Database type"
+
+msgid "setting.database.type.desc"
+msgstr "The type of connection used to connect to the database."
+
+msgid "setting.database.type.option.mysql"
+msgstr "MySQL"
+
+msgid "setting.database.type.option.pgsql"
+msgstr "PostgreSQL (experimental)"
+
+msgid "setting.database.type.option.sqlite"
+msgstr "SQLite 3 (experimental)"
+
+msgid "setting.database.type.option.sqlite2"
+msgstr "SQLite 2 (experimental)"
+
+msgid "setting.database.type.option.sqlsrv"
+msgstr "Microsoft SQL Server / SQL Azure (experimental)"
+
+msgid "setting.database.type.option.4D"
+msgstr "4D (experimental)"
+
+msgid "setting.database.type.option.oci"
+msgstr "OCI / Oracle Instant Client (experimental)"
+
+msgid "setting.database.type.option.cubrid"
+msgstr "Cubrid (experimental)"
+
+msgid "setting.database.type.option.sybase"
+msgstr "Sybase ct-lib (experimental)"
+
+msgid "setting.database.type.option.mssql"
+msgstr "Microsoft SQL Server (via dblib) (experimental)"
+
+msgid "setting.database.type.option.dblib"
+msgstr "FreeTDS (experimental)"
+
+msgid "setting.database.host.name"
+msgstr "Hostname"
+
+msgid "setting.database.host.desc"
+msgstr "The hostname or IP address of the database."
+
+msgid "setting.database.port.name"
+msgstr "Port (-1 = default)"
+
+msgid "setting.database.port.desc"
+msgstr "The port used to connect to the database. Set to -1 for default port."
+
+msgid "setting.database.username.name"
+msgstr "Username"
+
+msgid "setting.database.username.desc"
+msgstr "The username to login to the database server."
+
+msgid "setting.database.password.name"
+msgstr "Password"
+
+msgid "setting.database.password.desc"
+msgstr "The password to login to the database server."
+
+msgid "setting.database.database.name"
+msgstr "Database"
+
+msgid "setting.database.database.desc"
+msgstr "The name of the database FreeField should write data to."
+
+msgid "setting.database.table_prefix.name"
+msgstr "Table prefix"
+
+msgid "setting.database.table_prefix.desc"
+msgstr "A prefix used for all tables used by FreeField, to avoid conflicts with other tables."
+
+msgid "setting.permissions.default_level.name"
+msgstr "Default user group"
+
+msgid "setting.permissions.default_level.desc"
+msgstr "The default permissions level to assign all newly registered users."
+
+msgid "setting.permissions.level.self_manage.nickname.name"
+msgstr "Change own nickname"
+
+msgid "setting.permissions.level.self_manage.nickname.desc"
+msgstr "Allows users of this level and higher to change their own nicknames."
+
+msgid "setting.permissions.level.access.name"
+msgstr "View map"
+
+msgid "setting.permissions.level.access.desc"
+msgstr "Allows users to view the FreeField map and list of Pokéstops."
+
+msgid "setting.permissions.level.find_reporter.name"
+msgstr "Identify research reporters"
+
+msgid "setting.permissions.level.find_reporter.desc"
+msgstr "Shows users who last submitted research on each Pokéstop."
+
+msgid "setting.permissions.level.report_research.name"
+msgstr "Report field research"
+
+msgid "setting.permissions.level.report_research.desc"
+msgstr "Allows users to report field research on Pokéstops whose current field research objective is unknown."
+
+msgid "setting.permissions.level.overwrite_research.name"
+msgstr "Overwrite field research"
+
+msgid "setting.permissions.level.overwrite_research.desc"
+msgstr "Allows users to report field research on all Pokéstops, even if another user has previously submitted a research objective on the same day. Also requires the \"Report field research\" permission."
+
+msgid "setting.permissions.level.submit_poi.name"
+msgstr "Submit Pokéstops"
+
+msgid "setting.permissions.level.submit_poi.desc"
+msgstr "Allows users to submit new Pokéstops to the map."
+
+msgid "setting.permissions.level.personalization.icons.name"
+msgstr "Customize markers"
+
+msgid "setting.permissions.level.personalization.icons.desc"
+msgstr "Allows users to select their own map marker set instead of the default for their own account."
+
+msgid "setting.permissions.level.personalization.species.name"
+msgstr "Customize species icons"
+
+msgid "setting.permissions.level.personalization.species.desc"
+msgstr "Allows users to select their own species icon set instead of the default for their own account."
+
+msgid "setting.permissions.level.admin.main.general.name"
+msgstr "Manage site settings"
+
+msgid "setting.permissions.level.admin.main.general.desc"
+msgstr "Allows users to change the site database and installation settings."
+
+msgid "setting.permissions.level.admin.main.section.access.name"
+msgstr "Manage access settings"
+
+msgid "setting.permissions.level.admin.main.section.access.desc"
+msgstr "Allows users to change the access parameters, such as the URL, of the site."
+
+msgid "setting.permissions.level.admin.main.section.instance.name"
+msgstr "Manage instance options"
+
+msgid "setting.permissions.level.admin.main.section.instance.desc"
+msgstr "Allows users to change this FreeField instance's core appearance options, such as the name of the site."
+
+msgid "setting.permissions.level.admin.main.section.motd.name"
+msgstr "Manage MotD"
+
+msgid "setting.permissions.level.admin.main.section.motd.desc"
+msgstr "Allows users to change and manage the Message of the Day for this FreeField instance."
+
+msgid "setting.permissions.level.admin.main.section.spiders.name"
+msgstr "Manage crawling settings"
+
+msgid "setting.permissions.level.admin.main.section.spiders.desc"
+msgstr "Allows users to change the crawling settings for web spiders."
+
+msgid "setting.permissions.level.admin.main.section.database.name"
+msgstr "Manage database settings"
+
+msgid "setting.permissions.level.admin.main.section.database.desc"
+msgstr "Allows users to change the database settings."
+
+msgid "setting.permissions.level.admin.users.general.name"
+msgstr "Manage users"
+
+msgid "setting.permissions.level.admin.users.general.desc"
+msgstr "Allows users to approve, reject, manage, and delete other users's accounts."
+
+msgid "setting.permissions.level.admin.groups.general.name"
+msgstr "Manage groups"
+
+msgid "setting.permissions.level.admin.groups.general.desc"
+msgstr "Allows users to add, remove, and manage user groups."
+
+msgid "setting.permissions.level.admin.users.groups.name"
+msgstr "Manage group membership"
+
+msgid "setting.permissions.level.admin.users.groups.desc"
+msgstr "Allows users to manage users' memberships in groups. Also requires the \"Manage users\" permission."
+
+msgid "setting.permissions.level.admin.groups.self_manage.name"
+msgstr "Manage own group"
+
+msgid "setting.permissions.level.admin.groups.self_manage.desc"
+msgstr "Allows users to assign and remove other users from, and manage the permissions of their own group. By default, users with group membership permissions can only assign users to and manage groups below themselves. This permission is a dangerous permission to grant! Users with this permission can appoint and delete other users of the same rank as themselves. It is highly recommended to leave this at the default unless there is an extremely good reason to change it. Also requires the \"Manage group membership\" permission."
+
+msgid "setting.permissions.level.admin.pois.general.name"
+msgstr "Manage Pokéstops"
+
+msgid "setting.permissions.level.admin.pois.general.desc"
+msgstr "Allow users to manage and delete user-submitted Pokéstops."
+
+msgid "setting.permissions.level.admin.pois.import.name"
+msgstr "Import and export data"
+
+msgid "setting.permissions.level.admin.pois.import.desc"
+msgstr "Allow users to import and export Pokéstops."
+
+msgid "setting.permissions.level.admin.perms.general.name"
+msgstr "Manage permissions"
+
+msgid "setting.permissions.level.admin.perms.general.desc"
+msgstr "Allows users to change the permissions settings on this page."
+
+msgid "setting.permissions.level.admin.perms.section.default.name"
+msgstr "Set default group"
+
+msgid "setting.permissions.level.admin.perms.section.default.desc"
+msgstr "Allows users to change the default user group for newly registered members."
+
+msgid "setting.permissions.level.admin.perms.section.self_manage.name"
+msgstr "Grant self-management permissions"
+
+msgid "setting.permissions.level.admin.perms.section.self_manage.desc"
+msgstr "Allows users to manage permissions relating to account self-management, such as granting users the right to change their own nicknames, on this page."
+
+msgid "setting.permissions.level.admin.perms.section.map_access.name"
+msgstr "Manage map access"
+
+msgid "setting.permissions.level.admin.perms.section.map_access.desc"
+msgstr "Allows users to manage map access restrictions."
+
+msgid "setting.permissions.level.admin.perms.section.personalization.name"
+msgstr "Manage personalization restrictions"
+
+msgid "setting.permissions.level.admin.perms.section.personalization.desc"
+msgstr "Allows users to manage map personalization restrictions, such as restrictions on which icon sets can be used."
+
+msgid "setting.permissions.level.admin.perms.section.admin.name"
+msgstr "Manage administrative permissions"
+
+msgid "setting.permissions.level.admin.perms.section.admin.desc"
+msgstr "Allows users to manage administrative permissions (such as this one)."
+
+msgid "setting.permissions.level.admin.security.general.name"
+msgstr "Manage security settings"
+
+msgid "setting.permissions.level.admin.security.general.desc"
+msgstr "Allows users to change the security settings for the site."
+
+msgid "setting.permissions.level.admin.security.section.user_creation.name"
+msgstr "Configure user approval"
+
+msgid "setting.permissions.level.admin.security.section.user_creation.desc"
+msgstr "Allows users to change settings related to user account creation."
+
+msgid "setting.permissions.level.admin.security.section.sessions.name"
+msgstr "Configure session parameters"
+
+msgid "setting.permissions.level.admin.security.section.sessions.desc"
+msgstr "Allows users to change session security settings."
+
+msgid "setting.permissions.level.admin.security.section.outbound.name"
+msgstr "Configure outbound requests security"
+
+msgid "setting.permissions.level.admin.security.section.outbound.desc"
+msgstr "Allows users to change security settings for outbound HTTP requests."
+
+msgid "setting.permissions.level.admin.security.section.same_origin.name"
+msgstr "Manage same-origin policies"
+
+msgid "setting.permissions.level.admin.security.section.same_origin.desc"
+msgstr "Allows users to change same-origin policy settings."
+
+msgid "setting.permissions.level.admin.auth.general.name"
+msgstr "Manage authentication"
+
+msgid "setting.permissions.level.admin.auth.general.desc"
+msgstr "Allows users to add, set up, enable, and disable various authentication providers for user sign-in."
+
+msgid "setting.permissions.level.admin.auth.section.discord.name"
+msgstr "Discord authentication"
+
+msgid "setting.permissions.level.admin.auth.section.discord.desc"
+msgstr "Allows users to change authentication settings for Discord."
+
+msgid "setting.permissions.level.admin.auth.section.telegram.name"
+msgstr "Telegram authentication"
+
+msgid "setting.permissions.level.admin.auth.section.telegram.desc"
+msgstr "Allows users to change authentication settings for Telegram."
+
+msgid "setting.permissions.level.admin.auth.section.reddit.name"
+msgstr "Reddit authentication"
+
+msgid "setting.permissions.level.admin.auth.section.reddit.desc"
+msgstr "Allows users to change authentication settings for Reddit."
+
+msgid "setting.permissions.level.admin.auth.section.facebook.name"
+msgstr "Facebook authentication"
+
+msgid "setting.permissions.level.admin.auth.section.facebook.desc"
+msgstr "Allows users to change authentication settings for Facebook."
+
+msgid "setting.permissions.level.admin.auth.section.line.name"
+msgstr "LINE authentication"
+
+msgid "setting.permissions.level.admin.auth.section.line.desc"
+msgstr "Allows users to change authentication settings for LINE."
+
+msgid "setting.permissions.level.admin.auth.section.groupme.name"
+msgstr "GroupMe authentication"
+
+msgid "setting.permissions.level.admin.auth.section.groupme.desc"
+msgstr "Allows users to change authentication settings for GroupMe."
+
+msgid "setting.permissions.level.admin.mobile.general.name"
+msgstr "Manage mobile settings"
+
+msgid "setting.permissions.level.admin.mobile.general.desc"
+msgstr "Allows users to manage settings for the mobile device representation of this FreeField instance."
+
+msgid "setting.permissions.level.admin.mobile.section.pwa.name"
+msgstr "Manage PWA settings"
+
+msgid "setting.permissions.level.admin.mobile.section.pwa.desc"
+msgstr "Allows users to modify the Progressive Web App manifest for mobile devices."
+
+msgid "setting.permissions.level.admin.themes.general.name"
+msgstr "Manage default appearance"
+
+msgid "setting.permissions.level.admin.themes.general.desc"
+msgstr "Allows users to manage default site-wide appearance."
+
+msgid "setting.permissions.level.admin.themes.section.meta.name"
+msgstr "Manage metadata"
+
+msgid "setting.permissions.level.admin.themes.section.meta.desc"
+msgstr "Allows users to change page metadata theming, such as the favicon and the theme color for mobile browsers."
+
+msgid "setting.permissions.level.admin.themes.section.color.name"
+msgstr "Manage themes"
+
+msgid "setting.permissions.level.admin.themes.section.color.desc"
+msgstr "Allows users to change the default map and page color themes and whether or not users are allowed to override those defaults."
+
+msgid "setting.permissions.level.admin.themes.section.icons.name"
+msgstr "Manage map markers"
+
+msgid "setting.permissions.level.admin.themes.section.icons.desc"
+msgstr "Allows users to change the default map marker set and whether or not users are allowed to override that default."
+
+msgid "setting.permissions.level.admin.map.general.name"
+msgstr "Manage map settings"
+
+msgid "setting.permissions.level.admin.map.general.desc"
+msgstr "Allows users to manage map providers and default settings for the map."
+
+msgid "setting.permissions.level.admin.map.section.provider.name"
+msgstr "Change map provider"
+
+msgid "setting.permissions.level.admin.map.section.provider.desc"
+msgstr "Allows users to change and configure which map provider this FreeField instance uses."
+
+msgid "setting.permissions.level.admin.map.section.default.name"
+msgstr "Change map defaults"
+
+msgid "setting.permissions.level.admin.map.section.default.desc"
+msgstr "Allows users to change map defaults, such as default coordinates and zoom level for first-time visitors."
+
+msgid "setting.permissions.level.admin.map.section.updates.name"
+msgstr "Manage client updates"
+
+msgid "setting.permissions.level.admin.map.section.updates.desc"
+msgstr "Allows users to change the interval at which each FreeField client requests an updated list of research tasks for all Pokéstops."
+
+msgid "setting.permissions.level.admin.map.section.geofence.name"
+msgstr "Manage master geofence"
+
+msgid "setting.permissions.level.admin.map.section.geofence.desc"
+msgstr "Allows users to change the geofence and associated behavior for submission and display of Pokéstops."
+
+msgid "setting.permissions.level.admin.fences.general.name"
+msgstr "Manage geofences"
+
+msgid "setting.permissions.level.admin.fences.general.desc"
+msgstr "Allows users to manage geofences."
+
+msgid "setting.permissions.level.admin.hooks.general.name"
+msgstr "Manage webhooks"
+
+msgid "setting.permissions.level.admin.hooks.general.desc"
+msgstr "Allows users to manage webhook integrations."
+
+msgid "setting.permissions.level.admin.api.general.name"
+msgstr "Manage API access"
+
+msgid "setting.permissions.level.admin.api.general.desc"
+msgstr "Allows users to set up and manage API clients that can interface with FreeField."
+
+msgid "setting.permissions.level.admin.updates.general.name"
+msgstr "Install updates"
+
+msgid "setting.permissions.level.admin.updates.general.desc"
+msgstr "Allows users to update the FreeField instance."
+
+msgid "setting.security.approval.require.name"
+msgstr "Require manual approval"
+
+msgid "setting.security.approval.require.desc"
+msgstr "If this is enabled, administrators must approve each created account before the account can be used to access FreeField."
+
+msgid "setting.security.approval.require.label"
+msgstr "Manually verify new user accounts"
+
+msgid "setting.security.approval.by_qr.name"
+msgstr "Present approval QR codes"
+
+msgid "setting.security.approval.by_qr.desc"
+msgstr "If this is enabled, users awaiting approval will be presented with a QR code that can be scanned by an administrator. Scanning the code will allow the administrator to approve or reject the user very quickly compared to finding the user in the list of registered users and approving them there. This function requires the GD extension to be loaded in PHP."
+
+msgid "setting.security.approval.by_qr.label"
+msgstr "Generate QR codes for quick administrative approval"
+
+msgid "setting.auth.session_length.name"
+msgstr "Session length"
+
+msgid "setting.auth.session_length.desc"
+msgstr "How long a user should stay logged in when they authenticate."
+
+msgid "setting.auth.session_length.option.86400"
+msgstr "1 day"
+
+msgid "setting.auth.session_length.option.604800"
+msgstr "7 days"
+
+msgid "setting.auth.session_length.option.2592000"
+msgstr "30 days"
+
+msgid "setting.auth.session_length.option.7776000"
+msgstr "90 days"
+
+msgid "setting.auth.session_length.option.15811200"
+msgstr "6 months"
+
+msgid "setting.auth.session_length.option.31536000"
+msgstr "1 year"
+
+msgid "setting.auth.session_length.option.63072000"
+msgstr "2 years"
+
+msgid "setting.auth.session_length.option.157766400"
+msgstr "5 years"
+
+msgid "setting.auth.session_length.option.315619200"
+msgstr "10 years"
+
+msgid "setting.security.validate_ua.name"
+msgstr "User-agent validation"
+
+msgid "setting.security.validate_ua.desc"
+msgstr "Restricts each login session to the browser it was created from. It is recommended to keep this enabled to prevent session hijacking, as usage of a session in a different browser than the one it was created from is almost always malicious. Setting this to Strict will log out the user if their browser receives an update, and does not improve security much beyond Lenient, and is thus not recommended."
+
+msgid "setting.security.validate_ua.option.no"
+msgstr "Disabled"
+
+msgid "setting.security.validate_ua.option.lenient"
+msgstr "Lenient (ignores browser version)"
+
+msgid "setting.security.validate_ua.option.strict"
+msgstr "Strict (enforces browser version)"
+
+msgid "setting.security.validate_lang.name"
+msgstr "Browser language validation"
+
+msgid "setting.security.validate_lang.desc"
+msgstr "Requires each login session to maintain the same set of browser languages every time it is used. This will invalidate a user's session if they change their browser or device languages. Enabling this helps against session hijacking where the malicious actor uses the same user-agent, but has configured their browser for a different set of accepted languages, such as if they live in a different country."
+
+msgid "setting.security.validate_lang.label"
+msgstr "Enforce browser language validation"
+
+msgid "setting.security.selector_canary.name"
+msgstr "Session hijack canary"
+
+msgid "setting.security.selector_canary.desc"
+msgstr "The session hijack canary is triggered when any of the above validation requirements fail for a user. While this could be caused by a session hijack, it may also be caused for completely legitimate reasons, such as a browser update causing strict user-agent validation to fail. Enabling the canary will cause the user to be signed out of FreeField on all of their devices if validation fails for one of them. In practice, this means that if an attacker obtains the user's session cookie, if they have e.g. the wrong user-agent or language on their browser, they will not be able to sign in with that cookie later even if they were to guess the correct user-agent or language because the cookie will be permanently invalidated."
+
+msgid "setting.security.selector_canary.label"
+msgstr "Require global user re-authentication upon session validation failures"
+
+msgid "setting.security.curl.verify_certificates.name"
+msgstr "Certificate validation"
+
+msgid "setting.security.curl.verify_certificates.desc"
+msgstr "Disabling certificate validation may resolve issues such as webhooks not working, but eliminates protection against man-in-the-middle attacks when performing outbound requests."
+
+msgid "setting.security.curl.verify_certificates.label"
+msgstr "Verify SSL/TLS certificates for outbound requests"
+
+msgid "setting.security.curl.cacert_path.name"
+msgstr "Certificates (cacert.pem) file"
+
+msgid "setting.security.curl.cacert_path.desc"
+msgstr "The path to the location of the certificate authority file on the server, for verifying outbound HTTPS connections."
+
+msgid "setting.security.frame_options.name"
+msgstr "Frame options"
+
+msgid "setting.security.frame_options.desc"
+msgstr "This setting declares the framing policy of this FreeField instance. Allowing framing means that other sites can insert this site as part of their own using iframes or framesets. It is recommended to leave this at the default \"deny\" setting unless you have a good reason for enabling it."
+
+msgid "setting.security.frame_options.option.allow"
+msgstr "Allow this site to be inserted in frames on all websites"
+
+msgid "setting.security.frame_options.option.sameorigin"
+msgstr "Allow framing only from the same origin as this site"
+
+msgid "setting.security.frame_options.option.deny"
+msgstr "Do not allow this site to be framed anywhere"
+
+msgid "setting.auth.provider.discord.enabled.name"
+msgstr "Allow Discord authentication"
+
+msgid "setting.auth.provider.discord.enabled.desc"
+msgstr "Enables usage of Discord for user authentication."
+
+msgid "setting.auth.provider.discord.enabled.label"
+msgstr "Enable Discord authentication"
+
+msgid "setting.auth.provider.discord.client_id.name"
+msgstr "Client ID"
+
+msgid "setting.auth.provider.discord.client_id.desc"
+msgstr "The client ID of your Discord API application."
+
+msgid "setting.auth.provider.discord.client_secret.name"
+msgstr "Client secret"
+
+msgid "setting.auth.provider.discord.client_secret.desc"
+msgstr "The client secret of your Discord API application."
+
+msgid "setting.auth.provider.telegram.enabled.name"
+msgstr "Allow Telegram authentication"
+
+msgid "setting.auth.provider.telegram.enabled.desc"
+msgstr "Enables usage of Telegram for user authentication."
+
+msgid "setting.auth.provider.telegram.enabled.label"
+msgstr "Enable Telegram authentication"
+
+msgid "setting.auth.provider.telegram.bot_username.name"
+msgstr "Bot username"
+
+msgid "setting.auth.provider.telegram.bot_username.desc"
+msgstr "The username of your Telegram bot."
+
+msgid "setting.auth.provider.telegram.bot_token.name"
+msgstr "Bot token"
+
+msgid "setting.auth.provider.telegram.bot_token.desc"
+msgstr "The bot token assigned to your Telegram bot by BotFather."
+
+msgid "setting.auth.provider.reddit.enabled.name"
+msgstr "Allow Reddit authentication"
+
+msgid "setting.auth.provider.reddit.enabled.desc"
+msgstr "Enables usage of Reddit for user authentication."
+
+msgid "setting.auth.provider.reddit.enabled.label"
+msgstr "Enable Reddit authentication"
+
+msgid "setting.auth.provider.reddit.client_id.name"
+msgstr "Client ID"
+
+msgid "setting.auth.provider.reddit.client_id.desc"
+msgstr "The client ID of your Reddit API application."
+
+msgid "setting.auth.provider.reddit.client_secret.name"
+msgstr "Client secret"
+
+msgid "setting.auth.provider.reddit.client_secret.desc"
+msgstr "The client secret of your Reddit API application."
+
+msgid "setting.auth.provider.facebook.enabled.name"
+msgstr "Allow Facebook authentication"
+
+msgid "setting.auth.provider.facebook.enabled.desc"
+msgstr "Enables usage of Facebook for user authentication."
+
+msgid "setting.auth.provider.facebook.enabled.label"
+msgstr "Enable Facebook authentication"
+
+msgid "setting.auth.provider.facebook.app_id.name"
+msgstr "App ID"
+
+msgid "setting.auth.provider.facebook.app_id.desc"
+msgstr "The app ID of your Facebook API application."
+
+msgid "setting.auth.provider.facebook.app_secret.name"
+msgstr "App secret"
+
+msgid "setting.auth.provider.facebook.app_secret.desc"
+msgstr "The app secret of your Facebook API application."
+
+msgid "setting.auth.provider.line.enabled.name"
+msgstr "Allow LINE authentication"
+
+msgid "setting.auth.provider.line.enabled.desc"
+msgstr "Enables usage of LINE for user authentication."
+
+msgid "setting.auth.provider.line.enabled.label"
+msgstr "Enable LINE authentication"
+
+msgid "setting.auth.provider.line.channel_id.name"
+msgstr "Channel ID"
+
+msgid "setting.auth.provider.line.channel_id.desc"
+msgstr "The channel ID of your LINE Login application."
+
+msgid "setting.auth.provider.line.channel_secret.name"
+msgstr "Channel secret"
+
+msgid "setting.auth.provider.line.channel_secret.desc"
+msgstr "The channel secret of your LINE Login application."
+
+msgid "setting.auth.provider.groupme.enabled.name"
+msgstr "Allow GroupMe authentication"
+
+msgid "setting.auth.provider.groupme.enabled.desc"
+msgstr "Enables usage of GroupMe for user authentication."
+
+msgid "setting.auth.provider.groupme.enabled.label"
+msgstr "Enable GroupMe authentication"
+
+msgid "setting.auth.provider.groupme.client_id.name"
+msgstr "Client ID"
+
+msgid "setting.auth.provider.groupme.client_id.desc"
+msgstr "The client ID of your GroupMe API application."
+
+msgid "setting.mobile.pwa.enabled.name"
+msgstr "Enable PWA"
+
+msgid "setting.mobile.pwa.enabled.desc"
+msgstr "Whether or not Progressive Web App functionality should be enabled."
+
+msgid "setting.mobile.pwa.enabled.label"
+msgstr "Enable Progressive Web App functionality"
+
+msgid "setting.mobile.pwa.name.name"
+msgstr "Name"
+
+msgid "setting.mobile.pwa.name.desc"
+msgstr "A human-readable name for the site when displayed to the user."
+
+msgid "setting.mobile.pwa.short_name.name"
+msgstr "Short name"
+
+msgid "setting.mobile.pwa.short_name.desc"
+msgstr "A short human-readable name for the application. Intended for when there is insufficient space to display the full name above."
+
+msgid "setting.mobile.pwa.description.name"
+msgstr "Description"
+
+msgid "setting.mobile.pwa.description.desc"
+msgstr "A general description of what the FreeField web app does."
+
+msgid "setting.mobile.pwa.display.name"
+msgstr "Display mode"
+
+msgid "setting.mobile.pwa.display.desc"
+msgstr "The preferred display mode for the website."
+
+msgid "setting.mobile.pwa.display.option.fullscreen"
+msgstr "Fullscreen"
+
+msgid "setting.mobile.pwa.display.option.standalone"
+msgstr "Standalone application"
+
+msgid "setting.mobile.pwa.display.option.minimal_ui"
+msgstr "Standalone application with browser navigation controls"
+
+msgid "setting.mobile.pwa.display.option.browser"
+msgstr "Conventional browser window"
+
+msgid "setting.mobile.pwa.icon.192px.name"
+msgstr "App icon (192px)"
+
+msgid "setting.mobile.pwa.icon.192px.desc"
+msgstr "The icon that serves as the Progressive Web App's small icon. *.png, *.gif, and *.jpg files are allowed. Must not exceed 64 KiB. The uploaded image should be exactly 192x192 px."
+
+msgid "setting.mobile.pwa.icon.512px.name"
+msgstr "App icon (512px)"
+
+msgid "setting.mobile.pwa.icon.512px.desc"
+msgstr "The icon that serves as the Progressive Web App's large icon. *.png, *.gif, and *.jpg files are allowed. Must not exceed 256 KiB. The uploaded image should be exactly 512x512 px."
+
+msgid "setting.mobile.pwa.icon.launch.name"
+msgstr "App icon (loading screen)"
+
+msgid "setting.mobile.pwa.icon.launch.desc"
+msgstr "The icon that serves as the Progressive Web App's icon on the loading screen. *.png, *.gif, *.jpg, and *.svg files are allowed. Must not exceed 256 KiB."
+
+msgid "setting.mobile.pwa.color.background.name"
+msgstr "Background color"
+
+msgid "setting.mobile.pwa.color.background.desc"
+msgstr "The background color for the web app, displayed on the splash screen."
+
+msgid "setting.mobile.pwa.color.foreground.name"
+msgstr "Foreground color"
+
+msgid "setting.mobile.pwa.color.foreground.desc"
+msgstr "The foreground color for the web app, displayed on the splash screen."
+
+msgid "setting.themes.meta.favicon.name"
+msgstr "Favicon"
+
+msgid "setting.themes.meta.favicon.desc"
+msgstr "The icon displayed for this site in the address bar. *.png, *.gif, *.ico, and *.jpg files are allowed. Must not exceed 256 KiB."
+
+msgid "setting.themes.meta.color.name"
+msgstr "Title bar theme color"
+
+msgid "setting.themes.meta.color.desc"
+msgstr "The color displayed in the title and address bars for mobile browsers."
+
+msgid "setting.themes.color.site.name"
+msgstr "Site theme color"
+
+msgid "setting.themes.color.site.desc"
+msgstr "The site-wide theme color, displayed for example in the sidebar."
+
+msgid "setting.themes.color.admin.name"
+msgstr "Adminstration interface"
+
+msgid "setting.themes.color.admin.desc"
+msgstr "Select the color theme of the administration pages."
+
+msgid "setting.themes.color.admin.option.light"
+msgstr "Light"
+
+msgid "setting.themes.color.admin.option.dark"
+msgstr "Dark"
+
+msgid "setting.themes.color.user_settings.theme.name"
+msgstr "User settings default"
+
+msgid "setting.themes.color.user_settings.theme.desc"
+msgstr "Select the default color theme of users' settings pages."
+
+msgid "setting.themes.color.user_settings.theme.option.light"
+msgstr "Light"
+
+msgid "setting.themes.color.user_settings.theme.option.dark"
+msgstr "Dark"
+
+msgid "setting.themes.color.user_settings.allow_personalization.name"
+msgstr "Settings personalization"
+
+msgid "setting.themes.color.user_settings.allow_personalization.desc"
+msgstr "Whether to allow users to set their own color theme for their settings pages instead of the default for their own account."
+
+msgid "setting.themes.color.user_settings.allow_personalization.label"
+msgstr "Allow users to select another user settings color theme"
+
+msgid "setting.themes.color.map.theme.mapbox.name"
+msgstr "Default MapBox theme"
+
+msgid "setting.themes.color.map.theme.mapbox.desc"
+msgstr "Select the default color theme of the map."
+
+msgid "setting.themes.color.map.theme.mapbox.option.basic"
+msgstr "Mapbox Basic"
+
+msgid "setting.themes.color.map.theme.mapbox.option.streets"
+msgstr "Mapbox Streets"
+
+msgid "setting.themes.color.map.theme.mapbox.option.bright"
+msgstr "Mapbox Bright"
+
+msgid "setting.themes.color.map.theme.mapbox.option.light"
+msgstr "Mapbox Light"
+
+msgid "setting.themes.color.map.theme.mapbox.option.dark"
+msgstr "Mapbox Dark"
+
+msgid "setting.themes.color.map.theme.mapbox.option.satellite"
+msgstr "Mapbox Satellite"
+
+msgid "setting.themes.color.map.theme.thunderforest.name"
+msgstr "Default Thunderforest theme"
+
+msgid "setting.themes.color.map.theme.thunderforest.desc"
+msgstr "Select the default color theme of the map."
+
+msgid "setting.themes.color.map.theme.thunderforest.option.cycle"
+msgstr "OpenCycleMap"
+
+msgid "setting.themes.color.map.theme.thunderforest.option.transport"
+msgstr "Transport"
+
+msgid "setting.themes.color.map.theme.thunderforest.option.landscape"
+msgstr "Landscape"
+
+msgid "setting.themes.color.map.theme.thunderforest.option.outdoors"
+msgstr "Outdoors"
+
+msgid "setting.themes.color.map.theme.thunderforest.option.transport_dark"
+msgstr "Transport Dark"
+
+msgid "setting.themes.color.map.theme.thunderforest.option.spinal_map"
+msgstr "Spinal Map"
+
+msgid "setting.themes.color.map.theme.thunderforest.option.pioneer"
+msgstr "Pioneer"
+
+msgid "setting.themes.color.map.theme.thunderforest.option.mobile_atlas"
+msgstr "Mobile Atlas"
+
+msgid "setting.themes.color.map.theme.thunderforest.option.neighbourhood"
+msgstr "Neighbourhood"
+
+msgid "setting.themes.color.map.allow_personalization.name"
+msgstr "Map personalization"
+
+msgid "setting.themes.color.map.allow_personalization.desc"
+msgstr "Whether to allow users to set their own color theme for map instead of the default for their own account."
+
+msgid "setting.themes.color.map.allow_personalization.label"
+msgstr "Allow users to select another map color theme"
+
+msgid "setting.themes.icons.default.name"
+msgstr "Default map marker set"
+
+msgid "setting.themes.icons.default.desc"
+msgstr "Select the style of map markers used by default on the map."
+
+msgid "setting.themes.species.default.name"
+msgstr "Default species icon set"
+
+msgid "setting.themes.species.default.desc"
+msgstr "Select the style of species markers used by default on the map."
+
+msgid "setting.map.provider.source.name"
+msgstr "Map source"
+
+msgid "setting.map.provider.source.desc"
+msgstr "Select which map provider to use."
+
+msgid "setting.map.provider.source.option.mapbox"
+msgstr "Mapbox (mapbox-gl.js)"
+
+msgid "setting.map.provider.source.option.thunderforest"
+msgstr "Thunderforest (leaflet.js)"
+
+msgid "setting.map.provider.mapbox.access_token.name"
+msgstr "Mapbox access token"
+
+msgid "setting.map.provider.mapbox.access_token.desc"
+msgstr "Access token obtained from Mapbox."
+
+msgid "setting.map.provider.thunderforest.api_key.name"
+msgstr "Thunderforest API key"
+
+msgid "setting.map.provider.thunderforest.api_key.desc"
+msgstr "API key obtained from Thunderforest."
+
+msgid "setting.map.provider.directions.name"
+msgstr "Default directions provider"
+
+msgid "setting.map.provider.directions.desc"
+msgstr "Select the default navigation provider to launch when users request directions to a given Pokéstop."
+
+msgid "setting.map.provider.directions.option.bing"
+msgstr "Bing Maps"
+
+msgid "setting.map.provider.directions.option.google"
+msgstr "Google Maps"
+
+msgid "setting.map.provider.directions.option.here"
+msgstr "HERE"
+
+msgid "setting.map.provider.directions.option.mapquest"
+msgstr "MapQuest"
+
+msgid "setting.map.provider.directions.option.waze"
+msgstr "Waze"
+
+msgid "setting.map.provider.directions.option.yandex"
+msgstr "Yandex.Maps"
+
+msgid "setting.map.default.center.latitude.name"
+msgstr "Latitude"
+
+msgid "setting.map.default.center.latitude.desc"
+msgstr "The latitude portion of the default coordinates to center the map at when it is loaded."
+
+msgid "setting.map.default.center.longitude.name"
+msgstr "Longitude"
+
+msgid "setting.map.default.center.longitude.desc"
+msgstr "The longitude portion of the default coordinates to center the map at when it is loaded."
+
+msgid "setting.map.default.zoom.name"
+msgstr "Zoom level"
+
+msgid "setting.map.default.zoom.desc"
+msgstr "The default zoom level of the map."
+
+msgid "setting.map.default.marker_component.name"
+msgstr "Task component for markers"
+
+msgid "setting.map.default.marker_component.desc"
+msgstr "The default research task component to use for map markers."
+
+msgid "setting.map.default.marker_component.option.objective"
+msgstr "Objectives"
+
+msgid "setting.map.default.marker_component.option.reward"
+msgstr "Rewards"
+
+msgid "setting.map.default.cluster_limit.name"
+msgstr "Maximum visible markers"
+
+msgid "setting.map.default.cluster_limit.desc"
+msgstr "The maximum number of Pokéstops that should be visible on the map for users by default. Lowering this value will put less strain on your players' devices and increase panning and zooming performance when on the map, but might prevent research tasks from being displayed if they are clustered too closely to other Pokéstops. Please see the players FAQ in the documentation for more information."
+
+msgid "setting.map.updates.refresh_interval.name"
+msgstr "Clientside refresh interval"
+
+msgid "setting.map.updates.refresh_interval.desc"
+msgstr "The amount of time in seconds between every time a FreeField client updates the list of POIs and active field research. If you experience high load on your server from FreeField, try increasing this value. The total volume of requests to the REST API for connected clients is (c/i) per second where c=number of active clients and i=refresh interval."
+
+msgid "setting.map.updates.tz.name"
+msgstr "Time zone"
+
+msgid "setting.map.updates.tz.desc"
+msgstr "The time zone used to determine midnight, i.e. the reset time for field research."
+
+msgid "setting.map.geofence.geofence.name"
+msgstr "Pokéstop geofence"
+
+msgid "setting.map.geofence.geofence.desc"
+msgstr "Limits submission of new Pokéstops to areas within the given geofence. Not specifying a geofence will disable geofencing and allows submission of Pokéstops (and by extension, their field research) worldwide."
+
+msgid "setting.map.geofence.hide_outside.name"
+msgstr "Out-of-bounds Pokéstops"
+
+msgid "setting.map.geofence.hide_outside.desc"
+msgstr "Whether or not to hide Pokéstops from the map if they are outside of the geofence selected above."
+
+msgid "setting.map.geofence.hide_outside.label"
+msgstr "Hide all Pokéstops outside of the selected geofence"
+
+msgid "setting.hooks.hook_list.webhook_url.name"
+msgstr "Webhook URL"
+
+msgid "setting.hooks.hook_list.language.name"
+msgstr "Language"
+
+msgid "setting.hooks.hook_list.icons.name"
+msgstr "Icon set"
+
+msgid "setting.hooks.hook_list.icons.option.default"
+msgstr "Default map marker icon set"
+
+msgid "setting.hooks.hook_list.show_species.name"
+msgstr "Show icon for Pokémon"
+
+msgid "setting.hooks.hook_list.show_species.label"
+msgstr "Display Pokémon species as reward icon when available"
+
+msgid "setting.hooks.hook_list.species.name"
+msgstr "Species icons"
+
+msgid "setting.hooks.hook_list.species.option.default"
+msgstr "Default species icon set"
+
+msgid "setting.hooks.hook_list.geofence.name"
+msgstr "Geofence"
+
+msgid "setting.hooks.hook_list.filter_mode.name"
+msgstr "Trigger webhook only if"
+
+msgid "setting.hooks.hook_list.filter_mode.objective.option.whitelist.name"
+msgstr "One of the following objectives are reported"
+
+msgid "setting.hooks.hook_list.filter_mode.objective.option.blacklist.name"
+msgstr "None of the following objectives are reported"
+
+msgid "setting.hooks.hook_list.filter_mode.reward.option.whitelist.name"
+msgstr "One of the following rewards are reported"
+
+msgid "setting.hooks.hook_list.filter_mode.reward.option.blacklist.name"
+msgstr "None of the following rewards are reported"
+
+msgid "setting.hooks.hook_list.actions.name"
+msgstr "Quick actions"
+
+msgid "setting.hooks.hook_list.actions.option.none"
+msgstr "(no action)"
+
+msgid "setting.hooks.hook_list.actions.option.enable"
+msgstr "Enable webhook"
+
+msgid "setting.hooks.hook_list.actions.option.disable"
+msgstr "Disable webhook"
+
+msgid "setting.hooks.hook_list.actions.option.delete"
+msgstr "Delete webhook"
+
+#  Telegram specific setting
+msgid "setting.hooks.tg.groups.select.name"
+msgstr "Target group"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.webhook_url.option.current"
+msgstr "Current group"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.webhook_url.option.other"
+msgstr "Other groups"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.webhook_url.option.select"
+msgstr "Select group..."
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.bot_token.name"
+msgstr "Bot token"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.name"
+msgstr "Parse mode"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.option.txt"
+msgstr "Plain text"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.option.md"
+msgstr "Markdown"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.option.html"
+msgstr "HTML"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_web_page_preview.name"
+msgstr "Disable web preview"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_web_page_preview.label"
+msgstr "Disable link previews for messages posted by this webhook"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_notification.name"
+msgstr "Disable notifications"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_notification.label"
+msgstr "Do not send notifications for messages posted by this webhook"
+
+msgid "setting.hooks.add.type.name"
+msgstr "Webhook type"
+
+msgid "setting.hooks.add.type.option.json"
+msgstr "Post JSON"
+
+msgid "setting.hooks.add.type.option.telegram"
+msgstr "Send Telegram message"
+
+msgid "setting.hooks.add.preset.name"
+msgstr "Preset"
+
+msgid "setting.hooks.add.preset.option.none"
+msgstr "(none)"
+
+msgid "setting.updates.current.name"
+msgstr "Current version"
+
+msgid "setting.updates.current.desc"
+msgstr "The current version of FreeField."
+
+msgid "setting.updates.last_check.name"
+msgstr "Last update check"
+
+msgid "setting.updates.last_check.desc"
+msgstr "The last time FreeField checked for updates."
+
+msgid "setting.updates.next_check.name"
+msgstr "Next scheduled check"
+
+msgid "setting.updates.next_check.desc"
+msgstr "The next time FreeField checked for updates."
+
+msgid "setting.updates.check_now.name"
+msgstr "Manually check for updates"
+
+msgid "setting.updates.check_now.desc"
+msgstr "Performs an immediate update check."
+
+msgid "setting.updates.check_now.button"
+msgstr "Check for updates now"
+
+msgid "setting.updates.latest.name"
+msgstr "Latest version"
+
+msgid "setting.updates.latest.desc"
+msgstr "The latest available version of FreeField."
+
+msgid "setting.updates.type.name"
+msgstr "Release type"

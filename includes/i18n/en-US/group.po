@@ -1,0 +1,29 @@
+msgid "group.selector.current"
+msgstr "Current group"
+
+msgid "group.selector.available"
+msgstr "Available groups"
+
+msgid "group.level.unknown"
+msgstr "Unknown group"
+
+msgid "group.level.anonymous"
+msgstr "Anonymous visitor"
+
+msgid "group.level.read_only"
+msgstr "Read-only member"
+
+msgid "group.level.registered"
+msgstr "Registered member"
+
+msgid "group.level.submitter"
+msgstr "Pokéstop submitter"
+
+msgid "group.level.moderator"
+msgstr "Moderator"
+
+msgid "group.level.admin"
+msgstr "Administrator"
+
+msgid "group.level.host"
+msgstr "Site host"

@@ -1,0 +1,181 @@
+#  %1 = Last updated date/time
+msgid "poi.last.time"
+msgstr "Updated {%1}"
+
+#  %1 = Nickname of last user to update POI
+msgid "poi.last.user"
+msgstr "Updated by {%1}"
+
+msgid "poi.add.title"
+msgstr "Add Pokéstop"
+
+msgid "poi.add.name"
+msgstr "Pokéstop name"
+
+msgid "poi.add.latitude"
+msgstr "Latitude"
+
+msgid "poi.add.longitude"
+msgstr "Longitude"
+
+msgid "poi.add.submit"
+msgstr "Add Pokéstop"
+
+msgid "poi.add.processing"
+msgstr "Adding Pokéstop..."
+
+#  %1 = Name of POI
+msgid "poi.add.success"
+msgstr "New Pokéstop \"{%1}\" was successfully added!"
+
+#  %1 = Name of POI, %2 = Reason it failed
+msgid "poi.add.failed.message"
+msgstr "Failed to add new Pokéstop \"{%1}\": {%2}"
+
+#  %1 = <a href="">, %2 = </a>
+msgid "poi.add.instructions"
+msgstr "Please click the map to add a new Pokéstop at that location ({%1}Cancel{%2})"
+
+msgid "poi.move.instructions"
+msgstr "Please click the map to select a new location for this Pokéstop ({%1}Cancel{%2})"
+
+msgid "poi.move.processing"
+msgstr "Moving Pokéstop..."
+
+msgid "poi.move.success"
+msgstr "Successfully moved Pokéstop!"
+
+#  %1 = Reason it failed
+msgid "poi.move.failed.message"
+msgstr "Failed to move Pokéstop: {%1}"
+
+msgid "poi.rename.prompt"
+msgstr "Please enter a new name for the Pokéstop:"
+
+msgid "poi.rename.processing"
+msgstr "Renaming Pokéstop..."
+
+msgid "poi.rename.success"
+msgstr "Successfully renamed Pokéstop!"
+
+#  %1 = Reason it failed
+msgid "poi.rename.failed.message"
+msgstr "Failed to rename Pokéstop: {%1}"
+
+msgid "poi.clear.confirm"
+msgstr "Are you sure that you want to erase the currently active research task from this Pokéstop?"
+
+msgid "poi.clear.processing"
+msgstr "Clearing research..."
+
+msgid "poi.clear.success"
+msgstr "Successfully cleared research data from Pokéstop!"
+
+#  %1 = Reason it failed
+msgid "poi.clear.failed.message"
+msgstr "Failed to clear research data for Pokéstop: {%1}"
+
+msgid "poi.delete.confirm"
+msgstr "Are you sure that you want to remove this Pokéstop from the map?"
+
+msgid "poi.delete.processing"
+msgstr "Removing Pokéstop..."
+
+msgid "poi.delete.success"
+msgstr "Successfully removed Pokéstop!"
+
+#  %1 = Reason it failed
+msgid "poi.delete.failed.message"
+msgstr "Failed to remove Pokéstop: {%1}"
+
+msgid "poi.update.title"
+msgstr "Report research"
+
+msgid "poi.update.name"
+msgstr "Pokéstop name"
+
+msgid "poi.update.objective"
+msgstr "Objective"
+
+msgid "poi.update.reward"
+msgstr "Reward"
+
+msgid "poi.update.submit"
+msgstr "Report"
+
+msgid "poi.update.processing"
+msgstr "Reporting research..."
+
+msgid "poi.update.success"
+msgstr "Successfully reported field research!"
+
+#  %1 = Reason it failed
+msgid "poi.update.failed.message"
+msgstr "Failed to report field research: {%1}"
+
+msgid "poi.search.placeholder"
+msgstr "Search for Pokéstops..."
+
+#  %1 = Distance in kilometers
+msgid "poi.search.distance"
+msgstr "{%1} km"
+
+msgid "poi.filter.title"
+msgstr "Filter Pokéstops"
+
+msgid "poi.filter.mode.title"
+msgstr "Filter mode:"
+
+msgid "poi.filter.mode.only"
+msgstr "Show only Pokéstops matching the specified objective and reward"
+
+msgid "poi.filter.mode.except"
+msgstr "Show all Pokéstops except any matching the specified objective and reward"
+
+msgid "poi.filter.mode.unknown"
+msgstr "Show Pokéstops without reported research only"
+
+msgid "poi.filter.objective.title"
+msgstr "Objective:"
+
+msgid "poi.filter.objective.any"
+msgstr "Any objective"
+
+msgid "poi.filter.reward.title"
+msgstr "Reward:"
+
+msgid "poi.filter.reward.any"
+msgstr "Any reward"
+
+msgid "poi.filter.submit"
+msgstr "Apply filter"
+
+msgid "poi.filter.reset"
+msgstr "Reset filters"
+
+#  %1 = Reason it failed
+msgid "poi.list.failed.message"
+msgstr "Failed to list Pokéstops: {%1}"
+
+#  %1 = Research objective (e.g. "Make 3 Great Throws")
+#  %2 = Research reward (e.g. "1 Max Revive")
+msgid "poi.objective_text"
+msgstr "{%1} for {%2}"
+
+msgid "poi.report_research"
+msgstr "Report field research"
+
+msgid "poi.move"
+msgstr "Move"
+
+msgid "poi.rename"
+msgstr "Rename"
+
+msgid "poi.clear"
+msgstr "Clear research"
+
+msgid "poi.delete"
+msgstr "Delete"
+
+msgid "poi.directions"
+msgstr "Directions"

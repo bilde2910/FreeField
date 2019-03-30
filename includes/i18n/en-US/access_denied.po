@@ -1,0 +1,9 @@
+msgid "access_denied.title"
+msgstr "Access denied"
+
+msgid "access_denied.desc"
+msgstr "You do not have permission to view this page"
+
+#  %1 = User identifier
+msgid "access_denied.info"
+msgstr "Your user account ({%1}) is not authorized to view this page. This could happen because you have not been assigned permissions to view this page, or if the site requires manual verification of accounts, your account may not have been approved yet. Please contact an administrator if you believe this is in error."

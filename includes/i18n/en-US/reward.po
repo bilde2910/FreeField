@@ -1,0 +1,260 @@
+msgid "reward.poke_ball.general"
+msgstr "Poké Ball"
+
+msgid "reward.poke_ball.singular"
+msgstr "1 Poké Ball"
+
+#  %1 = Amount/quantity
+msgid "reward.poke_ball.plural"
+msgstr "{%1} Poké Balls"
+
+msgid "reward.great_ball.general"
+msgstr "Great Ball"
+
+msgid "reward.great_ball.singular"
+msgstr "1 Great Ball"
+
+#  %1 = Amount/quantity
+msgid "reward.great_ball.plural"
+msgstr "{%1} Great Balls"
+
+msgid "reward.ultra_ball.general"
+msgstr "Ultra Ball"
+
+msgid "reward.ultra_ball.singular"
+msgstr "1 Ultra Ball"
+
+#  %1 = Amount/quantity
+msgid "reward.ultra_ball.plural"
+msgstr "{%1} Ultra Balls"
+
+msgid "reward.razz_berry.general"
+msgstr "Razz Berry"
+
+msgid "reward.razz_berry.singular"
+msgstr "1 Razz Berry"
+
+#  %1 = Amount/quantity
+msgid "reward.razz_berry.plural"
+msgstr "{%1} Razz Berries"
+
+msgid "reward.nanab_berry.general"
+msgstr "Nanab Berry"
+
+msgid "reward.nanab_berry.singular"
+msgstr "1 Nanab Berry"
+
+#  %1 = Amount/quantity
+msgid "reward.nanab_berry.plural"
+msgstr "{%1} Nanab Berries"
+
+msgid "reward.pinap_berry.general"
+msgstr "Pinap Berry"
+
+msgid "reward.pinap_berry.singular"
+msgstr "1 Pinap Berry"
+
+#  %1 = Amount/quantity
+msgid "reward.pinap_berry.plural"
+msgstr "{%1} Pinap Berries"
+
+msgid "reward.golden_razz_berry.general"
+msgstr "Golden Razz Berry"
+
+msgid "reward.golden_razz_berry.singular"
+msgstr "1 Golden Razz Berry"
+
+#  %1 = Amount/quantity
+msgid "reward.golden_razz_berry.plural"
+msgstr "{%1} Golden Razz Berries"
+
+msgid "reward.silver_pinap_berry.general"
+msgstr "Silver Pinap Berry"
+
+msgid "reward.silver_pinap_berry.singular"
+msgstr "1 Silver Pinap Berry"
+
+#  %1 = Amount/quantity
+msgid "reward.silver_pinap_berry.plural"
+msgstr "{%1} Silver Pinap Berries"
+
+msgid "reward.potion.general"
+msgstr "Potion"
+
+msgid "reward.potion.singular"
+msgstr "1 Potion"
+
+#  %1 = Amount/quantity
+msgid "reward.potion.plural"
+msgstr "{%1} Potions"
+
+msgid "reward.super_potion.general"
+msgstr "Super Potion"
+
+msgid "reward.super_potion.singular"
+msgstr "1 Super Potion"
+
+#  %1 = Amount/quantity
+msgid "reward.super_potion.plural"
+msgstr "{%1} Super Potions"
+
+msgid "reward.hyper_potion.general"
+msgstr "Hyper Potion"
+
+msgid "reward.hyper_potion.singular"
+msgstr "1 Hyper Potion"
+
+#  %1 = Amount/quantity
+msgid "reward.hyper_potion.plural"
+msgstr "{%1} Hyper Potions"
+
+msgid "reward.max_potion.general"
+msgstr "Max Potion"
+
+msgid "reward.max_potion.singular"
+msgstr "1 Max Potion"
+
+#  %1 = Amount/quantity
+msgid "reward.max_potion.plural"
+msgstr "{%1} Max Potions"
+
+msgid "reward.revive.general"
+msgstr "Revive"
+
+msgid "reward.revive.singular"
+msgstr "1 Revive"
+
+#  %1 = Amount/quantity
+msgid "reward.revive.plural"
+msgstr "{%1} Revives"
+
+msgid "reward.max_revive.general"
+msgstr "Max Revive"
+
+msgid "reward.max_revive.singular"
+msgstr "1 Max Revive"
+
+#  %1 = Amount/quantity
+msgid "reward.max_revive.plural"
+msgstr "{%1} Max Revives"
+
+msgid "reward.sun_stone.general"
+msgstr "Sun Stone"
+
+msgid "reward.sun_stone.singular"
+msgstr "1 Sun Stone"
+
+#  %1 = Amount/quantity
+msgid "reward.sun_stone.plural"
+msgstr "{%1} Sun Stones"
+
+msgid "reward.kings_rock.general"
+msgstr "King's Rock"
+
+msgid "reward.kings_rock.singular"
+msgstr "1 King's Rock"
+
+#  %1 = Amount/quantity
+msgid "reward.kings_rock.plural"
+msgstr "{%1} Kings' Rocks"
+
+msgid "reward.metal_coat.general"
+msgstr "Metal Coat"
+
+msgid "reward.metal_coat.singular"
+msgstr "1 Metal Coat"
+
+#  %1 = Amount/quantity
+msgid "reward.metal_coat.plural"
+msgstr "{%1} Metal Coats"
+
+msgid "reward.dragon_scale.general"
+msgstr "Dragon Scale"
+
+msgid "reward.dragon_scale.singular"
+msgstr "1 Dragon Scale"
+
+#  %1 = Amount/quantity
+msgid "reward.dragon_scale.plural"
+msgstr "{%1} Dragon Scales"
+
+msgid "reward.up_grade.general"
+msgstr "Up-Grade"
+
+msgid "reward.up_grade.singular"
+msgstr "1 Up-Grade"
+
+#  %1 = Amount/quantity
+msgid "reward.up_grade.plural"
+msgstr "{%1} Up-Grades"
+
+msgid "reward.sinnoh_stone.general"
+msgstr "Sinnoh Stone"
+
+msgid "reward.sinnoh_stone.singular"
+msgstr "1 Sinnoh Stone"
+
+#  %1 = Amount/quantity
+msgid "reward.sinnoh_stone.plural"
+msgstr "{%1} Sinnoh Stones"
+
+msgid "reward.fast_tm.general"
+msgstr "Fast TM"
+
+msgid "reward.fast_tm.singular"
+msgstr "1 Fast TM"
+
+#  %1 = Amount/quantity
+msgid "reward.fast_tm.plural"
+msgstr "{%1} Fast TMs"
+
+msgid "reward.charge_tm.general"
+msgstr "Charge TM"
+
+msgid "reward.charge_tm.singular"
+msgstr "1 Charge TM"
+
+#  %1 = Amount/quantity
+msgid "reward.charge_tm.plural"
+msgstr "{%1} Charge TMs"
+
+msgid "reward.stardust.general"
+msgstr "Stardust"
+
+msgid "reward.stardust.singular"
+msgstr "1 Stardust"
+
+#  %1 = Amount/quantity
+msgid "reward.stardust.plural"
+msgstr "{%1} Stardust"
+
+msgid "reward.rare_candy.general"
+msgstr "Rare Candy"
+
+msgid "reward.rare_candy.singular"
+msgstr "1 Rare Candy"
+
+#  %1 = Amount/quantity
+msgid "reward.rare_candy.plural"
+msgstr "{%1} Rare Candies"
+
+msgid "reward.encounter.general"
+msgstr "Pokémon encounter"
+
+msgid "reward.encounter.singular"
+msgstr "Pokémon encounter"
+
+msgid "reward.encounter.plural"
+msgstr "Pokémon encounters"
+
+#  %1 = Name of a species ("Pikachu", "Charizard", etc.)
+msgid "reward.encounter_specific.singular"
+msgstr "{%1} encounter"
+
+#  %1 = Name of a species ("Pikachu", "Charizard", etc.)
+msgid "reward.encounter_specific.plural"
+msgstr "{%1} encounters"
+
+#  Displayed when the research task reward from a Pokéstop is unknown.
+msgid "reward.unknown.singular"
+msgstr "unknown reward"

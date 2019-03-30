@@ -1,0 +1,35 @@
+msgid "page_title.setup"
+msgstr "FreeField Setup"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+#  %2 = Administration domain (e.g. "Users", "Webhooks")
+msgid "page_title.admin"
+msgstr "Admin » {%2} | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.main"
+msgstr "{%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.access_denied"
+msgstr "Access denied | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.main"
+msgstr "Login | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.failed"
+msgstr "Login failed | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.awaiting_approval"
+msgstr "Account awaiting approval | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.approve_user"
+msgstr "User approval request | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.telegram"
+msgstr "Login » Telegram | {%1}"

@@ -1,0 +1,23 @@
+msgid "ui.button.close"
+msgstr "Close"
+
+msgid "ui.button.cancel"
+msgstr "Cancel"
+
+msgid "ui.button.select"
+msgstr "Select"
+
+msgid "ui.button.save"
+msgstr "Save settings"
+
+msgid "ui.button.done"
+msgstr "Done"
+
+msgid "ui.button.retry"
+msgstr "Try again"
+
+msgid "ui.dropdown.none_selected"
+msgstr "< none >"
+
+msgid "ui.paginate.go_to"
+msgstr "Go to page:"

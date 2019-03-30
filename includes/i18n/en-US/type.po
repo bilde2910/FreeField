@@ -1,0 +1,53 @@
+msgid "type.normal"
+msgstr "Normal"
+
+msgid "type.fighting"
+msgstr "Fighting"
+
+msgid "type.flying"
+msgstr "Flying"
+
+msgid "type.poison"
+msgstr "Poison"
+
+msgid "type.ground"
+msgstr "Ground"
+
+msgid "type.rock"
+msgstr "Rock"
+
+msgid "type.bug"
+msgstr "Bug"
+
+msgid "type.ghost"
+msgstr "Ghost"
+
+msgid "type.steel"
+msgstr "Steel"
+
+msgid "type.fire"
+msgstr "Fire"
+
+msgid "type.water"
+msgstr "Water"
+
+msgid "type.grass"
+msgstr "Grass"
+
+msgid "type.electric"
+msgstr "Electric"
+
+msgid "type.psychic"
+msgstr "Psychic"
+
+msgid "type.ice"
+msgstr "Ice"
+
+msgid "type.dragon"
+msgstr "Dragon"
+
+msgid "type.dark"
+msgstr "Dark"
+
+msgid "type.fairy"
+msgstr "Fairy"

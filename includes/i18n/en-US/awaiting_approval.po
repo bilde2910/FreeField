@@ -1,0 +1,26 @@
+msgid "awaiting_approval.title"
+msgstr "Approval required"
+
+msgid "awaiting_approval.desc"
+msgstr "Your account is awaiting manual approval"
+
+msgid "awaiting_approval.info.1"
+msgstr "Thank you for your registration! This site requires manual approval of new accounts. Until your account has been approved, you will not have access to features that require membership."
+
+msgid "awaiting_approval.info.2.qr_enabled"
+msgstr "Administrators can approve your account. Please show them this QR code, or send them the link below, to assist them in identifying and approving your account on FreeField. Administrators can also look up your account by your username."
+
+msgid "awaiting_approval.info.2.qr_disabled"
+msgstr "Administrators can approve your account. Please send them the link below to assist them in identifying and approving your account on FreeField. Administrators can also look up your account by your username."
+
+msgid "awaiting_approval.using.qr.head"
+msgstr "Approval QR code"
+
+msgid "awaiting_approval.using.link.head"
+msgstr "Approval link"
+
+msgid "awaiting_approval.using.link.info"
+msgstr "Administrators can use this URL to approve your account."
+
+msgid "awaiting_approval.return_button"
+msgstr "Return to main page"

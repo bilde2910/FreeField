@@ -1,0 +1,60 @@
+msgid "sidebar.signed_in_as"
+msgstr "Signed in as"
+
+msgid "sidebar.approval_pending"
+msgstr "Approval pending"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.logout"
+msgstr "Log out"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.login"
+msgstr "Sign in"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.show_motd"
+msgstr "Show MotD"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.return"
+msgstr "Return"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.add_poi"
+msgstr "Pokéstop"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.filters"
+msgstr "Filter"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.search"
+msgstr "Search"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.settings"
+msgstr "Settings"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.manage_site"
+msgstr "Manage site"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.reset"
+msgstr "Reset all"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.cancel"
+msgstr "Cancel"

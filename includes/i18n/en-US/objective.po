@@ -1,0 +1,305 @@
+msgid "objective.battle_gym.singular"
+msgstr "Battle in a Gym"
+
+#  %1 = Number of battles
+msgid "objective.battle_gym.plural"
+msgstr "Battle in a Gym {%1} times"
+
+msgid "objective.win_gym.singular"
+msgstr "Win a Gym battle"
+
+#  %1 = Number of battles
+msgid "objective.win_gym.plural"
+msgstr "Win {%1} Gym battles"
+
+msgid "objective.battle_raid.singular"
+msgstr "Battle in a raid"
+
+#  %1 = Number of raids
+msgid "objective.battle_raid.plural"
+msgstr "Battle in a raid {%1} times"
+
+msgid "objective.win_raid.singular"
+msgstr "Win a raid"
+
+#  %1 = Number of raids
+msgid "objective.win_raid.plural"
+msgstr "Win {%1} raids"
+
+#  %1 = Raid tier
+msgid "objective.level_raid.singular"
+msgstr "Win a level {%1} or higher raid"
+
+#  %1 = Raid tier, %2 = Number of raids
+msgid "objective.level_raid.plural"
+msgstr "Win {%2} level {%1} or higher raids"
+
+msgid "objective.se_charge.singular"
+msgstr "Use a Super Effective Charged attack in a Gym battle"
+
+#  %1 = Number of battles
+msgid "objective.se_charge.plural"
+msgstr "Use a Super Effective Charged attack in {%1} Gym battles"
+
+msgid "objective.catch.singular"
+msgstr "Catch a Pokémon"
+
+#  %1 = Number of catches
+msgid "objective.catch.plural"
+msgstr "Catch {%1} Pokémon"
+
+msgid "objective.catch_weather.singular"
+msgstr "Catch a Pokémon with Weather Boost"
+
+#  %1 = Number of catches
+msgid "objective.catch_weather.plural"
+msgstr "Catch {%1} Pokémon with Weather Boost"
+
+#  %1 = Type(s) of catch ("Ice-type", "Fire or Ground-type", etc.)
+msgid "objective.catch_type.singular"
+msgstr "Catch a {%1} Pokémon"
+
+#  %1 = Type(s) of catch ("Ice-type", "Fire or Ground-type", etc.),
+#  %2 = Number of catches
+msgid "objective.catch_type.plural"
+msgstr "Catch {%2} {%1} Pokémon"
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.)
+msgid "objective.catch_specific.singular"
+msgstr "Catch a {%1}"
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.), %2 = Number of catches
+msgid "objective.catch_specific.plural"
+msgstr "Catch {%2} {%1}"
+
+msgid "objective.catch_daily.singular"
+msgstr "Catch a Pokémon 1 day in a row"
+
+#  %1 = Number of days in a row
+msgid "objective.catch_daily.plural"
+msgstr "Catch a Pokémon {%1} days in a row"
+
+msgid "objective.use_berry.singular"
+msgstr "Use a Berry to help catch Pokémon"
+
+#  %1 = Number of berries
+msgid "objective.use_berry.plural"
+msgstr "Use {%1} Berries to help catch Pokémon"
+
+#  %1 = Item to use (e.g. "Pinap Berry")
+msgid "objective.use_item_encounter.singular"
+msgstr "Use a {%1} to help catch Pokémon"
+
+#  %1 = Item to use (e.g. "Pinap Berry")
+#  %2 = Number of items
+msgid "objective.use_item_encounter.plural"
+msgstr "Use {%2} {%1} to help catch Pokémon"
+
+msgid "objective.buddy_candy.singular"
+msgstr "Earn a Candy walking with your buddy"
+
+#  %1 = Number of candies
+msgid "objective.buddy_candy.plural"
+msgstr "Earn {%1} Candies walking with your buddy"
+
+msgid "objective.hatch.singular"
+msgstr "Hatch an Egg"
+
+#  %1 = Number of eggs
+msgid "objective.hatch.plural"
+msgstr "Hatch {%1} Eggs"
+
+msgid "objective.evolve.singular"
+msgstr "Evolve a Pokémon"
+
+#  %1 = Number of evolves
+msgid "objective.evolve.plural"
+msgstr "Evolve {%1} Pokémon"
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+msgid "objective.evolve_type.singular"
+msgstr "Evolve a {%1} Pokémon"
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+#  %2 = Number of evolves
+msgid "objective.evolve_type.plural"
+msgstr "Evolve {%2} {%1} Pokémon"
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+msgid "objective.evolve_evolution.singular"
+msgstr "Evolve an evolved {%1} Pokémon"
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+#  %2 = Number of evolves
+msgid "objective.evolve_evolution.plural"
+msgstr "Evolve {%2} evolved {%1} Pokémon"
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.)
+msgid "objective.evolve_specific.singular"
+msgstr "Evolve a {%1}"
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.), %2 = Number of evolves
+msgid "objective.evolve_specific.plural"
+msgstr "Evolve {%2} {%1}"
+
+msgid "objective.evolve_item.singular"
+msgstr "Use an item to evolve a Pokémon"
+
+#  %1 = Number of evolves
+msgid "objective.evolve_item.plural"
+msgstr "Use items to evolve Pokémon {%1} times"
+
+msgid "objective.power_up.singular"
+msgstr "Power up a Pokémon"
+
+#  %1 = Number of power-ups
+msgid "objective.power_up.plural"
+msgstr "Power up a Pokémon {%1} times"
+
+msgid "objective.transfer.singular"
+msgstr "Transfer a Pokémon"
+
+#  %1 = Number of transfers
+msgid "objective.transfer.plural"
+msgstr "Transfer {%1} Pokémon"
+
+msgid "objective.throw_simple_nice.singular"
+msgstr "Make a Nice Throw"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_nice.plural"
+msgstr "Make {%1} Nice Throws"
+
+msgid "objective.throw_simple_nice_chain.singular"
+msgstr "Make 1 Nice Throw in a row"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_nice_chain.plural"
+msgstr "Make {%1} Nice Throws in a row"
+
+msgid "objective.throw_simple_great.singular"
+msgstr "Make a Great Throw"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_great.plural"
+msgstr "Make {%1} Great Throws"
+
+msgid "objective.throw_simple_great_chain.singular"
+msgstr "Make 1 Great Throw in a row"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_great_chain.plural"
+msgstr "Make {%1} Great Throws in a row"
+
+msgid "objective.throw_simple_excellent.singular"
+msgstr "Make an Excellent Throw"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_excellent.plural"
+msgstr "Make {%1} Excellent Throws"
+
+msgid "objective.throw_simple_excellent_chain.singular"
+msgstr "Make 1 Excellent Throw in a row"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_excellent_chain.plural"
+msgstr "Make {%1} Excellent Throws in a row"
+
+msgid "objective.throw_curve.singular"
+msgstr "Make a Curveball Throw"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve.plural"
+msgstr "Make {%1} Curveball Throws"
+
+msgid "objective.throw_curve_chain.singular"
+msgstr "Make 1 Curveball Throw in a row"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_chain.plural"
+msgstr "Make {%1} Curveball Throws in a row"
+
+msgid "objective.throw_curve_nice.singular"
+msgstr "Make a Nice Curveball Throw"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_nice.plural"
+msgstr "Make {%1} Nice Curveball Throws"
+
+msgid "objective.throw_curve_nice_chain.singular"
+msgstr "Make 1 Nice Curveball Throw in a row"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_nice_chain.plural"
+msgstr "Make {%1} Nice Curveball Throws in a row"
+
+msgid "objective.throw_curve_great.singular"
+msgstr "Make a Great Curveball Throw"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_great.plural"
+msgstr "Make {%1} Great Curveball Throws"
+
+msgid "objective.throw_curve_great_chain.singular"
+msgstr "Make 1 Great Curveball Throw in a row"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_great_chain.plural"
+msgstr "Make {%1} Great Curveball Throws in a row"
+
+msgid "objective.throw_curve_excellent.singular"
+msgstr "Make an Excellent Curveball Throw"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_excellent.plural"
+msgstr "Make {%1} Excellent Curveball Throws"
+
+msgid "objective.throw_curve_excellent_chain.singular"
+msgstr "Make 1 Excellent Curveball Throw in a row"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_excellent_chain.plural"
+msgstr "Make {%1} Excellent Curveball Throws in a row"
+
+msgid "objective.visit_poi.singular"
+msgstr "Spin a Pokéstop or Gym"
+
+#  %1 = Number of POIs
+msgid "objective.visit_poi.plural"
+msgstr "Spin {%1} Pokéstops or Gyms"
+
+msgid "objective.new_poi.singular"
+msgstr "Spin a Pokéstop you haven't visited before"
+
+#  %1 = Number of POIs
+msgid "objective.new_poi.plural"
+msgstr "Spin {%1} Pokéstops you haven't visited before"
+
+msgid "objective.visit_daily.singular"
+msgstr "Visit Pokéstops 1 day in a row"
+
+#  %1 = Number of days in a row
+msgid "objective.visit_daily.plural"
+msgstr "Visit Pokéstops {%1} days in a row"
+
+msgid "objective.send_gift.singular"
+msgstr "Send a Gift to a friend"
+
+#  %1 = Number of gifts to send
+msgid "objective.send_gift.plural"
+msgstr "Send {%1} Gifts to friends"
+
+msgid "objective.trade.singular"
+msgstr "Trade a Pokémon"
+
+#  %1 = Number of specimen to trade
+msgid "objective.trade.plural"
+msgstr "Trade {%1} Pokémon"
+
+#  Displayed when the research task objective of a Pokéstop is unknown.
+msgid "objective.unknown.singular"
+msgstr "Unknown objective"

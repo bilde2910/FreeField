@@ -98,11 +98,11 @@ if ($stage == 6 && (!$isPost || !$csrfPass)) {
             <?php echo I18N::resolveHTML("install.stage.{$stage}.next"); ?>
         </p>
         <h2 class="content-subhead">
-            <?php echo I18N::resolveHTML("install.stage.{$stage}.post-install.head"); ?>
+            <?php echo I18N::resolveHTML("install.stage.{$stage}.post_install.head"); ?>
         </h2>
         <p>
             <?php echo I18N::resolveArgsHTML(
-                "install.stage.{$stage}.post-install.body", false,
+                "install.stage.{$stage}.post_install.body", false,
                 '<a href="https://freefield.readthedocs.io/en/latest/setup.html#post-installation-steps" target="_blank">',
                 '</a>'
             ); ?>

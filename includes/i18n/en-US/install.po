@@ -1,0 +1,150 @@
+msgid "install.button.continue"
+msgstr "Continue setup"
+
+msgid "install.button.finish"
+msgstr "Finish setup"
+
+msgid "install.button.retry"
+msgstr "Try again"
+
+msgid "install.operation.done"
+msgstr "The results of the operation are listed below."
+
+msgid "install.stage.1.title"
+msgstr "Stage 1: Environment checks"
+
+msgid "install.stage.1.info"
+msgstr "Welcome to FreeField! This wizard will guide you through the installation of FreeField on your server. Below are some preliminary checks of your system environment."
+
+msgid "install.stage.1.assert.https"
+msgstr "Encrypted connection (HTTPS) - required for geolocation and PWA"
+
+msgid "install.stage.1.assert.root_writable"
+msgstr "Installation directory writable - required for software updates"
+
+msgid "install.stage.1.assert.userdata_writable"
+msgstr "Userdata directory writable - required for core functionality"
+
+msgid "install.stage.1.assert.curl_available"
+msgstr "cURL extension loaded - required for authentication and updates"
+
+msgid "install.stage.1.assert.gd_available"
+msgstr "gd extension loaded - required for QR code generation"
+
+msgid "install.stage.1.assert.openssl_available"
+msgstr "openssl extension loaded - required for secure storage and sessions"
+
+msgid "install.stage.1.assert.phar_available"
+msgstr "PharData available - required for software updates"
+
+msgid "install.stage.1.checks"
+msgstr "Please ensure that all the above checks are passing (green checkmark). FreeField will work even if some entries fail with a yellow exclamation mark, though some features will be unavailable. FreeField will not work if any of the above checks fail with a red X. If you wish to fix any failing checks above, please do the relevant changes to your server configuration now, then refresh the page before proceeding."
+
+msgid "install.stage.1.next"
+msgstr "When you have applied the desired changes, click the button below to continue to the next step, and write a configuration file."
+
+msgid "install.stage.2.title"
+msgstr "Stage 2: Write configuration file"
+
+msgid "install.stage.2.assert.copy_templates"
+msgstr "Copied file options from template files"
+
+msgid "install.stage.2.assert.authkeys_written"
+msgstr "Secure storage encryption keys generated"
+
+msgid "install.stage.2.assert.config_written"
+msgstr "Configuration file written"
+
+msgid "install.stage.2.next"
+msgstr "Please click the button below to continue to database setup."
+
+msgid "install.stage.3.title"
+msgstr "Stage 3: Database setup"
+
+msgid "install.stage.3.info"
+msgstr "Please fill in the following database backend details."
+
+msgid "install.stage.3.assert.valid_data"
+msgstr "Database details are valid"
+
+msgid "install.stage.3.assert.config_written"
+msgstr "Configuration file updated"
+
+msgid "install.stage.3.assert.db_connected"
+msgstr "Connected to database"
+
+msgid "install.stage.3.assert.exec_sql"
+msgstr "Created database structure"
+
+msgid "install.stage.3.assert.proceed_stage"
+msgstr "Stage 3 registered complete"
+
+msgid "install.stage.3.next"
+msgstr "Please click the button below to continue to authentication setup."
+
+msgid "install.stage.4.title"
+msgstr "Stage 4: Authentication setup"
+
+msgid "install.stage.4.info"
+msgstr "Please choose one or more authentiation providers from the list below, and configure it to enable signing in with the given authentication provider. Please refer to the documentation for more information on how to properly configure each authentication provider."
+
+msgid "install.stage.4.assert.valid_data"
+msgstr "Provided authentication details are valid"
+
+msgid "install.stage.4.assert.config_written"
+msgstr "Configuration file updated"
+
+msgid "install.stage.4.assert.any_enabled"
+msgstr "At least one authentication provider is enabled"
+
+msgid "install.stage.4.assert.proceed_stage"
+msgstr "Prepared authentication challenge"
+
+msgid "install.stage.4.next"
+msgstr "When you continue, you will be prompted to sign in using one of the authentication providers you set up."
+
+msgid "install.stage.5.title"
+msgstr "Stage 5: Verify authentication setup"
+
+msgid "install.stage.5.assert.auth_success"
+msgstr "Authentication successful"
+
+msgid "install.stage.5.assert.user_created"
+msgstr "Registered account as site administrator in database"
+
+msgid "install.stage.5.assert.config_written"
+msgstr "Configuration file updated"
+
+msgid "install.stage.5.next"
+msgstr "Please click the button below to continue to map setup."
+
+msgid "install.stage.6.title"
+msgstr "Stage 6: Configure map"
+
+msgid "install.stage.6.provider_info"
+msgstr "Please choose an available map provider from the following list of map providers."
+
+msgid "install.stage.6.disclaimer"
+msgstr "Warning! Most map providers require you to agree to their Terms of Service and/or some other legal contract when you register for their services. You have the full responsibility to ensure that you meet the requirements set forth by your chosen map provider, and that your usage of their services through FreeField is in line with their policies and your license to use their services."
+
+msgid "install.stage.6.field_guide"
+msgstr "Please enter the access token and/or other required parameters for your selected map provider below. You only have to fill the fields relevant to the map provider you chose above - all others can be left blank."
+
+msgid "install.stage.6.default_info"
+msgstr "Please configure the default map center point for your FreeField installation. The map center point is the location the map is centered on by default, and should be central coordinate location in the city/area you are covering with FreeField. E.g. if you are setting your FreeField instance up for covering New York City, then enter a coordinate pair for a centrally located point in New York City."
+
+msgid "install.stage.6.assert.valid_data"
+msgstr "Provided map settings are valid"
+
+msgid "install.stage.6.assert.config_written"
+msgstr "Configuration file updated"
+
+msgid "install.stage.6.next"
+msgstr "Congratulations! You have finished setting up FreeField. You may now proceed to, and use, your FreeField instance. When you click the button below, you will be redirected to the administration interface. Please finish setting up FreeField there, and customize the software to your liking."
+
+msgid "install.stage.6.post_install.head"
+msgstr "Warning!"
+
+#  %1 = <a href="">, %2 = </a>
+msgid "install.stage.6.post_install.body"
+msgstr "There are still a few things you should configure before you grant others access to FreeField. Please carefully review the {%1}post-installation steps{%2} in the documentation before you proceed."

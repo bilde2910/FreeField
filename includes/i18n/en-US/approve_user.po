@@ -1,0 +1,43 @@
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.title"
+msgstr "User approval"
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.desc"
+msgstr "Administrative approval required"
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.info"
+msgstr "This link is for administrators only. Please contact an administrator to have your account approved."
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.title"
+msgstr "User approval request"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.desc"
+msgstr "A user has requested account approval"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.info"
+msgstr "The following user has requested account approval:"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.button.approve"
+msgstr "Approve"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.button.reject"
+msgstr "Reject"
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.title"
+msgstr "User approval"
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.desc"
+msgstr "User approval failed"
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.info"
+msgstr "This user is not in the approval queue."

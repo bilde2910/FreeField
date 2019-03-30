@@ -1,0 +1,23 @@
+msgid "webhook.report_title"
+msgstr "Field research reported!"
+
+msgid "webhook.poi"
+msgstr "Pokéstop"
+
+msgid "webhook.click_for_directions"
+msgstr "Click here for directions"
+
+msgid "webhook.objective"
+msgstr "Objective"
+
+msgid "webhook.reward"
+msgstr "Reward"
+
+#  %1 = Nickname of user who reported research
+msgid "webhook.reported_by"
+msgstr "Reported by {%1}"
+
+#  %1 = Research objective (e.g. "Make 3 Great Throws")
+#  %2 = Research reward (e.g. "1 Max Revive")
+msgid "webhook.x_for_y"
+msgstr "{%1} for {%2}"

@@ -1,0 +1,8 @@
+msgid "motd.title"
+msgstr "Message of the Day"
+
+msgid "motd.hide"
+msgstr "Do not show this message again"
+
+msgid "motd.close"
+msgstr "Close"

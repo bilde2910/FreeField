@@ -1,0 +1,26 @@
+msgid "user_settings.no_local_storage"
+msgstr "WARNING: Local storage is not supported in your browser! You will not be able to customize your FreeField appearance, and the map will not save your last viewed location for your next visit. The most likely cause of this error is using a severely out of date web browser. It is strongly recommended that you upgrade to a modern web browser in order to enjoy the full functionality of FreeField."
+
+msgid "user_settings.reset.confirm"
+msgstr "Are you sure you want to reset all custom settings?"
+
+msgid "user_settings.value.default"
+msgstr "Default"
+
+msgid "user_settings.page.title"
+msgstr "Settings"
+
+msgid "user_settings.page.subtitle"
+msgstr "Personalize your experience"
+
+msgid "user_settings.section.account"
+msgstr "Account"
+
+msgid "user_settings.section.map_providers"
+msgstr "Map providers"
+
+msgid "user_settings.section.appearance"
+msgstr "Appearance"
+
+msgid "user_settings.section.performance"
+msgstr "Performance"

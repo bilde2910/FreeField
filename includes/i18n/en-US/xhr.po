@@ -1,0 +1,35 @@
+msgid "xhr.failed.reason.unknown_reason"
+msgstr "Unknown reason"
+
+msgid "xhr.failed.reason.access_denied"
+msgstr "Access denied"
+
+msgid "xhr.failed.reason.missing_fields"
+msgstr "Insufficient data"
+
+msgid "xhr.failed.reason.invalid_data"
+msgstr "Invalid data"
+
+msgid "xhr.failed.reason.database_error"
+msgstr "Database connection failed"
+
+msgid "xhr.failed.reason.http_405"
+msgstr "Method not allowed"
+
+msgid "xhr.failed.reason.timeout"
+msgstr "Request timed out"
+
+msgid "xhr.failed.reason.upstream_failed"
+msgstr "The upstream server request was unsuccessful"
+
+msgid "xhr.failed.reason.objective_null"
+msgstr "No research objective has been chosen"
+
+msgid "xhr.failed.reason.reward_null"
+msgstr "No research reward has been chosen"
+
+msgid "xhr.failed.reason.name_empty"
+msgstr "Name cannot be empty"
+
+msgid "xhr.failed.reason.invalid_location"
+msgstr "Location is out of bounds"

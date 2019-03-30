@@ -1,0 +1,7 @@
+#  The name of the language and country in English (e.g. "French (France)", "Spanish (Spain)")
+msgid "language.name_english"
+msgstr "English (United States)"
+
+#  The native name of the language and country (e.g. "Français (France)", "Español (España)")
+msgid "language.name_native"
+msgstr "English (United States)"

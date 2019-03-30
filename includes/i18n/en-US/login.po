@@ -1,0 +1,18 @@
+msgid "login.title"
+msgstr "Log in to FreeField"
+
+msgid "login.desc"
+msgstr "Please select an authentication provider below"
+
+#  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
+msgid "login.perform"
+msgstr "Log in using {%1}"
+
+msgid "login.reconfigure"
+msgstr "Reconfigure"
+
+msgid "login.telegram.title"
+msgstr "Authenticate with Telegram"
+
+msgid "login.telegram.body"
+msgstr "Please click the button below to sign in using Telegram"

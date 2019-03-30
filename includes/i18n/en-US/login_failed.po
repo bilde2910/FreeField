@@ -1,0 +1,12 @@
+msgid "login_failed.title"
+msgstr "Login failed"
+
+msgid "login_failed.default_auth_provider"
+msgstr "your authentication provider"
+
+#  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
+msgid "login_failed.desc"
+msgstr "Could not authenticate with {%1}"
+
+msgid "login_failed.info"
+msgstr "Your authentication attempt with {%1} failed. Do you wish to try again?"

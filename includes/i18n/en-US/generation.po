@@ -1,0 +1,11 @@
+msgid "generation.1.label"
+msgstr "Generation I"
+
+msgid "generation.2.label"
+msgstr "Generation II"
+
+msgid "generation.3.label"
+msgstr "Generation III"
+
+msgid "generation.4.label"
+msgstr "Generation IV"

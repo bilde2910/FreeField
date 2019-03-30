@@ -40,8 +40,10 @@ class I18N {
     */
     public static function resolve($token) {
         if (self::$i18ndata === null) self::loadI18Ndata();
-        if (isset(self::$i18ndata[$token])) return self::$i18ndata[$token];
-        if (isset(self::$i18ndefault[$token])) return self::$i18ndefault[$token];
+        $td = substr($token, 0, strpos($token, "."));
+        if (!isset(self::$i18ndata[$td])) self::loadI18Ndata($td);
+        if (isset(self::$i18ndata[$td][$token])) return self::$i18ndata[$td][$token];
+        if (isset(self::$i18ndefault[$td][$token])) return self::$i18ndefault[$td][$token];
         return $token;
     }
 
@@ -194,24 +196,31 @@ class I18N {
             If a non-wildcard token is passed, return an array containing only
             that one specific token and its corresponding localized string.
         */
-        if (substr($tokenDomain, -2) !== ".*") return array(
-            $tokenDomain => self::resolve($tokenDomain)
-        );
+        if (substr($tokenDomain, -2) !== ".*") {
+            return array(
+                $tokenDomain => self::resolve($tokenDomain)
+            );
+        } else {
+            $td = substr($tokenDomain, 0, strpos($tokenDomain, "."));
+            if (!isset(self::$i18ndata[$td])) self::loadI18Ndata($td);
+        }
 
         $tokens = array();
         $domainlength = strlen($tokenDomain);
-        foreach (self::$i18ndefault as $key => $value) {
-            /*
-                Loop over the entire default I18N array to check if any of its
-                keys match the domain prefix passed to this function. The
-                preferred language array may not contain all keys, while the
-                default array is guaranteed to contain all I18N keys.
+        foreach (self::$i18ndefault as $domain => $content) {
+            foreach ($content as $key => $value) {
+                /*
+                    Loop over the entire default I18N array to check if any of its
+                    keys match the domain prefix passed to this function. The
+                    preferred language array may not contain all keys, while the
+                    default array is guaranteed to contain all I18N keys.
 
-                A substring is used cut off the trailing asterisk from the
-                domain when checking for matches.
-            */
-            if (substr($key, 0, $domainlength - 1) == substr($tokenDomain, 0, -1)) {
-                $tokens[$key] = self::resolve($key);
+                    A substring is used cut off the trailing asterisk from the
+                    domain when checking for matches.
+                */
+                if (substr($key, 0, $domainlength - 1) == substr($tokenDomain, 0, -1)) {
+                    $tokens[$key] = self::resolve($key);
+                }
             }
         }
         return $tokens;
@@ -244,7 +253,7 @@ class I18N {
         loaded. This function is called by all I18N `resolve*()` functions if
         the I18N arrays are empty.
     */
-    private static function loadI18Ndata() {
+    private static function loadI18Ndata($domain = "language") {
         /*
             Fetch a prioritized list of all languages accepted by the browser.
         */
@@ -253,10 +262,10 @@ class I18N {
         /*
             Set the preferred language and load the I18N data.
         */
-        self::setLanguages($requested);
+        self::setLanguages($requested, $domain);
     }
 
-    public static function setLanguages($requested) {
+    public static function setLanguages($requested, $domain = "language") {
         /*
             Fetch a list of all languages installed in FreeField.
         */
@@ -268,6 +277,7 @@ class I18N {
             language found in both arrays will be set as the preferred language,
             and will be used for localization.
         */
+        if (self::$i18ndata === null) self::$i18ndata = array();
         foreach ($requested as $lang => $q) {
             $isAvailable = false;
             foreach ($available as $avail) {
@@ -284,22 +294,15 @@ class I18N {
                     If the given language is already loaded, don't load it
                     again.
                 */
-                if ($avail == self::$currentLanguage) return;
+                if ($avail == self::$currentLanguage && isset(self::$i18ndata[$domain])) return;
 
-                self::$i18ndata = parse_ini_file(__DIR__."/../i18n/$avail.ini");
+                self::$i18ndata[$domain] = self::parsePo(
+                    __DIR__."/../i18n/{$avail}/{$domain}.po"
+                );
                 self::$currentLanguage = $avail;
                 break;
             }
         }
-
-        /*
-            If there are no common languages, fall back to the default language.
-            This is done by setting `$i18ndata` to an empty array. This causes
-            all lookups to `$i18ndata` to fall back to `$i18ndefault`, as no
-            keys that are looked up in `$i18ndata` are found. See `resolve()`
-            implementation for more details.
-        */
-        if (self::$i18ndata === null) self::$i18ndata = array();
 
         /*
             If the preferred language is the same as the default language, we
@@ -307,11 +310,12 @@ class I18N {
             `$i18ndefault`. If not, read the default I18N language file to an
             array and store it in `$i18ndefault` as the fallback language.
         */
+        if (self::$i18ndefault === null) self::$i18ndefault = array();
         if (self::$currentLanguage == self::DEFAULT_LANG) {
-            self::$i18ndefault = self::$i18ndata;
+            self::$i18ndefault[$domain] = self::$i18ndata[$domain];
         } else {
-            self::$i18ndefault = parse_ini_file(
-                __DIR__."/../i18n/".self::DEFAULT_LANG.".ini"
+            self::$i18ndefault[$domain] = self::parsePo(
+                __DIR__."/../i18n/".self::DEFAULT_LANG."/{$domain}.po"
             );
         }
 
@@ -322,6 +326,31 @@ class I18N {
         if (self::$currentLanguage === null) {
             self::$i18ndata = self::$i18ndefault;
             self::$currentLanguage = self::DEFAULT_LANG;
+        }
+    }
+
+    /*
+        Parses a gettext-compatible .po file and returns an array of the
+        resulting string key-value pairs.
+    */
+    private static function parsePo($path) {
+        $fh = fopen($path, "r");
+        if ($fh) {
+            $data = array();
+            $lastId = "";
+            while (($line = fgets($fh)) !== false) {
+                $line = trim($line);
+                if (substr($line, 0, 6) == "msgid ") {
+                    $lastId = str_replace("\\\"", "\"", substr($line, 7, -1));
+                } elseif (substr($line, 0, 7) == "msgstr ") {
+                    $value = str_replace("\\\"", "\"", substr($line, 8, -1));
+                    $data[$lastId] = $value;
+                }
+            }
+            fclose($fh);
+            return $data;
+        } else {
+            return array();
         }
     }
 
@@ -442,10 +471,6 @@ class I18N {
     */
     public static function getAvailableLanguages() {
         $files = array_diff(scandir(__DIR__."/../i18n"), array('..', '.'));
-        for ($i = 2; $i < count($files) + 2; $i++) {
-            // Cut off file extension
-            $files[$i] = substr($files[$i], 0, -4);
-        }
         return $files;
     }
 
@@ -458,7 +483,7 @@ class I18N {
         $langs = self::getAvailableLanguages();
         $assoc = array();
         foreach ($langs as $lang) {
-            $data = parse_ini_file(__DIR__."/../i18n/$lang.ini");
+            $data = self::parsePo(__DIR__."/../i18n/{$lang}/language.po");
             $assoc[$lang] = $data["language.name_native"];
         }
         return $assoc;

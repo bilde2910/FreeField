@@ -1,0 +1,78 @@
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog when additional data must be specified for the selected
+#  objective or reward. This label will display when an objective or reward that
+#  requires it has been chosen. This label is for the minimum level of a raid.
+msgid "parameter.min_tier.label"
+msgstr "Minimum level"
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog as placeholders in e.g. the following string:
+#  "Win a level [placeholder] or higher raid"
+#  Please remember to include square brackets around the placeholder.
+msgid "parameter.min_tier.placeholder"
+msgstr "[x]"
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog when additional data must be specified for the selected
+#  objective or reward. This label will display when an objective or reward that
+#  requires it has been chosen. This label is for the minimum objective or
+#  reward quantity (e.g. minimum number of Pokémon to catch).
+msgid "parameter.quantity.label"
+msgstr "Quantity"
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog as placeholders in e.g. the following string:
+#  "Catch [placeholder] Pokémon"
+#  Please remember to include square brackets around the placeholder.
+msgid "parameter.quantity.placeholder"
+msgstr "[n]"
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog when additional data must be specified for the selected
+#  objective or reward. This label will display when an objective or reward that
+#  requires it has been chosen. This label is for the catch/evolve/etc. species
+#  requirements.
+msgid "parameter.species.label"
+msgstr "Species"
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog as placeholders in e.g. the following string:
+#  "Catch a [placeholder]"
+#  Please remember to include square brackets around the placeholder.
+msgid "parameter.species.placeholder"
+msgstr "[Species]"
+
+#  This is a header displayed in a selection box when selecting a particular
+#  species for a research objective. It lists commonly reported species.
+msgid "parameter.species.recent.label"
+msgstr "Recent species"
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog when additional data must be specified for the selected
+#  objective or reward. This label will display when an objective or reward that
+#  requires it has been chosen. This label is for the catch/evolve/etc. type
+#  requirements.
+msgid "parameter.type.label"
+msgstr "Type(s)"
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog as placeholders in e.g. the following string:
+#  "Catch a [placeholder] Pokémon"
+#  Please remember to include square brackets around the placeholder.
+msgid "parameter.type.placeholder"
+msgstr "[Type]-type"
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog when additional data must be specified for the selected
+#  objective or reward. This label will display when an objective or reward that
+#  requires it has been chosen. This label is for the item usage requirements
+#  for encounters.
+msgid "parameter.encounter_item.label"
+msgstr "Item"
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog as placeholders in e.g. the following string:
+#  "Use a [placeholder] to help catch Pokémon"
+#  Please remember to include square brackets around the placeholder.
+msgid "parameter.encounter_item.placeholder"
+msgstr "[Item]"
