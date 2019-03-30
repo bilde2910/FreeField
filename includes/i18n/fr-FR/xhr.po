@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Unknown reason\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: fr\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/xhr.po\n"
+"Project-Id-Version: freefield\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"PO-Revision-Date: 2019-03-30 22:31\n"
+
+msgid "xhr.failed.reason.unknown_reason"
+msgstr ""
+
+msgid "xhr.failed.reason.access_denied"
+msgstr ""
+
+msgid "xhr.failed.reason.missing_fields"
+msgstr ""
+
+msgid "xhr.failed.reason.invalid_data"
+msgstr ""
+
+msgid "xhr.failed.reason.database_error"
+msgstr ""
+
+msgid "xhr.failed.reason.http_405"
+msgstr ""
+
+msgid "xhr.failed.reason.timeout"
+msgstr ""
+
+msgid "xhr.failed.reason.upstream_failed"
+msgstr ""
+
+msgid "xhr.failed.reason.objective_null"
+msgstr ""
+
+msgid "xhr.failed.reason.reward_null"
+msgstr ""
+
+msgid "xhr.failed.reason.name_empty"
+msgstr ""
+
+msgid "xhr.failed.reason.invalid_location"
+msgstr ""
+
