@@ -1,0 +1,166 @@
+msgid ""
+msgstr ""
+"Continue setup\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
+"Project-Id-Version: freefield\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"PO-Revision-Date: 2019-03-30 22:44\n"
+
+msgid "install.button.continue"
+msgstr ""
+
+msgid "install.button.finish"
+msgstr ""
+
+msgid "install.button.retry"
+msgstr ""
+
+msgid "install.operation.done"
+msgstr ""
+
+msgid "install.stage.1.title"
+msgstr ""
+
+msgid "install.stage.1.info"
+msgstr ""
+
+msgid "install.stage.1.assert.https"
+msgstr ""
+
+msgid "install.stage.1.assert.root_writable"
+msgstr ""
+
+msgid "install.stage.1.assert.userdata_writable"
+msgstr ""
+
+msgid "install.stage.1.assert.curl_available"
+msgstr ""
+
+msgid "install.stage.1.assert.gd_available"
+msgstr ""
+
+msgid "install.stage.1.assert.openssl_available"
+msgstr ""
+
+msgid "install.stage.1.assert.phar_available"
+msgstr ""
+
+msgid "install.stage.1.checks"
+msgstr ""
+
+msgid "install.stage.1.next"
+msgstr ""
+
+msgid "install.stage.2.title"
+msgstr ""
+
+msgid "install.stage.2.assert.copy_templates"
+msgstr ""
+
+msgid "install.stage.2.assert.authkeys_written"
+msgstr ""
+
+msgid "install.stage.2.assert.config_written"
+msgstr ""
+
+msgid "install.stage.2.next"
+msgstr ""
+
+msgid "install.stage.3.title"
+msgstr ""
+
+msgid "install.stage.3.info"
+msgstr ""
+
+msgid "install.stage.3.assert.valid_data"
+msgstr ""
+
+msgid "install.stage.3.assert.config_written"
+msgstr ""
+
+msgid "install.stage.3.assert.db_connected"
+msgstr ""
+
+msgid "install.stage.3.assert.exec_sql"
+msgstr ""
+
+msgid "install.stage.3.assert.proceed_stage"
+msgstr ""
+
+msgid "install.stage.3.next"
+msgstr ""
+
+msgid "install.stage.4.title"
+msgstr ""
+
+msgid "install.stage.4.info"
+msgstr ""
+
+msgid "install.stage.4.assert.valid_data"
+msgstr ""
+
+msgid "install.stage.4.assert.config_written"
+msgstr ""
+
+msgid "install.stage.4.assert.any_enabled"
+msgstr ""
+
+msgid "install.stage.4.assert.proceed_stage"
+msgstr ""
+
+msgid "install.stage.4.next"
+msgstr ""
+
+msgid "install.stage.5.title"
+msgstr ""
+
+msgid "install.stage.5.assert.auth_success"
+msgstr ""
+
+msgid "install.stage.5.assert.user_created"
+msgstr ""
+
+msgid "install.stage.5.assert.config_written"
+msgstr ""
+
+msgid "install.stage.5.next"
+msgstr ""
+
+msgid "install.stage.6.title"
+msgstr ""
+
+msgid "install.stage.6.provider_info"
+msgstr ""
+
+msgid "install.stage.6.disclaimer"
+msgstr ""
+
+msgid "install.stage.6.field_guide"
+msgstr ""
+
+msgid "install.stage.6.default_info"
+msgstr ""
+
+msgid "install.stage.6.assert.valid_data"
+msgstr ""
+
+msgid "install.stage.6.assert.config_written"
+msgstr ""
+
+msgid "install.stage.6.next"
+msgstr ""
+
+msgid "install.stage.6.post_install.head"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "install.stage.6.post_install.body"
+msgstr ""
+
