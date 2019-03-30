@@ -1,0 +1,34 @@
+msgid ""
+msgstr ""
+"Log in to FreeField\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/login.po\n"
+"Project-Id-Version: freefield\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"PO-Revision-Date: 2019-03-30 22:44\n"
+
+msgid "login.title"
+msgstr ""
+
+msgid "login.desc"
+msgstr ""
+
+#  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
+msgid "login.perform"
+msgstr ""
+
+msgid "login.reconfigure"
+msgstr ""
+
+msgid "login.telegram.title"
+msgstr ""
+
+msgid "login.telegram.body"
+msgstr ""
+
