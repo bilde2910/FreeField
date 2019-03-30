@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"{%1}-type\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/multi.po\n"
+"Project-Id-Version: freefield\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"PO-Revision-Date: 2019-03-30 22:44\n"
+
+#  This string is a string displayed for type tasks. E.g. "Water-type" in "Catch
+#  3 Water-type Pokémon."
+#  %1 = Type of catch ("Ice", "Water", etc.)
+msgid "multi.type.single"
+msgstr ""
+
+#  This string is a string displayed for type tasks. E.g. "Water, Fire or
+#  Grass-type" in "Catch 3 Water, Fire or Grass-type Pokémon."
+#  %1 and %2 = Type of catch ("Ice", "Water", etc.)
+msgid "multi.type.double"
+msgstr ""
+
+#  This string is a string displayed for type tasks. E.g. "Water or Grass-type"
+#  in "Catch 3 Water or Grass-type Pokémon."
+#  %1 through %3 = Type of catch ("Ice", "Water", etc.)
+msgid "multi.type.triple"
+msgstr ""
+
+#  This string is a string used to display and concatenate multiple species.
+#  E.g. "Bulbasaur or Squirtle" in "Catch a Bulbasaur or Squirtle."
+#  %1 through %3 = Name of a species ("Pikachu", "Charizard", etc.)
+msgid "multi.species.double"
+msgstr ""
+
+#  This string is a string used to display and concatenate multiple species.
+#  E.g. "Bulbasaur, Charmander or Squirtle" in "Catch a Bulbasaur, Charmander or
+#  Squirtle."
+msgid "multi.species.triple"
+msgstr ""
+
