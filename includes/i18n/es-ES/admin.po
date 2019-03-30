@@ -1,0 +1,815 @@
+msgid ""
+msgstr ""
+"* The text may vary slightly from the preview above when rendered on the page.\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
+"Project-Id-Version: freefield\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Language-Team: Spanish\n"
+"Language: es_ES\n"
+"PO-Revision-Date: 2019-03-30 22:31\n"
+
+#  Paragraph text input above this string.
+msgid "admin.option.paragraph.disclaimer"
+msgstr ""
+
+msgid "admin.option.paragraph.xss_warning"
+msgstr ""
+
+#  File selection input
+#  %1 = <code>
+#  %2 = File name and size according to display_format below
+#  %3 = </code>
+msgid "admin.option.file.current"
+msgstr ""
+
+#  %1 = <a href=""> (link to file)
+#  %2 = </a>
+#  %3 = Name of currently used file for file upload inputs
+#  %4 = Filesize in given unit
+#  %5 = Filesize unit with IEC-style binary prefix (e.g. "B", "KiB", "MiB", "GiB")
+msgid "admin.option.file.display_format"
+msgstr ""
+
+msgid "admin.option.file.size_unit.byte"
+msgstr ""
+
+msgid "admin.option.file.size_unit.kilo"
+msgstr ""
+
+msgid "admin.option.file.size_unit.mega"
+msgstr ""
+
+msgid "admin.option.file.size_unit.giga"
+msgstr ""
+
+#  Geofence selection input
+msgid "admin.option.geofence.available"
+msgstr ""
+
+#  Icon set selector
+#  %1 = User who created icon set
+msgid "admin.option.icon_set.authored_by"
+msgstr ""
+
+msgid "admin.validation.validation_failed"
+msgstr ""
+
+msgid "admin.validation.unsaved_changes"
+msgstr ""
+
+msgid "admin.domain.main.name"
+msgstr ""
+
+msgid "admin.domain.main.desc"
+msgstr ""
+
+msgid "admin.section.main.access.name"
+msgstr ""
+
+msgid "admin.section.main.instance.name"
+msgstr ""
+
+msgid "admin.section.main.motd.name"
+msgstr ""
+
+msgid "admin.section.main.spiders.name"
+msgstr ""
+
+msgid "admin.section.main.database.name"
+msgstr ""
+
+msgid "admin.domain.users.name"
+msgstr ""
+
+msgid "admin.domain.users.desc"
+msgstr ""
+
+msgid "admin.section.users.require_approval.name"
+msgstr ""
+
+msgid "admin.section.users.user_list.name"
+msgstr ""
+
+#  This means the ID of the user as stored by the authentication provider of the
+#  user, e.g. "@username" could be the provider identity for a user on Twitter.
+msgid "admin.table.users.user_list.column.provider_identity.name"
+msgstr ""
+
+msgid "admin.table.users.user_list.column.provider.name"
+msgstr ""
+
+msgid "admin.table.users.user_list.column.nickname.name"
+msgstr ""
+
+msgid "admin.table.users.user_list.column.group.name"
+msgstr ""
+
+msgid "admin.table.users.user_list.column.registered.name"
+msgstr ""
+
+msgid "admin.table.users.user_list.column.actions.name"
+msgstr ""
+
+msgid "admin.table.users.anonymous"
+msgstr ""
+
+msgid "admin.table.users.deleted"
+msgstr ""
+
+msgid "admin.table.users.api_deleted"
+msgstr ""
+
+msgid "admin.section.users.user_list.action.none"
+msgstr ""
+
+msgid "admin.section.users.user_list.action.approve"
+msgstr ""
+
+msgid "admin.section.users.user_list.action.reject"
+msgstr ""
+
+msgid "admin.section.users.user_list.action.delete"
+msgstr ""
+
+msgid "admin.section.users.user_list.action.invalidate"
+msgstr ""
+
+#  %1 = Padlock icon
+msgid "admin.section.users.user_list.unlock"
+msgstr ""
+
+msgid "admin.clientside.users.user_list.unlock_warning"
+msgstr ""
+
+msgid "admin.domain.groups.name"
+msgstr ""
+
+msgid "admin.domain.groups.desc"
+msgstr ""
+
+msgid "admin.section.groups.group_list.name"
+msgstr ""
+
+msgid "admin.table.groups.group_list.column.group_name.name"
+msgstr ""
+
+msgid "admin.table.groups.group_list.column.change_name.name"
+msgstr ""
+
+msgid "admin.table.groups.group_list.column.permission.name"
+msgstr ""
+
+msgid "admin.table.groups.group_list.column.color.name"
+msgstr ""
+
+msgid "admin.table.groups.group_list.column.actions.name"
+msgstr ""
+
+msgid "admin.clientside.groups.group_list.action.none"
+msgstr ""
+
+msgid "admin.clientside.groups.group_list.action.delete"
+msgstr ""
+
+msgid "admin.clientside.groups.popup.add_group"
+msgstr ""
+
+msgid "admin.clientside.groups.popup.conflicting_levels"
+msgstr ""
+
+msgid "admin.clientside.groups.new"
+msgstr ""
+
+msgid "admin.section.groups.ui.add.name"
+msgstr ""
+
+msgid "admin.domain.pois.name"
+msgstr ""
+
+msgid "admin.domain.pois.desc"
+msgstr ""
+
+#  %1 = Amount of POIs
+msgid "admin.section.pois.poi_list.name"
+msgstr ""
+
+msgid "admin.section.pois.batch.name"
+msgstr ""
+
+msgid "admin.section.pois.clear.name"
+msgstr ""
+
+msgid "admin.section.pois.import.name"
+msgstr ""
+
+msgid "admin.section.pois.preview_table.name"
+msgstr ""
+
+msgid "admin.section.pois.export.name"
+msgstr ""
+
+msgid "admin.table.pois.poi_list.column.poi_name.name"
+msgstr ""
+
+msgid "admin.table.pois.poi_list.column.created_time.name"
+msgstr ""
+
+msgid "admin.table.pois.poi_list.column.created_by.name"
+msgstr ""
+
+msgid "admin.table.pois.poi_list.column.current_research.name"
+msgstr ""
+
+msgid "admin.table.pois.poi_list.column.last_updated_time.name"
+msgstr ""
+
+msgid "admin.table.pois.poi_list.column.last_updated_by.name"
+msgstr ""
+
+msgid "admin.table.pois.poi_list.column.location.name"
+msgstr ""
+
+msgid "admin.table.pois.poi_list.column.actions.name"
+msgstr ""
+
+msgid "admin.section.pois.poi_list.action.none"
+msgstr ""
+
+msgid "admin.section.pois.poi_list.action.clear"
+msgstr ""
+
+msgid "admin.section.pois.poi_list.action.delete"
+msgstr ""
+
+msgid "admin.section.pois.poi_list.search"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "admin.section.pois.batch.desc"
+msgstr ""
+
+msgid "admin.table.pois.batch_list.column.label.name"
+msgstr ""
+
+msgid "admin.table.pois.batch_list.column.poi_count.name"
+msgstr ""
+
+msgid "admin.table.pois.batch_list.column.actions.name"
+msgstr ""
+
+msgid "admin.section.pois.batch_list.action.none"
+msgstr ""
+
+msgid "admin.section.pois.batch_list.action.clear"
+msgstr ""
+
+msgid "admin.section.pois.batch_list.action.delete"
+msgstr ""
+
+msgid "admin.section.pois.batch_list.search"
+msgstr ""
+
+msgid "admin.section.pois.clear.desc"
+msgstr ""
+
+msgid "admin.section.pois.clear.perform.name"
+msgstr ""
+
+msgid "admin.section.pois.clear.perform.label"
+msgstr ""
+
+msgid "admin.section.pois.import.file.name"
+msgstr ""
+
+msgid "admin.section.pois.import.file.desc"
+msgstr ""
+
+msgid "admin.section.pois.import.name.name"
+msgstr ""
+
+msgid "admin.section.pois.import.name.desc"
+msgstr ""
+
+msgid "admin.section.pois.import.latitude.name"
+msgstr ""
+
+msgid "admin.section.pois.import.latitude.desc"
+msgstr ""
+
+msgid "admin.section.pois.import.longitude.name"
+msgstr ""
+
+msgid "admin.section.pois.import.longitude.desc"
+msgstr ""
+
+msgid "admin.section.pois.import.selector.none"
+msgstr ""
+
+msgid "admin.section.pois.import.selector.available"
+msgstr ""
+
+msgid "admin.table.pois.preview_table.column.include.name"
+msgstr ""
+
+msgid "admin.table.pois.preview_table.column.poi_name.name"
+msgstr ""
+
+msgid "admin.table.pois.preview_table.column.latitude.name"
+msgstr ""
+
+msgid "admin.table.pois.preview_table.column.longitude.name"
+msgstr ""
+
+msgid "admin.clientside.pois.preview_table.actions.include"
+msgstr ""
+
+msgid "admin.clientside.pois.preview_table.actions.exclude"
+msgstr ""
+
+#  %1 = Number of Pokéstops in the imported list of Pokéstops.
+msgid "admin.clientside.pois.import.count"
+msgstr ""
+
+msgid "admin.section.pois.import.invalid_warning"
+msgstr ""
+
+msgid "admin.section.pois.export.info"
+msgstr ""
+
+msgid "admin.section.pois.export.do"
+msgstr ""
+
+msgid "admin.domain.perms.name"
+msgstr ""
+
+msgid "admin.domain.perms.desc"
+msgstr ""
+
+msgid "admin.section.perms.default.name"
+msgstr ""
+
+msgid "admin.section.perms.self_manage.name"
+msgstr ""
+
+msgid "admin.section.perms.map_access.name"
+msgstr ""
+
+msgid "admin.section.perms.map_access.desc"
+msgstr ""
+
+msgid "admin.section.perms.personalization.name"
+msgstr ""
+
+msgid "admin.section.perms.admin.name"
+msgstr ""
+
+msgid "admin.domain.security.name"
+msgstr ""
+
+msgid "admin.domain.security.desc"
+msgstr ""
+
+msgid "admin.section.security.user_creation.name"
+msgstr ""
+
+msgid "admin.section.security.user_creation.desc"
+msgstr ""
+
+msgid "admin.section.security.sessions.name"
+msgstr ""
+
+msgid "admin.section.security.sessions.desc"
+msgstr ""
+
+msgid "admin.section.security.outbound.name"
+msgstr ""
+
+msgid "admin.section.security.same_origin.name"
+msgstr ""
+
+msgid "admin.domain.auth.name"
+msgstr ""
+
+msgid "admin.domain.auth.desc"
+msgstr ""
+
+msgid "admin.section.auth.discord.name"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "admin.section.auth.discord.desc"
+msgstr ""
+
+msgid "admin.section.auth.telegram.name"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "admin.section.auth.telegram.desc"
+msgstr ""
+
+msgid "admin.section.auth.reddit.name"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "admin.section.auth.reddit.desc"
+msgstr ""
+
+msgid "admin.section.auth.facebook.name"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "admin.section.auth.facebook.desc"
+msgstr ""
+
+msgid "admin.section.auth.line.name"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "admin.section.auth.line.desc"
+msgstr ""
+
+msgid "admin.section.auth.groupme.name"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "admin.section.auth.groupme.desc"
+msgstr ""
+
+msgid "admin.domain.mobile.name"
+msgstr ""
+
+msgid "admin.domain.mobile.desc"
+msgstr ""
+
+msgid "admin.section.mobile.pwa.name"
+msgstr ""
+
+msgid "admin.section.mobile.pwa.desc"
+msgstr ""
+
+msgid "admin.domain.themes.name"
+msgstr ""
+
+msgid "admin.domain.themes.desc"
+msgstr ""
+
+msgid "admin.section.themes.meta.name"
+msgstr ""
+
+msgid "admin.section.themes.color.name"
+msgstr ""
+
+msgid "admin.section.themes.icons.name"
+msgstr ""
+
+msgid "admin.domain.map.name"
+msgstr ""
+
+msgid "admin.domain.map.desc"
+msgstr ""
+
+msgid "admin.section.map.provider.name"
+msgstr ""
+
+msgid "admin.section.map.provider.desc"
+msgstr ""
+
+msgid "admin.section.map.default.name"
+msgstr ""
+
+msgid "admin.section.map.updates.name"
+msgstr ""
+
+msgid "admin.section.map.geofence.name"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "admin.section.map.geofence.desc"
+msgstr ""
+
+msgid "admin.domain.fences.name"
+msgstr ""
+
+msgid "admin.domain.fences.desc"
+msgstr ""
+
+msgid "admin.section.fences.fence_list.name"
+msgstr ""
+
+msgid "admin.table.fences.fence_list.column.label.name"
+msgstr ""
+
+msgid "admin.table.fences.fence_list.column.vertices.name"
+msgstr ""
+
+msgid "admin.table.fences.fence_list.column.actions.name"
+msgstr ""
+
+msgid "admin.clientside.fences.fence_list.action.none"
+msgstr ""
+
+msgid "admin.clientside.fences.fence_list.action.delete"
+msgstr ""
+
+msgid "admin.section.fences.ui.add.name"
+msgstr ""
+
+msgid "admin.domain.hooks.name"
+msgstr ""
+
+msgid "admin.domain.hooks.desc"
+msgstr ""
+
+msgid "admin.section.hooks.active.name"
+msgstr ""
+
+msgid "admin.section.hooks.inactive.name"
+msgstr ""
+
+msgid "admin.section.hooks.settings.name"
+msgstr ""
+
+msgid "admin.section.hooks.body.json.name"
+msgstr ""
+
+msgid "admin.section.hooks.body.txt.name"
+msgstr ""
+
+msgid "admin.section.hooks.body.md.name"
+msgstr ""
+
+msgid "admin.section.hooks.body.html.name"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "admin.section.hooks.objectives.name"
+msgstr ""
+
+#  %1 = <a href="">, %2 = </a>
+msgid "admin.section.hooks.rewards.name"
+msgstr ""
+
+msgid "admin.clientside.hooks.popup.add_webhook"
+msgstr ""
+
+msgid "admin.clientside.hooks.popup.add_objective"
+msgstr ""
+
+msgid "admin.clientside.hooks.popup.edit_objective"
+msgstr ""
+
+msgid "admin.clientside.hooks.popup.add_reward"
+msgstr ""
+
+msgid "admin.clientside.hooks.popup.edit_reward"
+msgstr ""
+
+msgid "admin.clientside.hooks.syntax.show"
+msgstr ""
+
+msgid "admin.clientside.hooks.syntax.hide"
+msgstr ""
+
+msgid "admin.hooks.syntax.poi.title"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.poi.poi"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.poi.lat"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.poi.lng"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.poi.coords"
+msgstr ""
+
+msgid "admin.hooks.syntax.research.title"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.research.objective"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.research.reward"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.research.reporter"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.research.time"
+msgstr ""
+
+msgid "admin.hooks.syntax.navigation.title"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.navigation.navurl"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.navigation.navurl_arg"
+msgstr ""
+
+msgid "admin.hooks.syntax.icons.title"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.icons.objective_icon"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.icons.reward_icon"
+msgstr ""
+
+msgid "admin.hooks.syntax.other.title"
+msgstr ""
+
+#  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
+msgid "admin.hooks.syntax.other.i18n"
+msgstr ""
+
+msgid "admin.clientside.hooks.any_objective"
+msgstr ""
+
+msgid "admin.clientside.hooks.any_reward"
+msgstr ""
+
+#  %1 = One or more research objectives (e.g. "Make 3 Great Throws")
+msgid "admin.clientside.hooks.any_objective_except"
+msgstr ""
+
+#  %1 = One or more research rewards (e.g. "1 Max Revive")
+msgid "admin.clientside.hooks.any_reward_except"
+msgstr ""
+
+#  Used to combine multiple objectives or rewards via "or" conditionals.
+#  %1 = Research objective or reward #1 (e.g. "Make 3 Great Throws", "1 Max
+#  Revive"), %2 = Research objective or reward #2
+msgid "admin.clientside.hooks.multi_or"
+msgstr ""
+
+#  Used to combine multiple objectives or rewards via "and" conditionals.
+#  %1 = Research objective or reward #1 (e.g. "Make 3 Great Throws", "1 Max
+#  Revive"), %2 = Research objective or reward #2
+msgid "admin.clientside.hooks.multi_and"
+msgstr ""
+
+#  %1 = Reason
+msgid "admin.clientside.hooks.update.objective.failed.message"
+msgstr ""
+
+#  %1 = Reason
+msgid "admin.clientside.hooks.update.reward.failed.message"
+msgstr ""
+
+#  Fallback for webhook target when the target cannot be identified; typically
+#  displayed instead of a domain name
+msgid "admin.clientside.domain.unknown"
+msgstr ""
+
+#  Telegram specific setting
+msgid "admin.clientside.hooks.tg.xhr.groups.failed.empty_token"
+msgstr ""
+
+#  Telegram specific setting
+msgid "admin.clientside.hooks.tg.xhr.groups.failed.no_groups"
+msgstr ""
+
+#  Telegram specific setting
+msgid "admin.hooks.popup.tg.searching_group"
+msgstr ""
+
+#  Telegram specific setting
+msgid "admin.hooks.popup.tg.select_group"
+msgstr ""
+
+msgid "admin.section.hooks.ui.add.name"
+msgstr ""
+
+msgid "admin.domain.api.name"
+msgstr ""
+
+msgid "admin.domain.api.desc"
+msgstr ""
+
+msgid "admin.section.api.client_list.name"
+msgstr ""
+
+msgid "admin.table.api.client_list.column.name.name"
+msgstr ""
+
+msgid "admin.table.api.client_list.column.color.name"
+msgstr ""
+
+msgid "admin.table.api.client_list.column.token.name"
+msgstr ""
+
+msgid "admin.table.api.client_list.column.seen.name"
+msgstr ""
+
+msgid "admin.table.api.client_list.column.access.name"
+msgstr ""
+
+msgid "admin.table.api.client_list.column.actions.name"
+msgstr ""
+
+msgid "admin.table.api.client_list.column.token.mask"
+msgstr ""
+
+msgid "admin.clientside.api.client_list.action.none"
+msgstr ""
+
+msgid "admin.clientside.api.client_list.action.reset"
+msgstr ""
+
+msgid "admin.clientside.api.client_list.action.delete"
+msgstr ""
+
+msgid "admin.section.api.ui.add.name"
+msgstr ""
+
+msgid "admin.section.api.ui.copy.name"
+msgstr ""
+
+msgid "admin.clientside.api.client_list.token.new"
+msgstr ""
+
+msgid "admin.clientside.api.client_list.seen.never"
+msgstr ""
+
+msgid "admin.clientside.api.client_list.access.level"
+msgstr ""
+
+msgid "admin.clientside.api.client_list.access.none"
+msgstr ""
+
+msgid "admin.api.popup.view_token.title"
+msgstr ""
+
+msgid "admin.api.popup.view_token.client_name"
+msgstr ""
+
+msgid "admin.api.popup.access_list.title"
+msgstr ""
+
+msgid "admin.api.popup.access_list.client_name"
+msgstr ""
+
+msgid "admin.api.popup.access_list.level"
+msgstr ""
+
+msgid "admin.domain.updates.name"
+msgstr ""
+
+msgid "admin.domain.updates.desc"
+msgstr ""
+
+msgid "admin.section.updates.info.name"
+msgstr ""
+
+msgid "admin.section.updates.available.name"
+msgstr ""
+
+#  %1 = Warning triangle symbol
+msgid "admin.section.updates.git.name"
+msgstr ""
+
+#  %1 = <code>, %2 = </code>
+msgid "admin.section.updates.git.desc"
+msgstr ""
+
+msgid "admin.section.updates.available.release_notes"
+msgstr ""
+
+msgid "admin.section.updates.ui.update.name"
+msgstr ""
+
+msgid "admin.section.updates.ui.install.name"
+msgstr ""
+
+msgid "admin.updates.popup.confirm_install.title"
+msgstr ""
+
+msgid "admin.updates.popup.confirm_install.disclaimer"
+msgstr ""
+
+msgid "admin.updates.popup.confirm_install.target"
+msgstr ""
+
+msgid "admin.updates.popup.confirm_install.liability_statement"
+msgstr ""
+
