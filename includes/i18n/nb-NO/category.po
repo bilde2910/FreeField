@@ -1,0 +1,82 @@
+msgid ""
+msgstr ""
+"Current objectives\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/category.po\n"
+"Project-Id-Version: freefield\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"PO-Revision-Date: 2019-03-30 22:44\n"
+
+#  Label for objectives which are currently in-game (e.g. monthly, event, etc.)
+msgid "category.objective.current"
+msgstr ""
+
+msgid "category.objective.battle"
+msgstr ""
+
+msgid "category.objective.raid"
+msgstr ""
+
+msgid "category.objective.catch"
+msgstr ""
+
+msgid "category.objective.item"
+msgstr ""
+
+msgid "category.objective.buddy"
+msgstr ""
+
+msgid "category.objective.hatch"
+msgstr ""
+
+msgid "category.objective.evolve"
+msgstr ""
+
+msgid "category.objective.power_up"
+msgstr ""
+
+msgid "category.objective.transfer"
+msgstr ""
+
+msgid "category.objective.throwing_skill"
+msgstr ""
+
+msgid "category.objective.explore"
+msgstr ""
+
+msgid "category.objective.social"
+msgstr ""
+
+msgid "category.reward.ball"
+msgstr ""
+
+msgid "category.reward.berry"
+msgstr ""
+
+msgid "category.reward.potion"
+msgstr ""
+
+msgid "category.reward.revive"
+msgstr ""
+
+msgid "category.reward.evolution_item"
+msgstr ""
+
+msgid "category.reward.tm"
+msgstr ""
+
+msgid "category.reward.stardust"
+msgstr ""
+
+msgid "category.reward.candy"
+msgstr ""
+
+msgid "category.reward.encounter"
+msgstr ""
+
