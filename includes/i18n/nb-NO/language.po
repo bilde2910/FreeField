@@ -1,0 +1,23 @@
+msgid ""
+msgstr ""
+"English (United States)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/language.po\n"
+"Project-Id-Version: freefield\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"PO-Revision-Date: 2019-03-30 22:44\n"
+
+#  The name of the language and country in English (e.g. "French (France)", "Spanish (Spain)")
+msgid "language.name_english"
+msgstr ""
+
+#  The native name of the language and country (e.g. "Français (France)", "Español (España)")
+msgid "language.name_native"
+msgstr ""
+
