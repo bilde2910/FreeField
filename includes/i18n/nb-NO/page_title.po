@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"FreeField Setup\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/page_title.po\n"
+"Project-Id-Version: freefield\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"PO-Revision-Date: 2019-03-30 22:44\n"
+
+msgid "page_title.setup"
+msgstr ""
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+#  %2 = Administration domain (e.g. "Users", "Webhooks")
+msgid "page_title.admin"
+msgstr ""
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.main"
+msgstr ""
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.access_denied"
+msgstr ""
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.main"
+msgstr ""
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.failed"
+msgstr ""
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.awaiting_approval"
+msgstr ""
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.approve_user"
+msgstr ""
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.telegram"
+msgstr ""
+
