@@ -1,0 +1,3 @@
+files:
+  - source: /includes/i18n
+    translation: /includes/i18n/%locale%/%original_file_name%
