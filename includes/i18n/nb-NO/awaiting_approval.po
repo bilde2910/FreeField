@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,32 +13,32 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/awaiting_approval.po\n"
-"PO-Revision-Date: 2019-03-31 10:02\n"
+"PO-Revision-Date: 2019-03-31 12:54\n"
 
 msgid "awaiting_approval.title"
-msgstr ""
+msgstr "Godkjenning kreves"
 
 msgid "awaiting_approval.desc"
-msgstr ""
+msgstr "Brukerkontoen din venter på å bli manuelt godkjent"
 
 msgid "awaiting_approval.info.1"
-msgstr ""
+msgstr "Takk for registeringen! Denne siden krever manuell godkjenning av nye brukere. Fram til brukeren din har blitt godkjent, vil du ikke ha tilgang til funksjonalitet som krever medlemskap."
 
 msgid "awaiting_approval.info.2.qr_enabled"
-msgstr ""
+msgstr "Administratorer kan godkjenne brukeren din. Vis dem denne QR-koden, eller send dem linken under, for å hjelpe dem med å identifisere og godkjenne brukeren din i FreeField. Administratorer kan også søke opp brukeren hvis du oppgir brukernavnet ditt."
 
 msgid "awaiting_approval.info.2.qr_disabled"
-msgstr ""
+msgstr "Administratorer kan godkjenne brukeren din. Send dem linken under for å hjelpe dem med å identifisere og godkjenne brukeren din i FreeField. Administratorer kan også søke opp brukeren hvis du oppgir brukernavnet ditt."
 
 msgid "awaiting_approval.using.qr.head"
-msgstr ""
+msgstr "QR-kode for godkjenning"
 
 msgid "awaiting_approval.using.link.head"
-msgstr ""
+msgstr "Link for godkjenning"
 
 msgid "awaiting_approval.using.link.info"
-msgstr ""
+msgstr "Administratorer kan bruke denne linken til å godkjenne brukeren din."
 
 msgid "awaiting_approval.return_button"
-msgstr ""
+msgstr "Tilbake til hovedsiden"
 
