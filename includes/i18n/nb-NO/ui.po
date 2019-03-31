@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,29 +13,29 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/ui.po\n"
-"PO-Revision-Date: 2019-03-31 10:01\n"
+"PO-Revision-Date: 2019-03-31 12:25\n"
 
 msgid "ui.button.close"
-msgstr ""
+msgstr "Lukk"
 
 msgid "ui.button.cancel"
-msgstr ""
+msgstr "Avbryt"
 
 msgid "ui.button.select"
-msgstr ""
+msgstr "Velg"
 
 msgid "ui.button.save"
-msgstr ""
+msgstr "Lagre innstillinger"
 
 msgid "ui.button.done"
-msgstr ""
+msgstr "Ferdig"
 
 msgid "ui.button.retry"
-msgstr ""
+msgstr "Prøv igjen"
 
 msgid "ui.dropdown.none_selected"
-msgstr ""
+msgstr "< ingen >"
 
 msgid "ui.paginate.go_to"
-msgstr ""
+msgstr "Gå til side:"
 
