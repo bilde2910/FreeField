@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,14 +13,14 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/parameter.po\n"
-"PO-Revision-Date: 2019-03-31 10:02\n"
+"PO-Revision-Date: 2019-03-31 12:54\n"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog when additional data must be specified for the selected
 #  objective or reward. This label will display when an objective or reward that
 #  requires it has been chosen. This label is for the minimum level of a raid.
 msgid "parameter.min_tier.label"
-msgstr ""
+msgstr "Minste nivå"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog as placeholders in e.g. the following string:
@@ -35,7 +35,7 @@ msgstr ""
 #  requires it has been chosen. This label is for the minimum objective or
 #  reward quantity (e.g. minimum number of Pokémon to catch).
 msgid "parameter.quantity.label"
-msgstr ""
+msgstr "Antall"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog as placeholders in e.g. the following string:
@@ -50,7 +50,7 @@ msgstr ""
 #  requires it has been chosen. This label is for the catch/evolve/etc. species
 #  requirements.
 msgid "parameter.species.label"
-msgstr ""
+msgstr "Pokémon-art"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog as placeholders in e.g. the following string:
@@ -62,7 +62,7 @@ msgstr ""
 #  This is a header displayed in a selection box when selecting a particular
 #  species for a research objective. It lists commonly reported species.
 msgid "parameter.species.recent.label"
-msgstr ""
+msgstr "Nylig rapporterte arter"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog when additional data must be specified for the selected
@@ -70,7 +70,7 @@ msgstr ""
 #  requires it has been chosen. This label is for the catch/evolve/etc. type
 #  requirements.
 msgid "parameter.type.label"
-msgstr ""
+msgstr "Type(r)"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog as placeholders in e.g. the following string:
@@ -85,7 +85,7 @@ msgstr ""
 #  requires it has been chosen. This label is for the item usage requirements
 #  for encounters.
 msgid "parameter.encounter_item.label"
-msgstr ""
+msgstr "Gjenstand"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog as placeholders in e.g. the following string:
