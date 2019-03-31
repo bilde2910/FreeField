@@ -13,13 +13,13 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/login.po\n"
-"PO-Revision-Date: 2019-03-31 10:15\n"
+"PO-Revision-Date: 2019-03-31 13:15\n"
 
 msgid "login.title"
 msgstr "Logg inn i FreeField"
 
 msgid "login.desc"
-msgstr "Velg en innloggingstjeneste nedenfor"
+msgstr "Velg en innloggingstilbyder nedenfor"
 
 #  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
 msgid "login.perform"
