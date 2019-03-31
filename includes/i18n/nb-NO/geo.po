@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,28 +13,28 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/geo.po\n"
-"PO-Revision-Date: 2019-03-31 10:02\n"
+"PO-Revision-Date: 2019-03-31 12:25\n"
 
 #  This string determines how coordinate strings are displayed (consider the
 #  order of the coordinates, whether there should be a comma, etc.)
 #  %1 = Latitude, %2 = Longitude
 #  E.g. %1 = "40.1234°N", %2 = "10.4321°E"
 msgid "geo.location.string"
-msgstr ""
+msgstr "{%1}, {%2}"
 
 #  %1 = Degrees
 msgid "geo.direction.deg_north"
-msgstr ""
+msgstr "{%1}°N"
 
 #  %1 = Degrees
 msgid "geo.direction.deg_south"
-msgstr ""
+msgstr "{%1}°S"
 
 #  %1 = Degrees
 msgid "geo.direction.deg_east"
-msgstr ""
+msgstr "{%1}°Ø"
 
 #  %1 = Degrees
 msgid "geo.direction.deg_west"
-msgstr ""
+msgstr "{%1}°V"
 
