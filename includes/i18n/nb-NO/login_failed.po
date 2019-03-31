@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,18 +13,18 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/login_failed.po\n"
-"PO-Revision-Date: 2019-03-31 10:02\n"
+"PO-Revision-Date: 2019-03-31 12:54\n"
 
 msgid "login_failed.title"
-msgstr ""
+msgstr "Innlogging mislyktes"
 
 msgid "login_failed.default_auth_provider"
-msgstr ""
+msgstr "innloggingstjenesten din"
 
 #  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
 msgid "login_failed.desc"
-msgstr ""
+msgstr "Kunne ikke logge inn med {%1}"
 
 msgid "login_failed.info"
-msgstr ""
+msgstr "Forsøket på å logge inn med {%1} gikk ikke. Vil du prøve igjen?"
 
