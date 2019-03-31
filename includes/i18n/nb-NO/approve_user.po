@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,49 +13,49 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/approve_user.po\n"
-"PO-Revision-Date: 2019-03-31 10:02\n"
+"PO-Revision-Date: 2019-03-31 12:45\n"
 
 #  Displayed if the user for whom the link was created visits the page.
 msgid "approve_user.user.title"
-msgstr ""
+msgstr "Godkjenning"
 
 #  Displayed if the user for whom the link was created visits the page.
 msgid "approve_user.user.desc"
-msgstr ""
+msgstr "Godkjenning kreves"
 
 #  Displayed if the user for whom the link was created visits the page.
 msgid "approve_user.user.info"
-msgstr ""
+msgstr "Denne linken er kun for administratorer. Ta kontakt med en administrator for å få brukerkontoen din godkjent."
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.admin.title"
-msgstr ""
+msgstr "Godkjenningsforespørsel"
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.admin.desc"
-msgstr ""
+msgstr "En bruker har bedt om godkjenning"
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.admin.info"
-msgstr ""
+msgstr "Følgende bruker har bedt om godkjenning:"
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.button.approve"
-msgstr ""
+msgstr "Godkjenn"
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.button.reject"
-msgstr ""
+msgstr "Avvis"
 
 #  Displayed if the user is not in the approval queue.
 msgid "approve_user.approved.title"
-msgstr ""
+msgstr "Godkjenning"
 
 #  Displayed if the user is not in the approval queue.
 msgid "approve_user.approved.desc"
-msgstr ""
+msgstr "Godkjenning mislyktes"
 
 #  Displayed if the user is not in the approval queue.
 msgid "approve_user.approved.info"
-msgstr ""
+msgstr "Brukeren trenger ikke godkjenning."
 
