@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/poi.po\n"
-"PO-Revision-Date: 2019-03-31 12:35\n"
+"PO-Revision-Date: 2019-03-31 13:25\n"
 
 #  %1 = Last updated date/time
 msgid "poi.last.time"
@@ -43,11 +43,11 @@ msgstr "Legger til Pokéstop..."
 
 #  %1 = Name of POI
 msgid "poi.add.success"
-msgstr "Pokéstoppet \"{%1}\" ble lagt!"
+msgstr "Pokéstoppet \"{%1}\" ble lagt til!"
 
 #  %1 = Name of POI, %2 = Reason it failed
 msgid "poi.add.failed.message"
-msgstr "Kunne ikke legge til Pokéstop \"{%1}\": {%2}"
+msgstr "Kunne ikke legge til pokéstoppet \"{%1}\": {%2}"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "poi.add.instructions"
@@ -131,14 +131,14 @@ msgid "poi.update.failed.message"
 msgstr "Kunne ikke rapportere oppgaven: {%1}"
 
 msgid "poi.search.placeholder"
-msgstr "Søk etter Pokéstops..."
+msgstr "Søk etter Pokéstop..."
 
 #  %1 = Distance in kilometers
 msgid "poi.search.distance"
 msgstr "{%1} km"
 
 msgid "poi.filter.title"
-msgstr "Filtrer Pokéstops"
+msgstr "Filtrer Pokéstop"
 
 msgid "poi.filter.mode.title"
 msgstr "Filtermodus:"
