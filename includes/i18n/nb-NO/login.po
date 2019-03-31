@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,24 +13,24 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/login.po\n"
-"PO-Revision-Date: 2019-03-31 10:02\n"
+"PO-Revision-Date: 2019-03-31 10:15\n"
 
 msgid "login.title"
-msgstr ""
+msgstr "Logg inn i FreeField"
 
 msgid "login.desc"
-msgstr ""
+msgstr "Velg en innloggingstjeneste nedenfor"
 
 #  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
 msgid "login.perform"
-msgstr ""
+msgstr "Logg inn med {%1}"
 
 msgid "login.reconfigure"
-msgstr ""
+msgstr "Omkonfigurer"
 
 msgid "login.telegram.title"
-msgstr ""
+msgstr "Autentiser med Telegram"
 
 msgid "login.telegram.body"
-msgstr ""
+msgstr "Klikk knappen nedenfor for å logge inn med Telegram"
 
