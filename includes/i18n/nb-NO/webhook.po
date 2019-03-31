@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,29 +13,29 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/webhook.po\n"
-"PO-Revision-Date: 2019-03-31 10:01\n"
+"PO-Revision-Date: 2019-03-31 12:45\n"
 
 msgid "webhook.report_title"
-msgstr ""
+msgstr "Oppgave rapportert!"
 
 msgid "webhook.poi"
-msgstr ""
+msgstr "Pokéstop"
 
 msgid "webhook.click_for_directions"
-msgstr ""
+msgstr "Klikk her for veibeskrivelse"
 
 msgid "webhook.objective"
-msgstr ""
+msgstr "Oppgave"
 
 msgid "webhook.reward"
-msgstr ""
+msgstr "Premie"
 
 #  %1 = Nickname of user who reported research
 msgid "webhook.reported_by"
-msgstr ""
+msgstr "Rapportert av {%1}"
 
 #  %1 = Research objective (e.g. "Make 3 Great Throws")
 #  %2 = Research reward (e.g. "1 Max Revive")
 msgid "webhook.x_for_y"
-msgstr ""
+msgstr "{%1} for {%2}"
 
