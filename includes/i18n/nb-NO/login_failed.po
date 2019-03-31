@@ -13,13 +13,13 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/login_failed.po\n"
-"PO-Revision-Date: 2019-03-31 12:54\n"
+"PO-Revision-Date: 2019-03-31 13:15\n"
 
 msgid "login_failed.title"
 msgstr "Innlogging mislyktes"
 
 msgid "login_failed.default_auth_provider"
-msgstr "innloggingstjenesten din"
+msgstr "innloggingstilbyderen din"
 
 #  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
 msgid "login_failed.desc"
