@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/xhr.po\n"
-"PO-Revision-Date: 2019-03-31 12:35\n"
+"PO-Revision-Date: 2019-03-31 12:45\n"
 
 msgid "xhr.failed.reason.unknown_reason"
 msgstr "Ukjent feil"
@@ -49,5 +49,5 @@ msgid "xhr.failed.reason.name_empty"
 msgstr "Navnet kan ikke være blankt"
 
 msgid "xhr.failed.reason.invalid_location"
-msgstr ""
+msgstr "Plasseringen er utenfor rekkevidde"
 
