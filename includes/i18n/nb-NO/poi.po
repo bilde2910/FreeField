@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,67 +13,67 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/poi.po\n"
-"PO-Revision-Date: 2019-03-31 10:02\n"
+"PO-Revision-Date: 2019-03-31 12:25\n"
 
 #  %1 = Last updated date/time
 msgid "poi.last.time"
-msgstr ""
+msgstr "Oppdatert {%1}"
 
 #  %1 = Nickname of last user to update POI
 msgid "poi.last.user"
-msgstr ""
+msgstr "Oppdatert av {%1}"
 
 msgid "poi.add.title"
-msgstr ""
+msgstr "Legg til"
 
 msgid "poi.add.name"
-msgstr ""
+msgstr "Pokéstop-navn"
 
 msgid "poi.add.latitude"
-msgstr ""
+msgstr "Breddegrad"
 
 msgid "poi.add.longitude"
-msgstr ""
+msgstr "Lengdegrad"
 
 msgid "poi.add.submit"
-msgstr ""
+msgstr "Nytt Pokéstop"
 
 msgid "poi.add.processing"
-msgstr ""
+msgstr "Legger til Pokéstop..."
 
 #  %1 = Name of POI
 msgid "poi.add.success"
-msgstr ""
+msgstr "Pokéstoppet \"{%1}\" ble lagt!"
 
 #  %1 = Name of POI, %2 = Reason it failed
 msgid "poi.add.failed.message"
-msgstr ""
+msgstr "Kunne ikke legge til Pokéstop \"{%1}\": {%2}"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "poi.add.instructions"
-msgstr ""
+msgstr "Klikk på kartet for å legge til et nytt Pokéstop ({%1}Avbryt{%2})"
 
 msgid "poi.move.instructions"
-msgstr ""
+msgstr "Klikk på kartet for å velge en ny plassering for pokéstoppet ({%1}Avbryt{%2})"
 
 msgid "poi.move.processing"
-msgstr ""
+msgstr "Flytter Pokéstop..."
 
 msgid "poi.move.success"
-msgstr ""
+msgstr "Pokéstoppet ble flyttet!"
 
 #  %1 = Reason it failed
 msgid "poi.move.failed.message"
-msgstr ""
+msgstr "Kunne ikke flytte pokéstoppet: {%1}"
 
 msgid "poi.rename.prompt"
-msgstr ""
+msgstr "Skriv inn et nytt navn for pokéstoppet:"
 
 msgid "poi.rename.processing"
-msgstr ""
+msgstr "Gir nytt navn..."
 
 msgid "poi.rename.success"
-msgstr ""
+msgstr "Pokéstoppet fikk nytt navn!"
 
 #  %1 = Reason it failed
 msgid "poi.rename.failed.message"
