@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/poi.po\n"
-"PO-Revision-Date: 2019-03-31 12:25\n"
+"PO-Revision-Date: 2019-03-31 12:35\n"
 
 #  %1 = Last updated date/time
 msgid "poi.last.time"
@@ -77,123 +77,123 @@ msgstr "Pokéstoppet fikk nytt navn!"
 
 #  %1 = Reason it failed
 msgid "poi.rename.failed.message"
-msgstr ""
+msgstr "Kunne ikke gi nytt navn til pokéstoppet: {%1}"
 
 msgid "poi.clear.confirm"
-msgstr ""
+msgstr "Er du sikker på at du vil slette aktiv oppgave fra dette pokéstoppet?"
 
 msgid "poi.clear.processing"
-msgstr ""
+msgstr "Fjerner oppgave..."
 
 msgid "poi.clear.success"
-msgstr ""
+msgstr "Oppgaven ble fjernet fra pokéstoppet!"
 
 #  %1 = Reason it failed
 msgid "poi.clear.failed.message"
-msgstr ""
+msgstr "Kunne ikke fjerne oppgaven fra pokéstopppet: {%1}"
 
 msgid "poi.delete.confirm"
-msgstr ""
+msgstr "Er du sikker på at du vil fjerne dette pokéstoppet fra kartet?"
 
 msgid "poi.delete.processing"
-msgstr ""
+msgstr "Fjerner Pokéstop..."
 
 msgid "poi.delete.success"
-msgstr ""
+msgstr "Pokéstoppet ble fjernet!"
 
 #  %1 = Reason it failed
 msgid "poi.delete.failed.message"
-msgstr ""
+msgstr "Kunne ikke fjerne pokéstoppet: {%1}"
 
 msgid "poi.update.title"
-msgstr ""
+msgstr "Rapporter oppgave"
 
 msgid "poi.update.name"
-msgstr ""
+msgstr "Pokéstop-navn"
 
 msgid "poi.update.objective"
-msgstr ""
+msgstr "Oppgave"
 
 msgid "poi.update.reward"
-msgstr ""
+msgstr "Premie"
 
 msgid "poi.update.submit"
-msgstr ""
+msgstr "Rapportér"
 
 msgid "poi.update.processing"
-msgstr ""
+msgstr "Rapporterer oppgave..."
 
 msgid "poi.update.success"
-msgstr ""
+msgstr "Oppgaven ble rapportert!"
 
 #  %1 = Reason it failed
 msgid "poi.update.failed.message"
-msgstr ""
+msgstr "Kunne ikke rapportere oppgaven: {%1}"
 
 msgid "poi.search.placeholder"
-msgstr ""
+msgstr "Søk etter Pokéstops..."
 
 #  %1 = Distance in kilometers
 msgid "poi.search.distance"
-msgstr ""
+msgstr "{%1} km"
 
 msgid "poi.filter.title"
-msgstr ""
+msgstr "Filtrer Pokéstops"
 
 msgid "poi.filter.mode.title"
-msgstr ""
+msgstr "Filtermodus:"
 
 msgid "poi.filter.mode.only"
-msgstr ""
+msgstr "Vis kun Pokéstop som samsvarer angitt oppgave og premie"
 
 msgid "poi.filter.mode.except"
-msgstr ""
+msgstr "Vis alle Pokéstop unntatt de som samsvarer med angitt oppgave og premie"
 
 msgid "poi.filter.mode.unknown"
-msgstr ""
+msgstr "Vis kun Pokéstop uten aktive oppgaver"
 
 msgid "poi.filter.objective.title"
-msgstr ""
+msgstr "Oppgave:"
 
 msgid "poi.filter.objective.any"
-msgstr ""
+msgstr "Hvilken som helst oppgave"
 
 msgid "poi.filter.reward.title"
-msgstr ""
+msgstr "Premie:"
 
 msgid "poi.filter.reward.any"
-msgstr ""
+msgstr "Hvilken som helst premie"
 
 msgid "poi.filter.submit"
-msgstr ""
+msgstr "Bruk filter"
 
 msgid "poi.filter.reset"
-msgstr ""
+msgstr "Nullstill filtre"
 
 #  %1 = Reason it failed
 msgid "poi.list.failed.message"
-msgstr ""
+msgstr "Kunne ikke hente liste over Pokéstop: {%1}"
 
 #  %1 = Research objective (e.g. "Make 3 Great Throws")
 #  %2 = Research reward (e.g. "1 Max Revive")
 msgid "poi.objective_text"
-msgstr ""
+msgstr "{%1} for {%2}"
 
 msgid "poi.report_research"
-msgstr ""
+msgstr "Rapporter oppgave"
 
 msgid "poi.move"
-msgstr ""
+msgstr "Flytt"
 
 msgid "poi.rename"
-msgstr ""
+msgstr "Gi nytt navn"
 
 msgid "poi.clear"
-msgstr ""
+msgstr "Slett oppgave"
 
 msgid "poi.delete"
-msgstr ""
+msgstr "Slett"
 
 msgid "poi.directions"
-msgstr ""
+msgstr "Veibeskrivelse"
 
