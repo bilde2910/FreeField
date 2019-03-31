@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,42 +13,42 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/user_setting.po\n"
-"PO-Revision-Date: 2019-03-31 10:01\n"
+"PO-Revision-Date: 2019-03-31 13:07\n"
 
 msgid "user_setting.nickname.name"
-msgstr ""
+msgstr "Kallenavn"
 
 msgid "user_setting.sign_out_everywhere.name"
-msgstr ""
+msgstr "Logg ut overalt"
 
 msgid "user_setting.sign_out_everywhere.info"
-msgstr ""
+msgstr "Hvis du tror at kontoen din kan ha blitt kompromittert, er det mulig å logge av fra alle enheter som er logget på FreeField-kontoen din. Merk at hvis du gjør dette, blir du også logget ut på denne enheten, og må logge inn på nytt."
 
 msgid "user_setting.sign_out_everywhere.button"
-msgstr ""
+msgstr "Logg ut på alle enheter"
 
 msgid "user_setting.directions_provider.name"
-msgstr ""
+msgstr "Tilbyder av veibeskrivelser"
 
 msgid "user_setting.interface_theme.name"
-msgstr ""
+msgstr "Grensesnittema"
 
 msgid "user_setting.map_theme.name"
-msgstr ""
+msgstr "Karttema"
 
 msgid "user_setting.icons.name"
-msgstr ""
+msgstr "Kartmarkører"
 
 msgid "user_setting.species.name"
-msgstr ""
+msgstr "Pokémon-ikoner"
 
 msgid "user_setting.marker_component.name"
-msgstr ""
+msgstr "Oppgavekomponent for markører"
 
 msgid "user_setting.cluster_limit.name"
-msgstr ""
+msgstr "Maksimalt antall synlige markører"
 
 #  %1 = Number of POIs
 msgid "user_setting.cluster_limit.option.default"
-msgstr ""
+msgstr "Standard ({%1})"
 
