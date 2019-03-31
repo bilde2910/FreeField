@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,15 +13,15 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/access_denied.po\n"
-"PO-Revision-Date: 2019-03-31 10:01\n"
+"PO-Revision-Date: 2019-03-31 12:54\n"
 
 msgid "access_denied.title"
-msgstr ""
+msgstr "Ingen tilgang"
 
 msgid "access_denied.desc"
-msgstr ""
+msgstr "Du har ikke tillatelse til å se denne siden"
 
 #  %1 = User identifier
 msgid "access_denied.info"
-msgstr ""
+msgstr "Brukeren din ({%1}) har ikke tillatelse til å se denne siden. Dette kan være fordi du ikke har blitt tildelt tilgang for å se siden, eller det kan hende at brukeren din ikke har blitt godkjent enda dersom siden krever manuell godkjenning av nye brukere. Ta kontakt med en administrator dersom du mener at du bør ha tilgang."
 
