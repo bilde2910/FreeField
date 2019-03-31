@@ -1,3 +1,14 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
+"Language-Team: English (United States)\n"
+"Language: en_US\n"
+"X-Crowdin-SourceKey: msgstr\n"
+
 msgid "sidebar.signed_in_as"
 msgstr "Signed in as"
 
