@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,41 +13,41 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/page_title.po\n"
-"PO-Revision-Date: 2019-03-31 10:01\n"
+"PO-Revision-Date: 2019-03-31 12:45\n"
 
 msgid "page_title.setup"
-msgstr ""
+msgstr "FreeField-oppsett"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 #  %2 = Administration domain (e.g. "Users", "Webhooks")
 msgid "page_title.admin"
-msgstr ""
+msgstr "Admin » {%2} | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.main"
-msgstr ""
+msgstr "{%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.access_denied"
-msgstr ""
+msgstr "Ingen tilgang | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.login.main"
-msgstr ""
+msgstr "Logg inn | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.login.failed"
-msgstr ""
+msgstr "Innlogging feilet | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.login.awaiting_approval"
-msgstr ""
+msgstr "Avventer godkjenning | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.login.approve_user"
-msgstr ""
+msgstr "Godkjenningsforespørsel | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.login.telegram"
-msgstr ""
+msgstr "Logg inn » Telegram | {%1}"
 
