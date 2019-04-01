@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-04-01 12:05\n"
+"PO-Revision-Date: 2019-04-01 12:19\n"
 
 msgid "setting.site.uri.name"
 msgstr "Installasjons-URI"
@@ -370,187 +370,187 @@ msgid "setting.permissions.level.admin.security.section.same_origin.name"
 msgstr "Endre samme-opprinnelse-policy"
 
 msgid "setting.permissions.level.admin.security.section.same_origin.desc"
-msgstr ""
+msgstr "Lar brukere endre policy for tilgang fra andre nettsteder (same-origin policy)."
 
 msgid "setting.permissions.level.admin.auth.general.name"
-msgstr ""
+msgstr "Administrer innlogging"
 
 msgid "setting.permissions.level.admin.auth.general.desc"
-msgstr ""
+msgstr "Lar brukere legge til, sette opp, aktivere og deaktivere diverse innloggingstjenester for brukerautentisering."
 
 msgid "setting.permissions.level.admin.auth.section.discord.name"
-msgstr ""
+msgstr "Discord-innlogging"
 
 msgid "setting.permissions.level.admin.auth.section.discord.desc"
-msgstr ""
+msgstr "Lar brukere endre innstillinger for Discord-innlogging."
 
 msgid "setting.permissions.level.admin.auth.section.telegram.name"
-msgstr ""
+msgstr "Telegram-innlogging"
 
 msgid "setting.permissions.level.admin.auth.section.telegram.desc"
-msgstr ""
+msgstr "Lar brukere endre innstillinger for Telegram-innlogging."
 
 msgid "setting.permissions.level.admin.auth.section.reddit.name"
-msgstr ""
+msgstr "Reddit-innlogging"
 
 msgid "setting.permissions.level.admin.auth.section.reddit.desc"
-msgstr ""
+msgstr "Lar brukere endre innstillinger for Reddit-innlogging."
 
 msgid "setting.permissions.level.admin.auth.section.facebook.name"
-msgstr ""
+msgstr "Facebook-innlogging"
 
 msgid "setting.permissions.level.admin.auth.section.facebook.desc"
-msgstr ""
+msgstr "Lar brukere endre innstillinger for Facebook-innlogging."
 
 msgid "setting.permissions.level.admin.auth.section.line.name"
-msgstr ""
+msgstr "LINE-innlogging"
 
 msgid "setting.permissions.level.admin.auth.section.line.desc"
-msgstr ""
+msgstr "Lar brukere endre innstillinger for LINE-innlogging."
 
 msgid "setting.permissions.level.admin.auth.section.groupme.name"
-msgstr ""
+msgstr "GroupMe-innlogging"
 
 msgid "setting.permissions.level.admin.auth.section.groupme.desc"
-msgstr ""
+msgstr "Lar brukere endre innstillinger for GroupMe-innlogging."
 
 msgid "setting.permissions.level.admin.mobile.general.name"
-msgstr ""
+msgstr "Endre mobilinnstillinger"
 
 msgid "setting.permissions.level.admin.mobile.general.desc"
-msgstr ""
+msgstr "Lar brukere endre innstillinger for hvordan denne FreeField-installasjonen vises på mobile enheter."
 
 msgid "setting.permissions.level.admin.mobile.section.pwa.name"
-msgstr ""
+msgstr "Endre PWA-innstillinger"
 
 msgid "setting.permissions.level.admin.mobile.section.pwa.desc"
-msgstr ""
+msgstr "Lar brukere endre Progressive Web App-manifestet for mobilenheter."
 
 msgid "setting.permissions.level.admin.themes.general.name"
-msgstr ""
+msgstr "Endre standardutseende"
 
 msgid "setting.permissions.level.admin.themes.general.desc"
-msgstr ""
+msgstr "Lar brukere endre standardutseendet til hele nettstedet."
 
 msgid "setting.permissions.level.admin.themes.section.meta.name"
-msgstr ""
+msgstr "Endre metadata"
 
 msgid "setting.permissions.level.admin.themes.section.meta.desc"
-msgstr ""
+msgstr "Lar brukere endre metadata for siden, som f.eks. nettleserikon og temafargen for nettlesere på mobil."
 
 msgid "setting.permissions.level.admin.themes.section.color.name"
-msgstr ""
+msgstr "Endre temafarger"
 
 msgid "setting.permissions.level.admin.themes.section.color.desc"
-msgstr ""
+msgstr "Lar brukere endre standard kart- og sidetema samt fargetema, og om brukere skal ha tilgang til å overstyre disse standardene."
 
 msgid "setting.permissions.level.admin.themes.section.icons.name"
-msgstr ""
+msgstr "Endre kartmarkører"
 
 msgid "setting.permissions.level.admin.themes.section.icons.desc"
-msgstr ""
+msgstr "Lar brukere endre standard kartmarkørsett, og hvorvidt brukere skal ha tilgang til å overstyre disse."
 
 msgid "setting.permissions.level.admin.map.general.name"
-msgstr ""
+msgstr "Endre kartinnstillinger"
 
 msgid "setting.permissions.level.admin.map.general.desc"
-msgstr ""
+msgstr "Lar brukere administrere karttjenester og standardinnstillinger for kartet."
 
 msgid "setting.permissions.level.admin.map.section.provider.name"
-msgstr ""
+msgstr "Endre karttilbyder"
 
 msgid "setting.permissions.level.admin.map.section.provider.desc"
-msgstr ""
+msgstr "Lar brukere endre og konfigurere hvilken karttjeneste denne FreeField-installasjonen bruker."
 
 msgid "setting.permissions.level.admin.map.section.default.name"
-msgstr ""
+msgstr "Endre kartstandarder"
 
 msgid "setting.permissions.level.admin.map.section.default.desc"
-msgstr ""
+msgstr "Lar brukere endre standardverdier for kartet, som f.eks. standardkoordinater og zoomnivå for førstegangs besøkende."
 
 msgid "setting.permissions.level.admin.map.section.updates.name"
-msgstr ""
+msgstr "Endre kartoppdateringsrate"
 
 msgid "setting.permissions.level.admin.map.section.updates.desc"
-msgstr ""
+msgstr "Lar brukere endre intervallet mellom hver gang en FreeField-klient ber om en oppdatert liste over aktive oppgaver for alle pokéstoppene."
 
 msgid "setting.permissions.level.admin.map.section.geofence.name"
-msgstr ""
+msgstr "Endre generell områdebegrensning"
 
 msgid "setting.permissions.level.admin.map.section.geofence.desc"
-msgstr ""
+msgstr "Lar brukere endre hvilket geofence som brukes som gjerde ved innsending av nye pokéstop, samt hvordan pokéstop utenfor denne grensen vises."
 
 msgid "setting.permissions.level.admin.fences.general.name"
-msgstr ""
+msgstr "Administrer geofence"
 
 msgid "setting.permissions.level.admin.fences.general.desc"
-msgstr ""
+msgstr "Lar brukere endre og definere geofence."
 
 msgid "setting.permissions.level.admin.hooks.general.name"
-msgstr ""
+msgstr "Administrer webhooks"
 
 msgid "setting.permissions.level.admin.hooks.general.desc"
-msgstr ""
+msgstr "Lar brukere administrere og sette opp webhook-integrering."
 
 msgid "setting.permissions.level.admin.api.general.name"
-msgstr ""
+msgstr "Administrer API-tilgang"
 
 msgid "setting.permissions.level.admin.api.general.desc"
-msgstr ""
+msgstr "Lar brukere sette opp og administrere API-klienter som kan få tilgang til FreeField."
 
 msgid "setting.permissions.level.admin.updates.general.name"
-msgstr ""
+msgstr "Installer oppdateringer"
 
 msgid "setting.permissions.level.admin.updates.general.desc"
-msgstr ""
+msgstr "Lar brukere oppdatere FreeField til siste versjon."
 
 msgid "setting.security.approval.require.name"
-msgstr ""
+msgstr "Krev manuell godkjenning"
 
 msgid "setting.security.approval.require.desc"
-msgstr ""
+msgstr "Hvis dette er aktivert, må administratorer godkjenne hver nye brukerkonto før de kan få tilgang til FreeField."
 
 msgid "setting.security.approval.require.label"
-msgstr ""
+msgstr "Godkjenn nye brukerkontoer manuelt"
 
 msgid "setting.security.approval.by_qr.name"
-msgstr ""
+msgstr "Vis QR-koder for godkjenning"
 
 msgid "setting.security.approval.by_qr.desc"
-msgstr ""
+msgstr "Hvis dette er aktivert, vil brukere som venter på godkjenning bli vist en QR-kode som kan skannes av en administrator. Ved å skanne koden kan administratorer godkjenne eller avvise brukeren mye raskere enn ved å søke opp brukeren i listen over registrerte brukere for å godkjenne dem der. Denne funksjonen krever at GD er aktivert i PHP."
 
 msgid "setting.security.approval.by_qr.label"
-msgstr ""
+msgstr "Generer QR-koder for rask administrativ godkjenning"
 
 msgid "setting.auth.session_length.name"
-msgstr ""
+msgstr "Øktlengde"
 
 msgid "setting.auth.session_length.desc"
-msgstr ""
+msgstr "Hvor lenge en bruker skal forbli innlogget når de logger inn."
 
 msgid "setting.auth.session_length.option.86400"
-msgstr ""
+msgstr "1 dag"
 
 msgid "setting.auth.session_length.option.604800"
-msgstr ""
+msgstr "7 dager"
 
 msgid "setting.auth.session_length.option.2592000"
-msgstr ""
+msgstr "30 dager"
 
 msgid "setting.auth.session_length.option.7776000"
-msgstr ""
+msgstr "90 dager"
 
 msgid "setting.auth.session_length.option.15811200"
-msgstr ""
+msgstr "6 måneder"
 
 msgid "setting.auth.session_length.option.31536000"
-msgstr ""
+msgstr "1 år"
 
 msgid "setting.auth.session_length.option.63072000"
-msgstr ""
+msgstr "2 år"
 
 msgid "setting.auth.session_length.option.157766400"
-msgstr ""
+msgstr "5 år"
 
 msgid "setting.auth.session_length.option.315619200"
 msgstr ""
