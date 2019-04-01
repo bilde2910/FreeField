@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-04-01 11:25\n"
+"PO-Revision-Date: 2019-04-01 11:35\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -525,175 +525,175 @@ msgid "admin.domain.hooks.name"
 msgstr "Webhooks"
 
 msgid "admin.domain.hooks.desc"
-msgstr ""
+msgstr "Administrer tredjeparts webhooks"
 
 msgid "admin.section.hooks.active.name"
-msgstr ""
+msgstr "Liste over aktive webhooks"
 
 msgid "admin.section.hooks.inactive.name"
-msgstr ""
+msgstr "Liste over inaktive webhooks"
 
 msgid "admin.section.hooks.settings.name"
-msgstr ""
+msgstr "Innstillinger"
 
 msgid "admin.section.hooks.body.json.name"
-msgstr ""
+msgstr "JSON-innhold"
 
 msgid "admin.section.hooks.body.txt.name"
-msgstr ""
+msgstr "Tekstinnhold"
 
 msgid "admin.section.hooks.body.md.name"
-msgstr ""
+msgstr "Markdowninnhold"
 
 msgid "admin.section.hooks.body.html.name"
-msgstr ""
+msgstr "HTML-innhold"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.hooks.objectives.name"
-msgstr ""
+msgstr "Oppgaver ({%1}+{%2})"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.hooks.rewards.name"
-msgstr ""
+msgstr "Premier ({%1}+{%2})"
 
 msgid "admin.clientside.hooks.popup.add_webhook"
-msgstr ""
+msgstr "Legg til webhook"
 
 msgid "admin.clientside.hooks.popup.add_objective"
-msgstr ""
+msgstr "Ny oppgave"
 
 msgid "admin.clientside.hooks.popup.edit_objective"
-msgstr ""
+msgstr "Endre oppgave"
 
 msgid "admin.clientside.hooks.popup.add_reward"
-msgstr ""
+msgstr "Ny premie"
 
 msgid "admin.clientside.hooks.popup.edit_reward"
-msgstr ""
+msgstr "Endre premie"
 
 msgid "admin.clientside.hooks.syntax.show"
-msgstr ""
+msgstr "Vis hjelp"
 
 msgid "admin.clientside.hooks.syntax.hide"
-msgstr ""
+msgstr "Skjul hjelp"
 
 msgid "admin.hooks.syntax.poi.title"
-msgstr ""
+msgstr "Pokéstop-informasjon"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.poi.poi"
-msgstr ""
+msgstr "{%1} = Pokéstop-navn"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.poi.lat"
-msgstr ""
+msgstr "{%1} = Breddegrad"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.poi.lng"
-msgstr ""
+msgstr "{%1} = Lengdegrad"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.poi.coords"
-msgstr ""
+msgstr "{%1} = Koordinater (desimalgrader)"
 
 msgid "admin.hooks.syntax.research.title"
-msgstr ""
+msgstr "{%1} = Oppgave"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.research.objective"
-msgstr ""
+msgstr "{%1} = Oppgave"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.research.reward"
-msgstr ""
+msgstr "{%1} = Premie"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.research.reporter"
-msgstr ""
+msgstr "{%1} = Rapporterende bruker"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.research.time"
-msgstr ""
+msgstr "{%1} = Tidspunkt"
 
 msgid "admin.hooks.syntax.navigation.title"
-msgstr ""
+msgstr "{%1} = Veibeskrivelse"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.navigation.navurl"
-msgstr ""
+msgstr "{%1} = Navigasjonslink fra standard navigasjonstjeneste"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.navigation.navurl_arg"
-msgstr ""
+msgstr "{%1} = Navigasjonslink fra angitt navigasjonstjeneste"
 
 msgid "admin.hooks.syntax.icons.title"
-msgstr ""
+msgstr "Ikoner og grafikk"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.icons.objective_icon"
-msgstr ""
+msgstr "{%1} = Oppgaveikon"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.icons.reward_icon"
-msgstr ""
+msgstr "{%1} = Premieikon"
 
 msgid "admin.hooks.syntax.other.title"
-msgstr ""
+msgstr "Annen informasjon"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.other.i18n"
-msgstr ""
+msgstr "{%1} = Oversatt tekst"
 
 msgid "admin.clientside.hooks.any_objective"
-msgstr ""
+msgstr "Hvilken som helst oppgave"
 
 msgid "admin.clientside.hooks.any_reward"
-msgstr ""
+msgstr "hvilken som helst premie"
 
 #  %1 = One or more research objectives (e.g. "Make 3 Great Throws")
 msgid "admin.clientside.hooks.any_objective_except"
-msgstr ""
+msgstr "Hvilken som helst oppgave unntatt {%1}"
 
 #  %1 = One or more research rewards (e.g. "1 Max Revive")
 msgid "admin.clientside.hooks.any_reward_except"
-msgstr ""
+msgstr "hvilken som helst premie unntatt {%1}"
 
 #  Used to combine multiple objectives or rewards via "or" conditionals.
 #  %1 = Research objective or reward #1 (e.g. "Make 3 Great Throws", "1 Max
 #  Revive"), %2 = Research objective or reward #2
 msgid "admin.clientside.hooks.multi_or"
-msgstr ""
+msgstr "{%1} eller {%2}"
 
 #  Used to combine multiple objectives or rewards via "and" conditionals.
 #  %1 = Research objective or reward #1 (e.g. "Make 3 Great Throws", "1 Max
 #  Revive"), %2 = Research objective or reward #2
 msgid "admin.clientside.hooks.multi_and"
-msgstr ""
+msgstr "{%1} og {%2}"
 
 #  %1 = Reason
 msgid "admin.clientside.hooks.update.objective.failed.message"
-msgstr ""
+msgstr "Kunne ikke sette oppgave: {%1}"
 
 #  %1 = Reason
 msgid "admin.clientside.hooks.update.reward.failed.message"
-msgstr ""
+msgstr "Kunne ikke sette premie: {%1}"
 
 #  Fallback for webhook target when the target cannot be identified; typically
 #  displayed instead of a domain name
 msgid "admin.clientside.domain.unknown"
-msgstr ""
+msgstr "?"
 
 #  Telegram specific setting
 msgid "admin.clientside.hooks.tg.xhr.groups.failed.empty_token"
-msgstr ""
+msgstr "Vennligst skriv inn en bot-kode først!"
 
 #  Telegram specific setting
 msgid "admin.clientside.hooks.tg.xhr.groups.failed.no_groups"
-msgstr ""
+msgstr "Ingen grupper ble funnet!"
 
 #  Telegram specific setting
 msgid "admin.hooks.popup.tg.searching_group"
-msgstr ""
+msgstr "Søker etter grupper..."
 
 #  Telegram specific setting
 msgid "admin.hooks.popup.tg.select_group"
