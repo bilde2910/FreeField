@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-04-01 10:17\n"
+"PO-Revision-Date: 2019-04-01 11:25\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -350,13 +350,13 @@ msgid "admin.domain.perms.name"
 msgstr "Tillatelser"
 
 msgid "admin.domain.perms.desc"
-msgstr ""
+msgstr "Sett opp tilgangskontroll for funksjonalitet"
 
 msgid "admin.section.perms.default.name"
-msgstr ""
+msgstr "Standardvalg"
 
 msgid "admin.section.perms.self_manage.name"
-msgstr ""
+msgstr "Selvadministrasjon av konto"
 
 msgid "admin.section.perms.map_access.name"
 msgstr "Karttilgangstillatelser"
@@ -516,13 +516,13 @@ msgid "admin.clientside.fences.fence_list.action.none"
 msgstr "(ikke gjør noe)"
 
 msgid "admin.clientside.fences.fence_list.action.delete"
-msgstr ""
+msgstr "Slett geofence"
 
 msgid "admin.section.fences.ui.add.name"
-msgstr ""
+msgstr "Legg til nytt geofence"
 
 msgid "admin.domain.hooks.name"
-msgstr ""
+msgstr "Webhooks"
 
 msgid "admin.domain.hooks.desc"
 msgstr ""
