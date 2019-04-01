@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,21 +13,21 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-03-31 10:02\n"
+"PO-Revision-Date: 2019-04-01 09:26\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
-msgstr ""
+msgstr "* Teksten kan variere noe fra forhåndsvisningen ovenfor når den vises på siden."
 
 msgid "admin.option.paragraph.xss_warning"
-msgstr ""
+msgstr "Markdown-teksten inneholder JavaScript. Av sikkerhetsmessige årsaker er forhåndsvisning deaktivert."
 
 #  File selection input
 #  %1 = <code>
 #  %2 = File name and size according to display_format below
 #  %3 = </code>
 msgid "admin.option.file.current"
-msgstr ""
+msgstr "Nåværende: {%1}{%2}{%3}"
 
 #  %1 = <a href=""> (link to file)
 #  %2 = </a>
@@ -35,160 +35,160 @@ msgstr ""
 #  %4 = Filesize in given unit
 #  %5 = Filesize unit with IEC-style binary prefix (e.g. "B", "KiB", "MiB", "GiB")
 msgid "admin.option.file.display_format"
-msgstr ""
+msgstr "{%1}{%3}{%2} ({%4} {%5})"
 
 msgid "admin.option.file.size_unit.byte"
-msgstr ""
+msgstr "B"
 
 msgid "admin.option.file.size_unit.kilo"
-msgstr ""
+msgstr "KiB"
 
 msgid "admin.option.file.size_unit.mega"
-msgstr ""
+msgstr "MiB"
 
 msgid "admin.option.file.size_unit.giga"
-msgstr ""
+msgstr "GiB"
 
 #  Geofence selection input
 msgid "admin.option.geofence.available"
-msgstr ""
+msgstr "Tilgjengelige geofence"
 
 #  Icon set selector
 #  %1 = User who created icon set
 msgid "admin.option.icon_set.authored_by"
-msgstr ""
+msgstr "Laget av {%1}"
 
 msgid "admin.validation.validation_failed"
-msgstr ""
+msgstr "Én eller flere innstillinger på denne siden er ugyldige. Disse er merket med rød farge. Vennligst korriger disse innstillingene og prøv igjen."
 
 msgid "admin.validation.unsaved_changes"
-msgstr ""
+msgstr "Du har ulagrede endringer! Er du sikker på at du vil forlate denne siden uten å lagre?"
 
 msgid "admin.domain.main.name"
-msgstr ""
+msgstr "Nettsted"
 
 msgid "admin.domain.main.desc"
-msgstr ""
+msgstr "Grunnleggende FreeField-konfigurasjon"
 
 msgid "admin.section.main.access.name"
-msgstr ""
+msgstr "Tilgang"
 
 msgid "admin.section.main.instance.name"
-msgstr ""
+msgstr "Installasjonsinnstillinger"
 
 msgid "admin.section.main.motd.name"
-msgstr ""
+msgstr "Dagens melding"
 
 msgid "admin.section.main.spiders.name"
-msgstr ""
+msgstr "Søkeroboter"
 
 msgid "admin.section.main.database.name"
-msgstr ""
+msgstr "Database"
 
 msgid "admin.domain.users.name"
-msgstr ""
+msgstr "Brukere"
 
 msgid "admin.domain.users.desc"
-msgstr ""
+msgstr "Administrer brukere og deres tillatelser"
 
 msgid "admin.section.users.require_approval.name"
-msgstr ""
+msgstr "Brukere som venter på godkjenning"
 
 msgid "admin.section.users.user_list.name"
-msgstr ""
+msgstr "Liste over registrerte brukere"
 
 #  This means the ID of the user as stored by the authentication provider of the
 #  user, e.g. "@username" could be the provider identity for a user on Twitter.
 msgid "admin.table.users.user_list.column.provider_identity.name"
-msgstr ""
+msgstr "Identitet hos tjeneste"
 
 msgid "admin.table.users.user_list.column.provider.name"
-msgstr ""
+msgstr "Tjeneste"
 
 msgid "admin.table.users.user_list.column.nickname.name"
-msgstr ""
+msgstr "Kallenavn"
 
 msgid "admin.table.users.user_list.column.group.name"
-msgstr ""
+msgstr "Gruppe"
 
 msgid "admin.table.users.user_list.column.registered.name"
-msgstr ""
+msgstr "Registrert"
 
 msgid "admin.table.users.user_list.column.actions.name"
-msgstr ""
+msgstr "Handlinger"
 
 msgid "admin.table.users.anonymous"
-msgstr ""
+msgstr "<Anonym>"
 
 msgid "admin.table.users.deleted"
-msgstr ""
+msgstr "<SlettetBruker>"
 
 msgid "admin.table.users.api_deleted"
-msgstr ""
+msgstr "<SlettetAPI>"
 
 msgid "admin.section.users.user_list.action.none"
-msgstr ""
+msgstr "(ikke gjør noe)"
 
 msgid "admin.section.users.user_list.action.approve"
-msgstr ""
+msgstr "Godkjenn bruker"
 
 msgid "admin.section.users.user_list.action.reject"
-msgstr ""
+msgstr "Avvis bruker"
 
 msgid "admin.section.users.user_list.action.delete"
-msgstr ""
+msgstr "Slett bruker"
 
 msgid "admin.section.users.user_list.action.invalidate"
-msgstr ""
+msgstr "Logg ut overalt"
 
 #  %1 = Padlock icon
 msgid "admin.section.users.user_list.unlock"
-msgstr ""
+msgstr "{%1} Klikk for å låse opp"
 
 msgid "admin.clientside.users.user_list.unlock_warning"
-msgstr ""
+msgstr "Du prøver å endre innstillinger for din egen konto. Disse innstillingene er låst som standard for å hindre at du mister egen tilgang eller sletter din egen konto. Er du sikker på at du vil låse opp denne innstillingen?"
 
 msgid "admin.domain.groups.name"
-msgstr ""
+msgstr "Grupper"
 
 msgid "admin.domain.groups.desc"
-msgstr ""
+msgstr "Behandle brukergrupper for tilgangskontroll"
 
 msgid "admin.section.groups.group_list.name"
-msgstr ""
+msgstr "Liste over grupper"
 
 msgid "admin.table.groups.group_list.column.group_name.name"
-msgstr ""
+msgstr "Gruppe"
 
 msgid "admin.table.groups.group_list.column.change_name.name"
-msgstr ""
+msgstr "Endre navn"
 
 msgid "admin.table.groups.group_list.column.permission.name"
-msgstr ""
+msgstr "Tilgangsnivå"
 
 msgid "admin.table.groups.group_list.column.color.name"
-msgstr ""
+msgstr "Farge"
 
 msgid "admin.table.groups.group_list.column.actions.name"
-msgstr ""
+msgstr "Handlinger"
 
 msgid "admin.clientside.groups.group_list.action.none"
-msgstr ""
+msgstr "(ikke gjør noe)"
 
 msgid "admin.clientside.groups.group_list.action.delete"
-msgstr ""
+msgstr "Slett gruppen"
 
 msgid "admin.clientside.groups.popup.add_group"
-msgstr ""
+msgstr "Legg til gruppe"
 
 msgid "admin.clientside.groups.popup.conflicting_levels"
-msgstr ""
+msgstr "Like tilgangsnivåer oppdaget! To grupper kan ikke dele samme tilgangsnivå. Vennligst påse at tilgangsnivået for hver gruppe er unikt og prøv igjen."
 
 msgid "admin.clientside.groups.new"
-msgstr ""
+msgstr "Ny gruppe"
 
 msgid "admin.section.groups.ui.add.name"
-msgstr ""
+msgstr "Legg til ny gruppe"
 
 msgid "admin.domain.pois.name"
 msgstr ""
