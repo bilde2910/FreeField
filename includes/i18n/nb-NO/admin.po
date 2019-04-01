@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-04-01 09:46\n"
+"PO-Revision-Date: 2019-04-01 10:05\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -207,104 +207,104 @@ msgid "admin.section.pois.clear.name"
 msgstr "Slett oppgave"
 
 msgid "admin.section.pois.import.name"
-msgstr ""
+msgstr "Importer pokéstop"
 
 msgid "admin.section.pois.preview_table.name"
-msgstr ""
+msgstr "Forhåndsvisning av importerte pokéstop"
 
 msgid "admin.section.pois.export.name"
-msgstr ""
+msgstr "Eksporter pokéstop"
 
 msgid "admin.table.pois.poi_list.column.poi_name.name"
-msgstr ""
+msgstr "Navn"
 
 msgid "admin.table.pois.poi_list.column.created_time.name"
-msgstr ""
+msgstr "Opprettet"
 
 msgid "admin.table.pois.poi_list.column.created_by.name"
-msgstr ""
+msgstr "Opprettet av"
 
 msgid "admin.table.pois.poi_list.column.current_research.name"
-msgstr ""
+msgstr "Gjeldende oppgave"
 
 msgid "admin.table.pois.poi_list.column.last_updated_time.name"
-msgstr ""
+msgstr "Sist oppdatert"
 
 msgid "admin.table.pois.poi_list.column.last_updated_by.name"
-msgstr ""
+msgstr "Oppdatert av"
 
 msgid "admin.table.pois.poi_list.column.location.name"
-msgstr ""
+msgstr "Posisjon"
 
 msgid "admin.table.pois.poi_list.column.actions.name"
-msgstr ""
+msgstr "Handlinger"
 
 msgid "admin.section.pois.poi_list.action.none"
-msgstr ""
+msgstr "(ikke gjør noe)"
 
 msgid "admin.section.pois.poi_list.action.clear"
-msgstr ""
+msgstr "Slett oppgave"
 
 msgid "admin.section.pois.poi_list.action.delete"
-msgstr ""
+msgstr "Slett pokéstop"
 
 msgid "admin.section.pois.poi_list.search"
-msgstr ""
+msgstr "Søk i pokéstop-navn, oppgaver, premier eller brukernavn..."
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.pois.batch.desc"
-msgstr ""
+msgstr "Det er mulig å utføre handlinger, som å slette pokéstop og oppgaver, på et større antall pokéstop av gangen gjennom bruk av geofence. Når du velger en handling for et geofence, utføres handlingen på alle pokéstop innenfor geofencet etter at eventuelle andre endringer i tabellen over er utført. Du kan deklarere geofence på {%1}geofence-siden{%2}."
 
 msgid "admin.table.pois.batch_list.column.label.name"
-msgstr ""
+msgstr "Områdeetikett"
 
 msgid "admin.table.pois.batch_list.column.poi_count.name"
-msgstr ""
+msgstr "Antall pokéstop"
 
 msgid "admin.table.pois.batch_list.column.actions.name"
-msgstr ""
+msgstr "Handlinger"
 
 msgid "admin.section.pois.batch_list.action.none"
-msgstr ""
+msgstr "(ikke gjør noe)"
 
 msgid "admin.section.pois.batch_list.action.clear"
-msgstr ""
+msgstr "Slett alle oppgaver"
 
 msgid "admin.section.pois.batch_list.action.delete"
-msgstr ""
+msgstr "Slett alle pokéstop"
 
 msgid "admin.section.pois.batch_list.search"
-msgstr ""
+msgstr "Søk etter områdeetikett..."
 
 msgid "admin.section.pois.clear.desc"
-msgstr ""
+msgstr "Det er mulig å slette oppgavene på alle pokéstoppene på en gang. Dette kan være nyttig dersom oppgavelisten har endret seg, for eksempel under periodiske begivenheter eller etter at oppgavene nullstilles hver måned. Merk av i boksen under og klikk \"Lagre innstillinger\" for å slette aktiv oppgave fra alle pokéstoppene."
 
 msgid "admin.section.pois.clear.perform.name"
-msgstr ""
+msgstr "Slett oppgavedata"
 
 msgid "admin.section.pois.clear.perform.label"
-msgstr ""
+msgstr "Slett oppgave fra alle pokéstop"
 
 msgid "admin.section.pois.import.file.name"
-msgstr ""
+msgstr "Velg fil"
 
 msgid "admin.section.pois.import.file.desc"
-msgstr ""
+msgstr "Vennligst velg filen du vil importere pokéstop fra. *.csv-filer er tillatt."
 
 msgid "admin.section.pois.import.name.name"
-msgstr ""
+msgstr "Kolonne for navn"
 
 msgid "admin.section.pois.import.name.desc"
-msgstr ""
+msgstr "Kolonnen i datasettet som korresponderer med navnet på pokéstoppene."
 
 msgid "admin.section.pois.import.latitude.name"
-msgstr ""
+msgstr "Kolonne for breddegrad"
 
 msgid "admin.section.pois.import.latitude.desc"
-msgstr ""
+msgstr "Kolonnen i datasettet som korresponderer med breddegraden på pokéstoppene."
 
 msgid "admin.section.pois.import.longitude.name"
-msgstr ""
+msgstr "Kolonne for lengdegrad"
 
 msgid "admin.section.pois.import.longitude.desc"
 msgstr ""
@@ -748,70 +748,70 @@ msgid "admin.section.api.ui.copy.name"
 msgstr "Kopier til utklippstavlen"
 
 msgid "admin.clientside.api.client_list.token.new"
-msgstr ""
+msgstr "(Lagre for å generere koden)"
 
 msgid "admin.clientside.api.client_list.seen.never"
-msgstr ""
+msgstr "Aldri"
 
 msgid "admin.clientside.api.client_list.access.level"
-msgstr ""
+msgstr "Tilgangsnivå:"
 
 msgid "admin.clientside.api.client_list.access.none"
-msgstr ""
+msgstr "Ingen tillatelser angitt"
 
 msgid "admin.api.popup.view_token.title"
-msgstr ""
+msgstr "Tilgangskode"
 
 msgid "admin.api.popup.view_token.client_name"
-msgstr ""
+msgstr "Klientnavn:"
 
 msgid "admin.api.popup.access_list.title"
-msgstr ""
+msgstr "Tilgangsinnstillinger"
 
 msgid "admin.api.popup.access_list.client_name"
-msgstr ""
+msgstr "Klientnavn:"
 
 msgid "admin.api.popup.access_list.level"
-msgstr ""
+msgstr "Tilgangsnivå:"
 
 msgid "admin.domain.updates.name"
-msgstr ""
+msgstr "Oppdateringer"
 
 msgid "admin.domain.updates.desc"
-msgstr ""
+msgstr "Oppdater FreeField til siste versjon"
 
 msgid "admin.section.updates.info.name"
-msgstr ""
+msgstr "Versjonsinformasjon"
 
 msgid "admin.section.updates.available.name"
-msgstr ""
+msgstr "Tilgjengelige versjoner"
 
 #  %1 = Warning triangle symbol
 msgid "admin.section.updates.git.name"
-msgstr ""
+msgstr "{%1} Manuell oppdatering påkrevd!"
 
 #  %1 = <code>, %2 = </code>
 msgid "admin.section.updates.git.desc"
-msgstr ""
+msgstr "Det ser ut til at du har installert FreeField ved å klone FreeFields GitHub-repository. For å sikre at oppdateringer samkjører med kildekontroll må oppdateringer også installeres via git. For å oppdatere FreeField til siste utviklerversjon, kjør {%1}git pull{%2}. Du kan eventuelt bytte til pakkebaserte oppdateringer, som lar deg installere oppdateringer ved å bruke menyen under. For å gjøre dette, koble fra git ved å slette .git-mappen i FreeField. Se dokumentasjonen til FreeField for mer informasjon."
 
 msgid "admin.section.updates.available.release_notes"
-msgstr ""
+msgstr "Merknader"
 
 msgid "admin.section.updates.ui.update.name"
-msgstr ""
+msgstr "Installer oppdatering"
 
 msgid "admin.section.updates.ui.install.name"
-msgstr ""
+msgstr "Installer"
 
 msgid "admin.updates.popup.confirm_install.title"
-msgstr ""
+msgstr "Bekreft oppdatering"
 
 msgid "admin.updates.popup.confirm_install.disclaimer"
-msgstr ""
+msgstr "Du er i ferd med å installere en oppdatering til FreeField. ADVARSEL: Utviklerne av FreeField kan ikke garantere for stabiliteten til denne oppdateringen, eller til oppdateringsprosessen i seg selv. Dersom du går videre med installasjonen, gjør du dette på eget ansvar."
 
 msgid "admin.updates.popup.confirm_install.target"
-msgstr ""
+msgstr "Målversjon:"
 
 msgid "admin.updates.popup.confirm_install.liability_statement"
-msgstr ""
+msgstr "Jeg skal ikke holde FreeField-utviklerne ansvarlig dersom FreeField-installasjonen min slutter å virke som følge av denne oppdateringen"
 
