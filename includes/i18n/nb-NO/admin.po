@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-04-01 10:05\n"
+"PO-Revision-Date: 2019-04-01 10:17\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -307,47 +307,47 @@ msgid "admin.section.pois.import.longitude.name"
 msgstr "Kolonne for lengdegrad"
 
 msgid "admin.section.pois.import.longitude.desc"
-msgstr ""
+msgstr "Kolonnen i datasettet som korresponderer med lengdegraden på pokéstoppene."
 
 msgid "admin.section.pois.import.selector.none"
-msgstr ""
+msgstr "< Vennligst velg >"
 
 msgid "admin.section.pois.import.selector.available"
-msgstr ""
+msgstr "Tilgjengelige kolonner"
 
 msgid "admin.table.pois.preview_table.column.include.name"
-msgstr ""
+msgstr "Importer?"
 
 msgid "admin.table.pois.preview_table.column.poi_name.name"
-msgstr ""
+msgstr "Navn"
 
 msgid "admin.table.pois.preview_table.column.latitude.name"
-msgstr ""
+msgstr "Breddegrad"
 
 msgid "admin.table.pois.preview_table.column.longitude.name"
-msgstr ""
+msgstr "Lengdegrad"
 
 msgid "admin.clientside.pois.preview_table.actions.include"
-msgstr ""
+msgstr "Importer"
 
 msgid "admin.clientside.pois.preview_table.actions.exclude"
-msgstr ""
+msgstr "Ikke importer"
 
 #  %1 = Number of Pokéstops in the imported list of Pokéstops.
 msgid "admin.clientside.pois.import.count"
-msgstr ""
+msgstr "Den valgte kildefilen inneholder {%1} pokéstop."
 
 msgid "admin.section.pois.import.invalid_warning"
-msgstr ""
+msgstr "Forhåndsvisningen inneholder ugyldige data! Rader med ugyldige data vil ikke bli importert."
 
 msgid "admin.section.pois.export.info"
-msgstr ""
+msgstr "Du kan eksportere listen over pokéstop lagret i FreeField. Den eksporterte fila kan brukes til å gjenimportere pokéstoppene senere i en annen FreeField-installasjon. Dette kan brukes som en enkel måte å ta sikkerhetskopi av databasen."
 
 msgid "admin.section.pois.export.do"
-msgstr ""
+msgstr "Klikk her for å eksportere pokéstopdatabasen"
 
 msgid "admin.domain.perms.name"
-msgstr ""
+msgstr "Tillatelser"
 
 msgid "admin.domain.perms.desc"
 msgstr ""
