@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-04-01 12:36\n"
+"PO-Revision-Date: 2019-04-01 12:48\n"
 
 msgid "setting.site.uri.name"
 msgstr "Installasjons-URI"
@@ -601,178 +601,178 @@ msgid "setting.security.curl.cacert_path.name"
 msgstr "Sertifikatfil (cacert.pem)"
 
 msgid "setting.security.curl.cacert_path.desc"
-msgstr ""
+msgstr "Plasseringen til sertifikatautoritetsfila på serveren, for validering av utgående HTTPS-forbindelser."
 
 msgid "setting.security.frame_options.name"
-msgstr ""
+msgstr "Rammepolicy"
 
 msgid "setting.security.frame_options.desc"
-msgstr ""
+msgstr "Denne innstillingen deklarerer rammepolicyen for denne FreeField-installasjonen. Hvis du tillater innramming, kan andre sider vise denne FreeField-siden som del av sin egen side gjennom iframes eller framesets. Det anbefales at du lar denne innstillingen stå på standardvalget \"nekt\" med mindre du har en god grunn til å tillate innramming."
 
 msgid "setting.security.frame_options.option.allow"
-msgstr ""
+msgstr "Tillat innramming på alle nettsider"
 
 msgid "setting.security.frame_options.option.sameorigin"
-msgstr ""
+msgstr "Tillat innramming kun fra sider på samme domene som denne siden"
 
 msgid "setting.security.frame_options.option.deny"
-msgstr ""
+msgstr "Nekt all innramming overalt"
 
 msgid "setting.auth.provider.discord.enabled.name"
-msgstr ""
+msgstr "Tillat Discord-innlogging"
 
 msgid "setting.auth.provider.discord.enabled.desc"
-msgstr ""
+msgstr "Aktiverer bruk av Discord for brukerinnlogging."
 
 msgid "setting.auth.provider.discord.enabled.label"
-msgstr ""
+msgstr "Aktiver Discord-innlogging"
 
 msgid "setting.auth.provider.discord.client_id.name"
-msgstr ""
+msgstr "Klient-ID"
 
 msgid "setting.auth.provider.discord.client_id.desc"
-msgstr ""
+msgstr "Klient-IDen til Discord API-applikasjonen din."
 
 msgid "setting.auth.provider.discord.client_secret.name"
-msgstr ""
+msgstr "Klient-passord"
 
 msgid "setting.auth.provider.discord.client_secret.desc"
-msgstr ""
+msgstr "Klient-passordet (client secret) til Discord API-applikasjonen din."
 
 msgid "setting.auth.provider.telegram.enabled.name"
-msgstr ""
+msgstr "Tillat Telegram-innlogging"
 
 msgid "setting.auth.provider.telegram.enabled.desc"
-msgstr ""
+msgstr "Aktiverer bruk av Telegram for brukerinnlogging."
 
 msgid "setting.auth.provider.telegram.enabled.label"
-msgstr ""
+msgstr "Aktiver Telegram-innlogging"
 
 msgid "setting.auth.provider.telegram.bot_username.name"
-msgstr ""
+msgstr "Bot-brukernavn"
 
 msgid "setting.auth.provider.telegram.bot_username.desc"
-msgstr ""
+msgstr "Brukernavnet til Telegram-botten din."
 
 msgid "setting.auth.provider.telegram.bot_token.name"
-msgstr ""
+msgstr "Bot-kode"
 
 msgid "setting.auth.provider.telegram.bot_token.desc"
-msgstr ""
+msgstr "Bot-koden (bot token) som er tildelt Telegram-botten din fra BotFather."
 
 msgid "setting.auth.provider.reddit.enabled.name"
-msgstr ""
+msgstr "Tillat Reddit-innlogging"
 
 msgid "setting.auth.provider.reddit.enabled.desc"
-msgstr ""
+msgstr "Aktiverer bruk av Reddit for brukerinnlogging."
 
 msgid "setting.auth.provider.reddit.enabled.label"
-msgstr ""
+msgstr "Aktiver Reddit-innlogging"
 
 msgid "setting.auth.provider.reddit.client_id.name"
-msgstr ""
+msgstr "Klient-ID"
 
 msgid "setting.auth.provider.reddit.client_id.desc"
-msgstr ""
+msgstr "Klient-IDen til Reddit API-applikasjonen din."
 
 msgid "setting.auth.provider.reddit.client_secret.name"
-msgstr ""
+msgstr "Klient-passord"
 
 msgid "setting.auth.provider.reddit.client_secret.desc"
-msgstr ""
+msgstr "Klient-passordet (client secret) til Reddit API-applikasjonen din."
 
 msgid "setting.auth.provider.facebook.enabled.name"
-msgstr ""
+msgstr "Tillat Facebook-innlogging"
 
 msgid "setting.auth.provider.facebook.enabled.desc"
-msgstr ""
+msgstr "Aktiverer bruk av Facebook for brukerinnlogging."
 
 msgid "setting.auth.provider.facebook.enabled.label"
-msgstr ""
+msgstr "Aktiver Facebook-innlogging"
 
 msgid "setting.auth.provider.facebook.app_id.name"
-msgstr ""
+msgstr "App-ID"
 
 msgid "setting.auth.provider.facebook.app_id.desc"
-msgstr ""
+msgstr "App-IDen til Facebook API-applikasjonen din."
 
 msgid "setting.auth.provider.facebook.app_secret.name"
-msgstr ""
+msgstr "App-passord"
 
 msgid "setting.auth.provider.facebook.app_secret.desc"
-msgstr ""
+msgstr "App-passordet (app secret) til Facebook API-applikasjonen din."
 
 msgid "setting.auth.provider.line.enabled.name"
-msgstr ""
+msgstr "Tillat LINE-innlogging"
 
 msgid "setting.auth.provider.line.enabled.desc"
-msgstr ""
+msgstr "Aktiverer bruk av LINE for brukerinnlogging."
 
 msgid "setting.auth.provider.line.enabled.label"
-msgstr ""
+msgstr "Aktiver LINE-innlogging"
 
 msgid "setting.auth.provider.line.channel_id.name"
-msgstr ""
+msgstr "Kanal-ID"
 
 msgid "setting.auth.provider.line.channel_id.desc"
-msgstr ""
+msgstr "Kanal-IDen til LINE Login-applikasjonen din."
 
 msgid "setting.auth.provider.line.channel_secret.name"
-msgstr ""
+msgstr "Kanal-passord"
 
 msgid "setting.auth.provider.line.channel_secret.desc"
-msgstr ""
+msgstr "Kanal-passordet (channel secret) til LINE Login-applikasjonen din."
 
 msgid "setting.auth.provider.groupme.enabled.name"
-msgstr ""
+msgstr "Tillat GroupMe-innlogging"
 
 msgid "setting.auth.provider.groupme.enabled.desc"
-msgstr ""
+msgstr "Aktiverer bruk av GroupMe for brukerinnlogging."
 
 msgid "setting.auth.provider.groupme.enabled.label"
-msgstr ""
+msgstr "Aktiver GroupMe-innlogging"
 
 msgid "setting.auth.provider.groupme.client_id.name"
-msgstr ""
+msgstr "Klient-ID"
 
 msgid "setting.auth.provider.groupme.client_id.desc"
-msgstr ""
+msgstr "Klient-IDen til GroupMe API-applikasjonen din."
 
 msgid "setting.mobile.pwa.enabled.name"
-msgstr ""
+msgstr "Aktiver PWA"
 
 msgid "setting.mobile.pwa.enabled.desc"
-msgstr ""
+msgstr "Hvorvidt Progressive Web App-funksjonalitet skal være aktivert."
 
 msgid "setting.mobile.pwa.enabled.label"
-msgstr ""
+msgstr "Aktiver Progressive Web App-funksjonalitet"
 
 msgid "setting.mobile.pwa.name.name"
-msgstr ""
+msgstr "Navn"
 
 msgid "setting.mobile.pwa.name.desc"
-msgstr ""
+msgstr "Et lesbart navn for nettsiden som vises for brukeren."
 
 msgid "setting.mobile.pwa.short_name.name"
-msgstr ""
+msgstr "Kort navn"
 
 msgid "setting.mobile.pwa.short_name.desc"
-msgstr ""
+msgstr "Et kort lesbart navn for applikasjonen. Brukes i tilfeller hvor det ikke er nok plass til å vise det fulle navnet over."
 
 msgid "setting.mobile.pwa.description.name"
-msgstr ""
+msgstr "Beskrivelse"
 
 msgid "setting.mobile.pwa.description.desc"
-msgstr ""
+msgstr "En generell beskrivelse av hva FreeField web-appen gjør."
 
 msgid "setting.mobile.pwa.display.name"
-msgstr ""
+msgstr "Visningsmodus"
 
 msgid "setting.mobile.pwa.display.desc"
-msgstr ""
+msgstr "Den foretrukne visningsmodusen for nettsiden."
 
 msgid "setting.mobile.pwa.display.option.fullscreen"
-msgstr ""
+msgstr "Fullskjerm"
 
 msgid "setting.mobile.pwa.display.option.standalone"
 msgstr ""
