@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,34 +13,34 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-03-31 10:02\n"
+"PO-Revision-Date: 2019-04-01 11:35\n"
 
 msgid "setting.site.uri.name"
-msgstr ""
+msgstr "Installasjons-URI"
 
 msgid "setting.site.uri.desc"
-msgstr ""
+msgstr "Webplasseringen for FreeField-installasjonen."
 
 msgid "setting.site.name.name"
-msgstr ""
+msgstr "Sidenavn"
 
 msgid "setting.site.name.desc"
-msgstr ""
+msgstr "Navnet på FreeField-installasjonen (f.eks. '[Stedsnavn] FreeField')"
 
 msgid "setting.site.menu_header.name"
-msgstr ""
+msgstr "Menyheader"
 
 msgid "setting.site.menu_header.desc"
-msgstr ""
+msgstr "Teksten som vises på toppen av menyen på siden av skjermen."
 
 msgid "setting.site.menu_image.name"
-msgstr ""
+msgstr "Menybilde"
 
 msgid "setting.site.menu_image.desc"
-msgstr ""
+msgstr "Et bilde vist på toppen av menyen i stedet for teksten angitt over. *.png, *.gif, *.jpg og *.svg-filer er tillatt. Filen må ikke være større enn 128 KiB."
 
 msgid "setting.site.header_style.name"
-msgstr ""
+msgstr "Menyheaderstil"
 
 msgid "setting.site.header_style.desc"
 msgstr ""
