@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-04-01 11:45\n"
+"PO-Revision-Date: 2019-04-01 12:05\n"
 
 msgid "setting.site.uri.name"
 msgstr "Installasjons-URI"
@@ -202,172 +202,172 @@ msgid "setting.permissions.level.find_reporter.name"
 msgstr "Navngi rapportører"
 
 msgid "setting.permissions.level.find_reporter.desc"
-msgstr ""
+msgstr "Viser brukere hvem som sist sendte inn en oppgave for hvert pokéstop."
 
 msgid "setting.permissions.level.report_research.name"
-msgstr ""
+msgstr "Rapporter oppgave"
 
 msgid "setting.permissions.level.report_research.desc"
-msgstr ""
+msgstr "Lar brukere rapportere oppgaver på pokéstop som ikke allerede har en oppgave rapportert."
 
 msgid "setting.permissions.level.overwrite_research.name"
-msgstr ""
+msgstr "Overskriv oppgave"
 
 msgid "setting.permissions.level.overwrite_research.desc"
-msgstr ""
+msgstr "Lar brukere rapportere oppgaver på alle pokéstop, selv om en annen bruker tidligere har sendt inn en oppgave samme dag. Krever også \"Rapporter oppgave\"-tillatelsen."
 
 msgid "setting.permissions.level.submit_poi.name"
-msgstr ""
+msgstr "Legg til nye pokéstop"
 
 msgid "setting.permissions.level.submit_poi.desc"
-msgstr ""
+msgstr "Lar brukere legge inn nye pokéstop på kartet."
 
 msgid "setting.permissions.level.personalization.icons.name"
-msgstr ""
+msgstr "Tilpass markører"
 
 msgid "setting.permissions.level.personalization.icons.desc"
-msgstr ""
+msgstr "Lar brukere velge sitt eget kartmarkørsett i stedet for standard for sin egen konto."
 
 msgid "setting.permissions.level.personalization.species.name"
-msgstr ""
+msgstr "Tilpass artsikoner"
 
 msgid "setting.permissions.level.personalization.species.desc"
-msgstr ""
+msgstr "Lar brukere velge sitt eget ikonsett for Pokémon-arter i stedet for standard for sin egen bruker."
 
 msgid "setting.permissions.level.admin.main.general.name"
-msgstr ""
+msgstr "Endre nettsideinnstillinger"
 
 msgid "setting.permissions.level.admin.main.general.desc"
-msgstr ""
+msgstr "Lar brukere endre nettstedets database- og installasjonsinnstillinger."
 
 msgid "setting.permissions.level.admin.main.section.access.name"
-msgstr ""
+msgstr "Endre tilgangsinnstillinger"
 
 msgid "setting.permissions.level.admin.main.section.access.desc"
-msgstr ""
+msgstr "Lar brukere endre tilgangsinnstillinger, som f.eks. URLen, til siden."
 
 msgid "setting.permissions.level.admin.main.section.instance.name"
-msgstr ""
+msgstr "Endre installasjonsvalg"
 
 msgid "setting.permissions.level.admin.main.section.instance.desc"
-msgstr ""
+msgstr "Lar brukerne endre denne FreeField-sidens kjernevalg for utseende, som f.eks. navnet på siden."
 
 msgid "setting.permissions.level.admin.main.section.motd.name"
-msgstr ""
+msgstr "Endre dagens melding"
 
 msgid "setting.permissions.level.admin.main.section.motd.desc"
-msgstr ""
+msgstr "Lar brukere endre og administrere dagens melding for denne FreeField-installasjonen."
 
 msgid "setting.permissions.level.admin.main.section.spiders.name"
-msgstr ""
+msgstr "Administrer søkerobottilgang"
 
 msgid "setting.permissions.level.admin.main.section.spiders.desc"
-msgstr ""
+msgstr "Lar brukere endre på tilgangsinnstillingene for søkeroboter."
 
 msgid "setting.permissions.level.admin.main.section.database.name"
-msgstr ""
+msgstr "Endre databaseinnstillinger"
 
 msgid "setting.permissions.level.admin.main.section.database.desc"
-msgstr ""
+msgstr "Lar brukere endre databaseinnstillingene."
 
 msgid "setting.permissions.level.admin.users.general.name"
-msgstr ""
+msgstr "Administrer brukere"
 
 msgid "setting.permissions.level.admin.users.general.desc"
-msgstr ""
+msgstr "Lar brukere godkjenne, avvise, behandle og slette andre brukerkontoer."
 
 msgid "setting.permissions.level.admin.groups.general.name"
-msgstr ""
+msgstr "Administrer grupper"
 
 msgid "setting.permissions.level.admin.groups.general.desc"
-msgstr ""
+msgstr "Lar brukere legge til, fjerne og behandle brukergrupper."
 
 msgid "setting.permissions.level.admin.users.groups.name"
-msgstr ""
+msgstr "Administrer gruppemedlemskap"
 
 msgid "setting.permissions.level.admin.users.groups.desc"
-msgstr ""
+msgstr "Lar brukere endre andre brukeres medlemskap i brukergrupper. Krever også \"Administrer brukere\"-tillatelsen."
 
 msgid "setting.permissions.level.admin.groups.self_manage.name"
-msgstr ""
+msgstr "Administrer egen gruppe"
 
 msgid "setting.permissions.level.admin.groups.self_manage.desc"
-msgstr ""
+msgstr "Lar brukere tildele og fjerne andre brukeres tilgang til, og endre på tillatelsene til sin egen gruppe. Som standard kan brukere bare endre gruppemedlemskapet til brukere, og endre på grupper, nedenfor seg selv. Denne tillatelsen er farlig å tildele! Brukere med denne tillatelsen kan utnevne og fjerne andre brukere fra samme gruppe som seg selv. Det anbefales på det sterkeste at denne innstillingen holdes på standardverdien med mindre det finnes en særdeles god grunn til å endre den. Krever også \"Administrer gruppemedlemskap\"-tillatelsen."
 
 msgid "setting.permissions.level.admin.pois.general.name"
-msgstr ""
+msgstr "Administrer pokéstop"
 
 msgid "setting.permissions.level.admin.pois.general.desc"
-msgstr ""
+msgstr "Lar brukere endre og slette pokéstop sendt inn av andre."
 
 msgid "setting.permissions.level.admin.pois.import.name"
-msgstr ""
+msgstr "Importer og eksporter data"
 
 msgid "setting.permissions.level.admin.pois.import.desc"
-msgstr ""
+msgstr "La brukere importere og eksportere pokéstop."
 
 msgid "setting.permissions.level.admin.perms.general.name"
-msgstr ""
+msgstr "Administrer tillatelser"
 
 msgid "setting.permissions.level.admin.perms.general.desc"
-msgstr ""
+msgstr "Lar brukere endre og tildele tillatelser på denne siden."
 
 msgid "setting.permissions.level.admin.perms.section.default.name"
-msgstr ""
+msgstr "Velg standardgruppe"
 
 msgid "setting.permissions.level.admin.perms.section.default.desc"
-msgstr ""
+msgstr "Lar brukere endre standardgruppen som nye medlemmer plasseres i."
 
 msgid "setting.permissions.level.admin.perms.section.self_manage.name"
-msgstr ""
+msgstr "Endre tilgang til selvadministrasjon"
 
 msgid "setting.permissions.level.admin.perms.section.self_manage.desc"
-msgstr ""
+msgstr "Lar brukere endre innstillinger som har å gjøre med administrasjon av egen konto på denne siden, som f.eks. å la brukere få tilgang til å endre sitt eget kallenavn."
 
 msgid "setting.permissions.level.admin.perms.section.map_access.name"
-msgstr ""
+msgstr "Endre karttilgang"
 
 msgid "setting.permissions.level.admin.perms.section.map_access.desc"
-msgstr ""
+msgstr "Lar brukere endre på tillatelser rundt karttilgang."
 
 msgid "setting.permissions.level.admin.perms.section.personalization.name"
-msgstr ""
+msgstr "Endre tilpasningstilgang"
 
 msgid "setting.permissions.level.admin.perms.section.personalization.desc"
-msgstr ""
+msgstr "Lar brukere endre tilgangen til å tilpasse kartet, slik som å sette restriksjoner på hvilke kartmarkører og ikonsett som kan brukes."
 
 msgid "setting.permissions.level.admin.perms.section.admin.name"
-msgstr ""
+msgstr "Endre administrativ tilgang"
 
 msgid "setting.permissions.level.admin.perms.section.admin.desc"
-msgstr ""
+msgstr "Lar brukeren endre administrative tillatelser (som f.eks. denne)."
 
 msgid "setting.permissions.level.admin.security.general.name"
-msgstr ""
+msgstr "Endre sikkerhetsinnstillinger"
 
 msgid "setting.permissions.level.admin.security.general.desc"
-msgstr ""
+msgstr "Lar brukere endre sikkerhetsinnstillingene for denne installasjonen."
 
 msgid "setting.permissions.level.admin.security.section.user_creation.name"
-msgstr ""
+msgstr "Konfigurer brukergodkjenning"
 
 msgid "setting.permissions.level.admin.security.section.user_creation.desc"
-msgstr ""
+msgstr "Lar brukere endre innstillinger rundt manuell godkjenning av brukere og opprettelse av nye brukere."
 
 msgid "setting.permissions.level.admin.security.section.sessions.name"
-msgstr ""
+msgstr "Endre øktparametre"
 
 msgid "setting.permissions.level.admin.security.section.sessions.desc"
-msgstr ""
+msgstr "Lar brukere endre sikkerhetsinnstillinger for økter."
 
 msgid "setting.permissions.level.admin.security.section.outbound.name"
-msgstr ""
+msgstr "Konfigurer sikkerhet for utgående forespørsler"
 
 msgid "setting.permissions.level.admin.security.section.outbound.desc"
-msgstr ""
+msgstr "Lar brukere endre sikkerhetsinnstillingene for utgående HTTP-forespørsler."
 
 msgid "setting.permissions.level.admin.security.section.same_origin.name"
-msgstr ""
+msgstr "Endre samme-opprinnelse-policy"
 
 msgid "setting.permissions.level.admin.security.section.same_origin.desc"
 msgstr ""
