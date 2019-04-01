@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-04-01 12:19\n"
+"PO-Revision-Date: 2019-04-01 12:36\n"
 
 msgid "setting.site.uri.name"
 msgstr "Installasjons-URI"
@@ -553,52 +553,52 @@ msgid "setting.auth.session_length.option.157766400"
 msgstr "5 år"
 
 msgid "setting.auth.session_length.option.315619200"
-msgstr ""
+msgstr "10 år"
 
 msgid "setting.security.validate_ua.name"
-msgstr ""
+msgstr "Nettleservalidering"
 
 msgid "setting.security.validate_ua.desc"
-msgstr ""
+msgstr "Begrenser hver økt til nettleseren den ble opprettet fra. Det anbefales at dette er aktivert for å hindre øktkapring, da bruk av en økt utenfor nettleseren den ble opprettet fra nesten alltid er ondsinnet. Hvis du setter denne innstillingen til Streng, vil brukere bli logget ut dersom nettleseren får en oppdatering. Dette bidrar ikke nevneverdig til å styrke sikkerheten i noen særlig grad utover Standard, og anbefales derfor ikke."
 
 msgid "setting.security.validate_ua.option.no"
-msgstr ""
+msgstr "Deaktivert"
 
 msgid "setting.security.validate_ua.option.lenient"
-msgstr ""
+msgstr "Standard (ignorerer nettleserversjon)"
 
 msgid "setting.security.validate_ua.option.strict"
-msgstr ""
+msgstr "Streng (kontrollerer nettleserversjon)"
 
 msgid "setting.security.validate_lang.name"
-msgstr ""
+msgstr "Språkvalidering"
 
 msgid "setting.security.validate_lang.desc"
-msgstr ""
+msgstr "Krever at nettleseren bruker samme språksett hver gang den brukes i en økt. Dette vil logge ut brukere dersom de endrer hvilke språk nettleseren eller enheten er stilt inn til. Denne innstillingen bidrar til å hindre øktkapring hvis den er aktivert, i tilfeller hvor angripere bruker samme nettleser, men har stilt den inn til et annet språk (f.eks. dersom de bor i et annet land)."
 
 msgid "setting.security.validate_lang.label"
-msgstr ""
+msgstr "Håndhev kontroll av nettleserspråk"
 
 msgid "setting.security.selector_canary.name"
-msgstr ""
+msgstr "Øktkapringsdeteksjon"
 
 msgid "setting.security.selector_canary.desc"
-msgstr ""
+msgstr "Øktkapringsdetektoren utløses dersom noen av de ovennevnte kontrollene mislykkes for en bruker. Selv om dette kan være et tegn på at økten er kapret, kan det også skyldes helt legitime grunner, som en nettleseroppdatering som endrer versjonsnummer og dermed får streng nettleserkontroll til å mislykkes. Hvis du skrur på deteksjon, vil brukere bli logget ut av alle enheter dersom kontroll mislykkes for en av dem. I praksis vil dette si at hvis en angriper får tilgang til en brukerøkt, men bruker feil nettleser eller språk, vil de ikke kunne få tilgang igjen med den samme økten igjen senere, selv om de klarer å gjette riktig nettleser eller språk, siden økten vil være permanent deaktivert."
 
 msgid "setting.security.selector_canary.label"
-msgstr ""
+msgstr "Logg ut bruker fra alle enheter hvis én øktkontroll mislykkes"
 
 msgid "setting.security.curl.verify_certificates.name"
-msgstr ""
+msgstr "Sertifikatvalidering"
 
 msgid "setting.security.curl.verify_certificates.desc"
-msgstr ""
+msgstr "Å skru av sertifikatvalidering kan løse diverse problemer, som f.eks. webhooks som ikke utløses, men gjør det mulig for ondsinnede aktører å se og endre innholdet på slike utgående forespørsler uten at det oppdages og stoppes."
 
 msgid "setting.security.curl.verify_certificates.label"
-msgstr ""
+msgstr "Valider SSL/TLS-sertifikater for utgående forespørsler"
 
 msgid "setting.security.curl.cacert_path.name"
-msgstr ""
+msgstr "Sertifikatfil (cacert.pem)"
 
 msgid "setting.security.curl.cacert_path.desc"
 msgstr ""
