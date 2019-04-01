@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-04-01 12:48\n"
+"PO-Revision-Date: 2019-04-01 13:00\n"
 
 msgid "setting.site.uri.name"
 msgstr "Installasjons-URI"
@@ -775,196 +775,196 @@ msgid "setting.mobile.pwa.display.option.fullscreen"
 msgstr "Fullskjerm"
 
 msgid "setting.mobile.pwa.display.option.standalone"
-msgstr ""
+msgstr "Frittstående program"
 
 msgid "setting.mobile.pwa.display.option.minimal_ui"
-msgstr ""
+msgstr "Frittstående program med nett-navigasjonsknapper"
 
 msgid "setting.mobile.pwa.display.option.browser"
-msgstr ""
+msgstr "Standard nettleservindu"
 
 msgid "setting.mobile.pwa.icon.192px.name"
-msgstr ""
+msgstr "App-ikon (192px)"
 
 msgid "setting.mobile.pwa.icon.192px.desc"
-msgstr ""
+msgstr "Ikonet som brukes om appens lille ikon. *.png, *.gif og *.jpg-filer tillates. Filen må ikke være større enn 64 KiB. Det opplastede bildet bør være eksakt 192x192 piksler."
 
 msgid "setting.mobile.pwa.icon.512px.name"
-msgstr ""
+msgstr "App-ikon (512px)"
 
 msgid "setting.mobile.pwa.icon.512px.desc"
-msgstr ""
+msgstr "En større versjon av app-ikonet. *.png, *.gif og *.jpg-filer tillates. Filen må ikke være større enn 256 KiB. Det opplastede bildet bør være eksakt 512x512 piksler."
 
 msgid "setting.mobile.pwa.icon.launch.name"
-msgstr ""
+msgstr "App-ikon (innlasting)"
 
 msgid "setting.mobile.pwa.icon.launch.desc"
-msgstr ""
+msgstr "Ikonet som vises når appen venter på oppkobling mot internett. *.png, *.gif, *.jpg og *.svg-filer er tillatt. Filen må ikke være større enn 256 KiB."
 
 msgid "setting.mobile.pwa.color.background.name"
-msgstr ""
+msgstr "Bakgrunnsfarge"
 
 msgid "setting.mobile.pwa.color.background.desc"
-msgstr ""
+msgstr "Bakgrunnsfargen til web-appen, brukt på innlastingsskjermen."
 
 msgid "setting.mobile.pwa.color.foreground.name"
-msgstr ""
+msgstr "Forgrunnsfarge"
 
 msgid "setting.mobile.pwa.color.foreground.desc"
-msgstr ""
+msgstr "Forgrunnsfargen til web-appen, brukes blant annet til tekst på innlastingsskjermen."
 
 msgid "setting.themes.meta.favicon.name"
-msgstr ""
+msgstr "Nettleserikon"
 
 msgid "setting.themes.meta.favicon.desc"
-msgstr ""
+msgstr "Ikonet som vises på fanen eller i adresselinja i nettleseren. *.png, *.gif, *.ico og *.jpg-filer er tillatt. Filen må ikke være større enn 256 KiB."
 
 msgid "setting.themes.meta.color.name"
-msgstr ""
+msgstr "Tittellinjefarge"
 
 msgid "setting.themes.meta.color.desc"
-msgstr ""
+msgstr "Fargen som vises i tittelen og adresselinja på mobilnettlesere."
 
 msgid "setting.themes.color.site.name"
-msgstr ""
+msgstr "Temafarge"
 
 msgid "setting.themes.color.site.desc"
-msgstr ""
+msgstr "Temafargen til hele FreeField-installasjonen, brukes for eksempel i menyer."
 
 msgid "setting.themes.color.admin.name"
-msgstr ""
+msgstr "Administrasjonstema"
 
 msgid "setting.themes.color.admin.desc"
-msgstr ""
+msgstr "Velg fargetemaet til administrasjonssidene."
 
 msgid "setting.themes.color.admin.option.light"
-msgstr ""
+msgstr "Lys"
 
 msgid "setting.themes.color.admin.option.dark"
-msgstr ""
+msgstr "Mørk"
 
 msgid "setting.themes.color.user_settings.theme.name"
-msgstr ""
+msgstr "Brukertema"
 
 msgid "setting.themes.color.user_settings.theme.desc"
-msgstr ""
+msgstr "Velg fargetema som brukes på innstillingssidene til brukere, samt på kartsiden."
 
 msgid "setting.themes.color.user_settings.theme.option.light"
-msgstr ""
+msgstr "Lys"
 
 msgid "setting.themes.color.user_settings.theme.option.dark"
-msgstr ""
+msgstr "Mørk"
 
 msgid "setting.themes.color.user_settings.allow_personalization.name"
-msgstr ""
+msgstr "Brukertilpasning"
 
 msgid "setting.themes.color.user_settings.allow_personalization.desc"
-msgstr ""
+msgstr "Hvorvidt brukere har lov til å endre på eget fargetema i sine innstillinger i stedet for å bruke standard tema."
 
 msgid "setting.themes.color.user_settings.allow_personalization.label"
-msgstr ""
+msgstr "La brukere velge sitt eget fargetema"
 
 msgid "setting.themes.color.map.theme.mapbox.name"
-msgstr ""
+msgstr "Standard MapBox-tema"
 
 msgid "setting.themes.color.map.theme.mapbox.desc"
-msgstr ""
+msgstr "Velg standardfargene på kartet."
 
 msgid "setting.themes.color.map.theme.mapbox.option.basic"
-msgstr ""
+msgstr "Mapbox Basic"
 
 msgid "setting.themes.color.map.theme.mapbox.option.streets"
-msgstr ""
+msgstr "Mapbox Streets"
 
 msgid "setting.themes.color.map.theme.mapbox.option.bright"
-msgstr ""
+msgstr "Mapbox Bright"
 
 msgid "setting.themes.color.map.theme.mapbox.option.light"
-msgstr ""
+msgstr "Mapbox Light"
 
 msgid "setting.themes.color.map.theme.mapbox.option.dark"
-msgstr ""
+msgstr "Mapbox Dark"
 
 msgid "setting.themes.color.map.theme.mapbox.option.satellite"
-msgstr ""
+msgstr "Mapbox Satellite"
 
 msgid "setting.themes.color.map.theme.thunderforest.name"
-msgstr ""
+msgstr "Standard Thunderforest-tema"
 
 msgid "setting.themes.color.map.theme.thunderforest.desc"
-msgstr ""
+msgstr "Velg standardfargene på kartet."
 
 msgid "setting.themes.color.map.theme.thunderforest.option.cycle"
-msgstr ""
+msgstr "OpenCycleMap"
 
 msgid "setting.themes.color.map.theme.thunderforest.option.transport"
-msgstr ""
+msgstr "Transport"
 
 msgid "setting.themes.color.map.theme.thunderforest.option.landscape"
-msgstr ""
+msgstr "Landscape"
 
 msgid "setting.themes.color.map.theme.thunderforest.option.outdoors"
-msgstr ""
+msgstr "Outdoors"
 
 msgid "setting.themes.color.map.theme.thunderforest.option.transport_dark"
-msgstr ""
+msgstr "Transport Dark"
 
 msgid "setting.themes.color.map.theme.thunderforest.option.spinal_map"
-msgstr ""
+msgstr "Spinal Map"
 
 msgid "setting.themes.color.map.theme.thunderforest.option.pioneer"
-msgstr ""
+msgstr "Pioneer"
 
 msgid "setting.themes.color.map.theme.thunderforest.option.mobile_atlas"
-msgstr ""
+msgstr "Mobile Atlas"
 
 msgid "setting.themes.color.map.theme.thunderforest.option.neighbourhood"
-msgstr ""
+msgstr "Neighbourhood"
 
 msgid "setting.themes.color.map.allow_personalization.name"
-msgstr ""
+msgstr "Karttilpasning"
 
 msgid "setting.themes.color.map.allow_personalization.desc"
-msgstr ""
+msgstr "Hvorvidt brukere har lov til å endre på eget fargetema på kartet i stedet for å bruke standard tema."
 
 msgid "setting.themes.color.map.allow_personalization.label"
-msgstr ""
+msgstr "La brukere velge sitt eget karttema"
 
 msgid "setting.themes.icons.default.name"
-msgstr ""
+msgstr "Standard markørsett"
 
 msgid "setting.themes.icons.default.desc"
-msgstr ""
+msgstr "Velg stilen av kartmarkører som skal brukes på kartet."
 
 msgid "setting.themes.species.default.name"
-msgstr ""
+msgstr "Standard artsikonsett"
 
 msgid "setting.themes.species.default.desc"
-msgstr ""
+msgstr "Velg stilen av Pokémon-art-markører som skal brukes på kartet."
 
 msgid "setting.map.provider.source.name"
-msgstr ""
+msgstr "Karttilbyder"
 
 msgid "setting.map.provider.source.desc"
-msgstr ""
+msgstr "Velg hvilken karttilbyder som skal brukes."
 
 msgid "setting.map.provider.source.option.mapbox"
-msgstr ""
+msgstr "Mapbox (mapbox-gl.js)"
 
 msgid "setting.map.provider.source.option.thunderforest"
-msgstr ""
+msgstr "Thunderforest (leaflet.js)"
 
 msgid "setting.map.provider.mapbox.access_token.name"
-msgstr ""
+msgstr "Tilgangskode for Mapbox"
 
 msgid "setting.map.provider.mapbox.access_token.desc"
-msgstr ""
+msgstr "Tilgangskode gitt av Mapbox."
 
 msgid "setting.map.provider.thunderforest.api_key.name"
-msgstr ""
+msgstr "API-kode for Thunderforest"
 
 msgid "setting.map.provider.thunderforest.api_key.desc"
-msgstr ""
+msgstr "API-nøkkel tildelt av Thunderforest."
 
 msgid "setting.map.provider.directions.name"
 msgstr ""
