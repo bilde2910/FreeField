@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-04-01 11:35\n"
+"PO-Revision-Date: 2019-04-01 11:45\n"
 
 msgid "setting.site.uri.name"
 msgstr "Installasjons-URI"
@@ -43,163 +43,163 @@ msgid "setting.site.header_style.name"
 msgstr "Menyheaderstil"
 
 msgid "setting.site.header_style.desc"
-msgstr ""
+msgstr "Velg om det skal vises tekst eller et bilde på toppen av menyen på siden av skjermen."
 
 msgid "setting.site.header_style.option.text"
-msgstr ""
+msgstr "Vis tekst"
 
 msgid "setting.site.header_style.option.image"
-msgstr ""
+msgstr "Vis bilde (med bakgrunnsfarge)"
 
 msgid "setting.site.header_style.option.image_plain"
-msgstr ""
+msgstr "Vis bilde (uten bakgrunnsfarge)"
 
 msgid "setting.motd.display_mode.name"
-msgstr ""
+msgstr "Visningsmodus"
 
 msgid "setting.motd.display_mode.desc"
-msgstr ""
+msgstr "Avgjør hvordan dagens melding vises."
 
 msgid "setting.motd.display_mode.option.forced"
-msgstr ""
+msgstr "Alltid vis dagens melding hver gang kartet åpnes"
 
 msgid "setting.motd.display_mode.option.always"
-msgstr ""
+msgstr "Alltid vis som standard, men la brukere skjule den til neste endring av innholdet"
 
 msgid "setting.motd.display_mode.option.on_change"
-msgstr ""
+msgstr "Vis én gang dersom meldingen er endret, og skjul den for påfølgende besøk"
 
 msgid "setting.motd.display_mode.option.on_request"
-msgstr ""
+msgstr "Vis bare dersom brukeren ber om å vise meldingen"
 
 msgid "setting.motd.display_mode.option.never"
-msgstr ""
+msgstr "Deaktiver dagens melding"
 
 msgid "setting.motd.title.name"
-msgstr ""
+msgstr "Egendefinert tittel"
 
 msgid "setting.motd.title.desc"
-msgstr ""
+msgstr "Tittelen på dagens melding-boksen. Dette settes som standard til \"Dagens melding\" hvis blank."
 
 msgid "setting.motd.content.name"
-msgstr ""
+msgstr "Meldingsinnhold"
 
 msgid "setting.motd.content.desc"
-msgstr ""
+msgstr "En melding som vises til alle brukere i en boks hver gang FreeField lastes. Meldingen kan formateres med Markdown."
 
 msgid "setting.spiders.robots_policy.name"
-msgstr ""
+msgstr "Søkerobotpolicy"
 
 msgid "setting.spiders.robots_policy.desc"
-msgstr ""
+msgstr "Angir hvordan roboter (som søkemotorer og andre nettroboter) kan lese og indeksere dette nettstedet."
 
 msgid "setting.spiders.robots_policy.option.all"
-msgstr ""
+msgstr "Godta all indeksering og surfing (all)"
 
 msgid "setting.spiders.robots_policy.option.nofollow"
-msgstr ""
+msgstr "Godta indeksering, men ikke følg linker på siden (nofollow)"
 
 msgid "setting.spiders.robots_policy.option.noindex"
-msgstr ""
+msgstr "Nekt indeksering, men la roboter følge linker til andre sider (noindex)"
 
 msgid "setting.spiders.robots_policy.option.noindex_nofollow"
-msgstr ""
+msgstr "Nekt all indeksering og surfing (noindex,nofollow)"
 
 msgid "setting.database.type.name"
-msgstr ""
+msgstr "Databasetype"
 
 msgid "setting.database.type.desc"
-msgstr ""
+msgstr "Typen forbindelse som bruker til å koble til databasen."
 
 msgid "setting.database.type.option.mysql"
-msgstr ""
+msgstr "MySQL"
 
 msgid "setting.database.type.option.pgsql"
-msgstr ""
+msgstr "PostgreSQL (eksperimentell)"
 
 msgid "setting.database.type.option.sqlite"
-msgstr ""
+msgstr "SQLite 3 (eksperimentell)"
 
 msgid "setting.database.type.option.sqlite2"
-msgstr ""
+msgstr "SQLite 2 (eksperimentell)"
 
 msgid "setting.database.type.option.sqlsrv"
-msgstr ""
+msgstr "Microsoft SQL Server / SQL Azure (eksperimentell)"
 
 msgid "setting.database.type.option.4D"
-msgstr ""
+msgstr "4D (eksperimentell)"
 
 msgid "setting.database.type.option.oci"
-msgstr ""
+msgstr "OCI / Oracle Instant Client (eksperimentell)"
 
 msgid "setting.database.type.option.cubrid"
-msgstr ""
+msgstr "Cubrid (experimentell)"
 
 msgid "setting.database.type.option.sybase"
-msgstr ""
+msgstr "Sybase ct-lib (eksperimentell)"
 
 msgid "setting.database.type.option.mssql"
-msgstr ""
+msgstr "Microsoft SQL Server (via dblib) (eksperimentell)"
 
 msgid "setting.database.type.option.dblib"
-msgstr ""
+msgstr "FreeTDS (eksperimentell)"
 
 msgid "setting.database.host.name"
-msgstr ""
+msgstr "Vertsnavn"
 
 msgid "setting.database.host.desc"
-msgstr ""
+msgstr "Verts-/domenenavnet eller IP-adressen til databasen."
 
 msgid "setting.database.port.name"
-msgstr ""
+msgstr "Port (-1 = standardport)"
 
 msgid "setting.database.port.desc"
-msgstr ""
+msgstr "Porten som brukes til å koble til databasen. Sett til -1 for å bruke standard port."
 
 msgid "setting.database.username.name"
-msgstr ""
+msgstr "Brukernavn"
 
 msgid "setting.database.username.desc"
-msgstr ""
+msgstr "Brukernavnet som brukes til å logge inn på databaseserveren."
 
 msgid "setting.database.password.name"
-msgstr ""
+msgstr "Passord"
 
 msgid "setting.database.password.desc"
-msgstr ""
+msgstr "Passordet som brukes til å logge inn på databaseserveren."
 
 msgid "setting.database.database.name"
-msgstr ""
+msgstr "Databasenavn"
 
 msgid "setting.database.database.desc"
-msgstr ""
+msgstr "Navnet på databasen FreeField skal lagre data i."
 
 msgid "setting.database.table_prefix.name"
-msgstr ""
+msgstr "Tabellprefiks"
 
 msgid "setting.database.table_prefix.desc"
-msgstr ""
+msgstr "Et prefiks som brukes for alle tabeller FreeField oppretter, for å hindre konflikt med andre tabeller."
 
 msgid "setting.permissions.default_level.name"
-msgstr ""
+msgstr "Standard brukergruppe"
 
 msgid "setting.permissions.default_level.desc"
-msgstr ""
+msgstr "Tilgangsnivået som tildeles alle nye brukere som standard."
 
 msgid "setting.permissions.level.self_manage.nickname.name"
-msgstr ""
+msgstr "Endre eget kallenavn"
 
 msgid "setting.permissions.level.self_manage.nickname.desc"
-msgstr ""
+msgstr "Lar brukere på dette nivået og høyere endre sitt eget kallenavn."
 
 msgid "setting.permissions.level.access.name"
-msgstr ""
+msgstr "Se kart"
 
 msgid "setting.permissions.level.access.desc"
-msgstr ""
+msgstr "Lar brukere se FreeField-kartet og en liste over pokéstop."
 
 msgid "setting.permissions.level.find_reporter.name"
-msgstr ""
+msgstr "Navngi rapportører"
 
 msgid "setting.permissions.level.find_reporter.desc"
 msgstr ""
