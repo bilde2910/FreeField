@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-04-01 13:00\n"
+"PO-Revision-Date: 2019-04-01 13:18\n"
 
 msgid "setting.site.uri.name"
 msgstr "Installasjons-URI"
@@ -958,7 +958,7 @@ msgid "setting.map.provider.mapbox.access_token.name"
 msgstr "Tilgangskode for Mapbox"
 
 msgid "setting.map.provider.mapbox.access_token.desc"
-msgstr "Tilgangskode gitt av Mapbox."
+msgstr "Tilgangskode tildelt av Mapbox."
 
 msgid "setting.map.provider.thunderforest.api_key.name"
 msgstr "API-kode for Thunderforest"
@@ -967,249 +967,249 @@ msgid "setting.map.provider.thunderforest.api_key.desc"
 msgstr "API-nøkkel tildelt av Thunderforest."
 
 msgid "setting.map.provider.directions.name"
-msgstr ""
+msgstr "Standard navigasjonstjeneste"
 
 msgid "setting.map.provider.directions.desc"
-msgstr ""
+msgstr "Velg hvilken navigasjonstjeneste som skal startes når brukere ber om veibeskrivelse til et pokéstop."
 
 msgid "setting.map.provider.directions.option.bing"
-msgstr ""
+msgstr "Bing kart"
 
 msgid "setting.map.provider.directions.option.google"
-msgstr ""
+msgstr "Google kart"
 
 msgid "setting.map.provider.directions.option.here"
-msgstr ""
+msgstr "HERE"
 
 msgid "setting.map.provider.directions.option.mapquest"
-msgstr ""
+msgstr "MapQuest"
 
 msgid "setting.map.provider.directions.option.waze"
-msgstr ""
+msgstr "Waze"
 
 msgid "setting.map.provider.directions.option.yandex"
-msgstr ""
+msgstr "Yandex.Maps"
 
 msgid "setting.map.default.center.latitude.name"
-msgstr ""
+msgstr "Breddegrad"
 
 msgid "setting.map.default.center.latitude.desc"
-msgstr ""
+msgstr "Breddegraden til posisjonen som kartet skal være sentrert på når det lastes inn første gang."
 
 msgid "setting.map.default.center.longitude.name"
-msgstr ""
+msgstr "Lengdegrad"
 
 msgid "setting.map.default.center.longitude.desc"
-msgstr ""
+msgstr "Lengdegraden til posisjonen som kartet skal være sentrert på når det lastes inn første gang."
 
 msgid "setting.map.default.zoom.name"
-msgstr ""
+msgstr "Zoomnivå"
 
 msgid "setting.map.default.zoom.desc"
-msgstr ""
+msgstr "Standard zoomnivå når kartet lastes første gang."
 
 msgid "setting.map.default.marker_component.name"
-msgstr ""
+msgstr "Oppgavekomponent for markører"
 
 msgid "setting.map.default.marker_component.desc"
-msgstr ""
+msgstr "Hvilken oppgavekomponent som skal brukes som kartmarkører som standard."
 
 msgid "setting.map.default.marker_component.option.objective"
-msgstr ""
+msgstr "Oppgaver"
 
 msgid "setting.map.default.marker_component.option.reward"
-msgstr ""
+msgstr "Premier"
 
 msgid "setting.map.default.cluster_limit.name"
-msgstr ""
+msgstr "Maksimalt antall synlige markører"
 
 msgid "setting.map.default.cluster_limit.desc"
-msgstr ""
+msgstr "Det største antallet pokéstop som skal være synlig på kartet for brukere som standard. Ved å redusere denne innstillingen vil du legge mindre press på brukernes enheter og øke ytelsen til kartet, men det kan forhinde at enkelte oppgaver vises dersom de er plassert for tett sammen med andre pokéstop. Se ofte stilte spørsmål for spillere i dokumentasjonen for mer informasjon."
 
 msgid "setting.map.updates.refresh_interval.name"
-msgstr ""
+msgstr "Klientoppdateringsintervall"
 
 msgid "setting.map.updates.refresh_interval.desc"
-msgstr ""
+msgstr "Antall sekunder mellom hver gang en FreeField-klient oppdaterer listen sin over pokéstop og aktive oppgaver. Hvis du opplever høy belastning på serveren din fra FreeField kan du prøve å øke dette intervallet. Det totale volumet av forespørsler til REST-API-en for tilkoblede brukere er (a/i) per sekund der a=antall aktive klienter og i=oppdateringsintervallet."
 
 msgid "setting.map.updates.tz.name"
-msgstr ""
+msgstr "Tidssone"
 
 msgid "setting.map.updates.tz.desc"
-msgstr ""
+msgstr "Tidssonen som brukes for å bestemme når midnatt er, dvs. når på døgnet oppgavene nullstilles."
 
 msgid "setting.map.geofence.geofence.name"
-msgstr ""
+msgstr "Begrens pokéstop til område"
 
 msgid "setting.map.geofence.geofence.desc"
-msgstr ""
+msgstr "Avgrenser området som nye pokéstop kan sendes inn i til området innenfor det gitte geofencet. Hvis du ikke oppgir et geofence, kan pokéstop (og derav oppgaver) sendes inn over hele verden."
 
 msgid "setting.map.geofence.hide_outside.name"
-msgstr ""
+msgstr "Pokéstop utenfor rekkevidde"
 
 msgid "setting.map.geofence.hide_outside.desc"
-msgstr ""
+msgstr "Hvorvidt eventuelle pokéstop utenfor det avgrensede området ovenfor skal skjules fra kartet."
 
 msgid "setting.map.geofence.hide_outside.label"
-msgstr ""
+msgstr "Skjul alle pokéstop utenfor det valgte området"
 
 msgid "setting.hooks.hook_list.webhook_url.name"
-msgstr ""
+msgstr "Webhook URL"
 
 msgid "setting.hooks.hook_list.language.name"
-msgstr ""
+msgstr "Språk"
 
 msgid "setting.hooks.hook_list.icons.name"
-msgstr ""
+msgstr "Ikonsett"
 
 msgid "setting.hooks.hook_list.icons.option.default"
-msgstr ""
+msgstr "Standard ikonsett"
 
 msgid "setting.hooks.hook_list.show_species.name"
-msgstr ""
+msgstr "Vis ikon for Pokémon"
 
 msgid "setting.hooks.hook_list.show_species.label"
-msgstr ""
+msgstr "Vis Pokémon-arten som ikon for premie hvis mulig"
 
 msgid "setting.hooks.hook_list.species.name"
-msgstr ""
+msgstr "Pokémon-ikonsett"
 
 msgid "setting.hooks.hook_list.species.option.default"
-msgstr ""
+msgstr "Standard artsikonsett"
 
 msgid "setting.hooks.hook_list.geofence.name"
-msgstr ""
+msgstr "Områdeavgrensning"
 
 msgid "setting.hooks.hook_list.filter_mode.name"
-msgstr ""
+msgstr "Kun utløs webhooken dersom"
 
 msgid "setting.hooks.hook_list.filter_mode.objective.option.whitelist.name"
-msgstr ""
+msgstr "En av følgende oppgaver er rapportert"
 
 msgid "setting.hooks.hook_list.filter_mode.objective.option.blacklist.name"
-msgstr ""
+msgstr "Ingen av følgende oppgaver er rapportert"
 
 msgid "setting.hooks.hook_list.filter_mode.reward.option.whitelist.name"
-msgstr ""
+msgstr "En av følgende premier er rapportert"
 
 msgid "setting.hooks.hook_list.filter_mode.reward.option.blacklist.name"
-msgstr ""
+msgstr "Ingen av følgende premier er rapportert"
 
 msgid "setting.hooks.hook_list.actions.name"
-msgstr ""
+msgstr "Hurtigvalg"
 
 msgid "setting.hooks.hook_list.actions.option.none"
-msgstr ""
+msgstr "(ikke gjør noe)"
 
 msgid "setting.hooks.hook_list.actions.option.enable"
-msgstr ""
+msgstr "Aktiver webhook"
 
 msgid "setting.hooks.hook_list.actions.option.disable"
-msgstr ""
+msgstr "Deaktiver webhook"
 
 msgid "setting.hooks.hook_list.actions.option.delete"
-msgstr ""
+msgstr "Slett webhook"
 
 #  Telegram specific setting
 msgid "setting.hooks.tg.groups.select.name"
-msgstr ""
+msgstr "Målgruppe"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.webhook_url.option.current"
-msgstr ""
+msgstr "Gjeldende gruppe"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.webhook_url.option.other"
-msgstr ""
+msgstr "Andre grupper"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.webhook_url.option.select"
-msgstr ""
+msgstr "Velg gruppe..."
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.bot_token.name"
-msgstr ""
+msgstr "Bot-kode"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.name"
-msgstr ""
+msgstr "Tekstformat"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.option.txt"
-msgstr ""
+msgstr "Ren tekst"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.option.md"
-msgstr ""
+msgstr "Markdown"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.option.html"
-msgstr ""
+msgstr "HTML"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_web_page_preview.name"
-msgstr ""
+msgstr "Deaktiver forhåndsvisning"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_web_page_preview.label"
-msgstr ""
+msgstr "Deaktiver forhåndsvisning av linker postet av denne webhooken"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_notification.name"
-msgstr ""
+msgstr "Deaktiver varslinger"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_notification.label"
-msgstr ""
+msgstr "Ikke send varslinger for meldinger lagt ut av denne webhooken"
 
 msgid "setting.hooks.add.type.name"
-msgstr ""
+msgstr "Webhook-type"
 
 msgid "setting.hooks.add.type.option.json"
-msgstr ""
+msgstr "Post JSON"
 
 msgid "setting.hooks.add.type.option.telegram"
-msgstr ""
+msgstr "Send Telegram-melding"
 
 msgid "setting.hooks.add.preset.name"
-msgstr ""
+msgstr "Mal"
 
 msgid "setting.hooks.add.preset.option.none"
-msgstr ""
+msgstr "(ingen)"
 
 msgid "setting.updates.current.name"
-msgstr ""
+msgstr "Gjeldende versjon"
 
 msgid "setting.updates.current.desc"
-msgstr ""
+msgstr "Gjeldende versjon av FreeField."
 
 msgid "setting.updates.last_check.name"
-msgstr ""
+msgstr "Siste oppdateringssjekk"
 
 msgid "setting.updates.last_check.desc"
-msgstr ""
+msgstr "Sist FreeField så etter oppdateringer."
 
 msgid "setting.updates.next_check.name"
-msgstr ""
+msgstr "Neste planlagte sjekk"
 
 msgid "setting.updates.next_check.desc"
-msgstr ""
+msgstr "Neste gang FreeField planlegger å se etter oppdateringer."
 
 msgid "setting.updates.check_now.name"
-msgstr ""
+msgstr "Se etter oppdateringer manuelt"
 
 msgid "setting.updates.check_now.desc"
-msgstr ""
+msgstr "Ser etter oppdateringer umiddelbart."
 
 msgid "setting.updates.check_now.button"
-msgstr ""
+msgstr "Se etter oppdateringer"
 
 msgid "setting.updates.latest.name"
-msgstr ""
+msgstr "Siste versjon"
 
 msgid "setting.updates.latest.desc"
-msgstr ""
+msgstr "Siste tilgjengelige versjon av FreeField."
 
 msgid "setting.updates.type.name"
-msgstr ""
+msgstr "Utgivelsestype"
 
