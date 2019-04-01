@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-04-01 09:26\n"
+"PO-Revision-Date: 2019-04-01 09:36\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -191,20 +191,20 @@ msgid "admin.section.groups.ui.add.name"
 msgstr "Legg til ny gruppe"
 
 msgid "admin.domain.pois.name"
-msgstr ""
+msgstr "Pokéstop"
 
 msgid "admin.domain.pois.desc"
-msgstr ""
+msgstr "Behandle og fjern innsendte pokéstopmarkører"
 
 #  %1 = Amount of POIs
 msgid "admin.section.pois.poi_list.name"
-msgstr ""
+msgstr "Liste over pokéstop ({%1})"
 
 msgid "admin.section.pois.batch.name"
-msgstr ""
+msgstr "Satsvis behandling"
 
 msgid "admin.section.pois.clear.name"
-msgstr ""
+msgstr "Slett oppgave"
 
 msgid "admin.section.pois.import.name"
 msgstr ""
@@ -359,97 +359,97 @@ msgid "admin.section.perms.self_manage.name"
 msgstr ""
 
 msgid "admin.section.perms.map_access.name"
-msgstr ""
+msgstr "Karttilgangstillatelser"
 
 msgid "admin.section.perms.map_access.desc"
-msgstr ""
+msgstr "Advarsel! Begrensning av tilgang til kartet kan kvalifisere som kommersiell bruk hos noen kartleverandører. Du har det fulle ansvar for å sikre at lisensen din for bruk av kartdata fra leverandøren tillater avgrenset tilgang dersom du velger å begrense tilgangen til kartet."
 
 msgid "admin.section.perms.personalization.name"
-msgstr ""
+msgstr "Persjonaliseringsbegrensninger"
 
 msgid "admin.section.perms.admin.name"
-msgstr ""
+msgstr "Administrative tillatelser"
 
 msgid "admin.domain.security.name"
-msgstr ""
+msgstr "Sikkerhet"
 
 msgid "admin.domain.security.desc"
-msgstr ""
+msgstr "Sikre brukertilgang og økter"
 
 msgid "admin.section.security.user_creation.name"
-msgstr ""
+msgstr "Oppretting av brukere"
 
 msgid "admin.section.security.user_creation.desc"
-msgstr ""
+msgstr "Advarsel! Begrensning av tilgang til kartet kan kvalifisere som kommersiell bruk hos noen kartleverandører. Du har det fulle ansvar for å sikre at lisensen din for bruk av kartdata fra leverandøren tillater avgrenset tilgang dersom du velger å begrense tilgangen til kartet."
 
 msgid "admin.section.security.sessions.name"
-msgstr ""
+msgstr "Økter"
 
 msgid "admin.section.security.sessions.desc"
-msgstr ""
+msgstr "Advarsel! Endringer på disse innstillingene kan medføre at alle innloggede brukere blir logget ut, og må logge inn på nytt. Dette er en forhåndsregel for å sikre at alle aktive økter følger angitte sikkerhetskrav."
 
 msgid "admin.section.security.outbound.name"
-msgstr ""
+msgstr "Utgående forespørsler"
 
 msgid "admin.section.security.same_origin.name"
-msgstr ""
+msgstr "Samme-opprinnelse-policy"
 
 msgid "admin.domain.auth.name"
-msgstr ""
+msgstr "Autentisering"
 
 msgid "admin.domain.auth.desc"
-msgstr ""
+msgstr "Autentisering og innstillinger for tredjeparts innloggingstjenester"
 
 msgid "admin.section.auth.discord.name"
-msgstr ""
+msgstr "Discord"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.auth.discord.desc"
-msgstr ""
+msgstr "For mer informasjon om hvordan du setter opp Discord-innlogging, {%1}se dokumentasjonen{%2}."
 
 msgid "admin.section.auth.telegram.name"
-msgstr ""
+msgstr "Telegram"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.auth.telegram.desc"
-msgstr ""
+msgstr "For mer informasjon om hvordan du setter opp Telegram-innlogging, {%1}se dokumentasjonen{%2}."
 
 msgid "admin.section.auth.reddit.name"
-msgstr ""
+msgstr "Reddit"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.auth.reddit.desc"
-msgstr ""
+msgstr "For mer informasjon om hvordan du setter opp Reddit-innlogging, {%1}se dokumentasjonen{%2}."
 
 msgid "admin.section.auth.facebook.name"
-msgstr ""
+msgstr "Facebook"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.auth.facebook.desc"
-msgstr ""
+msgstr "For mer informasjon om hvordan du setter opp Facebook-innlogging, {%1}se dokumentasjonen{%2}."
 
 msgid "admin.section.auth.line.name"
-msgstr ""
+msgstr "LINE"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.auth.line.desc"
-msgstr ""
+msgstr "For mer informasjon om hvordan du setter opp LINE-innlogging, {%1}se dokumentasjonen{%2}."
 
 msgid "admin.section.auth.groupme.name"
-msgstr ""
+msgstr "GroupMe"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.auth.groupme.desc"
-msgstr ""
+msgstr "For mer informasjon om hvordan du setter opp GroupMe-innlogging, {%1}se dokumentasjonen{%2}."
 
 msgid "admin.domain.mobile.name"
-msgstr ""
+msgstr "Mobil"
 
 msgid "admin.domain.mobile.desc"
-msgstr ""
+msgstr "Mobilinnstillinger"
 
 msgid "admin.section.mobile.pwa.name"
-msgstr ""
+msgstr "Progressive Web App"
 
 msgid "admin.section.mobile.pwa.desc"
 msgstr ""
