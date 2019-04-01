@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-04-01 09:36\n"
+"PO-Revision-Date: 2019-04-01 09:46\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -452,68 +452,68 @@ msgid "admin.section.mobile.pwa.name"
 msgstr "Progressive Web App"
 
 msgid "admin.section.mobile.pwa.desc"
-msgstr ""
+msgstr "PWA lar brukere legge en snarvei til FreeField på hovedsiden til telefonene deres og lar dem bruke den som om FreeField var en egen app. PWA kan øke brukeropplevelsen til FreeField betraktelig. Hvis du ønsker å skru på PWA anbefales det på det sterkeste at du {%1}leser dokumentasjonen{%2} først! Bare skru på PWA dersom du er sikker på hva innstillingene på denne siden gjør."
 
 msgid "admin.domain.themes.name"
-msgstr ""
+msgstr "Utseende"
 
 msgid "admin.domain.themes.desc"
-msgstr ""
+msgstr "Visningsalternativer"
 
 msgid "admin.section.themes.meta.name"
-msgstr ""
+msgstr "HTML-innstillinger"
 
 msgid "admin.section.themes.color.name"
-msgstr ""
+msgstr "Fargetema"
 
 msgid "admin.section.themes.icons.name"
-msgstr ""
+msgstr "Kartmarkører"
 
 msgid "admin.domain.map.name"
-msgstr ""
+msgstr "Kartinnstillinger"
 
 msgid "admin.domain.map.desc"
-msgstr ""
+msgstr "Sett opp kart- og standardinnstillinger"
 
 msgid "admin.section.map.provider.name"
-msgstr ""
+msgstr "Kartleverandør"
 
 msgid "admin.section.map.provider.desc"
-msgstr ""
+msgstr "Advarsel! De fleste kartleverandører krever at du aksepterer tjenestevilkår og/eller andre juridiske kontrakter når du registrerer deg og bruker tjenestene deres. Du har det fulle ansvar for å sikre at du møter kravene satt av leverandøren du velger, og at bruken din av tjenestene deres gjennom FreeField er i samsvar med retningslinjene og lisensen du har underskrevet."
 
 msgid "admin.section.map.default.name"
-msgstr ""
+msgstr "Standardinnstillinger"
 
 msgid "admin.section.map.updates.name"
-msgstr ""
+msgstr "Kartoppdateringer"
 
 msgid "admin.section.map.geofence.name"
-msgstr ""
+msgstr "Områdeavgrensning"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.map.geofence.desc"
-msgstr ""
+msgstr "For mer informasjon om hvordan du setter opp områdeavgrensninger, {%1}se dokumentasjonen{%2}."
 
 msgid "admin.domain.fences.name"
-msgstr ""
+msgstr "Geofences"
 
 msgid "admin.domain.fences.desc"
-msgstr ""
+msgstr "Behandle geofence"
 
 msgid "admin.section.fences.fence_list.name"
-msgstr ""
+msgstr "Liste over geofence"
 
 msgid "admin.table.fences.fence_list.column.label.name"
-msgstr ""
+msgstr "Etikett"
 
 msgid "admin.table.fences.fence_list.column.vertices.name"
-msgstr ""
+msgstr "Hjørnepunkter"
 
 msgid "admin.table.fences.fence_list.column.actions.name"
-msgstr ""
+msgstr "Handlinger"
 
 msgid "admin.clientside.fences.fence_list.action.none"
-msgstr ""
+msgstr "(ikke gjør noe)"
 
 msgid "admin.clientside.fences.fence_list.action.delete"
 msgstr ""
@@ -697,55 +697,55 @@ msgstr ""
 
 #  Telegram specific setting
 msgid "admin.hooks.popup.tg.select_group"
-msgstr ""
+msgstr "Velg gruppe"
 
 msgid "admin.section.hooks.ui.add.name"
-msgstr ""
+msgstr "Legg til ny webhook"
 
 msgid "admin.domain.api.name"
-msgstr ""
+msgstr "API-tilgang"
 
 msgid "admin.domain.api.desc"
-msgstr ""
+msgstr "Administrer API-tilgang og sammenkoblede tjenester"
 
 msgid "admin.section.api.client_list.name"
-msgstr ""
+msgstr "Liste over registrerte klienter"
 
 msgid "admin.table.api.client_list.column.name.name"
-msgstr ""
+msgstr "Klientnavn"
 
 msgid "admin.table.api.client_list.column.color.name"
-msgstr ""
+msgstr "Visningsfarge"
 
 msgid "admin.table.api.client_list.column.token.name"
-msgstr ""
+msgstr "Tilgangskode"
 
 msgid "admin.table.api.client_list.column.seen.name"
-msgstr ""
+msgstr "Sist sett"
 
 msgid "admin.table.api.client_list.column.access.name"
-msgstr ""
+msgstr "Tillatelser"
 
 msgid "admin.table.api.client_list.column.actions.name"
-msgstr ""
+msgstr "Handlinger"
 
 msgid "admin.table.api.client_list.column.token.mask"
-msgstr ""
+msgstr "Klikk for å vise"
 
 msgid "admin.clientside.api.client_list.action.none"
-msgstr ""
+msgstr "(ikke gjør noe)"
 
 msgid "admin.clientside.api.client_list.action.reset"
-msgstr ""
+msgstr "Nullstill tilgangskode"
 
 msgid "admin.clientside.api.client_list.action.delete"
-msgstr ""
+msgstr "Slett klient"
 
 msgid "admin.section.api.ui.add.name"
-msgstr ""
+msgstr "Legg til ny klient"
 
 msgid "admin.section.api.ui.copy.name"
-msgstr ""
+msgstr "Kopier til utklippstavlen"
 
 msgid "admin.clientside.api.client_list.token.new"
 msgstr ""
