@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
+"Language-Team: Spanish\n"
+"Language: es_ES\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/parameter.po\n"
+"PO-Revision-Date: 2019-04-02 10:47\n"
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog when additional data must be specified for the selected
+#  objective or reward. This label will display when an objective or reward that
+#  requires it has been chosen. This label is for the minimum level of a raid.
+msgid "parameter.min_tier.label"
+msgstr ""
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog as placeholders in e.g. the following string:
+#  "Win a level [placeholder] or higher raid"
+#  Please remember to include square brackets around the placeholder.
+msgid "parameter.min_tier.placeholder"
+msgstr ""
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog when additional data must be specified for the selected
+#  objective or reward. This label will display when an objective or reward that
+#  requires it has been chosen. This label is for the minimum objective or
+#  reward quantity (e.g. minimum number of Pokémon to catch).
+msgid "parameter.quantity.label"
+msgstr ""
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog as placeholders in e.g. the following string:
+#  "Catch [placeholder] Pokémon"
+#  Please remember to include square brackets around the placeholder.
+msgid "parameter.quantity.placeholder"
+msgstr ""
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog when additional data must be specified for the selected
+#  objective or reward. This label will display when an objective or reward that
+#  requires it has been chosen. This label is for the catch/evolve/etc. species
+#  requirements.
+msgid "parameter.species.label"
+msgstr ""
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog as placeholders in e.g. the following string:
+#  "Catch a [placeholder]"
+#  Please remember to include square brackets around the placeholder.
+msgid "parameter.species.placeholder"
+msgstr ""
+
+#  This is a header displayed in a selection box when selecting a particular
+#  species for a research objective. It lists commonly reported species.
+msgid "parameter.species.recent.label"
+msgstr ""
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog when additional data must be specified for the selected
+#  objective or reward. This label will display when an objective or reward that
+#  requires it has been chosen. This label is for the catch/evolve/etc. type
+#  requirements.
+msgid "parameter.type.label"
+msgstr ""
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog as placeholders in e.g. the following string:
+#  "Catch a [placeholder] Pokémon"
+#  Please remember to include square brackets around the placeholder.
+msgid "parameter.type.placeholder"
+msgstr ""
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog when additional data must be specified for the selected
+#  objective or reward. This label will display when an objective or reward that
+#  requires it has been chosen. This label is for the item usage requirements
+#  for encounters.
+msgid "parameter.encounter_item.label"
+msgstr ""
+
+#  This is used in the objective and reward drop-down menus in the research
+#  reporting dialog as placeholders in e.g. the following string:
+#  "Use a [placeholder] to help catch Pokémon"
+#  Please remember to include square brackets around the placeholder.
+msgid "parameter.encounter_item.placeholder"
+msgstr ""
+
