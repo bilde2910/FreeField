@@ -14,40 +14,49 @@
 #     Event objectives
 # --------------------------------------------------------------------------
 -
-    # Evolve 2 Grass-type Pokémon
+    # Evolve 3 Bug-type Pokémon
     type: "evolve_type"
     params:
         type:
-          - grass
-        quantity: 2
+          - bug
+        quantity: 3
     encounter_species:
-      - 114 # Tangela
+      - 290 # Nincada
 -
-    # Evolve 5 Grass-type Pokémon
-    type: "evolve_type"
-    params:
-        type:
-          - grass
-        quantity: 5
-    encounter_species:
-      - 3 # Venusaur
--
-    # Catch 3 Bulbasaur or Chikorita
+    # Catch 2 Wurmple
     type: "catch_specific"
     params:
         species:
-          - 1 # Bulbasaur
-          - 152 # Chikorita
-        quantity: 3
+          - 265 # Wurmple
+        quantity: 2
     encounter_species:
-      - 387 # Turtwig
+      - 10 # Caterpie
 -
-    # Catch 10 Grass-type Pokémon
+    # Catch 5 Ledyba or Spinarak
+    type: "catch_specific"
+    params:
+        species:
+          - 165 # Ledyba
+          - 167 # Spinarak
+        quantity: 5
+    encounter_species:
+      - 193 # Yanma
+-
+    # Catch 10 Bug-type Pokémon
     type: "catch_type"
     params:
         type:
-          - grass
+          - bug
         quantity: 10
+    encounter_species:
+      - 123 # Scyther
+-
+    # Catch 15 Bug-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - bug
+        quantity: 15
 
 # --------------------------------------------------------------------------
 #     Monthly objectives
