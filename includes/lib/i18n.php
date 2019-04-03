@@ -48,7 +48,6 @@ class I18N {
     public static function resolve($token) {
         if (self::$i18ndata === null) self::loadI18Ndata();
         $td = substr($token, 0, strpos($token, "."));
-        if (!isset(self::$i18ndata[$td])) self::loadI18Ndata($td);
 
         /*
             First, check if the key is already defined (and return the value in
@@ -62,17 +61,19 @@ class I18N {
             determine if the string can be found in any of them.
         */
         $languages = self::getAcceptedLanguages();
-        while (count($languages) > 1) {
-            array_shift($languages);
+        while (count($languages) > 0) {
             /*
                 Always ensure that the default language is in the array.
             */
             if (!isset($languages[self::DEFAULT_LANG])) {
                 $languages[self::DEFAULT_LANG] = "0";
-                $i++;
             }
             self::loadI18Ndata($td, $languages);
             if (!empty(self::$i18ndata[$token])) return self::$i18ndata[$token];
+            /*
+                If the string wasn't found, continue to the next language.
+            */
+            array_shift($languages);
         }
         return $token;
     }
