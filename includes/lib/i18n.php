@@ -311,7 +311,7 @@ class I18N {
             array and store it in `$i18ndefault` as the fallback language.
         */
         if (self::$i18ndefault === null) self::$i18ndefault = array();
-        if (self::$currentLanguage == self::DEFAULT_LANG) {
+        if (self::$currentLanguage == self::DEFAULT_LANG && isset(self::$i18ndata[$domain])) {
             self::$i18ndefault[$domain] = self::$i18ndata[$domain];
         } else {
             self::$i18ndefault[$domain] = self::parsePo(
