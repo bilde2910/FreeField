@@ -19,31 +19,61 @@ class I18N {
     const DEFAULT_LANG = "en-US";
 
     /*
-        `$i18ndata` holds the I18N array for the preferred loaded language.
-        `$i18ndefault` holds the I18N array for the default language specified
-        above.
+        `$i18ndata` holds the I18N array for the loaded language(s).
     */
     private static $i18ndata = null;
-    private static $i18ndefault = null;
 
     /*
-        `$currentLanguage` holds the language code of the language currently
-        loaded to `$i18ndata`.
+        `$currentLanguage` holds the language code of the most preferred
+        language currently loaded to `$i18ndata`.
     */
     private static $currentLanguage = null;
 
     /*
+        Cache of available languages in FreeField.
+    */
+    private static $langCache = null;
+
+    /*
+        List of .po files which have been read and merged into `$i18ndata`.
+    */
+    private static $appliedFiles = array();
+
+    /*
         Resolves a localized string for the given I18N token. If the string
-        isn't found in the preferred language array, a lookup is performed
-        against the default language array. If a string isn't found there
-        either, the token itself is returned.
+        isn't found in the preferred language array, the next language is loaded
+        and search against. If the string isn't found in any loaded languages,
+        the token itself is returned.
     */
     public static function resolve($token) {
         if (self::$i18ndata === null) self::loadI18Ndata();
         $td = substr($token, 0, strpos($token, "."));
         if (!isset(self::$i18ndata[$td])) self::loadI18Ndata($td);
-        if (isset(self::$i18ndata[$td][$token])) return self::$i18ndata[$td][$token];
-        if (isset(self::$i18ndefault[$td][$token])) return self::$i18ndefault[$td][$token];
+
+        /*
+            First, check if the key is already defined (and return the value in
+            that case).
+        */
+        if (!empty(self::$i18ndata[$token])) return self::$i18ndata[$token];
+
+        /*
+            If not, remove one language at a time from the list of preferred
+            languages and reapply, reading more and more language data to
+            determine if the string can be found in any of them.
+        */
+        $languages = self::getAcceptedLanguages();
+        while (count($languages) > 1) {
+            array_shift($languages);
+            /*
+                Always ensure that the default language is in the array.
+            */
+            if (!isset($languages[self::DEFAULT_LANG])) {
+                $languages[self::DEFAULT_LANG] = "0";
+                $i++;
+            }
+            self::loadI18Ndata($td, $languages);
+            if (!empty(self::$i18ndata[$token])) return self::$i18ndata[$token];
+        }
         return $token;
     }
 
@@ -207,20 +237,18 @@ class I18N {
 
         $tokens = array();
         $domainlength = strlen($tokenDomain);
-        foreach (self::$i18ndefault as $domain => $content) {
-            foreach ($content as $key => $value) {
-                /*
-                    Loop over the entire default I18N array to check if any of its
-                    keys match the domain prefix passed to this function. The
-                    preferred language array may not contain all keys, while the
-                    default array is guaranteed to contain all I18N keys.
+        foreach (self::$i18ndata as $key => $value) {
+            /*
+                Loop over the entire default I18N array to check if any of its
+                keys match the domain prefix passed to this function. The
+                preferred language array may not contain all keys, while the
+                default array is guaranteed to contain all I18N keys.
 
-                    A substring is used cut off the trailing asterisk from the
-                    domain when checking for matches.
-                */
-                if (substr($key, 0, $domainlength - 1) == substr($tokenDomain, 0, -1)) {
-                    $tokens[$key] = self::resolve($key);
-                }
+                A substring is used cut off the trailing asterisk from the
+                domain when checking for matches.
+            */
+            if (substr($key, 0, $domainlength - 1) == substr($tokenDomain, 0, -1)) {
+                $tokens[$key] = self::resolve($key);
             }
         }
         return $tokens;
@@ -253,16 +281,16 @@ class I18N {
         loaded. This function is called by all I18N `resolve*()` functions if
         the I18N arrays are empty.
     */
-    private static function loadI18Ndata($domain = "language") {
+    private static function loadI18Ndata($domain = "language", $languages = null) {
         /*
             Fetch a prioritized list of all languages accepted by the browser.
         */
-        $requested = self::getAcceptedLanguages();
+        if ($languages === null) $languages = self::getAcceptedLanguages();
 
         /*
             Set the preferred language and load the I18N data.
         */
-        self::setLanguages($requested, $domain);
+        self::setLanguages($languages, $domain);
     }
 
     public static function setLanguages($requested, $domain = "language") {
@@ -294,38 +322,28 @@ class I18N {
                     If the given language is already loaded, don't load it
                     again.
                 */
-                if ($avail == self::$currentLanguage && isset(self::$i18ndata[$domain])) return;
-
-                self::$i18ndata[$domain] = self::parsePo(
-                    __DIR__."/../i18n/{$avail}/{$domain}.po"
-                );
+                $poFile = "{$avail}/{$domain}.po";
+                if (!in_array($poFile, self::$appliedFiles)) {
+                    self::$appliedFiles[] = $poFile;
+                    if (file_exists(__DIR__."/../i18n/{$poFile}")) {
+                        $data = self::parsePo(
+                            __DIR__."/../i18n/{$poFile}"
+                        );
+                        /*
+                            Load the language file on top of the currently
+                            loaded language, not replacing already defined
+                            strings, if any.
+                        */
+                        foreach ($data as $key => $value) {
+                            if (empty(self::$i18ndata[$key])) {
+                                self::$i18ndata[$key] = $value;
+                            }
+                        }
+                    }
+                }
                 self::$currentLanguage = $avail;
                 break;
             }
-        }
-
-        /*
-            If the preferred language is the same as the default language, we
-            can save a file read by just copying the `$i18ndata` to
-            `$i18ndefault`. If not, read the default I18N language file to an
-            array and store it in `$i18ndefault` as the fallback language.
-        */
-        if (self::$i18ndefault === null) self::$i18ndefault = array();
-        if (self::$currentLanguage == self::DEFAULT_LANG && isset(self::$i18ndata[$domain])) {
-            self::$i18ndefault[$domain] = self::$i18ndata[$domain];
-        } else {
-            self::$i18ndefault[$domain] = self::parsePo(
-                __DIR__."/../i18n/".self::DEFAULT_LANG."/{$domain}.po"
-            );
-        }
-
-        /*
-            Catch if the current language is not set - set it to the default
-            language to prevent issues elsewhere.
-        */
-        if (self::$currentLanguage === null) {
-            self::$i18ndata = self::$i18ndefault;
-            self::$currentLanguage = self::DEFAULT_LANG;
         }
     }
 
@@ -385,7 +403,9 @@ class I18N {
           - Spanish (Argentina)
     */
     public static function getAcceptedLanguages() {
-        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) return array();
+        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) return array(
+            self::DEFAULT_LANG => "1"
+        );
 
         $lang_parse = array();
         /*
@@ -454,6 +474,12 @@ class I18N {
             }
 
             /*
+                Add the default language to the bottom of the list, if not
+                present already.
+            */
+            if (!isset($langs[self::DEFAULT_LANG])) $langs[self::DEFAULT_LANG] = "0";
+
+            /*
                 Sort the list in descending order by their quality value.
                 `SORT_NUMERIC` has to be explicitly specified, since the quality
                 values in the array are strings, not floats.
@@ -470,8 +496,9 @@ class I18N {
         installed languages. Returns an array of language codes.
     */
     public static function getAvailableLanguages() {
-        $files = array_diff(scandir(__DIR__."/../i18n"), array('..', '.'));
-        return $files;
+        if (self::$langCache !== null) return self::$langCache;
+        self::$langCache = array_diff(scandir(__DIR__."/../i18n"), array('..', '.'));
+        return self::$langCache;
     }
 
     /*
