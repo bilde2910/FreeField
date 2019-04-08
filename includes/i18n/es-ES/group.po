@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/group.po\n"
-"PO-Revision-Date: 2019-04-08 16:17\n"
+"PO-Revision-Date: 2019-04-08 16:22\n"
 
 msgid "group.selector.current"
 msgstr "Grupo actual"
@@ -31,16 +31,16 @@ msgid "group.level.read_only"
 msgstr ""
 
 msgid "group.level.registered"
-msgstr ""
+msgstr "Usuarios registrados"
 
 msgid "group.level.submitter"
 msgstr ""
 
 msgid "group.level.moderator"
-msgstr ""
+msgstr "Moderador"
 
 msgid "group.level.admin"
-msgstr ""
+msgstr "Administrador"
 
 msgid "group.level.host"
 msgstr ""
