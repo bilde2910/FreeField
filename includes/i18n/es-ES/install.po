@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-04-02 10:47\n"
+"PO-Revision-Date: 2019-04-09 04:19\n"
 
 msgid "install.button.continue"
 msgstr ""
@@ -34,10 +34,10 @@ msgid "install.stage.1.info"
 msgstr ""
 
 msgid "install.stage.1.assert.https"
-msgstr ""
+msgstr "Conexión cifrada (HTTPS) - necesaria para la geolocalización y la aplicación web progresiva"
 
 msgid "install.stage.1.assert.root_writable"
-msgstr ""
+msgstr "Directorio de instalación con permisos de escritura - requerido para instalar actualizaciones"
 
 msgid "install.stage.1.assert.userdata_writable"
 msgstr ""
