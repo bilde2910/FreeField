@@ -13,50 +13,8 @@
 # --------------------------------------------------------------------------
 #     Event objectives
 # --------------------------------------------------------------------------
--
-    # Evolve 3 Bug-type Pokémon
-    type: "evolve_type"
-    params:
-        type:
-          - bug
-        quantity: 3
-    encounter_species:
-      - 290 # Nincada
--
-    # Catch 2 Wurmple
-    type: "catch_specific"
-    params:
-        species:
-          - 265 # Wurmple
-        quantity: 2
-    encounter_species:
-      - 10 # Caterpie
--
-    # Catch 5 Ledyba or Spinarak
-    type: "catch_specific"
-    params:
-        species:
-          - 165 # Ledyba
-          - 167 # Spinarak
-        quantity: 5
-    encounter_species:
-      - 193 # Yanma
--
-    # Catch 10 Bug-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - bug
-        quantity: 10
-    encounter_species:
-      - 123 # Scyther
--
-    # Catch 15 Bug-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - bug
-        quantity: 15
+
+# Some objectives highlighted with (EVENT) on rewards below.
 
 # --------------------------------------------------------------------------
 #     Monthly objectives
@@ -337,6 +295,7 @@
     encounter_species:
       - 102 # Exeggcute
       - 209 # Snubbull
+      - 427 # Buneary (EVENT)
 -
     # Hatch 3 Eggs
     type: "hatch"
@@ -344,6 +303,7 @@
         quantity: 3
     encounter_species:
       - 126 # Magmar
+      - 184 # Azumarill (EVENT)
 -
     # Hatch 5 Eggs
     type: "hatch"
