@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-04-30 22:38\n"
+"PO-Revision-Date: 2019-04-30 22:50\n"
 
 msgid "install.button.continue"
 msgstr ""
@@ -94,31 +94,31 @@ msgid "install.stage.3.assert.exec_sql"
 msgstr "Estructura de la base de datos creada"
 
 msgid "install.stage.3.assert.proceed_stage"
-msgstr "Finalizado el registro de la Fase 3"
+msgstr "Finalizado el registro del Paso 3"
 
 msgid "install.stage.3.next"
 msgstr "Por favor, haga clic en el botón de abajo para continuar con la configuración de autenticación."
 
 msgid "install.stage.4.title"
-msgstr ""
+msgstr "Paso 4: Configuración de autenticación"
 
 msgid "install.stage.4.info"
 msgstr ""
 
 msgid "install.stage.4.assert.valid_data"
-msgstr ""
+msgstr "Los datos de autenticación proporcionados son válidos"
 
 msgid "install.stage.4.assert.config_written"
-msgstr ""
+msgstr "Archivo de configuración actualizado"
 
 msgid "install.stage.4.assert.any_enabled"
-msgstr ""
+msgstr "Al menos un proveedor de autenticación está habilitado"
 
 msgid "install.stage.4.assert.proceed_stage"
 msgstr ""
 
 msgid "install.stage.4.next"
-msgstr ""
+msgstr "Al continuar, se le pedirá que inicie sesión usando uno de los proveedores de autenticación que haya configurado."
 
 msgid "install.stage.5.title"
 msgstr ""
