@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-04-30 21:20\n"
+"PO-Revision-Date: 2019-04-30 22:07\n"
 
 msgid "install.button.continue"
 msgstr ""
@@ -52,7 +52,7 @@ msgid "install.stage.1.assert.openssl_available"
 msgstr "Extensión OpenSSL cargada - requerido para sesiones y almacenamiento seguro"
 
 msgid "install.stage.1.assert.phar_available"
-msgstr ""
+msgstr "PharData disponible - requerido para actualizaciones del software"
 
 msgid "install.stage.1.checks"
 msgstr ""
