@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-04-30 22:24\n"
+"PO-Revision-Date: 2019-04-30 22:38\n"
 
 msgid "install.button.continue"
 msgstr ""
@@ -67,16 +67,16 @@ msgid "install.stage.2.assert.copy_templates"
 msgstr "Copiadas las opciones de archivos desde las plantillas"
 
 msgid "install.stage.2.assert.authkeys_written"
-msgstr ""
+msgstr "Generadas las claves de encriptación de almacenamiento seguro"
 
 msgid "install.stage.2.assert.config_written"
-msgstr ""
+msgstr "Archivo de configuración generado"
 
 msgid "install.stage.2.next"
-msgstr ""
+msgstr "Por favor, haga clic en el botón de abajo para continuar con la configuración de la base de datos."
 
 msgid "install.stage.3.title"
-msgstr ""
+msgstr "Paso 3: Configuración de base de datos"
 
 msgid "install.stage.3.info"
 msgstr ""
@@ -85,19 +85,19 @@ msgid "install.stage.3.assert.valid_data"
 msgstr ""
 
 msgid "install.stage.3.assert.config_written"
-msgstr ""
+msgstr "Archivo de configuración actualizado"
 
 msgid "install.stage.3.assert.db_connected"
-msgstr ""
+msgstr "Conectado a la base de datos"
 
 msgid "install.stage.3.assert.exec_sql"
-msgstr ""
+msgstr "Estructura de la base de datos creada"
 
 msgid "install.stage.3.assert.proceed_stage"
-msgstr ""
+msgstr "Finalizado el registro de la Fase 3"
 
 msgid "install.stage.3.next"
-msgstr ""
+msgstr "Por favor, haga clic en el botón de abajo para continuar con la configuración de autenticación."
 
 msgid "install.stage.4.title"
 msgstr ""
