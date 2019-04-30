@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-04-30 22:15\n"
+"PO-Revision-Date: 2019-04-30 22:24\n"
 
 msgid "install.button.continue"
 msgstr ""
@@ -22,7 +22,7 @@ msgid "install.button.finish"
 msgstr "Finalizar configuración"
 
 msgid "install.button.retry"
-msgstr ""
+msgstr "Vuelve a intentarlo"
 
 msgid "install.operation.done"
 msgstr ""
@@ -64,7 +64,7 @@ msgid "install.stage.2.title"
 msgstr "Paso 2: Generando archivo de configuración"
 
 msgid "install.stage.2.assert.copy_templates"
-msgstr ""
+msgstr "Copiadas las opciones de archivos desde las plantillas"
 
 msgid "install.stage.2.assert.authkeys_written"
 msgstr ""
