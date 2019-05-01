@@ -14,158 +14,6 @@
 #     Event objectives
 # --------------------------------------------------------------------------
 
-# Some objectives highlighted with (EVENT) on rewards below.
-
-# --------------------------------------------------------------------------
-#     Monthly objectives
-# --------------------------------------------------------------------------
--
-    # Battle in a raid
-    type: "battle_raid"
-    params:
-        quantity: 1
-    encounter_species:
-      - 96 # Drowzee
--
-    # Catch 3 Grass, Water or Fire-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - grass
-          - water
-          - fire
-        quantity: 3
--
-    # Catch 5 Electric, Normal or Poison-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - electric
-          - normal
-          - poison
-        quantity: 5
-    encounter_species:
-      - 121 # Starmie
--
-    # Catch 5 Fighting-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - fighting
-        quantity: 5
-    encounter_species:
-      - 81 # Magnemite
--
-    # Catch 7 Flying, Psychic or Dark-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - flying
-          - psychic
-          - dark
-        quantity: 7
-    encounter_species:
-      - 347 # Anorith
--
-    # Catch 10 Ground-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - ground
-        quantity: 10
-    encounter_species:
-      - 27 # Sandshrew
--
-    # Catch 10 Ice-type Pokémon
-    type: "catch_type"
-    params:
-        type:
-          - ice
-        quantity: 10
-    encounter_species:
-      - 140 # Kabuto
--
-    # Earn 5 Candies walking with your buddy
-    type: "buddy_candy"
-    params:
-        quantity: 5
-    encounter_species:
-      - 73 # Tentacruel
--
-    # Make 5 Great Curveball Throws in a row
-    type: "throw_curve_great_chain"
-    params:
-        quantity: 5
-    encounter_species:
-      - 327 # Spinda
--
-    # Send 2 Gifts to Friends
-    type: "send_gift"
-    params:
-        quantity: 2
-    encounter_species:
-      - 92 # Gastly
--
-    # Trade a Pokémon
-    type: "trade"
-    params:
-        quantity: 1
-    encounter_species:
-      - 310 # Manectric
--
-    # Transfer 3 Pokémon
-    type: "transfer"
-    params:
-        quantity: 3
-    encounter_species:
-      - 37 # Vulpix
--
-    # Use an item to evolve a Pokémon
-    type: "evolve_item"
-    params:
-        quantity: 1
-    encounter_species:
-      - 142 # Aerodactyl
--
-    # Use 5 berries to help catch Pokémon
-    type: "use_berry"
-    params:
-        quantity: 5
-    encounter_species:
-      - 58 # Growlithe
--
-    # Use 5 Razz Berries to help catch Pokémon
-    type: "use_item_encounter"
-    params:
-        encounter_item: razz_berry
-        quantity: 5
-    encounter_species:
-      - 104 # Cubone
--
-    # Use 10 Pinap Berries to help catch Pokémon
-    type: "use_item_encounter"
-    params:
-        encounter_item: pinap_berry
-        quantity: 10
-    encounter_species:
-      - 129 # Magikarp
--
-    # Win a level 3 or higher raid
-    type: "level_raid"
-    params:
-        min_tier: 3
-        quantity: 1
-    encounter_species:
-      - 138 # Omanyte
-      - 140 # Kabuto
--
-    # Win 5 raids
-    type: "win_raid"
-    params:
-        quantity: 5
-    encounter_species:
-      - 142 # Aerodactyl
-
 # --------------------------------------------------------------------------
 #     Gym objectives
 # --------------------------------------------------------------------------
@@ -176,7 +24,7 @@
         quantity: 1
     encounter_species:
       - 56 # Mankey
-      - 66 # Machop
+      - 296 # Makuhita
 -
     # Battle in a Gym 5 times
     type: "battle_gym"
@@ -206,23 +54,40 @@
     params:
         quantity: 5
     encounter_species:
-      - 131 # Lapras
-#-
-#    # Battle in a raid
-#    type: "battle_raid"
-#    params:
-#        quantity: 1
-#-
-#    # Win a level 3 or higher raid
-#    type: "level_raid"
-#    params:
-#        min_tier: 3
-#        quantity: 1
+      - 88 # Grimer
+-
+    # Battle in a raid
+    type: "battle_raid"
+    params:
+        quantity: 1
+    encounter_species:
+      - 307 # Meditite
+-
+    # Win a level 2 or higher raid
+    type: "level_raid"
+    params:
+        min_tier: 2
+        quantity: 1
+    encounter_species:
+      - 302 # Sableye
+-
+    # Win a level 3 or higher raid
+    type: "level_raid"
+    params:
+        min_tier: 3
+        quantity: 1
+    encounter_species:
+      - 138 # Omanyte
 -
     # Win a raid
     type: "win_raid"
     params:
         quantity: 1
+-
+    # Win 3 raids
+    type: "win_raid"
+    params:
+        quantity: 3
 -
     # Use a Super Effective Charged Attack in a Gym battle
     type: "se_charge"
@@ -246,7 +111,7 @@
         quantity: 10
     encounter_species:
       - 129 # Magikarp
-      - 228 # Houndour
+      - 216 # Teddiursa
 -
     # Catch 5 Pokémon with Weather Boost
     type: "catch_weather"
@@ -270,6 +135,76 @@
     encounter_species:
       - 147 # Dratini
 -
+    # Catch 3 Grass, Water or Fire-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - grass
+          - water
+          - fire
+        quantity: 3
+-
+    # Catch 3 Electric, Normal or Poison-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - electric
+          - normal
+          - poison
+        quantity: 3
+    encounter_species:
+      - 311 # Plusle
+      - 312 # Minun
+-
+    # Catch 5 Fighting-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - fighting
+        quantity: 5
+    encounter_species:
+      - 286 # Breloom
+-
+    # Catch 5 Water-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - water
+        quantity: 5
+    encounter_species:
+      - 86 # Seel
+-
+    # Catch 5 Flying, Dark or Psychic-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - flying
+          - dark
+          - psychic
+        quantity: 5
+    encounter_species:
+      - 261 # Poochyena
+-
+    # Catch 7 Grass, Water or Fire-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - grass
+          - water
+          - fire
+        quantity: 7
+    encounter_species:
+      - 58 # Growlithe
+-
+    # Catch 10 Ground-type Pokémon
+    type: "catch_type"
+    params:
+        type:
+          - ground
+        quantity: 10
+    encounter_species:
+      - 50 # Diglett
+-
     # Catch 10 Normal-type Pokémon
     type: "catch_type"
     params:
@@ -283,10 +218,40 @@
         species:
           - 132 # Ditto
         quantity: 1
+-
+    # Use 5 berries to help catch Pokémon
+    type: "use_berry"
+    params:
+        quantity: 5
+    encounter_species:
+      - 70 # Weepinbell
+-
+    # Use 5 Nanab Berries to help catch Pokémon
+    type: "use_item_encounter"
+    params:
+        encounter_item: nanab_berry
+        quantity: 5
+    encounter_species:
+      - 317 # Swalot
+-
+    # Use 10 Pinap Berries to help catch Pokémon
+    type: "use_item_encounter"
+    params:
+        encounter_item: pinap_berry
+        quantity: 10
+    encounter_species:
+      - 294 # Loudred
 
 # --------------------------------------------------------------------------
 #     Walking objectives
 # --------------------------------------------------------------------------
+-
+    # Earn 5 Candies walking with your buddy
+    type: "buddy_candy"
+    params:
+        quantity: 5
+    encounter_species:
+      - 287 # Slakoth
 -
     # Hatch an Egg
     type: "hatch"
@@ -294,8 +259,7 @@
         quantity: 1
     encounter_species:
       - 102 # Exeggcute
-      - 209 # Snubbull
-      - 427 # Buneary (EVENT)
+      - 325 # Spoink
 -
     # Hatch 3 Eggs
     type: "hatch"
@@ -303,7 +267,6 @@
         quantity: 3
     encounter_species:
       - 126 # Magmar
-      - 184 # Azumarill (EVENT)
 -
     # Hatch 5 Eggs
     type: "hatch"
@@ -321,8 +284,8 @@
     params:
         quantity: 1
     encounter_species:
+      - 16 # Pidgey
       - 133 # Eevee
-      - 191 # Sunkern
 -
     # Power up Pokémon 5 times
     type: "power_up"
@@ -332,6 +295,20 @@
       - 1 # Bulbasaur
       - 4 # Charmander
       - 7 # Squirtle
+-
+    # Use an item to evolve a Pokémon
+    type: "evolve_item"
+    params:
+        quantity: 1
+    encounter_species:
+      - 227 # Skarmory
+-
+    # Transfer 3 Pokémon
+    type: "transfer"
+    params:
+        quantity: 3
+    encounter_species:
+      - 353 # Shuppet
 
 # --------------------------------------------------------------------------
 #     Throwing skill objectives
@@ -342,8 +319,8 @@
     params:
         quantity: 5
     encounter_species:
+      - 74 # Geodude
       - 100 # Voltorb
-      - 399 # Bidoof
 -
     # Make 3 Great Throws
     type: "throw_simple_great"
@@ -353,11 +330,6 @@
       - 92 # Gastly
       - 345 # Lileep
       - 347 # Anorith
--
-    # Make 5 Great Throws
-    type: "throw_simple_great"
-    params:
-        quantity: 5
 -
     # Make an Excellent Throw
     type: "throw_simple_excellent"
@@ -392,6 +364,23 @@
     type: "throw_curve_nice_chain"
     params:
         quantity: 2
+-
+    # Make 3 Great Curveball Throws
+    type: "throw_curve_great"
+    params:
+        quantity: 3
+-
+    # Make 3 Great Curveball Throws in a row
+    type: "throw_curve_great_chain"
+    params:
+        quantity: 3
+-
+    # Make 5 Great Curveball Throws in a row
+    type: "throw_curve_great_chain"
+    params:
+        quantity: 5
+    encounter_species:
+      - 327 # Spinda
 
 # --------------------------------------------------------------------------
 #     Exploration objectives
@@ -405,3 +394,17 @@
 # --------------------------------------------------------------------------
 #     Social objectives
 # --------------------------------------------------------------------------
+-
+    # Send 10 Gifts to Friends
+    type: "send_gift"
+    params:
+        quantity: 10
+    encounter_species:
+      - 103 # Exeggutor
+-
+    # Trade a Pokémon
+    type: "trade"
+    params:
+        quantity: 1
+    encounter_species:
+      - 425 # Drifloon
