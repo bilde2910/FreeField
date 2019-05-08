@@ -99,8 +99,8 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
                           integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
                           crossorigin="anonymous">
                     <link rel="stylesheet"
-                          href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-                          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+                          href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+                          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
                           crossorigin="anonymous">
                     <link rel="stylesheet" href="./css/main.css">
                     <link rel="stylesheet" href="./css/<?php echo Config::get("themes/color/user-settings/theme")->valueHTML(); ?>.css">
@@ -271,8 +271,8 @@ Security::declareFrameOptionsHeader();
               integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
               crossorigin="anonymous">
         <link rel="stylesheet"
-              href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-              integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+              href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+              integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
               crossorigin="anonymous"
               media="none" onload="if(media!=='all')media='all'">
         <link rel="stylesheet"
