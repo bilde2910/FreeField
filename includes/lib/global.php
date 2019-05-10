@@ -10,7 +10,7 @@
     then call the proper module using `__require()`.
 */
 
-const FF_VERSION = "1.2-dev";
+const FF_VERSION = "1.2-alpha.1";
 
 function __require($require) {
     switch ($require) {
