@@ -630,7 +630,7 @@ function addMarkers(markers, type) {
                 pois[realId].reward.params.hasOwnProperty("species") &&
                 pois[realId].reward.params.species.length == 1
             ) {
-                e.className += " sp-" + pois[id].reward.params.species[0];
+                e.className += " sp-" + pois[realId].reward.params.species[0];
             }
 
             pois[realId]["elementId"] = e.id;
