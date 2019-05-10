@@ -228,6 +228,169 @@ __require("research");
             <div class="paginate-inner right-align tu-control-paginate"
                  data-paginate-for="table-poi"></div>
         </div>
+        <?php
+            /*
+                Get a list of available arenas from the database.
+
+                This function returns an array of instances of the Arena class
+                from /includes/lib/geo.php. Please see that file for class
+                implementation details.
+            */
+            $pois = Geo::listArenas();
+
+            /*
+                Get a list of available geofences from the configuration file.
+
+                This function returns an array of instance of the Geofence class
+                from /includes/lib/geo.php. Please see that file for class
+                implementation details.
+            */
+            $fences = Geo::listGeofences();
+
+            /*
+                Create an array for counting the number of arenas within each
+                geofence.
+            */
+            $fencedArenaCounts = array();
+            foreach ($fences as $fence) {
+                $fencedArenaCounts[$fence->getID()] = 0;
+            }
+
+            /*
+                Sort the arena list in ascending order by their name.
+            */
+            usort($pois, function($a, $b) {
+                if ($a->getName() == $b->getName()) return 0;
+                return strcmp($a->getName(), $b->getName()) < 0 ? -1 : 1;
+            });
+        ?>
+        <h2 class="content-subhead">
+            <?php echo I18N::resolveArgsHTML(
+                "admin.section.pois.arena_list.name", true,
+                count($pois)
+            ); ?>
+        </h2>
+        <table class="pure-table force-fullwidth paginate" id="table-arena">
+            <thead>
+                <tr>
+                    <!--
+                        Table header defining columns for:
+
+                            1.  Changing the arena name (text box)
+                            2.  Showing the date and time the arena was created
+                            3.  Showing the name of the user who created the
+                                arena
+                            4.  Showing the date and time the arena was last
+                                updated
+                            5.  Showing the name of the user who made that
+                                update
+                            6.  Showing the coordinates of the arena and a link
+                                to display the arena on a mapping service
+                            7.  Taking actions on the arena (e.g. deleting it)
+                    -->
+                    <th data-sort-function="input-value"
+                        data-search-function="input-value">
+                        <?php echo I18N::resolveHTML("admin.table.pois.arena_list.column.arena_name.name"); ?>
+                    </th>
+                    <th data-sort-function="alphanumeric"
+                        data-search-function="plain-text">
+                        <?php echo I18N::resolveHTML("admin.table.pois.arena_list.column.created_time.name"); ?>
+                    </th>
+                    <th data-sort-function="alphanumeric"
+                        data-search-function="plain-text">
+                        <?php echo I18N::resolveHTML("admin.table.pois.arena_list.column.created_by.name"); ?>
+                    </th>
+                    <th data-sort-function="alphanumeric"
+                        data-search-function="plain-text">
+                        <?php echo I18N::resolveHTML("admin.table.pois.arena_list.column.last_updated_time.name"); ?>
+                    </th>
+                    <th data-sort-function="alphanumeric"
+                        data-search-function="plain-text">
+                        <?php echo I18N::resolveHTML("admin.table.pois.arena_list.column.last_updated_by.name"); ?>
+                    </th>
+                    <th data-sort-function="numeric"
+                        data-search-function="plain-text">
+                        <?php echo I18N::resolveHTML("admin.table.pois.arena_list.column.location.name"); ?>
+                    </th>
+                    <th>
+                        <?php echo I18N::resolveHTML("admin.table.pois.arena_list.column.actions.name"); ?>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    foreach ($pois as $arena) {
+                        $pid = $arena->getID();
+                        foreach ($fences as $fence) {
+                            if ($arena->isWithinGeofence($fence)) {
+                                $fencedArenaCounts[$fence->getID()]++;
+                            }
+                        }
+                        ?>
+                            <tr>
+                                <td>
+                                    <input type="text"
+                                           name="a<?php echo $pid; ?>[name]"
+                                           class="arena-name"
+                                           value="<?php echo $arena->getNameHTML(); ?>">
+                                </td>
+                                <td><?php echo $arena->getTimeCreatedString(); ?></td>
+                                <?php /*
+                                    The identities of the creator and updater
+                                    are both displayed as the nickname, colored
+                                    with the user's group's color, followed by a
+                                    smaller string showing the authentication
+                                    provider and provider identity (human
+                                    readable identity of the user as it appears
+                                    on their account at the authentication
+                                    provider).
+                                */ ?>
+                                <td style="line-height: 1.2em;">
+                                    <?php echo $arena->getCreator()->getNicknameHTML(); ?>
+                                    <br />
+                                    <span class="user-box-small no-wrap">
+                                        <?php echo $arena->getCreator()->getProviderIdentityHTML(); ?>
+                                    </span>
+                                </td>
+                                <td><?php echo $arena->getLastUpdatedString(); ?></td>
+                                <td style="line-height: 1.2em;">
+                                    <?php echo $arena->getLastUser()->getNicknameHTML(); ?>
+                                    <br />
+                                    <span class="user-box-small no-wrap">
+                                        <?php echo $arena->getLastUser()->getProviderIdentityHTML(); ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a target="ffGoToPOI" href="../#/show/arena/<?php echo $pid; ?>/">
+                                        <?php echo Geo::getLocationString($arena->getLatitude(), $arena->getLongitude()); ?>
+                                    </a>
+                                </td>
+                                <td><select class="arena-actions" name="a<?php echo $pid; ?>[action]">
+                                    <option value="none" selected>
+                                        <?php echo I18N::resolveHTML("admin.section.pois.arena_list.action.none"); ?>
+                                    </option>
+                                    <option value="delete">
+                                        <?php echo I18N::resolveHTML("admin.section.pois.arena_list.action.delete"); ?>
+                                    </option>
+                                </select></td>
+                            </tr>
+                        <?php
+                    }
+                ?>
+            </tbody>
+        </table>
+        <div class="paginate-outer table-utils-controls">
+            <div class="tu-control-search">
+                <p>
+                    <input type="text"
+                           data-search-for="table-arena"
+                           placeholder="<?php echo I18N::resolveHTML("admin.section.pois.arena_list.search"); ?>"
+                           data-do-not-track-changes>
+                </p>
+            </div>
+            <div class="paginate-inner right-align tu-control-paginate"
+                 data-paginate-for="table-arena"></div>
+        </div>
         <!--
             ============================================================
                 BATCH PROCESSING SECTION
@@ -261,6 +424,10 @@ __require("research");
                         data-search-function="plain-text">
                         <?php echo I18N::resolveHTML("admin.table.pois.batch_list.column.poi_count.name"); ?>
                     </th>
+                    <th data-sort-function="numeric"
+                        data-search-function="plain-text">
+                        <?php echo I18N::resolveHTML("admin.table.pois.batch_list.column.arena_count.name"); ?>
+                    </th>
                     <th>
                         <?php echo I18N::resolveHTML("admin.table.pois.batch_list.column.actions.name"); ?>
                     </th>
@@ -279,6 +446,9 @@ __require("research");
                                 <td>
                                     <p><?php echo $fencedPoiCounts[$fid]; ?></p>
                                 </td>
+                                <td>
+                                    <p><?php echo $fencedArenaCounts[$fid]; ?></p>
+                                </td>
                                 <td><select class="poi-actions" name="f<?php echo $fidHTML; ?>[action]">
                                     <option value="none" selected>
                                         <?php echo I18N::resolveHTML("admin.section.pois.batch_list.action.none"); ?>
@@ -287,8 +457,14 @@ __require("research");
                                     <option value="clear">
                                         <?php echo I18N::resolveHTML("admin.section.pois.batch_list.action.clear"); ?>
                                     </option>
-                                    <option value="delete">
-                                        <?php echo I18N::resolveHTML("admin.section.pois.batch_list.action.delete"); ?>
+                                    <option value="delete-poi">
+                                        <?php echo I18N::resolveHTML("admin.section.pois.batch_list.action.delete_poi"); ?>
+                                    </option>
+                                    <option value="delete-arena">
+                                        <?php echo I18N::resolveHTML("admin.section.pois.batch_list.action.delete_arena"); ?>
+                                    </option>
+                                    <option value="delete-all">
+                                        <?php echo I18N::resolveHTML("admin.section.pois.batch_list.action.delete_all"); ?>
                                     </option>
                                 </select></td>
                             </tr>
@@ -346,7 +522,7 @@ __require("research");
                 ============================================================
             -->
             <h2 class="content-subhead">
-                <?php echo I18N::resolveHTML("admin.section.pois.import.name"); ?>
+                <?php echo I18N::resolveHTML("admin.section.pois.import.poi.name"); ?>
             </h2>
             <!--
                 File input box. The user selects a file that contains a list of
@@ -372,7 +548,8 @@ __require("research");
                     <p>
                         <input type="file"
                                id="import-poi-file"
-                               accept=".csv">
+                               accept=".csv"
+                               data-type="poi">
                     </p>
                 </div>
             </div>
@@ -429,7 +606,7 @@ __require("research");
             -->
             <div id="import-poi-preview-section" class="hidden-by-default">
                 <h2 class="content-subhead">
-                    <?php echo I18N::resolveHTML("admin.section.pois.preview_table.name"); ?>
+                    <?php echo I18N::resolveHTML("admin.section.pois.preview_table.poi.name"); ?>
                 </h2>
                 <p id="import-poi-counter"></p>
                 <table class="pure-table force-fullwidth">
@@ -466,7 +643,136 @@ __require("research");
                 a JSON-encoded representation of all the fields, and will be
                 updated as the form is submitted.
             -->
-            <input type="hidden" name="n_json" id="import-poi-json" data-changed>
+            <input type="hidden" name="n_json_p" id="import-poi-json" data-changed>
+            <!--
+                ============================================================
+                    ARENA IMPORTS SECTION
+                ============================================================
+            -->
+            <h2 class="content-subhead">
+                <?php echo I18N::resolveHTML("admin.section.pois.import.arena.name"); ?>
+            </h2>
+            <!--
+                File input box. The user selects a file that contains a list of
+                arenas to be imported. Accepts CSV files only.
+            -->
+            <div class="pure-g">
+                <div class="pure-u-1-3 full-on-mobile">
+                    <p class="setting-name">
+                        <?php echo I18N::resolveHTML("admin.section.pois.import.file.name"); ?><span class="only-desktop">:
+                            <span class="tooltip">
+                                <i class="content-fas fas fa-question-circle"></i>
+                                <span>
+                                    <?php echo I18N::resolveHTML("admin.section.pois.import.file.desc"); ?>
+                                </span>
+                            </span>
+                        </span>
+                    </p>
+                    <p class="only-mobile">
+                        <?php echo I18N::resolveHTML("admin.section.pois.import.file.desc"); ?>
+                    </p>
+                </div>
+                <div class="pure-u-2-3 full-on-mobile">
+                    <p>
+                        <input type="file"
+                               id="import-arena-file"
+                               accept=".csv"
+                               data-type="arena">
+                    </p>
+                </div>
+            </div>
+            <?php
+                /*
+                    An input box for each of the field headers required for
+                    importing arenas. To import arenas, it is necessary to know
+                    which data column contains the arena name, latitude and
+                    longitude in the imported data. The user selects this using
+                    these selection boxes.
+                */
+                $fields = array("name", "latitude", "longitude");
+                foreach ($fields as $field) {
+                    ?>
+                        <div class="pure-g">
+                            <div class="pure-u-1-3 full-on-mobile">
+                                <p class="setting-name">
+                                    <?php echo I18N::resolveHTML(
+                                        "admin.section.pois.import.{$field}.name"
+                                    ); ?><span class="only-desktop">:
+                                        <span class="tooltip">
+                                            <i class="content-fas fas fa-question-circle"></i>
+                                            <span>
+                                                <?php echo I18N::resolveHTML(
+                                                    "admin.section.pois.import.{$field}.desc"
+                                                ); ?>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </p>
+                                <p class="only-mobile">
+                                    <?php echo I18N::resolveHTML("admin.section.pois.import.{$field}.desc"); ?>
+                                </p>
+                            </div>
+                            <div class="pure-u-2-3 full-on-mobile">
+                                <p>
+                                    <select id="import-arena-field-<?php echo $field; ?>" class="import-arena-field" disabled>
+                                        <option value="">
+                                            <?php echo I18N::resolveHTML("admin.section.pois.import.selector.none"); ?>
+                                        </option>
+                                        <optgroup class="import-arena-optgroup" label="<?php
+                                            echo I18N::resolveHTML("admin.section.pois.import.selector.available");
+                                        ?>"></optgroup>
+                                    </select>
+                                </p>
+                            </div>
+                        </div>
+                    <?php
+                }
+            ?>
+            <!--
+                The preview section for imported arenas. Contains a table that
+                is populated with arenas that will be imported.
+            -->
+            <div id="import-arena-preview-section" class="hidden-by-default">
+                <h2 class="content-subhead">
+                    <?php echo I18N::resolveHTML("admin.section.pois.preview_table.arena.name"); ?>
+                </h2>
+                <p id="import-arena-counter"></p>
+                <table class="pure-table force-fullwidth">
+                    <thead>
+                        <tr>
+                            <!--
+                                Table header defining columns for:
+
+                                    1.  Changing the arena name (text box)
+                                    2.  Changing the latitude of the arena (text
+                                        box)
+                                    3.  Changing the longitude of the arena
+                                        (text box)
+                                    4.  Choosing whether or not to import the
+                                        arena
+                            -->
+                            <th><?php echo I18N::resolveHTML("admin.table.pois.preview_table.column.arena_name.name"); ?></th>
+                            <th><?php echo I18N::resolveHTML("admin.table.pois.preview_table.column.latitude.name"); ?></th>
+                            <th><?php echo I18N::resolveHTML("admin.table.pois.preview_table.column.longitude.name"); ?></th>
+                            <th><?php echo I18N::resolveHTML("admin.table.pois.preview_table.column.include.name"); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody id="import-arena-preview-rows">
+                    </tbody>
+                </table>
+                <p id="import-arena-invalid-warning" class="poi-import-invalid hidden-by-default">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <?php echo I18N::resolveHTML("admin.section.pois.import.invalid_warning"); ?>
+                </p>
+            </div>
+            <!--
+                Importing ~250 or more arenas at the same time may cause the
+                form to exceed the maximum number of allowed data fields per
+                HTTP request. To mitigate this, the following field will contain
+                a JSON-encoded representation of all the fields, and will be
+                updated as the form is submitted.
+            -->
+            <input type="hidden" name="n_json_a" id="import-arena-json" data-changed>
             <!--
                 ============================================================
                     POI EXPORTS SECTION
@@ -480,7 +786,12 @@ __require("research");
             </p>
             <p>
                 <a href="./export-pois.php?<?php echo Security::getCSRFUrlParameter(); ?>">
-                    <?php echo I18N::resolveHTML("admin.section.pois.export.do"); ?>
+                    <?php echo I18N::resolveHTML("admin.section.pois.export.do_poi"); ?>
+                </a>
+            </p>
+            <p>
+                <a href="./export-arenas.php?<?php echo Security::getCSRFUrlParameter(); ?>">
+                    <?php echo I18N::resolveHTML("admin.section.pois.export.do_arena"); ?>
                 </a>
             </p>
         <?php } ?>

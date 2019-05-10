@@ -49,6 +49,10 @@ if (!Auth::getCurrentUser()->hasPermission("admin/pois/general")) {
 }
 
 /*
+    Process POIs first, then arenas.
+*/
+
+/*
     The POI list we get from /includes/lib/geo.php contains a list of POIs in an
     indexed array. We'll convert it to an associative array where the POI ID is
     the key, to make it easier to fetch the details for a POI given its ID. This
@@ -141,7 +145,7 @@ foreach ($_POST as $fence => $data) {
     $fid = substr($fence, 1);
 
     if (isset($data["action"])) {
-        if ($data["action"] === "delete") {
+        if ($data["action"] === "delete-poi" || $data["action"] === "delete-all") {
             /*
                 If POI deletion is requested, add the POIs to the deletion queue
                 and do not process further changes.
@@ -184,8 +188,8 @@ foreach ($_POST as $fence => $data) {
 /*
     Check if the user is importing new POIs.
 */
-if (isset($_POST["n_json"])) {
-    $newPois = json_decode($_POST["n_json"], true);
+if (isset($_POST["n_json_p"])) {
+    $newPois = json_decode($_POST["n_json_p"], true);
     if ($newPois !== null) {
         /*
             Check if the user has permission to import POIs.
@@ -193,7 +197,8 @@ if (isset($_POST["n_json"])) {
         if (Auth::getCurrentUser()->hasPermission("admin/pois/import")) {
             foreach ($newPois as $data) {
                 /*
-                    Check if all data is required and the POI is flagged for importing.
+                    Check if all data is required and the POI is flagged for
+                    importing.
                 */
                 if (!isset($data["name"]) || $data["name"] == "") continue;
                 if (!isset($data["latitude"]) || $data["latitude"] == "") continue;
@@ -207,10 +212,10 @@ if (isset($_POST["n_json"])) {
                 if (!is_numeric($data["longitude"])) continue;
 
                 /*
-                    Create a database entry associative array containing the required
-                    data for storage of the POI in the database. Default to to "unknown"
-                    field research for the POI, since no research has been reported for
-                    it yet.
+                    Create a database entry associative array containing the
+                    required data for storage of the POI in the database.
+                    Default to to "unknown" field research for the POI, since no
+                    research has been reported for it yet.
                 */
                 $newPoi = array(
                     "name" => $data["name"],
@@ -225,8 +230,8 @@ if (isset($_POST["n_json"])) {
                 );
 
                 /*
-                    If any of the users are null, unset the values as they default to
-                    null.
+                    If any of the users are null, unset the values as they
+                    default to null.
                 */
                 if ($newPoi["created_by"] === null) unset($newPoi["created_by"]);
                 if ($newPoi["updated_by"] === null) unset($newPoi["updated_by"]);
@@ -236,6 +241,176 @@ if (isset($_POST["n_json"])) {
         }
     }
 }
+
+/*
+    Summarize the changes in a variable for application at the end of this
+    script.
+*/
+$poichanges = array(
+    "updates" => $updates,
+    "inserts" => $inserts,
+    "deletes" => $deletes
+);
+
+/*
+    Process arenas after POIs.
+*/
+
+/*
+    The arena list we get from /includes/lib/geo.php contains a list of arenas
+    in an indexed array. We'll convert it to an associative array where the
+    arena ID is the key, to make it easier to fetch the details for an arena
+    given its ID. This is because the updates POSTed from the client contains
+    changes where the arena ID is the identifier for the arenas whose settings
+    have changed.
+
+    The `Geo::listArenas()` function returns an array of `Arena` class
+    instances. Please refer to /includes/lib/geo.php for the structure of this
+    class.
+*/
+$arenalist = Geo::listArenas();
+$arenas_assoc = array();
+
+foreach ($arenalist as $arena) {
+    $arenas_assoc[$arena->getID()] = $arena;
+}
+
+/*
+    Create an array for updates, as well as an array for deletions and new
+    insertions (for imported arenas), to be applied in one batch at the end of
+    this script.
+*/
+$updates = array();
+$deletes = array();
+$inserts = array();
+
+/*
+    Process any updates to existing arenas.
+*/
+foreach ($_POST as $arena => $data) {
+    /*
+        Ensure that the POST field we're working on now is an arena change
+        field. These all have field names in the format "a<arenaID>". If this
+        matches, extract the arena ID from the field name.
+    */
+    if (strlen($arena) < 1 || substr($arena, 0, 1) !== "a") continue;
+    $pid = substr($arena, 1);
+
+    if (isset($data["action"])) {
+        if ($data["action"] === "delete") {
+            /*
+                If arena deletion is requested, add it to the deletion queue and
+                do not process further changes.
+            */
+            $deletes[] = $pid;
+            continue;
+
+        }
+    }
+
+    /*
+        Handle changes to the arena parameters, such as the arena's name. If
+        there are changes, they should be added to the updates queue.
+    */
+    if (
+        isset($data["name"]) &&
+        $arenas_assoc[$pid]->getName() !== $data["name"]
+    ) {
+        $updates[$pid]["name"] = $data["name"];
+    }
+}
+
+/*
+    Process any batch (geofence) updates.
+*/
+foreach ($_POST as $fence => $data) {
+    /*
+        Ensure that the POST field we're working on now is a geofence field.
+        These all have field names in the format "f<fenceID>". If this matches,
+        extract the geofence ID from the field name.
+    */
+    if (strlen($fence) < 1 || substr($fence, 0, 1) !== "f") continue;
+    $fid = substr($fence, 1);
+
+    if (isset($data["action"])) {
+        if ($data["action"] === "delete-arena" || $data["action"] === "delete-all") {
+            /*
+                If arena deletion is requested, add the arenas to the deletion
+                queue and do not process further changes.
+            */
+            foreach ($arenalist as $arena) {
+                if ($arena->isWithinGeofence(Geo::getGeofence($fid))) {
+                    $deletes[] = $arena->getID();
+                }
+            }
+            continue;
+
+        }
+    }
+}
+
+/*
+    Check if the user is importing new arenas.
+*/
+if (isset($_POST["n_json_a"])) {
+    $newArenas = json_decode($_POST["n_json_a"], true);
+    if ($newArenas !== null) {
+        /*
+            Check if the user has permission to import arenas.
+        */
+        if (Auth::getCurrentUser()->hasPermission("admin/pois/import")) {
+            foreach ($newArenas as $data) {
+                /*
+                    Check if all data is required and the POI is flagged for
+                    importing.
+                */
+                if (!isset($data["name"]) || $data["name"] == "") continue;
+                if (!isset($data["latitude"]) || $data["latitude"] == "") continue;
+                if (!isset($data["longitude"]) || $data["longitude"] == "") continue;
+                if (!isset($data["include"]) || $data["include"] !== "yes") continue;
+
+                /*
+                    Check that the latitude and longitude is valid.
+                */
+                if (!is_numeric($data["latitude"])) continue;
+                if (!is_numeric($data["longitude"])) continue;
+
+                /*
+                    Create a database entry associative array containing the
+                    required data for storage of the arena in the database.
+                    Default to to "unknown" field research for the arena, since
+                    no research has been reported for it yet.
+                */
+                $newArena = array(
+                    "name" => $data["name"],
+                    "latitude" => floatval($data["latitude"]),
+                    "longitude" => floatval($data["longitude"]),
+                    "created_by" => Auth::getCurrentUser()->getUserID(),
+                    "updated_by" => Auth::getCurrentUser()->getUserID()
+                );
+
+                /*
+                    If any of the users are null, unset the values as they
+                    default to null.
+                */
+                if ($newArena["created_by"] === null) unset($newArena["created_by"]);
+                if ($newArena["updated_by"] === null) unset($newArena["updated_by"]);
+
+                $inserts[] = $newArena;
+            }
+        }
+    }
+}
+
+/*
+    Summarize the changes in a variable for application at the end of this
+    script.
+*/
+$arenachanges = array(
+    "updates" => $updates,
+    "inserts" => $inserts,
+    "deletes" => $deletes
+);
 
 /*
     Apply the updates queue to the database, and then process deletions and
@@ -274,14 +449,18 @@ if (isset($_POST["clear-all-research"])) {
         ->update($clearedData)
         ->execute();
 }
-foreach ($updates as $poiid => $update) {
+
+/*
+    Process POI changes.
+*/
+foreach ($poichanges["updates"] as $poiid => $update) {
     $userdata = $db
         ->from("poi")
         ->where("id", $poiid)
         ->update($update)
         ->execute();
 }
-foreach ($deletes as $poiid) {
+foreach ($poichanges["deletes"] as $poiid) {
     $db
         ->from("poi")
         ->where("id", $poiid)
@@ -290,7 +469,29 @@ foreach ($deletes as $poiid) {
 }
 $db
     ->from("poi")
-    ->insertMany($inserts)
+    ->insertMany($poichanges["inserts"])
+    ->execute();
+
+/*
+    Process arena changes.
+*/
+foreach ($arenachanges["updates"] as $arenaid => $update) {
+    $userdata = $db
+        ->from("arena")
+        ->where("id", $arenaid)
+        ->update($update)
+        ->execute();
+}
+foreach ($arenachanges["deletes"] as $arenaid) {
+    $db
+        ->from("arena")
+        ->where("id", $arenaid)
+        ->delete()
+        ->execute();
+}
+$db
+    ->from("arena")
+    ->insertMany($arenachanges["inserts"])
     ->execute();
 
 header("HTTP/1.1 303 See Other");

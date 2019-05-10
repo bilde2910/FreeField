@@ -23,6 +23,18 @@ CREATE TABLE {%TablePrefix%}poi (
     PRIMARY KEY (id)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE {%TablePrefix%}arena (
+    id              int(11)         NOT NULL AUTO_INCREMENT,
+    name            varchar(128)    NOT NULL,
+    latitude        double          NOT NULL,
+    longitude       double          NOT NULL,
+    created_on      timestamp       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by      varchar(64)     DEFAULT NULL,
+    last_updated    timestamp       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by      varchar(64)     DEFAULT NULL,
+    PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE {%TablePrefix%}user (
     id              varchar(64)     NOT NULL,
     provider_id     varchar(64)     NOT NULL,

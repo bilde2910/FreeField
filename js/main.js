@@ -12,6 +12,7 @@
         pois[0] = {
             "element" -> A DOM element representing the marker on the map
             "id" -> The ID of the marker
+            "map" -> The index of this marker in the `markerMap` array below
             "latitude" -> The latitude of the POI
             "longitude" -> The longitude of the POI
             "name" -> The name of the POI
@@ -24,6 +25,40 @@
         }
 */
 var pois = [];
+
+/*
+    `arenas` holds the current, complete list of arenas available on this
+    FreeField instance. An element in `arenas` looks like this:
+
+        arenas[0] = {
+            "element" -> A DOM element representing the marker on the map
+            "id" -> The ID of the marker
+            "map" -> The index of this marker in the `markerMap` array below
+            "latitude" -> The latitude of the POI
+            "longitude" -> The longitude of the POI
+            "name" -> The name of the POI
+            "updated": {
+                "on" -> A timestamp of the last time research was reported
+                "by" -> The identity of the user who reported the field research
+            }
+        }
+*/
+var arenas = [];
+
+/*
+    `markerMap` is an array that holds a list of all markers currently rendered
+    on the map. This includes both POIs and arenas. This is implemented to
+    ensure that all marker logic is run on the same source of marker data.
+    Instead of implementing logic to search through both `pois` and `arenas`, it
+    is more practical to only search through this array to avoid code
+    duplication. An element in `markerMap` looks like this:
+
+        markerMap[0] = {
+            "type" -> Either "poi" or "arenas"
+            "id" -> The ID of the element in the `pois` or `arenas` array
+        }
+*/
+var markerMap = [];
 
 /*
     A mapping between map themes and the color theme that should be used for map
@@ -50,6 +85,12 @@ var styleMap = {
         "neighbourhood": "light"
     }
 }
+
+/*
+    An indicator for the type of POI that is currently being added or viewed.
+    Can be either "poi" or "arena".
+*/
+var poiType = null;
 
 /*
     ------------------------------------------------------------------------
@@ -80,7 +121,30 @@ $("#add-poi-start").on("click", function(e) {
         registered from clicking the button multiple times.
     */
     mapClickHandlerActive = true;
+    poiType = "poi";
     $("#add-poi-banner").fadeIn(150);
+    MapImpl.bindMapClickHandler(getCoordsForPOI);
+});
+
+/*
+    Event handler for the sidebar button "Add arena". When clicked, this
+    function starts the process for adding a new arena to the map. It registers
+    an event handler that fetches the coordinates of a location the user clicks
+    on on the map. It also displays a banner prompting the user to perform this
+    action.
+*/
+$("#add-arena-start").on("click", function(e) {
+    e.preventDefault();
+    if (mapClickHandlerActive) return;
+
+    /*
+        Set the flag that indicates that a POI is currently in process of being
+        added to the map. This is used to prevent duplicate event handlers being
+        registered from clicking the button multiple times.
+    */
+    mapClickHandlerActive = true;
+    poiType = "arena";
+    $("#add-arena-banner").fadeIn(150);
     MapImpl.bindMapClickHandler(getCoordsForPOI);
 });
 
@@ -89,7 +153,7 @@ $("#add-poi-start").on("click", function(e) {
     click on the map to add a new POI. This function cancels that action and
     unbinds the associated event handler.
 */
-$("#add-poi-cancel-banner").on("click", function(e) {
+$("#add-poi-cancel-banner, #add-arena-cancel-banner").on("click", function(e) {
     e.preventDefault();
     disableAddMovePOI(true);
 });
@@ -126,7 +190,9 @@ function disableAddMovePOI(setFlag) {
         Hide the "please select a location on the map" banners.
     */
     $("#add-poi-banner").fadeOut(150);
+    $("#add-arena-banner").fadeOut(150);
     $("#move-poi-banner").fadeOut(150);
+    $("#move-arena-banner").fadeOut(150);
     mapClickHandlerActive = !setFlag;
 }
 
@@ -155,6 +221,18 @@ function getCoordsForPOI(lat, lon) {
     */
     $("#add-poi-submit").prop("disabled", false);
 
+    /*
+        Update the user interface strings to reflect the type of POI we're
+        adding (poi or arena).
+    */
+    $("#add-poi-submit").text(resolveI18N(poiType + ".add.submit"));
+    var fields = ["title", "name", "latitude", "longitude"];
+    for (var i = 0; i < fields.length; i++) {
+        $("#add-poi-text-" + fields[i]).text(
+            resolveI18N(poiType + ".add." + fields[i])
+        );
+    }
+
     $("#add-poi-details").fadeIn(150);
 }
 
@@ -179,6 +257,11 @@ $("#add-poi-submit").on("click", function() {
     */
     $("#add-poi-submit").prop("disabled", true);
 
+    /*
+        Check that we have a valid POI type to submit.
+    */
+    if (poiType !== "poi" && poiType !== "arena") return;
+
     var poiName = $("#add-poi-name").val();
     var poiLat = parseFloat($("#add-poi-lat").val());
     var poiLon = parseFloat($("#add-poi-lon").val());
@@ -188,10 +271,10 @@ $("#add-poi-submit").on("click", function() {
         before the script can proceed from here. Display a loading animation
         while we wait for the call to complete.
     */
-    $("#poi-working-text").text(resolveI18N("poi.add.processing"));
+    $("#poi-working-text").text(resolveI18N(poiType + ".add.processing"));
     $("#poi-working-spinner").fadeIn(150);
     $.ajax({
-        url: "./api/poi.php",
+        url: "./api/" + poiType + ".php",
         type: "PUT",
         dataType: "json",
         data: JSON.stringify({
@@ -206,18 +289,18 @@ $("#add-poi-submit").on("click", function() {
                     as defined in PUT /api/poi.php. Add the marker to the map
                     so that research can be reported for it immediately.
                 */
-                var markers = [data.poi];
-                addMarkers(markers);
+                var markers = [data[poiType]];
+                addMarkers(markers, poiType);
 
                 mapClickHandlerActive = false;
-                spawnBanner("success", resolveI18N("poi.add.success", poiName));
+                spawnBanner("success", resolveI18N(poiType + ".add.success", poiName));
                 $("#add-poi-details").fadeOut(150);
                 $("#poi-working-spinner").fadeOut(150);
 
                 /*
                     Update the marker clustering prioritization list.
                 */
-                haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+                haversineList = getPOIHaversineDistances(getIndicesOfAllMarkers());
                 updateVisiblePOIs();
             }
         }
@@ -234,7 +317,7 @@ $("#add-poi-submit").on("click", function() {
             reason = resolveI18N("xhr.failed.reason." + data["reason"]);
         }
         spawnBanner("failed", resolveI18N(
-            "poi.add.failed.message",
+            poiType + ".add.failed.message",
             poiName,
             reason
         ));
@@ -450,18 +533,29 @@ function setLastUpdate(updated) {
     Adds a set of marker icons to the map. The `markers` parameter is an array
     of objects, where each object describes the properties of one POI.
     format of the array is the same as the format output in JSON format by GET
-    /api/poi.php.
+    /api/poi.php. `type` is either "poi" or "arena".
 */
-function addMarkers(markers) {
+function addMarkers(markers, type) {
     /*
         Add some basic display properties to the marker, then add it to the
         global `pois` array for easy properties lookup from elsewhere in the
         script.
     */
     markers.forEach(function(marker) {
-        marker["elementId"] = "dynamic-marker-" + marker.id;
         marker["visible"] = false;
-        pois[marker.id] = marker;
+        if (typeof marker.map == 'undefined' || marker.map == null) {
+            var mapIdx = markerMap.push({
+                "type": type,
+                "id": marker.id
+            }) - 1;
+            marker["map"] = mapIdx;
+        }
+        marker["elementId"] = "dynamic-marker-" + marker.map;
+        if (type == "poi") {
+            pois[marker.id] = marker;
+        } else if (type == "arena") {
+            arenas[marker.id] = marker;
+        }
     });
 
     /*
@@ -470,7 +564,7 @@ function addMarkers(markers) {
     */
     var inBounds = [];
     markers.forEach(function(marker) {
-        if (shouldBeVisibleOnMap(marker)) inBounds.push(marker.id);
+        if (shouldBeVisibleOnMap(marker)) inBounds.push(marker.map);
     });
 
     /*
@@ -502,62 +596,96 @@ function addMarkers(markers) {
         */
         var e = document.createElement("div");
         e.id = "dynamic-marker-" + id;
-        e.className =
-            // Basic map marker class
-            "marker "
-
-            // Render the icon for the current research active on the POI
-            + pois[id][settings.get("markerComponent")].type + " "
-
-            // Set the color theme of the markers depending on the map style
-            + styleMap[settings.get("mapProvider")][settings.get("mapStyle-"+settings.get("mapProvider"))] + " "
-
-            // Set the icon set from which marker icons are fetched
-            + settings.get("iconSet") + " "
-
-            // Set the species set from which species icons are fetched
-            + settings.get("speciesSet");
+        var poiObj;
 
         /*
-            Add the reward species if encounter reward, if known.
+            The `id` is the index in `markerMap`. Get the real index of the
+            marker in `pois` or `arenas`.
         */
-        if (
-            settings.get("markerComponent") == "reward" &&
-            pois[id].reward.type == "encounter" &&
-            pois[id].reward.params.hasOwnProperty("species") &&
-            pois[id].reward.params.species.length == 1
-        ) {
-            e.className += " sp-" + pois[id].reward.params.species[0];
+        var realId = markerMap[id].id;
+
+        if (type == "poi") {
+            e.className =
+                // Basic map marker class
+                "marker "
+
+                // Render the icon for the current research active on the POI
+                + pois[realId][settings.get("markerComponent")].type + " "
+
+                // Set the color theme of the markers depending on the map style
+                + styleMap[settings.get("mapProvider")][settings.get("mapStyle-"+settings.get("mapProvider"))] + " "
+
+                // Set the icon set from which marker icons are fetched
+                + settings.get("iconSet") + " "
+
+                // Set the species set from which species icons are fetched
+                + settings.get("speciesSet");
+
+            /*
+                Add the reward species if encounter reward, if known.
+            */
+            if (
+                settings.get("markerComponent") == "reward" &&
+                pois[realId].reward.type == "encounter" &&
+                pois[realId].reward.params.hasOwnProperty("species") &&
+                pois[realId].reward.params.species.length == 1
+            ) {
+                e.className += " sp-" + pois[id].reward.params.species[0];
+            }
+
+            pois[realId]["elementId"] = e.id;
+            poiObj = pois[realId];
+        } else if (type == "arena") {
+            e.className =
+                // Basic map marker class for arenas
+                "marker arena "
+
+                // Set the color theme of the markers depending on the map style
+                + styleMap[settings.get("mapProvider")][settings.get("mapStyle-"+settings.get("mapProvider"))] + " "
+
+                // Set the icon set from which marker icons are fetched
+                + settings.get("iconSet");
+
+            arenas[realId]["elementId"] = e.id;
+            poiObj = arenas[realId];
         }
-        pois[id]["elementId"] = e.id;
 
         /*
             Add the marker to the map itself. Get a reference to the marker
             object itself, in case it has to be updated later.
         */
-        var implMarkerObj = MapImpl.addMarker(e, pois[id].latitude, pois[id].longitude,
+        var implMarkerObj = MapImpl.addMarker(e, poiObj.latitude, poiObj.longitude,
             function(markerObj) {
                 openMarker(markerObj, id);
             }, function(markerObj) {
                 closeMarker(markerObj);
             },
-            pois[id][settings.get("markerComponent")].type
+            type == "poi" ? poiObj[settings.get("markerComponent")].type : "arena"
         );
-        pois[id].visible = true;
-        pois[id]["implObject"] = implMarkerObj;
+
+        if (type == "poi") {
+            pois[realId].visible = true;
+            pois[realId]["implObject"] = implMarkerObj;
+        } else if (type == "arena") {
+            arenas[realId].visible = true;
+            arenas[realId]["implObject"] = implMarkerObj;
+        }
     });
 }
 
 /*
     Connects to /api/poi.php to retrieve an updated list of all map markers.
     This function is called periodically to ensure that the markers displayed on
-    the map are up to date.
+    the map are up to date. The function also calls /api/arena.php to get an
+    updated list of arenas on the map.
 */
 var lastRefresh = 0;
 function refreshMarkers() {
     var curTime = Math.floor(Date.now() / 1000);
-    var url = "./api/poi.php?updatedSince=" + (lastRefresh - curTime);
+    var timeDiff = (lastRefresh - curTime);
     lastRefresh = curTime;
+
+    var url = "./api/poi.php?updatedSince=" + timeDiff;
     $.getJSON(url, function(data) {
         var markers = data["pois"];
         var ids = data["id_list"];
@@ -572,7 +700,7 @@ function refreshMarkers() {
                 pois[marker.id] == null ||
                 !("elementId" in pois[marker.id])
             ) {
-                addMarkers([marker]);
+                addMarkers([marker], "poi");
                 return;
             }
 
@@ -635,7 +763,7 @@ function refreshMarkers() {
                 marker, make sure that the details displayed on that screen are
                 updated as well.
             */
-            if (marker.id == currentMarker) {
+            if (marker.id == currentMarker && poiType == "poi") {
                 $("#poi-objective-icon").attr("src", resolveIconUrl(marker.objective.type));
                 if (
                     /*
@@ -699,6 +827,9 @@ function refreshMarkers() {
                 }
                 if (!exists) {
                     MapImpl.removeMarker(pois[i].implObject);
+                    if (typeof pois[i].map != "undefined") {
+                        markerMap[pois[i].map] = null;
+                    }
                     pois[i] = null;
                     removed = true;
                 }
@@ -709,7 +840,7 @@ function refreshMarkers() {
             Update the marker clustering prioritization list.
         */
         if (markers.length > 0 || removed) {
-            haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+            haversineList = getPOIHaversineDistances(getIndicesOfAllMarkers());
             updateVisiblePOIs();
         }
     }).fail(function(xhr) {
@@ -725,6 +856,111 @@ function refreshMarkers() {
         }
         spawnBanner("failed", resolveI18N("poi.list.failed.message", reason));
     });
+
+    var url = "./api/arena.php?updatedSince=" + timeDiff;
+    $.getJSON(url, function(data) {
+        var markers = data["arenas"];
+        var ids = data["id_list"];
+
+        markers.forEach(function(marker) {
+            /*
+                Check if the POI already exists in the `arenas` array. If not,
+                add the marker.
+            */
+            if (
+                arenas.length < marker.id ||
+                arenas[marker.id] == null ||
+                !("elementId" in arenas[marker.id])
+            ) {
+                addMarkers([marker], "arena");
+                return;
+            }
+
+            var oldMarker = arenas[marker.id];
+            var markerHtml = $("#" + oldMarker.elementId);
+
+            /*
+                If the POI details screen is currently open for the given
+                marker, make sure that the details displayed on that screen are
+                updated as well.
+            */
+            if (marker.id == currentMarker && poiType == "arena") {
+                setLastUpdate(marker.updated);
+            }
+
+            /*
+                If the POI has been moved on another client, it should also be
+                moved locally.
+            */
+            if (
+                oldMarker.latitude !== marker.latitude ||
+                oldMarker.longitude !== marker.longitude
+            ) {
+                MapImpl.moveMarker(
+                    oldMarker.implObject,
+                    marker.latitude,
+                    marker.longitude
+                );
+            }
+
+            /*
+                Overwrite the marker in the `arenas` array with the updated
+                values from the server. Use a for loop to ensure that elements
+                that aren't in the received `marker` instance (such as the
+                marker DOM element) aren't overwritten in `arenas`.
+            */
+            for (var prop in marker) {
+                if (marker.hasOwnProperty(prop)) {
+                    arenas[marker.id][prop] = marker[prop];
+                }
+            }
+        });
+
+        /*
+            Arenas can be deleted. If any locally stored arena no longer exists,
+            remove the relevant markers from the map.
+        */
+        var removed = false;
+        for (var i = 0; i < arenas.length; i++) {
+            if (arenas[i] != null) {
+                var exists = false;
+                for (var j = 0; j < ids.length; j++) {
+                    if (arenas[i].id == ids[j]) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    MapImpl.removeMarker(arenas[i].implObject);
+                    if (typeof arenas[i].map != "undefined") {
+                        markerMap[arenas[i].map] = null;
+                    }
+                    arenas[i] = null;
+                    removed = true;
+                }
+            }
+        }
+
+        /*
+            Update the marker clustering prioritization list.
+        */
+        if (markers.length > 0 || removed) {
+            haversineList = getPOIHaversineDistances(getIndicesOfAllMarkers());
+            updateVisiblePOIs();
+        }
+    }).fail(function(xhr) {
+        /*
+            If the request failed, then the user should be informed of the
+            reason with a red banner.
+        */
+        var data = xhr.responseJSON;
+        var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+        if (data !== undefined && data.hasOwnProperty("reason")) {
+            reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+        }
+        spawnBanner("failed", resolveI18N("arena.list.failed.message", reason));
+    });
 }
 
 $(document).ready(function() {
@@ -735,7 +971,7 @@ $(document).ready(function() {
     */
     lastRefresh = Math.floor(Date.now() / 1000);
     $.getJSON("./api/poi.php", function(data) {
-        addMarkers(data["pois"]);
+        addMarkers(data["pois"], "poi");
         /*
             Handle deep-linking via URL hashes.
         */
@@ -754,13 +990,40 @@ $(document).ready(function() {
         spawnBanner("failed", resolveI18N("poi.list.failed.message", reason));
     }).always(function() {
         /*
-            Automatically refresh the marker list with updated to information
-            from the server to stay in sync with other users' reports.
+            After markers have been fetched, also fetch arenas.
         */
-        setInterval(function() {
-            refreshMarkers();
-        }, autoRefreshInterval);
+        $.getJSON("./api/arena.php", function(data) {
+            addMarkers(data["arenas"], "arena");
+            haversineList = getPOIHaversineDistances(getIndicesOfAllMarkers());
+            updateVisiblePOIs();
+        }).fail(function(xhr) {
+            /*
+                If the request failed, then the user should be informed of the
+                reason with a red banner.
+            */
+            var data = xhr.responseJSON;
+            var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+            if (data !== undefined && data.hasOwnProperty("reason")) {
+                reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+            }
+            spawnBanner("failed", resolveI18N("arena.list.failed.message", reason));
+        }).always(function() {
+            /*
+                Handle deep-linking via URL hashes.
+            */
+            handleDeepLinking();
+
+            /*
+                Automatically refresh the marker list with updated to information
+                from the server to stay in sync with other users' reports.
+            */
+            setInterval(function() {
+                refreshMarkers();
+            }, autoRefreshInterval);
+        });
     });
+
 });
 
 function updateHiddenPOIsBanner(hidden, total) {
@@ -777,23 +1040,26 @@ function updateHiddenPOIsBanner(hidden, total) {
     Checks whether or not the given POI is within the visible area of the map
     and has a research task that matches filters, if any.
 */
-function shouldBeVisibleOnMap(poi) {
-    /*
-        Check whether the POI has research that matches filters.
-    */
-    if (filterMode == "unknown") {
-        if (poi.objective.type != "unknown" || poi.reward.type != "unknown") {
-            return false;
-        }
-    } else if (filterObjective != "any" || filterReward != "any") {
-        var shouldMatch = filterMode == "only";
-        if (filterObjective != "any") {
-            if ((poi.objective.type == filterObjective) != shouldMatch) return false;
-        }
-        if (filterReward != "any") {
-            if ((poi.reward.type == filterReward) != shouldMatch) return false;
+function shouldBeVisibleOnMap(poi, type) {
+    if (type == "poi") {
+        /*
+            Check whether the POI has research that matches filters.
+        */
+        if (filterMode == "unknown") {
+            if (poi.objective.type != "unknown" || poi.reward.type != "unknown") {
+                return false;
+            }
+        } else if (filterObjective != "any" || filterReward != "any") {
+            var shouldMatch = filterMode == "only";
+            if (filterObjective != "any") {
+                if ((poi.objective.type == filterObjective) != shouldMatch) return false;
+            }
+            if (filterReward != "any") {
+                if ((poi.reward.type == filterReward) != shouldMatch) return false;
+            }
         }
     }
+
     /*
         Get the bounding coordinates of the currently displayed portion of the
         map.
@@ -828,16 +1094,15 @@ function shouldBeVisibleOnMap(poi) {
 }
 
 /*
-    Returns an array of all POIs' IDs. The IDs correspond to their position in
-    the `pois` array.
+    Returns an array of all POIs' indices in the markerMap array.
 */
-function getIDsOfAllPOIs() {
+function getIndicesOfAllMarkers() {
     var ids = [];
-    for (var i = 0; i < pois.length; i++) {
+    for (var i = 0; i < markerMap.length; i++) {
         /*
-            Ignore POIs in the array that do not exist.
+            Ignore markers in the array that do not exist.
         */
-        if (typeof pois[i] == 'undefined' || pois[i] == null) continue;
+        if (typeof markerMap[i] == 'undefined' || markerMap[i] == null) continue;
         ids.push(i);
     }
     return ids;
@@ -864,7 +1129,7 @@ function prioritizePOIsForClustering(idList, limit) {
     /*
         If the cache is empty, populate it.
     */
-    if (!haversineList.length) haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+    if (!haversineList.length) haversineList = getPOIHaversineDistances(getIndicesOfAllMarkers());
     /*
         Create an array of IDs that should be returned for display. Limit this
         array to `limit` items, and ensure that each POI that is added is part
@@ -888,6 +1153,10 @@ function prioritizePOIsForClustering(idList, limit) {
     add to the map. It focuses particuarly on including POIs with active
     research on them, giving them a higher score to ensure most of them are
     displayed on the map even though they may be close to each other.
+
+    The function returns an array of tuples whose index 0 is the index of the
+    POI in the `markerMap` array, and index 1 is the calculated distance, sorted
+    in order of decreasing distance.
 */
 function getPOIHaversineDistances(idList) {
     /*
@@ -914,7 +1183,10 @@ function getPOIHaversineDistances(idList) {
             do not have active research on them. POIs with research are pushed
             into a queue for separate weight calculation.
         */
-        if (pois[idList[i]].objective.type != "unknown") {
+        if (
+            markerMap[idList[i]].type != "poi" ||
+            pois[markerMap[idList[i]].id].objective.type != "unknown"
+        ) {
             reportedList.push(i);
             continue;
         }
@@ -925,7 +1197,13 @@ function getPOIHaversineDistances(idList) {
         */
         var distance, weight = DEFAULT_WEIGHT;
         for (var j = 0; j < i; j++) {
-            distance = distanceHaversine(pois[idList[i]], pois[idList[j]]);
+            var poi1 = markerMap[idList[i]].type == "poi"
+                     ? pois[markerMap[idList[i]].id]
+                     : arenas[markerMap[idList[i]].id];
+            var poi2 = markerMap[idList[j]].type == "poi"
+                     ? pois[markerMap[idList[j]].id]
+                     : arenas[markerMap[idList[j]].id];
+            distance = distanceHaversine(poi1, poi2);
             if (distance < weight) weight = distance;
         }
         /*
@@ -948,7 +1226,13 @@ function getPOIHaversineDistances(idList) {
     for (var i = 0; i < reportedList.length; i++) {
         var distance, weight = DEFAULT_WEIGHT;
         for (var j = 0; j < i; j++) {
-            distance = distanceHaversine(pois[idList[reportedList[i]]], pois[idList[reportedList[j]]]);
+            var poi1 = markerMap[idList[reportedList[i]]].type == "poi"
+                     ? pois[markerMap[idList[reportedList[i]]].id]
+                     : arenas[markerMap[idList[reportedList[i]]].id];
+            var poi2 = markerMap[idList[reportedList[j]]].type == "poi"
+                     ? pois[markerMap[idList[reportedList[j]]].id]
+                     : arenas[markerMap[idList[reportedList[j]]].id];
+            distance = distanceHaversine(poi1, poi2);
             if (distance < weight) weight = distance;
         }
         if (weight == DEFAULT_WEIGHT) weight = 0.0001;
@@ -1122,41 +1406,73 @@ function handleDeepLinking() {
 */
 var currentMarker = -1;
 function openMarker(markerObj, id) {
-    currentMarker = id;
+    /*
+        Get data for the POI in the list of POIs received from the server. This
+        list is stored in the `pois` or `arenas` variables, and can be looked up
+        using the ID of the POI. Once we have the data, we can put it in the
+        popup.
+    */
+    var poiObj;
+    var type = markerMap[id].type;
+    if (type == "poi") {
+        poiObj = pois[markerMap[id].id];
+    } else if (type == "arena") {
+        poiObj = arenas[markerMap[id].id];
+    } else {
+        return;
+    }
+
+    currentMarker = poiObj.id;
+    poiType = type;
 
     /*
         Set the address bar URL to reflect the POI, to let the user copy and
         paste it to share the specific POI with others.
     */
     if (history.replaceState) {
-        history.replaceState(null, null, "#/poi/" + id + "/");
+        history.replaceState(null, null, "#/" + type + "/" + poiObj.id + "/");
     } else {
-        location.hash = "#/poi/" + id + "/";
+        location.hash = "#/" + type + "/" + poiObj.id + "/";
     }
 
     /*
         Get data for the POI in the list of POIs received from the server. This
-        list is stored in the `pois` variable, and can be looked up using the ID
-        of the POI. Once we have the data, we can put it in the popup.
+        list is stored in the `poiObj` variable.
     */
-    var poiObj = pois[id];
     $("#poi-name").text(poiObj.name);
-    $("#poi-objective-icon").attr("src", resolveIconUrl(poiObj.objective.type));
-    if (
-        /*
-            If a single encounter species is known, display the icon of that
-            species instead of the generic encounter reward icon.
-        */
-        poiObj.reward.type == "encounter" &&
-        poiObj.reward.params.hasOwnProperty("species") &&
-        poiObj.reward.params.species.length == 1
-    ) {
-        $("#poi-reward-icon").attr("src", resolveSpeciesUrl(poiObj.reward.params.species[0]));
-    } else {
-        $("#poi-reward-icon").attr("src", resolveIconUrl(poiObj.reward.type));
+
+    /*
+        If we have a normal POI, we should display the research on it.
+    */
+    if (type == "poi") {
+        $("#poi-objective-icon").attr("src", resolveIconUrl(poiObj.objective.type));
+        if (
+            /*
+                If a single encounter species is known, display the icon of that
+                species instead of the generic encounter reward icon.
+            */
+            poiObj.reward.type == "encounter" &&
+            poiObj.reward.params.hasOwnProperty("species") &&
+            poiObj.reward.params.species.length == 1
+        ) {
+            $("#poi-reward-icon").attr("src", resolveSpeciesUrl(poiObj.reward.params.species[0]));
+        } else {
+            $("#poi-reward-icon").attr("src", resolveIconUrl(poiObj.reward.type));
+        }
+        $("#poi-objective").text(resolveObjective(poiObj.objective));
+        $("#poi-reward").text(resolveReward(poiObj.reward));
+
+        $(".only-for-poi").show();
+        $(".only-for-arena").hide();
+        $("#poi-action-buttons div.pure-u-1-3").removeClass("pure-u-1-3").addClass("pure-u-1-4");
+    } else if (type == "arena") {
+        $("#poi-arena-icon").attr("src", resolveIconUrl("arena"));
+
+        $(".only-for-poi").hide();
+        $(".only-for-arena").show();
+        $("#poi-action-buttons div.pure-u-1-4").removeClass("pure-u-1-4").addClass("pure-u-1-3");
     }
-    $("#poi-objective").text(resolveObjective(poiObj.objective));
-    $("#poi-reward").text(resolveReward(poiObj.reward));
+
     setLastUpdate(poiObj.updated);
 
     /*
@@ -1176,137 +1492,141 @@ function openMarker(markerObj, id) {
     });
 
     /*
-        Check if the user has permission to report field research. If there is
-        already research reported for the POI, a separate permission is also
-        required to overwrite existing research.
-
-        If permission has been granted to the current user, bind a click event
-        handler to the "report field research" button, and display the button.
-
-        If permission is not granted, hide the button.
+        Check if the user has permission to manage POIs.
     */
-    var canReportResearch = permissions["report-research"];
     var canManagePOIs = permissions["admin/pois/general"];
-    if (
-        canReportResearch &&
-        (
-            poiObj.objective.type != "unknown" ||
-            poiObj.reward.type != "unknown"
-        )
-    ) {
-        canReportResearch = permissions["overwrite-research"];
-    }
-    if (canReportResearch) {
-        $("#poi-add-report").on("click", function() {
-            /*
-                This event handler opens the dialog box for reporting field
-                research for a POI. Since the same dialog is reused for all
-                POIs, we have to ensure that the form is empty when it's opened.
-                Setting all <input>s to null and selecting whatever is the first
-                element of all <select>s will result in this behavior.
-            */
-            $("input.parameter").val(null);
-            $("select.parameter").each(function() {
-                $(this)[0].selectedIndex = 0;
-            });
 
-            /*
-                When the form is reset, we can start overwriting it with the
-                research task that is already active on the POI, if any. If the
-                objective or reward is "unknown", then no research has been
-                reported on that POI today, and the fields should be left blank.
-            */
-            $("#update-poi-objective").val(
-                poiObj.objective.type == "unknown"
-                ? null
-                : poiObj.objective.type
-            );
-            if (poiObj.objective.type !== "unknown") {
-                /*
-                    The objective select box has an event handler that ensures
-                    that the correct parameters for the objective are displayed
-                    on the dialog. This is normally triggered when the user
-                    changes the objective selection, but updating the selection
-                    with `$.val()` won't trigger the event. Thus, trigger it
-                    manually.
-                */
-                $("#update-poi-objective").trigger("change");
-                /*
-                    Get the list of parameters for the objective from the list
-                    of available objectives, then loop over the list and input
-                    the values of the parameters to the dialog box using
-                    `parseObjectiveParameter()`. The functions used for each
-                    specific parameter type are defined in the parameter's class
-                    in /includes/lib/research.php.
-                */
-                var params = objectives[poiObj.objective.type].params;
-                for (var i = 0; i < params.length; i++) {
-                    parseObjectiveParameter(params[i], poiObj.objective.params[params[i]]);
-                }
-            } else {
-                $(".objective-parameter").hide();
-            }
-            $("#update-poi-reward").val(
-                poiObj.reward.type == "unknown"
-                ? null
-                : poiObj.reward.type
-            );
-            if (poiObj.reward.type !== "unknown") {
-                /*
-                    The reward select box has an event handler that ensures that
-                    the correct parameters for the reward are displayed on the
-                    dialog. This is normally triggered when the user changes the
-                    reward selection, but updating the selection with `$.val()`
-                    won't trigger the event. Thus, trigger it manually.
-                */
-                $("#update-poi-reward").trigger("change");
-                /*
-                    Get the list of parameters for the reward from the list of
-                    of available rewards, then loop over the list and input the
-                    values of the parameters to the dialog box using
-                    `parseRewardParameter()`. The functions used for each
-                    specific parameter type are defined in the parameter's class
-                    in /includes/lib/research.php.
-                */
-                var params = rewards[poiObj.reward.type].params;
-                for (var i = 0; i < params.length; i++) {
-                    parseRewardParameter(params[i], poiObj.reward.params[params[i]]);
-                }
-            } else {
-                $(".reward-parameter").hide();
-            }
-
-            /*
-                Replace the POI details dialog with the research report dialog.
-            */
-            $("#poi-details").hide();
-            $("#update-poi-details").show();
-        });
-        $("#poi-add-report").show();
-    } else if (!isAuthenticated()) {
+    if (type == "poi") {
         /*
-            If the user does not have permission to report research, but the
-            reason is that they aren't logged in, then redirect the user to the
-            login page instead of hiding the button. This is better UX than
-            simply removing the button, leaving new users clueless about how to
-            report research since 1) the button isn't shown and 2) it isn't
-            immediately obvious that users have to sign in.
+            Check if the user has permission to report field research. If there is
+            already research reported for the POI, a separate permission is also
+            required to overwrite existing research.
+
+            If permission has been granted to the current user, bind a click event
+            handler to the "report field research" button, and display the button.
+
+            If permission is not granted, hide the button.
         */
-        $("#poi-add-report").on("click", function() {
-            location.href = "./auth/login.php?continue="
-                          + encodeURIComponent("/" + location.hash);
-        });
-        $("#poi-add-report").show();
-    } else {
-        $("#poi-add-report").hide();
+        var canReportResearch = permissions["report-research"];
+        if (
+            canReportResearch &&
+            (
+                poiObj.objective.type != "unknown" ||
+                poiObj.reward.type != "unknown"
+            )
+        ) {
+            canReportResearch = permissions["overwrite-research"];
+        }
+        if (canReportResearch) {
+            $("#poi-add-report").on("click", function() {
+                /*
+                    This event handler opens the dialog box for reporting field
+                    research for a POI. Since the same dialog is reused for all
+                    POIs, we have to ensure that the form is empty when it's
+                    opened. Setting all <input>s to null and selecting whatever
+                    is the first element of all <select>s will result in this
+                    behavior.
+                */
+                $("input.parameter").val(null);
+                $("select.parameter").each(function() {
+                    $(this)[0].selectedIndex = 0;
+                });
+
+                /*
+                    When the form is reset, we can start overwriting it with the
+                    research task that is already active on the POI, if any. If
+                    the objective or reward is "unknown", then no research has
+                    been reported on that POI today, and the fields should be
+                    left blank.
+                */
+                $("#update-poi-objective").val(
+                    poiObj.objective.type == "unknown"
+                    ? null
+                    : poiObj.objective.type
+                );
+                if (poiObj.objective.type !== "unknown") {
+                    /*
+                        The objective select box has an event handler that
+                        ensures that the correct parameters for the objective
+                        are displayed on the dialog. This is normally triggered
+                        when the user changes the objective selection, but
+                        updating the selection with `$.val()` won't trigger the
+                        event. Thus, trigger it manually.
+                    */
+                    $("#update-poi-objective").trigger("change");
+                    /*
+                        Get the list of parameters for the objective from the
+                        list of available objectives, then loop over the list
+                        and input the values of the parameters to the dialog box
+                        using `parseObjectiveParameter()`. The functions used
+                        for each specific parameter type are defined in the
+                        parameter's class in /includes/lib/research.php.
+                    */
+                    var params = objectives[poiObj.objective.type].params;
+                    for (var i = 0; i < params.length; i++) {
+                        parseObjectiveParameter(params[i], poiObj.objective.params[params[i]]);
+                    }
+                } else {
+                    $(".objective-parameter").hide();
+                }
+                $("#update-poi-reward").val(
+                    poiObj.reward.type == "unknown"
+                    ? null
+                    : poiObj.reward.type
+                );
+                if (poiObj.reward.type !== "unknown") {
+                    /*
+                        The reward select box has an event handler that ensures
+                        that the correct parameters for the reward are displayed
+                        on the dialog. This is normally triggered when the user
+                        changes the reward selection, but updating the selection
+                        with `$.val()` won't trigger the event. Thus, trigger it
+                        manually.
+                    */
+                    $("#update-poi-reward").trigger("change");
+                    /*
+                        Get the list of parameters for the reward from the list
+                        of available rewards, then loop over the list and input
+                        the values of the parameters to the dialog box using
+                        `parseRewardParameter()`. The functions used for each
+                        specific parameter type are defined in the parameter's
+                        class in /includes/lib/research.php.
+                    */
+                    var params = rewards[poiObj.reward.type].params;
+                    for (var i = 0; i < params.length; i++) {
+                        parseRewardParameter(params[i], poiObj.reward.params[params[i]]);
+                    }
+                } else {
+                    $(".reward-parameter").hide();
+                }
+
+                /*
+                    Replace the POI details dialog with the research report
+                    dialog.
+                */
+                $("#poi-details").hide();
+                $("#update-poi-details").show();
+            });
+            $("#poi-add-report").show();
+        } else if (!isAuthenticated()) {
+            /*
+                If the user does not have permission to report research, but the
+                reason is that they aren't logged in, then redirect the user to
+                the login page instead of hiding the button. This is better UX
+                than simply removing the button, leaving new users clueless
+                about how to report research since 1) the button isn't shown and
+                2) it isn't immediately obvious that users have to sign in.
+            */
+            $("#poi-add-report").on("click", function() {
+                location.href = "./auth/login.php?continue="
+                              + encodeURIComponent("/" + location.hash);
+            });
+            $("#poi-add-report").show();
+        } else {
+            $("#poi-add-report").hide();
+        }
     }
     if (canManagePOIs) {
-        /*
-            Event handler for the sidebar button "Add POI". When clicked, this function
-            starts the process for adding a new POI to the map. It registers an event
-            handler that fetches the coordinates of a location the user clicks on on the
-            map. It also displays a banner prompting the user to perform this action.
-        */
         /*
             Event handler for the "Move POI" button. When clicked, this button
             starts the process for moving a POI on the map. It registers an
@@ -1328,7 +1648,7 @@ function openMarker(markerObj, id) {
                 to select a new location for the POI.
             */
             MapImpl.closeMarker(markerObj);
-            $("#move-poi-banner").fadeIn(150);
+            $("#move-" + type + "-banner").fadeIn(150);
             MapImpl.bindMapClickHandler(function(lat, lon) {
                 /*
                     Disables the map click event handler and hides the POI
@@ -1337,10 +1657,10 @@ function openMarker(markerObj, id) {
                     the user that the POI is being moved.
                 */
                 disableAddMovePOI(true);
-                $("#poi-working-text").text(resolveI18N("poi.move.processing"));
+                $("#poi-working-text").text(resolveI18N(type + ".move.processing"));
                 $("#poi-working-spinner").fadeIn(150);
                 $.ajax({
-                    url: "./api/poi.php",
+                    url: "./api/" + type + ".php",
                     type: "PATCH",
                     dataType: "json",
                     data: JSON.stringify({
@@ -1356,7 +1676,7 @@ function openMarker(markerObj, id) {
                                 If the request was successful, update the
                                 display of the marker on the map to reflect the
                                 new location. Also update the instance of the
-                                object in `pois` with the new location.
+                                object in `pois`/`arenas` with the new location.
                             */
                             poiObj.latitude = lat;
                             poiObj.longitude = lon;
@@ -1366,13 +1686,13 @@ function openMarker(markerObj, id) {
                                 Let the user know that the POI was successfully
                                 moved, and then close the waiting popup.
                             */
-                            spawnBanner("success", resolveI18N("poi.move.success"));
+                            spawnBanner("success", resolveI18N(type + ".move.success"));
                             $("#poi-working-spinner").fadeOut(150);
 
                             /*
                                 Update the marker clustering prioritization list.
                             */
-                            haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+                            haversineList = getPOIHaversineDistances(getIndicesOfAllMarkers());
                         }
                     }
                 }).fail(function(xhr) {
@@ -1386,7 +1706,7 @@ function openMarker(markerObj, id) {
                     if (data !== undefined && data.hasOwnProperty("reason")) {
                         reason = resolveI18N("xhr.failed.reason." + data["reason"]);
                     }
-                    spawnBanner("failed", resolveI18N("poi.move.failed.message", reason));
+                    spawnBanner("failed", resolveI18N(type + ".move.failed.message", reason));
                     $("#poi-working-spinner").fadeOut(150);
                 });
             });
@@ -1396,7 +1716,7 @@ function openMarker(markerObj, id) {
             starts the process for renaming a POI on the map.
         */
         $("#poi-rename").on("click", function() {
-            var newName = prompt(resolveI18N("poi.rename.prompt"), poiObj.name);
+            var newName = prompt(resolveI18N(type + ".rename.prompt"), poiObj.name);
             if (newName != null && newName.trim() != "") {
                 MapImpl.closeMarker(markerObj);
                 /*
@@ -1404,11 +1724,11 @@ function openMarker(markerObj, id) {
                     "working" spinner popup to visually invidate to the user
                     that the POI is being renamed.
                 */
-                $("#poi-working-text").text(resolveI18N("poi.rename.processing"));
+                $("#poi-working-text").text(resolveI18N(type + ".rename.processing"));
                 $("#poi-working-spinner").fadeIn(150);
                 newName = newName.trim();
                 $.ajax({
-                    url: "./api/poi.php",
+                    url: "./api/" + type + ".php",
                     type: "PATCH",
                     dataType: "json",
                     data: JSON.stringify({
@@ -1419,8 +1739,8 @@ function openMarker(markerObj, id) {
                         204: function(data) {
                             /*
                                 If the request was successful, update the
-                                instance of the object in `pois` with the new
-                                name.
+                                instance of the object in `pois`/`arenas` with
+                                the new name.
                             */
                             poiObj.name = newName;
 
@@ -1428,7 +1748,7 @@ function openMarker(markerObj, id) {
                                 Let the user know that the POI was successfully
                                 moved, and then close the waiting popup.
                             */
-                            spawnBanner("success", resolveI18N("poi.rename.success"));
+                            spawnBanner("success", resolveI18N(type + ".rename.success"));
                             $("#poi-working-spinner").fadeOut(150);
                         }
                     }
@@ -1443,111 +1763,114 @@ function openMarker(markerObj, id) {
                     if (data !== undefined && data.hasOwnProperty("reason")) {
                         reason = resolveI18N("xhr.failed.reason." + data["reason"]);
                     }
-                    spawnBanner("failed", resolveI18N("poi.rename.failed.message", reason));
+                    spawnBanner("failed", resolveI18N(type + ".rename.failed.message", reason));
                     $("#poi-working-spinner").fadeOut(150);
                 });
             };
         });
-        /*
-            Event handler for the "Clear POI research" button. When clicked,
-            this button starts the process for resetting the current research
-            task for one POI on the map.
-        */
-        $("#poi-clear").on("click", function() {
-            if (confirm(resolveI18N("poi.clear.confirm"))) {
-                MapImpl.closeMarker(markerObj);
-                /*
-                    Since we're initiating a request to the server, display a
-                    "working" spinner popup to visually invidate to the user
-                    that the POI is being renamed.
-                */
-                $("#poi-working-text").text(resolveI18N("poi.clear.processing"));
-                $("#poi-working-spinner").fadeIn(150);
-                $.ajax({
-                    url: "./api/poi.php",
-                    type: "PATCH",
-                    dataType: "json",
-                    data: JSON.stringify({
-                        id: poiObj.id,
-                        reset_research: true
-                    }),
-                    statusCode: {
-                        204: function(data) {
-                            /*
-                                If the request was successful, update the
-                                display of the marker on the map to show the
-                                updated research task. Also update the instance
-                                of the object in `pois` with the new research
-                                task.
-                            */
-                            var objective = "unknown";
-                            var reward = "unknown";
-                            var oldObjective = poiObj.objective.type;
-                            var oldReward = poiObj.reward.type;
+        if (type == "poi") {
+            /*
+                Event handler for the "Clear POI research" button. When clicked,
+                this button starts the process for resetting the current
+                research task for one POI on the map.
+            */
+            $("#poi-clear").on("click", function() {
+                if (confirm(resolveI18N("poi.clear.confirm"))) {
+                    MapImpl.closeMarker(markerObj);
+                    /*
+                        Since we're initiating a request to the server, display
+                        a "working" spinner popup to visually indicate to the
+                        user that the POI is being cleared.
+                    */
+                    $("#poi-working-text").text(resolveI18N("poi.clear.processing"));
+                    $("#poi-working-spinner").fadeIn(150);
+                    $.ajax({
+                        url: "./api/poi.php",
+                        type: "PATCH",
+                        dataType: "json",
+                        data: JSON.stringify({
+                            id: poiObj.id,
+                            reset_research: true
+                        }),
+                        statusCode: {
+                            204: function(data) {
+                                /*
+                                    If the request was successful, update the
+                                    display of the marker on the map to show the
+                                    updated research task. Also update the
+                                    instance of the object in `pois` with the
+                                    new research task.
+                                */
+                                var objective = "unknown";
+                                var reward = "unknown";
+                                var oldObjective = poiObj.objective.type;
+                                var oldReward = poiObj.reward.type;
 
-                            switch (settings.get("markerComponent")) {
-                                case "reward":
-                                    if ($("#" + poiObj.elementId).hasClass(oldReward)) {
-                                        $("#" + poiObj.elementId).removeClass(oldReward).addClass(reward);
-                                        MapImpl.updateMarker(poiObj.implObject, oldReward, reward);
-                                    }
-                                    break;
-                                case "objective":
-                                    if ($("#" + poiObj.elementId).hasClass(oldObjective)) {
-                                        $("#" + poiObj.elementId).removeClass(oldObjective).addClass(objective);
-                                        MapImpl.updateMarker(poiObj.implObject, oldObjective, objective);
-                                    }
-                                    break;
+                                switch (settings.get("markerComponent")) {
+                                    case "reward":
+                                        if ($("#" + poiObj.elementId).hasClass(oldReward)) {
+                                            $("#" + poiObj.elementId).removeClass(oldReward).addClass(reward);
+                                            MapImpl.updateMarker(poiObj.implObject, oldReward, reward);
+                                        }
+                                        break;
+                                    case "objective":
+                                        if ($("#" + poiObj.elementId).hasClass(oldObjective)) {
+                                            $("#" + poiObj.elementId).removeClass(oldObjective).addClass(objective);
+                                            MapImpl.updateMarker(poiObj.implObject, oldObjective, objective);
+                                        }
+                                        break;
+                                }
+                                poiObj.objective = {
+                                    type: objective,
+                                    params: []
+                                };
+                                poiObj.reward = {
+                                    type: reward,
+                                    params: []
+                                };
+
+                                /*
+                                    Let the user know that the POI was
+                                    successfully moved, and then close the
+                                    waiting popup.
+                                */
+                                spawnBanner("success", resolveI18N("poi.clear.success"));
+                                $("#poi-working-spinner").fadeOut(150);
                             }
-                            poiObj.objective = {
-                                type: objective,
-                                params: []
-                            };
-                            poiObj.reward = {
-                                type: reward,
-                                params: []
-                            };
-
-                            /*
-                                Let the user know that the POI was successfully
-                                moved, and then close the waiting popup.
-                            */
-                            spawnBanner("success", resolveI18N("poi.clear.success"));
-                            $("#poi-working-spinner").fadeOut(150);
                         }
-                    }
-                }).fail(function(xhr) {
-                    /*
-                        If the update request failed, then the user should be
-                        informed of the reason with a red banner.
-                    */
-                    var data = xhr.responseJSON;
-                    var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+                    }).fail(function(xhr) {
+                        /*
+                            If the update request failed, then the user should
+                            be informed of the reason with a red banner.
+                        */
+                        var data = xhr.responseJSON;
+                        var reason = resolveI18N("xhr.failed.reason.unknown_reason");
 
-                    if (data !== undefined && data.hasOwnProperty("reason")) {
-                        reason = resolveI18N("xhr.failed.reason." + data["reason"]);
-                    }
-                    spawnBanner("failed", resolveI18N("poi.clear.failed.message", reason));
-                    $("#poi-working-spinner").fadeOut(150);
-                });
-            };
-        });
+                        if (data !== undefined && data.hasOwnProperty("reason")) {
+                            reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+                        }
+                        spawnBanner("failed", resolveI18N("poi.clear.failed.message", reason));
+                        $("#poi-working-spinner").fadeOut(150);
+                    });
+                };
+            });
+        }
         /*
             Event handler for the "Delete POI" button. When clicked, this button
             starts the process for removing a POI on the map.
         */
         $("#poi-delete").on("click", function() {
-            if (confirm(resolveI18N("poi.delete.confirm"))) {
+            if (confirm(resolveI18N(type + ".delete.confirm"))) {
                 MapImpl.closeMarker(markerObj);
                 /*
                     Since we're initiating a request to the server, display a
                     "working" spinner popup to visually invidate to the user
                     that the POI is being deleted.
                 */
-                $("#poi-working-text").text(resolveI18N("poi.delete.processing"));
+                $("#poi-working-text").text(resolveI18N(type + ".delete.processing"));
                 $("#poi-working-spinner").fadeIn(150);
                 $.ajax({
-                    url: "./api/poi.php",
+                    url: "./api/" + type + ".php",
                     type: "DELETE",
                     dataType: "json",
                     data: JSON.stringify({
@@ -1565,13 +1888,13 @@ function openMarker(markerObj, id) {
                                 Let the user know that the POI was successfully
                                 moved, and then close the waiting popup.
                             */
-                            spawnBanner("success", resolveI18N("poi.delete.success"));
+                            spawnBanner("success", resolveI18N(type + ".delete.success"));
                             $("#poi-working-spinner").fadeOut(150);
 
                             /*
                                 Update the marker clustering prioritization list.
                             */
-                            haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
+                            haversineList = getPOIHaversineDistances(getIndicesOfAllMarkers());
                         }
                     }
                 }).fail(function(xhr) {
@@ -1585,219 +1908,222 @@ function openMarker(markerObj, id) {
                     if (data !== undefined && data.hasOwnProperty("reason")) {
                         reason = resolveI18N("xhr.failed.reason." + data["reason"]);
                     }
-                    spawnBanner("failed", resolveI18N("poi.delete.failed.message", reason));
+                    spawnBanner("failed", resolveI18N(type + ".delete.failed.message", reason));
                     $("#poi-working-spinner").fadeOut(150);
                 });
             }
         });
     }
 
-    /*
-        Event handler for the submit button on the "report field research"
-        dialog. This function will initiate an HTTP PATCH request to
-        /api/poi.php to update the current field research on the POI. A banner
-        is displayed once a response is received from the server showing the
-        success state of the request.
-    */
-    $("#update-poi-submit").on("click", function() {
+    if (type == "poi") {
         /*
-            Disallow submitting research if an objective/reward has not been
-            selected and tell the user that the request was denied.
+            Event handler for the submit button on the "report field research"
+            dialog. This function will initiate an HTTP PATCH request to
+            /api/poi.php to update the current field research on the POI. A
+            banner is displayed once a response is received from the server
+            showing the success state of the request.
         */
-        var objective = $("#update-poi-objective").val();
-        if (objective == null) {
-            spawnBanner("failed", resolveI18N(
-                "poi.update.failed.message",
-                resolveI18N("xhr.failed.reason.objective_null")
-            ));
-            return;
-        }
-        var reward = $("#update-poi-reward").val();
-        if (reward == null) {
-            spawnBanner("failed", resolveI18N(
-                "poi.update.failed.message",
-                resolveI18N("xhr.failed.reason.reward_null")
-            ));
-            return;
-        }
-
-        /*
-            Determine if the user selected a pre-defined common research
-            objective. If so, retrieve the objective it represents from the
-            `commonObjectives` object.
-        */
-        if (objective.startsWith("_c_")) {
-            var commonIndex = parseInt(objective.substring(3));
-            objective = commonObjectives[commonIndex].type;
-        }
-
-        /*
-            Ensure that all required parameters are set for both the objective
-            and reward components of the research quest. This is done by
-            retrieving the list of required parameters from the `objectives` and
-            `rewards` objects, populated from /includes/data/objectives.yaml and
-            /includes/data/rewards.yaml. The definitions for the objective and
-            reward contain these lists, so we loop over them, fetch the user
-            data from the dialog, and ensure that none of the fields are `null`
-            or empty. If they are, we abort the submission and notify the user
-            with a banner.
-        */
-        var objDefinition = objectives[objective];
-        var rewDefinition = rewards[reward];
-
-        var objParams = {};
-        for (var i = 0; i < objDefinition.params.length; i++) {
-            var paramData = getObjectiveParameter(objDefinition.params[i]);
-            if (paramData == null || paramData == "") {
+        $("#update-poi-submit").on("click", function() {
+            /*
+                Disallow submitting research if an objective/reward has not been
+                selected and tell the user that the request was denied.
+            */
+            var objective = $("#update-poi-objective").val();
+            if (objective == null) {
                 spawnBanner("failed", resolveI18N(
                     "poi.update.failed.message",
-                    resolveI18N("xhr.failed.reason.missing_fields")
+                    resolveI18N("xhr.failed.reason.objective_null")
                 ));
                 return;
             }
-            objParams[objDefinition.params[i]] = paramData;
-        }
-
-        var rewParams = {};
-        for (var i = 0; i < rewDefinition.params.length; i++) {
-            var paramData = getRewardParameter(rewDefinition.params[i]);
-            if (paramData == null || paramData == "") {
+            var reward = $("#update-poi-reward").val();
+            if (reward == null) {
                 spawnBanner("failed", resolveI18N(
                     "poi.update.failed.message",
-                    resolveI18N("xhr.failed.reason.missing_fields")
+                    resolveI18N("xhr.failed.reason.reward_null")
                 ));
                 return;
             }
-            rewParams[rewDefinition.params[i]] = paramData;
-        }
 
-        /*
-            At this point, all client-side validation has passed, so we can
-            submit the research task update to the server. Disable the submit
-            button to prevent accidental multiple submissions.
+            /*
+                Determine if the user selected a pre-defined common research
+                objective. If so, retrieve the objective it represents from the
+                `commonObjectives` object.
+            */
+            if (objective.startsWith("_c_")) {
+                var commonIndex = parseInt(objective.substring(3));
+                objective = commonObjectives[commonIndex].type;
+            }
 
-            Since updating the research requires a call to the server, the task
-            doesn't complete immediately, thus a "processing" indicator
-            (`#poi-working-spinner`) should be displayed to the user to let them
-            know that the research update call is in progress.
-        */
-        $("#update-poi-submit").prop("disabled", true);
-        $("#poi-working-text").text(resolveI18N("poi.update.processing"));
-        $("#poi-working-spinner").fadeIn(150);
-        $.ajax({
-            url: "./api/poi.php",
-            type: "PATCH",
-            dataType: "json",
-            data: JSON.stringify({
-                id: poiObj.id,
-                objective: {
-                    type: objective,
-                    params: objParams
-                },
-                reward: {
-                    type: reward,
-                    params: rewParams
+            /*
+                Ensure that all required parameters are set for both the
+                objective and reward components of the research quest. This is
+                done by retrieving the list of required parameters from the
+                `objectives` and `rewards` objects, populated from
+                /includes/data/objectives.yaml and /includes/data/rewards.yaml.
+                The definitions for the objective and reward contain these
+                lists, so we loop over them, fetch the user data from the
+                dialog, and ensure that none of the fields are `null` or empty.
+                If they are, we abort the submission and notify the user with a
+                banner.
+            */
+            var objDefinition = objectives[objective];
+            var rewDefinition = rewards[reward];
+
+            var objParams = {};
+            for (var i = 0; i < objDefinition.params.length; i++) {
+                var paramData = getObjectiveParameter(objDefinition.params[i]);
+                if (paramData == null || paramData == "") {
+                    spawnBanner("failed", resolveI18N(
+                        "poi.update.failed.message",
+                        resolveI18N("xhr.failed.reason.missing_fields")
+                    ));
+                    return;
                 }
-            }),
-            statusCode: {
-                204: function(data) {
-                    /*
-                        If the request was successful, update the display of the
-                        marker on the map to show the updated research task.
-                        Also update the instance of the object in `pois` with
-                        the new research task.
-                    */
-                    var oldObjective = poiObj.objective.type;
-                    var oldReward = poiObj.reward.type;
+                objParams[objDefinition.params[i]] = paramData;
+            }
 
-                    switch (settings.get("markerComponent")) {
-                        case "reward":
-                            if ($("#" + poiObj.elementId).hasClass(oldReward)) {
-                                $("#" + poiObj.elementId).removeClass(oldReward).addClass(reward);
-                                MapImpl.updateMarker(poiObj.implObject, oldReward, reward);
-                            }
-                            break;
-                        case "objective":
-                            if ($("#" + poiObj.elementId).hasClass(oldObjective)) {
-                                $("#" + poiObj.elementId).removeClass(oldObjective).addClass(objective);
-                                MapImpl.updateMarker(poiObj.implObject, oldObjective, objective);
-                            }
-                            break;
-                    }
-                    poiObj.objective = {
+            var rewParams = {};
+            for (var i = 0; i < rewDefinition.params.length; i++) {
+                var paramData = getRewardParameter(rewDefinition.params[i]);
+                if (paramData == null || paramData == "") {
+                    spawnBanner("failed", resolveI18N(
+                        "poi.update.failed.message",
+                        resolveI18N("xhr.failed.reason.missing_fields")
+                    ));
+                    return;
+                }
+                rewParams[rewDefinition.params[i]] = paramData;
+            }
+
+            /*
+                At this point, all client-side validation has passed, so we can
+                submit the research task update to the server. Disable the
+                submit button to prevent accidental multiple submissions.
+
+                Since updating the research requires a call to the server, the
+                task doesn't complete immediately, thus a "processing" indicator
+                (`#poi-working-spinner`) should be displayed to the user to let
+                them know that the research update call is in progress.
+            */
+            $("#update-poi-submit").prop("disabled", true);
+            $("#poi-working-text").text(resolveI18N("poi.update.processing"));
+            $("#poi-working-spinner").fadeIn(150);
+            $.ajax({
+                url: "./api/poi.php",
+                type: "PATCH",
+                dataType: "json",
+                data: JSON.stringify({
+                    id: poiObj.id,
+                    objective: {
                         type: objective,
                         params: objParams
-                    };
-                    poiObj.reward = {
+                    },
+                    reward: {
                         type: reward,
                         params: rewParams
-                    };
+                    }
+                }),
+                statusCode: {
+                    204: function(data) {
+                        /*
+                            If the request was successful, update the display of the
+                            marker on the map to show the updated research task.
+                            Also update the instance of the object in `pois` with
+                            the new research task.
+                        */
+                        var oldObjective = poiObj.objective.type;
+                        var oldReward = poiObj.reward.type;
 
-                    /*
-                        Let the user know that the research was successfully
-                        reported, and then close the report dialog.
+                        switch (settings.get("markerComponent")) {
+                            case "reward":
+                                if ($("#" + poiObj.elementId).hasClass(oldReward)) {
+                                    $("#" + poiObj.elementId).removeClass(oldReward).addClass(reward);
+                                    MapImpl.updateMarker(poiObj.implObject, oldReward, reward);
+                                }
+                                break;
+                            case "objective":
+                                if ($("#" + poiObj.elementId).hasClass(oldObjective)) {
+                                    $("#" + poiObj.elementId).removeClass(oldObjective).addClass(objective);
+                                    MapImpl.updateMarker(poiObj.implObject, oldObjective, objective);
+                                }
+                                break;
+                        }
+                        poiObj.objective = {
+                            type: objective,
+                            params: objParams
+                        };
+                        poiObj.reward = {
+                            type: reward,
+                            params: rewParams
+                        };
 
-                        Note that at this point, the POI details popup is
-                        already hidden - we hid it when we displayed the "report
-                        field research" dialog - but as far as the underlying
-                        map provider concerns, the popup is still open, because
-                        it hasn't received a click event on either a "close"
-                        button on the popup, or a click event somewhere else on
-                        the map. This means that if we try to click something
-                        that is not the underlying native popup box, the map
-                        will attempt to "close" the popup despite there being
-                        none open.
+                        /*
+                            Let the user know that the research was successfully
+                            reported, and then close the report dialog.
 
-                        Since we're using our own implementation of a popup,
-                        we've bound the close event to hide the POI details
-                        overlay. This, combined with the fact that the map would
-                        trigger the "close" event for the overlay if another
-                        marker is clicked, and the fact that we're reusing the
-                        POI details overlay HTML for all markers, means that the
-                        next time a marker is clicked, the POI details screen
-                        for that POI would open, only to immediately close again
-                        because the map fired the close event. To prevent this,
-                        we indicate to the map implementation that we want to
-                        trigger the close event manually. This ensures that the
-                        implementation knows there is no open dialog, thus the
-                        close event won't be triggered the next time the map, or
-                        something on it, is clicked.
-                    */
-                    spawnBanner("success", resolveI18N("poi.update.success", poiObj.name));
-                    MapImpl.closeMarker(markerObj);
-                    $("#update-poi-details").fadeOut(150);
-                    $("#poi-working-spinner").fadeOut(150);
+                            Note that at this point, the POI details popup is
+                            already hidden - we hid it when we displayed the "report
+                            field research" dialog - but as far as the underlying
+                            map provider concerns, the popup is still open, because
+                            it hasn't received a click event on either a "close"
+                            button on the popup, or a click event somewhere else on
+                            the map. This means that if we try to click something
+                            that is not the underlying native popup box, the map
+                            will attempt to "close" the popup despite there being
+                            none open.
 
-                    /*
-                        Update the marker clustering prioritization list.
-                    */
-                    haversineList = getPOIHaversineDistances(getIDsOfAllPOIs());
-                    updateVisiblePOIs();
+                            Since we're using our own implementation of a popup,
+                            we've bound the close event to hide the POI details
+                            overlay. This, combined with the fact that the map would
+                            trigger the "close" event for the overlay if another
+                            marker is clicked, and the fact that we're reusing the
+                            POI details overlay HTML for all markers, means that the
+                            next time a marker is clicked, the POI details screen
+                            for that POI would open, only to immediately close again
+                            because the map fired the close event. To prevent this,
+                            we indicate to the map implementation that we want to
+                            trigger the close event manually. This ensures that the
+                            implementation knows there is no open dialog, thus the
+                            close event won't be triggered the next time the map, or
+                            something on it, is clicked.
+                        */
+                        spawnBanner("success", resolveI18N("poi.update.success", poiObj.name));
+                        MapImpl.closeMarker(markerObj);
+                        $("#update-poi-details").fadeOut(150);
+                        $("#poi-working-spinner").fadeOut(150);
+
+                        /*
+                            Update the marker clustering prioritization list.
+                        */
+                        haversineList = getPOIHaversineDistances(getIndicesOfAllMarkers());
+                        updateVisiblePOIs();
+                    }
                 }
-            }
-        }).fail(function(xhr) {
-            /*
-                If the update request failed, then the user should be informed
-                of the reason with a red banner.
-            */
-            var data = xhr.responseJSON;
-            var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+            }).fail(function(xhr) {
+                /*
+                    If the update request failed, then the user should be informed
+                    of the reason with a red banner.
+                */
+                var data = xhr.responseJSON;
+                var reason = resolveI18N("xhr.failed.reason.unknown_reason");
 
-            if (data !== undefined && data.hasOwnProperty("reason")) {
-                reason = resolveI18N("xhr.failed.reason." + data["reason"]);
-            }
-            spawnBanner("failed", resolveI18N("poi.update.failed.message", reason));
-            $("#poi-working-spinner").fadeOut(150);
-            $("#update-poi-submit").prop("disabled", false);
+                if (data !== undefined && data.hasOwnProperty("reason")) {
+                    reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+                }
+                spawnBanner("failed", resolveI18N("poi.update.failed.message", reason));
+                $("#poi-working-spinner").fadeOut(150);
+                $("#update-poi-submit").prop("disabled", false);
+            });
         });
-    });
 
-    /*
-        The "POI name" field on the "report field research" dialog. Only for
-        displaying the name of the POI to make sure the user reports research to
-        the right POI. The field value is not sent to the server.
-    */
-    $("#update-poi-name").val(poiObj.name);
+        /*
+            The "POI name" field on the "report field research" dialog. Only for
+            displaying the name of the POI to make sure the user reports research to
+            the right POI. The field value is not sent to the server.
+        */
+        $("#update-poi-name").val(poiObj.name);
+    }
 
     $("#poi-details").fadeIn(150);
 }
@@ -1815,8 +2141,8 @@ function closeMarker(markerObj) {
     */
     if (currentMarker != -1) {
         /*
-            Reset the `currentMarker` ID since the POI details dialog is no longer
-            open (i.e. there is no currently displayed marker).
+            Reset the `currentMarker` ID since the POI details dialog is no
+            longer open (i.e. there is no currently displayed marker).
         */
         currentMarker = -1;
 
@@ -1873,18 +2199,21 @@ $("#update-poi-cancel").on("click", function() {
 function updateVisiblePOIs() {
     var inBounds = [];
     var visibleLimit = parseInt(settings.get("clusteringLimit"));
-    var idList = getIDsOfAllPOIs();
+    var idList = getIndicesOfAllMarkers();
     for (var i = 0; i < idList.length; i++) {
         /*
             If the POI should be visible, but isn't currently, flag it as
             visible and add it to the map. Inversely, if the POI is currently
             visible, but shouldn't be, remove it from the map to save resources.
         */
-        if (shouldBeVisibleOnMap(pois[idList[i]])) {
+        var poiObj = markerMap[idList[i]].type == "poi"
+                   ? pois[markerMap[idList[i]].id]
+                   : arenas[markerMap[idList[i]].id];
+        if (shouldBeVisibleOnMap(poiObj, markerMap[idList[i]].type)) {
             inBounds.push(idList[i]);
-        } else if (pois[idList[i]].visible) {
-            pois[idList[i]].visible = false;
-            MapImpl.removeMarker(pois[idList[i]].implObject);
+        } else if (poiObj.visible) {
+            poiObj.visible = false;
+            MapImpl.removeMarker(poiObj.implObject);
         }
     }
 
@@ -1908,16 +2237,18 @@ function updateVisiblePOIs() {
         appropriately.
     */
     for (var i = 0, j = 0; i < inBounds.length; i++) {
-        var poiId = inBounds[i];
-        if (j < visibleIDs.length && poiId == visibleIDs[j]) {
+        var poiObj = markerMap[inBounds[i]].type == "poi"
+                   ? pois[markerMap[inBounds[i]].id]
+                   : arenas[markerMap[inBounds[i]].id];
+        if (j < visibleIDs.length && inBounds[i] == visibleIDs[j]) {
             j++;
-            if (!pois[poiId].visible) {
-                pois[poiId].visible = true;
-                addMarkers([pois[poiId]]);
+            if (!poiObj.visible) {
+                poiObj.visible = true;
+                addMarkers([poiObj], markerMap[inBounds[i]].type);
             }
-        } else if (pois[poiId].visible) {
-            pois[poiId].visible = false;
-            MapImpl.removeMarker(pois[poiId].implObject);
+        } else if (poiObj.visible) {
+            poiObj.visible = false;
+            MapImpl.removeMarker(poiObj.implObject);
         }
     }
 
@@ -1993,23 +2324,29 @@ $("#search-overlay-input").on("input", function() {
     // Make a list of candidates that match the search query.
     var candidates = [];
     // Get a list of POI IDs to loop over to check for eligibility,
-    var poiIDList = getIDsOfAllPOIs();
+    var poiIDList = getIndicesOfAllMarkers();
     // Determine whether geolocation is available.
     var useDistance = currentPos != null;
 
     for (var i = 0; i < poiIDList.length; i++) {
+        var poiObj = markerMap[poiIDList[i]].type == "poi"
+                   ? pois[markerMap[poiIDList[i]].id]
+                   : arenas[markerMap[poiIDList[i]].id];
         // Do case-insensitive substring search for the query on each POI name.
-        if (pois[poiIDList[i]].name.toLowerCase().indexOf(query) !== -1) {
+        if (poiObj.name.toLowerCase().indexOf(query) !== -1) {
             // Create a candidate object with the ID of the POI.
             var cand = {
-                id: poiIDList[i]
+                id: poiIDList[i],
+                realId: poiObj.id,
+                type: markerMap[poiIDList[i]].type,
+                name: poiObj.name
             };
             // If geolocation is available, calculate and add the distance from
             // the user to the POI in question to the object. This is used for
             // sorting.
             if (useDistance) {
                 cand.distance = EARTH_RADIUS * 2 * distanceHaversine(
-                    pois[poiIDList[i]],
+                    poiObj,
                     currentPos
                 );
             }
@@ -2023,22 +2360,25 @@ $("#search-overlay-input").on("input", function() {
         if (useDistance) {
             return a.distance - b.distance;
         } else {
-            return pois[a.id].name.localeCompare(pois[b.id].name);
+            return a.name.localeCompare(b.name);
         }
     });
     // Add a search result into each of the search result rows on the dialog.
     $(".search-overlay-result").each(function(idx, e) {
         if (candidates.length > idx) {
+            var poiObj = candidates[idx].type == "poi"
+                       ? pois[candidates[idx].realId]
+                       : arenas[candidates[idx].realId];
             // Bind the POI ID to the row for panning if clicked.
             $(e).attr("data-poi-id", candidates[idx].id);
             // Update the result row with the data (name, distance, etc.) of the
             // POI.
-            $(e).find(".search-overlay-name").text(pois[candidates[idx].id].name);
+            $(e).find(".search-overlay-name").text(candidates[idx].name);
             if (useDistance) {
                 // If distance is available, show the distance and bearing from
                 // the user to the POI.
                 var distanceKm = candidates[idx].distance.toFixed(2);
-                var bearing = getBearingDegrees(currentPos, pois[candidates[idx].id]);
+                var bearing = getBearingDegrees(currentPos, poiObj);
                 bearing -= 90; // Icon offset (arrow points right)
                 $(e).find(".search-overlay-dir").show();
                 $(e).find(".search-overlay-dir").css(
@@ -2051,8 +2391,8 @@ $("#search-overlay-input").on("input", function() {
                 // Otherwise, show coordinate pairs for the POI.
                 $(e).find(".search-overlay-dir").hide();
                 $(e).find(".search-overlay-loc").text(getLocationString(
-                    pois[candidates[idx].id].latitude,
-                    pois[candidates[idx].id].longitude
+                    poiObj.latitude,
+                    poiObj.longitude
                 ));
             }
             $(e).show();
@@ -2072,7 +2412,10 @@ $("#search-overlay-input").on("input", function() {
 $(".search-overlay-result").on("click", function() {
     $("#search-poi").fadeOut(150);
     var id = parseInt($(this).attr("data-poi-id"));
-    MapImpl.panTo(pois[id].latitude, pois[id].longitude);
+    var poiObj = markerMap[id].type == "poi"
+               ? pois[markerMap[id].id]
+               : arenas[markerMap[id].id];
+    MapImpl.panTo(poiObj.latitude, poiObj.longitude);
 });
 
 /*

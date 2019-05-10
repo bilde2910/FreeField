@@ -42,6 +42,11 @@ msgstr "Pokéstop"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
+msgid "sidebar.add_arena"
+msgstr "Gym"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
 msgid "sidebar.filters"
 msgstr "Filter"
 

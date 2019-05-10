@@ -158,8 +158,38 @@ CREATE TABLE {$prefix}api (
     UNIQUE KEY level (user_id)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 __END_STRING__;
-            $db->execute($sql);
-            if (!$silent) echo " ok\n";
+                $db->execute($sql);
+                if (!$silent) echo " ok\n";
+
+            case "1.1-beta.1":
+            case "1.1-beta.2":
+            case "1.1-beta.3":
+            case "1.1-rc.1":
+            case "1.1":
+            case "1.1.1":
+            case "1.1.2":
+            case "1.1.3":
+            case "1.1.4":
+            case "1.1.5":
+                /*
+                    Add table to database for arenas.
+                */
+                if (!$silent) echo "Adding arena table to database...";
+                $sql = <<<__END_STRING__
+CREATE TABLE {$prefix}arena (
+    id              int(11)         NOT NULL AUTO_INCREMENT,
+    name            varchar(128)    NOT NULL,
+    latitude        double          NOT NULL,
+    longitude       double          NOT NULL,
+    created_on      timestamp       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by      varchar(64)     DEFAULT NULL,
+    last_updated    timestamp       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by      varchar(64)     DEFAULT NULL,
+    PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+__END_STRING__;
+                $db->execute($sql);
+                if (!$silent) echo " ok\n";
         }
         /*
             Recheck for updates.

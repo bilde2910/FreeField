@@ -46,6 +46,7 @@ var i18n = <?php
 
         // POI strings
         "poi.*",
+        "arena.*",
 
         // Geo string formatting
         "geo.*",

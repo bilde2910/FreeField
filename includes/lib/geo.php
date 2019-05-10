@@ -98,18 +98,36 @@ class Geo {
         );
     }
 
-    /*
-        Returns a `POI` instance for the given POI, looked up by POI ID.
-    */
     public static function getPOI($id) {
+        return self::getPOIBase($id, "poi");
+    }
+
+    public static function getArena($id) {
+        return self::getPOIBase($id, "arena");
+    }
+
+    /*
+        Returns a `POI` or `Arena` instance for the given POI/arena, looked up
+        by its ID.
+
+        `$id` = ID of POI/arena
+        `$type` = "poi" or "arena"
+    */
+    private static function getPOIBase($id, $type) {
         __require("db");
+
+        /*
+            Catch invalid arguments.
+        */
+        if ($type !== "poi" && $type !== "arena") return null;
+        $table = $type;
 
         $db = Database::connect();
         $poi = $db
             /*
                 Query the list of POIs
             */
-            ->from("poi")
+            ->from($table)
 
             /*
                 Include the user who created POI
@@ -123,10 +141,10 @@ class Geo {
                 (`c_user.permission` matches `c_group.level`)
             */
             ->leftJoin("api c_api", array(
-                "poi.created_by" => "~c_api.user_id"
+                "{$table}.created_by" => "~c_api.user_id"
             ))
             ->leftJoin("user c_user", array(
-                "poi.created_by" => "~c_user.id"
+                "{$table}.created_by" => "~c_user.id"
             ))
             ->leftJoin("group c_group", array(
                 "~c_user.permission" => "~c_group.level"
@@ -137,10 +155,10 @@ class Geo {
                 aliases for "updated" rather than "c_" for "created"
             */
             ->leftJoin("api u_api", array(
-                "poi.updated_by" => "~u_api.user_id"
+                "{$table}.updated_by" => "~u_api.user_id"
             ))
             ->leftJoin("user u_user", array(
-                "poi.updated_by" => "~u_user.id"
+                "{$table}.updated_by" => "~u_user.id"
             ))
             ->leftJoin("group u_group", array(
                 "~u_user.permission" => "~u_group.level"
@@ -149,13 +167,13 @@ class Geo {
             /*
                 Pick the POI that matches the ID passed to the function
             */
-            ->where(Database::getTable("poi").".id", $id)
+            ->where(Database::getTable($table).".id", $id)
 
             ->select(array(
                 /*
                     All POI data
                 */
-                Database::getTable("poi").".*",
+                Database::getTable($table).".*",
                 /*
                     Provider identity of the user who created the POI
                     Alias `creator_provider_id`
@@ -201,12 +219,11 @@ class Geo {
               ))
 
             /*
-                The array has the following keys:
+                The array has at least the following keys:
 
                     array_keys($poi) == array(
                         "id", "name", "latitude", "Longitude", "created_on",
-                        "created_by", "last_updated", "updated_by", "objective",
-                        "obj_params", "reward", "rew_params",
+                        "created_by", "last_updated", "updated_by",
                         "creator_provider_id", "creator_nick",
                         "creator_api_name", "creator_api_color",
                         "creator_color", "updater_provider_id", "updater_nick",
@@ -218,22 +235,42 @@ class Geo {
             */
             ->one();
 
-        return new POI($poi);
+        if ($type == "arena") {
+            return new Arena($poi);
+        } else {
+            return new POI($poi);
+        }
+    }
+
+    public static function listPOIs() {
+        return self::listPOIsBase("poi");
+    }
+
+    public static function listArenas() {
+        return self::listPOIsBase("arena");
     }
 
     /*
-        Returns an array of `POI` instances representing each POI in the
-        database.
+        Returns an array of `POI` or `Arena` instances representing each
+        POI/arena in the database.
+
+        `$type` = "poi" or "arena"
     */
-    public static function listPOIs() {
+    private static function listPOIsBase($type) {
         __require("db");
+
+        /*
+            Catch invalid arguments.
+        */
+        if ($type !== "poi" && $type !== "arena") return null;
+        $table = $type;
 
         $db = Database::connect();
         $pois = $db
             /*
                 Query the list of POIs
             */
-            ->from("poi")
+            ->from($table)
 
             /*
                 Include the users who created POIs
@@ -247,10 +284,10 @@ class Geo {
                 (`c_user.permission` matches `c_group.level`)
             */
             ->leftJoin("api c_api", array(
-                "poi.created_by" => "~c_api.user_id"
+                "{$table}.created_by" => "~c_api.user_id"
             ))
             ->leftJoin("user c_user", array(
-                "poi.created_by" => "~c_user.id"
+                "{$table}.created_by" => "~c_user.id"
             ))
             ->leftJoin("group c_group", array(
                 "~c_user.permission" => "~c_group.level"
@@ -261,10 +298,10 @@ class Geo {
                 aliases for "updated" rather than "c_" for "created"
             */
             ->leftJoin("api u_api", array(
-                "poi.updated_by" => "~u_api.user_id"
+                "{$table}.updated_by" => "~u_api.user_id"
             ))
             ->leftJoin("user u_user", array(
-                "poi.updated_by" => "~u_user.id"
+                "{$table}.updated_by" => "~u_user.id"
             ))
             ->leftJoin("group u_group", array(
                 "~u_user.permission" => "~u_group.level"
@@ -274,7 +311,7 @@ class Geo {
                 /*
                     All POI data
                 */
-                Database::getTable("poi").".*",
+                Database::getTable($table).".*",
                 /*
                     Provider identities of the users who created the POIs
                     Alias `creator_provider_id`
@@ -338,8 +375,14 @@ class Geo {
             ->many();
 
         $poilist = array();
-        foreach ($pois as $poi) {
-            $poilist[] = new POI($poi);
+        if ($type == "arena") {
+            foreach ($pois as $poi) {
+                $poilist[] = new Arena($poi);
+            }
+        } else {
+            foreach ($pois as $poi) {
+                $poilist[] = new POI($poi);
+            }
         }
         return $poilist;
     }
@@ -455,11 +498,10 @@ class Geo {
 }
 
 /*
-    This class is used to extract information about specific POIs. An instance
-    can be obtained by POI ID from `Geo::getPOI($id)` or a complete list of all
-    POIs via `Geo::listPOIs()`.
+    This class is used to extract information about POIs. It serves as the base
+    class for both POIs and arenas.
 */
-class POI {
+class POIBase {
     /*
         Degrees to radians; π/180
         Used to calculate distance between coordinates.
@@ -467,12 +509,11 @@ class POI {
     const D2R = 0.017453292519943295;
 
     /*
-        The array entries have the following keys:
+        The array entries have at least the following keys:
 
             array_keys($data) == array(
                 "id", "name", "latitude", "Longitude", "created_on",
-                "created_by", "last_updated", "updated_by", "objective",
-                "obj_params", "reward", "rew_params",
+                "created_by", "last_updated", "updated_by",
                 "creator_provider_id", "creator_nick", "creator_color",
                 "updater_provider_id", "updater_nick", "updater_color"
             );
@@ -481,7 +522,7 @@ class POI {
         the first three lines above represent. The rest is explained in
         `Geo::getPOI()`.
     */
-    private $data = null;
+    protected $data = null;
 
     function __construct($poidata) {
         $this->data = $poidata;
@@ -601,6 +642,89 @@ class POI {
     }
 
     /*
+        Returns a `User` instance representing the user who added this POI to
+        the local POI database. The `User` instance returned can only be used to
+        get the username, nickname, provider identity, color and ID of the user,
+        and can not be used for group management or permission purposes.
+    */
+    public function getCreator() {
+        __require("auth");
+        __require("api");
+        /*
+            This object will only be used for displaying information about the
+            identity of the user, so querying the group to get permission/group
+            information for the user is not necessary.
+        */
+        if (substr($this->data["created_by"], 0, strlen(APIClient::USER_ID_PREFIX))
+            === APIClient::USER_ID_PREFIX) {
+            /*
+                If the POI was created by an API client, create a fake `User`
+                object for the purpose of displaying its identity only.
+            */
+            return new User(array(
+                "id" => $this->data["created_by"],
+                "nick" => $this->data["creator_api_name"],
+                "color" => $this->data["creator_api_color"],
+                "provider_id" => $this->data["creator_api_name"]
+            ));
+        } else {
+            return new User(array(
+                "id" => $this->data["created_by"],
+                "nick" => $this->data["creator_nick"],
+                "color" => $this->data["creator_color"],
+                "provider_id" => $this->data["creator_provider_id"]
+            ));
+        }
+    }
+
+    /*
+        Returns a `User` instance representing the user who last reported
+        research on this POI. The `User` instance returned can only be used to
+        get the username, nickname, provider identity, color and ID of the user,
+        and can not be used for group management or permission purposes.
+    */
+    public function getLastUser() {
+        __require("auth");
+        /*
+            This object will only be used for displaying information about the
+            identity of the user, so querying the group to get permission/group
+            information for the user is not necessary.
+        */
+        if (substr($this->data["updated_by"], 0, strlen(APIClient::USER_ID_PREFIX))
+            === APIClient::USER_ID_PREFIX) {
+            /*
+                If the POI was last updated by an API client, create a fake
+                `User` object for the purpose of displaying its identity only.
+            */
+            return new User(array(
+                "id" => $this->data["updated_by"],
+                "nick" => $this->data["updater_api_name"],
+                "color" => $this->data["updater_api_color"],
+                "provider_id" => $this->data["updater_api_name"]
+            ));
+        } else {
+            return new User(array(
+                "id" => $this->data["updated_by"],
+                "nick" => $this->data["updater_nick"],
+                "color" => $this->data["updater_color"],
+                "provider_id" => $this->data["updater_provider_id"]
+            ));
+        }
+    }
+}
+
+/*
+    This class is used to extract information about specific POIs. An instance
+    can be obtained by POI ID from `Geo::getPOI($id)` or a complete list of all
+    POIs via `Geo::listPOIs()`.
+*/
+class POI extends POIBase {
+
+    function __construct($poidata) {
+        parent::__construct($poidata);
+    }
+
+    /*
         Returns the last known research objective on this POI. This may not
         necessarily be current. To get the current research objective, use
         `getCurrentObjective()`.
@@ -707,76 +831,19 @@ class POI {
     public function isResearchUnknown() {
         return $this->isObjectiveUnknown() && $this->isRewardUnknown();
     }
+}
 
-    /*
-        Returns a `User` instance representing the user who added this POI to
-        the local POI database. The `User` instance returned can only be used to
-        get the username, nickname, provider identity, color and ID of the user,
-        and can not be used for group management or permission purposes.
-    */
-    public function getCreator() {
-        __require("auth");
-        __require("api");
-        /*
-            This object will only be used for displaying information about the
-            identity of the user, so querying the group to get permission/group
-            information for the user is not necessary.
-        */
-        if (substr($this->data["created_by"], 0, strlen(APIClient::USER_ID_PREFIX))
-            === APIClient::USER_ID_PREFIX) {
-            /*
-                If the POI was created by an API client, create a fake `User`
-                object for the purpose of displaying its identity only.
-            */
-            return new User(array(
-                "id" => $this->data["created_by"],
-                "nick" => $this->data["creator_api_name"],
-                "color" => $this->data["creator_api_color"],
-                "provider_id" => $this->data["creator_api_name"]
-            ));
-        } else {
-            return new User(array(
-                "id" => $this->data["created_by"],
-                "nick" => $this->data["creator_nick"],
-                "color" => $this->data["creator_color"],
-                "provider_id" => $this->data["creator_provider_id"]
-            ));
-        }
-    }
+/*
+    This class is used to extract information about specific arenas. An instance
+    can be obtained by arena ID from `Geo::getArena($id)` or a complete list of
+    all arenas via `Geo::listArenas()`.
 
-    /*
-        Returns a `User` instance representing the user who last reported
-        research on this POI. The `User` instance returned can only be used to
-        get the username, nickname, provider identity, color and ID of the user,
-        and can not be used for group management or permission purposes.
-    */
-    public function getLastUser() {
-        __require("auth");
-        /*
-            This object will only be used for displaying information about the
-            identity of the user, so querying the group to get permission/group
-            information for the user is not necessary.
-        */
-        if (substr($this->data["updated_by"], 0, strlen(APIClient::USER_ID_PREFIX))
-            === APIClient::USER_ID_PREFIX) {
-            /*
-                If the POI was last updated by an API client, create a fake
-                `User` object for the purpose of displaying its identity only.
-            */
-            return new User(array(
-                "id" => $this->data["updated_by"],
-                "nick" => $this->data["updater_api_name"],
-                "color" => $this->data["updater_api_color"],
-                "provider_id" => $this->data["updater_api_name"]
-            ));
-        } else {
-            return new User(array(
-                "id" => $this->data["updated_by"],
-                "nick" => $this->data["updater_nick"],
-                "color" => $this->data["updater_color"],
-                "provider_id" => $this->data["updater_provider_id"]
-            ));
-        }
+    There is currently no additional data in this class, but there may be more
+    functionality in this class at a later time.
+*/
+class Arena extends POIBase {
+    function __construct($poidata) {
+        parent::__construct($poidata);
     }
 }
 

@@ -9,7 +9,10 @@
     with keys corresponding to the keys/headers in the file. This variable is
     used to draw and populate the preview table.
 */
-var importingTable = null;
+var importingTable = {
+    "poi": null,
+    "arena": null
+};
 
 /*
     POI import file parsing logic happens client-side. This event handler binds
@@ -17,17 +20,18 @@ var importingTable = null;
     and construct an array for `importingTable`. It also displays the preview
     table if applicable.
 */
-$("#import-poi-file").on("change", function(e) {
+$("#import-poi-file, #import-arena-file").on("change", function(e) {
+    var type = $(this).attr("data-type");
     /*
         Reset all fields and data.
     */
     // Clear select boxes
-    $(".import-poi-optgroup").html("");
+    $(".import-" + type + "-optgroup").html("");
     // Disable select boxes
-    $(".import-poi-field").prop("disabled", true);
+    $(".import-" + type + "-field").prop("disabled", true);
     // Clear importing POI list and preview table
-    importingTable = null;
-    drawTable();
+    importingTable[type] = null;
+    drawTable(type);
 
     /*
         Ensure compatibility with HTML5 File API.
@@ -51,13 +55,13 @@ $("#import-poi-file").on("change", function(e) {
             files as they don't consistently recognize the "text/csv" MIME type.
             Hence, get the data type from the file extension.
         */
-        var type = null;
-        if (file.name.toLowerCase().endsWith(".csv")) type = "csv";
+        var ftype = null;
+        if (file.name.toLowerCase().endsWith(".csv")) ftype = "csv";
 
         /*
             Read the file.
         */
-        switch (type) {
+        switch (ftype) {
             case "csv":
                 /*
                     `elements` contains a list of POI objects for the import. It
@@ -123,7 +127,7 @@ $("#import-poi-file").on("change", function(e) {
                             displaying the list of POIs to import in the preview
                             table.
                         */
-                        preparePreview(header, elements);
+                        preparePreview(header, elements, type);
                     }
                 });
                 break;
@@ -135,7 +139,7 @@ $("#import-poi-file").on("change", function(e) {
     This function takes an array of headers and an array of POI objects and uses
     them to construct a preview table and enable the UI for importing POIs.
 */
-function preparePreview(header, table) {
+function preparePreview(header, table, type) {
     /*
         The field selection boxes on the page exist to let the user determine
         which column of the imported data corresopnds to the names, latitudes
@@ -146,7 +150,7 @@ function preparePreview(header, table) {
     /*
         Clear the existing list of column names, if any.
     */
-    $(".import-poi-optgroup").html("");
+    $(".import-" + type + "-optgroup").html("");
 
     /*
         Loop through the column names in the `header` array and add each of them
@@ -156,27 +160,27 @@ function preparePreview(header, table) {
         var headerField = $("<option />");
         headerField.attr("value", header[i]);
         headerField.text(header[i]);
-        $(".import-poi-optgroup").append(headerField);
+        $(".import-" + type + "-optgroup").append(headerField);
     }
 
     /*
         Ensure that the selection boxes are enabled, so the user can actually
         make a selection.
     */
-    $(".import-poi-field").prop("disabled", false);
+    $(".import-" + type + "-field").prop("disabled", false);
 
     /*
         Assign the list of POI objects imported from the file to the global
         `importingTable` array. The `importingTable` variable is later used to
         draw and populate the preview table.
     */
-    importingTable = table;
+    importingTable[type] = table;
 
     /*
         Create the table's nodes in the DOM and fill it with values.
     */
-    drawTable();
-    renderPreview();
+    drawTable(type);
+    renderPreview(type);
 }
 
 /*
@@ -184,28 +188,28 @@ function preparePreview(header, table) {
     It only creates the structure - it does not fill the table with values. That
     function is handled by `renderPreview()` instead.
 */
-function drawTable() {
+function drawTable(type) {
     /*
         Clear all current rows.
     */
-    $("#import-poi-preview-rows").html("");
-    if (importingTable == null) {
+    $("#import-" + type + "-preview-rows").html("");
+    if (importingTable[type] == null) {
         /*
             Hide the preview if the user has not selected a file, or if the
             selected file is invalid.
         */
-        $("#import-poi-preview-section").hide();
+        $("#import-" + type + "-preview-section").hide();
     } else {
         /*
             Loop over the POI list, adding the objects to the table one by one.
         */
-        for (var i = 0; i < importingTable.length; i++) {
-            var row = importingTable[i];
+        for (var i = 0; i < importingTable[type].length; i++) {
+            var row = importingTable[type][i];
 
             /*
                 Create a row node that corresponds to this particular POI.
             */
-            var rowNode = $('<tr id="import-preview-row-' + i + '" />');
+            var rowNode = $('<tr id="import-' + type + '-preview-row-' + i + '" />');
 
             /*
                 Create an add a cell for displaying the name, latitude and
@@ -215,7 +219,7 @@ function drawTable() {
             var colName = $(
                 '<td>' +
                     '<input type="text" ' +
-                           'class="import-poi-data-field" ' +
+                           'class="import-' + type + '-data-field" ' +
                            'data-new-id="' + i + '" ' +
                            'data-new-key="name">' +
                 '</td>'
@@ -226,7 +230,7 @@ function drawTable() {
                 '<td>' +
                     '<input type="number" ' +
                            'step="0.000000000001" ' +
-                           'class="import-poi-data-field" ' +
+                           'class="import-' + type + '-data-field" ' +
                            'data-new-id="' + i + '" ' +
                            'data-new-key="latitude">' +
                 '</td>'
@@ -237,7 +241,7 @@ function drawTable() {
                 '<td>' +
                     '<input type="number" ' +
                            'step="0.000000000001" ' +
-                           'class="import-poi-data-field" ' +
+                           'class="import-' + type + '-data-field" ' +
                            'data-new-id="' + i + '" ' +
                            'data-new-key="longitude">' +
                 '</td>'
@@ -258,7 +262,7 @@ function drawTable() {
                 '<td>' +
                     '<select data-new-id="' + i + '" ' +
                             'data-new-key="include" ' +
-                            'class="import-action import-poi-data-field" ' +
+                            'class="import-action import-' + type + '-data-field" ' +
                             'data-changed="true">' +
                         '<option value="yes"></option>' +
                         '<option value="no"></option>' +
@@ -280,34 +284,37 @@ function drawTable() {
             /*
                 Append the row to the table body.
             */
-            $("#import-poi-preview-rows").append(rowNode);
+            $("#import-" + type + "-preview-rows").append(rowNode);
         }
 
         /*
             Display a count of POIs importable from the selected file, and
             display the table itself if hidden.
         */
-        $("#import-poi-counter").text(resolveI18N("admin.clientside.pois.import.count", importingTable.length));
-        $("#import-poi-preview-section").show();
+        $("#import-" + type + "-counter").text(resolveI18N(
+            "admin.clientside.pois.import.count_" + type,
+            importingTable[type].length
+        ));
+        $("#import-" + type + "-preview-section").show();
     }
 }
 
 /*
     This table populates the POI import preview table with values.
 */
-function renderPreview() {
-    if (importingTable !== null) {
+function renderPreview(type) {
+    if (importingTable[type] !== null) {
         /*
             Get the name of the fields containing the POI name, latitude and
             longitude, as specified by the user.
         */
-        var fieldName = $("#import-poi-field-name").val();
-        var fieldLatitude = $("#import-poi-field-latitude").val();
-        var fieldLongitude = $("#import-poi-field-longitude").val();
+        var fieldName = $("#import-" + type + "-field-name").val();
+        var fieldLatitude = $("#import-" + type + "-field-latitude").val();
+        var fieldLongitude = $("#import-" + type + "-field-longitude").val();
 
-        for (var i = 0; i < importingTable.length; i++) {
-            var row = importingTable[i];
-            var rowNode = $("#import-preview-row-" + i);
+        for (var i = 0; i < importingTable[type].length; i++) {
+            var row = importingTable[type][i];
+            var rowNode = $("#import-" + type + "-preview-row-" + i);
 
             /*
                 Check that the field names exists in the object for the name,
@@ -330,7 +337,7 @@ function renderPreview() {
         /*
             Check for empty cells and flag them to grab the user's attention.
         */
-        $("#import-poi-preview-rows input").trigger("input");
+        $("#import-" + type + "-preview-rows input").trigger("input");
     }
 }
 
@@ -341,7 +348,10 @@ function renderPreview() {
     by the selection boxes.
 */
 $(".import-poi-field").on("input", function() {
-    renderPreview();
+    renderPreview("poi");
+});
+$(".import-arena-field").on("input", function() {
+    renderPreview("arena");
 });
 
 /*
@@ -349,7 +359,7 @@ $(".import-poi-field").on("input", function() {
     specifies that they do not want to import a POI, it should be flagged in red
     to visibly highlight that face.
 */
-$("#import-poi-preview-rows").on("change", ".import-action", function() {
+$("#import-poi-preview-rows, #import-arena-preview-rows").on("change", ".import-action", function() {
     if ($(this).val() == "no") {
         $(this).css("border", "1px solid red");
         $(this).css("color", "red");
@@ -388,6 +398,28 @@ $("#import-poi-preview-rows").on("input", "input", function() {
         $("#import-poi-invalid-warning").hide();
     }
 });
+$("#import-arena-preview-rows").on("input", "input", function() {
+    if ($(this).val() == "") {
+        $(this).css("border", "1px solid red");
+        $(this).css("color", "red");
+        $(this).css("margin-right", "");
+        $(this).addClass("data-invalid");
+    } else {
+        $(this).css("border", "");
+        $(this).css("color", "");
+        $(this).css("margin-right", "");
+        $(this).removeClass("data-invalid");
+    }
+    /*
+        If there exist rows with invalid data, display a warning underneath the
+        table that those rows will not be imported into the POI list.
+    */
+    if ($('#import-arena-preview-rows input.data-invalid').length > 0) {
+        $("#import-arena-invalid-warning").show();
+    } else {
+        $("#import-arena-invalid-warning").hide();
+    }
+});
 
 /*
     Handle changes to the Actions down-down for POIs. If the "delete" action is
@@ -398,19 +430,27 @@ $("#import-poi-preview-rows").on("input", "input", function() {
     rarely). The same is done for the action that clears the field research task
     currently reported on the POI.
 */
-$(".poi-actions").on("change", function() {
-    if ($(this).val() == "delete") {
-        $(this).css("border", "1px solid red");
-        $(this).css("color", "red");
-        $(this).css("margin-right", "");
-    } else if ($(this).val() == "clear") {
-        $(this).css("border", "1px solid darkorange");
-        $(this).css("color", "darkorange");
-        $(this).css("margin-right", "");
-    } else {
-        $(this).css("border", "");
-        $(this).css("color", "");
-        $(this).css("margin-right", "");
+$(".poi-actions, .arena-actions").on("change", function() {
+    switch ($(this).val()) {
+        case "delete":
+        case "delete-poi":
+        case "delete-arena":
+        case "delete-all":
+            $(this).css("border", "1px solid red");
+            $(this).css("color", "red");
+            $(this).css("margin-right", "");
+            break;
+
+        case "clear":
+            $(this).css("border", "1px solid darkorange");
+            $(this).css("color", "darkorange");
+            $(this).css("margin-right", "");
+            break;
+
+        default:
+            $(this).css("border", "");
+            $(this).css("color", "");
+            $(this).css("margin-right", "");
     }
 });
 
@@ -430,6 +470,15 @@ $("form").on("submit", function(ev) {
         pnArray[id][key] = $(e).val();
     });
     $("#import-poi-json").val(JSON.stringify(pnArray));
+
+    var anArray = [];
+    $(".import-arena-data-field").each(function(idx, e) {
+        var id = $(e).attr("data-new-id");
+        var key = $(e).attr("data-new-key");
+        if (typeof anArray[id] === "undefined") anArray[id] = {};
+        anArray[id][key] = $(e).val();
+    });
+    $("#import-arena-json").val(JSON.stringify(anArray));
 
     /*
         Changes to inputs on the form are tracked to stop data being

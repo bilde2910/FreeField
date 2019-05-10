@@ -17,6 +17,7 @@ class API {
         "find-reporter",
         "report-research",
         "overwrite-research",
+        "submit-arena",
         "submit-poi",
         "admin/pois/general"
     );

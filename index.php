@@ -391,6 +391,14 @@ Security::declareFrameOptionsHeader();
                                 </a>
                             </li>
                         <?php } ?>
+                        <?php if (Auth::getCurrentUser()->hasPermission("submit-arena")) { ?>
+                            <li class="pure-menu-item">
+                                <a href="#" id="add-arena-start" class="pure-menu-link">
+                                    <i class="menu-fas fas fa-plus"></i>
+                                    <?php echo I18N::resolveHTML("sidebar.add_arena"); ?>
+                                </a>
+                            </li>
+                        <?php } ?>
                         <li class="pure-menu-item">
                             <a href="#" id="menu-open-search" class="pure-menu-link">
                                 <i class="menu-fas fas fa-search"></i>
@@ -492,6 +500,20 @@ Security::declareFrameOptionsHeader();
                     </div>
                     <!--
                         A special banner that shows up when the user is asked to
+                        click on the map to select the location for a new arena.
+                    -->
+                    <div id="add-arena-banner" class="banner">
+                        <div class="banner-inner">
+                            <?php echo I18N::resolveArgsHTML(
+                                "arena.add.instructions",
+                                false,
+                                '<a href="#" id="add-arena-cancel-banner">',
+                                '</a>'
+                            ); ?>
+                        </div>
+                    </div>
+                    <!--
+                        A special banner that shows up when the user is asked to
                         click on the map to select a new location for a POI.
                     -->
                     <div id="move-poi-banner" class="banner">
@@ -500,6 +522,20 @@ Security::declareFrameOptionsHeader();
                                 "poi.move.instructions",
                                 false,
                                 '<a href="#" id="move-poi-cancel-banner">',
+                                '</a>'
+                            ); ?>
+                        </div>
+                    </div>
+                    <!--
+                        A special banner that shows up when the user is asked to
+                        click on the map to select a new location for an arena.
+                    -->
+                    <div id="move-arena-banner" class="banner">
+                        <div class="banner-inner">
+                            <?php echo I18N::resolveArgsHTML(
+                                "arena.move.instructions",
+                                false,
+                                '<a href="#" id="move-arena-cancel-banner">',
                                 '</a>'
                             ); ?>
                         </div>
@@ -533,6 +569,9 @@ Security::declareFrameOptionsHeader();
                         to do so), and a button to get directions to the POI on
                         a turn-based navigation service. The overlay is opened
                         whenever the user clicks on a marker on the map.
+
+                        This overlay is also used for displaying details about
+                        arenas.
                     -->
                     <div id="poi-details" class="cover-box">
                         <div class="cover-box-inner">
@@ -540,22 +579,31 @@ Security::declareFrameOptionsHeader();
                                 <h1 id="poi-name" class="head-small"></h1>
                             </div>
                             <div class="cover-box-content content">
-                                <div class="pure-g">
-                                    <div class="pure-u-1-2 right-align">
-                                        <img id="poi-objective-icon" src="about:blank" class="bigmarker">
+                                <div class="only-for-poi">
+                                    <div class="pure-g">
+                                        <div class="pure-u-1-2 right-align">
+                                            <img id="poi-objective-icon" src="about:blank" class="bigmarker">
+                                        </div>
+                                        <div class="pure-u-1-2">
+                                            <img id="poi-reward-icon" src="about:blank" class="bigmarker">
+                                        </div>
                                     </div>
-                                    <div class="pure-u-1-2">
-                                        <img id="poi-reward-icon" src="about:blank" class="bigmarker">
+                                    <p class="centered">
+                                        <?php echo I18N::resolveArgsHTML(
+                                            "poi.objective_text",
+                                            false,
+                                            '<strong id="poi-objective" class="strong-color"></strong>',
+                                            '<strong id="poi-reward" class="strong-color"></strong>'
+                                        ); ?>
+                                    </p>
+                                </div>
+                                <div class="only-for-arena">
+                                    <div class="pure-g">
+                                        <div class="pure-u-5-5 centered">
+                                            <img id="poi-arena-icon" src="about:blank" class="bigmarker">
+                                        </div>
                                     </div>
                                 </div>
-                                <p class="centered">
-                                    <?php echo I18N::resolveArgsHTML(
-                                        "poi.objective_text",
-                                        false,
-                                        '<strong id="poi-objective" class="strong-color"></strong>',
-                                        '<strong id="poi-reward" class="strong-color"></strong>'
-                                    ); ?>
-                                </p>
                                 <p class="centered">
                                     <span id="poi-last-time"></span>
                                     <span id="poi-last-user-box">
@@ -564,12 +612,14 @@ Security::declareFrameOptionsHeader();
                                     </span>
                                 </p>
                                 <div class="cover-button-spacer"></div>
-                                <div class="pure-g">
-                                    <div class="pure-u-1-1 right-align">
-                                        <span id="poi-add-report"
-                                              class="button-standard split-button">
-                                            <?php echo I18N::resolveHTML("poi.report_research"); ?>
-                                        </span>
+                                <div class="only-for-poi">
+                                    <div class="pure-g">
+                                        <div class="pure-u-1-1 right-align">
+                                            <span id="poi-add-report"
+                                                  class="button-standard split-button">
+                                                <?php echo I18N::resolveHTML("poi.report_research"); ?>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <?php
@@ -578,8 +628,8 @@ Security::declareFrameOptionsHeader();
                                             Buttons for moving and deleting POIs.
                                         */
                                         ?>
-                                            <div class="pure-g">
-                                                <div class="pure-u-1-4 right-align">
+                                            <div class="pure-g" id="poi-action-buttons">
+                                                <div class="pure-u-1-4">
                                                     <span id="poi-move"
                                                           class="button-standard split-button button-spaced left fas fa-arrows-alt"
                                                           title="<?php echo I18N::resolveHTML("poi.move"); ?>">
@@ -591,7 +641,7 @@ Security::declareFrameOptionsHeader();
                                                           title="<?php echo I18N::resolveHTML("poi.rename"); ?>">
                                                     </span>
                                                 </div>
-                                                <div class="pure-u-1-4">
+                                                <div class="pure-u-1-4 only-for-poi">
                                                     <span id="poi-clear"
                                                           class="button-standard split-button button-spaced fas fa-broom"
                                                           title="<?php echo I18N::resolveHTML("poi.clear"); ?>">
@@ -634,12 +684,12 @@ Security::declareFrameOptionsHeader();
                     <div id="add-poi-details" class="cover-box">
                         <div class="cover-box-inner">
                             <div class="header">
-                                <h1><?php echo I18N::resolveHTML("poi.add.title"); ?></h1>
+                                <h1 id="add-poi-text-title"></h1>
                             </div>
                             <div class="cover-box-content content pure-form">
                                 <div class="pure-g">
                                     <div class="pure-u-1-3 full-on-mobile">
-                                        <p><?php echo I18N::resolveHTML("poi.add.name"); ?>:</p>
+                                        <p><span id="add-poi-text-name"></span>:</p>
                                     </div>
                                     <div class="pure-u-2-3 full-on-mobile">
                                         <p><input type="text" id="add-poi-name"></p>
@@ -647,7 +697,7 @@ Security::declareFrameOptionsHeader();
                                 </div>
                                 <div class="pure-g">
                                     <div class="pure-u-1-3 full-on-mobile">
-                                        <p><?php echo I18N::resolveHTML("poi.add.latitude"); ?>:</p>
+                                        <p><span id="add-poi-text-latitude"></span>:</p>
                                     </div>
                                     <div class="pure-u-2-3 full-on-mobile">
                                         <p><input type="text" id="add-poi-lat" readonly></p>
@@ -655,7 +705,7 @@ Security::declareFrameOptionsHeader();
                                 </div>
                                 <div class="pure-g">
                                     <div class="pure-u-1-3 full-on-mobile">
-                                        <p><?php echo I18N::resolveHTML("poi.add.longitude"); ?>:</p>
+                                        <p><span id="add-poi-text-longitude"></span>:</p>
                                     </div>
                                     <div class="pure-u-2-3 full-on-mobile">
                                         <p><input type="text" id="add-poi-lon" readonly></p>
@@ -672,7 +722,6 @@ Security::declareFrameOptionsHeader();
                                     <div class="pure-u-1-2">
                                         <span id="add-poi-submit"
                                               class="button-submit split-button button-spaced right">
-                                            <?php echo I18N::resolveHTML("poi.add.submit"); ?>
                                         </span>
                                     </div>
                                 </div>

@@ -186,14 +186,18 @@ msgid "admin.section.groups.ui.add.name"
 msgstr "Add new group"
 
 msgid "admin.domain.pois.name"
-msgstr "Pokéstops"
+msgstr "POIs"
 
 msgid "admin.domain.pois.desc"
-msgstr "Manage and remove submitted Pokéstop markers"
+msgstr "Manage and remove submitted Pokéstop and gym markers"
 
 #  %1 = Amount of POIs
 msgid "admin.section.pois.poi_list.name"
 msgstr "List of Pokéstops ({%1})"
+
+#  %1 = Amount of arenas
+msgid "admin.section.pois.arena_list.name"
+msgstr "List of gyms ({%1})"
 
 msgid "admin.section.pois.batch.name"
 msgstr "Batch processing"
@@ -201,14 +205,20 @@ msgstr "Batch processing"
 msgid "admin.section.pois.clear.name"
 msgstr "Clear research data"
 
-msgid "admin.section.pois.import.name"
+msgid "admin.section.pois.import.poi.name"
 msgstr "Import Pokéstops"
 
-msgid "admin.section.pois.preview_table.name"
+msgid "admin.section.pois.import.arena.name"
+msgstr "Import gyms"
+
+msgid "admin.section.pois.preview_table.poi.name"
 msgstr "Preview imported Pokéstops"
 
+msgid "admin.section.pois.preview_table.arena.name"
+msgstr "Preview imported gyms"
+
 msgid "admin.section.pois.export.name"
-msgstr "Export Pokéstops"
+msgstr "Export Pokéstops and gyms"
 
 msgid "admin.table.pois.poi_list.column.poi_name.name"
 msgstr "Name"
@@ -246,15 +256,48 @@ msgstr "Delete Pokéstop"
 msgid "admin.section.pois.poi_list.search"
 msgstr "Search Pokéstop names, research objectives, rewards, or usernames..."
 
+msgid "admin.table.pois.arena_list.column.arena_name.name"
+msgstr "Name"
+
+msgid "admin.table.pois.arena_list.column.created_time.name"
+msgstr "Created"
+
+msgid "admin.table.pois.arena_list.column.created_by.name"
+msgstr "Created by"
+
+msgid "admin.table.pois.arena_list.column.last_updated_time.name"
+msgstr "Last updated"
+
+msgid "admin.table.pois.arena_list.column.last_updated_by.name"
+msgstr "Updated by"
+
+msgid "admin.table.pois.arena_list.column.location.name"
+msgstr "Location"
+
+msgid "admin.table.pois.arena_list.column.actions.name"
+msgstr "Actions"
+
+msgid "admin.section.pois.arena_list.action.none"
+msgstr "(no action)"
+
+msgid "admin.section.pois.arena_list.action.delete"
+msgstr "Delete gym"
+
+msgid "admin.section.pois.arena_list.search"
+msgstr "Search gym names, or usernames..."
+
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.pois.batch.desc"
-msgstr "It is possible to apply actions, such as deleting and clearing research, on a large number of Pokéstops at a time, using geofences. When you choose an action for a geofence, the selected action will be applied to all Pokéstops within the given geofence after any changes in the Pokéstops table above have finished processing. You can declare geofences on the {%1}geofence settings page{%2}."
+msgstr "It is possible to apply actions, such as deleting and clearing research, on a large number of Pokéstops and gyms at a time, using geofences. When you choose an action for a geofence, the selected action will be applied to all Pokéstops and gyms within the given geofence after any changes in the Pokéstops and gyms tables above have finished processing. You can declare geofences on the {%1}geofence settings page{%2}."
 
 msgid "admin.table.pois.batch_list.column.label.name"
 msgstr "Geofence label"
 
 msgid "admin.table.pois.batch_list.column.poi_count.name"
 msgstr "Pokéstop count"
+
+msgid "admin.table.pois.batch_list.column.arena_count.name"
+msgstr "Gym count"
 
 msgid "admin.table.pois.batch_list.column.actions.name"
 msgstr "Actions"
@@ -265,8 +308,14 @@ msgstr "(no action)"
 msgid "admin.section.pois.batch_list.action.clear"
 msgstr "Clear all research tasks"
 
-msgid "admin.section.pois.batch_list.action.delete"
+msgid "admin.section.pois.batch_list.action.delete_poi"
 msgstr "Delete all contained Pokéstops"
+
+msgid "admin.section.pois.batch_list.action.delete_arena"
+msgstr "Delete all contained gyms"
+
+msgid "admin.section.pois.batch_list.action.delete_all"
+msgstr "Delete all contained Pokéstops and gyms"
 
 msgid "admin.section.pois.batch_list.search"
 msgstr "Search geofence labels..."
@@ -316,6 +365,9 @@ msgstr "Import?"
 msgid "admin.table.pois.preview_table.column.poi_name.name"
 msgstr "Name"
 
+msgid "admin.table.pois.preview_table.column.arena_name.name"
+msgstr "Name"
+
 msgid "admin.table.pois.preview_table.column.latitude.name"
 msgstr "Latitude"
 
@@ -328,18 +380,25 @@ msgstr "Import"
 msgid "admin.clientside.pois.preview_table.actions.exclude"
 msgstr "Don't import"
 
-#  %1 = Number of Pokéstops in the imported list of Pokéstops.
-msgid "admin.clientside.pois.import.count"
+#  %1 = Number of POIs in the imported list of POIs.
+msgid "admin.clientside.pois.import.count_poi"
 msgstr "The selected input file contains {%1} Pokéstops."
+
+#  %1 = Number of arenas in the imported list of arenas.
+msgid "admin.clientside.pois.import.count_arena"
+msgstr "The selected input file contains {%1} gyms."
 
 msgid "admin.section.pois.import.invalid_warning"
 msgstr "The preview table contains invalid data! Table rows with invalid data will not be imported."
 
 msgid "admin.section.pois.export.info"
-msgstr "You may export the list of Pokéstops stored in FreeField. The exported file can be used to re-import Pokéstops later in another FreeField instance. It serves as an easy way to take a backup of the database."
+msgstr "You may export the list of Pokéstops and gyms stored in FreeField. The exported file can be used to re-import Pokéstops and gyms later in another FreeField instance. It serves as an easy way to take a backup of the database."
 
-msgid "admin.section.pois.export.do"
+msgid "admin.section.pois.export.do_poi"
 msgstr "Click here to export the Pokéstop database"
+
+msgid "admin.section.pois.export.do_arena"
+msgstr "Click here to export the gym database"
 
 msgid "admin.domain.perms.name"
 msgstr "Permissions"

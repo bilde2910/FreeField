@@ -40,11 +40,19 @@ class Theme {
         }
 
         /*
+            Add the "arena" icon to the icons list. This icon is used to display
+            arenas on the map.
+        */
+        $icons[] = "arena";
+
+        /*
             Add the "default" icon to the end of the icons list. This icon is
             displayed if no more specific icon is found for any particular
             research objective or reward.
         */
         $icons[] = "default";
+
+
 
         /*
             The array may contain duplicates. Remove duplicates and reset the

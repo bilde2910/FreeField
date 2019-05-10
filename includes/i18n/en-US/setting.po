@@ -216,6 +216,12 @@ msgstr "Submit Pokéstops"
 msgid "setting.permissions.level.submit_poi.desc"
 msgstr "Allows users to submit new Pokéstops to the map."
 
+msgid "setting.permissions.level.submit_arena.name"
+msgstr "Submit gyms"
+
+msgid "setting.permissions.level.submit_arena.desc"
+msgstr "Allows users to submit new gyms to the map."
+
 msgid "setting.permissions.level.personalization.icons.name"
 msgstr "Customize markers"
 
@@ -289,16 +295,16 @@ msgid "setting.permissions.level.admin.groups.self_manage.desc"
 msgstr "Allows users to assign and remove other users from, and manage the permissions of their own group. By default, users with group membership permissions can only assign users to and manage groups below themselves. This permission is a dangerous permission to grant! Users with this permission can appoint and delete other users of the same rank as themselves. It is highly recommended to leave this at the default unless there is an extremely good reason to change it. Also requires the \"Manage group membership\" permission."
 
 msgid "setting.permissions.level.admin.pois.general.name"
-msgstr "Manage Pokéstops"
+msgstr "Manage Pokéstops and gyms"
 
 msgid "setting.permissions.level.admin.pois.general.desc"
-msgstr "Allow users to manage and delete user-submitted Pokéstops."
+msgstr "Allow users to manage and delete user-submitted Pokéstops and gyms."
 
 msgid "setting.permissions.level.admin.pois.import.name"
-msgstr "Import and export data"
+msgstr "Import and export"
 
 msgid "setting.permissions.level.admin.pois.import.desc"
-msgstr "Allow users to import and export Pokéstops."
+msgstr "Allow users to import and export Pokéstops and gyms."
 
 msgid "setting.permissions.level.admin.perms.general.name"
 msgstr "Manage permissions"

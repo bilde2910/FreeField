@@ -402,6 +402,15 @@ class ConfigDefinitions {
                 "option" => new PermissionOption()
             ),
             /*
+                Allows users to submit new arenas to the map.
+            */
+            "permissions/level/submit-arena" => array(
+                "domain" => "perms",
+                "section" => "map-access",
+                "default" => PermissionOption::LEVEL_SUBMITTER,
+                "option" => new PermissionOption()
+            ),
+            /*
                 ------------------------------------------------------------
                     PERSONALIZATION ACCESS
                 ------------------------------------------------------------
