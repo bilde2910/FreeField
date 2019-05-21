@@ -171,6 +171,7 @@ __END_STRING__;
             case "1.1.3":
             case "1.1.4":
             case "1.1.5":
+            case "1.1.6":
                 /*
                     Add table to database for arenas.
                 */
