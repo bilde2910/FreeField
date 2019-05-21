@@ -17,46 +17,19 @@
 # The new quest labels in this event are really unusual, so this will have to do
 # for now.
 -
-    # Catch the Seed Pokémon that is seen walking in a river
-    # aka. Catch a Bulbasaur
-    type: "catch_specific"
+    # Win a raid
+    type: "win_raid"
     params:
         quantity: 1
-        species:
-          - 1 # Bulbasaur
     encounter_species:
-      - 252 # Treecko
+      - 436 # Bronzor
 -
-    # Catch the Water-type Pokémon carried in a backpack
-    # aka. Catch a Psyduck
-    type: "catch_specific"
+    # Win 3 raids
+    type: "win_raid"
     params:
-        quantity: 1
-        species:
-          - 54 # Psyduck
+        quantity: 3
     encounter_species:
-      - 129 # Magikarp
--
-    # Catch the Fire-type evolution of Eevee
-    # aka. Catch 2 Flareon
-    type: "catch_specific"
-    params:
-        quantity: 2
-        species:
-          - 136 # Flareon
-    encounter_species:
-      - 59 # Arcanine
--
-    # Catch 10 Jigglypuff, Aipom or Snubbull
-    type: "catch_specific"
-    params:
-        quantity: 10
-        species:
-          - 39 # Jigglypuff
-          - 190 # Aipom
-          - 209 # Snubbull
-    encounter_species:
-      - 132 # Ditto
+      - 359 # Absol
 
 # --------------------------------------------------------------------------
 #     Gym objectives
@@ -122,16 +95,16 @@
         quantity: 1
     encounter_species:
       - 138 # Omanyte
--
-    # Win a raid
-    type: "win_raid"
-    params:
-        quantity: 1
--
-    # Win 3 raids
-    type: "win_raid"
-    params:
-        quantity: 3
+#-
+#    # Win a raid
+#    type: "win_raid"
+#    params:
+#        quantity: 1
+#-
+#    # Win 3 raids
+#    type: "win_raid"
+#    params:
+#        quantity: 3
 -
     # Win 5 raids
     type: "win_raid"
