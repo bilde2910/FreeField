@@ -109,7 +109,7 @@
     # Win 5 raids
     type: "win_raid"
     params:
-        quantity: 3
+        quantity: 5
     encounter_species:
       - 142 # Aerodactyl
 -
