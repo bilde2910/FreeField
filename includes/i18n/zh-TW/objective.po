@@ -13,68 +13,68 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/objective.po\n"
-"PO-Revision-Date: 2019-05-30 09:05\n"
+"PO-Revision-Date: 2019-05-31 08:37\n"
 
 msgid "objective.battle_gym.singular"
-msgstr ""
+msgstr "參加1次道館對戰"
 
 #  %1 = Number of battles
 msgid "objective.battle_gym.plural"
-msgstr ""
+msgstr "參加 {%1} 次道館對戰"
 
 msgid "objective.win_gym.singular"
-msgstr ""
+msgstr "在道館對戰中獲勝1次"
 
 #  %1 = Number of battles
 msgid "objective.win_gym.plural"
-msgstr ""
+msgstr "在道館對戰中獲勝 {%1} 次"
 
 msgid "objective.battle_raid.singular"
-msgstr ""
+msgstr "參加1場團體戰"
 
 #  %1 = Number of raids
 msgid "objective.battle_raid.plural"
-msgstr ""
+msgstr "參加 {%1} 場團體戰"
 
 msgid "objective.win_raid.singular"
-msgstr ""
+msgstr "在團體戰中獲勝1次"
 
 #  %1 = Number of raids
 msgid "objective.win_raid.plural"
-msgstr ""
+msgstr "在團體戰中獲勝 {%1} 次"
 
 #  %1 = Raid tier
 msgid "objective.level_raid.singular"
-msgstr ""
+msgstr "在等級 {%1} 以上的團體戰中獲勝1次"
 
 #  %1 = Raid tier, %2 = Number of raids
 msgid "objective.level_raid.plural"
-msgstr ""
+msgstr "在等級 {%1} 以上的團體戰中獲勝 {%2} 次"
 
 msgid "objective.se_charge.singular"
-msgstr ""
+msgstr "在1場對戰中使出效果絕佳的特殊招式"
 
 #  %1 = Number of battles
 msgid "objective.se_charge.plural"
-msgstr ""
+msgstr "在 {%1} 場對戰中使出效果絕佳的特殊招式"
 
 msgid "objective.catch.singular"
-msgstr ""
+msgstr "捕捉一隻寶可夢"
 
 #  %1 = Number of catches
 msgid "objective.catch.plural"
-msgstr ""
+msgstr "捕捉 {%1} 隻寶可夢"
 
 msgid "objective.catch_weather.singular"
-msgstr ""
+msgstr "捕捉1隻擁有天氣優勢的寶可夢"
 
 #  %1 = Number of catches
 msgid "objective.catch_weather.plural"
-msgstr ""
+msgstr "捕捉 {%1} 隻擁有天氣優勢的寶可夢"
 
 #  %1 = Type(s) of catch ("Ice-type", "Fire or Ground-type", etc.)
 msgid "objective.catch_type.singular"
-msgstr ""
+msgstr "捕捉1隻 {%1} 屬性的寶可夢"
 
 #  %1 = Type(s) of catch ("Ice-type", "Fire or Ground-type", etc.),
 #  %2 = Number of catches
