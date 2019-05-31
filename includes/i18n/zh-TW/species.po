@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/species.po\n"
-"PO-Revision-Date: 2019-05-31 02:34\n"
+"PO-Revision-Date: 2019-05-31 02:44\n"
 
 #  Note: These should only be translated if an official translation exists for
 #  these species in the language you are translating to. E.g. in German, the
@@ -921,262 +921,262 @@ msgid "species.300.name"
 msgstr "向尾喵"
 
 msgid "species.301.name"
-msgstr ""
+msgstr "優雅貓"
 
 msgid "species.302.name"
-msgstr ""
+msgstr "勾魂眼"
 
 msgid "species.303.name"
-msgstr ""
+msgstr "大嘴蛙"
 
 msgid "species.304.name"
-msgstr ""
+msgstr "可可多拉"
 
 msgid "species.305.name"
-msgstr ""
+msgstr "可多拉"
 
 msgid "species.306.name"
-msgstr ""
+msgstr "波士可多拉"
 
 msgid "species.307.name"
-msgstr ""
+msgstr "瑪莎那"
 
 msgid "species.308.name"
-msgstr ""
+msgstr "恰雷姆"
 
 msgid "species.309.name"
-msgstr ""
+msgstr "落雷獸"
 
 msgid "species.310.name"
-msgstr ""
+msgstr "雷電獸"
 
 msgid "species.311.name"
-msgstr ""
+msgstr "正電拍拍"
 
 msgid "species.312.name"
-msgstr ""
+msgstr "負電拍拍"
 
 msgid "species.313.name"
-msgstr ""
+msgstr "電螢蟲"
 
 msgid "species.314.name"
-msgstr ""
+msgstr "甜甜螢"
 
 msgid "species.315.name"
-msgstr ""
+msgstr "毒薔薇"
 
 msgid "species.316.name"
-msgstr ""
+msgstr "溶食獸"
 
 msgid "species.317.name"
-msgstr ""
+msgstr "吞食獸"
 
 msgid "species.318.name"
-msgstr ""
+msgstr "利牙魚"
 
 msgid "species.319.name"
-msgstr ""
+msgstr "巨牙鯊"
 
 msgid "species.320.name"
-msgstr ""
+msgstr "吼吼鯨"
 
 msgid "species.321.name"
-msgstr ""
+msgstr "吼鯨王"
 
 msgid "species.322.name"
-msgstr ""
+msgstr "呆火駝"
 
 msgid "species.323.name"
-msgstr ""
+msgstr "噴火駝"
 
 msgid "species.324.name"
-msgstr ""
+msgstr "煤炭龜"
 
 msgid "species.325.name"
-msgstr ""
+msgstr "跳跳豬"
 
 msgid "species.326.name"
-msgstr ""
+msgstr "噗噗豬"
 
 msgid "species.327.name"
-msgstr ""
+msgstr "晃晃斑"
 
 msgid "species.328.name"
-msgstr ""
+msgstr "大顎蟻"
 
 msgid "species.329.name"
-msgstr ""
+msgstr "超音波幼蟲"
 
 msgid "species.330.name"
-msgstr ""
+msgstr "沙漠蜻蜓"
 
 msgid "species.331.name"
-msgstr ""
+msgstr "刺球仙人掌"
 
 msgid "species.332.name"
-msgstr ""
+msgstr "夢歌仙人掌"
 
 msgid "species.333.name"
-msgstr ""
+msgstr "青綿鳥"
 
 msgid "species.334.name"
-msgstr ""
+msgstr "七夕青鳥"
 
 msgid "species.335.name"
-msgstr ""
+msgstr "貓鼬斬"
 
 msgid "species.336.name"
-msgstr ""
+msgstr "飯匙蛇"
 
 msgid "species.337.name"
-msgstr ""
+msgstr "月石"
 
 msgid "species.338.name"
-msgstr ""
+msgstr "太陽岩"
 
 msgid "species.339.name"
-msgstr ""
+msgstr "泥泥鰍"
 
 msgid "species.340.name"
-msgstr ""
+msgstr "鯰魚王"
 
 msgid "species.341.name"
-msgstr ""
+msgstr "龍蝦小兵"
 
 msgid "species.342.name"
-msgstr ""
+msgstr "鐵螯龍蝦"
 
 msgid "species.343.name"
-msgstr ""
+msgstr "天秤偶"
 
 msgid "species.344.name"
-msgstr ""
+msgstr "念力土偶"
 
 msgid "species.345.name"
-msgstr ""
+msgstr "觸手百合"
 
 msgid "species.346.name"
-msgstr ""
+msgstr "搖籃百合"
 
 msgid "species.347.name"
-msgstr ""
+msgstr "太古羽蟲"
 
 msgid "species.348.name"
-msgstr ""
+msgstr "太古盔甲"
 
 msgid "species.349.name"
-msgstr ""
+msgstr "醜醜魚"
 
 msgid "species.350.name"
-msgstr ""
+msgstr "美納斯"
 
 msgid "species.351.name"
-msgstr ""
+msgstr "漂浮泡泡"
 
 msgid "species.352.name"
-msgstr ""
+msgstr "變隱龍"
 
 msgid "species.353.name"
-msgstr ""
+msgstr "怨影娃娃"
 
 msgid "species.354.name"
-msgstr ""
+msgstr "詛咒娃娃"
 
 msgid "species.355.name"
-msgstr ""
+msgstr "夜巡靈"
 
 msgid "species.356.name"
-msgstr ""
+msgstr "彷徨夜靈"
 
 msgid "species.357.name"
-msgstr ""
+msgstr "熱帶龍"
 
 msgid "species.358.name"
-msgstr ""
+msgstr "風鈴鈴"
 
 msgid "species.359.name"
-msgstr ""
+msgstr "阿勃梭魯"
 
 msgid "species.360.name"
-msgstr ""
+msgstr "小果然"
 
 msgid "species.361.name"
-msgstr ""
+msgstr "雪童子"
 
 msgid "species.362.name"
-msgstr ""
+msgstr "冰鬼護"
 
 msgid "species.363.name"
-msgstr ""
+msgstr "海豹球"
 
 msgid "species.364.name"
-msgstr ""
+msgstr "海魔獅"
 
 msgid "species.365.name"
-msgstr ""
+msgstr "帝牙海獅"
 
 msgid "species.366.name"
-msgstr ""
+msgstr "珍珠貝"
 
 msgid "species.367.name"
-msgstr ""
+msgstr "獵斑魚"
 
 msgid "species.368.name"
-msgstr ""
+msgstr "櫻花魚"
 
 msgid "species.369.name"
-msgstr ""
+msgstr "古空棘魚"
 
 msgid "species.370.name"
-msgstr ""
+msgstr "愛心魚"
 
 msgid "species.371.name"
-msgstr ""
+msgstr "寶貝龍"
 
 msgid "species.372.name"
-msgstr ""
+msgstr "甲殼龍"
 
 msgid "species.373.name"
-msgstr ""
+msgstr "暴飛龍"
 
 msgid "species.374.name"
-msgstr ""
+msgstr "鐵啞鈴"
 
 msgid "species.375.name"
-msgstr ""
+msgstr "金屬怪"
 
 msgid "species.376.name"
-msgstr ""
+msgstr "巨金怪"
 
 msgid "species.377.name"
-msgstr ""
+msgstr "雷吉洛克"
 
 msgid "species.378.name"
-msgstr ""
+msgstr "雷吉艾斯"
 
 msgid "species.379.name"
-msgstr ""
+msgstr "雷吉斯奇魯"
 
 msgid "species.380.name"
-msgstr ""
+msgstr "拉帝亞斯"
 
 msgid "species.381.name"
-msgstr ""
+msgstr "拉帝歐斯"
 
 msgid "species.382.name"
-msgstr ""
+msgstr "蓋歐卡"
 
 msgid "species.383.name"
-msgstr ""
+msgstr "固拉多"
 
 msgid "species.384.name"
-msgstr ""
+msgstr "烈空坐"
 
 msgid "species.385.name"
-msgstr ""
+msgstr "基拉祈"
 
 msgid "species.386.name"
-msgstr ""
+msgstr "代歐奇希斯"
 
 msgid "species.387.name"
 msgstr ""
