@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/objective.po\n"
-"PO-Revision-Date: 2019-05-31 08:37\n"
+"PO-Revision-Date: 2019-05-31 08:46\n"
 
 msgid "objective.battle_gym.singular"
 msgstr "參加1次道館對戰"
@@ -79,40 +79,40 @@ msgstr "捕捉1隻 {%1} 屬性的寶可夢"
 #  %1 = Type(s) of catch ("Ice-type", "Fire or Ground-type", etc.),
 #  %2 = Number of catches
 msgid "objective.catch_type.plural"
-msgstr ""
+msgstr "捕捉 {%2} 隻 {%1} 屬性的寶可夢"
 
 #  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
 #  etc.)
 msgid "objective.catch_specific.singular"
-msgstr ""
+msgstr "捕捉一隻 {%1}"
 
 #  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
 #  etc.), %2 = Number of catches
 msgid "objective.catch_specific.plural"
-msgstr ""
+msgstr "捕捉 {%2} 隻 {%1}"
 
 msgid "objective.catch_daily.singular"
-msgstr ""
+msgstr "連續1天捕捉1隻寶可夢"
 
 #  %1 = Number of days in a row
 msgid "objective.catch_daily.plural"
-msgstr ""
+msgstr "連續 {%1} 天捕捉1隻寶可夢"
 
 msgid "objective.use_berry.singular"
-msgstr ""
+msgstr "在捕捉寶可夢時使用1個莓果"
 
 #  %1 = Number of berries
 msgid "objective.use_berry.plural"
-msgstr ""
+msgstr "在捕捉寶可夢時使用 {%1} 個莓果"
 
 #  %1 = Item to use (e.g. "Pinap Berry")
 msgid "objective.use_item_encounter.singular"
-msgstr ""
+msgstr "在捕捉寶可夢時使用1個 {%1}"
 
 #  %1 = Item to use (e.g. "Pinap Berry")
 #  %2 = Number of items
 msgid "objective.use_item_encounter.plural"
-msgstr ""
+msgstr "在捕捉寶可夢時使用 {%2} 個 {%1}"
 
 msgid "objective.buddy_candy.singular"
 msgstr ""
