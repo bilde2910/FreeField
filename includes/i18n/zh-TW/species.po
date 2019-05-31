@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/species.po\n"
-"PO-Revision-Date: 2019-05-30 09:05\n"
+"PO-Revision-Date: 2019-05-31 02:14\n"
 
 #  Note: These should only be translated if an official translation exists for
 #  these species in the language you are translating to. E.g. in German, the
@@ -21,184 +21,184 @@ msgstr ""
 #  AN OFFICIAL TRANSLATION EXISTS FOR YOUR LANGUAGE. LEAVE THIS FILE WITHOUT A
 #  TRANSLATION IF NO OFFICIAL TRANSLATION IS AVAILABLE FOR YOUR LANGUAGE.
 msgid "species.1.name"
-msgstr ""
+msgstr "妙蛙種子"
 
 msgid "species.2.name"
-msgstr ""
+msgstr "妙蛙草"
 
 msgid "species.3.name"
-msgstr ""
+msgstr "妙蛙花"
 
 msgid "species.4.name"
-msgstr ""
+msgstr "小火龍"
 
 msgid "species.5.name"
 msgstr ""
 
 msgid "species.6.name"
-msgstr ""
+msgstr "噴火龍"
 
 msgid "species.7.name"
-msgstr ""
+msgstr "傑尼龜"
 
 msgid "species.8.name"
-msgstr ""
+msgstr "卡咪龜"
 
 msgid "species.9.name"
-msgstr ""
+msgstr "水箭龜"
 
 msgid "species.10.name"
-msgstr ""
+msgstr "綠毛蟲"
 
 msgid "species.11.name"
-msgstr ""
+msgstr "鐵甲蛹"
 
 msgid "species.12.name"
-msgstr ""
+msgstr "巴大蝶"
 
 msgid "species.13.name"
-msgstr ""
+msgstr "獨角蟲"
 
 msgid "species.14.name"
-msgstr ""
+msgstr "鐵殼蛹"
 
 msgid "species.15.name"
-msgstr ""
+msgstr "大針蜂"
 
 msgid "species.16.name"
-msgstr ""
+msgstr "波波"
 
 msgid "species.17.name"
-msgstr ""
+msgstr "比比鳥"
 
 msgid "species.18.name"
-msgstr ""
+msgstr "大比鳥"
 
 msgid "species.19.name"
-msgstr ""
+msgstr "小拉達"
 
 msgid "species.20.name"
-msgstr ""
+msgstr "拉達"
 
 msgid "species.21.name"
-msgstr ""
+msgstr "烈雀"
 
 msgid "species.22.name"
-msgstr ""
+msgstr "大嘴雀"
 
 msgid "species.23.name"
-msgstr ""
+msgstr "阿柏怪"
 
 msgid "species.24.name"
-msgstr ""
+msgstr "阿柏蛇"
 
 msgid "species.25.name"
-msgstr ""
+msgstr "皮卡丘"
 
 msgid "species.26.name"
-msgstr ""
+msgstr "雷丘"
 
 msgid "species.27.name"
-msgstr ""
+msgstr "穿山鼠"
 
 msgid "species.28.name"
-msgstr ""
+msgstr "穿山王"
 
 msgid "species.29.name"
-msgstr ""
+msgstr "尼多蘭"
 
 msgid "species.30.name"
-msgstr ""
+msgstr "尼多娜"
 
 msgid "species.31.name"
-msgstr ""
+msgstr "尼多后"
 
 msgid "species.32.name"
-msgstr ""
+msgstr "尼多朗"
 
 msgid "species.33.name"
-msgstr ""
+msgstr "尼多力諾"
 
 msgid "species.34.name"
-msgstr ""
+msgstr "尼多王"
 
 msgid "species.35.name"
-msgstr ""
+msgstr "皮皮"
 
 msgid "species.36.name"
-msgstr ""
+msgstr "皮可西"
 
 msgid "species.37.name"
-msgstr ""
+msgstr "六尾"
 
 msgid "species.38.name"
-msgstr ""
+msgstr "九尾"
 
 msgid "species.39.name"
-msgstr ""
+msgstr "胖丁"
 
 msgid "species.40.name"
-msgstr ""
+msgstr "胖可丁"
 
 msgid "species.41.name"
-msgstr ""
+msgstr "超音蝠"
 
 msgid "species.42.name"
-msgstr ""
+msgstr "大嘴蝠"
 
 msgid "species.43.name"
-msgstr ""
+msgstr "走路草"
 
 msgid "species.44.name"
-msgstr ""
+msgstr "臭臭花"
 
 msgid "species.45.name"
-msgstr ""
+msgstr "霸王花"
 
 msgid "species.46.name"
-msgstr ""
+msgstr "派拉斯"
 
 msgid "species.47.name"
-msgstr ""
+msgstr "派拉斯特"
 
 msgid "species.48.name"
-msgstr ""
+msgstr "毛球"
 
 msgid "species.49.name"
-msgstr ""
+msgstr "摩魯蛾"
 
 msgid "species.50.name"
-msgstr ""
+msgstr "地鼠"
 
 msgid "species.51.name"
-msgstr ""
+msgstr "地鼠san三地鼠"
 
 msgid "species.52.name"
-msgstr ""
+msgstr "喵喵"
 
 msgid "species.53.name"
-msgstr ""
+msgstr "貓老大"
 
 msgid "species.54.name"
-msgstr ""
+msgstr "可達鴨"
 
 msgid "species.55.name"
-msgstr ""
+msgstr "哥達鴨"
 
 msgid "species.56.name"
-msgstr ""
+msgstr "猴怪"
 
 msgid "species.57.name"
-msgstr ""
+msgstr "火爆猴"
 
 msgid "species.58.name"
-msgstr ""
+msgstr "卡蒂狗"
 
 msgid "species.59.name"
-msgstr ""
+msgstr "風速狗"
 
 msgid "species.60.name"
-msgstr ""
+msgstr "蚊香蝌蚪"
 
 msgid "species.61.name"
 msgstr ""
