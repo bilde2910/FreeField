@@ -13,21 +13,21 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/parameter.po\n"
-"PO-Revision-Date: 2019-05-30 09:05\n"
+"PO-Revision-Date: 2019-05-31 08:26\n"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog when additional data must be specified for the selected
 #  objective or reward. This label will display when an objective or reward that
 #  requires it has been chosen. This label is for the minimum level of a raid.
 msgid "parameter.min_tier.label"
-msgstr ""
+msgstr "最低等級"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog as placeholders in e.g. the following string:
 #  "Win a level [placeholder] or higher raid"
 #  Please remember to include square brackets around the placeholder.
 msgid "parameter.min_tier.placeholder"
-msgstr ""
+msgstr "[x]"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog when additional data must be specified for the selected
@@ -35,14 +35,14 @@ msgstr ""
 #  requires it has been chosen. This label is for the minimum objective or
 #  reward quantity (e.g. minimum number of Pokémon to catch).
 msgid "parameter.quantity.label"
-msgstr ""
+msgstr "數量"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog as placeholders in e.g. the following string:
 #  "Catch [placeholder] Pokémon"
 #  Please remember to include square brackets around the placeholder.
 msgid "parameter.quantity.placeholder"
-msgstr ""
+msgstr "[n]"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog when additional data must be specified for the selected
@@ -50,7 +50,7 @@ msgstr ""
 #  requires it has been chosen. This label is for the catch/evolve/etc. species
 #  requirements.
 msgid "parameter.species.label"
-msgstr ""
+msgstr "種類"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog as placeholders in e.g. the following string:
