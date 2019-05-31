@@ -13,72 +13,72 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/category.po\n"
-"PO-Revision-Date: 2019-05-30 09:06\n"
+"PO-Revision-Date: 2019-05-31 09:26\n"
 
 #  Label for objectives which are currently in-game (e.g. monthly, event, etc.)
 msgid "category.objective.current"
-msgstr ""
+msgstr "當前任務內容"
 
 msgid "category.objective.battle"
-msgstr ""
+msgstr "道館對戰任務"
 
 msgid "category.objective.raid"
-msgstr ""
+msgstr "團體戰任務"
 
 msgid "category.objective.catch"
-msgstr ""
+msgstr "捕捉類任務"
 
 msgid "category.objective.item"
-msgstr ""
+msgstr "道具使用類任務"
 
 msgid "category.objective.buddy"
-msgstr ""
+msgstr "夥伴類任務"
 
 msgid "category.objective.hatch"
-msgstr ""
+msgstr "孵蛋類任務"
 
 msgid "category.objective.evolve"
-msgstr ""
+msgstr "進化類任務"
 
 msgid "category.objective.power_up"
-msgstr ""
+msgstr "強化類任務"
 
 msgid "category.objective.transfer"
-msgstr ""
+msgstr "傳送類任務"
 
 msgid "category.objective.throwing_skill"
-msgstr ""
+msgstr "投球類任務"
 
 msgid "category.objective.explore"
-msgstr ""
+msgstr "探索類任務"
 
 msgid "category.objective.social"
-msgstr ""
+msgstr "互動類任務"
 
 msgid "category.reward.ball"
-msgstr ""
+msgstr "球類獎勵"
 
 msgid "category.reward.berry"
-msgstr ""
+msgstr "樹果獎勵"
 
 msgid "category.reward.potion"
-msgstr ""
+msgstr "傷藥獎勵"
 
 msgid "category.reward.revive"
-msgstr ""
+msgstr "復活獎勵"
 
 msgid "category.reward.evolution_item"
-msgstr ""
+msgstr "進化道具獎勵"
 
 msgid "category.reward.tm"
-msgstr ""
+msgstr "招式學習器獎勵"
 
 msgid "category.reward.stardust"
-msgstr ""
+msgstr "星星沙子獎勵"
 
 msgid "category.reward.candy"
-msgstr ""
+msgstr "神奇糖果獎勵"
 
 msgid "category.reward.encounter"
-msgstr ""
+msgstr "寶可夢獎勵"
 
