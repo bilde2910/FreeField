@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/parameter.po\n"
-"PO-Revision-Date: 2019-05-31 08:37\n"
+"PO-Revision-Date: 2019-05-31 09:37\n"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog when additional data must be specified for the selected
@@ -27,7 +27,7 @@ msgstr "最低等級"
 #  "Win a level [placeholder] or higher raid"
 #  Please remember to include square brackets around the placeholder.
 msgid "parameter.min_tier.placeholder"
-msgstr "[x]"
+msgstr ""
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog when additional data must be specified for the selected
@@ -42,7 +42,7 @@ msgstr "數量"
 #  "Catch [placeholder] Pokémon"
 #  Please remember to include square brackets around the placeholder.
 msgid "parameter.quantity.placeholder"
-msgstr "[n]"
+msgstr ""
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog when additional data must be specified for the selected
@@ -57,7 +57,7 @@ msgstr "種類"
 #  "Catch a [placeholder]"
 #  Please remember to include square brackets around the placeholder.
 msgid "parameter.species.placeholder"
-msgstr "[Species]"
+msgstr ""
 
 #  This is a header displayed in a selection box when selecting a particular
 #  species for a research objective. It lists commonly reported species.
@@ -77,7 +77,7 @@ msgstr "系"
 #  "Catch a [placeholder] Pokémon"
 #  Please remember to include square brackets around the placeholder.
 msgid "parameter.type.placeholder"
-msgstr "[Type]-系"
+msgstr "[Type]-屬性"
 
 #  This is used in the objective and reward drop-down menus in the research
 #  reporting dialog when additional data must be specified for the selected
@@ -92,5 +92,5 @@ msgstr "道具"
 #  "Use a [placeholder] to help catch Pokémon"
 #  Please remember to include square brackets around the placeholder.
 msgid "parameter.encounter_item.placeholder"
-msgstr "[Item]"
+msgstr ""
 
