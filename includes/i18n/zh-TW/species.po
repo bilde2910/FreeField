@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/species.po\n"
-"PO-Revision-Date: 2019-05-31 08:17\n"
+"PO-Revision-Date: 2019-05-31 08:26\n"
 
 #  Note: These should only be translated if an official translation exists for
 #  these species in the language you are translating to. E.g. in German, the
@@ -1278,224 +1278,224 @@ msgid "species.419.name"
 msgstr "浮潛鼬"
 
 msgid "species.420.name"
-msgstr ""
+msgstr "櫻花寶"
 
 msgid "species.421.name"
-msgstr ""
+msgstr "櫻花兒"
 
 msgid "species.422.name"
-msgstr ""
+msgstr "無殼海兔"
 
 msgid "species.423.name"
-msgstr ""
+msgstr "海兔獸"
 
 msgid "species.424.name"
-msgstr ""
+msgstr "雙尾怪手"
 
 msgid "species.425.name"
-msgstr ""
+msgstr "飄飄球"
 
 msgid "species.426.name"
-msgstr ""
+msgstr "隨風球"
 
 msgid "species.427.name"
-msgstr ""
+msgstr "捲捲耳"
 
 msgid "species.428.name"
-msgstr ""
+msgstr "長耳兔"
 
 msgid "species.429.name"
-msgstr ""
+msgstr "夢妖魔"
 
 msgid "species.430.name"
-msgstr ""
+msgstr "烏鴉頭頭"
 
 msgid "species.431.name"
-msgstr ""
+msgstr "魅力喵"
 
 msgid "species.432.name"
-msgstr ""
+msgstr "東施喵"
 
 msgid "species.433.name"
-msgstr ""
+msgstr "鈴鐺響"
 
 msgid "species.434.name"
-msgstr ""
+msgstr "臭鼬噗"
 
 msgid "species.435.name"
-msgstr ""
+msgstr "坦克臭鼬"
 
 msgid "species.436.name"
-msgstr ""
+msgstr "銅鏡怪"
 
 msgid "species.437.name"
-msgstr ""
+msgstr "青銅鐘"
 
 msgid "species.438.name"
-msgstr ""
+msgstr "盆才怪"
 
 msgid "species.439.name"
-msgstr ""
+msgstr "魔尼尼"
 
 msgid "species.440.name"
-msgstr ""
+msgstr "小福蛋"
 
 msgid "species.441.name"
-msgstr ""
+msgstr "聒噪鳥"
 
 msgid "species.442.name"
-msgstr ""
+msgstr "花岩怪"
 
 msgid "species.443.name"
-msgstr ""
+msgstr "圓陸鯊"
 
 msgid "species.444.name"
-msgstr ""
+msgstr "尖牙陸鯊"
 
 msgid "species.445.name"
-msgstr ""
+msgstr "烈咬陸鯊"
 
 msgid "species.446.name"
-msgstr ""
+msgstr "小卡比獸"
 
 msgid "species.447.name"
-msgstr ""
+msgstr "利歐路"
 
 msgid "species.448.name"
-msgstr ""
+msgstr "路卡利歐"
 
 msgid "species.449.name"
-msgstr ""
+msgstr "沙河馬"
 
 msgid "species.450.name"
-msgstr ""
+msgstr "河馬獸"
 
 msgid "species.451.name"
-msgstr ""
+msgstr "鉗尾蠍"
 
 msgid "species.452.name"
-msgstr ""
+msgstr "龍王蠍"
 
 msgid "species.453.name"
-msgstr ""
+msgstr "不良蛙"
 
 msgid "species.454.name"
-msgstr ""
+msgstr "毒骷蛙"
 
 msgid "species.455.name"
-msgstr ""
+msgstr "尖牙籠"
 
 msgid "species.456.name"
-msgstr ""
+msgstr "螢光魚"
 
 msgid "species.457.name"
-msgstr ""
+msgstr "霓虹魚"
 
 msgid "species.458.name"
-msgstr ""
+msgstr "小球飛魚"
 
 msgid "species.459.name"
-msgstr ""
+msgstr "雪笠怪"
 
 msgid "species.460.name"
-msgstr ""
+msgstr "暴雪王"
 
 msgid "species.461.name"
-msgstr ""
+msgstr "瑪狃拉"
 
 msgid "species.462.name"
-msgstr ""
+msgstr "自爆磁怪"
 
 msgid "species.463.name"
-msgstr ""
+msgstr "大舌舔"
 
 msgid "species.464.name"
-msgstr ""
+msgstr "超甲狂犀"
 
 msgid "species.465.name"
-msgstr ""
+msgstr "巨蔓藤"
 
 msgid "species.466.name"
-msgstr ""
+msgstr "電擊魔獸"
 
 msgid "species.467.name"
-msgstr ""
+msgstr "鴨嘴炎獸"
 
 msgid "species.468.name"
-msgstr ""
+msgstr "波克基斯"
 
 msgid "species.469.name"
-msgstr ""
+msgstr "遠古巨蜓"
 
 msgid "species.470.name"
-msgstr ""
+msgstr "葉伊布"
 
 msgid "species.471.name"
-msgstr ""
+msgstr "冰伊布"
 
 msgid "species.472.name"
-msgstr ""
+msgstr "天蠍王"
 
 msgid "species.473.name"
-msgstr ""
+msgstr "象牙豬"
 
 msgid "species.474.name"
-msgstr ""
+msgstr "多邊獸Ｚ"
 
 msgid "species.475.name"
-msgstr ""
+msgstr "艾路雷朵"
 
 msgid "species.476.name"
-msgstr ""
+msgstr "大朝北鼻"
 
 msgid "species.477.name"
-msgstr ""
+msgstr "黑夜魔靈"
 
 msgid "species.478.name"
-msgstr ""
+msgstr "雪妖女"
 
 msgid "species.479.name"
-msgstr ""
+msgstr "洛托姆"
 
 msgid "species.480.name"
-msgstr ""
+msgstr "由克希"
 
 msgid "species.481.name"
-msgstr ""
+msgstr "艾姆利多"
 
 msgid "species.482.name"
-msgstr ""
+msgstr "亞克諾姆"
 
 msgid "species.483.name"
-msgstr ""
+msgstr "帝牙盧卡"
 
 msgid "species.484.name"
-msgstr ""
+msgstr "帕路奇亞"
 
 msgid "species.485.name"
-msgstr ""
+msgstr "席多藍恩"
 
 msgid "species.486.name"
-msgstr ""
+msgstr "雷吉奇卡斯"
 
 msgid "species.487.name"
-msgstr ""
+msgstr "騎拉帝納"
 
 msgid "species.488.name"
-msgstr ""
+msgstr "克雷色利亞"
 
 msgid "species.489.name"
-msgstr ""
+msgstr "霏歐納"
 
 msgid "species.490.name"
-msgstr ""
+msgstr "瑪納霏"
 
 msgid "species.491.name"
-msgstr ""
+msgstr "達克萊伊"
 
 msgid "species.492.name"
-msgstr ""
+msgstr "謝米"
 
 msgid "species.493.name"
-msgstr ""
+msgstr "阿爾宙斯"
 
