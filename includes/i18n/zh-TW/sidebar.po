@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/sidebar.po\n"
-"PO-Revision-Date: 2019-05-31 01:58\n"
+"PO-Revision-Date: 2019-05-31 02:04\n"
 
 msgid "sidebar.signed_in_as"
 msgstr "登陸賬戶"
@@ -24,12 +24,12 @@ msgstr "待審批"
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.logout"
-msgstr ""
+msgstr "登出"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.login"
-msgstr ""
+msgstr "登入"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
@@ -39,40 +39,40 @@ msgstr ""
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.return"
-msgstr ""
+msgstr "返回"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.add_poi"
-msgstr ""
+msgstr "補給站"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.filters"
-msgstr ""
+msgstr "篩選"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.search"
-msgstr ""
+msgstr "搜尋"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.settings"
-msgstr ""
+msgstr "設置"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.manage_site"
-msgstr ""
+msgstr "後台管理"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.reset"
-msgstr ""
+msgstr "重置全部"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.cancel"
-msgstr ""
+msgstr "取消"
 
