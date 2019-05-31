@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/species.po\n"
-"PO-Revision-Date: 2019-05-31 02:44\n"
+"PO-Revision-Date: 2019-05-31 08:17\n"
 
 #  Note: These should only be translated if an official translation exists for
 #  these species in the language you are translating to. E.g. in German, the
@@ -1179,103 +1179,103 @@ msgid "species.386.name"
 msgstr "代歐奇希斯"
 
 msgid "species.387.name"
-msgstr ""
+msgstr "草苗龜"
 
 msgid "species.388.name"
-msgstr ""
+msgstr "樹林龜"
 
 msgid "species.389.name"
-msgstr ""
+msgstr "土台龜"
 
 msgid "species.390.name"
-msgstr ""
+msgstr "小火焰猴"
 
 msgid "species.391.name"
-msgstr ""
+msgstr "猛火猴"
 
 msgid "species.392.name"
-msgstr ""
+msgstr "烈焰猴"
 
 msgid "species.393.name"
-msgstr ""
+msgstr "波加曼"
 
 msgid "species.394.name"
-msgstr ""
+msgstr "波皇子"
 
 msgid "species.395.name"
-msgstr ""
+msgstr "帝王拿波"
 
 msgid "species.396.name"
-msgstr ""
+msgstr "姆克兒"
 
 msgid "species.397.name"
-msgstr ""
+msgstr "姆克鳥"
 
 msgid "species.398.name"
-msgstr ""
+msgstr "姆克鷹"
 
 msgid "species.399.name"
-msgstr ""
+msgstr "大牙狸"
 
 msgid "species.400.name"
-msgstr ""
+msgstr "大尾狸"
 
 msgid "species.401.name"
-msgstr ""
+msgstr "圓法師"
 
 msgid "species.402.name"
-msgstr ""
+msgstr "音箱蟀"
 
 msgid "species.403.name"
-msgstr ""
+msgstr "小貓怪"
 
 msgid "species.404.name"
-msgstr ""
+msgstr "勒克貓"
 
 msgid "species.405.name"
-msgstr ""
+msgstr "倫琴貓"
 
 msgid "species.406.name"
-msgstr ""
+msgstr "含羞苞"
 
 msgid "species.407.name"
-msgstr ""
+msgstr "羅絲雷朵"
 
 msgid "species.408.name"
-msgstr ""
+msgstr "頭蓋龍"
 
 msgid "species.409.name"
-msgstr ""
+msgstr "戰槌龍"
 
 msgid "species.410.name"
-msgstr ""
+msgstr "盾甲龍"
 
 msgid "species.411.name"
-msgstr ""
+msgstr "護城龍"
 
 msgid "species.412.name"
-msgstr ""
+msgstr "結草兒"
 
 msgid "species.413.name"
-msgstr ""
+msgstr "結草貴婦"
 
 msgid "species.414.name"
-msgstr ""
+msgstr "紳士蛾"
 
 msgid "species.415.name"
-msgstr ""
+msgstr "三蜜蜂"
 
 msgid "species.416.name"
-msgstr ""
+msgstr "蜂女王"
 
 msgid "species.417.name"
-msgstr ""
+msgstr "帕奇利茲"
 
 msgid "species.418.name"
-msgstr ""
+msgstr "泳圈鼬"
 
 msgid "species.419.name"
-msgstr ""
+msgstr "浮潛鼬"
 
 msgid "species.420.name"
 msgstr ""
