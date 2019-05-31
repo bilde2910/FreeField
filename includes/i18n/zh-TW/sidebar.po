@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/sidebar.po\n"
-"PO-Revision-Date: 2019-05-31 02:04\n"
+"PO-Revision-Date: 2019-05-31 02:14\n"
 
 msgid "sidebar.signed_in_as"
 msgstr "登陸賬戶"
@@ -34,7 +34,7 @@ msgstr "登入"
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.show_motd"
-msgstr ""
+msgstr "今日消息"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
