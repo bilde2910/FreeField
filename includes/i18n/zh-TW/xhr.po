@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/xhr.po\n"
-"PO-Revision-Date: 2019-05-31 02:04\n"
+"PO-Revision-Date: 2019-05-31 02:14\n"
 
 msgid "xhr.failed.reason.unknown_reason"
 msgstr "未知原因"
@@ -40,14 +40,14 @@ msgid "xhr.failed.reason.upstream_failed"
 msgstr "上游服務器請求失敗"
 
 msgid "xhr.failed.reason.objective_null"
-msgstr "沒有選中任務事項"
+msgstr "沒有選擇任務事項"
 
 msgid "xhr.failed.reason.reward_null"
-msgstr ""
+msgstr "沒有選擇獎勵"
 
 msgid "xhr.failed.reason.name_empty"
-msgstr ""
+msgstr "名稱不能為空"
 
 msgid "xhr.failed.reason.invalid_location"
-msgstr ""
+msgstr "該位置不允許"
 
