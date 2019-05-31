@@ -13,24 +13,24 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/login.po\n"
-"PO-Revision-Date: 2019-05-30 09:06\n"
+"PO-Revision-Date: 2019-05-31 01:25\n"
 
 msgid "login.title"
-msgstr ""
+msgstr "登陸FreeField"
 
 msgid "login.desc"
-msgstr ""
+msgstr "請選擇以下的一種認證方式"
 
 #  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
 msgid "login.perform"
-msgstr ""
+msgstr "使用 {%1} 登陸"
 
 msgid "login.reconfigure"
-msgstr ""
+msgstr "重新配置"
 
 msgid "login.telegram.title"
-msgstr ""
+msgstr "Telegram認證"
 
 msgid "login.telegram.body"
-msgstr ""
+msgstr "使用Telegram登陸請點擊以下按鈕"
 
