@@ -13,14 +13,14 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/motd.po\n"
-"PO-Revision-Date: 2019-05-30 09:06\n"
+"PO-Revision-Date: 2019-05-31 02:14\n"
 
 msgid "motd.title"
-msgstr ""
+msgstr "今日消息"
 
 msgid "motd.hide"
-msgstr ""
+msgstr "不再顯示此消息"
 
 msgid "motd.close"
-msgstr ""
+msgstr "關閉"
 
