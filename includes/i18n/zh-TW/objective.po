@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/objective.po\n"
-"PO-Revision-Date: 2019-05-31 08:56\n"
+"PO-Revision-Date: 2019-05-31 09:19\n"
 
 msgid "objective.battle_gym.singular"
 msgstr "參加1次道館對戰"
@@ -290,34 +290,34 @@ msgid "objective.visit_poi.plural"
 msgstr "拜訪{%1}次補給站或道館"
 
 msgid "objective.new_poi.singular"
-msgstr ""
+msgstr "拜訪1個你從未去過的補給站"
 
 #  %1 = Number of POIs
 msgid "objective.new_poi.plural"
-msgstr ""
+msgstr "拜訪{%1}個你從未去過的補給站"
 
 msgid "objective.visit_daily.singular"
-msgstr ""
+msgstr "連續1天拜訪補給站"
 
 #  %1 = Number of days in a row
 msgid "objective.visit_daily.plural"
-msgstr ""
+msgstr "連續{%1}天拜訪補給站"
 
 msgid "objective.send_gift.singular"
-msgstr ""
+msgstr "送1個禮物給朋友"
 
 #  %1 = Number of gifts to send
 msgid "objective.send_gift.plural"
-msgstr ""
+msgstr "送{%1}個禮物給朋友"
 
 msgid "objective.trade.singular"
-msgstr ""
+msgstr "交換1隻寶可夢"
 
 #  %1 = Number of specimen to trade
 msgid "objective.trade.plural"
-msgstr ""
+msgstr "交換{%1}隻寶可夢"
 
 #  Displayed when the research task objective of a Pokéstop is unknown.
 msgid "objective.unknown.singular"
-msgstr ""
+msgstr "未知任務"
 
