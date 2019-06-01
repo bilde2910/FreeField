@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/release_type.po\n"
-"PO-Revision-Date: 2019-06-01 07:34\n"
+"PO-Revision-Date: 2019-06-01 07:44\n"
 
 msgid "release_type.stable.name"
 msgstr "穩定版"
@@ -40,8 +40,8 @@ msgid "release_type.alpha.desc"
 msgstr "這個版本非常不穩定。在它成為穩定版本前，仍有可能有主要功能被添加。該版本很可能擁有bug，並有可能會使你的FreeField安裝過程出現錯誤。該版本不會將新添加的特性寫入文檔中。"
 
 msgid "release_type.dev.name"
-msgstr ""
+msgstr "極端邊緣測試版(極度不穩定)"
 
 msgid "release_type.dev.desc"
-msgstr ""
+msgstr "這個版本極度不穩定，並且尚未開發完全。在成為穩定版本前，會有主要功能被添加。這個版本包含許多bug，並且會造成無法修復的安裝錯誤。基於它的不穩定性，這類版本很少發佈。"
 
