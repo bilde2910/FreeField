@@ -13,13 +13,13 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/webhook.po\n"
-"PO-Revision-Date: 2019-05-30 09:05\n"
+"PO-Revision-Date: 2019-06-01 08:14\n"
 
 msgid "webhook.report_title"
-msgstr ""
+msgstr "任務已上傳！"
 
 msgid "webhook.poi"
-msgstr ""
+msgstr "寶可夢補給站"
 
 msgid "webhook.click_for_directions"
 msgstr ""
