@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-06-01 10:31\n"
+"PO-Revision-Date: 2019-06-01 10:50\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -578,105 +578,105 @@ msgid "admin.clientside.hooks.syntax.hide"
 msgstr "隱藏幫助"
 
 msgid "admin.hooks.syntax.poi.title"
-msgstr ""
+msgstr "寶可夢補給站信息"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.poi.poi"
-msgstr ""
+msgstr "{%1} = 寶可夢補給站名稱"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.poi.lat"
-msgstr ""
+msgstr "{%1} = 維度"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.poi.lng"
-msgstr ""
+msgstr "{%1} = 經度"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.poi.coords"
-msgstr ""
+msgstr "{%1} = 坐標(十進制)"
 
 msgid "admin.hooks.syntax.research.title"
-msgstr ""
+msgstr "調查任務"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.research.objective"
-msgstr ""
+msgstr "{%1} = 任務内容"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.research.reward"
-msgstr ""
+msgstr "{%1} = 任務獎勵"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.research.reporter"
-msgstr ""
+msgstr "{%1} = 上傳用戶"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.research.time"
-msgstr ""
+msgstr "{%1} = 上傳時間"
 
 msgid "admin.hooks.syntax.navigation.title"
-msgstr ""
+msgstr "導航"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.navigation.navurl"
-msgstr ""
+msgstr "{%1} = 來自默認導航提供者的導航URL"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.navigation.navurl_arg"
-msgstr ""
+msgstr "{%1} = 來自特定導航提供者的導航URL"
 
 msgid "admin.hooks.syntax.icons.title"
-msgstr ""
+msgstr "圖標圖像"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.icons.objective_icon"
-msgstr ""
+msgstr "{%1} = 任務圖標"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.icons.reward_icon"
-msgstr ""
+msgstr "{%1} = 獎勵圖標"
 
 msgid "admin.hooks.syntax.other.title"
-msgstr ""
+msgstr "其他信息"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
 msgid "admin.hooks.syntax.other.i18n"
-msgstr ""
+msgstr "{%1} = 轉換字符"
 
 msgid "admin.clientside.hooks.any_objective"
-msgstr ""
+msgstr "任何任務"
 
 msgid "admin.clientside.hooks.any_reward"
-msgstr ""
+msgstr "任何獎勵"
 
 #  %1 = One or more research objectives (e.g. "Make 3 Great Throws")
 msgid "admin.clientside.hooks.any_objective_except"
-msgstr ""
+msgstr "任何任務除了 {%1}"
 
 #  %1 = One or more research rewards (e.g. "1 Max Revive")
 msgid "admin.clientside.hooks.any_reward_except"
-msgstr ""
+msgstr "任何獎勵除了{%1}"
 
 #  Used to combine multiple objectives or rewards via "or" conditionals.
 #  %1 = Research objective or reward #1 (e.g. "Make 3 Great Throws", "1 Max
 #  Revive"), %2 = Research objective or reward #2
 msgid "admin.clientside.hooks.multi_or"
-msgstr ""
+msgstr "{%1} 或 {%2}"
 
 #  Used to combine multiple objectives or rewards via "and" conditionals.
 #  %1 = Research objective or reward #1 (e.g. "Make 3 Great Throws", "1 Max
 #  Revive"), %2 = Research objective or reward #2
 msgid "admin.clientside.hooks.multi_and"
-msgstr ""
+msgstr "{%1} 和 {%2}"
 
 #  %1 = Reason
 msgid "admin.clientside.hooks.update.objective.failed.message"
-msgstr ""
+msgstr "設置任務内容失敗：{%1}"
 
 #  %1 = Reason
 msgid "admin.clientside.hooks.update.reward.failed.message"
-msgstr ""
+msgstr "設置任務獎勵失敗：{%1}"
 
 #  Fallback for webhook target when the target cannot be identified; typically
 #  displayed instead of a domain name
@@ -685,110 +685,110 @@ msgstr ""
 
 #  Telegram specific setting
 msgid "admin.clientside.hooks.tg.xhr.groups.failed.empty_token"
-msgstr ""
+msgstr "請先輸入bot token!"
 
 #  Telegram specific setting
 msgid "admin.clientside.hooks.tg.xhr.groups.failed.no_groups"
-msgstr ""
+msgstr "找不到用戶組！"
 
 #  Telegram specific setting
 msgid "admin.hooks.popup.tg.searching_group"
-msgstr ""
+msgstr "尋找用戶組..."
 
 #  Telegram specific setting
 msgid "admin.hooks.popup.tg.select_group"
-msgstr ""
+msgstr "選擇用戶組"
 
 msgid "admin.section.hooks.ui.add.name"
-msgstr ""
+msgstr "添加鈎子"
 
 msgid "admin.domain.api.name"
-msgstr ""
+msgstr "API訪問"
 
 msgid "admin.domain.api.desc"
-msgstr ""
+msgstr "管理API訪問和集成"
 
 msgid "admin.section.api.client_list.name"
-msgstr ""
+msgstr "已登記客戶端列表"
 
 msgid "admin.table.api.client_list.column.name.name"
-msgstr ""
+msgstr "客戶端名稱"
 
 msgid "admin.table.api.client_list.column.color.name"
-msgstr ""
+msgstr "顯示顏色"
 
 msgid "admin.table.api.client_list.column.token.name"
-msgstr ""
+msgstr "接入令牌"
 
 msgid "admin.table.api.client_list.column.seen.name"
-msgstr ""
+msgstr "最後訪問時間"
 
 msgid "admin.table.api.client_list.column.access.name"
-msgstr ""
+msgstr "權限"
 
 msgid "admin.table.api.client_list.column.actions.name"
-msgstr ""
+msgstr "行動"
 
 msgid "admin.table.api.client_list.column.token.mask"
-msgstr ""
+msgstr "點擊查看"
 
 msgid "admin.clientside.api.client_list.action.none"
-msgstr ""
+msgstr "(不採取行動)"
 
 msgid "admin.clientside.api.client_list.action.reset"
-msgstr ""
+msgstr "重置接入令牌"
 
 msgid "admin.clientside.api.client_list.action.delete"
-msgstr ""
+msgstr "刪除客戶端"
 
 msgid "admin.section.api.ui.add.name"
-msgstr ""
+msgstr "添加新的客戶端"
 
 msgid "admin.section.api.ui.copy.name"
-msgstr ""
+msgstr "複製到剪貼簿"
 
 msgid "admin.clientside.api.client_list.token.new"
-msgstr ""
+msgstr "(保存生成令牌)"
 
 msgid "admin.clientside.api.client_list.seen.never"
-msgstr ""
+msgstr "永不"
 
 msgid "admin.clientside.api.client_list.access.level"
-msgstr ""
+msgstr "权限级别:"
 
 msgid "admin.clientside.api.client_list.access.none"
-msgstr ""
+msgstr "無授予權限"
 
 msgid "admin.api.popup.view_token.title"
-msgstr ""
+msgstr "接入令牌"
 
 msgid "admin.api.popup.view_token.client_name"
-msgstr ""
+msgstr "客戶端名稱:"
 
 msgid "admin.api.popup.access_list.title"
-msgstr ""
+msgstr "訪問設置"
 
 msgid "admin.api.popup.access_list.client_name"
-msgstr ""
+msgstr "客戶端名稱:"
 
 msgid "admin.api.popup.access_list.level"
-msgstr ""
+msgstr "权限级别:"
 
 msgid "admin.domain.updates.name"
-msgstr ""
+msgstr "更新"
 
 msgid "admin.domain.updates.desc"
-msgstr ""
+msgstr "將FreeField更新到一個更新版本"
 
 msgid "admin.section.updates.info.name"
-msgstr ""
+msgstr "版本信息"
 
 msgid "admin.section.updates.available.name"
-msgstr ""
+msgstr "可用更新"
 
 #  %1 = Warning triangle symbol
 msgid "admin.section.updates.git.name"
-msgstr ""
+msgstr "{%1} 需要手動更新！"
 
 #  %1 = <code>, %2 = </code>
 msgid "admin.section.updates.git.desc"
