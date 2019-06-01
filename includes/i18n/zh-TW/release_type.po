@@ -13,22 +13,22 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/release_type.po\n"
-"PO-Revision-Date: 2019-05-30 09:05\n"
+"PO-Revision-Date: 2019-06-01 07:24\n"
 
 msgid "release_type.stable.name"
-msgstr ""
+msgstr "穩定版"
 
 msgid "release_type.stable.desc"
-msgstr ""
+msgstr "這個版本被認為可直接用於生產環境。"
 
 msgid "release_type.rc.name"
-msgstr ""
+msgstr "候選版本"
 
 msgid "release_type.rc.desc"
-msgstr ""
+msgstr "這個版本被認為是最穩定的版本。在下一個穩定版本被釋放前，將不會再添加新的功能。該版本的文檔尚不完整，或許存在一些小問題。"
 
 msgid "release_type.beta.name"
-msgstr ""
+msgstr "測試版（不穩定）"
 
 msgid "release_type.beta.desc"
 msgstr ""
