@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/multi.po\n"
-"PO-Revision-Date: 2019-06-01 07:14\n"
+"PO-Revision-Date: 2019-06-01 07:24\n"
 
 #  This string is a string displayed for type tasks. E.g. "Water-type" in "Catch
 #  3 Water-type Pokémon."
@@ -25,23 +25,23 @@ msgstr "{%1}-屬性"
 #  Grass-type" in "Catch 3 Water, Fire or Grass-type Pokémon."
 #  %1 and %2 = Type of catch ("Ice", "Water", etc.)
 msgid "multi.type.double"
-msgstr ""
+msgstr "{%1} 或 {%2}-屬性"
 
 #  This string is a string displayed for type tasks. E.g. "Water or Grass-type"
 #  in "Catch 3 Water or Grass-type Pokémon."
 #  %1 through %3 = Type of catch ("Ice", "Water", etc.)
 msgid "multi.type.triple"
-msgstr ""
+msgstr "{%1}, {%2} 或 {%3}-屬性"
 
 #  This string is a string used to display and concatenate multiple species.
 #  E.g. "Bulbasaur or Squirtle" in "Catch a Bulbasaur or Squirtle."
 #  %1 through %3 = Name of a species ("Pikachu", "Charizard", etc.)
 msgid "multi.species.double"
-msgstr ""
+msgstr "{%1} 或 {%2}"
 
 #  This string is a string used to display and concatenate multiple species.
 #  E.g. "Bulbasaur, Charmander or Squirtle" in "Catch a Bulbasaur, Charmander or
 #  Squirtle."
 msgid "multi.species.triple"
-msgstr ""
+msgstr "{%1}, {%2} 或 {%3}"
 
