@@ -13,13 +13,13 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/multi.po\n"
-"PO-Revision-Date: 2019-05-30 09:06\n"
+"PO-Revision-Date: 2019-06-01 07:14\n"
 
 #  This string is a string displayed for type tasks. E.g. "Water-type" in "Catch
 #  3 Water-type Pokémon."
 #  %1 = Type of catch ("Ice", "Water", etc.)
 msgid "multi.type.single"
-msgstr ""
+msgstr "{%1}-屬性"
 
 #  This string is a string displayed for type tasks. E.g. "Water, Fire or
 #  Grass-type" in "Catch 3 Water, Fire or Grass-type Pokémon."
