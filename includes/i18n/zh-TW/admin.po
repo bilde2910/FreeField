@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-06-01 09:55\n"
+"PO-Revision-Date: 2019-06-01 10:11\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -362,40 +362,40 @@ msgid "admin.section.perms.map_access.name"
 msgstr "地圖訪問權限"
 
 msgid "admin.section.perms.map_access.desc"
-msgstr ""
+msgstr "警告！限制对地图的訪問可能符合某些地圖提供者的商業用途。如果您選擇限制訪問地圖所需的權限，那么您有充分的責任确保您的地圖提供许可证允许受限访问。"
 
 msgid "admin.section.perms.personalization.name"
-msgstr ""
+msgstr "定制限制"
 
 msgid "admin.section.perms.admin.name"
-msgstr ""
+msgstr "行政許可"
 
 msgid "admin.domain.security.name"
-msgstr ""
+msgstr "安全"
 
 msgid "admin.domain.security.desc"
-msgstr ""
+msgstr "安全的用戶訪問及會話"
 
 msgid "admin.section.security.user_creation.name"
-msgstr ""
+msgstr "用戶的創建"
 
 msgid "admin.section.security.user_creation.desc"
-msgstr ""
+msgstr "警告！限制对地图的訪問可能符合某些地圖提供者的商業用途。如果您選擇要求用戶同意與地圖進行互動，那么您有充分的責任确保您的地圖提供许可证允许受限访问。"
 
 msgid "admin.section.security.sessions.name"
-msgstr ""
+msgstr "會話"
 
 msgid "admin.section.security.sessions.desc"
-msgstr ""
+msgstr "警告！對這些設置進行改變可能會導致當前已登錄用戶被强制登出並需要重新認證。這是一項安全防範措施，以確保所有的活動會話符合更新的會話安全需求。"
 
 msgid "admin.section.security.outbound.name"
-msgstr ""
+msgstr "出站請求"
 
 msgid "admin.section.security.same_origin.name"
-msgstr ""
+msgstr "同源策略"
 
 msgid "admin.domain.auth.name"
-msgstr ""
+msgstr "認證"
 
 msgid "admin.domain.auth.desc"
 msgstr ""
