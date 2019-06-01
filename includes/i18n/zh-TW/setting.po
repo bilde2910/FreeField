@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-01 16:26\n"
+"PO-Revision-Date: 2019-06-01 16:44\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -193,43 +193,43 @@ msgid "setting.permissions.level.self_manage.nickname.desc"
 msgstr "允許此級別或以上級別的用戶修改他們的昵稱。"
 
 msgid "setting.permissions.level.access.name"
-msgstr ""
+msgstr "查看地圖"
 
 msgid "setting.permissions.level.access.desc"
-msgstr ""
+msgstr "允許用戶查看FreeField地圖和寶可夢補給站列表。"
 
 msgid "setting.permissions.level.find_reporter.name"
-msgstr ""
+msgstr "識別任務上傳者"
 
 msgid "setting.permissions.level.find_reporter.desc"
-msgstr ""
+msgstr "展示給用戶每個寶可夢補給站最後的任務上傳者。"
 
 msgid "setting.permissions.level.report_research.name"
-msgstr ""
+msgstr "上傳田野調查"
 
 msgid "setting.permissions.level.report_research.desc"
-msgstr ""
+msgstr "允許用戶在未擁有田野調查任務的寶可夢補給站上上傳田野調查信息。"
 
 msgid "setting.permissions.level.overwrite_research.name"
-msgstr ""
+msgstr "覆蓋田野調查信息"
 
 msgid "setting.permissions.level.overwrite_research.desc"
-msgstr ""
+msgstr "允許用戶在所有寶可夢補給站上上傳田野調查任務，即使這個補給站已經有另一用戶在同一天上傳了任務内容。同樣需要“上傳田野調查”的許可。"
 
 msgid "setting.permissions.level.submit_poi.name"
-msgstr ""
+msgstr "提交寶可夢補給站"
 
 msgid "setting.permissions.level.submit_poi.desc"
-msgstr ""
+msgstr "允許用戶在地圖上提交一個新的寶可夢補給站。"
 
 msgid "setting.permissions.level.personalization.icons.name"
-msgstr ""
+msgstr "自定義標記"
 
 msgid "setting.permissions.level.personalization.icons.desc"
-msgstr ""
+msgstr "允許用戶使用他們自己的地圖標記集，而不是賬戶默認選擇。"
 
 msgid "setting.permissions.level.personalization.species.name"
-msgstr ""
+msgstr "自定義寶可夢圖標"
 
 msgid "setting.permissions.level.personalization.species.desc"
 msgstr ""
