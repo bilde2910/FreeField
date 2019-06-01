@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-06-01 09:28\n"
+"PO-Revision-Date: 2019-06-01 09:34\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -277,16 +277,16 @@ msgid "admin.section.pois.batch_list.search"
 msgstr "搜尋地理圍欄"
 
 msgid "admin.section.pois.clear.desc"
-msgstr ""
+msgstr "為了方便，你可以一次性清除所有寶可夢補給站的任務數據。這在你重新設置了任務列表之後有些用處，例如在活動期間或者月度任務更新之後。選擇下面的單選框并點擊保存設定來清除所有寶可夢補給站中的調查任務數據。"
 
 msgid "admin.section.pois.clear.perform.name"
-msgstr ""
+msgstr "清除調查任務數據"
 
 msgid "admin.section.pois.clear.perform.label"
-msgstr ""
+msgstr "清除所有寶可夢補給站中的任務數據"
 
 msgid "admin.section.pois.import.file.name"
-msgstr ""
+msgstr "選擇檔案"
 
 msgid "admin.section.pois.import.file.desc"
 msgstr ""
