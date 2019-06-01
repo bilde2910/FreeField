@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-06-01 08:34\n"
+"PO-Revision-Date: 2019-06-01 08:54\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -71,106 +71,106 @@ msgid "admin.domain.main.desc"
 msgstr "FreeField基礎配置"
 
 msgid "admin.section.main.access.name"
-msgstr ""
+msgstr "訪問"
 
 msgid "admin.section.main.instance.name"
-msgstr ""
+msgstr "網站選項"
 
 msgid "admin.section.main.motd.name"
-msgstr ""
+msgstr "今日消息"
 
 msgid "admin.section.main.spiders.name"
-msgstr ""
+msgstr "爬蟲"
 
 msgid "admin.section.main.database.name"
-msgstr ""
+msgstr "數據庫"
 
 msgid "admin.domain.users.name"
-msgstr ""
+msgstr "用戶"
 
 msgid "admin.domain.users.desc"
-msgstr ""
+msgstr "用戶管理及用戶權限設置"
 
 msgid "admin.section.users.require_approval.name"
-msgstr ""
+msgstr "待審批用戶"
 
 msgid "admin.section.users.user_list.name"
-msgstr ""
+msgstr "已註冊用戶"
 
 #  This means the ID of the user as stored by the authentication provider of the
 #  user, e.g. "@username" could be the provider identity for a user on Twitter.
 msgid "admin.table.users.user_list.column.provider_identity.name"
-msgstr ""
+msgstr "用戶名"
 
 msgid "admin.table.users.user_list.column.provider.name"
-msgstr ""
+msgstr "登入方式"
 
 msgid "admin.table.users.user_list.column.nickname.name"
-msgstr ""
+msgstr "暱稱"
 
 msgid "admin.table.users.user_list.column.group.name"
-msgstr ""
+msgstr "用戶組"
 
 msgid "admin.table.users.user_list.column.registered.name"
-msgstr ""
+msgstr "已註冊"
 
 msgid "admin.table.users.user_list.column.actions.name"
-msgstr ""
+msgstr "行動"
 
 msgid "admin.table.users.anonymous"
-msgstr ""
+msgstr "<匿名>"
 
 msgid "admin.table.users.deleted"
-msgstr ""
+msgstr "<刪除用戶>"
 
 msgid "admin.table.users.api_deleted"
 msgstr ""
 
 msgid "admin.section.users.user_list.action.none"
-msgstr ""
+msgstr "(不採取行動)"
 
 msgid "admin.section.users.user_list.action.approve"
-msgstr ""
+msgstr "同意用戶"
 
 msgid "admin.section.users.user_list.action.reject"
-msgstr ""
+msgstr "拒絕用戶"
 
 msgid "admin.section.users.user_list.action.delete"
-msgstr ""
+msgstr "刪除賬戶"
 
 msgid "admin.section.users.user_list.action.invalidate"
-msgstr ""
+msgstr "在所有地方登出"
 
 #  %1 = Padlock icon
 msgid "admin.section.users.user_list.unlock"
-msgstr ""
+msgstr "{%1} 點擊以解鎖"
 
 msgid "admin.clientside.users.user_list.unlock_warning"
-msgstr ""
+msgstr "你嘗試更改你賬戶中的設置，這些設置被鎖定以防止你的賬戶被意外降級或刪除。你確定要解鎖這些設置嗎？"
 
 msgid "admin.domain.groups.name"
-msgstr ""
+msgstr "用戶組"
 
 msgid "admin.domain.groups.desc"
-msgstr ""
+msgstr "管理用戶組及權限"
 
 msgid "admin.section.groups.group_list.name"
-msgstr ""
+msgstr "用戶組列表"
 
 msgid "admin.table.groups.group_list.column.group_name.name"
-msgstr ""
+msgstr "用戶組"
 
 msgid "admin.table.groups.group_list.column.change_name.name"
-msgstr ""
+msgstr "更改名稱"
 
 msgid "admin.table.groups.group_list.column.permission.name"
-msgstr ""
+msgstr "权限级别"
 
 msgid "admin.table.groups.group_list.column.color.name"
-msgstr ""
+msgstr "顏色"
 
 msgid "admin.table.groups.group_list.column.actions.name"
-msgstr ""
+msgstr "行動"
 
 msgid "admin.clientside.groups.group_list.action.none"
 msgstr ""
