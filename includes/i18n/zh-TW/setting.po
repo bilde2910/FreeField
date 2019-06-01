@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-01 16:44\n"
+"PO-Revision-Date: 2019-06-01 17:08\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -208,91 +208,91 @@ msgid "setting.permissions.level.report_research.name"
 msgstr "上傳田野調查"
 
 msgid "setting.permissions.level.report_research.desc"
-msgstr "允許用戶在未擁有田野調查任務的寶可夢補給站上上傳田野調查信息。"
+msgstr "允許此用戶在未擁有田野調查任務的寶可夢補給站上上傳田野調查信息。"
 
 msgid "setting.permissions.level.overwrite_research.name"
 msgstr "覆蓋田野調查信息"
 
 msgid "setting.permissions.level.overwrite_research.desc"
-msgstr "允許用戶在所有寶可夢補給站上上傳田野調查任務，即使這個補給站已經有另一用戶在同一天上傳了任務内容。同樣需要“上傳田野調查”的許可。"
+msgstr "允許此用戶在所有寶可夢補給站上上傳田野調查任務，即使這個補給站已經有另一用戶在同一天上傳了任務内容。同樣需要“上傳田野調查”的許可。"
 
 msgid "setting.permissions.level.submit_poi.name"
 msgstr "提交寶可夢補給站"
 
 msgid "setting.permissions.level.submit_poi.desc"
-msgstr "允許用戶在地圖上提交一個新的寶可夢補給站。"
+msgstr "允許此用戶在地圖上提交一個新的寶可夢補給站。"
 
 msgid "setting.permissions.level.personalization.icons.name"
 msgstr "自定義標記"
 
 msgid "setting.permissions.level.personalization.icons.desc"
-msgstr "允許用戶使用他們自己的地圖標記集，而不是賬戶默認選擇。"
+msgstr "允許此用戶選擇他們自定義的地圖標記集，而不是賬戶默認選項。"
 
 msgid "setting.permissions.level.personalization.species.name"
 msgstr "自定義寶可夢圖標"
 
 msgid "setting.permissions.level.personalization.species.desc"
-msgstr ""
+msgstr "允許此用戶選擇他們自定義的寶可夢圖標，而不是賬戶默認選項。"
 
 msgid "setting.permissions.level.admin.main.general.name"
-msgstr ""
+msgstr "網站設置管理"
 
 msgid "setting.permissions.level.admin.main.general.desc"
-msgstr ""
+msgstr "允許此用戶改變此網站的數據庫和安裝設定。"
 
 msgid "setting.permissions.level.admin.main.section.access.name"
-msgstr ""
+msgstr "訪問設置管理"
 
 msgid "setting.permissions.level.admin.main.section.access.desc"
-msgstr ""
+msgstr "允許此用戶改變訪問參數，如網站的鏈接。"
 
 msgid "setting.permissions.level.admin.main.section.instance.name"
-msgstr ""
+msgstr "管理實例選項"
 
 msgid "setting.permissions.level.admin.main.section.instance.desc"
-msgstr ""
+msgstr "允許此用戶改變此FreeField實例的核心參數選項，如網站名稱。"
 
 msgid "setting.permissions.level.admin.main.section.motd.name"
-msgstr ""
+msgstr "今日消息管理"
 
 msgid "setting.permissions.level.admin.main.section.motd.desc"
-msgstr ""
+msgstr "允許此用戶管理此FreeField實例的今日消息。"
 
 msgid "setting.permissions.level.admin.main.section.spiders.name"
-msgstr ""
+msgstr "爬取設置管理"
 
 msgid "setting.permissions.level.admin.main.section.spiders.desc"
-msgstr ""
+msgstr "允許此用戶更改網絡爬蟲的爬取設定。"
 
 msgid "setting.permissions.level.admin.main.section.database.name"
-msgstr ""
+msgstr "數據庫設置管理"
 
 msgid "setting.permissions.level.admin.main.section.database.desc"
-msgstr ""
+msgstr "允許此用戶改變數據庫設置。"
 
 msgid "setting.permissions.level.admin.users.general.name"
-msgstr ""
+msgstr "用戶管理"
 
 msgid "setting.permissions.level.admin.users.general.desc"
-msgstr ""
+msgstr "允許此用戶同意、拒絕、管理和刪除其他用戶的帳戶。"
 
 msgid "setting.permissions.level.admin.groups.general.name"
-msgstr ""
+msgstr "用戶組管理"
 
 msgid "setting.permissions.level.admin.groups.general.desc"
-msgstr ""
+msgstr "允許此用戶添加、移除和管理用戶組。"
 
 msgid "setting.permissions.level.admin.users.groups.name"
-msgstr ""
+msgstr "管理用戶組關係"
 
 msgid "setting.permissions.level.admin.users.groups.desc"
-msgstr ""
+msgstr "允許此用戶管理用戶組中用戶的關係，需要“用戶組管理”權限基礎。"
 
 msgid "setting.permissions.level.admin.groups.self_manage.name"
-msgstr ""
+msgstr "管理所屬用戶組"
 
 msgid "setting.permissions.level.admin.groups.self_manage.desc"
-msgstr ""
+msgstr "允許此用戶分配和移除其所屬用戶組下的其他用戶，以及管理他們的用戶權限。默認下，擁有此權限的用戶只可以分配用戶和管理其下的用戶組。此權限請謹慎分配！擁有此權限的用戶可以委派和刪除其他與其同級別的用戶。我們推薦將此處設定留為默認，除非你有一個很好的理由改變它。改權限需要“用戶組關係管理”權限爲基礎。"
 
 msgid "setting.permissions.level.admin.pois.general.name"
 msgstr ""
