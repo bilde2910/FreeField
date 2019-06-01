@@ -13,21 +13,21 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-05-30 09:05\n"
+"PO-Revision-Date: 2019-06-01 08:34\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
-msgstr ""
+msgstr "文本在頁面上的呈現效果或許會與上面預覽效果有輕微不同。"
 
 msgid "admin.option.paragraph.xss_warning"
-msgstr ""
+msgstr "由於Markdown文本中包含JavaScript。為了安全原因，此處的預覽被禁止。"
 
 #  File selection input
 #  %1 = <code>
 #  %2 = File name and size according to display_format below
 #  %3 = </code>
 msgid "admin.option.file.current"
-msgstr ""
+msgstr "當前: {%1}{%2}{%3}"
 
 #  %1 = <a href=""> (link to file)
 #  %2 = </a>
@@ -51,24 +51,24 @@ msgstr ""
 
 #  Geofence selection input
 msgid "admin.option.geofence.available"
-msgstr ""
+msgstr "可用的地圖圍欄"
 
 #  Icon set selector
 #  %1 = User who created icon set
 msgid "admin.option.icon_set.authored_by"
-msgstr ""
+msgstr "作者: {%1}"
 
 msgid "admin.validation.validation_failed"
-msgstr ""
+msgstr "此頁面上有一個或更多的錯誤設置，這些設置會被標記為紅色，請在提交前修改這些設置。"
 
 msgid "admin.validation.unsaved_changes"
-msgstr ""
+msgstr "你有未保存的設置！你確定要在未保存前離開此頁面嗎？"
 
 msgid "admin.domain.main.name"
-msgstr ""
+msgstr "網頁設置"
 
 msgid "admin.domain.main.desc"
-msgstr ""
+msgstr "FreeField基礎配置"
 
 msgid "admin.section.main.access.name"
 msgstr ""
