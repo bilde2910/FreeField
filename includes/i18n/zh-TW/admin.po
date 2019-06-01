@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-06-01 09:34\n"
+"PO-Revision-Date: 2019-06-01 09:55\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -289,77 +289,77 @@ msgid "admin.section.pois.import.file.name"
 msgstr "選擇檔案"
 
 msgid "admin.section.pois.import.file.desc"
-msgstr ""
+msgstr "請選擇你想導入的寶可夢補給站數據，接受*.csv文件。"
 
 msgid "admin.section.pois.import.name.name"
-msgstr ""
+msgstr "名稱字段"
 
 msgid "admin.section.pois.import.name.desc"
-msgstr ""
+msgstr "這一字段/列的數據集對應寶可夢補給站的名稱。"
 
 msgid "admin.section.pois.import.latitude.name"
-msgstr ""
+msgstr "緯度字段"
 
 msgid "admin.section.pois.import.latitude.desc"
-msgstr ""
+msgstr "這一字段/列的數據集對應寶可夢補給站的緯度。"
 
 msgid "admin.section.pois.import.longitude.name"
-msgstr ""
+msgstr "經度"
 
 msgid "admin.section.pois.import.longitude.desc"
-msgstr ""
+msgstr "這一字段/列的數據集對應寶可夢補給站的經度。"
 
 msgid "admin.section.pois.import.selector.none"
-msgstr ""
+msgstr "<請選擇>"
 
 msgid "admin.section.pois.import.selector.available"
-msgstr ""
+msgstr "可用字段"
 
 msgid "admin.table.pois.preview_table.column.include.name"
-msgstr ""
+msgstr "導入？"
 
 msgid "admin.table.pois.preview_table.column.poi_name.name"
-msgstr ""
+msgstr "名稱"
 
 msgid "admin.table.pois.preview_table.column.latitude.name"
-msgstr ""
+msgstr "緯度"
 
 msgid "admin.table.pois.preview_table.column.longitude.name"
-msgstr ""
+msgstr "經度"
 
 msgid "admin.clientside.pois.preview_table.actions.include"
-msgstr ""
+msgstr "導入"
 
 msgid "admin.clientside.pois.preview_table.actions.exclude"
-msgstr ""
+msgstr "不導入"
 
 #  %1 = Number of Pokéstops in the imported list of Pokéstops.
 msgid "admin.clientside.pois.import.count"
-msgstr ""
+msgstr "選擇的文件中包含{%1}個寶可夢補給站"
 
 msgid "admin.section.pois.import.invalid_warning"
-msgstr ""
+msgstr "預覽的表中含有非法數據！擁有非法數據的那一行將不會被導入。"
 
 msgid "admin.section.pois.export.info"
-msgstr ""
+msgstr "你可以導出在FreeFiled中保存的寶可夢補給站列表。導出的文件可以用於在另一個FreeFiled實例中導入，同時也是一個備份方式。"
 
 msgid "admin.section.pois.export.do"
-msgstr ""
+msgstr "點擊這裏導出你的寶可夢補給站數據"
 
 msgid "admin.domain.perms.name"
-msgstr ""
+msgstr "權限"
 
 msgid "admin.domain.perms.desc"
-msgstr ""
+msgstr "為功能設置訪問控制"
 
 msgid "admin.section.perms.default.name"
-msgstr ""
+msgstr "默認設置"
 
 msgid "admin.section.perms.self_manage.name"
-msgstr ""
+msgstr "賬戶管理"
 
 msgid "admin.section.perms.map_access.name"
-msgstr ""
+msgstr "地圖訪問權限"
 
 msgid "admin.section.perms.map_access.desc"
 msgstr ""
