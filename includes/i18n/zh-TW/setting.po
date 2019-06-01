@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-01 16:14\n"
+"PO-Revision-Date: 2019-06-01 16:26\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -160,37 +160,37 @@ msgid "setting.database.username.name"
 msgstr "用戶名"
 
 msgid "setting.database.username.desc"
-msgstr ""
+msgstr "登陸數據庫服務器的用戶名。"
 
 msgid "setting.database.password.name"
-msgstr ""
+msgstr "密碼"
 
 msgid "setting.database.password.desc"
-msgstr ""
+msgstr "用於登陸數據庫服務器的密碼。"
 
 msgid "setting.database.database.name"
-msgstr ""
+msgstr "數據庫"
 
 msgid "setting.database.database.desc"
-msgstr ""
+msgstr "FreeField寫入數據的數據庫名稱。"
 
 msgid "setting.database.table_prefix.name"
-msgstr ""
+msgstr "表前綴名"
 
 msgid "setting.database.table_prefix.desc"
-msgstr ""
+msgstr "一個FreeField用於所有表的前綴名，以防與其他表造成衝突。"
 
 msgid "setting.permissions.default_level.name"
-msgstr ""
+msgstr "默認用戶組"
 
 msgid "setting.permissions.default_level.desc"
-msgstr ""
+msgstr "默認分配給所有新注冊用戶的權限級別。"
 
 msgid "setting.permissions.level.self_manage.nickname.name"
-msgstr ""
+msgstr "修改你的昵稱"
 
 msgid "setting.permissions.level.self_manage.nickname.desc"
-msgstr ""
+msgstr "允許此級別或以上級別的用戶修改他們的昵稱。"
 
 msgid "setting.permissions.level.access.name"
 msgstr ""
