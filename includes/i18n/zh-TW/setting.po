@@ -13,79 +13,79 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-05-30 09:05\n"
+"PO-Revision-Date: 2019-06-01 15:59\n"
 
 msgid "setting.site.uri.name"
-msgstr ""
+msgstr "安裝網址"
 
 msgid "setting.site.uri.desc"
-msgstr ""
+msgstr "FreeField基礎安裝位置"
 
 msgid "setting.site.name.name"
-msgstr ""
+msgstr "網站名稱"
 
 msgid "setting.site.name.desc"
-msgstr ""
+msgstr "此FreeField實例的名稱(如[城市名]FreeField)"
 
 msgid "setting.site.menu_header.name"
-msgstr ""
+msgstr "側邊欄頭部名稱"
 
 msgid "setting.site.menu_header.desc"
-msgstr ""
+msgstr "側邊菜單欄頂部的顯示文本。"
 
 msgid "setting.site.menu_image.name"
-msgstr ""
+msgstr "側邊欄圖像"
 
 msgid "setting.site.menu_image.desc"
-msgstr ""
+msgstr "用以代替側邊菜單欄頂部的文本顯示的圖片。允許使用*.png, *.gif, *.jpg, and *.svg格式的文件. 不能大於128 KB。"
 
 msgid "setting.site.header_style.name"
-msgstr ""
+msgstr "側邊欄頭部樣式"
 
 msgid "setting.site.header_style.desc"
-msgstr ""
+msgstr "選擇是否在側邊欄顯示文本或圖像。"
 
 msgid "setting.site.header_style.option.text"
-msgstr ""
+msgstr "顯示頂部文字"
 
 msgid "setting.site.header_style.option.image"
-msgstr ""
+msgstr "顯示頂部圖像(附帶背景色)"
 
 msgid "setting.site.header_style.option.image_plain"
-msgstr ""
+msgstr "顯示頂部圖像(無背景色)"
 
 msgid "setting.motd.display_mode.name"
-msgstr ""
+msgstr "顯示模式"
 
 msgid "setting.motd.display_mode.desc"
-msgstr ""
+msgstr "決定今日消息怎麽顯示。"
 
 msgid "setting.motd.display_mode.option.forced"
-msgstr ""
+msgstr "每一個頁面加載都顯示每日消息。"
 
 msgid "setting.motd.display_mode.option.always"
-msgstr ""
+msgstr "默認顯示，但允許用戶在下次更改之前將他關閉"
 
 msgid "setting.motd.display_mode.option.on_change"
-msgstr ""
+msgstr "僅當今日消息變更後顯示一次，在隨後的頁面中不再顯示"
 
 msgid "setting.motd.display_mode.option.on_request"
-msgstr ""
+msgstr "僅在用戶手動查看今日消息時顯示"
 
 msgid "setting.motd.display_mode.option.never"
-msgstr ""
+msgstr "完全關閉今日消息"
 
 msgid "setting.motd.title.name"
-msgstr ""
+msgstr "自定義消息標題"
 
 msgid "setting.motd.title.desc"
-msgstr ""
+msgstr "今日消息彈窗的標題。如果留空，默認為“今日消息”。"
 
 msgid "setting.motd.content.name"
-msgstr ""
+msgstr "消息内容"
 
 msgid "setting.motd.content.desc"
-msgstr ""
+msgstr "一則儅每個用戶打開FreeField都會顯示的消息彈窗，支持Markdown語法。"
 
 msgid "setting.spiders.robots_policy.name"
 msgstr ""
