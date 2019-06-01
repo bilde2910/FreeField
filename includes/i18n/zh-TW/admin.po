@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-06-01 09:05\n"
+"PO-Revision-Date: 2019-06-01 09:28\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -243,38 +243,38 @@ msgid "admin.section.pois.poi_list.action.none"
 msgstr "(不採取行動)"
 
 msgid "admin.section.pois.poi_list.action.clear"
-msgstr ""
+msgstr "清除調查任務"
 
 msgid "admin.section.pois.poi_list.action.delete"
-msgstr ""
+msgstr "刪除寶可夢補給站"
 
 msgid "admin.section.pois.poi_list.search"
-msgstr ""
+msgstr "搜尋補給站名稱，任務名稱，獎勵或上傳者用戶名等等"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "admin.section.pois.batch.desc"
-msgstr ""
+msgstr "如果你希望一次性對批量寶可夢補給站進行事項處理，你可以使用地理圍欄。當你為一個已有地理圍欄進行行動，該地理圍欄下的所有寶可夢補給站都會一起進行行動。你可以在{%1}地理圍欄頁面{%2}建立地理圍欄。"
 
 msgid "admin.table.pois.batch_list.column.label.name"
-msgstr ""
+msgstr "地理圍欄名稱"
 
 msgid "admin.table.pois.batch_list.column.poi_count.name"
-msgstr ""
+msgstr "補給站數量"
 
 msgid "admin.table.pois.batch_list.column.actions.name"
-msgstr ""
+msgstr "行動"
 
 msgid "admin.section.pois.batch_list.action.none"
-msgstr ""
+msgstr "(不採取行動)"
 
 msgid "admin.section.pois.batch_list.action.clear"
-msgstr ""
+msgstr "清除所有調查任務"
 
 msgid "admin.section.pois.batch_list.action.delete"
-msgstr ""
+msgstr "刪除所有包含的補給站"
 
 msgid "admin.section.pois.batch_list.search"
-msgstr ""
+msgstr "搜尋地理圍欄"
 
 msgid "admin.section.pois.clear.desc"
 msgstr ""
