@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-06-01 10:50\n"
+"PO-Revision-Date: 2019-06-01 11:09\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -792,26 +792,26 @@ msgstr "{%1} 需要手動更新！"
 
 #  %1 = <code>, %2 = </code>
 msgid "admin.section.updates.git.desc"
-msgstr ""
+msgstr "你看起來是通過克隆FreeField的Github分支來安裝FreeField。爲了確保更新與源代碼控制兼容，你必須使用Git安裝更新。請使用{%1}git pull{%2}來將FreeField更新到最新版本。或者，您可以切換到已發佈的更新，這允許您使用下面的版本菜單安裝更新。为此，你需要删除FreeField中的. Git文件夹从Git中解除链接。如想瞭解更多信息請查看文檔。"
 
 msgid "admin.section.updates.available.release_notes"
-msgstr ""
+msgstr "發佈說明"
 
 msgid "admin.section.updates.ui.update.name"
-msgstr ""
+msgstr "安裝更新"
 
 msgid "admin.section.updates.ui.install.name"
-msgstr ""
+msgstr "安裝"
 
 msgid "admin.updates.popup.confirm_install.title"
-msgstr ""
+msgstr "確認更新"
 
 msgid "admin.updates.popup.confirm_install.disclaimer"
-msgstr ""
+msgstr "您即將對FreeField進行更新。警告：FreeField開發人員不能保證此更新或更新過程本身的穩定性。如果您繼續更新，您將承擔自己的風險和責任。"
 
 msgid "admin.updates.popup.confirm_install.target"
-msgstr ""
+msgstr "目標版本："
 
 msgid "admin.updates.popup.confirm_install.liability_statement"
-msgstr ""
+msgstr "如果我的FreeField實例由於這個更新而中斷，我將不追究FreeField開發人員的責任"
 
