@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-01 15:59\n"
+"PO-Revision-Date: 2019-06-01 16:14\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -88,28 +88,28 @@ msgid "setting.motd.content.desc"
 msgstr "一則儅每個用戶打開FreeField都會顯示的消息彈窗，支持Markdown語法。"
 
 msgid "setting.spiders.robots_policy.name"
-msgstr ""
+msgstr "機器策略"
 
 msgid "setting.spiders.robots_policy.desc"
-msgstr ""
+msgstr "聲明機器（例如檢索引擎和其他網頁抓取器）如何抓取和索引此站點。"
 
 msgid "setting.spiders.robots_policy.option.all"
-msgstr ""
+msgstr "允許所有索引和抓取(all)"
 
 msgid "setting.spiders.robots_policy.option.nofollow"
-msgstr ""
+msgstr "允許索引，但不允許追蹤頁面鏈接(nofollow)"
 
 msgid "setting.spiders.robots_policy.option.noindex"
-msgstr ""
+msgstr "拒絕索引，但可以追蹤頁面(noindex)"
 
 msgid "setting.spiders.robots_policy.option.noindex_nofollow"
-msgstr ""
+msgstr "拒絕所有索引和抓取(noindex,nofollow)"
 
 msgid "setting.database.type.name"
-msgstr ""
+msgstr "數據庫類型"
 
 msgid "setting.database.type.desc"
-msgstr ""
+msgstr "你用於連接數據庫的連接方式。"
 
 msgid "setting.database.type.option.mysql"
 msgstr ""
@@ -148,16 +148,16 @@ msgid "setting.database.host.name"
 msgstr ""
 
 msgid "setting.database.host.desc"
-msgstr ""
+msgstr "數據庫的hostname或IP地址。"
 
 msgid "setting.database.port.name"
-msgstr ""
+msgstr "端口（-1表示默認端口）"
 
 msgid "setting.database.port.desc"
-msgstr ""
+msgstr "用於連接數據庫的端口。默認端口則設爲-1。"
 
 msgid "setting.database.username.name"
-msgstr ""
+msgstr "用戶名"
 
 msgid "setting.database.username.desc"
 msgstr ""
