@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/webhook.po\n"
-"PO-Revision-Date: 2019-06-01 08:14\n"
+"PO-Revision-Date: 2019-06-01 08:24\n"
 
 msgid "webhook.report_title"
 msgstr "任務已上傳！"
@@ -22,17 +22,17 @@ msgid "webhook.poi"
 msgstr "寶可夢補給站"
 
 msgid "webhook.click_for_directions"
-msgstr ""
+msgstr "點這裡以尋找路線"
 
 msgid "webhook.objective"
-msgstr ""
+msgstr "任務"
 
 msgid "webhook.reward"
-msgstr ""
+msgstr "獎勵"
 
 #  %1 = Nickname of user who reported research
 msgid "webhook.reported_by"
-msgstr ""
+msgstr "由 {%1} 上傳"
 
 #  %1 = Research objective (e.g. "Make 3 Great Throws")
 #  %2 = Research reward (e.g. "1 Max Revive")
