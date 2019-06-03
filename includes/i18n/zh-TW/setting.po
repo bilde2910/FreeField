@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 02:15\n"
+"PO-Revision-Date: 2019-06-03 02:33\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -478,43 +478,43 @@ msgid "setting.permissions.level.admin.map.section.geofence.name"
 msgstr "主要地理圍欄管理"
 
 msgid "setting.permissions.level.admin.map.section.geofence.desc"
-msgstr ""
+msgstr "允許此用戶改變地理圍欄和與之相關的寶可夢補給站的提交和顯示。"
 
 msgid "setting.permissions.level.admin.fences.general.name"
-msgstr ""
+msgstr "地理圍欄管理"
 
 msgid "setting.permissions.level.admin.fences.general.desc"
-msgstr ""
+msgstr "允許此用戶管理地理圍欄。"
 
 msgid "setting.permissions.level.admin.hooks.general.name"
-msgstr ""
+msgstr "鈎子管理"
 
 msgid "setting.permissions.level.admin.hooks.general.desc"
-msgstr ""
+msgstr "允許此用戶管理鈎子集成。"
 
 msgid "setting.permissions.level.admin.api.general.name"
-msgstr ""
+msgstr "接口訪問管理"
 
 msgid "setting.permissions.level.admin.api.general.desc"
-msgstr ""
+msgstr "允許此用戶對FreeField接入的API客戶端進行設置和管理。"
 
 msgid "setting.permissions.level.admin.updates.general.name"
-msgstr ""
+msgstr "安裝更新"
 
 msgid "setting.permissions.level.admin.updates.general.desc"
-msgstr ""
+msgstr "允許此用戶更新當前FreeField實例。"
 
 msgid "setting.security.approval.require.name"
-msgstr ""
+msgstr "需要手動批准"
 
 msgid "setting.security.approval.require.desc"
-msgstr ""
+msgstr "如果啓用此功能，新建用戶必須經過管理員同意才能使用FreeField。"
 
 msgid "setting.security.approval.require.label"
-msgstr ""
+msgstr "人工驗證新賬戶"
 
 msgid "setting.security.approval.by_qr.name"
-msgstr ""
+msgstr "出示審批二維碼"
 
 msgid "setting.security.approval.by_qr.desc"
 msgstr ""
