@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <marius@varden.info>\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-04-01 13:18\n"
+"PO-Revision-Date: 2019-06-03 12:48\n"
 
 msgid "setting.site.uri.name"
 msgstr "Installasjons-URI"
@@ -22,7 +22,7 @@ msgid "setting.site.uri.desc"
 msgstr "Webplasseringen for FreeField-installasjonen."
 
 msgid "setting.site.name.name"
-msgstr "Sidenavn"
+msgstr "Nettsidenavn"
 
 msgid "setting.site.name.desc"
 msgstr "Navnet på FreeField-installasjonen (f.eks. '[Stedsnavn] FreeField')"
@@ -64,13 +64,13 @@ msgid "setting.motd.display_mode.option.forced"
 msgstr "Alltid vis dagens melding hver gang kartet åpnes"
 
 msgid "setting.motd.display_mode.option.always"
-msgstr "Alltid vis som standard, men la brukere skjule den til neste endring av innholdet"
+msgstr "Alltid vis som standard, men la brukere skjule den til neste gang innholdet endres av en administrator"
 
 msgid "setting.motd.display_mode.option.on_change"
 msgstr "Vis én gang dersom meldingen er endret, og skjul den for påfølgende besøk"
 
 msgid "setting.motd.display_mode.option.on_request"
-msgstr "Vis bare dersom brukeren ber om å vise meldingen"
+msgstr "Vis bare dersom brukeren ber om å se meldingen"
 
 msgid "setting.motd.display_mode.option.never"
 msgstr "Deaktiver dagens melding"
@@ -79,13 +79,13 @@ msgid "setting.motd.title.name"
 msgstr "Egendefinert tittel"
 
 msgid "setting.motd.title.desc"
-msgstr "Tittelen på dagens melding-boksen. Dette settes som standard til \"Dagens melding\" hvis blank."
+msgstr "Tittelen på dagens melding-boksen. Dette settes som standard til \"Dagens melding\" hvis feltet er blankt."
 
 msgid "setting.motd.content.name"
 msgstr "Meldingsinnhold"
 
 msgid "setting.motd.content.desc"
-msgstr "En melding som vises til alle brukere i en boks hver gang FreeField lastes. Meldingen kan formateres med Markdown."
+msgstr "En melding som vises til alle brukere i en boks hver gang FreeField åpnes. Meldingen kan formateres med Markdown."
 
 msgid "setting.spiders.robots_policy.name"
 msgstr "Søkerobotpolicy"
@@ -328,7 +328,7 @@ msgid "setting.permissions.level.admin.perms.section.map_access.name"
 msgstr "Endre karttilgang"
 
 msgid "setting.permissions.level.admin.perms.section.map_access.desc"
-msgstr "Lar brukere endre på tillatelser rundt karttilgang."
+msgstr "Lar brukere endre på tillatelser for karttilgang."
 
 msgid "setting.permissions.level.admin.perms.section.personalization.name"
 msgstr "Endre tilpasningstilgang"
