@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 03:59\n"
+"PO-Revision-Date: 2019-06-03 04:04\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -799,10 +799,10 @@ msgid "setting.mobile.pwa.icon.launch.name"
 msgstr "App icon (加載界面)"
 
 msgid "setting.mobile.pwa.icon.launch.desc"
-msgstr ""
+msgstr "這個圖標被用作PWA加載時的大圖標。接受*.png, *.gif, and *.jpg格式的圖片，必須小於256KiB。"
 
 msgid "setting.mobile.pwa.color.background.name"
-msgstr ""
+msgstr "背景顏色"
 
 msgid "setting.mobile.pwa.color.background.desc"
 msgstr ""
