@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 03:14\n"
+"PO-Revision-Date: 2019-06-03 03:26\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -607,25 +607,25 @@ msgid "setting.security.frame_options.name"
 msgstr "框架選項"
 
 msgid "setting.security.frame_options.desc"
-msgstr ""
+msgstr "這個設置聲明了此FreeField實例的框架政策。允許分框意味著其他站點可以使用iframe或者framesets將你的FreeField插入他們的網站中。建議將其保留為默認的“deny”設置，除非你有充分的理由啓用它。"
 
 msgid "setting.security.frame_options.option.allow"
-msgstr ""
+msgstr "允許此站點被插入道其他網站中"
 
 msgid "setting.security.frame_options.option.sameorigin"
-msgstr ""
+msgstr "僅允許被插入到同源網站中"
 
 msgid "setting.security.frame_options.option.deny"
-msgstr ""
+msgstr "不允許在任何地方被插入"
 
 msgid "setting.auth.provider.discord.enabled.name"
-msgstr ""
+msgstr "允許Discord認證"
 
 msgid "setting.auth.provider.discord.enabled.desc"
-msgstr ""
+msgstr "開啓Discord登陸認證"
 
 msgid "setting.auth.provider.discord.enabled.label"
-msgstr ""
+msgstr "開啓Discord認證"
 
 msgid "setting.auth.provider.discord.client_id.name"
 msgstr ""
