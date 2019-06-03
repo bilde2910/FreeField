@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 01:34\n"
+"PO-Revision-Date: 2019-06-03 01:46\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -319,103 +319,103 @@ msgid "setting.permissions.level.admin.perms.section.default.desc"
 msgstr "允許此用戶改變新注冊成員所加入的默認用戶組。"
 
 msgid "setting.permissions.level.admin.perms.section.self_manage.name"
-msgstr "授予用戶對其自我賬戶管理權限"
+msgstr "授予用戶賬戶自管理權限"
 
 msgid "setting.permissions.level.admin.perms.section.self_manage.desc"
-msgstr ""
+msgstr "允許此用戶管理其他用戶賬戶自管理的權限，如授予用戶更改自己昵稱的權限。"
 
 msgid "setting.permissions.level.admin.perms.section.map_access.name"
-msgstr ""
+msgstr "地圖訪問管理"
 
 msgid "setting.permissions.level.admin.perms.section.map_access.desc"
-msgstr ""
+msgstr "允許此用戶管理地圖訪問限制。"
 
 msgid "setting.permissions.level.admin.perms.section.personalization.name"
-msgstr ""
+msgstr "個性化限制管理"
 
 msgid "setting.permissions.level.admin.perms.section.personalization.desc"
-msgstr ""
+msgstr "允許此用戶管理個性化限制，如限制使用哪一種圖標集。"
 
 msgid "setting.permissions.level.admin.perms.section.admin.name"
-msgstr ""
+msgstr "管理員權限管理"
 
 msgid "setting.permissions.level.admin.perms.section.admin.desc"
-msgstr ""
+msgstr "允許此用戶管理管理員所屬權限（例如當前這條權限）。"
 
 msgid "setting.permissions.level.admin.security.general.name"
-msgstr ""
+msgstr "安全設置管理"
 
 msgid "setting.permissions.level.admin.security.general.desc"
-msgstr ""
+msgstr "允許此用戶改變網站的安全設置。"
 
 msgid "setting.permissions.level.admin.security.section.user_creation.name"
-msgstr ""
+msgstr "用戶審批設置"
 
 msgid "setting.permissions.level.admin.security.section.user_creation.desc"
-msgstr ""
+msgstr "允許此用戶改變有關用戶賬戶創建的設置。"
 
 msgid "setting.permissions.level.admin.security.section.sessions.name"
-msgstr ""
+msgstr "會話參數設置"
 
 msgid "setting.permissions.level.admin.security.section.sessions.desc"
-msgstr ""
+msgstr "允許此用戶改變會話安全設置。"
 
 msgid "setting.permissions.level.admin.security.section.outbound.name"
-msgstr ""
+msgstr "出站請求安全設置"
 
 msgid "setting.permissions.level.admin.security.section.outbound.desc"
-msgstr ""
+msgstr "允許此用戶改變有關HTTP出站請求的安全設置。"
 
 msgid "setting.permissions.level.admin.security.section.same_origin.name"
-msgstr ""
+msgstr "同源策略管理"
 
 msgid "setting.permissions.level.admin.security.section.same_origin.desc"
-msgstr ""
+msgstr "允許此用戶改變同源策略設置。"
 
 msgid "setting.permissions.level.admin.auth.general.name"
-msgstr ""
+msgstr "認證方式管理"
 
 msgid "setting.permissions.level.admin.auth.general.desc"
-msgstr ""
+msgstr "允許此用戶添加、設立、開啓和關閉不同的用於用戶登陸的身份認證提供商。"
 
 msgid "setting.permissions.level.admin.auth.section.discord.name"
-msgstr ""
+msgstr "Discord認證"
 
 msgid "setting.permissions.level.admin.auth.section.discord.desc"
-msgstr ""
+msgstr "允許此用戶改變Discord認證的設置。"
 
 msgid "setting.permissions.level.admin.auth.section.telegram.name"
-msgstr ""
+msgstr "Telegram認證"
 
 msgid "setting.permissions.level.admin.auth.section.telegram.desc"
-msgstr ""
+msgstr "允許此用戶改變Telegram認證的設置。"
 
 msgid "setting.permissions.level.admin.auth.section.reddit.name"
-msgstr ""
+msgstr "Reddit認證"
 
 msgid "setting.permissions.level.admin.auth.section.reddit.desc"
-msgstr ""
+msgstr "允許此用戶改變Reddit認證的設置。"
 
 msgid "setting.permissions.level.admin.auth.section.facebook.name"
-msgstr ""
+msgstr "Facebook認證"
 
 msgid "setting.permissions.level.admin.auth.section.facebook.desc"
-msgstr ""
+msgstr "允許此用戶改變Facebook認證的設置。"
 
 msgid "setting.permissions.level.admin.auth.section.line.name"
-msgstr ""
+msgstr "LINE認證"
 
 msgid "setting.permissions.level.admin.auth.section.line.desc"
-msgstr ""
+msgstr "允許此用戶改變LINE認證的設置。"
 
 msgid "setting.permissions.level.admin.auth.section.groupme.name"
-msgstr ""
+msgstr "GroupMe認證"
 
 msgid "setting.permissions.level.admin.auth.section.groupme.desc"
-msgstr ""
+msgstr "允許此用戶改變GroupMe認證的設置。"
 
 msgid "setting.permissions.level.admin.mobile.general.name"
-msgstr ""
+msgstr "移動端設置管理"
 
 msgid "setting.permissions.level.admin.mobile.general.desc"
 msgstr ""
