@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-06-03 05:34\n"
+"PO-Revision-Date: 2019-06-03 05:44\n"
 
 msgid "install.button.continue"
 msgstr "繼續安裝"
@@ -55,70 +55,70 @@ msgid "install.stage.1.assert.phar_available"
 msgstr "PharData可用 - 軟件更新需要"
 
 msgid "install.stage.1.checks"
-msgstr ""
+msgstr "請確保下面所有檢查都通過（綠色標記）。如果有些檢查結果被標記爲黃色，FreeField基礎功能仍能使用，但一些特性將不可用。而如果有些檢查結果被標記為紅叉，FreeField將不能正常使用。如果你想修復相關錯誤，請根據錯誤結果更改你服務器上的配置，然後刷新此頁面。"
 
 msgid "install.stage.1.next"
-msgstr ""
+msgstr "當你應用了所需的更改後，點擊下面的按鈕繼續安裝，然後填寫一個配置文件。"
 
 msgid "install.stage.2.title"
-msgstr ""
+msgstr "階段2：填寫配置文件"
 
 msgid "install.stage.2.assert.copy_templates"
-msgstr ""
+msgstr "從模板文件中拷貝文件選項"
 
 msgid "install.stage.2.assert.authkeys_written"
-msgstr ""
+msgstr "生成安全存儲加密密鑰"
 
 msgid "install.stage.2.assert.config_written"
-msgstr ""
+msgstr "填寫配置文件"
 
 msgid "install.stage.2.next"
-msgstr ""
+msgstr "請點擊下面按鈕繼續你的數據庫安裝。"
 
 msgid "install.stage.3.title"
-msgstr ""
+msgstr "階段3：數據庫安裝"
 
 msgid "install.stage.3.info"
-msgstr ""
+msgstr "請填寫一下數據庫後端信息。"
 
 msgid "install.stage.3.assert.valid_data"
-msgstr ""
+msgstr "數據庫信息非法"
 
 msgid "install.stage.3.assert.config_written"
-msgstr ""
+msgstr "配置文件更新"
 
 msgid "install.stage.3.assert.db_connected"
-msgstr ""
+msgstr "連接到數據庫"
 
 msgid "install.stage.3.assert.exec_sql"
-msgstr ""
+msgstr "創建數據庫結構"
 
 msgid "install.stage.3.assert.proceed_stage"
-msgstr ""
+msgstr "第三階段登記完畢"
 
 msgid "install.stage.3.next"
-msgstr ""
+msgstr "請點擊下面按鈕繼續認證方式安裝。"
 
 msgid "install.stage.4.title"
-msgstr ""
+msgstr "階段4：認證方式安裝"
 
 msgid "install.stage.4.info"
-msgstr ""
+msgstr "請選擇一種或多種以下列表中的認證服務提供商，然後進行正確配置啓用認證登陸。相關配置信息，請查看每個認證服務提供商的幫助文檔。"
 
 msgid "install.stage.4.assert.valid_data"
-msgstr ""
+msgstr "提供的認證信息錯誤"
 
 msgid "install.stage.4.assert.config_written"
-msgstr ""
+msgstr "配飾文件更新"
 
 msgid "install.stage.4.assert.any_enabled"
-msgstr ""
+msgstr "至少啓用一種認證服務"
 
 msgid "install.stage.4.assert.proceed_stage"
-msgstr ""
+msgstr "準備認證"
 
 msgid "install.stage.4.next"
-msgstr ""
+msgstr "當你繼續時，你將會被提示使用一種你選擇的認證方式登陸。"
 
 msgid "install.stage.5.title"
 msgstr ""
