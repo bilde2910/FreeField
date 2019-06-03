@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 02:44\n"
+"PO-Revision-Date: 2019-06-03 02:54\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -565,19 +565,19 @@ msgid "setting.security.validate_ua.option.no"
 msgstr "禁用"
 
 msgid "setting.security.validate_ua.option.lenient"
-msgstr ""
+msgstr "寬鬆(忽略瀏覽器版本)"
 
 msgid "setting.security.validate_ua.option.strict"
-msgstr ""
+msgstr "嚴格(强制要求瀏覽器版本)"
 
 msgid "setting.security.validate_lang.name"
-msgstr ""
+msgstr "瀏覽器語言驗證"
 
 msgid "setting.security.validate_lang.desc"
-msgstr ""
+msgstr "當你每次使用時，要求每個登陸會話都維持相同的瀏覽器語言。如果用戶更改他們的瀏覽器或設備語言，這將使用戶的會話無效。啓用此功能有助於防止一些惡意使用者使用相同的用戶代理的會話劫持，因爲當國家語言不同時，惡意使用者將不能登入。"
 
 msgid "setting.security.validate_lang.label"
-msgstr ""
+msgstr "强制瀏覽器語言驗證"
 
 msgid "setting.security.selector_canary.name"
 msgstr ""
