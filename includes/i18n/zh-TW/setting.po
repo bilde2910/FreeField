@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 05:14\n"
+"PO-Revision-Date: 2019-06-03 05:26\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -1069,147 +1069,147 @@ msgid "setting.hooks.hook_list.show_species.name"
 msgstr "顯示寶可夢的圖標"
 
 msgid "setting.hooks.hook_list.show_species.label"
-msgstr ""
+msgstr "當可用時，使用寶可夢作爲任務獎勵圖標"
 
 msgid "setting.hooks.hook_list.species.name"
-msgstr ""
+msgstr "寶可夢圖標"
 
 msgid "setting.hooks.hook_list.species.option.default"
-msgstr ""
+msgstr "默認寶可夢圖標集"
 
 msgid "setting.hooks.hook_list.geofence.name"
-msgstr ""
+msgstr "地理圍欄"
 
 msgid "setting.hooks.hook_list.filter_mode.name"
-msgstr ""
+msgstr "觸發鈎子僅當"
 
 msgid "setting.hooks.hook_list.filter_mode.objective.option.whitelist.name"
-msgstr ""
+msgstr "當以下的一種任務内容被提交時"
 
 msgid "setting.hooks.hook_list.filter_mode.objective.option.blacklist.name"
-msgstr ""
+msgstr "當以下所有的任務内容都沒有被提交時"
 
 msgid "setting.hooks.hook_list.filter_mode.reward.option.whitelist.name"
-msgstr ""
+msgstr "當以下的一種獎勵内容被提交時"
 
 msgid "setting.hooks.hook_list.filter_mode.reward.option.blacklist.name"
-msgstr ""
+msgstr "當以下所有的獎勵内容都沒有被提交時"
 
 msgid "setting.hooks.hook_list.actions.name"
-msgstr ""
+msgstr "快速行動"
 
 msgid "setting.hooks.hook_list.actions.option.none"
-msgstr ""
+msgstr "(不採取行動)"
 
 msgid "setting.hooks.hook_list.actions.option.enable"
-msgstr ""
+msgstr "啓用鈎子"
 
 msgid "setting.hooks.hook_list.actions.option.disable"
-msgstr ""
+msgstr "停用鈎子"
 
 msgid "setting.hooks.hook_list.actions.option.delete"
-msgstr ""
+msgstr "刪除鈎子"
 
 #  Telegram specific setting
 msgid "setting.hooks.tg.groups.select.name"
-msgstr ""
+msgstr "目標用戶組"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.webhook_url.option.current"
-msgstr ""
+msgstr "當前用戶組"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.webhook_url.option.other"
-msgstr ""
+msgstr "其他用戶組"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.webhook_url.option.select"
-msgstr ""
+msgstr "選擇用戶組..."
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.bot_token.name"
-msgstr ""
+msgstr "Bot token"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.name"
-msgstr ""
+msgstr "解析模式"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.option.txt"
-msgstr ""
+msgstr "純文本"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.option.md"
-msgstr ""
+msgstr "Markdown"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.option.html"
-msgstr ""
+msgstr "HTML"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_web_page_preview.name"
-msgstr ""
+msgstr "停用網絡預覽"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_web_page_preview.label"
-msgstr ""
+msgstr "停止為來自此鈎子的推送消息預覽鏈接"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_notification.name"
-msgstr ""
+msgstr "停用通知"
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_notification.label"
-msgstr ""
+msgstr "不爲來自此鈎子的推送消息發送通知"
 
 msgid "setting.hooks.add.type.name"
-msgstr ""
+msgstr "鈎子類型"
 
 msgid "setting.hooks.add.type.option.json"
 msgstr ""
 
 msgid "setting.hooks.add.type.option.telegram"
-msgstr ""
+msgstr "發送Telegram消息"
 
 msgid "setting.hooks.add.preset.name"
-msgstr ""
+msgstr "預設"
 
 msgid "setting.hooks.add.preset.option.none"
-msgstr ""
+msgstr "(無)"
 
 msgid "setting.updates.current.name"
-msgstr ""
+msgstr "目前版本"
 
 msgid "setting.updates.current.desc"
-msgstr ""
+msgstr "FreeField目前版本"
 
 msgid "setting.updates.last_check.name"
-msgstr ""
+msgstr "上次檢查更新"
 
 msgid "setting.updates.last_check.desc"
-msgstr ""
+msgstr "上次檢查FreeField更新時間"
 
 msgid "setting.updates.next_check.name"
-msgstr ""
+msgstr "下次檢查更新計劃"
 
 msgid "setting.updates.next_check.desc"
-msgstr ""
+msgstr "下次檢查FreeField更新時間"
 
 msgid "setting.updates.check_now.name"
-msgstr ""
+msgstr "手動檢查更新"
 
 msgid "setting.updates.check_now.desc"
-msgstr ""
+msgstr "即時檢查更新。"
 
 msgid "setting.updates.check_now.button"
-msgstr ""
+msgstr "即刻檢查更新"
 
 msgid "setting.updates.latest.name"
-msgstr ""
+msgstr "最新版本"
 
 msgid "setting.updates.latest.desc"
-msgstr ""
+msgstr "FreeField可用的最新版本。"
 
 msgid "setting.updates.type.name"
-msgstr ""
+msgstr "發佈類型"
 
