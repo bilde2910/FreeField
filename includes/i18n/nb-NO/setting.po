@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 12:48\n"
+"PO-Revision-Date: 2019-06-03 12:57\n"
 
 msgid "setting.site.uri.name"
 msgstr "Installasjons-URI"
@@ -778,7 +778,7 @@ msgid "setting.mobile.pwa.display.option.standalone"
 msgstr "Frittstående program"
 
 msgid "setting.mobile.pwa.display.option.minimal_ui"
-msgstr "Frittstående program med nett-navigasjonsknapper"
+msgstr "Frittstående program med navigasjonsknapper"
 
 msgid "setting.mobile.pwa.display.option.browser"
 msgstr "Standard nettleservindu"
