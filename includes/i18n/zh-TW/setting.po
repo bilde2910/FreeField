@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 08:56\n"
+"PO-Revision-Date: 2019-06-03 10:35\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -817,7 +817,7 @@ msgid "setting.themes.meta.favicon.name"
 msgstr "網站圖標"
 
 msgid "setting.themes.meta.favicon.desc"
-msgstr "顯示在地址欄的網站圖標。接受*.png, *.gif, and *.jpg格式的圖片，必須小於256KiB。"
+msgstr "顯示在地址欄的網站圖標。接受*.png, *.gif, *.ico, and *.jpg格式的圖片，必須小於256KiB。"
 
 msgid "setting.themes.meta.color.name"
 msgstr "標題欄主題顔色"
