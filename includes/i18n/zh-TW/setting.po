@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-01 17:08\n"
+"PO-Revision-Date: 2019-06-03 01:34\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -295,31 +295,31 @@ msgid "setting.permissions.level.admin.groups.self_manage.desc"
 msgstr "允許此用戶分配和移除其所屬用戶組下的其他用戶，以及管理他們的用戶權限。默認下，擁有此權限的用戶只可以分配用戶和管理其下的用戶組。此權限請謹慎分配！擁有此權限的用戶可以委派和刪除其他與其同級別的用戶。我們推薦將此處設定留為默認，除非你有一個很好的理由改變它。改權限需要“用戶組關係管理”權限爲基礎。"
 
 msgid "setting.permissions.level.admin.pois.general.name"
-msgstr ""
+msgstr "寶可夢補給站管理"
 
 msgid "setting.permissions.level.admin.pois.general.desc"
-msgstr ""
+msgstr "允許此用戶對已提交寶可夢補給站進行管理和刪除。"
 
 msgid "setting.permissions.level.admin.pois.import.name"
-msgstr ""
+msgstr "數據導入和導出"
 
 msgid "setting.permissions.level.admin.pois.import.desc"
-msgstr ""
+msgstr "允許此用戶對寶可夢補給站進行導入和導出。"
 
 msgid "setting.permissions.level.admin.perms.general.name"
-msgstr ""
+msgstr "權限管理"
 
 msgid "setting.permissions.level.admin.perms.general.desc"
-msgstr ""
+msgstr "允許此用戶改變此頁面上的權限設置。"
 
 msgid "setting.permissions.level.admin.perms.section.default.name"
-msgstr ""
+msgstr "設定默認用戶組"
 
 msgid "setting.permissions.level.admin.perms.section.default.desc"
-msgstr ""
+msgstr "允許此用戶改變新注冊成員所加入的默認用戶組。"
 
 msgid "setting.permissions.level.admin.perms.section.self_manage.name"
-msgstr ""
+msgstr "授予用戶對其自我賬戶管理權限"
 
 msgid "setting.permissions.level.admin.perms.section.self_manage.desc"
 msgstr ""
