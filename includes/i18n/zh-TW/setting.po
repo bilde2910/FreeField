@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 04:14\n"
+"PO-Revision-Date: 2019-06-03 04:31\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -829,46 +829,46 @@ msgid "setting.themes.color.site.name"
 msgstr "網站主題顔色"
 
 msgid "setting.themes.color.site.desc"
-msgstr ""
+msgstr "全站的主題顔色，如用於側邊欄。"
 
 msgid "setting.themes.color.admin.name"
-msgstr ""
+msgstr "管理界面"
 
 msgid "setting.themes.color.admin.desc"
-msgstr ""
+msgstr "選擇管理界面的顔色主題。"
 
 msgid "setting.themes.color.admin.option.light"
-msgstr ""
+msgstr "亮色"
 
 msgid "setting.themes.color.admin.option.dark"
-msgstr ""
+msgstr "暗色"
 
 msgid "setting.themes.color.user_settings.theme.name"
-msgstr ""
+msgstr "用戶設置頁面默認值"
 
 msgid "setting.themes.color.user_settings.theme.desc"
-msgstr ""
+msgstr "選擇用戶設置頁面的默認顔色主題。"
 
 msgid "setting.themes.color.user_settings.theme.option.light"
-msgstr ""
+msgstr "亮色"
 
 msgid "setting.themes.color.user_settings.theme.option.dark"
-msgstr ""
+msgstr "暗色"
 
 msgid "setting.themes.color.user_settings.allow_personalization.name"
-msgstr ""
+msgstr "設置定制化"
 
 msgid "setting.themes.color.user_settings.allow_personalization.desc"
-msgstr ""
+msgstr "是否允許用戶使用他們自己的設置頁面顔色主題替代默認顔色主題。"
 
 msgid "setting.themes.color.user_settings.allow_personalization.label"
-msgstr ""
+msgstr "允許用戶選擇另一用戶設置頁面顔色主題。"
 
 msgid "setting.themes.color.map.theme.mapbox.name"
-msgstr ""
+msgstr "默認MapBox主題"
 
 msgid "setting.themes.color.map.theme.mapbox.desc"
-msgstr ""
+msgstr "選擇地圖默認顔色主題。"
 
 msgid "setting.themes.color.map.theme.mapbox.option.basic"
 msgstr ""
@@ -889,10 +889,10 @@ msgid "setting.themes.color.map.theme.mapbox.option.satellite"
 msgstr ""
 
 msgid "setting.themes.color.map.theme.thunderforest.name"
-msgstr ""
+msgstr "默認Thunderforest主題"
 
 msgid "setting.themes.color.map.theme.thunderforest.desc"
-msgstr ""
+msgstr "選擇地圖默認顔色主題。"
 
 msgid "setting.themes.color.map.theme.thunderforest.option.cycle"
 msgstr ""
@@ -916,37 +916,37 @@ msgid "setting.themes.color.map.theme.thunderforest.option.pioneer"
 msgstr ""
 
 msgid "setting.themes.color.map.theme.thunderforest.option.mobile_atlas"
-msgstr ""
+msgstr "移動端地圖"
 
 msgid "setting.themes.color.map.theme.thunderforest.option.neighbourhood"
-msgstr ""
+msgstr "周圍"
 
 msgid "setting.themes.color.map.allow_personalization.name"
-msgstr ""
+msgstr "定制化地圖"
 
 msgid "setting.themes.color.map.allow_personalization.desc"
-msgstr ""
+msgstr "是否允許用戶使用他們自己的地圖顔色主題替代默認顔色主題。"
 
 msgid "setting.themes.color.map.allow_personalization.label"
-msgstr ""
+msgstr "是否允許用戶選擇另一地圖顔色主題"
 
 msgid "setting.themes.icons.default.name"
-msgstr ""
+msgstr "默認地圖標識集"
 
 msgid "setting.themes.icons.default.desc"
-msgstr ""
+msgstr "選擇默認地圖標識的樣式。"
 
 msgid "setting.themes.species.default.name"
-msgstr ""
+msgstr "默認寶可夢圖標集"
 
 msgid "setting.themes.species.default.desc"
-msgstr ""
+msgstr "選擇默認寶可夢圖標的樣式。"
 
 msgid "setting.map.provider.source.name"
-msgstr ""
+msgstr "地圖來源"
 
 msgid "setting.map.provider.source.desc"
-msgstr ""
+msgstr "選擇使用哪一個地圖提供商。"
 
 msgid "setting.map.provider.source.option.mapbox"
 msgstr ""
@@ -958,19 +958,19 @@ msgid "setting.map.provider.mapbox.access_token.name"
 msgstr ""
 
 msgid "setting.map.provider.mapbox.access_token.desc"
-msgstr ""
+msgstr "從Mapbox獲得的access token。"
 
 msgid "setting.map.provider.thunderforest.api_key.name"
 msgstr ""
 
 msgid "setting.map.provider.thunderforest.api_key.desc"
-msgstr ""
+msgstr "從Thunderforest獲得的API key。"
 
 msgid "setting.map.provider.directions.name"
-msgstr ""
+msgstr "默認導航提供商"
 
 msgid "setting.map.provider.directions.desc"
-msgstr ""
+msgstr "當用戶請求查找到某個寶可夢補給站的路綫導航時，選擇默認的導航提供商。"
 
 msgid "setting.map.provider.directions.option.bing"
 msgstr ""
@@ -991,16 +991,16 @@ msgid "setting.map.provider.directions.option.yandex"
 msgstr ""
 
 msgid "setting.map.default.center.latitude.name"
-msgstr ""
+msgstr "緯度"
 
 msgid "setting.map.default.center.latitude.desc"
-msgstr ""
+msgstr "默認坐標的緯度部分，用戶在加載地圖是將其居中。"
 
 msgid "setting.map.default.center.longitude.name"
-msgstr ""
+msgstr "經度"
 
 msgid "setting.map.default.center.longitude.desc"
-msgstr ""
+msgstr "默認坐標的經度部分，用戶在加載地圖是將其居中。"
 
 msgid "setting.map.default.zoom.name"
 msgstr ""
