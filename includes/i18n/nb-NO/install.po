@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: bilde2910 <svc-6cec393af3a1c956@svc.varden.info>\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
 "X-Crowdin-SourceKey: msgstr\n"
@@ -13,34 +13,34 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-03-31 10:02\n"
+"PO-Revision-Date: 2019-06-03 12:57\n"
 
 msgid "install.button.continue"
-msgstr ""
+msgstr "Fortsett oppsett"
 
 msgid "install.button.finish"
-msgstr ""
+msgstr "Fullfør oppsett"
 
 msgid "install.button.retry"
-msgstr ""
+msgstr "Prøv igjen"
 
 msgid "install.operation.done"
-msgstr ""
+msgstr "Resultatet av operasjonen vises under."
 
 msgid "install.stage.1.title"
-msgstr ""
+msgstr "Trinn 1: Systemkontroll"
 
 msgid "install.stage.1.info"
-msgstr ""
+msgstr "Velkommen til FreeField! Denne guiden vil hjelpe deg med å installere FreeField på serveren din. Under vises noen foreløpige kontroller av systemet."
 
 msgid "install.stage.1.assert.https"
-msgstr ""
+msgstr "Kryptert forbindelse (HTTPS) - kreves for posisjonering og PWA"
 
 msgid "install.stage.1.assert.root_writable"
-msgstr ""
+msgstr "Installasjonsmappe skrivbar - kreves for installasjon av oppdateringer"
 
 msgid "install.stage.1.assert.userdata_writable"
-msgstr ""
+msgstr "Brukerdatamappen skrivbar - kreves for kjernefunksjonalitet"
 
 msgid "install.stage.1.assert.curl_available"
 msgstr ""
