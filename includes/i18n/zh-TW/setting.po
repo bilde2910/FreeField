@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 03:05\n"
+"PO-Revision-Date: 2019-06-03 03:14\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -586,25 +586,25 @@ msgid "setting.security.selector_canary.desc"
 msgstr "當用戶的以上任何驗證需求失敗時，會話劫持金絲雀會被觸發。雖然這不一定是會話劫持造成的，也有可能是一些合法的原因，如在你瀏覽器策略為嚴格時，瀏覽器更新導致用戶驗證失敗。如果其中一個驗證失敗，啓用金絲雀會導致用戶在其所有設備上注銷FreeField。在實際中，這意味著即使劫持者獲得用戶的會話cookies，如果他們因錯誤瀏覽器語言等原因導致驗證錯誤，cookies會完全失效。即使此後他們才對了用戶語言，也無法登入賬戶。"
 
 msgid "setting.security.selector_canary.label"
-msgstr ""
+msgstr "在會話驗證失敗時，要求用戶在所有設備中重新驗證"
 
 msgid "setting.security.curl.verify_certificates.name"
-msgstr ""
+msgstr "證書驗證"
 
 msgid "setting.security.curl.verify_certificates.desc"
-msgstr ""
+msgstr "金庸證書驗證可能會解決如鈎子無法工作之類的問題，但是在執行出站請求時，無法對中間人攻擊進行防禦。"
 
 msgid "setting.security.curl.verify_certificates.label"
-msgstr ""
+msgstr "出站請求驗證SSL/TLS證書"
 
 msgid "setting.security.curl.cacert_path.name"
-msgstr ""
+msgstr "驗證(cacert.pem)文件"
 
 msgid "setting.security.curl.cacert_path.desc"
-msgstr ""
+msgstr "指向服務器上證書頒發機構文件位置的路徑，用於驗證出站HTTPS連接。"
 
 msgid "setting.security.frame_options.name"
-msgstr ""
+msgstr "框架選項"
 
 msgid "setting.security.frame_options.desc"
 msgstr ""
