@@ -13,46 +13,46 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-05-30 09:06\n"
+"PO-Revision-Date: 2019-06-03 05:34\n"
 
 msgid "install.button.continue"
-msgstr ""
+msgstr "繼續安裝"
 
 msgid "install.button.finish"
-msgstr ""
+msgstr "完成安裝"
 
 msgid "install.button.retry"
-msgstr ""
+msgstr "再試一次"
 
 msgid "install.operation.done"
-msgstr ""
+msgstr "操作結果如下所示。"
 
 msgid "install.stage.1.title"
-msgstr ""
+msgstr "階段1：環境檢查"
 
 msgid "install.stage.1.info"
-msgstr ""
+msgstr "歡迎使用FreeField！此向導將會指引你在你的服務器上安裝FreeField，下面是對系統環境的初步檢查。"
 
 msgid "install.stage.1.assert.https"
-msgstr ""
+msgstr "加密連接 (HTTPS) - 地理圍欄和PWA需要"
 
 msgid "install.stage.1.assert.root_writable"
-msgstr ""
+msgstr "安裝目錄可寫 - 軟件更新需要"
 
 msgid "install.stage.1.assert.userdata_writable"
-msgstr ""
+msgstr "用戶數據目錄可寫 - 核心功能需要"
 
 msgid "install.stage.1.assert.curl_available"
-msgstr ""
+msgstr "cURL擴展加載 - 認證和更新需要"
 
 msgid "install.stage.1.assert.gd_available"
-msgstr ""
+msgstr "gd擴展加載 - 生成二維碼需要"
 
 msgid "install.stage.1.assert.openssl_available"
-msgstr ""
+msgstr "openssl擴展加載 - 安全存儲和會話需要"
 
 msgid "install.stage.1.assert.phar_available"
-msgstr ""
+msgstr "PharData可用 - 軟件更新需要"
 
 msgid "install.stage.1.checks"
 msgstr ""
