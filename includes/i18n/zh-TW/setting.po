@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 05:05\n"
+"PO-Revision-Date: 2019-06-03 05:14\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -1036,37 +1036,37 @@ msgid "setting.map.updates.tz.name"
 msgstr "時區"
 
 msgid "setting.map.updates.tz.desc"
-msgstr ""
+msgstr "時區用於確定午夜時間，即調查任務的重置時間。"
 
 msgid "setting.map.geofence.geofence.name"
-msgstr ""
+msgstr "寶可夢補給站地理圍欄"
 
 msgid "setting.map.geofence.geofence.desc"
-msgstr ""
+msgstr "在指定的地理範圍内限制新寶可夢補給站的提交。如不指定，將會禁用地理圍欄，並允許在全球範圍内提交新的寶可夢補給站以及在補給站中提交調查任務。"
 
 msgid "setting.map.geofence.hide_outside.name"
-msgstr ""
+msgstr "界外寶可夢補給站"
 
 msgid "setting.map.geofence.hide_outside.desc"
-msgstr ""
+msgstr "是否從地圖上隱藏在所選地理圍欄外的寶可夢補給站。"
 
 msgid "setting.map.geofence.hide_outside.label"
-msgstr ""
+msgstr "隱藏所有在所選地理圍欄外的寶可夢補給站"
 
 msgid "setting.hooks.hook_list.webhook_url.name"
-msgstr ""
+msgstr "鈎子URL"
 
 msgid "setting.hooks.hook_list.language.name"
-msgstr ""
+msgstr "語言"
 
 msgid "setting.hooks.hook_list.icons.name"
-msgstr ""
+msgstr "圖標集"
 
 msgid "setting.hooks.hook_list.icons.option.default"
-msgstr ""
+msgstr "默認地圖標識圖標"
 
 msgid "setting.hooks.hook_list.show_species.name"
-msgstr ""
+msgstr "顯示寶可夢的圖標"
 
 msgid "setting.hooks.hook_list.show_species.label"
 msgstr ""
