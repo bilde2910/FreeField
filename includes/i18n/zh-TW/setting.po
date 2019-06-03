@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 04:04\n"
+"PO-Revision-Date: 2019-06-03 04:14\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -805,28 +805,28 @@ msgid "setting.mobile.pwa.color.background.name"
 msgstr "背景顏色"
 
 msgid "setting.mobile.pwa.color.background.desc"
-msgstr ""
+msgstr "Web app啓動屏幕的背景顏色。"
 
 msgid "setting.mobile.pwa.color.foreground.name"
-msgstr ""
+msgstr "前景顔色"
 
 msgid "setting.mobile.pwa.color.foreground.desc"
-msgstr ""
+msgstr "Web app啓動屏幕的前景顔色。"
 
 msgid "setting.themes.meta.favicon.name"
-msgstr ""
+msgstr "網站圖標"
 
 msgid "setting.themes.meta.favicon.desc"
-msgstr ""
+msgstr "顯示在地址欄的網站圖標。接受*.png, *.gif, and *.jpg格式的圖片，必須小於256KiB。"
 
 msgid "setting.themes.meta.color.name"
-msgstr ""
+msgstr "標題欄主題顔色"
 
 msgid "setting.themes.meta.color.desc"
-msgstr ""
+msgstr "移動端瀏覽器標題欄和地址欄中顯示的顔色。"
 
 msgid "setting.themes.color.site.name"
-msgstr ""
+msgstr "網站主題顔色"
 
 msgid "setting.themes.color.site.desc"
 msgstr ""
