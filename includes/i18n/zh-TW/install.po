@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-06-03 05:44\n"
+"PO-Revision-Date: 2019-06-03 06:00\n"
 
 msgid "install.button.continue"
 msgstr "繼續安裝"
@@ -73,10 +73,10 @@ msgid "install.stage.2.assert.config_written"
 msgstr "填寫配置文件"
 
 msgid "install.stage.2.next"
-msgstr "請點擊下面按鈕繼續你的數據庫安裝。"
+msgstr "請點擊下面按鈕繼續你的數據庫配置。"
 
 msgid "install.stage.3.title"
-msgstr "階段3：數據庫安裝"
+msgstr "階段3：數據庫配置"
 
 msgid "install.stage.3.info"
 msgstr "請填寫一下數據庫後端信息。"
@@ -97,10 +97,10 @@ msgid "install.stage.3.assert.proceed_stage"
 msgstr "第三階段登記完畢"
 
 msgid "install.stage.3.next"
-msgstr "請點擊下面按鈕繼續認證方式安裝。"
+msgstr "請點擊下面按鈕繼續認證方式配置。"
 
 msgid "install.stage.4.title"
-msgstr "階段4：認證方式安裝"
+msgstr "階段4：認證方式配置"
 
 msgid "install.stage.4.info"
 msgstr "請選擇一種或多種以下列表中的認證服務提供商，然後進行正確配置啓用認證登陸。相關配置信息，請查看每個認證服務提供商的幫助文檔。"
@@ -121,48 +121,48 @@ msgid "install.stage.4.next"
 msgstr "當你繼續時，你將會被提示使用一種你選擇的認證方式登陸。"
 
 msgid "install.stage.5.title"
-msgstr ""
+msgstr "階段5：驗證認證方式配置"
 
 msgid "install.stage.5.assert.auth_success"
-msgstr ""
+msgstr "驗證成功"
 
 msgid "install.stage.5.assert.user_created"
-msgstr ""
+msgstr "在數據庫中，此登記賬號為網站管理員"
 
 msgid "install.stage.5.assert.config_written"
-msgstr ""
+msgstr "配置文件已更新"
 
 msgid "install.stage.5.next"
-msgstr ""
+msgstr "請點擊下面按鈕繼續你的地圖配置。"
 
 msgid "install.stage.6.title"
-msgstr ""
+msgstr "階段6：地圖配置"
 
 msgid "install.stage.6.provider_info"
-msgstr ""
+msgstr "請從以下的地圖提供商中選擇一個可用的。"
 
 msgid "install.stage.6.disclaimer"
-msgstr ""
+msgstr "警告！大多數地圖提供商要求您在注冊他們的服務時同意他們的服務條款和/或其他一些法律合同。您有充分的責任確保您符合您所選擇的地圖提供商所提出的要求，并且您通過FreeField使用它們的服務符合他們的政策和服務許可。"
 
 msgid "install.stage.6.field_guide"
-msgstr ""
+msgstr "請輸入你所選的地圖提供商的access token及其他信息。你只需要填寫你選擇的地圖提供商相關的選項，其他地方留空。"
 
 msgid "install.stage.6.default_info"
-msgstr ""
+msgstr "請爲你的FreeField配置地圖默認中心點。地圖中心點是地圖默認劇中的地方，應為你想使用FreeField覆蓋的城市或區域。例如，你想在紐約範圍使用FreeField，你應該將中心點坐標設定在紐約。"
 
 msgid "install.stage.6.assert.valid_data"
-msgstr ""
+msgstr "所填寫地圖設定非法"
 
 msgid "install.stage.6.assert.config_written"
-msgstr ""
+msgstr "配置文件已更新"
 
 msgid "install.stage.6.next"
-msgstr ""
+msgstr "恭喜！你已經完成FreeField的安裝，你現在就可以使用你的FreeField。當你點擊下面的按鈕，你會前往管理員界面。請在那邊完成最後的FreeField配置，也可以根據你的喜好定制你的FreeField。"
 
 msgid "install.stage.6.post_install.head"
-msgstr ""
+msgstr "警告！"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "install.stage.6.post_install.body"
-msgstr ""
+msgstr "在授予其他人訪問FreeField之前，這裏仍有一些你需要配置的。請在使用前仔細閲讀文檔中 {%1}安裝後配置階段{%2}部分。"
 
