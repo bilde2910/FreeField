@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 02:33\n"
+"PO-Revision-Date: 2019-06-03 02:44\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -517,52 +517,52 @@ msgid "setting.security.approval.by_qr.name"
 msgstr "出示審批二維碼"
 
 msgid "setting.security.approval.by_qr.desc"
-msgstr ""
+msgstr "如果啓用此功能，待審核的用戶將會的得到一個二維碼，可用於提供給管理員。管理員通過掃描此二維碼可迅速對用戶進行審批。這個功能需要服務器PHP加載了擴展。"
 
 msgid "setting.security.approval.by_qr.label"
-msgstr ""
+msgstr "生成二維碼供快速審批"
 
 msgid "setting.auth.session_length.name"
-msgstr ""
+msgstr "會話持續時長"
 
 msgid "setting.auth.session_length.desc"
-msgstr ""
+msgstr "當用戶認證登入后，會保持登入狀態多久。"
 
 msgid "setting.auth.session_length.option.86400"
-msgstr ""
+msgstr "1天"
 
 msgid "setting.auth.session_length.option.604800"
-msgstr ""
+msgstr "7天"
 
 msgid "setting.auth.session_length.option.2592000"
-msgstr ""
+msgstr "30天"
 
 msgid "setting.auth.session_length.option.7776000"
-msgstr ""
+msgstr "90天"
 
 msgid "setting.auth.session_length.option.15811200"
-msgstr ""
+msgstr "6 個月"
 
 msgid "setting.auth.session_length.option.31536000"
-msgstr ""
+msgstr "1 年"
 
 msgid "setting.auth.session_length.option.63072000"
-msgstr ""
+msgstr "2 年"
 
 msgid "setting.auth.session_length.option.157766400"
-msgstr ""
+msgstr "5 年"
 
 msgid "setting.auth.session_length.option.315619200"
-msgstr ""
+msgstr "10 年"
 
 msgid "setting.security.validate_ua.name"
-msgstr ""
+msgstr "用戶代理驗證"
 
 msgid "setting.security.validate_ua.desc"
-msgstr ""
+msgstr "將每個登陸會話都限制於創建此會話的瀏覽器。建議啓用此功能以防止發生會話劫持，因爲在非創建會話瀏覽器中使用會話幾乎都是惡意應用。如果將此選項設爲絕對的，當你的瀏覽器進行更新時，你會被强制登出，這和設爲寬鬆的相比不會提升什麽安全性，所以不建議此處設爲絕對的。"
 
 msgid "setting.security.validate_ua.option.no"
-msgstr ""
+msgstr "禁用"
 
 msgid "setting.security.validate_ua.option.lenient"
 msgstr ""
