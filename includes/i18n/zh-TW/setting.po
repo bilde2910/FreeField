@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 02:54\n"
+"PO-Revision-Date: 2019-06-03 03:05\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -559,7 +559,7 @@ msgid "setting.security.validate_ua.name"
 msgstr "用戶代理驗證"
 
 msgid "setting.security.validate_ua.desc"
-msgstr "將每個登陸會話都限制於創建此會話的瀏覽器。建議啓用此功能以防止發生會話劫持，因爲在非創建會話瀏覽器中使用會話幾乎都是惡意應用。如果將此選項設爲絕對的，當你的瀏覽器進行更新時，你會被强制登出，這和設爲寬鬆的相比不會提升什麽安全性，所以不建議此處設爲絕對的。"
+msgstr "將每個登陸會話都限制於創建此會話的瀏覽器。建議啓用此功能以防止發生會話劫持，因爲在非創建會話瀏覽器中使用會話幾乎都是惡意應用。如果將此選項設爲嚴格的，當你的瀏覽器進行更新時，你會被强制登出，這和設爲寬鬆的相比不會提升什麽安全性，所以不建議此處設爲絕對的。"
 
 msgid "setting.security.validate_ua.option.no"
 msgstr "禁用"
@@ -580,10 +580,10 @@ msgid "setting.security.validate_lang.label"
 msgstr "强制瀏覽器語言驗證"
 
 msgid "setting.security.selector_canary.name"
-msgstr ""
+msgstr "會話劫持金絲雀版"
 
 msgid "setting.security.selector_canary.desc"
-msgstr ""
+msgstr "當用戶的以上任何驗證需求失敗時，會話劫持金絲雀會被觸發。雖然這不一定是會話劫持造成的，也有可能是一些合法的原因，如在你瀏覽器策略為嚴格時，瀏覽器更新導致用戶驗證失敗。如果其中一個驗證失敗，啓用金絲雀會導致用戶在其所有設備上注銷FreeField。在實際中，這意味著即使劫持者獲得用戶的會話cookies，如果他們因錯誤瀏覽器語言等原因導致驗證錯誤，cookies會完全失效。即使此後他們才對了用戶語言，也無法登入賬戶。"
 
 msgid "setting.security.selector_canary.label"
 msgstr ""
