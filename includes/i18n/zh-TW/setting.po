@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 01:59\n"
+"PO-Revision-Date: 2019-06-03 02:04\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -457,13 +457,13 @@ msgid "setting.permissions.level.admin.map.general.desc"
 msgstr "允許此用戶管理地圖提供商和地圖默認設置。"
 
 msgid "setting.permissions.level.admin.map.section.provider.name"
-msgstr ""
+msgstr "改變地圖提供商"
 
 msgid "setting.permissions.level.admin.map.section.provider.desc"
-msgstr ""
+msgstr "允許此用戶改變和配置當前FreeField實例使用哪個地圖提供商。"
 
 msgid "setting.permissions.level.admin.map.section.default.name"
-msgstr ""
+msgstr "改變地圖默認設置"
 
 msgid "setting.permissions.level.admin.map.section.default.desc"
 msgstr ""
