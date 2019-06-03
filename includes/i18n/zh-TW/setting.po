@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 03:26\n"
+"PO-Revision-Date: 2019-06-03 03:45\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -628,160 +628,160 @@ msgid "setting.auth.provider.discord.enabled.label"
 msgstr "開啓Discord認證"
 
 msgid "setting.auth.provider.discord.client_id.name"
-msgstr ""
+msgstr "客戶端ID"
 
 msgid "setting.auth.provider.discord.client_id.desc"
-msgstr ""
+msgstr "你的Discord API 應用客戶端ID。"
 
 msgid "setting.auth.provider.discord.client_secret.name"
-msgstr ""
+msgstr "客戶端密鑰"
 
 msgid "setting.auth.provider.discord.client_secret.desc"
-msgstr ""
+msgstr "你的Discord API 應用客戶端密鑰。"
 
 msgid "setting.auth.provider.telegram.enabled.name"
-msgstr ""
+msgstr "允許Telegram認證"
 
 msgid "setting.auth.provider.telegram.enabled.desc"
-msgstr ""
+msgstr "開啓Telegram登陸認證"
 
 msgid "setting.auth.provider.telegram.enabled.label"
-msgstr ""
+msgstr "開啓Telegram認證"
 
 msgid "setting.auth.provider.telegram.bot_username.name"
-msgstr ""
+msgstr "Bot用戶名"
 
 msgid "setting.auth.provider.telegram.bot_username.desc"
-msgstr ""
+msgstr "你的Telegram bot用戶名"
 
 msgid "setting.auth.provider.telegram.bot_token.name"
-msgstr ""
+msgstr "Bot token"
 
 msgid "setting.auth.provider.telegram.bot_token.desc"
-msgstr ""
+msgstr "Telegram中BotFather分配給你的bot token。"
 
 msgid "setting.auth.provider.reddit.enabled.name"
-msgstr ""
+msgstr "允許Reddit認證"
 
 msgid "setting.auth.provider.reddit.enabled.desc"
-msgstr ""
+msgstr "開啓Reddit登陸認證"
 
 msgid "setting.auth.provider.reddit.enabled.label"
-msgstr ""
+msgstr "開啓Reddit認證"
 
 msgid "setting.auth.provider.reddit.client_id.name"
-msgstr ""
+msgstr "客戶端ID"
 
 msgid "setting.auth.provider.reddit.client_id.desc"
-msgstr ""
+msgstr "你的Reddit API 應用客戶端ID。"
 
 msgid "setting.auth.provider.reddit.client_secret.name"
-msgstr ""
+msgstr "客戶端密鑰"
 
 msgid "setting.auth.provider.reddit.client_secret.desc"
-msgstr ""
+msgstr "你的Reddit API 應用客戶端密鑰。"
 
 msgid "setting.auth.provider.facebook.enabled.name"
-msgstr ""
+msgstr "允許Facebook認證"
 
 msgid "setting.auth.provider.facebook.enabled.desc"
-msgstr ""
+msgstr "開啓Faccebook登陸認證"
 
 msgid "setting.auth.provider.facebook.enabled.label"
-msgstr ""
+msgstr "開啓Facebook認證"
 
 msgid "setting.auth.provider.facebook.app_id.name"
-msgstr ""
+msgstr "App ID"
 
 msgid "setting.auth.provider.facebook.app_id.desc"
-msgstr ""
+msgstr "你的Facebook API 應用app ID。"
 
 msgid "setting.auth.provider.facebook.app_secret.name"
-msgstr ""
+msgstr "App密鑰"
 
 msgid "setting.auth.provider.facebook.app_secret.desc"
-msgstr ""
+msgstr "你的Facebook API 應用app密鑰。"
 
 msgid "setting.auth.provider.line.enabled.name"
-msgstr ""
+msgstr "允許LINE認證"
 
 msgid "setting.auth.provider.line.enabled.desc"
-msgstr ""
+msgstr "開啓LINE登陸認證"
 
 msgid "setting.auth.provider.line.enabled.label"
-msgstr ""
+msgstr "開啓LINE認證"
 
 msgid "setting.auth.provider.line.channel_id.name"
 msgstr ""
 
 msgid "setting.auth.provider.line.channel_id.desc"
-msgstr ""
+msgstr "你的LINE登陸應用channel ID。"
 
 msgid "setting.auth.provider.line.channel_secret.name"
-msgstr ""
+msgstr "Channel密鑰"
 
 msgid "setting.auth.provider.line.channel_secret.desc"
-msgstr ""
+msgstr "你的LINE登陸應用channel密鑰。"
 
 msgid "setting.auth.provider.groupme.enabled.name"
-msgstr ""
+msgstr "允許GroupMe認證"
 
 msgid "setting.auth.provider.groupme.enabled.desc"
-msgstr ""
+msgstr "開啓GroupMe登陸認證"
 
 msgid "setting.auth.provider.groupme.enabled.label"
-msgstr ""
+msgstr "開啓GroupMe認證"
 
 msgid "setting.auth.provider.groupme.client_id.name"
-msgstr ""
+msgstr "客戶端ID"
 
 msgid "setting.auth.provider.groupme.client_id.desc"
-msgstr ""
+msgstr "你的GroupMe API 應用客戶端ID。"
 
 msgid "setting.mobile.pwa.enabled.name"
-msgstr ""
+msgstr "開啓PWA"
 
 msgid "setting.mobile.pwa.enabled.desc"
-msgstr ""
+msgstr "是否應該啓用Progressive Web App功能。"
 
 msgid "setting.mobile.pwa.enabled.label"
-msgstr ""
+msgstr "開啓Progressive Web App功能"
 
 msgid "setting.mobile.pwa.name.name"
-msgstr ""
+msgstr "名稱"
 
 msgid "setting.mobile.pwa.name.desc"
-msgstr ""
+msgstr "顯示給用戶一個可讀的網站名稱。"
 
 msgid "setting.mobile.pwa.short_name.name"
-msgstr ""
+msgstr "简称"
 
 msgid "setting.mobile.pwa.short_name.desc"
-msgstr ""
+msgstr "一個可讀的應用簡稱。用於沒有空間顯示上面全稱時。"
 
 msgid "setting.mobile.pwa.description.name"
-msgstr ""
+msgstr "說明"
 
 msgid "setting.mobile.pwa.description.desc"
-msgstr ""
+msgstr "一份對FreeField做了什麽的一般説明。"
 
 msgid "setting.mobile.pwa.display.name"
-msgstr ""
+msgstr "顯示模式"
 
 msgid "setting.mobile.pwa.display.desc"
-msgstr ""
+msgstr "網站最完美的顯示模式。"
 
 msgid "setting.mobile.pwa.display.option.fullscreen"
-msgstr ""
+msgstr "全屏"
 
 msgid "setting.mobile.pwa.display.option.standalone"
-msgstr ""
+msgstr "獨立應用程序"
 
 msgid "setting.mobile.pwa.display.option.minimal_ui"
-msgstr ""
+msgstr "帶瀏覽器導航控件的獨立應用程序"
 
 msgid "setting.mobile.pwa.display.option.browser"
-msgstr ""
+msgstr "傳統瀏覽器窗口"
 
 msgid "setting.mobile.pwa.icon.192px.name"
 msgstr ""
