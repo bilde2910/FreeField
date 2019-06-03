@@ -13,28 +13,28 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/geo.po\n"
-"PO-Revision-Date: 2019-05-30 09:06\n"
+"PO-Revision-Date: 2019-06-03 06:05\n"
 
 #  This string determines how coordinate strings are displayed (consider the
 #  order of the coordinates, whether there should be a comma, etc.)
 #  %1 = Latitude, %2 = Longitude
 #  E.g. %1 = "40.1234°N", %2 = "10.4321°E"
 msgid "geo.location.string"
-msgstr ""
+msgstr "{%1}, {%2}"
 
 #  %1 = Degrees
 msgid "geo.direction.deg_north"
-msgstr ""
+msgstr "{%1}°N"
 
 #  %1 = Degrees
 msgid "geo.direction.deg_south"
-msgstr ""
+msgstr "{%1}°S"
 
 #  %1 = Degrees
 msgid "geo.direction.deg_east"
-msgstr ""
+msgstr "{%1}°E"
 
 #  %1 = Degrees
 msgid "geo.direction.deg_west"
-msgstr ""
+msgstr "{%1}°W"
 
