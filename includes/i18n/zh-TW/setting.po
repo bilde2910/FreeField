@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 01:46\n"
+"PO-Revision-Date: 2019-06-03 01:59\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -418,43 +418,43 @@ msgid "setting.permissions.level.admin.mobile.general.name"
 msgstr "移動端設置管理"
 
 msgid "setting.permissions.level.admin.mobile.general.desc"
-msgstr ""
+msgstr "允許此用戶管理當前FreeField實例的移動端顯示設置。"
 
 msgid "setting.permissions.level.admin.mobile.section.pwa.name"
-msgstr ""
+msgstr "PWA設置管理"
 
 msgid "setting.permissions.level.admin.mobile.section.pwa.desc"
-msgstr ""
+msgstr "允許此用戶改變用於移動端的Progressive Web App manifest。"
 
 msgid "setting.permissions.level.admin.themes.general.name"
-msgstr ""
+msgstr "默認外觀管理"
 
 msgid "setting.permissions.level.admin.themes.general.desc"
-msgstr ""
+msgstr "允許此用戶管理全站範圍内的默認外觀。"
 
 msgid "setting.permissions.level.admin.themes.section.meta.name"
-msgstr ""
+msgstr "元數據管理"
 
 msgid "setting.permissions.level.admin.themes.section.meta.desc"
-msgstr ""
+msgstr "允許此用戶更改頁面元數據主題，如用於移動瀏覽器上的圖標和主題顔色。"
 
 msgid "setting.permissions.level.admin.themes.section.color.name"
-msgstr ""
+msgstr "主題管理"
 
 msgid "setting.permissions.level.admin.themes.section.color.desc"
-msgstr ""
+msgstr "允許此用戶改變默認地圖和頁面主題顔色，以及是否允許覆蓋這些默認設置。"
 
 msgid "setting.permissions.level.admin.themes.section.icons.name"
-msgstr ""
+msgstr "地圖標識管理"
 
 msgid "setting.permissions.level.admin.themes.section.icons.desc"
-msgstr ""
+msgstr "允許此用戶改變默認地圖標識集，以及是否允許覆蓋此默認值。"
 
 msgid "setting.permissions.level.admin.map.general.name"
-msgstr ""
+msgstr "地圖設置管理"
 
 msgid "setting.permissions.level.admin.map.general.desc"
-msgstr ""
+msgstr "允許此用戶管理地圖提供商和地圖默認設置。"
 
 msgid "setting.permissions.level.admin.map.section.provider.name"
 msgstr ""
