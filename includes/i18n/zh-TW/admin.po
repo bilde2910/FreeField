@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/admin.po\n"
-"PO-Revision-Date: 2019-06-01 11:09\n"
+"PO-Revision-Date: 2019-06-03 10:07\n"
 
 #  Paragraph text input above this string.
 msgid "admin.option.paragraph.disclaimer"
@@ -341,7 +341,7 @@ msgid "admin.section.pois.import.invalid_warning"
 msgstr "預覽的表中含有非法數據！擁有非法數據的那一行將不會被導入。"
 
 msgid "admin.section.pois.export.info"
-msgstr "你可以導出在FreeFiled中保存的寶可夢補給站列表。導出的文件可以用於在另一個FreeFiled實例中導入，同時也是一個備份方式。"
+msgstr "你可以導出在FreeField中保存的寶可夢補給站列表。導出的文件可以用於在另一個FreeField實例中導入，同時也是一個備份方式。"
 
 msgid "admin.section.pois.export.do"
 msgstr "點擊這裏導出你的寶可夢補給站數據"
