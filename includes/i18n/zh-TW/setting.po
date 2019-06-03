@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 08:27\n"
+"PO-Revision-Date: 2019-06-03 08:42\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -559,7 +559,7 @@ msgid "setting.security.validate_ua.name"
 msgstr "用戶代理驗證"
 
 msgid "setting.security.validate_ua.desc"
-msgstr "將每個登陸會話都限制於創建此會話的瀏覽器。建議啓用此功能以防止發生會話劫持，因爲在非創建會話瀏覽器中使用會話幾乎都是惡意應用。如果將此選項設爲嚴格的，當你的瀏覽器進行更新時，你會被强制登出，這和設爲寬鬆的相比不會提升什麽安全性，所以不建議此處設爲絕對的。"
+msgstr "將每個登陸會話都限制於創建此會話的瀏覽器。建議啓用此功能以防止發生會話劫持，因爲在非創建會話瀏覽器中使用會話幾乎都是惡意應用。如果將此選項設爲嚴格的，當你的瀏覽器進行更新時，你會被强制登出，這和設爲寬鬆的相比不會提升什麽安全性，所以不建議此處設爲嚴格的。"
 
 msgid "setting.security.validate_ua.option.no"
 msgstr "禁用"
