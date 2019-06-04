@@ -490,6 +490,22 @@ Security::declareFrameOptionsHeader();
                                 ?>
                             </optgroup>
                         </select></p>
+                        <p>
+                            <a href="https://github.com/bilde2910/FreeField" target="_blank">FreeField</a>
+                            v<?php
+                                /*
+                                    The sidebar is narrow, so we'll replace
+                                    release tags with shorter versions to fit
+                                    everything on one line.
+                                */
+                                echo
+                                    str_replace("-alpha.", "-a",
+                                    str_replace("-beta.", "-b",
+                                    str_replace("-rc.", "-rc",
+                                        FF_VERSION
+                                    )));
+                            ?>
+                        </p>
                     </div>
                 </div>
             </div>
