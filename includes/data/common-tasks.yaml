@@ -14,22 +14,59 @@
 #     Event objectives
 # --------------------------------------------------------------------------
 
-# The new quest labels in this event are really unusual, so this will have to do
-# for now.
 -
-    # Win a raid
-    type: "win_raid"
+    # Catch 5 Aron
+    type: "catch_specific"
     params:
+        species:
+          - 304 # Aron
+        quantity: 5
+-
+    # Evolve a Lileep or Anorith
+    type: "evolve_specific"
+    params:
+        species:
+          - 345 # Lileep
+          - 347 # Anorith
         quantity: 1
     encounter_species:
-      - 436 # Bronzor
+      - 95 # Onix
 -
-    # Win 3 raids
-    type: "win_raid"
+    # Hatch 2 Eggs
+    type: "hatch"
+    params:
+        quantity: 2
+    encounter_species:
+      - 345 # Lileep
+-
+    # Spin 2 Pokéstops you haven't visited before
+    type: "new_poi"
+    params:
+        quantity: 2
+    encounter_species:
+      - 410 # Shieldon
+-
+    # Spin 25 Pokéstops or Gyms
+    type: "visit_poi"
+    params:
+        quantity: 25
+    encounter_species:
+      - 408 # Cranidos
+-
+    # Earn 3 Candies walking with your buddy
+    type: "buddy_candy"
     params:
         quantity: 3
     encounter_species:
-      - 359 # Absol
+      - 347 # Anorith
+-
+    # Catch 5 Omanyte or Kabuto
+    type: "catch_specific"
+    params:
+        species:
+          - 138 # Omanyte
+          - 140 # Kabuto
+        quantity: 5
 
 # --------------------------------------------------------------------------
 #     Gym objectives
@@ -95,16 +132,16 @@
         quantity: 1
     encounter_species:
       - 138 # Omanyte
-#-
-#    # Win a raid
-#    type: "win_raid"
-#    params:
-#        quantity: 1
-#-
-#    # Win 3 raids
-#    type: "win_raid"
-#    params:
-#        quantity: 3
+-
+    # Win a raid
+    type: "win_raid"
+    params:
+        quantity: 1
+-
+    # Win 3 raids
+    type: "win_raid"
+    params:
+        quantity: 3
 -
     # Win 5 raids
     type: "win_raid"
