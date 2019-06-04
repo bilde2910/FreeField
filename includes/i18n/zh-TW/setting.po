@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 10:58\n"
+"PO-Revision-Date: 2019-06-04 15:26\n"
 
 msgid "setting.site.uri.name"
 msgstr "安裝網址"
@@ -971,6 +971,9 @@ msgstr "默認導航提供商"
 
 msgid "setting.map.provider.directions.desc"
 msgstr "當用戶請求查找到某個寶可夢補給站的路綫導航時，選擇默認的導航提供商。"
+
+msgid "setting.map.provider.directions.option.baidu"
+msgstr ""
 
 msgid "setting.map.provider.directions.option.bing"
 msgstr ""
