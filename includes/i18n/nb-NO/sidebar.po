@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/sidebar.po\n"
-"PO-Revision-Date: 2019-06-03 13:30\n"
+"PO-Revision-Date: 2019-06-04 13:30\n"
 
 msgid "sidebar.signed_in_as"
 msgstr "Logget inn som"
@@ -65,6 +65,26 @@ msgstr "Innstillinger"
 #  the sidebar!
 msgid "sidebar.manage_site"
 msgstr "Administrasjon"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.label"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.auto"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.device"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.select"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
