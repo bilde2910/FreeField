@@ -71,6 +71,36 @@
     color: darkorange !important;
 }
 
+/* The "about" box and language selection box at the bottom of the sidebar. */
+.menu-about-box {
+    position: fixed;
+    bottom: 0;
+    width: 130px;
+    padding: 10px;
+    font-size: 0.8em;
+    background-color: #191818;
+    color: #999;
+}
+
+.menu-about-box a {
+    padding: 0 !important;
+}
+
+.menu-about-box select {
+    background-color: #333;
+    border: none;
+}
+
+/* If the viewport is so small that the about box would render on top of the
+   rest of the menu, append the about box to the end of the menu instead. There
+   are probably better ways to solve this dynamically. */
+@media all and (max-height: 550px) {
+    .menu-about-box {
+        position: relative;
+        top: 0;
+    }
+}
+
 /* In the same case, there should also be a "filters active" icon underneath the
    menu button for mobile devices. */
 .filter-overlay-icon {

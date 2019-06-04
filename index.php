@@ -271,8 +271,8 @@ Security::declareFrameOptionsHeader();
               integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
               crossorigin="anonymous">
         <link rel="stylesheet"
-              href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-              integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+              href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+              integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
               crossorigin="anonymous"
               media="none" onload="if(media!=='all')media='all'">
         <link rel="stylesheet"
@@ -465,6 +465,32 @@ Security::declareFrameOptionsHeader();
                             </a>
                         </li>
                     </ul>
+                    <div class="menu-about-box">
+                        <p>
+                            <i class="fas fa-globe-americas"></i>
+                            <?php echo I18N::resolveHTML("sidebar.language.label"); ?>
+                        </p>
+                        <p><select id="menu-language-select">
+                            <optgroup label="<?php echo I18N::resolveHTML("sidebar.language.auto"); ?>">
+                                <option value="">
+                                    <?php echo I18N::resolveHTML("sidebar.language.device"); ?>
+                                </option>
+                            </optgroup>
+                            <optgroup label="<?php echo I18N::resolveHTML("sidebar.language.select"); ?>">
+                                <?php
+                                    $curlang = !isset($_COOKIE["language"]) ? "" : $_COOKIE["language"];
+                                    $langs = I18N::getAvailableLanguagesWithNames();
+                                    foreach ($langs as $code => $name) {
+                                        ?>
+                                            <option value="<?php echo $code; ?>"<?php if ($code == $curlang) echo " selected"; ?>>
+                                                <?php echo $name; ?>
+                                            </option>
+                                        <?php
+                                    }
+                                ?>
+                            </optgroup>
+                        </select></p>
+                    </div>
                 </div>
             </div>
 
@@ -2121,6 +2147,14 @@ Security::declareFrameOptionsHeader();
                 Echo the current page language for usage in /js/main.js.
             */
             var currentLanguage = <?php echo json_encode(I18N::getLanguage()); ?>;
+
+            /*
+                The language selection menu in the sidebar.
+            */
+            $("#menu-language-select").on("change", function(e) {
+                window.location.href = "./apply-language.php?<?php echo Security::getCSRFUrlParameter(); ?>&lang="
+                                     + $(this).val();
+            });
         </script>
         <script src="./js/ui.js"></script>
         <?php
