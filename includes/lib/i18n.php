@@ -383,7 +383,7 @@ class I18N {
 
     /*
         Returns a prioritized list of languages accepted by the client, based on
-        the Accept-Language header. Example:
+        the Accept-Language header and `language` cookie (if any). Example:
 
             getAcceptedLanguages() == array(
                 "en-US" => "1",
@@ -479,6 +479,17 @@ class I18N {
                 present already.
             */
             if (!isset($langs[self::DEFAULT_LANG])) $langs[self::DEFAULT_LANG] = "0";
+
+            /*
+                Add the user preferred language to the top of the list, if
+                available.
+            */
+            if (
+                isset($_COOKIE["language"]) &&
+                preg_match('/^([a-z]+)-([A-Z]+)$/', $_COOKIE["language"])
+            ) {
+                $langs[$_COOKIE["language"]] = "2";
+            }
 
             /*
                 Sort the list in descending order by their quality value.

@@ -67,6 +67,26 @@ msgstr "Manage site"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
+msgid "sidebar.language.label"
+msgstr "Language:"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.auto"
+msgstr "Auto-detect"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.device"
+msgstr "Device language"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.select"
+msgstr "Available languages"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
 msgid "sidebar.reset"
 msgstr "Reset all"
 
