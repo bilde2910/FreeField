@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
+"PO-Revision-Date: 2019-06-04 15:25\n"
 
 msgid "setting.site.uri.name"
 msgstr ""
@@ -970,6 +970,9 @@ msgid "setting.map.provider.directions.name"
 msgstr ""
 
 msgid "setting.map.provider.directions.desc"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.baidu"
 msgstr ""
 
 msgid "setting.map.provider.directions.option.bing"
