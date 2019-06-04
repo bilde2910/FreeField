@@ -966,6 +966,9 @@ msgstr "Default directions provider"
 msgid "setting.map.provider.directions.desc"
 msgstr "Select the default navigation provider to launch when users request directions to a given Pokéstop."
 
+msgid "setting.map.provider.directions.option.baidu"
+msgstr "Baidu Maps"
+
 msgid "setting.map.provider.directions.option.bing"
 msgstr "Bing Maps"
 
