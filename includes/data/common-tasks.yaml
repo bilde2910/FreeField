@@ -67,6 +67,8 @@
           - 138 # Omanyte
           - 140 # Kabuto
         quantity: 5
+    encounter_species:
+      - 142 # Aerodactyl
 
 # --------------------------------------------------------------------------
 #     Gym objectives
