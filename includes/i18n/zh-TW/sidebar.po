@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/sidebar.po\n"
-"PO-Revision-Date: 2019-06-04 13:30\n"
+"PO-Revision-Date: 2019-06-05 01:45\n"
 
 msgid "sidebar.signed_in_as"
 msgstr "登陸賬戶"
@@ -69,22 +69,22 @@ msgstr "後台管理"
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.language.label"
-msgstr ""
+msgstr "語言:"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.language.auto"
-msgstr ""
+msgstr "自動偵測"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.language.device"
-msgstr ""
+msgstr "設備語言"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.language.select"
-msgstr ""
+msgstr "可用語言"
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
