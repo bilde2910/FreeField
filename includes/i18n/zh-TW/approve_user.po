@@ -12,30 +12,50 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/approve_user.po\n"
-"PO-Revision-Date: 2019-06-05 18:18\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/approve_user.po\n"
+"PO-Revision-Date: 2019-06-05 22:26\n"
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.title"
+msgstr "用戶審批"
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.desc"
+msgstr "待管理審批"
 
 #  Displayed if the user for whom the link was created visits the page.
 msgid "approve_user.user.info"
-msgstr ""
+msgstr "這個鏈接僅供管理人員使用。請聯繫管理員協助你審核賬戶。"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.title"
+msgstr "用戶審批請求"
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.admin.desc"
-msgstr ""
+msgstr "有一位用戶請求賬戶審批"
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.admin.info"
-msgstr ""
+msgstr "下面這位用戶請求賬戶審批："
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.button.approve"
-msgstr ""
+msgstr "批准"
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.button.reject"
-msgstr ""
+msgstr "拒絕"
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.title"
+msgstr "用戶審批"
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.desc"
+msgstr "無法審批"
 
 #  Displayed if the user is not in the approval queue.
 msgid "approve_user.approved.info"
-msgstr ""
+msgstr "該用戶不在審批隊列中。"
 
