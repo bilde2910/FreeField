@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/type.po\n"
-"PO-Revision-Date: 2019-05-31 08:26\n"
+"PO-Revision-Date: 2019-06-05 14:58\n"
 
 msgid "type.normal"
 msgstr "一般"
@@ -55,7 +55,7 @@ msgid "type.electric"
 msgstr "電"
 
 msgid "type.psychic"
-msgstr "超能"
+msgstr "超能力"
 
 msgid "type.ice"
 msgstr "冰"
