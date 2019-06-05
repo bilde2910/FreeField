@@ -12,6 +12,188 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/poi.po\n"
-"PO-Revision-Date: 2019-06-05 18:18\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/poi.po\n"
+"PO-Revision-Date: 2019-06-05 22:25\n"
+
+#  %1 = Last updated date/time
+msgid "poi.last.time"
+msgstr "最後更新 {%1}"
+
+#  %1 = Nickname of last user to update POI
+msgid "poi.last.user"
+msgstr "最後更新用戶 {%1}"
+
+msgid "poi.add.title"
+msgstr "添加補給站"
+
+msgid "poi.add.name"
+msgstr "補給站名稱"
+
+msgid "poi.add.latitude"
+msgstr "緯度"
+
+msgid "poi.add.longitude"
+msgstr "經度"
+
+msgid "poi.add.submit"
+msgstr "添加補給站"
+
+msgid "poi.add.processing"
+msgstr "添加補給站中..."
+
+#  %1 = Name of POI
+msgid "poi.add.success"
+msgstr "成功添加新的補給站 \"{%1}\"!"
+
+#  %1 = Name of POI, %2 = Reason it failed
+msgid "poi.add.failed.message"
+msgstr "添加補給站失敗 \"{%1}\": {%2}"
+
+#  %1 = <a href="">, %2 = </a>
+msgid "poi.add.instructions"
+msgstr "請點擊地圖上你想添加的補給站的位置 ({%1}取消{%2})"
+
+msgid "poi.move.instructions"
+msgstr "請點擊地圖選擇為此補給站選擇一個新的位置 ({%1}取消{%2})"
+
+msgid "poi.move.processing"
+msgstr "移動補給站中..."
+
+msgid "poi.move.success"
+msgstr "成功移動補給站!"
+
+#  %1 = Reason it failed
+msgid "poi.move.failed.message"
+msgstr "移動補給站失敗: {%1}"
+
+msgid "poi.rename.prompt"
+msgstr "請輸入該補給站的名稱"
+
+msgid "poi.rename.processing"
+msgstr "補給站改名中..."
+
+msgid "poi.rename.success"
+msgstr "成功重命名補給站!"
+
+#  %1 = Reason it failed
+msgid "poi.rename.failed.message"
+msgstr "重命名補給站失敗: {%1}"
+
+msgid "poi.clear.confirm"
+msgstr "你確定想要清除此補給站當前的調查任務嗎？"
+
+msgid "poi.clear.processing"
+msgstr "清除任務中..."
+
+msgid "poi.clear.success"
+msgstr "成功清除補給站的調查任務!"
+
+#  %1 = Reason it failed
+msgid "poi.clear.failed.message"
+msgstr "無法清除補給站任務: {%1}"
+
+msgid "poi.delete.confirm"
+msgstr "您是否確定要刪除此補給站？"
+
+msgid "poi.delete.processing"
+msgstr "移除補給站中..."
+
+msgid "poi.delete.success"
+msgstr "成功移除補給站!"
+
+#  %1 = Reason it failed
+msgid "poi.delete.failed.message"
+msgstr "移除補給站失敗: {%1}"
+
+msgid "poi.update.title"
+msgstr "上傳任務"
+
+msgid "poi.update.name"
+msgstr "補給站名稱"
+
+msgid "poi.update.objective"
+msgstr "任務"
+
+msgid "poi.update.reward"
+msgstr "獎勵"
+
+msgid "poi.update.submit"
+msgstr "添加"
+
+msgid "poi.update.processing"
+msgstr "上傳任務中..."
+
+msgid "poi.update.success"
+msgstr "成功上傳任務!"
+
+#  %1 = Reason it failed
+msgid "poi.update.failed.message"
+msgstr "上傳任務失敗: {%1}"
+
+msgid "poi.search.placeholder"
+msgstr "搜尋補給站..."
+
+#  %1 = Distance in kilometers
+msgid "poi.search.distance"
+msgstr "{%1} km"
+
+msgid "poi.filter.title"
+msgstr "篩選補給站"
+
+msgid "poi.filter.mode.title"
+msgstr "篩選模式"
+
+msgid "poi.filter.mode.only"
+msgstr "僅展示符合指定任務及獎勵的補給站"
+
+msgid "poi.filter.mode.except"
+msgstr "展示所有不符合指定任務及獎勵的補給站"
+
+msgid "poi.filter.mode.unknown"
+msgstr "僅展示未上傳任務的補給站"
+
+msgid "poi.filter.objective.title"
+msgstr "任務:"
+
+msgid "poi.filter.objective.any"
+msgstr "任何任務"
+
+msgid "poi.filter.reward.title"
+msgstr "獎勵:"
+
+msgid "poi.filter.reward.any"
+msgstr "任何獎勵"
+
+msgid "poi.filter.submit"
+msgstr "應用篩選條件"
+
+msgid "poi.filter.reset"
+msgstr "重設篩選"
+
+#  %1 = Reason it failed
+msgid "poi.list.failed.message"
+msgstr "列出補給站失敗: {%1}"
+
+#  %1 = Research objective (e.g. "Make 3 Great Throws")
+#  %2 = Research reward (e.g. "1 Max Revive")
+msgid "poi.objective_text"
+msgstr "{%1} for {%2}"
+
+msgid "poi.report_research"
+msgstr "上傳調查任務"
+
+msgid "poi.move"
+msgstr "移動"
+
+msgid "poi.rename"
+msgstr "重命名"
+
+msgid "poi.clear"
+msgstr "清除任務"
+
+msgid "poi.delete"
+msgstr "刪除"
+
+msgid "poi.directions"
+msgstr "路線"
 
