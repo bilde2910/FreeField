@@ -1,0 +1,278 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Chinese Traditional\n"
+"Language: zh_TW\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/reward.po\n"
+"PO-Revision-Date: 2019-05-31 09:19\n"
+
+msgid "reward.poke_ball.general"
+msgstr "精靈球"
+
+msgid "reward.poke_ball.singular"
+msgstr "1個精靈球"
+
+#  %1 = Amount/quantity
+msgid "reward.poke_ball.plural"
+msgstr "{%1}個精靈球"
+
+msgid "reward.great_ball.general"
+msgstr "超級球"
+
+msgid "reward.great_ball.singular"
+msgstr "1個超級球"
+
+#  %1 = Amount/quantity
+msgid "reward.great_ball.plural"
+msgstr "{%1}個超級球"
+
+msgid "reward.ultra_ball.general"
+msgstr "高級球"
+
+msgid "reward.ultra_ball.singular"
+msgstr "1個高級球"
+
+#  %1 = Amount/quantity
+msgid "reward.ultra_ball.plural"
+msgstr "{%1}個高級球"
+
+msgid "reward.razz_berry.general"
+msgstr "蔓莓果"
+
+msgid "reward.razz_berry.singular"
+msgstr "1個蔓莓果"
+
+#  %1 = Amount/quantity
+msgid "reward.razz_berry.plural"
+msgstr "{%1}個蔓莓果"
+
+msgid "reward.nanab_berry.general"
+msgstr "蕉香果"
+
+msgid "reward.nanab_berry.singular"
+msgstr "1個蕉香果"
+
+#  %1 = Amount/quantity
+msgid "reward.nanab_berry.plural"
+msgstr "{%1}個蕉香果"
+
+msgid "reward.pinap_berry.general"
+msgstr "鳳梨果"
+
+msgid "reward.pinap_berry.singular"
+msgstr "1個鳳梨果"
+
+#  %1 = Amount/quantity
+msgid "reward.pinap_berry.plural"
+msgstr "{%1}個鳳梨果"
+
+msgid "reward.golden_razz_berry.general"
+msgstr "金色蔓莓果"
+
+msgid "reward.golden_razz_berry.singular"
+msgstr "1個金色蔓莓果"
+
+#  %1 = Amount/quantity
+msgid "reward.golden_razz_berry.plural"
+msgstr "{%1}個金色蔓莓果"
+
+msgid "reward.silver_pinap_berry.general"
+msgstr "銀色鳳梨果"
+
+msgid "reward.silver_pinap_berry.singular"
+msgstr "1個銀色鳳梨果"
+
+#  %1 = Amount/quantity
+msgid "reward.silver_pinap_berry.plural"
+msgstr "{%1}個銀色鳳梨果"
+
+msgid "reward.potion.general"
+msgstr "傷藥"
+
+msgid "reward.potion.singular"
+msgstr "1個傷藥"
+
+#  %1 = Amount/quantity
+msgid "reward.potion.plural"
+msgstr "{%1}個傷藥"
+
+msgid "reward.super_potion.general"
+msgstr "好傷藥"
+
+msgid "reward.super_potion.singular"
+msgstr "1個好傷藥"
+
+#  %1 = Amount/quantity
+msgid "reward.super_potion.plural"
+msgstr "{%1}個好傷藥"
+
+msgid "reward.hyper_potion.general"
+msgstr "厲害傷藥"
+
+msgid "reward.hyper_potion.singular"
+msgstr "1個厲害傷藥"
+
+#  %1 = Amount/quantity
+msgid "reward.hyper_potion.plural"
+msgstr "{%1}個厲害傷藥"
+
+msgid "reward.max_potion.general"
+msgstr "全滿藥"
+
+msgid "reward.max_potion.singular"
+msgstr "1個全滿藥"
+
+#  %1 = Amount/quantity
+msgid "reward.max_potion.plural"
+msgstr "{%1}個全滿藥"
+
+msgid "reward.revive.general"
+msgstr "復活碎片"
+
+msgid "reward.revive.singular"
+msgstr "1個復活碎片"
+
+#  %1 = Amount/quantity
+msgid "reward.revive.plural"
+msgstr "{%1}個復活碎片"
+
+msgid "reward.max_revive.general"
+msgstr "活力塊"
+
+msgid "reward.max_revive.singular"
+msgstr "1個活力塊"
+
+#  %1 = Amount/quantity
+msgid "reward.max_revive.plural"
+msgstr "{%1}個活力塊"
+
+msgid "reward.sun_stone.general"
+msgstr "日之石"
+
+msgid "reward.sun_stone.singular"
+msgstr "1個日之石"
+
+#  %1 = Amount/quantity
+msgid "reward.sun_stone.plural"
+msgstr "{%1}個日之石"
+
+msgid "reward.kings_rock.general"
+msgstr "王者之證"
+
+msgid "reward.kings_rock.singular"
+msgstr "1個王者之證"
+
+#  %1 = Amount/quantity
+msgid "reward.kings_rock.plural"
+msgstr "{%1}個王者之證"
+
+msgid "reward.metal_coat.general"
+msgstr "金屬膜"
+
+msgid "reward.metal_coat.singular"
+msgstr "1個金屬膜"
+
+#  %1 = Amount/quantity
+msgid "reward.metal_coat.plural"
+msgstr "{%1}個金屬膜"
+
+msgid "reward.dragon_scale.general"
+msgstr "龍之鱗片"
+
+msgid "reward.dragon_scale.singular"
+msgstr "1個龍之鱗片"
+
+#  %1 = Amount/quantity
+msgid "reward.dragon_scale.plural"
+msgstr "{%1}個龍之鱗片"
+
+msgid "reward.up_grade.general"
+msgstr "升級資料"
+
+msgid "reward.up_grade.singular"
+msgstr "1個升級資料"
+
+#  %1 = Amount/quantity
+msgid "reward.up_grade.plural"
+msgstr "{%1}個升級資料"
+
+msgid "reward.sinnoh_stone.general"
+msgstr "神奧之石"
+
+msgid "reward.sinnoh_stone.singular"
+msgstr "1個神奧之石"
+
+#  %1 = Amount/quantity
+msgid "reward.sinnoh_stone.plural"
+msgstr "{%1}個神奧之石"
+
+msgid "reward.fast_tm.general"
+msgstr "一般招式學習器"
+
+msgid "reward.fast_tm.singular"
+msgstr "1本一般招式學習器"
+
+#  %1 = Amount/quantity
+msgid "reward.fast_tm.plural"
+msgstr "{%1}本一般招式學習器"
+
+msgid "reward.charge_tm.general"
+msgstr "特殊招式學習器"
+
+msgid "reward.charge_tm.singular"
+msgstr "1本特殊招式學習器"
+
+#  %1 = Amount/quantity
+msgid "reward.charge_tm.plural"
+msgstr "{%1}本特殊招式學習器"
+
+msgid "reward.stardust.general"
+msgstr "星星沙子"
+
+msgid "reward.stardust.singular"
+msgstr "1星星沙子"
+
+#  %1 = Amount/quantity
+msgid "reward.stardust.plural"
+msgstr "{%1}星星沙子"
+
+msgid "reward.rare_candy.general"
+msgstr "神奇糖果"
+
+msgid "reward.rare_candy.singular"
+msgstr "1個神奇糖果"
+
+#  %1 = Amount/quantity
+msgid "reward.rare_candy.plural"
+msgstr "{%1}個神奇糖果"
+
+msgid "reward.encounter.general"
+msgstr "寶可夢獎勵"
+
+msgid "reward.encounter.singular"
+msgstr "寶可夢獎勵"
+
+msgid "reward.encounter.plural"
+msgstr "寶可夢獎勵"
+
+#  %1 = Name of a species ("Pikachu", "Charizard", etc.)
+msgid "reward.encounter_specific.singular"
+msgstr "{%1}獎勵"
+
+#  %1 = Name of a species ("Pikachu", "Charizard", etc.)
+msgid "reward.encounter_specific.plural"
+msgstr "{%1}獎勵"
+
+#  Displayed when the research task reward from a Pokéstop is unknown.
+msgid "reward.unknown.singular"
+msgstr "未知獎勵"
+

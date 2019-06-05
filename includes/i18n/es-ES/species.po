@@ -1,0 +1,1501 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Spanish\n"
+"Language: es_ES\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/species.po\n"
+"PO-Revision-Date: 2019-06-03 13:31\n"
+
+#  Note: These should only be translated if an official translation exists for
+#  these species in the language you are translating to. E.g. in German, the
+#  official translation of "Snorlax" is "Relaxo." ONLY TRANSLATE THESE IF SUCH
+#  AN OFFICIAL TRANSLATION EXISTS FOR YOUR LANGUAGE. LEAVE THIS FILE WITHOUT A
+#  TRANSLATION IF NO OFFICIAL TRANSLATION IS AVAILABLE FOR YOUR LANGUAGE.
+msgid "species.1.name"
+msgstr ""
+
+msgid "species.2.name"
+msgstr ""
+
+msgid "species.3.name"
+msgstr ""
+
+msgid "species.4.name"
+msgstr ""
+
+msgid "species.5.name"
+msgstr ""
+
+msgid "species.6.name"
+msgstr ""
+
+msgid "species.7.name"
+msgstr ""
+
+msgid "species.8.name"
+msgstr ""
+
+msgid "species.9.name"
+msgstr ""
+
+msgid "species.10.name"
+msgstr ""
+
+msgid "species.11.name"
+msgstr ""
+
+msgid "species.12.name"
+msgstr ""
+
+msgid "species.13.name"
+msgstr ""
+
+msgid "species.14.name"
+msgstr ""
+
+msgid "species.15.name"
+msgstr ""
+
+msgid "species.16.name"
+msgstr ""
+
+msgid "species.17.name"
+msgstr ""
+
+msgid "species.18.name"
+msgstr ""
+
+msgid "species.19.name"
+msgstr ""
+
+msgid "species.20.name"
+msgstr ""
+
+msgid "species.21.name"
+msgstr ""
+
+msgid "species.22.name"
+msgstr ""
+
+msgid "species.23.name"
+msgstr ""
+
+msgid "species.24.name"
+msgstr ""
+
+msgid "species.25.name"
+msgstr ""
+
+msgid "species.26.name"
+msgstr ""
+
+msgid "species.27.name"
+msgstr ""
+
+msgid "species.28.name"
+msgstr ""
+
+msgid "species.29.name"
+msgstr ""
+
+msgid "species.30.name"
+msgstr ""
+
+msgid "species.31.name"
+msgstr ""
+
+msgid "species.32.name"
+msgstr ""
+
+msgid "species.33.name"
+msgstr ""
+
+msgid "species.34.name"
+msgstr ""
+
+msgid "species.35.name"
+msgstr ""
+
+msgid "species.36.name"
+msgstr ""
+
+msgid "species.37.name"
+msgstr ""
+
+msgid "species.38.name"
+msgstr ""
+
+msgid "species.39.name"
+msgstr ""
+
+msgid "species.40.name"
+msgstr ""
+
+msgid "species.41.name"
+msgstr ""
+
+msgid "species.42.name"
+msgstr ""
+
+msgid "species.43.name"
+msgstr ""
+
+msgid "species.44.name"
+msgstr ""
+
+msgid "species.45.name"
+msgstr ""
+
+msgid "species.46.name"
+msgstr ""
+
+msgid "species.47.name"
+msgstr ""
+
+msgid "species.48.name"
+msgstr ""
+
+msgid "species.49.name"
+msgstr ""
+
+msgid "species.50.name"
+msgstr ""
+
+msgid "species.51.name"
+msgstr ""
+
+msgid "species.52.name"
+msgstr ""
+
+msgid "species.53.name"
+msgstr ""
+
+msgid "species.54.name"
+msgstr ""
+
+msgid "species.55.name"
+msgstr ""
+
+msgid "species.56.name"
+msgstr ""
+
+msgid "species.57.name"
+msgstr ""
+
+msgid "species.58.name"
+msgstr ""
+
+msgid "species.59.name"
+msgstr ""
+
+msgid "species.60.name"
+msgstr ""
+
+msgid "species.61.name"
+msgstr ""
+
+msgid "species.62.name"
+msgstr ""
+
+msgid "species.63.name"
+msgstr ""
+
+msgid "species.64.name"
+msgstr ""
+
+msgid "species.65.name"
+msgstr ""
+
+msgid "species.66.name"
+msgstr ""
+
+msgid "species.67.name"
+msgstr ""
+
+msgid "species.68.name"
+msgstr ""
+
+msgid "species.69.name"
+msgstr ""
+
+msgid "species.70.name"
+msgstr ""
+
+msgid "species.71.name"
+msgstr ""
+
+msgid "species.72.name"
+msgstr ""
+
+msgid "species.73.name"
+msgstr ""
+
+msgid "species.74.name"
+msgstr ""
+
+msgid "species.75.name"
+msgstr ""
+
+msgid "species.76.name"
+msgstr ""
+
+msgid "species.77.name"
+msgstr ""
+
+msgid "species.78.name"
+msgstr ""
+
+msgid "species.79.name"
+msgstr ""
+
+msgid "species.80.name"
+msgstr ""
+
+msgid "species.81.name"
+msgstr ""
+
+msgid "species.82.name"
+msgstr ""
+
+msgid "species.83.name"
+msgstr ""
+
+msgid "species.84.name"
+msgstr ""
+
+msgid "species.85.name"
+msgstr ""
+
+msgid "species.86.name"
+msgstr ""
+
+msgid "species.87.name"
+msgstr ""
+
+msgid "species.88.name"
+msgstr ""
+
+msgid "species.89.name"
+msgstr ""
+
+msgid "species.90.name"
+msgstr ""
+
+msgid "species.91.name"
+msgstr ""
+
+msgid "species.92.name"
+msgstr ""
+
+msgid "species.93.name"
+msgstr ""
+
+msgid "species.94.name"
+msgstr ""
+
+msgid "species.95.name"
+msgstr ""
+
+msgid "species.96.name"
+msgstr ""
+
+msgid "species.97.name"
+msgstr ""
+
+msgid "species.98.name"
+msgstr ""
+
+msgid "species.99.name"
+msgstr ""
+
+msgid "species.100.name"
+msgstr ""
+
+msgid "species.101.name"
+msgstr ""
+
+msgid "species.102.name"
+msgstr ""
+
+msgid "species.103.name"
+msgstr ""
+
+msgid "species.104.name"
+msgstr ""
+
+msgid "species.105.name"
+msgstr ""
+
+msgid "species.106.name"
+msgstr ""
+
+msgid "species.107.name"
+msgstr ""
+
+msgid "species.108.name"
+msgstr ""
+
+msgid "species.109.name"
+msgstr ""
+
+msgid "species.110.name"
+msgstr ""
+
+msgid "species.111.name"
+msgstr ""
+
+msgid "species.112.name"
+msgstr ""
+
+msgid "species.113.name"
+msgstr ""
+
+msgid "species.114.name"
+msgstr ""
+
+msgid "species.115.name"
+msgstr ""
+
+msgid "species.116.name"
+msgstr ""
+
+msgid "species.117.name"
+msgstr ""
+
+msgid "species.118.name"
+msgstr ""
+
+msgid "species.119.name"
+msgstr ""
+
+msgid "species.120.name"
+msgstr ""
+
+msgid "species.121.name"
+msgstr ""
+
+msgid "species.122.name"
+msgstr ""
+
+msgid "species.123.name"
+msgstr ""
+
+msgid "species.124.name"
+msgstr ""
+
+msgid "species.125.name"
+msgstr ""
+
+msgid "species.126.name"
+msgstr ""
+
+msgid "species.127.name"
+msgstr ""
+
+msgid "species.128.name"
+msgstr ""
+
+msgid "species.129.name"
+msgstr ""
+
+msgid "species.130.name"
+msgstr ""
+
+msgid "species.131.name"
+msgstr ""
+
+msgid "species.132.name"
+msgstr ""
+
+msgid "species.133.name"
+msgstr ""
+
+msgid "species.134.name"
+msgstr ""
+
+msgid "species.135.name"
+msgstr ""
+
+msgid "species.136.name"
+msgstr ""
+
+msgid "species.137.name"
+msgstr ""
+
+msgid "species.138.name"
+msgstr ""
+
+msgid "species.139.name"
+msgstr ""
+
+msgid "species.140.name"
+msgstr ""
+
+msgid "species.141.name"
+msgstr ""
+
+msgid "species.142.name"
+msgstr ""
+
+msgid "species.143.name"
+msgstr ""
+
+msgid "species.144.name"
+msgstr ""
+
+msgid "species.145.name"
+msgstr ""
+
+msgid "species.146.name"
+msgstr ""
+
+msgid "species.147.name"
+msgstr ""
+
+msgid "species.148.name"
+msgstr ""
+
+msgid "species.149.name"
+msgstr ""
+
+msgid "species.150.name"
+msgstr ""
+
+msgid "species.151.name"
+msgstr ""
+
+msgid "species.152.name"
+msgstr ""
+
+msgid "species.153.name"
+msgstr ""
+
+msgid "species.154.name"
+msgstr ""
+
+msgid "species.155.name"
+msgstr ""
+
+msgid "species.156.name"
+msgstr ""
+
+msgid "species.157.name"
+msgstr ""
+
+msgid "species.158.name"
+msgstr ""
+
+msgid "species.159.name"
+msgstr ""
+
+msgid "species.160.name"
+msgstr ""
+
+msgid "species.161.name"
+msgstr ""
+
+msgid "species.162.name"
+msgstr ""
+
+msgid "species.163.name"
+msgstr ""
+
+msgid "species.164.name"
+msgstr ""
+
+msgid "species.165.name"
+msgstr ""
+
+msgid "species.166.name"
+msgstr ""
+
+msgid "species.167.name"
+msgstr ""
+
+msgid "species.168.name"
+msgstr ""
+
+msgid "species.169.name"
+msgstr ""
+
+msgid "species.170.name"
+msgstr ""
+
+msgid "species.171.name"
+msgstr ""
+
+msgid "species.172.name"
+msgstr ""
+
+msgid "species.173.name"
+msgstr ""
+
+msgid "species.174.name"
+msgstr ""
+
+msgid "species.175.name"
+msgstr ""
+
+msgid "species.176.name"
+msgstr ""
+
+msgid "species.177.name"
+msgstr ""
+
+msgid "species.178.name"
+msgstr ""
+
+msgid "species.179.name"
+msgstr ""
+
+msgid "species.180.name"
+msgstr ""
+
+msgid "species.181.name"
+msgstr ""
+
+msgid "species.182.name"
+msgstr ""
+
+msgid "species.183.name"
+msgstr ""
+
+msgid "species.184.name"
+msgstr ""
+
+msgid "species.185.name"
+msgstr ""
+
+msgid "species.186.name"
+msgstr ""
+
+msgid "species.187.name"
+msgstr ""
+
+msgid "species.188.name"
+msgstr ""
+
+msgid "species.189.name"
+msgstr ""
+
+msgid "species.190.name"
+msgstr ""
+
+msgid "species.191.name"
+msgstr ""
+
+msgid "species.192.name"
+msgstr ""
+
+msgid "species.193.name"
+msgstr ""
+
+msgid "species.194.name"
+msgstr ""
+
+msgid "species.195.name"
+msgstr ""
+
+msgid "species.196.name"
+msgstr ""
+
+msgid "species.197.name"
+msgstr ""
+
+msgid "species.198.name"
+msgstr ""
+
+msgid "species.199.name"
+msgstr ""
+
+msgid "species.200.name"
+msgstr ""
+
+msgid "species.201.name"
+msgstr ""
+
+msgid "species.202.name"
+msgstr ""
+
+msgid "species.203.name"
+msgstr ""
+
+msgid "species.204.name"
+msgstr ""
+
+msgid "species.205.name"
+msgstr ""
+
+msgid "species.206.name"
+msgstr ""
+
+msgid "species.207.name"
+msgstr ""
+
+msgid "species.208.name"
+msgstr ""
+
+msgid "species.209.name"
+msgstr ""
+
+msgid "species.210.name"
+msgstr ""
+
+msgid "species.211.name"
+msgstr ""
+
+msgid "species.212.name"
+msgstr ""
+
+msgid "species.213.name"
+msgstr ""
+
+msgid "species.214.name"
+msgstr ""
+
+msgid "species.215.name"
+msgstr ""
+
+msgid "species.216.name"
+msgstr ""
+
+msgid "species.217.name"
+msgstr ""
+
+msgid "species.218.name"
+msgstr ""
+
+msgid "species.219.name"
+msgstr ""
+
+msgid "species.220.name"
+msgstr ""
+
+msgid "species.221.name"
+msgstr ""
+
+msgid "species.222.name"
+msgstr ""
+
+msgid "species.223.name"
+msgstr ""
+
+msgid "species.224.name"
+msgstr ""
+
+msgid "species.225.name"
+msgstr ""
+
+msgid "species.226.name"
+msgstr ""
+
+msgid "species.227.name"
+msgstr ""
+
+msgid "species.228.name"
+msgstr ""
+
+msgid "species.229.name"
+msgstr ""
+
+msgid "species.230.name"
+msgstr ""
+
+msgid "species.231.name"
+msgstr ""
+
+msgid "species.232.name"
+msgstr ""
+
+msgid "species.233.name"
+msgstr ""
+
+msgid "species.234.name"
+msgstr ""
+
+msgid "species.235.name"
+msgstr ""
+
+msgid "species.236.name"
+msgstr ""
+
+msgid "species.237.name"
+msgstr ""
+
+msgid "species.238.name"
+msgstr ""
+
+msgid "species.239.name"
+msgstr ""
+
+msgid "species.240.name"
+msgstr ""
+
+msgid "species.241.name"
+msgstr ""
+
+msgid "species.242.name"
+msgstr ""
+
+msgid "species.243.name"
+msgstr ""
+
+msgid "species.244.name"
+msgstr ""
+
+msgid "species.245.name"
+msgstr ""
+
+msgid "species.246.name"
+msgstr ""
+
+msgid "species.247.name"
+msgstr ""
+
+msgid "species.248.name"
+msgstr ""
+
+msgid "species.249.name"
+msgstr ""
+
+msgid "species.250.name"
+msgstr ""
+
+msgid "species.251.name"
+msgstr ""
+
+msgid "species.252.name"
+msgstr ""
+
+msgid "species.253.name"
+msgstr ""
+
+msgid "species.254.name"
+msgstr ""
+
+msgid "species.255.name"
+msgstr ""
+
+msgid "species.256.name"
+msgstr ""
+
+msgid "species.257.name"
+msgstr ""
+
+msgid "species.258.name"
+msgstr ""
+
+msgid "species.259.name"
+msgstr ""
+
+msgid "species.260.name"
+msgstr ""
+
+msgid "species.261.name"
+msgstr ""
+
+msgid "species.262.name"
+msgstr ""
+
+msgid "species.263.name"
+msgstr ""
+
+msgid "species.264.name"
+msgstr ""
+
+msgid "species.265.name"
+msgstr ""
+
+msgid "species.266.name"
+msgstr ""
+
+msgid "species.267.name"
+msgstr ""
+
+msgid "species.268.name"
+msgstr ""
+
+msgid "species.269.name"
+msgstr ""
+
+msgid "species.270.name"
+msgstr ""
+
+msgid "species.271.name"
+msgstr ""
+
+msgid "species.272.name"
+msgstr ""
+
+msgid "species.273.name"
+msgstr ""
+
+msgid "species.274.name"
+msgstr ""
+
+msgid "species.275.name"
+msgstr ""
+
+msgid "species.276.name"
+msgstr ""
+
+msgid "species.277.name"
+msgstr ""
+
+msgid "species.278.name"
+msgstr ""
+
+msgid "species.279.name"
+msgstr ""
+
+msgid "species.280.name"
+msgstr ""
+
+msgid "species.281.name"
+msgstr ""
+
+msgid "species.282.name"
+msgstr ""
+
+msgid "species.283.name"
+msgstr ""
+
+msgid "species.284.name"
+msgstr ""
+
+msgid "species.285.name"
+msgstr ""
+
+msgid "species.286.name"
+msgstr ""
+
+msgid "species.287.name"
+msgstr ""
+
+msgid "species.288.name"
+msgstr ""
+
+msgid "species.289.name"
+msgstr ""
+
+msgid "species.290.name"
+msgstr ""
+
+msgid "species.291.name"
+msgstr ""
+
+msgid "species.292.name"
+msgstr ""
+
+msgid "species.293.name"
+msgstr ""
+
+msgid "species.294.name"
+msgstr ""
+
+msgid "species.295.name"
+msgstr ""
+
+msgid "species.296.name"
+msgstr ""
+
+msgid "species.297.name"
+msgstr ""
+
+msgid "species.298.name"
+msgstr ""
+
+msgid "species.299.name"
+msgstr ""
+
+msgid "species.300.name"
+msgstr ""
+
+msgid "species.301.name"
+msgstr ""
+
+msgid "species.302.name"
+msgstr ""
+
+msgid "species.303.name"
+msgstr ""
+
+msgid "species.304.name"
+msgstr ""
+
+msgid "species.305.name"
+msgstr ""
+
+msgid "species.306.name"
+msgstr ""
+
+msgid "species.307.name"
+msgstr ""
+
+msgid "species.308.name"
+msgstr ""
+
+msgid "species.309.name"
+msgstr ""
+
+msgid "species.310.name"
+msgstr ""
+
+msgid "species.311.name"
+msgstr ""
+
+msgid "species.312.name"
+msgstr ""
+
+msgid "species.313.name"
+msgstr ""
+
+msgid "species.314.name"
+msgstr ""
+
+msgid "species.315.name"
+msgstr ""
+
+msgid "species.316.name"
+msgstr ""
+
+msgid "species.317.name"
+msgstr ""
+
+msgid "species.318.name"
+msgstr ""
+
+msgid "species.319.name"
+msgstr ""
+
+msgid "species.320.name"
+msgstr ""
+
+msgid "species.321.name"
+msgstr ""
+
+msgid "species.322.name"
+msgstr ""
+
+msgid "species.323.name"
+msgstr ""
+
+msgid "species.324.name"
+msgstr ""
+
+msgid "species.325.name"
+msgstr ""
+
+msgid "species.326.name"
+msgstr ""
+
+msgid "species.327.name"
+msgstr ""
+
+msgid "species.328.name"
+msgstr ""
+
+msgid "species.329.name"
+msgstr ""
+
+msgid "species.330.name"
+msgstr ""
+
+msgid "species.331.name"
+msgstr ""
+
+msgid "species.332.name"
+msgstr ""
+
+msgid "species.333.name"
+msgstr ""
+
+msgid "species.334.name"
+msgstr ""
+
+msgid "species.335.name"
+msgstr ""
+
+msgid "species.336.name"
+msgstr ""
+
+msgid "species.337.name"
+msgstr ""
+
+msgid "species.338.name"
+msgstr ""
+
+msgid "species.339.name"
+msgstr ""
+
+msgid "species.340.name"
+msgstr ""
+
+msgid "species.341.name"
+msgstr ""
+
+msgid "species.342.name"
+msgstr ""
+
+msgid "species.343.name"
+msgstr ""
+
+msgid "species.344.name"
+msgstr ""
+
+msgid "species.345.name"
+msgstr ""
+
+msgid "species.346.name"
+msgstr ""
+
+msgid "species.347.name"
+msgstr ""
+
+msgid "species.348.name"
+msgstr ""
+
+msgid "species.349.name"
+msgstr ""
+
+msgid "species.350.name"
+msgstr ""
+
+msgid "species.351.name"
+msgstr ""
+
+msgid "species.352.name"
+msgstr ""
+
+msgid "species.353.name"
+msgstr ""
+
+msgid "species.354.name"
+msgstr ""
+
+msgid "species.355.name"
+msgstr ""
+
+msgid "species.356.name"
+msgstr ""
+
+msgid "species.357.name"
+msgstr ""
+
+msgid "species.358.name"
+msgstr ""
+
+msgid "species.359.name"
+msgstr ""
+
+msgid "species.360.name"
+msgstr ""
+
+msgid "species.361.name"
+msgstr ""
+
+msgid "species.362.name"
+msgstr ""
+
+msgid "species.363.name"
+msgstr ""
+
+msgid "species.364.name"
+msgstr ""
+
+msgid "species.365.name"
+msgstr ""
+
+msgid "species.366.name"
+msgstr ""
+
+msgid "species.367.name"
+msgstr ""
+
+msgid "species.368.name"
+msgstr ""
+
+msgid "species.369.name"
+msgstr ""
+
+msgid "species.370.name"
+msgstr ""
+
+msgid "species.371.name"
+msgstr ""
+
+msgid "species.372.name"
+msgstr ""
+
+msgid "species.373.name"
+msgstr ""
+
+msgid "species.374.name"
+msgstr ""
+
+msgid "species.375.name"
+msgstr ""
+
+msgid "species.376.name"
+msgstr ""
+
+msgid "species.377.name"
+msgstr ""
+
+msgid "species.378.name"
+msgstr ""
+
+msgid "species.379.name"
+msgstr ""
+
+msgid "species.380.name"
+msgstr ""
+
+msgid "species.381.name"
+msgstr ""
+
+msgid "species.382.name"
+msgstr ""
+
+msgid "species.383.name"
+msgstr ""
+
+msgid "species.384.name"
+msgstr ""
+
+msgid "species.385.name"
+msgstr ""
+
+msgid "species.386.name"
+msgstr ""
+
+msgid "species.387.name"
+msgstr ""
+
+msgid "species.388.name"
+msgstr ""
+
+msgid "species.389.name"
+msgstr ""
+
+msgid "species.390.name"
+msgstr ""
+
+msgid "species.391.name"
+msgstr ""
+
+msgid "species.392.name"
+msgstr ""
+
+msgid "species.393.name"
+msgstr ""
+
+msgid "species.394.name"
+msgstr ""
+
+msgid "species.395.name"
+msgstr ""
+
+msgid "species.396.name"
+msgstr ""
+
+msgid "species.397.name"
+msgstr ""
+
+msgid "species.398.name"
+msgstr ""
+
+msgid "species.399.name"
+msgstr ""
+
+msgid "species.400.name"
+msgstr ""
+
+msgid "species.401.name"
+msgstr ""
+
+msgid "species.402.name"
+msgstr ""
+
+msgid "species.403.name"
+msgstr ""
+
+msgid "species.404.name"
+msgstr ""
+
+msgid "species.405.name"
+msgstr ""
+
+msgid "species.406.name"
+msgstr ""
+
+msgid "species.407.name"
+msgstr ""
+
+msgid "species.408.name"
+msgstr ""
+
+msgid "species.409.name"
+msgstr ""
+
+msgid "species.410.name"
+msgstr ""
+
+msgid "species.411.name"
+msgstr ""
+
+msgid "species.412.name"
+msgstr ""
+
+msgid "species.413.name"
+msgstr ""
+
+msgid "species.414.name"
+msgstr ""
+
+msgid "species.415.name"
+msgstr ""
+
+msgid "species.416.name"
+msgstr ""
+
+msgid "species.417.name"
+msgstr ""
+
+msgid "species.418.name"
+msgstr ""
+
+msgid "species.419.name"
+msgstr ""
+
+msgid "species.420.name"
+msgstr ""
+
+msgid "species.421.name"
+msgstr ""
+
+msgid "species.422.name"
+msgstr ""
+
+msgid "species.423.name"
+msgstr ""
+
+msgid "species.424.name"
+msgstr ""
+
+msgid "species.425.name"
+msgstr ""
+
+msgid "species.426.name"
+msgstr ""
+
+msgid "species.427.name"
+msgstr ""
+
+msgid "species.428.name"
+msgstr ""
+
+msgid "species.429.name"
+msgstr ""
+
+msgid "species.430.name"
+msgstr ""
+
+msgid "species.431.name"
+msgstr ""
+
+msgid "species.432.name"
+msgstr ""
+
+msgid "species.433.name"
+msgstr ""
+
+msgid "species.434.name"
+msgstr ""
+
+msgid "species.435.name"
+msgstr ""
+
+msgid "species.436.name"
+msgstr ""
+
+msgid "species.437.name"
+msgstr ""
+
+msgid "species.438.name"
+msgstr ""
+
+msgid "species.439.name"
+msgstr ""
+
+msgid "species.440.name"
+msgstr ""
+
+msgid "species.441.name"
+msgstr ""
+
+msgid "species.442.name"
+msgstr ""
+
+msgid "species.443.name"
+msgstr ""
+
+msgid "species.444.name"
+msgstr ""
+
+msgid "species.445.name"
+msgstr ""
+
+msgid "species.446.name"
+msgstr ""
+
+msgid "species.447.name"
+msgstr ""
+
+msgid "species.448.name"
+msgstr ""
+
+msgid "species.449.name"
+msgstr ""
+
+msgid "species.450.name"
+msgstr ""
+
+msgid "species.451.name"
+msgstr ""
+
+msgid "species.452.name"
+msgstr ""
+
+msgid "species.453.name"
+msgstr ""
+
+msgid "species.454.name"
+msgstr ""
+
+msgid "species.455.name"
+msgstr ""
+
+msgid "species.456.name"
+msgstr ""
+
+msgid "species.457.name"
+msgstr ""
+
+msgid "species.458.name"
+msgstr ""
+
+msgid "species.459.name"
+msgstr ""
+
+msgid "species.460.name"
+msgstr ""
+
+msgid "species.461.name"
+msgstr ""
+
+msgid "species.462.name"
+msgstr ""
+
+msgid "species.463.name"
+msgstr ""
+
+msgid "species.464.name"
+msgstr ""
+
+msgid "species.465.name"
+msgstr ""
+
+msgid "species.466.name"
+msgstr ""
+
+msgid "species.467.name"
+msgstr ""
+
+msgid "species.468.name"
+msgstr ""
+
+msgid "species.469.name"
+msgstr ""
+
+msgid "species.470.name"
+msgstr ""
+
+msgid "species.471.name"
+msgstr ""
+
+msgid "species.472.name"
+msgstr ""
+
+msgid "species.473.name"
+msgstr ""
+
+msgid "species.474.name"
+msgstr ""
+
+msgid "species.475.name"
+msgstr ""
+
+msgid "species.476.name"
+msgstr ""
+
+msgid "species.477.name"
+msgstr ""
+
+msgid "species.478.name"
+msgstr ""
+
+msgid "species.479.name"
+msgstr ""
+
+msgid "species.480.name"
+msgstr ""
+
+msgid "species.481.name"
+msgstr ""
+
+msgid "species.482.name"
+msgstr ""
+
+msgid "species.483.name"
+msgstr ""
+
+msgid "species.484.name"
+msgstr ""
+
+msgid "species.485.name"
+msgstr ""
+
+msgid "species.486.name"
+msgstr ""
+
+msgid "species.487.name"
+msgstr ""
+
+msgid "species.488.name"
+msgstr ""
+
+msgid "species.489.name"
+msgstr ""
+
+msgid "species.490.name"
+msgstr ""
+
+msgid "species.491.name"
+msgstr ""
+
+msgid "species.492.name"
+msgstr ""
+
+msgid "species.493.name"
+msgstr ""
+

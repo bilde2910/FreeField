@@ -1,0 +1,61 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Chinese Traditional\n"
+"Language: zh_TW\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/approve_user.po\n"
+"PO-Revision-Date: 2019-06-01 08:34\n"
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.title"
+msgstr "用戶審批"
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.desc"
+msgstr "待管理審批"
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.info"
+msgstr "這個鏈接僅供管理人員使用。請聯繫管理員協助你審核賬戶。"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.title"
+msgstr "用戶審批請求"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.desc"
+msgstr "有一位用戶請求賬戶審批"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.info"
+msgstr "下面這位用戶請求賬戶審批："
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.button.approve"
+msgstr "批准"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.button.reject"
+msgstr "拒絕"
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.title"
+msgstr "用戶審批"
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.desc"
+msgstr "無法審批"
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.info"
+msgstr "該用戶不在審批隊列中。"
+

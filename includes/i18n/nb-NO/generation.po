@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/generation.po\n"
+"PO-Revision-Date: 2019-06-03 13:32\n"
+
+msgid "generation.1.label"
+msgstr "1. generasjon"
+
+msgid "generation.2.label"
+msgstr "2. generasjon"
+
+msgid "generation.3.label"
+msgstr "3. generasjon"
+
+msgid "generation.4.label"
+msgstr "4. generasjon"
+

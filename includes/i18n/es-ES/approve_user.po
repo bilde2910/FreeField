@@ -1,0 +1,61 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Spanish\n"
+"Language: es_ES\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/approve_user.po\n"
+"PO-Revision-Date: 2019-06-03 13:30\n"
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.title"
+msgstr ""
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.desc"
+msgstr ""
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.info"
+msgstr "Este enlace es sólo para administradores. Por favor, póngase en contacto con un administrador para que su cuenta sea aprobada."
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.title"
+msgstr ""
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.desc"
+msgstr "Un usuario ha solicitado la aprobación de su cuenta"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.info"
+msgstr "El siguiente usuario ha solicitado la aprobación de su cuenta:"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.button.approve"
+msgstr "Aprobar"
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.button.reject"
+msgstr "Rechazar"
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.title"
+msgstr ""
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.desc"
+msgstr ""
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.info"
+msgstr "Este usuario no está en la cola de aprobación."
+

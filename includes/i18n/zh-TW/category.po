@@ -1,0 +1,84 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Chinese Traditional\n"
+"Language: zh_TW\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/category.po\n"
+"PO-Revision-Date: 2019-05-31 09:26\n"
+
+#  Label for objectives which are currently in-game (e.g. monthly, event, etc.)
+msgid "category.objective.current"
+msgstr "當前任務內容"
+
+msgid "category.objective.battle"
+msgstr "道館對戰任務"
+
+msgid "category.objective.raid"
+msgstr "團體戰任務"
+
+msgid "category.objective.catch"
+msgstr "捕捉類任務"
+
+msgid "category.objective.item"
+msgstr "道具使用類任務"
+
+msgid "category.objective.buddy"
+msgstr "夥伴類任務"
+
+msgid "category.objective.hatch"
+msgstr "孵蛋類任務"
+
+msgid "category.objective.evolve"
+msgstr "進化類任務"
+
+msgid "category.objective.power_up"
+msgstr "強化類任務"
+
+msgid "category.objective.transfer"
+msgstr "傳送類任務"
+
+msgid "category.objective.throwing_skill"
+msgstr "投球類任務"
+
+msgid "category.objective.explore"
+msgstr "探索類任務"
+
+msgid "category.objective.social"
+msgstr "互動類任務"
+
+msgid "category.reward.ball"
+msgstr "球類獎勵"
+
+msgid "category.reward.berry"
+msgstr "樹果獎勵"
+
+msgid "category.reward.potion"
+msgstr "傷藥獎勵"
+
+msgid "category.reward.revive"
+msgstr "復活獎勵"
+
+msgid "category.reward.evolution_item"
+msgstr "進化道具獎勵"
+
+msgid "category.reward.tm"
+msgstr "招式學習器獎勵"
+
+msgid "category.reward.stardust"
+msgstr "星星沙子獎勵"
+
+msgid "category.reward.candy"
+msgstr "神奇糖果獎勵"
+
+msgid "category.reward.encounter"
+msgstr "寶可夢獎勵"
+

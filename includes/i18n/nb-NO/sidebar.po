@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/sidebar.po\n"
+"PO-Revision-Date: 2019-06-04 13:39\n"
+
+msgid "sidebar.signed_in_as"
+msgstr "Logget inn som"
+
+msgid "sidebar.approval_pending"
+msgstr "Venter på godkjenning"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.logout"
+msgstr "Logg ut"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.login"
+msgstr "Logg inn"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.show_motd"
+msgstr "Vis melding"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.return"
+msgstr "Tilbake"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.add_poi"
+msgstr "Pokéstop"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.filters"
+msgstr "Filtre"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.search"
+msgstr "Søk"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.settings"
+msgstr "Innstillinger"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.manage_site"
+msgstr "Administrasjon"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.label"
+msgstr "Språk:"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.auto"
+msgstr "Automatisk språkvalg"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.device"
+msgstr "Foretrukket nettleserspråk"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.select"
+msgstr "Tilgjengelige språk"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.reset"
+msgstr "Tilbakestill alt"
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.cancel"
+msgstr "Avbryt"
+

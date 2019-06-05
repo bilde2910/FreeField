@@ -1,0 +1,323 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Chinese Traditional\n"
+"Language: zh_TW\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/objective.po\n"
+"PO-Revision-Date: 2019-06-05 14:58\n"
+
+msgid "objective.battle_gym.singular"
+msgstr "參加1次道館對戰"
+
+#  %1 = Number of battles
+msgid "objective.battle_gym.plural"
+msgstr "參加 {%1} 次道館對戰"
+
+msgid "objective.win_gym.singular"
+msgstr "在道館對戰中獲勝1次"
+
+#  %1 = Number of battles
+msgid "objective.win_gym.plural"
+msgstr "在道館對戰中獲勝 {%1} 次"
+
+msgid "objective.battle_raid.singular"
+msgstr "參加1場團體戰"
+
+#  %1 = Number of raids
+msgid "objective.battle_raid.plural"
+msgstr "參加 {%1} 場團體戰"
+
+msgid "objective.win_raid.singular"
+msgstr "在團體戰中獲勝1次"
+
+#  %1 = Number of raids
+msgid "objective.win_raid.plural"
+msgstr "在團體戰中獲勝 {%1} 次"
+
+#  %1 = Raid tier
+msgid "objective.level_raid.singular"
+msgstr "在等級 {%1} 以上的團體戰中獲勝1次"
+
+#  %1 = Raid tier, %2 = Number of raids
+msgid "objective.level_raid.plural"
+msgstr "在等級 {%1} 以上的團體戰中獲勝 {%2} 次"
+
+msgid "objective.se_charge.singular"
+msgstr "在1場對戰中使出效果絕佳的特殊招式"
+
+#  %1 = Number of battles
+msgid "objective.se_charge.plural"
+msgstr "在 {%1} 場對戰中使出效果絕佳的特殊招式"
+
+msgid "objective.catch.singular"
+msgstr "捕捉1隻寶可夢"
+
+#  %1 = Number of catches
+msgid "objective.catch.plural"
+msgstr "捕捉 {%1} 隻寶可夢"
+
+msgid "objective.catch_weather.singular"
+msgstr "捕捉1隻擁有天氣優勢的寶可夢"
+
+#  %1 = Number of catches
+msgid "objective.catch_weather.plural"
+msgstr "捕捉 {%1} 隻擁有天氣優勢的寶可夢"
+
+#  %1 = Type(s) of catch ("Ice-type", "Fire or Ground-type", etc.)
+msgid "objective.catch_type.singular"
+msgstr "捕捉1隻 {%1} 屬性的寶可夢"
+
+#  %1 = Type(s) of catch ("Ice-type", "Fire or Ground-type", etc.),
+#  %2 = Number of catches
+msgid "objective.catch_type.plural"
+msgstr "捕捉 {%2} 隻 {%1} 屬性的寶可夢"
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.)
+msgid "objective.catch_specific.singular"
+msgstr "捕捉一隻 {%1}"
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.), %2 = Number of catches
+msgid "objective.catch_specific.plural"
+msgstr "捕捉 {%2} 隻 {%1}"
+
+msgid "objective.catch_daily.singular"
+msgstr "連續1天捕捉1隻寶可夢"
+
+#  %1 = Number of days in a row
+msgid "objective.catch_daily.plural"
+msgstr "連續 {%1} 天捕捉1隻寶可夢"
+
+msgid "objective.use_berry.singular"
+msgstr "在捕捉寶可夢時使用1個莓果"
+
+#  %1 = Number of berries
+msgid "objective.use_berry.plural"
+msgstr "在捕捉寶可夢時使用 {%1} 個莓果"
+
+#  %1 = Item to use (e.g. "Pinap Berry")
+msgid "objective.use_item_encounter.singular"
+msgstr "在捕捉寶可夢時使用1個 {%1}"
+
+#  %1 = Item to use (e.g. "Pinap Berry")
+#  %2 = Number of items
+msgid "objective.use_item_encounter.plural"
+msgstr "在捕捉寶可夢時使用 {%2} 個 {%1}"
+
+msgid "objective.buddy_candy.singular"
+msgstr "和夥伴一起走路，取得1顆糖"
+
+#  %1 = Number of candies
+msgid "objective.buddy_candy.plural"
+msgstr "和夥伴一起走路，取得 {%1} 顆糖"
+
+msgid "objective.hatch.singular"
+msgstr "孵化1顆蛋"
+
+#  %1 = Number of eggs
+msgid "objective.hatch.plural"
+msgstr "孵化 {%1} 顆蛋"
+
+msgid "objective.evolve.singular"
+msgstr "進化1隻寶可夢"
+
+#  %1 = Number of evolves
+msgid "objective.evolve.plural"
+msgstr "進化 {%1} 隻寶可夢"
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+msgid "objective.evolve_type.singular"
+msgstr "進化1隻 {%1} 屬性寶可夢"
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+#  %2 = Number of evolves
+msgid "objective.evolve_type.plural"
+msgstr "進化 {%2} 隻 {%1} 屬性寶可夢"
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+msgid "objective.evolve_evolution.singular"
+msgstr "進化1隻已進化的 {%1} 屬性寶可夢"
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+#  %2 = Number of evolves
+msgid "objective.evolve_evolution.plural"
+msgstr "進化 {%2} 隻已進化的 {%1} 屬性寶可夢"
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.)
+msgid "objective.evolve_specific.singular"
+msgstr "進化1隻 {%1}"
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.), %2 = Number of evolves
+msgid "objective.evolve_specific.plural"
+msgstr "進化 {%2} 隻 {%1}"
+
+msgid "objective.evolve_item.singular"
+msgstr "用道具來讓1隻寶可夢進化"
+
+#  %1 = Number of evolves
+msgid "objective.evolve_item.plural"
+msgstr "用道具來進化寶可夢 {%1} 次"
+
+msgid "objective.power_up.singular"
+msgstr "強化1隻寶可夢"
+
+#  %1 = Number of power-ups
+msgid "objective.power_up.plural"
+msgstr "強化1隻寶可夢 {%1} 次"
+
+msgid "objective.transfer.singular"
+msgstr "傳送1隻寶可夢"
+
+#  %1 = Number of transfers
+msgid "objective.transfer.plural"
+msgstr "傳送 {%1} 隻寶可夢"
+
+msgid "objective.throw_simple_nice.singular"
+msgstr "投出1次Nice"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_nice.plural"
+msgstr "投出{%1}次Nice"
+
+msgid "objective.throw_simple_nice_chain.singular"
+msgstr "連續投出1次Nice"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_nice_chain.plural"
+msgstr "連續投出{%1}次Nice"
+
+msgid "objective.throw_simple_great.singular"
+msgstr "投出1次Great"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_great.plural"
+msgstr "投出{%1}次Great"
+
+msgid "objective.throw_simple_great_chain.singular"
+msgstr "連續投出1次Great"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_great_chain.plural"
+msgstr "連續投出{%1}次Great"
+
+msgid "objective.throw_simple_excellent.singular"
+msgstr "投出1次Excellent"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_excellent.plural"
+msgstr "投出{%1}次Excellent"
+
+msgid "objective.throw_simple_excellent_chain.singular"
+msgstr "連續投出1次Excellent"
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_excellent_chain.plural"
+msgstr "連續投出{%1}次Excellent"
+
+msgid "objective.throw_curve.singular"
+msgstr "投出1次旋轉球"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve.plural"
+msgstr "投出{%1}次旋轉球"
+
+msgid "objective.throw_curve_chain.singular"
+msgstr "連續投出1次旋轉球"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_chain.plural"
+msgstr "連續投出{%1}次旋轉球"
+
+msgid "objective.throw_curve_nice.singular"
+msgstr "投出1次Nice旋轉球"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_nice.plural"
+msgstr "投出{%1}次Nice旋轉球"
+
+msgid "objective.throw_curve_nice_chain.singular"
+msgstr "連續投出1次Nice旋轉球"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_nice_chain.plural"
+msgstr "連續投出{%1}次Nice旋轉球"
+
+msgid "objective.throw_curve_great.singular"
+msgstr "投出1次Great旋轉球"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_great.plural"
+msgstr "投出{%1}次Great旋轉球"
+
+msgid "objective.throw_curve_great_chain.singular"
+msgstr "連續投出1次Great旋轉球"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_great_chain.plural"
+msgstr "連續投出{%1}次Great旋轉球"
+
+msgid "objective.throw_curve_excellent.singular"
+msgstr "投出1次Excellent旋轉球"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_excellent.plural"
+msgstr "投出{%1}次Excellent旋轉球"
+
+msgid "objective.throw_curve_excellent_chain.singular"
+msgstr "連續投出1次Excellent旋轉球"
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_excellent_chain.plural"
+msgstr "連續投出{%1}次Excellent旋轉球"
+
+msgid "objective.visit_poi.singular"
+msgstr "拜訪1次補給站或道館"
+
+#  %1 = Number of POIs
+msgid "objective.visit_poi.plural"
+msgstr "拜訪{%1}次補給站或道館"
+
+msgid "objective.new_poi.singular"
+msgstr "拜訪1個你從未去過的補給站"
+
+#  %1 = Number of POIs
+msgid "objective.new_poi.plural"
+msgstr "拜訪{%1}個你從未去過的補給站"
+
+msgid "objective.visit_daily.singular"
+msgstr "連續1天拜訪補給站"
+
+#  %1 = Number of days in a row
+msgid "objective.visit_daily.plural"
+msgstr "連續{%1}天拜訪補給站"
+
+msgid "objective.send_gift.singular"
+msgstr "送1個禮物給朋友"
+
+#  %1 = Number of gifts to send
+msgid "objective.send_gift.plural"
+msgstr "送{%1}個禮物給朋友"
+
+msgid "objective.trade.singular"
+msgstr "交換1隻寶可夢"
+
+#  %1 = Number of specimen to trade
+msgid "objective.trade.plural"
+msgstr "交換{%1}隻寶可夢"
+
+#  Displayed when the research task objective of a Pokéstop is unknown.
+msgid "objective.unknown.singular"
+msgstr "未知任務"
+
