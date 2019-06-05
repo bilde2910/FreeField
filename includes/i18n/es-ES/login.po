@@ -12,25 +12,6 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/login.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
-
-msgid "login.title"
-msgstr ""
-
-msgid "login.desc"
-msgstr ""
-
-#  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
-msgid "login.perform"
-msgstr ""
-
-msgid "login.reconfigure"
-msgstr ""
-
-msgid "login.telegram.title"
-msgstr ""
-
-msgid "login.telegram.body"
-msgstr ""
+"X-Crowdin-File: /master/includes/i18n/es-ES/login.po\n"
+"PO-Revision-Date: 2019-06-05 18:08\n"
 
