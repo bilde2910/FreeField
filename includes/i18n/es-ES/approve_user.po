@@ -12,8 +12,8 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/nb-NO/approve_user.po\n"
-"PO-Revision-Date: 2019-06-05 18:19\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/approve_user.po\n"
+"PO-Revision-Date: 2019-06-05 22:24\n"
 
 #  Displayed if the user for whom the link was created visits the page.
 msgid "approve_user.user.title"
@@ -25,7 +25,7 @@ msgstr ""
 
 #  Displayed if the user for whom the link was created visits the page.
 msgid "approve_user.user.info"
-msgstr ""
+msgstr "Este enlace es sólo para administradores. Por favor, póngase en contacto con un administrador para que su cuenta sea aprobada."
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.admin.title"
@@ -33,19 +33,19 @@ msgstr ""
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.admin.desc"
-msgstr ""
+msgstr "Un usuario ha solicitado la aprobación de su cuenta"
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.admin.info"
-msgstr ""
+msgstr "El siguiente usuario ha solicitado la aprobación de su cuenta:"
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.button.approve"
-msgstr ""
+msgstr "Aprobar"
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.button.reject"
-msgstr ""
+msgstr "Rechazar"
 
 #  Displayed if the user is not in the approval queue.
 msgid "approve_user.approved.title"
@@ -57,5 +57,5 @@ msgstr ""
 
 #  Displayed if the user is not in the approval queue.
 msgid "approve_user.approved.info"
-msgstr ""
+msgstr "Este usuario no está en la cola de aprobación."
 
