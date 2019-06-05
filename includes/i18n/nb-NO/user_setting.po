@@ -12,43 +12,43 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/user_setting.po\n"
-"PO-Revision-Date: 2019-06-03 13:30\n"
+"X-Crowdin-File: /master/includes/i18n/zh-TW/user_setting.po\n"
+"PO-Revision-Date: 2019-06-05 18:07\n"
 
 msgid "user_setting.nickname.name"
-msgstr "Kallenavn"
+msgstr ""
 
 msgid "user_setting.sign_out_everywhere.name"
-msgstr "Logg ut overalt"
+msgstr ""
 
 msgid "user_setting.sign_out_everywhere.info"
-msgstr "Hvis du tror at kontoen din kan ha blitt kompromittert, er det mulig å logge av fra alle enheter som er logget på FreeField-kontoen din. Merk at hvis du gjør dette, blir du også logget ut på denne enheten, og må logge inn på nytt."
+msgstr ""
 
 msgid "user_setting.sign_out_everywhere.button"
-msgstr "Logg ut på alle enheter"
+msgstr ""
 
 msgid "user_setting.directions_provider.name"
-msgstr "Tilbyder av veibeskrivelser"
+msgstr ""
 
 msgid "user_setting.interface_theme.name"
-msgstr "Grensesnittema"
+msgstr ""
 
 msgid "user_setting.map_theme.name"
-msgstr "Karttema"
+msgstr ""
 
 msgid "user_setting.icons.name"
-msgstr "Kartmarkører"
+msgstr ""
 
 msgid "user_setting.species.name"
-msgstr "Pokémon-ikoner"
+msgstr ""
 
 msgid "user_setting.marker_component.name"
-msgstr "Oppgavekomponent for markører"
+msgstr ""
 
 msgid "user_setting.cluster_limit.name"
-msgstr "Maksimalt antall synlige markører"
+msgstr ""
 
 #  %1 = Number of POIs
 msgid "user_setting.cluster_limit.option.default"
-msgstr "Standard ({%1})"
+msgstr ""
 
