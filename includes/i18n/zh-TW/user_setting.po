@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/user_setting.po\n"
-"PO-Revision-Date: 2019-06-01 07:59\n"
+"PO-Revision-Date: 2019-06-05 14:58\n"
 
 msgid "user_setting.nickname.name"
 msgstr "暱稱"
@@ -22,7 +22,7 @@ msgid "user_setting.sign_out_everywhere.name"
 msgstr "在所有地方登出"
 
 msgid "user_setting.sign_out_everywhere.info"
-msgstr "如果你認為你的賬戶入侵了，這可以使你的FreeField賬戶從所有設備中登出。請注意，你目前在使用的賬戶也同樣會被登出，你需要重新登陸認證。"
+msgstr "如果你認為你的賬戶被入侵了，這可以使你的FreeField賬戶從所有設備中登出。請注意，你目前在使用的賬戶也同樣會被登出，你需要重新登陸認證。"
 
 msgid "user_setting.sign_out_everywhere.button"
 msgstr "從所有設備中登出"
