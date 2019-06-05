@@ -12,36 +12,24 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/group.po\n"
-"PO-Revision-Date: 2019-06-03 05:34\n"
+"X-Crowdin-File: /master/includes/i18n/es-ES/group.po\n"
+"PO-Revision-Date: 2019-06-05 18:19\n"
 
 msgid "group.selector.current"
-msgstr "當前用戶組"
+msgstr ""
 
 msgid "group.selector.available"
-msgstr "可用用戶組"
+msgstr ""
 
 msgid "group.level.unknown"
-msgstr "未知的用戶組"
-
-msgid "group.level.anonymous"
-msgstr "匿名訪問者"
-
-msgid "group.level.read_only"
-msgstr "僅可讀成員"
+msgstr ""
 
 msgid "group.level.registered"
-msgstr "注冊成員"
-
-msgid "group.level.submitter"
-msgstr "補給站提交者"
+msgstr ""
 
 msgid "group.level.moderator"
-msgstr "審核人"
+msgstr ""
 
 msgid "group.level.admin"
-msgstr "管理員"
-
-msgid "group.level.host"
-msgstr "網站擁有者"
+msgstr ""
 
