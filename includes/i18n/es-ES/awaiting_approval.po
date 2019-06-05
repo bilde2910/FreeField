@@ -12,33 +12,6 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/awaiting_approval.po\n"
-"PO-Revision-Date: 2019-06-03 13:30\n"
-
-msgid "awaiting_approval.title"
-msgstr ""
-
-msgid "awaiting_approval.desc"
-msgstr ""
-
-msgid "awaiting_approval.info.1"
-msgstr ""
-
-msgid "awaiting_approval.info.2.qr_enabled"
-msgstr ""
-
-msgid "awaiting_approval.info.2.qr_disabled"
-msgstr ""
-
-msgid "awaiting_approval.using.qr.head"
-msgstr ""
-
-msgid "awaiting_approval.using.link.head"
-msgstr ""
-
-msgid "awaiting_approval.using.link.info"
-msgstr ""
-
-msgid "awaiting_approval.return_button"
-msgstr ""
+"X-Crowdin-File: /master/includes/i18n/es-ES/awaiting_approval.po\n"
+"PO-Revision-Date: 2019-06-05 18:07\n"
 
