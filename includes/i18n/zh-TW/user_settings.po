@@ -12,33 +12,6 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/user_settings.po\n"
-"PO-Revision-Date: 2019-06-01 08:14\n"
-
-msgid "user_settings.no_local_storage"
-msgstr "警告：你的瀏覽器不支持本地存儲！你將不能定制你的FreeField外觀，並且地圖不會為你保存下次訪問時使用的最後查看地址。這很有可能是因為你使用了過時的瀏覽器。為了能夠體驗到完整的FreeField，在此強烈建議你使用一個現代的網頁瀏覽器。"
-
-msgid "user_settings.reset.confirm"
-msgstr "你確定想要重設所有設定嗎？"
-
-msgid "user_settings.value.default"
-msgstr "默認"
-
-msgid "user_settings.page.title"
-msgstr "設置"
-
-msgid "user_settings.page.subtitle"
-msgstr "個性化你的体验"
-
-msgid "user_settings.section.account"
-msgstr "賬戶"
-
-msgid "user_settings.section.map_providers"
-msgstr "地圖提供者"
-
-msgid "user_settings.section.appearance"
-msgstr "外觀"
-
-msgid "user_settings.section.performance"
-msgstr "表現"
+"X-Crowdin-File: /master/includes/i18n/es-ES/user_settings.po\n"
+"PO-Revision-Date: 2019-06-05 18:18\n"
 
