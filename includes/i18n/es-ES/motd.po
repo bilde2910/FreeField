@@ -12,15 +12,6 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/motd.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
-
-msgid "motd.title"
-msgstr ""
-
-msgid "motd.hide"
-msgstr ""
-
-msgid "motd.close"
-msgstr ""
+"X-Crowdin-File: /master/includes/i18n/es-ES/motd.po\n"
+"PO-Revision-Date: 2019-06-05 18:08\n"
 
