@@ -12,25 +12,25 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/login.po\n"
-"PO-Revision-Date: 2019-06-03 13:32\n"
+"X-Crowdin-File: /master/includes/i18n/zh-TW/login.po\n"
+"PO-Revision-Date: 2019-06-05 18:19\n"
 
 msgid "login.title"
-msgstr "Logg inn i FreeField"
+msgstr ""
 
 msgid "login.desc"
-msgstr "Velg en innloggingstilbyder nedenfor"
+msgstr ""
 
 #  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
 msgid "login.perform"
-msgstr "Logg inn med {%1}"
+msgstr ""
 
 msgid "login.reconfigure"
-msgstr "Omkonfigurer"
+msgstr ""
 
 msgid "login.telegram.title"
-msgstr "Autentiser med Telegram"
+msgstr ""
 
 msgid "login.telegram.body"
-msgstr "Klikk knappen nedenfor for å logge inn med Telegram"
+msgstr ""
 
