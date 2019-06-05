@@ -12,11 +12,23 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/approve_user.po\n"
-"PO-Revision-Date: 2019-06-05 18:07\n"
+"X-Crowdin-File: /master/includes/i18n/nb-NO/approve_user.po\n"
+"PO-Revision-Date: 2019-06-05 18:19\n"
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.title"
+msgstr ""
+
+#  Displayed if the user for whom the link was created visits the page.
+msgid "approve_user.user.desc"
+msgstr ""
 
 #  Displayed if the user for whom the link was created visits the page.
 msgid "approve_user.user.info"
+msgstr ""
+
+#  Displayed if an administrator visits the page.
+msgid "approve_user.admin.title"
 msgstr ""
 
 #  Displayed if an administrator visits the page.
@@ -33,6 +45,14 @@ msgstr ""
 
 #  Displayed if an administrator visits the page.
 msgid "approve_user.button.reject"
+msgstr ""
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.title"
+msgstr ""
+
+#  Displayed if the user is not in the approval queue.
+msgid "approve_user.approved.desc"
 msgstr ""
 
 #  Displayed if the user is not in the approval queue.
