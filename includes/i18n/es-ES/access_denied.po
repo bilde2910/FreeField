@@ -12,6 +12,16 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/access_denied.po\n"
-"PO-Revision-Date: 2019-06-05 18:07\n"
+"X-Crowdin-File: /master/includes/i18n/nb-NO/access_denied.po\n"
+"PO-Revision-Date: 2019-06-05 18:19\n"
+
+msgid "access_denied.title"
+msgstr ""
+
+msgid "access_denied.desc"
+msgstr ""
+
+#  %1 = User identifier
+msgid "access_denied.info"
+msgstr ""
 
