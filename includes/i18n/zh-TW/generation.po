@@ -12,18 +12,6 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/generation.po\n"
-"PO-Revision-Date: 2019-05-31 02:14\n"
-
-msgid "generation.1.label"
-msgstr "一代"
-
-msgid "generation.2.label"
-msgstr "二代"
-
-msgid "generation.3.label"
-msgstr "三代"
-
-msgid "generation.4.label"
-msgstr "四代"
+"X-Crowdin-File: /master/includes/i18n/es-ES/generation.po\n"
+"PO-Revision-Date: 2019-06-05 18:19\n"
 
