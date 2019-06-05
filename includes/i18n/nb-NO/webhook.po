@@ -12,30 +12,25 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/webhook.po\n"
-"PO-Revision-Date: 2019-06-03 13:30\n"
+"X-Crowdin-File: /master/includes/i18n/zh-TW/webhook.po\n"
+"PO-Revision-Date: 2019-06-05 18:07\n"
 
 msgid "webhook.report_title"
-msgstr "Oppgave rapportert!"
+msgstr ""
 
 msgid "webhook.poi"
-msgstr "Pokéstop"
+msgstr ""
 
 msgid "webhook.click_for_directions"
-msgstr "Klikk her for veibeskrivelse"
+msgstr ""
 
 msgid "webhook.objective"
-msgstr "Oppgave"
+msgstr ""
 
 msgid "webhook.reward"
-msgstr "Premie"
+msgstr ""
 
 #  %1 = Nickname of user who reported research
 msgid "webhook.reported_by"
-msgstr "Rapportert av {%1}"
-
-#  %1 = Research objective (e.g. "Make 3 Great Throws")
-#  %2 = Research reward (e.g. "1 Max Revive")
-msgid "webhook.x_for_y"
-msgstr "{%1} for {%2}"
+msgstr ""
 
