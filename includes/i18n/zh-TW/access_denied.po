@@ -12,6 +12,16 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/access_denied.po\n"
-"PO-Revision-Date: 2019-06-05 18:07\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/access_denied.po\n"
+"PO-Revision-Date: 2019-06-05 22:24\n"
+
+msgid "access_denied.title"
+msgstr "拒絕訪問"
+
+msgid "access_denied.desc"
+msgstr "您無權檢視此頁面。"
+
+#  %1 = User identifier
+msgid "access_denied.info"
+msgstr "你的賬戶 ({%1}) 未經授權查看此頁面。這可能是因為你沒有被分配查看此頁面的許可，或者是這個網頁需要經過人工審核賬戶才能查看而你的賬戶還未經審核。如果你認為這是一個錯誤請聯繫網站管理員。"
 
