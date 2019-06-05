@@ -12,14 +12,14 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/language.po\n"
-"PO-Revision-Date: 2019-06-05 18:08\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/language.po\n"
+"PO-Revision-Date: 2019-06-05 22:25\n"
 
 #  The name of the language and country in English (e.g. "French (France)", "Spanish (Spain)")
 msgid "language.name_english"
-msgstr ""
+msgstr "Spanish (Spain)"
 
 #  The native name of the language and country (e.g. "Français (France)", "Español (España)")
 msgid "language.name_native"
-msgstr ""
+msgstr "Español (España)"
 
