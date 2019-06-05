@@ -12,36 +12,6 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/release_type.po\n"
-"PO-Revision-Date: 2019-06-01 07:44\n"
-
-msgid "release_type.stable.name"
-msgstr "穩定版"
-
-msgid "release_type.stable.desc"
-msgstr "這個版本被認為可直接用於生產環境。"
-
-msgid "release_type.rc.name"
-msgstr "候選版本"
-
-msgid "release_type.rc.desc"
-msgstr "這個版本被認為是最穩定的版本。在下一個穩定版本被釋放前，將不會再添加新的功能。該版本的文檔尚不完整，或許存在一些小問題。"
-
-msgid "release_type.beta.name"
-msgstr "公開測試版(不穩定)"
-
-msgid "release_type.beta.desc"
-msgstr "這個版本還不穩定。在它成為候選釋放版本前，仍有可能有新功能被添加。該版本尚有一些漏洞，文檔只有最基礎的部分或者不會及時更新最新特性。"
-
-msgid "release_type.alpha.name"
-msgstr "內部測試版(非常不穩定)"
-
-msgid "release_type.alpha.desc"
-msgstr "這個版本非常不穩定。在它成為穩定版本前，仍有可能有主要功能被添加。該版本很可能擁有bug，並有可能會使你的FreeField安裝過程出現錯誤。該版本不會將新添加的特性寫入文檔中。"
-
-msgid "release_type.dev.name"
-msgstr "極端邊緣測試版(極度不穩定)"
-
-msgid "release_type.dev.desc"
-msgstr "這個版本極度不穩定，並且尚未開發完全。在成為穩定版本前，會有主要功能被添加。這個版本包含許多bug，並且會造成無法修復的安裝錯誤。基於它的不穩定性，這類版本很少發佈。"
+"X-Crowdin-File: /master/includes/i18n/es-ES/release_type.po\n"
+"PO-Revision-Date: 2019-06-05 18:18\n"
 
