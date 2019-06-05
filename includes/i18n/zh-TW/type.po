@@ -12,60 +12,6 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/type.po\n"
-"PO-Revision-Date: 2019-06-05 14:58\n"
-
-msgid "type.normal"
-msgstr "一般"
-
-msgid "type.fighting"
-msgstr "格鬥"
-
-msgid "type.flying"
-msgstr "飛行"
-
-msgid "type.poison"
-msgstr "毒"
-
-msgid "type.ground"
-msgstr "地面"
-
-msgid "type.rock"
-msgstr "岩"
-
-msgid "type.bug"
-msgstr "蟲"
-
-msgid "type.ghost"
-msgstr "幽靈"
-
-msgid "type.steel"
-msgstr "鋼"
-
-msgid "type.fire"
-msgstr "火"
-
-msgid "type.water"
-msgstr "水"
-
-msgid "type.grass"
-msgstr "草"
-
-msgid "type.electric"
-msgstr "電"
-
-msgid "type.psychic"
-msgstr "超能力"
-
-msgid "type.ice"
-msgstr "冰"
-
-msgid "type.dragon"
-msgstr "龍"
-
-msgid "type.dark"
-msgstr "惡"
-
-msgid "type.fairy"
-msgstr "妖精"
+"X-Crowdin-File: /master/includes/i18n/es-ES/type.po\n"
+"PO-Revision-Date: 2019-06-05 18:18\n"
 
