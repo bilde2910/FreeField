@@ -12,42 +12,42 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
-"X-Crowdin-File: /master/includes/i18n/zh-TW/xhr.po\n"
-"PO-Revision-Date: 2019-06-05 18:07\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/xhr.po\n"
+"PO-Revision-Date: 2019-06-05 22:24\n"
 
 msgid "xhr.failed.reason.unknown_reason"
-msgstr ""
+msgstr "Ukjent feil"
 
 msgid "xhr.failed.reason.access_denied"
-msgstr ""
+msgstr "Ingen tilgang"
 
 msgid "xhr.failed.reason.missing_fields"
-msgstr ""
+msgstr "Manglende data"
 
 msgid "xhr.failed.reason.invalid_data"
-msgstr ""
+msgstr "Ugyldig data"
 
 msgid "xhr.failed.reason.database_error"
-msgstr ""
+msgstr "Databasen kunne ikke nås"
 
 msgid "xhr.failed.reason.http_405"
-msgstr ""
+msgstr "Metode ikke tillatt"
 
 msgid "xhr.failed.reason.timeout"
-msgstr ""
+msgstr "Tidsavbrudd"
 
 msgid "xhr.failed.reason.upstream_failed"
-msgstr ""
+msgstr "Oppkobling til tredjepartsserver mislyktes"
 
 msgid "xhr.failed.reason.objective_null"
-msgstr ""
+msgstr "Ingen oppgave er valgt"
 
 msgid "xhr.failed.reason.reward_null"
-msgstr ""
+msgstr "Ingen premie er valgt"
 
 msgid "xhr.failed.reason.name_empty"
-msgstr ""
+msgstr "Navnet kan ikke være blankt"
 
 msgid "xhr.failed.reason.invalid_location"
-msgstr ""
+msgstr "Plasseringen er utenfor rekkevidde"
 
