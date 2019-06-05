@@ -12,30 +12,21 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/ui.po\n"
-"PO-Revision-Date: 2019-06-03 05:34\n"
+"X-Crowdin-File: /master/includes/i18n/es-ES/ui.po\n"
+"PO-Revision-Date: 2019-06-05 18:18\n"
 
 msgid "ui.button.close"
-msgstr "關閉"
+msgstr ""
 
 msgid "ui.button.cancel"
-msgstr "取消"
+msgstr ""
 
 msgid "ui.button.select"
-msgstr "選擇"
+msgstr ""
 
 msgid "ui.button.save"
-msgstr "保存设置"
-
-msgid "ui.button.done"
-msgstr "完成"
+msgstr ""
 
 msgid "ui.button.retry"
-msgstr "再試一次"
-
-msgid "ui.dropdown.none_selected"
-msgstr "< 無 >"
-
-msgid "ui.paginate.go_to"
-msgstr "前往頁面："
+msgstr ""
 
