@@ -12,6 +12,33 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/awaiting_approval.po\n"
-"PO-Revision-Date: 2019-06-05 18:19\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/awaiting_approval.po\n"
+"PO-Revision-Date: 2019-06-05 22:26\n"
+
+msgid "awaiting_approval.title"
+msgstr "待需審批"
+
+msgid "awaiting_approval.desc"
+msgstr "你的賬戶正在等待人工批准。"
+
+msgid "awaiting_approval.info.1"
+msgstr "感謝你的註冊！這個網站會對新註冊用戶進行人工審核。在未經審批之前，你將無法訪問部分需要會員身份才能使用的功能。"
+
+msgid "awaiting_approval.info.2.qr_enabled"
+msgstr "管理員可以批准你的賬戶。請將此二維碼，或者以下鏈接發送給管理員，協助他們確認并批准你在FreeField的賬戶。管理員也可以通過你的用戶名查閱你的賬戶。"
+
+msgid "awaiting_approval.info.2.qr_disabled"
+msgstr "管理員可以批准你的賬戶。請將以下鏈接發送給管理員，協助他們確認并批准你在FreeField的賬戶。管理員也可以通過你的用戶名查閱你的賬戶。"
+
+msgid "awaiting_approval.using.qr.head"
+msgstr "審批二維碼"
+
+msgid "awaiting_approval.using.link.head"
+msgstr "審批鏈接"
+
+msgid "awaiting_approval.using.link.info"
+msgstr "管理員可以使用這個鏈接審批你的賬戶。"
+
+msgid "awaiting_approval.return_button"
+msgstr "返回主頁面。"
 
