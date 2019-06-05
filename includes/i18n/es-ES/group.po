@@ -12,36 +12,24 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/group.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
+"X-Crowdin-File: /master/includes/i18n/es-ES/group.po\n"
+"PO-Revision-Date: 2019-06-05 18:08\n"
 
 msgid "group.selector.current"
-msgstr "Grupo actual"
-
-msgid "group.selector.available"
-msgstr "Grupos disponibles"
-
-msgid "group.level.unknown"
-msgstr "Grupo desconocido"
-
-msgid "group.level.anonymous"
 msgstr ""
 
-msgid "group.level.read_only"
+msgid "group.selector.available"
+msgstr ""
+
+msgid "group.level.unknown"
 msgstr ""
 
 msgid "group.level.registered"
-msgstr "Usuarios registrados"
-
-msgid "group.level.submitter"
 msgstr ""
 
 msgid "group.level.moderator"
-msgstr "Moderador"
+msgstr ""
 
 msgid "group.level.admin"
-msgstr "Administrador"
-
-msgid "group.level.host"
 msgstr ""
 
