@@ -12,1207 +12,1087 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
-"PO-Revision-Date: 2019-06-04 15:26\n"
+"X-Crowdin-File: /master/includes/i18n/zh-TW/setting.po\n"
+"PO-Revision-Date: 2019-06-05 18:08\n"
 
 msgid "setting.site.uri.name"
-msgstr "Installasjons-URI"
-
-msgid "setting.site.uri.desc"
-msgstr "Webplasseringen for FreeField-installasjonen."
-
-msgid "setting.site.name.name"
-msgstr "Nettsidenavn"
-
-msgid "setting.site.name.desc"
-msgstr "Navnet på FreeField-installasjonen (f.eks. '[Stedsnavn] FreeField')"
-
-msgid "setting.site.menu_header.name"
-msgstr "Menyheader"
-
-msgid "setting.site.menu_header.desc"
-msgstr "Teksten som vises på toppen av menyen på siden av skjermen."
-
-msgid "setting.site.menu_image.name"
-msgstr "Menybilde"
-
-msgid "setting.site.menu_image.desc"
-msgstr "Et bilde vist på toppen av menyen i stedet for teksten angitt over. *.png, *.gif, *.jpg og *.svg-filer er tillatt. Filen må ikke være større enn 128 KiB."
-
-msgid "setting.site.header_style.name"
-msgstr "Menyheaderstil"
-
-msgid "setting.site.header_style.desc"
-msgstr "Velg om det skal vises tekst eller et bilde på toppen av menyen på siden av skjermen."
-
-msgid "setting.site.header_style.option.text"
-msgstr "Vis tekst"
-
-msgid "setting.site.header_style.option.image"
-msgstr "Vis bilde (med bakgrunnsfarge)"
-
-msgid "setting.site.header_style.option.image_plain"
-msgstr "Vis bilde (uten bakgrunnsfarge)"
-
-msgid "setting.motd.display_mode.name"
-msgstr "Visningsmodus"
-
-msgid "setting.motd.display_mode.desc"
-msgstr "Avgjør hvordan dagens melding vises."
-
-msgid "setting.motd.display_mode.option.forced"
-msgstr "Alltid vis dagens melding hver gang kartet åpnes"
-
-msgid "setting.motd.display_mode.option.always"
-msgstr "Alltid vis som standard, men la brukere skjule den til neste gang innholdet endres av en administrator"
-
-msgid "setting.motd.display_mode.option.on_change"
-msgstr "Vis én gang dersom meldingen er endret, og skjul den for påfølgende besøk"
-
-msgid "setting.motd.display_mode.option.on_request"
-msgstr "Vis bare dersom brukeren ber om å se meldingen"
-
-msgid "setting.motd.display_mode.option.never"
-msgstr "Deaktiver dagens melding"
-
-msgid "setting.motd.title.name"
-msgstr "Egendefinert tittel"
-
-msgid "setting.motd.title.desc"
-msgstr "Tittelen på dagens melding-boksen. Dette settes som standard til \"Dagens melding\" hvis feltet er blankt."
-
-msgid "setting.motd.content.name"
-msgstr "Meldingsinnhold"
-
-msgid "setting.motd.content.desc"
-msgstr "En melding som vises til alle brukere i en boks hver gang FreeField åpnes. Meldingen kan formateres med Markdown."
-
-msgid "setting.spiders.robots_policy.name"
-msgstr "Søkerobotpolicy"
-
-msgid "setting.spiders.robots_policy.desc"
-msgstr "Angir hvordan roboter (som søkemotorer og andre nettroboter) kan lese og indeksere dette nettstedet."
-
-msgid "setting.spiders.robots_policy.option.all"
-msgstr "Godta all indeksering og surfing (all)"
-
-msgid "setting.spiders.robots_policy.option.nofollow"
-msgstr "Godta indeksering, men ikke følg linker på siden (nofollow)"
-
-msgid "setting.spiders.robots_policy.option.noindex"
-msgstr "Nekt indeksering, men la roboter følge linker til andre sider (noindex)"
-
-msgid "setting.spiders.robots_policy.option.noindex_nofollow"
-msgstr "Nekt all indeksering og surfing (noindex,nofollow)"
-
-msgid "setting.database.type.name"
-msgstr "Databasetype"
-
-msgid "setting.database.type.desc"
-msgstr "Typen forbindelse som bruker til å koble til databasen."
-
-msgid "setting.database.type.option.mysql"
-msgstr "MySQL"
-
-msgid "setting.database.type.option.pgsql"
-msgstr "PostgreSQL (eksperimentell)"
-
-msgid "setting.database.type.option.sqlite"
-msgstr "SQLite 3 (eksperimentell)"
-
-msgid "setting.database.type.option.sqlite2"
-msgstr "SQLite 2 (eksperimentell)"
-
-msgid "setting.database.type.option.sqlsrv"
-msgstr "Microsoft SQL Server / SQL Azure (eksperimentell)"
-
-msgid "setting.database.type.option.4D"
-msgstr "4D (eksperimentell)"
-
-msgid "setting.database.type.option.oci"
-msgstr "OCI / Oracle Instant Client (eksperimentell)"
-
-msgid "setting.database.type.option.cubrid"
-msgstr "Cubrid (experimentell)"
-
-msgid "setting.database.type.option.sybase"
-msgstr "Sybase ct-lib (eksperimentell)"
-
-msgid "setting.database.type.option.mssql"
-msgstr "Microsoft SQL Server (via dblib) (eksperimentell)"
-
-msgid "setting.database.type.option.dblib"
-msgstr "FreeTDS (eksperimentell)"
-
-msgid "setting.database.host.name"
-msgstr "Vertsnavn"
-
-msgid "setting.database.host.desc"
-msgstr "Verts-/domenenavnet eller IP-adressen til databasen."
-
-msgid "setting.database.port.name"
-msgstr "Port (-1 = standardport)"
-
-msgid "setting.database.port.desc"
-msgstr "Porten som brukes til å koble til databasen. Sett til -1 for å bruke standard port."
-
-msgid "setting.database.username.name"
-msgstr "Brukernavn"
-
-msgid "setting.database.username.desc"
-msgstr "Brukernavnet som brukes til å logge inn på databaseserveren."
-
-msgid "setting.database.password.name"
-msgstr "Passord"
-
-msgid "setting.database.password.desc"
-msgstr "Passordet som brukes til å logge inn på databaseserveren."
-
-msgid "setting.database.database.name"
-msgstr "Databasenavn"
-
-msgid "setting.database.database.desc"
-msgstr "Navnet på databasen FreeField skal lagre data i."
-
-msgid "setting.database.table_prefix.name"
-msgstr "Tabellprefiks"
-
-msgid "setting.database.table_prefix.desc"
-msgstr "Et prefiks som brukes for alle tabeller FreeField oppretter, for å hindre konflikt med andre tabeller."
-
-msgid "setting.permissions.default_level.name"
-msgstr "Standard brukergruppe"
-
-msgid "setting.permissions.default_level.desc"
-msgstr "Tilgangsnivået som tildeles alle nye brukere som standard."
-
-msgid "setting.permissions.level.self_manage.nickname.name"
-msgstr "Endre eget kallenavn"
-
-msgid "setting.permissions.level.self_manage.nickname.desc"
-msgstr "Lar brukere på dette nivået og høyere endre sitt eget kallenavn."
-
-msgid "setting.permissions.level.access.name"
-msgstr "Se kart"
-
-msgid "setting.permissions.level.access.desc"
-msgstr "Lar brukere se FreeField-kartet og en liste over pokéstop."
-
-msgid "setting.permissions.level.find_reporter.name"
-msgstr "Navngi rapportører"
-
-msgid "setting.permissions.level.find_reporter.desc"
-msgstr "Viser brukere hvem som sist sendte inn en oppgave for hvert pokéstop."
-
-msgid "setting.permissions.level.report_research.name"
-msgstr "Rapporter oppgave"
-
-msgid "setting.permissions.level.report_research.desc"
-msgstr "Lar brukere rapportere oppgaver på pokéstop som ikke allerede har en oppgave rapportert."
-
-msgid "setting.permissions.level.overwrite_research.name"
-msgstr "Overskriv oppgave"
-
-msgid "setting.permissions.level.overwrite_research.desc"
-msgstr "Lar brukere rapportere oppgaver på alle pokéstop, selv om en annen bruker tidligere har sendt inn en oppgave samme dag. Krever også \"Rapporter oppgave\"-tillatelsen."
-
-msgid "setting.permissions.level.submit_poi.name"
-msgstr "Legg til nye pokéstop"
-
-msgid "setting.permissions.level.submit_poi.desc"
-msgstr "Lar brukere legge inn nye pokéstop på kartet."
-
-msgid "setting.permissions.level.personalization.icons.name"
-msgstr "Tilpass markører"
-
-msgid "setting.permissions.level.personalization.icons.desc"
-msgstr "Lar brukere velge sitt eget kartmarkørsett i stedet for standard for sin egen konto."
-
-msgid "setting.permissions.level.personalization.species.name"
-msgstr "Tilpass artsikoner"
-
-msgid "setting.permissions.level.personalization.species.desc"
-msgstr "Lar brukere velge sitt eget ikonsett for Pokémon-arter i stedet for standard for sin egen bruker."
-
-msgid "setting.permissions.level.admin.main.general.name"
-msgstr "Endre nettsideinnstillinger"
-
-msgid "setting.permissions.level.admin.main.general.desc"
-msgstr "Lar brukere endre nettstedets database- og installasjonsinnstillinger."
-
-msgid "setting.permissions.level.admin.main.section.access.name"
-msgstr "Endre tilgangsinnstillinger"
-
-msgid "setting.permissions.level.admin.main.section.access.desc"
-msgstr "Lar brukere endre tilgangsinnstillinger, som f.eks. URLen, til siden."
-
-msgid "setting.permissions.level.admin.main.section.instance.name"
-msgstr "Endre installasjonsvalg"
-
-msgid "setting.permissions.level.admin.main.section.instance.desc"
-msgstr "Lar brukerne endre denne FreeField-sidens kjernevalg for utseende, som f.eks. navnet på siden."
-
-msgid "setting.permissions.level.admin.main.section.motd.name"
-msgstr "Endre dagens melding"
-
-msgid "setting.permissions.level.admin.main.section.motd.desc"
-msgstr "Lar brukere endre og administrere dagens melding for denne FreeField-installasjonen."
-
-msgid "setting.permissions.level.admin.main.section.spiders.name"
-msgstr "Administrer søkerobottilgang"
-
-msgid "setting.permissions.level.admin.main.section.spiders.desc"
-msgstr "Lar brukere endre på tilgangsinnstillingene for søkeroboter."
-
-msgid "setting.permissions.level.admin.main.section.database.name"
-msgstr "Endre databaseinnstillinger"
-
-msgid "setting.permissions.level.admin.main.section.database.desc"
-msgstr "Lar brukere endre databaseinnstillingene."
-
-msgid "setting.permissions.level.admin.users.general.name"
-msgstr "Administrer brukere"
-
-msgid "setting.permissions.level.admin.users.general.desc"
-msgstr "Lar brukere godkjenne, avvise, behandle og slette andre brukerkontoer."
-
-msgid "setting.permissions.level.admin.groups.general.name"
-msgstr "Administrer grupper"
-
-msgid "setting.permissions.level.admin.groups.general.desc"
-msgstr "Lar brukere legge til, fjerne og behandle brukergrupper."
-
-msgid "setting.permissions.level.admin.users.groups.name"
-msgstr "Administrer gruppemedlemskap"
-
-msgid "setting.permissions.level.admin.users.groups.desc"
-msgstr "Lar brukere endre andre brukeres medlemskap i brukergrupper. Krever også \"Administrer brukere\"-tillatelsen."
-
-msgid "setting.permissions.level.admin.groups.self_manage.name"
-msgstr "Administrer egen gruppe"
-
-msgid "setting.permissions.level.admin.groups.self_manage.desc"
-msgstr "Lar brukere tildele og fjerne andre brukeres tilgang til, og endre på tillatelsene til sin egen gruppe. Som standard kan brukere bare endre gruppemedlemskapet til brukere, og endre på grupper, nedenfor seg selv. Denne tillatelsen er farlig å tildele! Brukere med denne tillatelsen kan utnevne og fjerne andre brukere fra samme gruppe som seg selv. Det anbefales på det sterkeste at denne innstillingen holdes på standardverdien med mindre det finnes en særdeles god grunn til å endre den. Krever også \"Administrer gruppemedlemskap\"-tillatelsen."
-
-msgid "setting.permissions.level.admin.pois.general.name"
-msgstr "Administrer pokéstop"
-
-msgid "setting.permissions.level.admin.pois.general.desc"
-msgstr "Lar brukere endre og slette pokéstop sendt inn av andre."
-
-msgid "setting.permissions.level.admin.pois.import.name"
-msgstr "Importer og eksporter data"
-
-msgid "setting.permissions.level.admin.pois.import.desc"
-msgstr "La brukere importere og eksportere pokéstop."
-
-msgid "setting.permissions.level.admin.perms.general.name"
-msgstr "Administrer tillatelser"
-
-msgid "setting.permissions.level.admin.perms.general.desc"
-msgstr "Lar brukere endre og tildele tillatelser på denne siden."
-
-msgid "setting.permissions.level.admin.perms.section.default.name"
-msgstr "Velg standardgruppe"
-
-msgid "setting.permissions.level.admin.perms.section.default.desc"
-msgstr "Lar brukere endre standardgruppen som nye medlemmer plasseres i."
-
-msgid "setting.permissions.level.admin.perms.section.self_manage.name"
-msgstr "Endre tilgang til selvadministrasjon"
-
-msgid "setting.permissions.level.admin.perms.section.self_manage.desc"
-msgstr "Lar brukere endre innstillinger som har å gjøre med administrasjon av egen konto på denne siden, som f.eks. å la brukere få tilgang til å endre sitt eget kallenavn."
-
-msgid "setting.permissions.level.admin.perms.section.map_access.name"
-msgstr "Endre karttilgang"
-
-msgid "setting.permissions.level.admin.perms.section.map_access.desc"
-msgstr "Lar brukere endre på tillatelser for karttilgang."
-
-msgid "setting.permissions.level.admin.perms.section.personalization.name"
-msgstr "Endre tilpasningstilgang"
-
-msgid "setting.permissions.level.admin.perms.section.personalization.desc"
-msgstr "Lar brukere endre tilgangen til å tilpasse kartet, slik som å sette restriksjoner på hvilke kartmarkører og ikonsett som kan brukes."
-
-msgid "setting.permissions.level.admin.perms.section.admin.name"
-msgstr "Endre administrativ tilgang"
-
-msgid "setting.permissions.level.admin.perms.section.admin.desc"
-msgstr "Lar brukeren endre administrative tillatelser (som f.eks. denne)."
-
-msgid "setting.permissions.level.admin.security.general.name"
-msgstr "Endre sikkerhetsinnstillinger"
-
-msgid "setting.permissions.level.admin.security.general.desc"
-msgstr "Lar brukere endre sikkerhetsinnstillingene for denne installasjonen."
-
-msgid "setting.permissions.level.admin.security.section.user_creation.name"
-msgstr "Konfigurer brukergodkjenning"
-
-msgid "setting.permissions.level.admin.security.section.user_creation.desc"
-msgstr "Lar brukere endre innstillinger rundt manuell godkjenning av brukere og opprettelse av nye brukere."
-
-msgid "setting.permissions.level.admin.security.section.sessions.name"
-msgstr "Endre øktparametre"
-
-msgid "setting.permissions.level.admin.security.section.sessions.desc"
-msgstr "Lar brukere endre sikkerhetsinnstillinger for økter."
-
-msgid "setting.permissions.level.admin.security.section.outbound.name"
-msgstr "Konfigurer sikkerhet for utgående forespørsler"
-
-msgid "setting.permissions.level.admin.security.section.outbound.desc"
-msgstr "Lar brukere endre sikkerhetsinnstillingene for utgående HTTP-forespørsler."
-
-msgid "setting.permissions.level.admin.security.section.same_origin.name"
-msgstr "Endre samme-opprinnelse-policy"
-
-msgid "setting.permissions.level.admin.security.section.same_origin.desc"
-msgstr "Lar brukere endre policy for tilgang fra andre nettsteder (same-origin policy)."
-
-msgid "setting.permissions.level.admin.auth.general.name"
-msgstr "Administrer innlogging"
-
-msgid "setting.permissions.level.admin.auth.general.desc"
-msgstr "Lar brukere legge til, sette opp, aktivere og deaktivere diverse innloggingstjenester for brukerautentisering."
-
-msgid "setting.permissions.level.admin.auth.section.discord.name"
-msgstr "Discord-innlogging"
-
-msgid "setting.permissions.level.admin.auth.section.discord.desc"
-msgstr "Lar brukere endre innstillinger for Discord-innlogging."
-
-msgid "setting.permissions.level.admin.auth.section.telegram.name"
-msgstr "Telegram-innlogging"
-
-msgid "setting.permissions.level.admin.auth.section.telegram.desc"
-msgstr "Lar brukere endre innstillinger for Telegram-innlogging."
-
-msgid "setting.permissions.level.admin.auth.section.reddit.name"
-msgstr "Reddit-innlogging"
-
-msgid "setting.permissions.level.admin.auth.section.reddit.desc"
-msgstr "Lar brukere endre innstillinger for Reddit-innlogging."
-
-msgid "setting.permissions.level.admin.auth.section.facebook.name"
-msgstr "Facebook-innlogging"
-
-msgid "setting.permissions.level.admin.auth.section.facebook.desc"
-msgstr "Lar brukere endre innstillinger for Facebook-innlogging."
-
-msgid "setting.permissions.level.admin.auth.section.line.name"
-msgstr "LINE-innlogging"
-
-msgid "setting.permissions.level.admin.auth.section.line.desc"
-msgstr "Lar brukere endre innstillinger for LINE-innlogging."
-
-msgid "setting.permissions.level.admin.auth.section.groupme.name"
-msgstr "GroupMe-innlogging"
-
-msgid "setting.permissions.level.admin.auth.section.groupme.desc"
-msgstr "Lar brukere endre innstillinger for GroupMe-innlogging."
-
-msgid "setting.permissions.level.admin.mobile.general.name"
-msgstr "Endre mobilinnstillinger"
-
-msgid "setting.permissions.level.admin.mobile.general.desc"
-msgstr "Lar brukere endre innstillinger for hvordan denne FreeField-installasjonen vises på mobile enheter."
-
-msgid "setting.permissions.level.admin.mobile.section.pwa.name"
-msgstr "Endre PWA-innstillinger"
-
-msgid "setting.permissions.level.admin.mobile.section.pwa.desc"
-msgstr "Lar brukere endre Progressive Web App-manifestet for mobilenheter."
-
-msgid "setting.permissions.level.admin.themes.general.name"
-msgstr "Endre standardutseende"
-
-msgid "setting.permissions.level.admin.themes.general.desc"
-msgstr "Lar brukere endre standardutseendet til hele nettstedet."
-
-msgid "setting.permissions.level.admin.themes.section.meta.name"
-msgstr "Endre metadata"
-
-msgid "setting.permissions.level.admin.themes.section.meta.desc"
-msgstr "Lar brukere endre metadata for siden, som f.eks. nettleserikon og temafargen for nettlesere på mobil."
-
-msgid "setting.permissions.level.admin.themes.section.color.name"
-msgstr "Endre temafarger"
-
-msgid "setting.permissions.level.admin.themes.section.color.desc"
-msgstr "Lar brukere endre standard kart- og sidetema samt fargetema, og om brukere skal ha tilgang til å overstyre disse standardene."
-
-msgid "setting.permissions.level.admin.themes.section.icons.name"
-msgstr "Endre kartmarkører"
-
-msgid "setting.permissions.level.admin.themes.section.icons.desc"
-msgstr "Lar brukere endre standard kartmarkørsett, og hvorvidt brukere skal ha tilgang til å overstyre disse."
-
-msgid "setting.permissions.level.admin.map.general.name"
-msgstr "Endre kartinnstillinger"
-
-msgid "setting.permissions.level.admin.map.general.desc"
-msgstr "Lar brukere administrere karttjenester og standardinnstillinger for kartet."
-
-msgid "setting.permissions.level.admin.map.section.provider.name"
-msgstr "Endre karttilbyder"
-
-msgid "setting.permissions.level.admin.map.section.provider.desc"
-msgstr "Lar brukere endre og konfigurere hvilken karttjeneste denne FreeField-installasjonen bruker."
-
-msgid "setting.permissions.level.admin.map.section.default.name"
-msgstr "Endre kartstandarder"
-
-msgid "setting.permissions.level.admin.map.section.default.desc"
-msgstr "Lar brukere endre standardverdier for kartet, som f.eks. standardkoordinater og zoomnivå for førstegangs besøkende."
-
-msgid "setting.permissions.level.admin.map.section.updates.name"
-msgstr "Endre kartoppdateringsrate"
-
-msgid "setting.permissions.level.admin.map.section.updates.desc"
-msgstr "Lar brukere endre intervallet mellom hver gang en FreeField-klient ber om en oppdatert liste over aktive oppgaver for alle pokéstoppene."
-
-msgid "setting.permissions.level.admin.map.section.geofence.name"
-msgstr "Endre generell områdebegrensning"
-
-msgid "setting.permissions.level.admin.map.section.geofence.desc"
-msgstr "Lar brukere endre hvilket geofence som brukes som gjerde ved innsending av nye pokéstop, samt hvordan pokéstop utenfor denne grensen vises."
-
-msgid "setting.permissions.level.admin.fences.general.name"
-msgstr "Administrer geofence"
-
-msgid "setting.permissions.level.admin.fences.general.desc"
-msgstr "Lar brukere endre og definere geofence."
-
-msgid "setting.permissions.level.admin.hooks.general.name"
-msgstr "Administrer webhooks"
-
-msgid "setting.permissions.level.admin.hooks.general.desc"
-msgstr "Lar brukere administrere og sette opp webhook-integrering."
-
-msgid "setting.permissions.level.admin.api.general.name"
-msgstr "Administrer API-tilgang"
-
-msgid "setting.permissions.level.admin.api.general.desc"
-msgstr "Lar brukere sette opp og administrere API-klienter som kan få tilgang til FreeField."
-
-msgid "setting.permissions.level.admin.updates.general.name"
-msgstr "Installer oppdateringer"
-
-msgid "setting.permissions.level.admin.updates.general.desc"
-msgstr "Lar brukere oppdatere FreeField til siste versjon."
-
-msgid "setting.security.approval.require.name"
-msgstr "Krev manuell godkjenning"
-
-msgid "setting.security.approval.require.desc"
-msgstr "Hvis dette er aktivert, må administratorer godkjenne hver nye brukerkonto før de kan få tilgang til FreeField."
-
-msgid "setting.security.approval.require.label"
-msgstr "Godkjenn nye brukerkontoer manuelt"
-
-msgid "setting.security.approval.by_qr.name"
-msgstr "Vis QR-koder for godkjenning"
-
-msgid "setting.security.approval.by_qr.desc"
-msgstr "Hvis dette er aktivert, vil brukere som venter på godkjenning bli vist en QR-kode som kan skannes av en administrator. Ved å skanne koden kan administratorer godkjenne eller avvise brukeren mye raskere enn ved å søke opp brukeren i listen over registrerte brukere for å godkjenne dem der. Denne funksjonen krever at GD er aktivert i PHP."
-
-msgid "setting.security.approval.by_qr.label"
-msgstr "Generer QR-koder for rask administrativ godkjenning"
-
-msgid "setting.auth.session_length.name"
-msgstr "Øktlengde"
-
-msgid "setting.auth.session_length.desc"
-msgstr "Hvor lenge en bruker skal forbli innlogget når de logger inn."
-
-msgid "setting.auth.session_length.option.86400"
-msgstr "1 dag"
-
-msgid "setting.auth.session_length.option.604800"
-msgstr "7 dager"
-
-msgid "setting.auth.session_length.option.2592000"
-msgstr "30 dager"
-
-msgid "setting.auth.session_length.option.7776000"
-msgstr "90 dager"
-
-msgid "setting.auth.session_length.option.15811200"
-msgstr "6 måneder"
-
-msgid "setting.auth.session_length.option.31536000"
-msgstr "1 år"
-
-msgid "setting.auth.session_length.option.63072000"
-msgstr "2 år"
-
-msgid "setting.auth.session_length.option.157766400"
-msgstr "5 år"
-
-msgid "setting.auth.session_length.option.315619200"
-msgstr "10 år"
-
-msgid "setting.security.validate_ua.name"
-msgstr "Nettleservalidering"
-
-msgid "setting.security.validate_ua.desc"
-msgstr "Begrenser hver økt til nettleseren den ble opprettet fra. Det anbefales at dette er aktivert for å hindre øktkapring, da bruk av en økt utenfor nettleseren den ble opprettet fra nesten alltid er ondsinnet. Hvis du setter denne innstillingen til Streng, vil brukere bli logget ut dersom nettleseren får en oppdatering. Dette bidrar ikke nevneverdig til å styrke sikkerheten i noen særlig grad utover Standard, og anbefales derfor ikke."
-
-msgid "setting.security.validate_ua.option.no"
-msgstr "Deaktivert"
-
-msgid "setting.security.validate_ua.option.lenient"
-msgstr "Standard (ignorerer nettleserversjon)"
-
-msgid "setting.security.validate_ua.option.strict"
-msgstr "Streng (kontrollerer nettleserversjon)"
-
-msgid "setting.security.validate_lang.name"
-msgstr "Språkvalidering"
-
-msgid "setting.security.validate_lang.desc"
-msgstr "Krever at nettleseren bruker samme språksett hver gang den brukes i en økt. Dette vil logge ut brukere dersom de endrer hvilke språk nettleseren eller enheten er stilt inn til. Denne innstillingen bidrar til å hindre øktkapring hvis den er aktivert, i tilfeller hvor angripere bruker samme nettleser, men har stilt den inn til et annet språk (f.eks. dersom de bor i et annet land)."
-
-msgid "setting.security.validate_lang.label"
-msgstr "Håndhev kontroll av nettleserspråk"
-
-msgid "setting.security.selector_canary.name"
-msgstr "Øktkapringsdeteksjon"
-
-msgid "setting.security.selector_canary.desc"
-msgstr "Øktkapringsdetektoren utløses dersom noen av de ovennevnte kontrollene mislykkes for en bruker. Selv om dette kan være et tegn på at økten er kapret, kan det også skyldes helt legitime grunner, som en nettleseroppdatering som endrer versjonsnummer og dermed får streng nettleserkontroll til å mislykkes. Hvis du skrur på deteksjon, vil brukere bli logget ut av alle enheter dersom kontroll mislykkes for en av dem. I praksis vil dette si at hvis en angriper får tilgang til en brukerøkt, men bruker feil nettleser eller språk, vil de ikke kunne få tilgang igjen med den samme økten igjen senere, selv om de klarer å gjette riktig nettleser eller språk, siden økten vil være permanent deaktivert."
-
-msgid "setting.security.selector_canary.label"
-msgstr "Logg ut bruker fra alle enheter hvis én øktkontroll mislykkes"
-
-msgid "setting.security.curl.verify_certificates.name"
-msgstr "Sertifikatvalidering"
-
-msgid "setting.security.curl.verify_certificates.desc"
-msgstr "Å skru av sertifikatvalidering kan løse diverse problemer, som f.eks. webhooks som ikke utløses, men gjør det mulig for ondsinnede aktører å se og endre innholdet på slike utgående forespørsler uten at det oppdages og stoppes."
-
-msgid "setting.security.curl.verify_certificates.label"
-msgstr "Valider SSL/TLS-sertifikater for utgående forespørsler"
-
-msgid "setting.security.curl.cacert_path.name"
-msgstr "Sertifikatfil (cacert.pem)"
-
-msgid "setting.security.curl.cacert_path.desc"
-msgstr "Plasseringen til sertifikatautoritetsfila på serveren, for validering av utgående HTTPS-forbindelser."
-
-msgid "setting.security.frame_options.name"
-msgstr "Rammepolicy"
-
-msgid "setting.security.frame_options.desc"
-msgstr "Denne innstillingen deklarerer rammepolicyen for denne FreeField-installasjonen. Hvis du tillater innramming, kan andre sider vise denne FreeField-siden som del av sin egen side gjennom iframes eller framesets. Det anbefales at du lar denne innstillingen stå på standardvalget \"nekt\" med mindre du har en god grunn til å tillate innramming."
-
-msgid "setting.security.frame_options.option.allow"
-msgstr "Tillat innramming på alle nettsider"
-
-msgid "setting.security.frame_options.option.sameorigin"
-msgstr "Tillat innramming kun fra sider på samme domene som denne siden"
-
-msgid "setting.security.frame_options.option.deny"
-msgstr "Nekt all innramming overalt"
-
-msgid "setting.auth.provider.discord.enabled.name"
-msgstr "Tillat Discord-innlogging"
-
-msgid "setting.auth.provider.discord.enabled.desc"
-msgstr "Aktiverer bruk av Discord for brukerinnlogging."
-
-msgid "setting.auth.provider.discord.enabled.label"
-msgstr "Aktiver Discord-innlogging"
-
-msgid "setting.auth.provider.discord.client_id.name"
-msgstr "Klient-ID"
-
-msgid "setting.auth.provider.discord.client_id.desc"
-msgstr "Klient-IDen til Discord API-applikasjonen din."
-
-msgid "setting.auth.provider.discord.client_secret.name"
-msgstr "Klient-passord"
-
-msgid "setting.auth.provider.discord.client_secret.desc"
-msgstr "Klient-passordet (client secret) til Discord API-applikasjonen din."
-
-msgid "setting.auth.provider.telegram.enabled.name"
-msgstr "Tillat Telegram-innlogging"
-
-msgid "setting.auth.provider.telegram.enabled.desc"
-msgstr "Aktiverer bruk av Telegram for brukerinnlogging."
-
-msgid "setting.auth.provider.telegram.enabled.label"
-msgstr "Aktiver Telegram-innlogging"
-
-msgid "setting.auth.provider.telegram.bot_username.name"
-msgstr "Bot-brukernavn"
-
-msgid "setting.auth.provider.telegram.bot_username.desc"
-msgstr "Brukernavnet til Telegram-botten din."
-
-msgid "setting.auth.provider.telegram.bot_token.name"
-msgstr "Bot-kode"
-
-msgid "setting.auth.provider.telegram.bot_token.desc"
-msgstr "Bot-koden (bot token) som er tildelt Telegram-botten din fra BotFather."
-
-msgid "setting.auth.provider.reddit.enabled.name"
-msgstr "Tillat Reddit-innlogging"
-
-msgid "setting.auth.provider.reddit.enabled.desc"
-msgstr "Aktiverer bruk av Reddit for brukerinnlogging."
-
-msgid "setting.auth.provider.reddit.enabled.label"
-msgstr "Aktiver Reddit-innlogging"
-
-msgid "setting.auth.provider.reddit.client_id.name"
-msgstr "Klient-ID"
-
-msgid "setting.auth.provider.reddit.client_id.desc"
-msgstr "Klient-IDen til Reddit API-applikasjonen din."
-
-msgid "setting.auth.provider.reddit.client_secret.name"
-msgstr "Klient-passord"
-
-msgid "setting.auth.provider.reddit.client_secret.desc"
-msgstr "Klient-passordet (client secret) til Reddit API-applikasjonen din."
-
-msgid "setting.auth.provider.facebook.enabled.name"
-msgstr "Tillat Facebook-innlogging"
-
-msgid "setting.auth.provider.facebook.enabled.desc"
-msgstr "Aktiverer bruk av Facebook for brukerinnlogging."
-
-msgid "setting.auth.provider.facebook.enabled.label"
-msgstr "Aktiver Facebook-innlogging"
-
-msgid "setting.auth.provider.facebook.app_id.name"
-msgstr "App-ID"
-
-msgid "setting.auth.provider.facebook.app_id.desc"
-msgstr "App-IDen til Facebook API-applikasjonen din."
-
-msgid "setting.auth.provider.facebook.app_secret.name"
-msgstr "App-passord"
-
-msgid "setting.auth.provider.facebook.app_secret.desc"
-msgstr "App-passordet (app secret) til Facebook API-applikasjonen din."
-
-msgid "setting.auth.provider.line.enabled.name"
-msgstr "Tillat LINE-innlogging"
-
-msgid "setting.auth.provider.line.enabled.desc"
-msgstr "Aktiverer bruk av LINE for brukerinnlogging."
-
-msgid "setting.auth.provider.line.enabled.label"
-msgstr "Aktiver LINE-innlogging"
-
-msgid "setting.auth.provider.line.channel_id.name"
-msgstr "Kanal-ID"
-
-msgid "setting.auth.provider.line.channel_id.desc"
-msgstr "Kanal-IDen til LINE Login-applikasjonen din."
-
-msgid "setting.auth.provider.line.channel_secret.name"
-msgstr "Kanal-passord"
-
-msgid "setting.auth.provider.line.channel_secret.desc"
-msgstr "Kanal-passordet (channel secret) til LINE Login-applikasjonen din."
-
-msgid "setting.auth.provider.groupme.enabled.name"
-msgstr "Tillat GroupMe-innlogging"
-
-msgid "setting.auth.provider.groupme.enabled.desc"
-msgstr "Aktiverer bruk av GroupMe for brukerinnlogging."
-
-msgid "setting.auth.provider.groupme.enabled.label"
-msgstr "Aktiver GroupMe-innlogging"
-
-msgid "setting.auth.provider.groupme.client_id.name"
-msgstr "Klient-ID"
-
-msgid "setting.auth.provider.groupme.client_id.desc"
-msgstr "Klient-IDen til GroupMe API-applikasjonen din."
-
-msgid "setting.mobile.pwa.enabled.name"
-msgstr "Aktiver PWA"
-
-msgid "setting.mobile.pwa.enabled.desc"
-msgstr "Hvorvidt Progressive Web App-funksjonalitet skal være aktivert."
-
-msgid "setting.mobile.pwa.enabled.label"
-msgstr "Aktiver Progressive Web App-funksjonalitet"
-
-msgid "setting.mobile.pwa.name.name"
-msgstr "Navn"
-
-msgid "setting.mobile.pwa.name.desc"
-msgstr "Et lesbart navn for nettsiden som vises for brukeren."
-
-msgid "setting.mobile.pwa.short_name.name"
-msgstr "Kort navn"
-
-msgid "setting.mobile.pwa.short_name.desc"
-msgstr "Et kort lesbart navn for applikasjonen. Brukes i tilfeller hvor det ikke er nok plass til å vise det fulle navnet over."
-
-msgid "setting.mobile.pwa.description.name"
-msgstr "Beskrivelse"
-
-msgid "setting.mobile.pwa.description.desc"
-msgstr "En generell beskrivelse av hva FreeField web-appen gjør."
-
-msgid "setting.mobile.pwa.display.name"
-msgstr "Visningsmodus"
-
-msgid "setting.mobile.pwa.display.desc"
-msgstr "Den foretrukne visningsmodusen for nettsiden."
-
-msgid "setting.mobile.pwa.display.option.fullscreen"
-msgstr "Fullskjerm"
-
-msgid "setting.mobile.pwa.display.option.standalone"
-msgstr "Frittstående program"
-
-msgid "setting.mobile.pwa.display.option.minimal_ui"
-msgstr "Frittstående program med navigasjonsknapper"
-
-msgid "setting.mobile.pwa.display.option.browser"
-msgstr "Standard nettleservindu"
-
-msgid "setting.mobile.pwa.icon.192px.name"
-msgstr "App-ikon (192px)"
-
-msgid "setting.mobile.pwa.icon.192px.desc"
-msgstr "Ikonet som brukes om appens lille ikon. *.png, *.gif og *.jpg-filer tillates. Filen må ikke være større enn 64 KiB. Det opplastede bildet bør være eksakt 192x192 piksler."
-
-msgid "setting.mobile.pwa.icon.512px.name"
-msgstr "App-ikon (512px)"
-
-msgid "setting.mobile.pwa.icon.512px.desc"
-msgstr "En større versjon av app-ikonet. *.png, *.gif og *.jpg-filer tillates. Filen må ikke være større enn 256 KiB. Det opplastede bildet bør være eksakt 512x512 piksler."
-
-msgid "setting.mobile.pwa.icon.launch.name"
-msgstr "App-ikon (innlasting)"
-
-msgid "setting.mobile.pwa.icon.launch.desc"
-msgstr "Ikonet som vises når appen venter på oppkobling mot internett. *.png, *.gif, *.jpg og *.svg-filer er tillatt. Filen må ikke være større enn 256 KiB."
-
-msgid "setting.mobile.pwa.color.background.name"
-msgstr "Bakgrunnsfarge"
-
-msgid "setting.mobile.pwa.color.background.desc"
-msgstr "Bakgrunnsfargen til web-appen, brukt på innlastingsskjermen."
-
-msgid "setting.mobile.pwa.color.foreground.name"
-msgstr "Forgrunnsfarge"
-
-msgid "setting.mobile.pwa.color.foreground.desc"
-msgstr "Forgrunnsfargen til web-appen, brukes blant annet til tekst på innlastingsskjermen."
-
-msgid "setting.themes.meta.favicon.name"
-msgstr "Nettleserikon"
-
-msgid "setting.themes.meta.favicon.desc"
-msgstr "Ikonet som vises på fanen eller i adresselinja i nettleseren. *.png, *.gif, *.ico og *.jpg-filer er tillatt. Filen må ikke være større enn 256 KiB."
-
-msgid "setting.themes.meta.color.name"
-msgstr "Tittellinjefarge"
-
-msgid "setting.themes.meta.color.desc"
-msgstr "Fargen som vises i tittelen og adresselinja på mobilnettlesere."
-
-msgid "setting.themes.color.site.name"
-msgstr "Temafarge"
-
-msgid "setting.themes.color.site.desc"
-msgstr "Temafargen til hele FreeField-installasjonen, brukes for eksempel i menyer."
-
-msgid "setting.themes.color.admin.name"
-msgstr "Administrasjonstema"
-
-msgid "setting.themes.color.admin.desc"
-msgstr "Velg fargetemaet til administrasjonssidene."
-
-msgid "setting.themes.color.admin.option.light"
-msgstr "Lys"
-
-msgid "setting.themes.color.admin.option.dark"
-msgstr "Mørk"
-
-msgid "setting.themes.color.user_settings.theme.name"
-msgstr "Brukertema"
-
-msgid "setting.themes.color.user_settings.theme.desc"
-msgstr "Velg fargetema som brukes på innstillingssidene til brukere, samt på kartsiden."
-
-msgid "setting.themes.color.user_settings.theme.option.light"
-msgstr "Lys"
-
-msgid "setting.themes.color.user_settings.theme.option.dark"
-msgstr "Mørk"
-
-msgid "setting.themes.color.user_settings.allow_personalization.name"
-msgstr "Brukertilpasning"
-
-msgid "setting.themes.color.user_settings.allow_personalization.desc"
-msgstr "Hvorvidt brukere har lov til å endre på eget fargetema i sine innstillinger i stedet for å bruke standard tema."
-
-msgid "setting.themes.color.user_settings.allow_personalization.label"
-msgstr "La brukere velge sitt eget fargetema"
-
-msgid "setting.themes.color.map.theme.mapbox.name"
-msgstr "Standard MapBox-tema"
-
-msgid "setting.themes.color.map.theme.mapbox.desc"
-msgstr "Velg standardfargene på kartet."
-
-msgid "setting.themes.color.map.theme.mapbox.option.basic"
-msgstr "Mapbox Basic"
-
-msgid "setting.themes.color.map.theme.mapbox.option.streets"
-msgstr "Mapbox Streets"
-
-msgid "setting.themes.color.map.theme.mapbox.option.bright"
-msgstr "Mapbox Bright"
-
-msgid "setting.themes.color.map.theme.mapbox.option.light"
-msgstr "Mapbox Light"
-
-msgid "setting.themes.color.map.theme.mapbox.option.dark"
-msgstr "Mapbox Dark"
-
-msgid "setting.themes.color.map.theme.mapbox.option.satellite"
-msgstr "Mapbox Satellite"
-
-msgid "setting.themes.color.map.theme.thunderforest.name"
-msgstr "Standard Thunderforest-tema"
-
-msgid "setting.themes.color.map.theme.thunderforest.desc"
-msgstr "Velg standardfargene på kartet."
-
-msgid "setting.themes.color.map.theme.thunderforest.option.cycle"
-msgstr "OpenCycleMap"
-
-msgid "setting.themes.color.map.theme.thunderforest.option.transport"
-msgstr "Transport"
-
-msgid "setting.themes.color.map.theme.thunderforest.option.landscape"
-msgstr "Landscape"
-
-msgid "setting.themes.color.map.theme.thunderforest.option.outdoors"
-msgstr "Outdoors"
-
-msgid "setting.themes.color.map.theme.thunderforest.option.transport_dark"
-msgstr "Transport Dark"
-
-msgid "setting.themes.color.map.theme.thunderforest.option.spinal_map"
-msgstr "Spinal Map"
-
-msgid "setting.themes.color.map.theme.thunderforest.option.pioneer"
-msgstr "Pioneer"
-
-msgid "setting.themes.color.map.theme.thunderforest.option.mobile_atlas"
-msgstr "Mobile Atlas"
-
-msgid "setting.themes.color.map.theme.thunderforest.option.neighbourhood"
-msgstr "Neighbourhood"
-
-msgid "setting.themes.color.map.allow_personalization.name"
-msgstr "Karttilpasning"
-
-msgid "setting.themes.color.map.allow_personalization.desc"
-msgstr "Hvorvidt brukere har lov til å endre på eget fargetema på kartet i stedet for å bruke standard tema."
-
-msgid "setting.themes.color.map.allow_personalization.label"
-msgstr "La brukere velge sitt eget karttema"
-
-msgid "setting.themes.icons.default.name"
-msgstr "Standard markørsett"
-
-msgid "setting.themes.icons.default.desc"
-msgstr "Velg stilen av kartmarkører som skal brukes på kartet."
-
-msgid "setting.themes.species.default.name"
-msgstr "Standard artsikonsett"
-
-msgid "setting.themes.species.default.desc"
-msgstr "Velg stilen av Pokémon-art-markører som skal brukes på kartet."
-
-msgid "setting.map.provider.source.name"
-msgstr "Karttilbyder"
-
-msgid "setting.map.provider.source.desc"
-msgstr "Velg hvilken karttilbyder som skal brukes."
-
-msgid "setting.map.provider.source.option.mapbox"
-msgstr "Mapbox (mapbox-gl.js)"
-
-msgid "setting.map.provider.source.option.thunderforest"
-msgstr "Thunderforest (leaflet.js)"
-
-msgid "setting.map.provider.mapbox.access_token.name"
-msgstr "Tilgangskode for Mapbox"
-
-msgid "setting.map.provider.mapbox.access_token.desc"
-msgstr "Tilgangskode tildelt av Mapbox."
-
-msgid "setting.map.provider.thunderforest.api_key.name"
-msgstr "API-kode for Thunderforest"
-
-msgid "setting.map.provider.thunderforest.api_key.desc"
-msgstr "API-nøkkel tildelt av Thunderforest."
-
-msgid "setting.map.provider.directions.name"
-msgstr "Standard navigasjonstjeneste"
-
-msgid "setting.map.provider.directions.desc"
-msgstr "Velg hvilken navigasjonstjeneste som skal startes når brukere ber om veibeskrivelse til et pokéstop."
-
-msgid "setting.map.provider.directions.option.baidu"
 msgstr ""
 
-msgid "setting.map.provider.directions.option.bing"
-msgstr "Bing kart"
+msgid "setting.site.uri.desc"
+msgstr ""
 
-msgid "setting.map.provider.directions.option.google"
-msgstr "Google kart"
+msgid "setting.site.name.name"
+msgstr ""
 
-msgid "setting.map.provider.directions.option.here"
-msgstr "HERE"
+msgid "setting.site.name.desc"
+msgstr ""
 
-msgid "setting.map.provider.directions.option.mapquest"
-msgstr "MapQuest"
+msgid "setting.site.menu_header.name"
+msgstr ""
 
-msgid "setting.map.provider.directions.option.waze"
-msgstr "Waze"
+msgid "setting.site.menu_header.desc"
+msgstr ""
 
-msgid "setting.map.provider.directions.option.yandex"
-msgstr "Yandex.Maps"
+msgid "setting.site.menu_image.name"
+msgstr ""
+
+msgid "setting.site.menu_image.desc"
+msgstr ""
+
+msgid "setting.site.header_style.name"
+msgstr ""
+
+msgid "setting.site.header_style.desc"
+msgstr ""
+
+msgid "setting.site.header_style.option.text"
+msgstr ""
+
+msgid "setting.site.header_style.option.image"
+msgstr ""
+
+msgid "setting.site.header_style.option.image_plain"
+msgstr ""
+
+msgid "setting.motd.display_mode.name"
+msgstr ""
+
+msgid "setting.motd.display_mode.desc"
+msgstr ""
+
+msgid "setting.motd.display_mode.option.forced"
+msgstr ""
+
+msgid "setting.motd.display_mode.option.always"
+msgstr ""
+
+msgid "setting.motd.display_mode.option.on_change"
+msgstr ""
+
+msgid "setting.motd.display_mode.option.on_request"
+msgstr ""
+
+msgid "setting.motd.display_mode.option.never"
+msgstr ""
+
+msgid "setting.motd.title.name"
+msgstr ""
+
+msgid "setting.motd.title.desc"
+msgstr ""
+
+msgid "setting.motd.content.name"
+msgstr ""
+
+msgid "setting.motd.content.desc"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.name"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.desc"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.option.all"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.option.nofollow"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.option.noindex"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.option.noindex_nofollow"
+msgstr ""
+
+msgid "setting.database.type.name"
+msgstr ""
+
+msgid "setting.database.type.desc"
+msgstr ""
+
+msgid "setting.database.host.name"
+msgstr ""
+
+msgid "setting.database.host.desc"
+msgstr ""
+
+msgid "setting.database.port.name"
+msgstr ""
+
+msgid "setting.database.port.desc"
+msgstr ""
+
+msgid "setting.database.username.name"
+msgstr ""
+
+msgid "setting.database.username.desc"
+msgstr ""
+
+msgid "setting.database.password.name"
+msgstr ""
+
+msgid "setting.database.password.desc"
+msgstr ""
+
+msgid "setting.database.database.name"
+msgstr ""
+
+msgid "setting.database.database.desc"
+msgstr ""
+
+msgid "setting.database.table_prefix.name"
+msgstr ""
+
+msgid "setting.database.table_prefix.desc"
+msgstr ""
+
+msgid "setting.permissions.default_level.name"
+msgstr ""
+
+msgid "setting.permissions.default_level.desc"
+msgstr ""
+
+msgid "setting.permissions.level.self_manage.nickname.name"
+msgstr ""
+
+msgid "setting.permissions.level.self_manage.nickname.desc"
+msgstr ""
+
+msgid "setting.permissions.level.access.name"
+msgstr ""
+
+msgid "setting.permissions.level.access.desc"
+msgstr ""
+
+msgid "setting.permissions.level.find_reporter.name"
+msgstr ""
+
+msgid "setting.permissions.level.find_reporter.desc"
+msgstr ""
+
+msgid "setting.permissions.level.report_research.name"
+msgstr ""
+
+msgid "setting.permissions.level.report_research.desc"
+msgstr ""
+
+msgid "setting.permissions.level.overwrite_research.name"
+msgstr ""
+
+msgid "setting.permissions.level.overwrite_research.desc"
+msgstr ""
+
+msgid "setting.permissions.level.submit_poi.name"
+msgstr ""
+
+msgid "setting.permissions.level.submit_poi.desc"
+msgstr ""
+
+msgid "setting.permissions.level.personalization.icons.name"
+msgstr ""
+
+msgid "setting.permissions.level.personalization.icons.desc"
+msgstr ""
+
+msgid "setting.permissions.level.personalization.species.name"
+msgstr ""
+
+msgid "setting.permissions.level.personalization.species.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.access.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.access.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.instance.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.instance.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.motd.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.motd.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.spiders.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.spiders.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.database.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.database.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.users.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.users.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.groups.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.groups.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.users.groups.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.users.groups.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.groups.self_manage.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.groups.self_manage.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.pois.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.pois.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.pois.import.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.pois.import.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.default.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.default.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.self_manage.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.self_manage.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.map_access.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.map_access.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.personalization.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.personalization.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.admin.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.admin.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.user_creation.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.user_creation.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.sessions.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.sessions.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.outbound.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.outbound.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.same_origin.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.same_origin.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.discord.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.discord.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.telegram.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.telegram.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.reddit.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.reddit.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.facebook.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.facebook.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.line.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.line.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.groupme.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.groupme.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.mobile.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.mobile.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.mobile.section.pwa.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.mobile.section.pwa.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.meta.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.meta.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.color.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.color.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.icons.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.icons.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.provider.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.provider.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.default.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.default.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.updates.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.updates.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.geofence.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.geofence.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.fences.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.fences.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.hooks.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.hooks.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.api.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.api.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.updates.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.updates.general.desc"
+msgstr ""
+
+msgid "setting.security.approval.require.name"
+msgstr ""
+
+msgid "setting.security.approval.require.desc"
+msgstr ""
+
+msgid "setting.security.approval.require.label"
+msgstr ""
+
+msgid "setting.security.approval.by_qr.name"
+msgstr ""
+
+msgid "setting.security.approval.by_qr.desc"
+msgstr ""
+
+msgid "setting.security.approval.by_qr.label"
+msgstr ""
+
+msgid "setting.auth.session_length.name"
+msgstr ""
+
+msgid "setting.auth.session_length.desc"
+msgstr ""
+
+msgid "setting.auth.session_length.option.86400"
+msgstr ""
+
+msgid "setting.auth.session_length.option.604800"
+msgstr ""
+
+msgid "setting.auth.session_length.option.2592000"
+msgstr ""
+
+msgid "setting.auth.session_length.option.7776000"
+msgstr ""
+
+msgid "setting.auth.session_length.option.15811200"
+msgstr ""
+
+msgid "setting.auth.session_length.option.31536000"
+msgstr ""
+
+msgid "setting.auth.session_length.option.63072000"
+msgstr ""
+
+msgid "setting.auth.session_length.option.157766400"
+msgstr ""
+
+msgid "setting.auth.session_length.option.315619200"
+msgstr ""
+
+msgid "setting.security.validate_ua.name"
+msgstr ""
+
+msgid "setting.security.validate_ua.desc"
+msgstr ""
+
+msgid "setting.security.validate_ua.option.no"
+msgstr ""
+
+msgid "setting.security.validate_ua.option.lenient"
+msgstr ""
+
+msgid "setting.security.validate_ua.option.strict"
+msgstr ""
+
+msgid "setting.security.validate_lang.name"
+msgstr ""
+
+msgid "setting.security.validate_lang.desc"
+msgstr ""
+
+msgid "setting.security.validate_lang.label"
+msgstr ""
+
+msgid "setting.security.selector_canary.name"
+msgstr ""
+
+msgid "setting.security.selector_canary.desc"
+msgstr ""
+
+msgid "setting.security.selector_canary.label"
+msgstr ""
+
+msgid "setting.security.curl.verify_certificates.name"
+msgstr ""
+
+msgid "setting.security.curl.verify_certificates.desc"
+msgstr ""
+
+msgid "setting.security.curl.verify_certificates.label"
+msgstr ""
+
+msgid "setting.security.curl.cacert_path.name"
+msgstr ""
+
+msgid "setting.security.curl.cacert_path.desc"
+msgstr ""
+
+msgid "setting.security.frame_options.name"
+msgstr ""
+
+msgid "setting.security.frame_options.desc"
+msgstr ""
+
+msgid "setting.security.frame_options.option.allow"
+msgstr ""
+
+msgid "setting.security.frame_options.option.sameorigin"
+msgstr ""
+
+msgid "setting.security.frame_options.option.deny"
+msgstr ""
+
+msgid "setting.auth.provider.discord.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.discord.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.discord.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.discord.client_id.name"
+msgstr ""
+
+msgid "setting.auth.provider.discord.client_id.desc"
+msgstr ""
+
+msgid "setting.auth.provider.discord.client_secret.name"
+msgstr ""
+
+msgid "setting.auth.provider.discord.client_secret.desc"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.bot_username.name"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.bot_username.desc"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.bot_token.name"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.bot_token.desc"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.client_id.name"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.client_id.desc"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.client_secret.name"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.client_secret.desc"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.app_id.name"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.app_id.desc"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.app_secret.name"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.app_secret.desc"
+msgstr ""
+
+msgid "setting.auth.provider.line.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.line.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.line.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.line.channel_id.desc"
+msgstr ""
+
+msgid "setting.auth.provider.line.channel_secret.name"
+msgstr ""
+
+msgid "setting.auth.provider.line.channel_secret.desc"
+msgstr ""
+
+msgid "setting.auth.provider.groupme.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.groupme.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.groupme.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.groupme.client_id.name"
+msgstr ""
+
+msgid "setting.auth.provider.groupme.client_id.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.enabled.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.enabled.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.enabled.label"
+msgstr ""
+
+msgid "setting.mobile.pwa.name.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.name.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.short_name.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.short_name.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.description.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.description.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.option.fullscreen"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.option.standalone"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.option.minimal_ui"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.option.browser"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.192px.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.512px.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.launch.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.launch.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.color.background.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.color.background.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.color.foreground.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.color.foreground.desc"
+msgstr ""
+
+msgid "setting.themes.meta.favicon.name"
+msgstr ""
+
+msgid "setting.themes.meta.favicon.desc"
+msgstr ""
+
+msgid "setting.themes.meta.color.name"
+msgstr ""
+
+msgid "setting.themes.meta.color.desc"
+msgstr ""
+
+msgid "setting.themes.color.site.name"
+msgstr ""
+
+msgid "setting.themes.color.site.desc"
+msgstr ""
+
+msgid "setting.themes.color.admin.name"
+msgstr ""
+
+msgid "setting.themes.color.admin.desc"
+msgstr ""
+
+msgid "setting.themes.color.admin.option.light"
+msgstr ""
+
+msgid "setting.themes.color.admin.option.dark"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.theme.name"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.theme.desc"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.theme.option.light"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.theme.option.dark"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.allow_personalization.name"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.allow_personalization.desc"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.allow_personalization.label"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.name"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.desc"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.name"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.desc"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.mobile_atlas"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.neighbourhood"
+msgstr ""
+
+msgid "setting.themes.color.map.allow_personalization.name"
+msgstr ""
+
+msgid "setting.themes.color.map.allow_personalization.desc"
+msgstr ""
+
+msgid "setting.themes.color.map.allow_personalization.label"
+msgstr ""
+
+msgid "setting.themes.icons.default.name"
+msgstr ""
+
+msgid "setting.themes.icons.default.desc"
+msgstr ""
+
+msgid "setting.themes.species.default.name"
+msgstr ""
+
+msgid "setting.themes.species.default.desc"
+msgstr ""
+
+msgid "setting.map.provider.source.name"
+msgstr ""
+
+msgid "setting.map.provider.source.desc"
+msgstr ""
+
+msgid "setting.map.provider.mapbox.access_token.desc"
+msgstr ""
+
+msgid "setting.map.provider.thunderforest.api_key.desc"
+msgstr ""
+
+msgid "setting.map.provider.directions.name"
+msgstr ""
+
+msgid "setting.map.provider.directions.desc"
+msgstr ""
 
 msgid "setting.map.default.center.latitude.name"
-msgstr "Breddegrad"
+msgstr ""
 
 msgid "setting.map.default.center.latitude.desc"
-msgstr "Breddegraden til posisjonen som kartet skal være sentrert på når det lastes inn første gang."
+msgstr ""
 
 msgid "setting.map.default.center.longitude.name"
-msgstr "Lengdegrad"
+msgstr ""
 
 msgid "setting.map.default.center.longitude.desc"
-msgstr "Lengdegraden til posisjonen som kartet skal være sentrert på når det lastes inn første gang."
+msgstr ""
 
 msgid "setting.map.default.zoom.name"
-msgstr "Zoomnivå"
+msgstr ""
 
 msgid "setting.map.default.zoom.desc"
-msgstr "Standard zoomnivå når kartet lastes første gang."
+msgstr ""
 
 msgid "setting.map.default.marker_component.name"
-msgstr "Oppgavekomponent for markører"
+msgstr ""
 
 msgid "setting.map.default.marker_component.desc"
-msgstr "Hvilken oppgavekomponent som skal brukes som kartmarkører som standard."
+msgstr ""
 
 msgid "setting.map.default.marker_component.option.objective"
-msgstr "Oppgaver"
+msgstr ""
 
 msgid "setting.map.default.marker_component.option.reward"
-msgstr "Premier"
+msgstr ""
 
 msgid "setting.map.default.cluster_limit.name"
-msgstr "Maksimalt antall synlige markører"
+msgstr ""
 
 msgid "setting.map.default.cluster_limit.desc"
-msgstr "Det største antallet pokéstop som skal være synlig på kartet for brukere som standard. Ved å redusere denne innstillingen vil du legge mindre press på brukernes enheter og øke ytelsen til kartet, men det kan forhinde at enkelte oppgaver vises dersom de er plassert for tett sammen med andre pokéstop. Se ofte stilte spørsmål for spillere i dokumentasjonen for mer informasjon."
+msgstr ""
 
 msgid "setting.map.updates.refresh_interval.name"
-msgstr "Klientoppdateringsintervall"
-
-msgid "setting.map.updates.refresh_interval.desc"
-msgstr "Antall sekunder mellom hver gang en FreeField-klient oppdaterer listen sin over pokéstop og aktive oppgaver. Hvis du opplever høy belastning på serveren din fra FreeField kan du prøve å øke dette intervallet. Det totale volumet av forespørsler til REST-API-en for tilkoblede brukere er (a/i) per sekund der a=antall aktive klienter og i=oppdateringsintervallet."
+msgstr ""
 
 msgid "setting.map.updates.tz.name"
-msgstr "Tidssone"
+msgstr ""
 
 msgid "setting.map.updates.tz.desc"
-msgstr "Tidssonen som brukes for å bestemme når midnatt er, dvs. når på døgnet oppgavene nullstilles."
+msgstr ""
 
 msgid "setting.map.geofence.geofence.name"
-msgstr "Begrens pokéstop til område"
+msgstr ""
 
 msgid "setting.map.geofence.geofence.desc"
-msgstr "Avgrenser området som nye pokéstop kan sendes inn i til området innenfor det gitte geofencet. Hvis du ikke oppgir et geofence, kan pokéstop (og derav oppgaver) sendes inn over hele verden."
+msgstr ""
 
 msgid "setting.map.geofence.hide_outside.name"
-msgstr "Pokéstop utenfor rekkevidde"
+msgstr ""
 
 msgid "setting.map.geofence.hide_outside.desc"
-msgstr "Hvorvidt eventuelle pokéstop utenfor det avgrensede området ovenfor skal skjules fra kartet."
+msgstr ""
 
 msgid "setting.map.geofence.hide_outside.label"
-msgstr "Skjul alle pokéstop utenfor det valgte området"
+msgstr ""
 
 msgid "setting.hooks.hook_list.webhook_url.name"
-msgstr "Webhook URL"
+msgstr ""
 
 msgid "setting.hooks.hook_list.language.name"
-msgstr "Språk"
+msgstr ""
 
 msgid "setting.hooks.hook_list.icons.name"
-msgstr "Ikonsett"
+msgstr ""
 
 msgid "setting.hooks.hook_list.icons.option.default"
-msgstr "Standard ikonsett"
+msgstr ""
 
 msgid "setting.hooks.hook_list.show_species.name"
-msgstr "Vis ikon for Pokémon"
+msgstr ""
 
 msgid "setting.hooks.hook_list.show_species.label"
-msgstr "Vis Pokémon-arten som ikon for premie hvis mulig"
+msgstr ""
 
 msgid "setting.hooks.hook_list.species.name"
-msgstr "Pokémon-ikonsett"
+msgstr ""
 
 msgid "setting.hooks.hook_list.species.option.default"
-msgstr "Standard artsikonsett"
+msgstr ""
 
 msgid "setting.hooks.hook_list.geofence.name"
-msgstr "Områdeavgrensning"
+msgstr ""
 
 msgid "setting.hooks.hook_list.filter_mode.name"
-msgstr "Kun utløs webhooken dersom"
+msgstr ""
 
 msgid "setting.hooks.hook_list.filter_mode.objective.option.whitelist.name"
-msgstr "En av følgende oppgaver er rapportert"
+msgstr ""
 
 msgid "setting.hooks.hook_list.filter_mode.objective.option.blacklist.name"
-msgstr "Ingen av følgende oppgaver er rapportert"
+msgstr ""
 
 msgid "setting.hooks.hook_list.filter_mode.reward.option.whitelist.name"
-msgstr "En av følgende premier er rapportert"
+msgstr ""
 
 msgid "setting.hooks.hook_list.filter_mode.reward.option.blacklist.name"
-msgstr "Ingen av følgende premier er rapportert"
+msgstr ""
 
 msgid "setting.hooks.hook_list.actions.name"
-msgstr "Hurtigvalg"
+msgstr ""
 
 msgid "setting.hooks.hook_list.actions.option.none"
-msgstr "(ikke gjør noe)"
+msgstr ""
 
 msgid "setting.hooks.hook_list.actions.option.enable"
-msgstr "Aktiver webhook"
+msgstr ""
 
 msgid "setting.hooks.hook_list.actions.option.disable"
-msgstr "Deaktiver webhook"
+msgstr ""
 
 msgid "setting.hooks.hook_list.actions.option.delete"
-msgstr "Slett webhook"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.tg.groups.select.name"
-msgstr "Målgruppe"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.webhook_url.option.current"
-msgstr "Gjeldende gruppe"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.webhook_url.option.other"
-msgstr "Andre grupper"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.webhook_url.option.select"
-msgstr "Velg gruppe..."
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.bot_token.name"
-msgstr "Bot-kode"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.name"
-msgstr "Tekstformat"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.option.txt"
-msgstr "Ren tekst"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.option.md"
-msgstr "Markdown"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.parse_mode.option.html"
-msgstr "HTML"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_web_page_preview.name"
-msgstr "Deaktiver forhåndsvisning"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_web_page_preview.label"
-msgstr "Deaktiver forhåndsvisning av linker postet av denne webhooken"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_notification.name"
-msgstr "Deaktiver varslinger"
+msgstr ""
 
 #  Telegram specific setting
 msgid "setting.hooks.hook_list.tg.disable_notification.label"
-msgstr "Ikke send varslinger for meldinger lagt ut av denne webhooken"
+msgstr ""
 
 msgid "setting.hooks.add.type.name"
-msgstr "Webhook-type"
-
-msgid "setting.hooks.add.type.option.json"
-msgstr "Post JSON"
+msgstr ""
 
 msgid "setting.hooks.add.type.option.telegram"
-msgstr "Send Telegram-melding"
+msgstr ""
 
 msgid "setting.hooks.add.preset.name"
-msgstr "Mal"
+msgstr ""
 
 msgid "setting.hooks.add.preset.option.none"
-msgstr "(ingen)"
+msgstr ""
 
 msgid "setting.updates.current.name"
-msgstr "Gjeldende versjon"
+msgstr ""
 
 msgid "setting.updates.current.desc"
-msgstr "Gjeldende versjon av FreeField."
+msgstr ""
 
 msgid "setting.updates.last_check.name"
-msgstr "Siste oppdateringssjekk"
+msgstr ""
 
 msgid "setting.updates.last_check.desc"
-msgstr "Sist FreeField så etter oppdateringer."
+msgstr ""
 
 msgid "setting.updates.next_check.name"
-msgstr "Neste planlagte sjekk"
+msgstr ""
 
 msgid "setting.updates.next_check.desc"
-msgstr "Neste gang FreeField planlegger å se etter oppdateringer."
+msgstr ""
 
 msgid "setting.updates.check_now.name"
-msgstr "Se etter oppdateringer manuelt"
+msgstr ""
 
 msgid "setting.updates.check_now.desc"
-msgstr "Ser etter oppdateringer umiddelbart."
+msgstr ""
 
 msgid "setting.updates.check_now.button"
-msgstr "Se etter oppdateringer"
+msgstr ""
 
 msgid "setting.updates.latest.name"
-msgstr "Siste versjon"
+msgstr ""
 
 msgid "setting.updates.latest.desc"
-msgstr "Siste tilgjengelige versjon av FreeField."
+msgstr ""
 
 msgid "setting.updates.type.name"
-msgstr "Utgivelsestype"
+msgstr ""
 
