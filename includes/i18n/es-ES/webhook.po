@@ -12,6 +12,30 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/webhook.po\n"
-"PO-Revision-Date: 2019-06-05 18:19\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/webhook.po\n"
+"PO-Revision-Date: 2019-06-05 22:25\n"
+
+msgid "webhook.report_title"
+msgstr ""
+
+msgid "webhook.poi"
+msgstr ""
+
+msgid "webhook.click_for_directions"
+msgstr ""
+
+msgid "webhook.objective"
+msgstr ""
+
+msgid "webhook.reward"
+msgstr ""
+
+#  %1 = Nickname of user who reported research
+msgid "webhook.reported_by"
+msgstr ""
+
+#  %1 = Research objective (e.g. "Make 3 Great Throws")
+#  %2 = Research reward (e.g. "1 Max Revive")
+msgid "webhook.x_for_y"
+msgstr ""
 
