@@ -12,9 +12,6 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/mobile.po\n"
-"PO-Revision-Date: 2019-05-31 02:14\n"
-
-msgid "mobile.pwa.connecting"
-msgstr "連線中"
+"X-Crowdin-File: /master/includes/i18n/es-ES/mobile.po\n"
+"PO-Revision-Date: 2019-06-05 18:19\n"
 
