@@ -12,30 +12,21 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/ui.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
+"X-Crowdin-File: /master/includes/i18n/es-ES/ui.po\n"
+"PO-Revision-Date: 2019-06-05 18:19\n"
 
 msgid "ui.button.close"
-msgstr "Cerrar"
+msgstr ""
 
 msgid "ui.button.cancel"
-msgstr "Cancelar"
+msgstr ""
 
 msgid "ui.button.select"
-msgstr "Seleccionar"
+msgstr ""
 
 msgid "ui.button.save"
-msgstr "Guardar ajustes"
-
-msgid "ui.button.done"
 msgstr ""
 
 msgid "ui.button.retry"
-msgstr "Inténtalo de nuevo"
-
-msgid "ui.dropdown.none_selected"
-msgstr ""
-
-msgid "ui.paginate.go_to"
 msgstr ""
 
