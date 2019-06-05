@@ -12,157 +12,157 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-06-03 13:17\n"
+"X-Crowdin-File: /master/includes/i18n/zh-TW/install.po\n"
+"PO-Revision-Date: 2019-06-05 18:19\n"
 
 msgid "install.button.continue"
-msgstr "Fortsett oppsett"
+msgstr ""
 
 msgid "install.button.finish"
-msgstr "Fullfør oppsett"
+msgstr ""
 
 msgid "install.button.retry"
-msgstr "Prøv igjen"
+msgstr ""
 
 msgid "install.operation.done"
-msgstr "Resultatet av operasjonen vises under."
+msgstr ""
 
 msgid "install.stage.1.title"
-msgstr "Trinn 1: Systemkontroll"
+msgstr ""
 
 msgid "install.stage.1.info"
-msgstr "Velkommen til FreeField! Denne guiden vil hjelpe deg med å installere FreeField på serveren din. Under vises noen grunnleggende kontroller av systemet."
+msgstr ""
 
 msgid "install.stage.1.assert.https"
-msgstr "Kryptert forbindelse (HTTPS) - kreves for posisjonering og PWA"
+msgstr ""
 
 msgid "install.stage.1.assert.root_writable"
-msgstr "Installasjonsmappe skrivbar - kreves for installasjon av oppdateringer"
+msgstr ""
 
 msgid "install.stage.1.assert.userdata_writable"
-msgstr "Brukerdatamappen skrivbar - kreves for kjernefunksjonalitet"
+msgstr ""
 
 msgid "install.stage.1.assert.curl_available"
-msgstr "cURL-utvidelse innlastet - kreves for innlogging og oppdateringer"
+msgstr ""
 
 msgid "install.stage.1.assert.gd_available"
-msgstr "gd-utvidelse innlastet - kreves for generering av QR-koder"
+msgstr ""
 
 msgid "install.stage.1.assert.openssl_available"
-msgstr "openssl-utvidelse innlastet - kreves for sikker lagring og sikring av økter"
+msgstr ""
 
 msgid "install.stage.1.assert.phar_available"
-msgstr "PharData tilgjengelig - kreves for oppdateringer"
+msgstr ""
 
 msgid "install.stage.1.checks"
-msgstr "Vennligst påse at alle kontrollene over er OK (grønn hake). FreeField vil fortsatt fungere selv om noen elementer feiler med et gult utropstegn, men noe funksjonalitet kan være utilgjengelig. FreeField vil ikke virke dersom noen av kontrollene over feiler med et rødt kryss. Hvis du ønsker å fikse noen av kontrollene over, gjør dette nå og last denne siden på nytt før du fortsetter."
+msgstr ""
 
 msgid "install.stage.1.next"
-msgstr "Når du har utført eventuelle endringer, klikk på knappen under for å fortsette til neste trinn for å skrive en konfigurasjonsfil."
+msgstr ""
 
 msgid "install.stage.2.title"
-msgstr "Trinn 2: Skriv konfigurasjonsfil"
+msgstr ""
 
 msgid "install.stage.2.assert.copy_templates"
-msgstr "Kopierte filvalg fra malfiler"
+msgstr ""
 
 msgid "install.stage.2.assert.authkeys_written"
-msgstr "Genererte sikkerhetsnøkler for sikker lagring"
+msgstr ""
 
 msgid "install.stage.2.assert.config_written"
-msgstr "Konfigurasjonsfil skrevet"
+msgstr ""
 
 msgid "install.stage.2.next"
-msgstr "Klikk på knappen under for å fortsette til databaseoppsett."
+msgstr ""
 
 msgid "install.stage.3.title"
-msgstr "Trinn 3: Databaseoppsett"
+msgstr ""
 
 msgid "install.stage.3.info"
-msgstr "Vennligst fyll inn følgende informasjon om databasen."
+msgstr ""
 
 msgid "install.stage.3.assert.valid_data"
-msgstr "Databaseinnstillingene er gyldige"
+msgstr ""
 
 msgid "install.stage.3.assert.config_written"
-msgstr "Konfigurasjonsfil oppdatert"
+msgstr ""
 
 msgid "install.stage.3.assert.db_connected"
-msgstr "Koblet til database"
+msgstr ""
 
 msgid "install.stage.3.assert.exec_sql"
-msgstr "Skrev databasestruktur"
+msgstr ""
 
 msgid "install.stage.3.assert.proceed_stage"
-msgstr "Trinn 3 fullført"
+msgstr ""
 
 msgid "install.stage.3.next"
-msgstr "Klikk på knappen under for å fortsette til innloggingsoppsett."
+msgstr ""
 
 msgid "install.stage.4.title"
-msgstr "Trinn 4: Innloggingsoppsett"
+msgstr ""
 
 msgid "install.stage.4.info"
-msgstr "Vennligst velg én eller flere tjenestetilbydere fra listen under, og konfigurer dem for å bruke dem til innlogging i FreeField. Referer til dokumentasjonen for mer informasjon om hvordan du setter opp hver enkelt tilbyder."
+msgstr ""
 
 msgid "install.stage.4.assert.valid_data"
-msgstr "Innloggingsinformasjonen er gyldig"
+msgstr ""
 
 msgid "install.stage.4.assert.config_written"
-msgstr "Konfigurasjonsfil oppdatert"
+msgstr ""
 
 msgid "install.stage.4.assert.any_enabled"
-msgstr "Minst én innloggingstilbyder er aktivert"
+msgstr ""
 
 msgid "install.stage.4.assert.proceed_stage"
-msgstr "Forberedte innloggingstest"
+msgstr ""
 
 msgid "install.stage.4.next"
-msgstr "Når du fortsetter, vil du bli bedt om å logge inn med en av innloggingstilbyderne du satte opp."
+msgstr ""
 
 msgid "install.stage.5.title"
-msgstr "Trinn 5: Kontroller innloggingsoppsett"
+msgstr ""
 
 msgid "install.stage.5.assert.auth_success"
-msgstr "Innlogging vellykket"
+msgstr ""
 
 msgid "install.stage.5.assert.user_created"
-msgstr "Registrerte bruker som administrator i databasen"
+msgstr ""
 
 msgid "install.stage.5.assert.config_written"
-msgstr "Konfigurasjonsfil oppdatert"
+msgstr ""
 
 msgid "install.stage.5.next"
-msgstr "Klikk på knappen under for å fortsette til kartoppsett."
+msgstr ""
 
 msgid "install.stage.6.title"
-msgstr "Trinn 6: Kartoppsett"
+msgstr ""
 
 msgid "install.stage.6.provider_info"
-msgstr "Vennligst velg en karttilbyder fra følgende liste over tilbydere."
+msgstr ""
 
 msgid "install.stage.6.disclaimer"
-msgstr "Advarsel! De fleste kartleverandører krever at du aksepterer tjenestevilkår og/eller andre juridiske kontrakter når du registrerer deg og bruker tjenestene deres. Du har det fulle ansvar for å sikre at du møter kravene satt av leverandøren du velger, og at bruken din av tjenestene deres gjennom FreeField er i samsvar med retningslinjene og lisensen du har underskrevet."
+msgstr ""
 
 msgid "install.stage.6.field_guide"
-msgstr "Vennligst skriv inn tilgangskode (access token) og/eller annen påkrevd informasjon for den valgte tilbyderen under. Du trenger bare å fylle inn felter som er relevante for tilbyderen du valgte over - alt annet kan være blankt."
+msgstr ""
 
 msgid "install.stage.6.default_info"
-msgstr "Velg et standard midtpunkt på kartet. Midtpunktet er posisjonen som kartet er sentrert på som standard, og bør være en sentral plassering i byen/området du ønsker å dekke i FreeField. Dersom du f.eks. setter opp FreeField for å dekke Oslo, burde du skrive inn koordinatene til et sentralt sted i Oslo."
+msgstr ""
 
 msgid "install.stage.6.assert.valid_data"
-msgstr "Kartinnstillingene er gyldige"
+msgstr ""
 
 msgid "install.stage.6.assert.config_written"
-msgstr "Konfigurasjonsfil oppdatert"
+msgstr ""
 
 msgid "install.stage.6.next"
-msgstr "Gratulerer! Du har fullført oppsettet av FreeField. Du kan nå fortsette til, og bruke, FreeField-installasjonen din. Når du trykker på knappen under vil du bli dirigert videre til administrasjonssidene. Fullfør oppsettet der, og tilpass programvaren slik du ønsker den."
+msgstr ""
 
 msgid "install.stage.6.post_install.head"
-msgstr "Advarsel!"
+msgstr ""
 
 #  %1 = <a href="">, %2 = </a>
 msgid "install.stage.6.post_install.body"
-msgstr "Det er fortsatt noen ting du burde stille inn før du gir andre tilgang til FreeField. Les nøye igjennom {%1}de siste oppsettstrinnene{%2} i dokumentasjonen før du fortsetter."
+msgstr ""
 
