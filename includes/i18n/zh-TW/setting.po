@@ -12,6 +12,1207 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/setting.po\n"
-"PO-Revision-Date: 2019-06-05 18:18\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
+"PO-Revision-Date: 2019-06-05 22:26\n"
+
+msgid "setting.site.uri.name"
+msgstr "安裝網址"
+
+msgid "setting.site.uri.desc"
+msgstr "FreeField基礎安裝位置"
+
+msgid "setting.site.name.name"
+msgstr "網站名稱"
+
+msgid "setting.site.name.desc"
+msgstr "此FreeField實例的名稱(如[城市名]FreeField)"
+
+msgid "setting.site.menu_header.name"
+msgstr "側邊欄頭部名稱"
+
+msgid "setting.site.menu_header.desc"
+msgstr "側邊菜單欄頂部的顯示文本。"
+
+msgid "setting.site.menu_image.name"
+msgstr "側邊欄圖像"
+
+msgid "setting.site.menu_image.desc"
+msgstr "用以代替側邊菜單欄頂部的文本顯示的圖片。允許使用*.png, *.gif, *.jpg, and *.svg格式的文件. 不能大於128 KB。"
+
+msgid "setting.site.header_style.name"
+msgstr "側邊欄頭部樣式"
+
+msgid "setting.site.header_style.desc"
+msgstr "選擇是否在側邊欄顯示文本或圖像。"
+
+msgid "setting.site.header_style.option.text"
+msgstr "顯示頂部文字"
+
+msgid "setting.site.header_style.option.image"
+msgstr "顯示頂部圖像(附帶背景色)"
+
+msgid "setting.site.header_style.option.image_plain"
+msgstr "顯示頂部圖像(無背景色)"
+
+msgid "setting.motd.display_mode.name"
+msgstr "顯示模式"
+
+msgid "setting.motd.display_mode.desc"
+msgstr "決定今日消息怎麽顯示。"
+
+msgid "setting.motd.display_mode.option.forced"
+msgstr "每一個頁面加載都顯示每日消息。"
+
+msgid "setting.motd.display_mode.option.always"
+msgstr "默認顯示，但允許用戶在下次更改之前將他關閉"
+
+msgid "setting.motd.display_mode.option.on_change"
+msgstr "僅當今日消息變更後顯示一次，在隨後的頁面中不再顯示"
+
+msgid "setting.motd.display_mode.option.on_request"
+msgstr "僅在用戶手動查看今日消息時顯示"
+
+msgid "setting.motd.display_mode.option.never"
+msgstr "完全關閉今日消息"
+
+msgid "setting.motd.title.name"
+msgstr "自定義消息標題"
+
+msgid "setting.motd.title.desc"
+msgstr "今日消息彈窗的標題。如果留空，默認為“今日消息”。"
+
+msgid "setting.motd.content.name"
+msgstr "消息内容"
+
+msgid "setting.motd.content.desc"
+msgstr "一則儅每個用戶打開FreeField都會顯示的消息彈窗，支持Markdown語法。"
+
+msgid "setting.spiders.robots_policy.name"
+msgstr "機器人協議"
+
+msgid "setting.spiders.robots_policy.desc"
+msgstr "聲明機器（例如檢索引擎和其他網頁抓取器）如何抓取和索引此站點。"
+
+msgid "setting.spiders.robots_policy.option.all"
+msgstr "允許所有索引和抓取(all)"
+
+msgid "setting.spiders.robots_policy.option.nofollow"
+msgstr "允許索引，但不允許追蹤頁面鏈接(nofollow)"
+
+msgid "setting.spiders.robots_policy.option.noindex"
+msgstr "拒絕索引，但可以追蹤頁面(noindex)"
+
+msgid "setting.spiders.robots_policy.option.noindex_nofollow"
+msgstr "拒絕所有索引和抓取(noindex,nofollow)"
+
+msgid "setting.database.type.name"
+msgstr "數據庫類型"
+
+msgid "setting.database.type.desc"
+msgstr "你用於連接數據庫的連接方式。"
+
+msgid "setting.database.type.option.mysql"
+msgstr ""
+
+msgid "setting.database.type.option.pgsql"
+msgstr ""
+
+msgid "setting.database.type.option.sqlite"
+msgstr ""
+
+msgid "setting.database.type.option.sqlite2"
+msgstr ""
+
+msgid "setting.database.type.option.sqlsrv"
+msgstr ""
+
+msgid "setting.database.type.option.4D"
+msgstr ""
+
+msgid "setting.database.type.option.oci"
+msgstr ""
+
+msgid "setting.database.type.option.cubrid"
+msgstr ""
+
+msgid "setting.database.type.option.sybase"
+msgstr ""
+
+msgid "setting.database.type.option.mssql"
+msgstr ""
+
+msgid "setting.database.type.option.dblib"
+msgstr ""
+
+msgid "setting.database.host.name"
+msgstr "主機名稱"
+
+msgid "setting.database.host.desc"
+msgstr "數據庫的hostname或IP地址。"
+
+msgid "setting.database.port.name"
+msgstr "端口（-1表示默認端口）"
+
+msgid "setting.database.port.desc"
+msgstr "用於連接數據庫的端口。默認端口則設爲-1。"
+
+msgid "setting.database.username.name"
+msgstr "用戶名"
+
+msgid "setting.database.username.desc"
+msgstr "登陸數據庫服務器的用戶名。"
+
+msgid "setting.database.password.name"
+msgstr "密碼"
+
+msgid "setting.database.password.desc"
+msgstr "用於登陸數據庫服務器的密碼。"
+
+msgid "setting.database.database.name"
+msgstr "數據庫"
+
+msgid "setting.database.database.desc"
+msgstr "FreeField寫入數據的數據庫名稱。"
+
+msgid "setting.database.table_prefix.name"
+msgstr "表前綴名"
+
+msgid "setting.database.table_prefix.desc"
+msgstr "一個FreeField用於所有表的前綴名，以防與其他表造成衝突。"
+
+msgid "setting.permissions.default_level.name"
+msgstr "默認用戶組"
+
+msgid "setting.permissions.default_level.desc"
+msgstr "默認分配給所有新注冊用戶的權限級別。"
+
+msgid "setting.permissions.level.self_manage.nickname.name"
+msgstr "修改你的昵稱"
+
+msgid "setting.permissions.level.self_manage.nickname.desc"
+msgstr "允許此級別或以上級別的用戶修改他們的昵稱。"
+
+msgid "setting.permissions.level.access.name"
+msgstr "查看地圖"
+
+msgid "setting.permissions.level.access.desc"
+msgstr "允許用戶查看FreeField地圖和寶可夢補給站列表。"
+
+msgid "setting.permissions.level.find_reporter.name"
+msgstr "識別任務上傳者"
+
+msgid "setting.permissions.level.find_reporter.desc"
+msgstr "展示給用戶每個寶可夢補給站最後的任務上傳者。"
+
+msgid "setting.permissions.level.report_research.name"
+msgstr "上傳田野調查"
+
+msgid "setting.permissions.level.report_research.desc"
+msgstr "允許此用戶在未擁有田野調查任務的寶可夢補給站上上傳田野調查信息。"
+
+msgid "setting.permissions.level.overwrite_research.name"
+msgstr "覆蓋田野調查信息"
+
+msgid "setting.permissions.level.overwrite_research.desc"
+msgstr "允許此用戶在所有寶可夢補給站上上傳田野調查任務，即使這個補給站已經有另一用戶在同一天上傳了任務内容。同樣需要“上傳田野調查”的許可。"
+
+msgid "setting.permissions.level.submit_poi.name"
+msgstr "提交寶可夢補給站"
+
+msgid "setting.permissions.level.submit_poi.desc"
+msgstr "允許此用戶在地圖上提交一個新的寶可夢補給站。"
+
+msgid "setting.permissions.level.personalization.icons.name"
+msgstr "自定義標記"
+
+msgid "setting.permissions.level.personalization.icons.desc"
+msgstr "允許此用戶選擇他們自定義的地圖標記集，而不是賬戶默認選項。"
+
+msgid "setting.permissions.level.personalization.species.name"
+msgstr "自定義寶可夢圖標"
+
+msgid "setting.permissions.level.personalization.species.desc"
+msgstr "允許此用戶選擇他們自定義的寶可夢圖標，而不是賬戶默認選項。"
+
+msgid "setting.permissions.level.admin.main.general.name"
+msgstr "網站設置管理"
+
+msgid "setting.permissions.level.admin.main.general.desc"
+msgstr "允許此用戶改變此網站的數據庫和安裝設定。"
+
+msgid "setting.permissions.level.admin.main.section.access.name"
+msgstr "訪問設置管理"
+
+msgid "setting.permissions.level.admin.main.section.access.desc"
+msgstr "允許此用戶改變訪問參數，如網站的鏈接。"
+
+msgid "setting.permissions.level.admin.main.section.instance.name"
+msgstr "管理實例選項"
+
+msgid "setting.permissions.level.admin.main.section.instance.desc"
+msgstr "允許此用戶改變此FreeField實例的核心參數選項，如網站名稱。"
+
+msgid "setting.permissions.level.admin.main.section.motd.name"
+msgstr "今日消息管理"
+
+msgid "setting.permissions.level.admin.main.section.motd.desc"
+msgstr "允許此用戶管理此FreeField實例的今日消息。"
+
+msgid "setting.permissions.level.admin.main.section.spiders.name"
+msgstr "爬取設置管理"
+
+msgid "setting.permissions.level.admin.main.section.spiders.desc"
+msgstr "允許此用戶更改網絡爬蟲的爬取設定。"
+
+msgid "setting.permissions.level.admin.main.section.database.name"
+msgstr "數據庫設置管理"
+
+msgid "setting.permissions.level.admin.main.section.database.desc"
+msgstr "允許此用戶改變數據庫設置。"
+
+msgid "setting.permissions.level.admin.users.general.name"
+msgstr "用戶管理"
+
+msgid "setting.permissions.level.admin.users.general.desc"
+msgstr "允許此用戶同意、拒絕、管理和刪除其他用戶的帳戶。"
+
+msgid "setting.permissions.level.admin.groups.general.name"
+msgstr "用戶組管理"
+
+msgid "setting.permissions.level.admin.groups.general.desc"
+msgstr "允許此用戶添加、移除和管理用戶組。"
+
+msgid "setting.permissions.level.admin.users.groups.name"
+msgstr "管理用戶組關係"
+
+msgid "setting.permissions.level.admin.users.groups.desc"
+msgstr "允許此用戶管理用戶組中用戶的關係，需要“用戶組管理”權限基礎。"
+
+msgid "setting.permissions.level.admin.groups.self_manage.name"
+msgstr "管理所屬用戶組"
+
+msgid "setting.permissions.level.admin.groups.self_manage.desc"
+msgstr "允許此用戶分配和移除其所屬用戶組下的其他用戶，以及管理他們的用戶權限。默認下，擁有此權限的用戶只可以分配用戶和管理其下的用戶組。此權限請謹慎分配！擁有此權限的用戶可以委派和刪除其他與其同級別的用戶。我們推薦將此處設定留為默認，除非你有一個很好的理由改變它。改權限需要“用戶組關係管理”權限爲基礎。"
+
+msgid "setting.permissions.level.admin.pois.general.name"
+msgstr "寶可夢補給站管理"
+
+msgid "setting.permissions.level.admin.pois.general.desc"
+msgstr "允許此用戶對已提交寶可夢補給站進行管理和刪除。"
+
+msgid "setting.permissions.level.admin.pois.import.name"
+msgstr "數據導入和導出"
+
+msgid "setting.permissions.level.admin.pois.import.desc"
+msgstr "允許此用戶對寶可夢補給站進行導入和導出。"
+
+msgid "setting.permissions.level.admin.perms.general.name"
+msgstr "權限管理"
+
+msgid "setting.permissions.level.admin.perms.general.desc"
+msgstr "允許此用戶改變此頁面上的權限設置。"
+
+msgid "setting.permissions.level.admin.perms.section.default.name"
+msgstr "設定默認用戶組"
+
+msgid "setting.permissions.level.admin.perms.section.default.desc"
+msgstr "允許此用戶改變新注冊成員所加入的默認用戶組。"
+
+msgid "setting.permissions.level.admin.perms.section.self_manage.name"
+msgstr "授予用戶賬戶自管理權限"
+
+msgid "setting.permissions.level.admin.perms.section.self_manage.desc"
+msgstr "允許此用戶管理其他用戶賬戶自管理的權限，如授予用戶更改自己昵稱的權限。"
+
+msgid "setting.permissions.level.admin.perms.section.map_access.name"
+msgstr "地圖訪問管理"
+
+msgid "setting.permissions.level.admin.perms.section.map_access.desc"
+msgstr "允許此用戶管理地圖訪問限制。"
+
+msgid "setting.permissions.level.admin.perms.section.personalization.name"
+msgstr "個性化限制管理"
+
+msgid "setting.permissions.level.admin.perms.section.personalization.desc"
+msgstr "允許此用戶管理個性化限制，如限制使用哪一種圖標集。"
+
+msgid "setting.permissions.level.admin.perms.section.admin.name"
+msgstr "管理員權限管理"
+
+msgid "setting.permissions.level.admin.perms.section.admin.desc"
+msgstr "允許此用戶管理管理員所屬權限（例如當前這條權限）。"
+
+msgid "setting.permissions.level.admin.security.general.name"
+msgstr "安全設置管理"
+
+msgid "setting.permissions.level.admin.security.general.desc"
+msgstr "允許此用戶改變網站的安全設置。"
+
+msgid "setting.permissions.level.admin.security.section.user_creation.name"
+msgstr "用戶審批設置"
+
+msgid "setting.permissions.level.admin.security.section.user_creation.desc"
+msgstr "允許此用戶改變有關用戶賬戶創建的設置。"
+
+msgid "setting.permissions.level.admin.security.section.sessions.name"
+msgstr "會話參數設置"
+
+msgid "setting.permissions.level.admin.security.section.sessions.desc"
+msgstr "允許此用戶改變會話安全設置。"
+
+msgid "setting.permissions.level.admin.security.section.outbound.name"
+msgstr "出站請求安全設置"
+
+msgid "setting.permissions.level.admin.security.section.outbound.desc"
+msgstr "允許此用戶改變有關HTTP出站請求的安全設置。"
+
+msgid "setting.permissions.level.admin.security.section.same_origin.name"
+msgstr "同源策略管理"
+
+msgid "setting.permissions.level.admin.security.section.same_origin.desc"
+msgstr "允許此用戶改變同源策略設置。"
+
+msgid "setting.permissions.level.admin.auth.general.name"
+msgstr "認證方式管理"
+
+msgid "setting.permissions.level.admin.auth.general.desc"
+msgstr "允許此用戶添加、設立、開啓和關閉不同的用於用戶登陸的身份認證提供商。"
+
+msgid "setting.permissions.level.admin.auth.section.discord.name"
+msgstr "Discord認證"
+
+msgid "setting.permissions.level.admin.auth.section.discord.desc"
+msgstr "允許此用戶改變Discord認證的設置。"
+
+msgid "setting.permissions.level.admin.auth.section.telegram.name"
+msgstr "Telegram認證"
+
+msgid "setting.permissions.level.admin.auth.section.telegram.desc"
+msgstr "允許此用戶改變Telegram認證的設置。"
+
+msgid "setting.permissions.level.admin.auth.section.reddit.name"
+msgstr "Reddit認證"
+
+msgid "setting.permissions.level.admin.auth.section.reddit.desc"
+msgstr "允許此用戶改變Reddit認證的設置。"
+
+msgid "setting.permissions.level.admin.auth.section.facebook.name"
+msgstr "Facebook認證"
+
+msgid "setting.permissions.level.admin.auth.section.facebook.desc"
+msgstr "允許此用戶改變Facebook認證的設置。"
+
+msgid "setting.permissions.level.admin.auth.section.line.name"
+msgstr "LINE認證"
+
+msgid "setting.permissions.level.admin.auth.section.line.desc"
+msgstr "允許此用戶改變LINE認證的設置。"
+
+msgid "setting.permissions.level.admin.auth.section.groupme.name"
+msgstr "GroupMe認證"
+
+msgid "setting.permissions.level.admin.auth.section.groupme.desc"
+msgstr "允許此用戶改變GroupMe認證的設置。"
+
+msgid "setting.permissions.level.admin.mobile.general.name"
+msgstr "移動端設置管理"
+
+msgid "setting.permissions.level.admin.mobile.general.desc"
+msgstr "允許此用戶管理當前FreeField實例的移動端顯示設置。"
+
+msgid "setting.permissions.level.admin.mobile.section.pwa.name"
+msgstr "PWA設置管理"
+
+msgid "setting.permissions.level.admin.mobile.section.pwa.desc"
+msgstr "允許此用戶改變用於移動端的Progressive Web App manifest。"
+
+msgid "setting.permissions.level.admin.themes.general.name"
+msgstr "默認外觀管理"
+
+msgid "setting.permissions.level.admin.themes.general.desc"
+msgstr "允許此用戶管理全站範圍内的默認外觀。"
+
+msgid "setting.permissions.level.admin.themes.section.meta.name"
+msgstr "元數據管理"
+
+msgid "setting.permissions.level.admin.themes.section.meta.desc"
+msgstr "允許此用戶更改頁面元數據主題，如用於移動瀏覽器上的圖標和主題顔色。"
+
+msgid "setting.permissions.level.admin.themes.section.color.name"
+msgstr "主題管理"
+
+msgid "setting.permissions.level.admin.themes.section.color.desc"
+msgstr "允許此用戶改變默認地圖和頁面主題顔色，以及是否允許覆蓋這些默認設置。"
+
+msgid "setting.permissions.level.admin.themes.section.icons.name"
+msgstr "地圖標識管理"
+
+msgid "setting.permissions.level.admin.themes.section.icons.desc"
+msgstr "允許此用戶改變默認地圖標識集，以及是否允許覆蓋此默認值。"
+
+msgid "setting.permissions.level.admin.map.general.name"
+msgstr "地圖設置管理"
+
+msgid "setting.permissions.level.admin.map.general.desc"
+msgstr "允許此用戶管理地圖提供商和地圖默認設置。"
+
+msgid "setting.permissions.level.admin.map.section.provider.name"
+msgstr "改變地圖提供商"
+
+msgid "setting.permissions.level.admin.map.section.provider.desc"
+msgstr "允許此用戶改變和配置當前FreeField實例使用哪個地圖提供商。"
+
+msgid "setting.permissions.level.admin.map.section.default.name"
+msgstr "改變地圖默認設置"
+
+msgid "setting.permissions.level.admin.map.section.default.desc"
+msgstr "允許此用戶改變地圖默認設置，如默認坐標和用戶首次訪問的縮放級別。"
+
+msgid "setting.permissions.level.admin.map.section.updates.name"
+msgstr "客戶端更新管理"
+
+msgid "setting.permissions.level.admin.map.section.updates.desc"
+msgstr "允許此用戶改變每個FreeField客戶端對所有補給站請求調查任務列表更新的間隔。"
+
+msgid "setting.permissions.level.admin.map.section.geofence.name"
+msgstr "主要地理圍欄管理"
+
+msgid "setting.permissions.level.admin.map.section.geofence.desc"
+msgstr "允許此用戶改變地理圍欄和與之相關的寶可夢補給站的提交和顯示。"
+
+msgid "setting.permissions.level.admin.fences.general.name"
+msgstr "地理圍欄管理"
+
+msgid "setting.permissions.level.admin.fences.general.desc"
+msgstr "允許此用戶管理地理圍欄。"
+
+msgid "setting.permissions.level.admin.hooks.general.name"
+msgstr "鈎子管理"
+
+msgid "setting.permissions.level.admin.hooks.general.desc"
+msgstr "允許此用戶管理鈎子集成。"
+
+msgid "setting.permissions.level.admin.api.general.name"
+msgstr "接口訪問管理"
+
+msgid "setting.permissions.level.admin.api.general.desc"
+msgstr "允許此用戶對FreeField接入的API客戶端進行設置和管理。"
+
+msgid "setting.permissions.level.admin.updates.general.name"
+msgstr "安裝更新"
+
+msgid "setting.permissions.level.admin.updates.general.desc"
+msgstr "允許此用戶更新當前FreeField實例。"
+
+msgid "setting.security.approval.require.name"
+msgstr "需要手動批准"
+
+msgid "setting.security.approval.require.desc"
+msgstr "如果啓用此功能，新建用戶必須經過管理員同意才能使用FreeField。"
+
+msgid "setting.security.approval.require.label"
+msgstr "人工驗證新賬戶"
+
+msgid "setting.security.approval.by_qr.name"
+msgstr "出示審批二維碼"
+
+msgid "setting.security.approval.by_qr.desc"
+msgstr "如果啓用此功能，待審核的用戶將會的得到一個二維碼，可用於提供給管理員。管理員通過掃描此二維碼可迅速對用戶進行審批。這個功能需要服務器PHP加載了擴展。"
+
+msgid "setting.security.approval.by_qr.label"
+msgstr "生成二維碼供快速審批"
+
+msgid "setting.auth.session_length.name"
+msgstr "會話持續時長"
+
+msgid "setting.auth.session_length.desc"
+msgstr "當用戶認證登入后，會保持登入狀態多久。"
+
+msgid "setting.auth.session_length.option.86400"
+msgstr "1天"
+
+msgid "setting.auth.session_length.option.604800"
+msgstr "7天"
+
+msgid "setting.auth.session_length.option.2592000"
+msgstr "30天"
+
+msgid "setting.auth.session_length.option.7776000"
+msgstr "90天"
+
+msgid "setting.auth.session_length.option.15811200"
+msgstr "6 個月"
+
+msgid "setting.auth.session_length.option.31536000"
+msgstr "1 年"
+
+msgid "setting.auth.session_length.option.63072000"
+msgstr "2 年"
+
+msgid "setting.auth.session_length.option.157766400"
+msgstr "5 年"
+
+msgid "setting.auth.session_length.option.315619200"
+msgstr "10 年"
+
+msgid "setting.security.validate_ua.name"
+msgstr "用戶代理驗證"
+
+msgid "setting.security.validate_ua.desc"
+msgstr "將每個登陸會話都限制於創建此會話的瀏覽器。建議啓用此功能以防止發生會話劫持，因爲在非創建會話瀏覽器中使用會話幾乎都是惡意應用。如果將此選項設爲嚴格的，當你的瀏覽器進行更新時，你會被强制登出，這和設爲寬鬆的相比不會提升什麽安全性，所以不建議此處設爲嚴格的。"
+
+msgid "setting.security.validate_ua.option.no"
+msgstr "禁用"
+
+msgid "setting.security.validate_ua.option.lenient"
+msgstr "寬鬆(忽略瀏覽器版本)"
+
+msgid "setting.security.validate_ua.option.strict"
+msgstr "嚴格(强制要求瀏覽器版本)"
+
+msgid "setting.security.validate_lang.name"
+msgstr "瀏覽器語言驗證"
+
+msgid "setting.security.validate_lang.desc"
+msgstr "當你每次使用時，要求每個登陸會話都維持相同的瀏覽器語言。如果用戶更改他們的瀏覽器或設備語言，這將使用戶的會話無效。啓用此功能有助於防止一些惡意使用者使用相同的用戶代理的會話劫持，因爲當國家語言不同時，惡意使用者將不能登入。"
+
+msgid "setting.security.validate_lang.label"
+msgstr "强制瀏覽器語言驗證"
+
+msgid "setting.security.selector_canary.name"
+msgstr "會話劫持金絲雀版"
+
+msgid "setting.security.selector_canary.desc"
+msgstr "當用戶的以上任何驗證需求失敗時，會話劫持金絲雀會被觸發。雖然這不一定是會話劫持造成的，也有可能是一些合法的原因，如在你瀏覽器策略為嚴格時，瀏覽器更新導致用戶驗證失敗。如果其中一個驗證失敗，啓用金絲雀會導致用戶在其所有設備上注銷FreeField。在實際中，這意味著即使劫持者獲得用戶的會話cookies，如果他們因錯誤瀏覽器語言等原因導致驗證錯誤，cookies會完全失效。即使此後他們才對了用戶語言，也無法登入賬戶。"
+
+msgid "setting.security.selector_canary.label"
+msgstr "在會話驗證失敗時，要求用戶在所有設備中重新驗證"
+
+msgid "setting.security.curl.verify_certificates.name"
+msgstr "證書驗證"
+
+msgid "setting.security.curl.verify_certificates.desc"
+msgstr "金庸證書驗證可能會解決如鈎子無法工作之類的問題，但是在執行出站請求時，無法對中間人攻擊進行防禦。"
+
+msgid "setting.security.curl.verify_certificates.label"
+msgstr "出站請求驗證SSL/TLS證書"
+
+msgid "setting.security.curl.cacert_path.name"
+msgstr "驗證(cacert.pem)文件"
+
+msgid "setting.security.curl.cacert_path.desc"
+msgstr "指向服務器上證書頒發機構文件位置的路徑，用於驗證出站HTTPS連接。"
+
+msgid "setting.security.frame_options.name"
+msgstr "框架選項"
+
+msgid "setting.security.frame_options.desc"
+msgstr "這個設置聲明了此FreeField實例的框架政策。允許分框意味著其他站點可以使用iframe或者framesets將你的FreeField插入他們的網站中。建議將其保留為默認的“deny”設置，除非你有充分的理由啓用它。"
+
+msgid "setting.security.frame_options.option.allow"
+msgstr "允許此站點被插入道其他網站中"
+
+msgid "setting.security.frame_options.option.sameorigin"
+msgstr "僅允許被插入到同源網站中"
+
+msgid "setting.security.frame_options.option.deny"
+msgstr "不允許在任何地方被插入"
+
+msgid "setting.auth.provider.discord.enabled.name"
+msgstr "允許Discord認證"
+
+msgid "setting.auth.provider.discord.enabled.desc"
+msgstr "開啓Discord登陸認證"
+
+msgid "setting.auth.provider.discord.enabled.label"
+msgstr "開啓Discord認證"
+
+msgid "setting.auth.provider.discord.client_id.name"
+msgstr "客戶端ID"
+
+msgid "setting.auth.provider.discord.client_id.desc"
+msgstr "你的Discord API 應用客戶端ID。"
+
+msgid "setting.auth.provider.discord.client_secret.name"
+msgstr "客戶端密鑰"
+
+msgid "setting.auth.provider.discord.client_secret.desc"
+msgstr "你的Discord API 應用客戶端密鑰。"
+
+msgid "setting.auth.provider.telegram.enabled.name"
+msgstr "允許Telegram認證"
+
+msgid "setting.auth.provider.telegram.enabled.desc"
+msgstr "開啓Telegram登陸認證"
+
+msgid "setting.auth.provider.telegram.enabled.label"
+msgstr "開啓Telegram認證"
+
+msgid "setting.auth.provider.telegram.bot_username.name"
+msgstr "Bot用戶名"
+
+msgid "setting.auth.provider.telegram.bot_username.desc"
+msgstr "你的Telegram bot用戶名"
+
+msgid "setting.auth.provider.telegram.bot_token.name"
+msgstr "Bot token"
+
+msgid "setting.auth.provider.telegram.bot_token.desc"
+msgstr "Telegram中BotFather分配給你的bot token。"
+
+msgid "setting.auth.provider.reddit.enabled.name"
+msgstr "允許Reddit認證"
+
+msgid "setting.auth.provider.reddit.enabled.desc"
+msgstr "開啓Reddit登陸認證"
+
+msgid "setting.auth.provider.reddit.enabled.label"
+msgstr "開啓Reddit認證"
+
+msgid "setting.auth.provider.reddit.client_id.name"
+msgstr "客戶端ID"
+
+msgid "setting.auth.provider.reddit.client_id.desc"
+msgstr "你的Reddit API 應用客戶端ID。"
+
+msgid "setting.auth.provider.reddit.client_secret.name"
+msgstr "客戶端密鑰"
+
+msgid "setting.auth.provider.reddit.client_secret.desc"
+msgstr "你的Reddit API 應用客戶端密鑰。"
+
+msgid "setting.auth.provider.facebook.enabled.name"
+msgstr "允許Facebook認證"
+
+msgid "setting.auth.provider.facebook.enabled.desc"
+msgstr "開啓Facebook登陸認證"
+
+msgid "setting.auth.provider.facebook.enabled.label"
+msgstr "開啓Facebook認證"
+
+msgid "setting.auth.provider.facebook.app_id.name"
+msgstr "App ID"
+
+msgid "setting.auth.provider.facebook.app_id.desc"
+msgstr "你的Facebook API 應用app ID。"
+
+msgid "setting.auth.provider.facebook.app_secret.name"
+msgstr "App密鑰"
+
+msgid "setting.auth.provider.facebook.app_secret.desc"
+msgstr "你的Facebook API 應用app密鑰。"
+
+msgid "setting.auth.provider.line.enabled.name"
+msgstr "允許LINE認證"
+
+msgid "setting.auth.provider.line.enabled.desc"
+msgstr "開啓LINE登陸認證"
+
+msgid "setting.auth.provider.line.enabled.label"
+msgstr "開啓LINE認證"
+
+msgid "setting.auth.provider.line.channel_id.name"
+msgstr ""
+
+msgid "setting.auth.provider.line.channel_id.desc"
+msgstr "你的LINE登陸應用channel ID。"
+
+msgid "setting.auth.provider.line.channel_secret.name"
+msgstr "Channel密鑰"
+
+msgid "setting.auth.provider.line.channel_secret.desc"
+msgstr "你的LINE登陸應用channel密鑰。"
+
+msgid "setting.auth.provider.groupme.enabled.name"
+msgstr "允許GroupMe認證"
+
+msgid "setting.auth.provider.groupme.enabled.desc"
+msgstr "開啓GroupMe登陸認證"
+
+msgid "setting.auth.provider.groupme.enabled.label"
+msgstr "開啓GroupMe認證"
+
+msgid "setting.auth.provider.groupme.client_id.name"
+msgstr "客戶端ID"
+
+msgid "setting.auth.provider.groupme.client_id.desc"
+msgstr "你的GroupMe API 應用客戶端ID。"
+
+msgid "setting.mobile.pwa.enabled.name"
+msgstr "開啓PWA"
+
+msgid "setting.mobile.pwa.enabled.desc"
+msgstr "是否應該啓用Progressive Web App功能。"
+
+msgid "setting.mobile.pwa.enabled.label"
+msgstr "開啓Progressive Web App功能"
+
+msgid "setting.mobile.pwa.name.name"
+msgstr "名稱"
+
+msgid "setting.mobile.pwa.name.desc"
+msgstr "顯示給用戶一個可讀的網站名稱。"
+
+msgid "setting.mobile.pwa.short_name.name"
+msgstr "简称"
+
+msgid "setting.mobile.pwa.short_name.desc"
+msgstr "一個可讀的應用簡稱。用於沒有空間顯示上面全稱時。"
+
+msgid "setting.mobile.pwa.description.name"
+msgstr "說明"
+
+msgid "setting.mobile.pwa.description.desc"
+msgstr "一份對FreeField做了什麽的一般説明。"
+
+msgid "setting.mobile.pwa.display.name"
+msgstr "顯示模式"
+
+msgid "setting.mobile.pwa.display.desc"
+msgstr "網站最完美的顯示模式。"
+
+msgid "setting.mobile.pwa.display.option.fullscreen"
+msgstr "全屏"
+
+msgid "setting.mobile.pwa.display.option.standalone"
+msgstr "獨立應用程序"
+
+msgid "setting.mobile.pwa.display.option.minimal_ui"
+msgstr "帶瀏覽器導航控件的獨立應用程序"
+
+msgid "setting.mobile.pwa.display.option.browser"
+msgstr "傳統瀏覽器窗口"
+
+msgid "setting.mobile.pwa.icon.192px.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.192px.desc"
+msgstr "這個圖標被用作PWA的小圖標。接受*.png, *.gif, and *.jpg格式的圖片，必須小於64KiB。上傳的圖片應為準確的192x192 px。"
+
+msgid "setting.mobile.pwa.icon.512px.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.512px.desc"
+msgstr "這個圖標被用作PWA的大圖標。接受*.png, *.gif, and *.jpg格式的圖片，必須小於256KiB。上傳的圖片應為準確的512x512 px。"
+
+msgid "setting.mobile.pwa.icon.launch.name"
+msgstr "App icon (加載界面)"
+
+msgid "setting.mobile.pwa.icon.launch.desc"
+msgstr "這個圖標被用作PWA加載時的大圖標。接受*.png, *.gif, and *.jpg格式的圖片，必須小於256KiB。"
+
+msgid "setting.mobile.pwa.color.background.name"
+msgstr "背景顏色"
+
+msgid "setting.mobile.pwa.color.background.desc"
+msgstr "Web app啓動屏幕的背景顏色。"
+
+msgid "setting.mobile.pwa.color.foreground.name"
+msgstr "前景顔色"
+
+msgid "setting.mobile.pwa.color.foreground.desc"
+msgstr "Web app啓動屏幕的前景顔色。"
+
+msgid "setting.themes.meta.favicon.name"
+msgstr "網站圖標"
+
+msgid "setting.themes.meta.favicon.desc"
+msgstr "顯示在地址欄的網站圖標。接受*.png, *.gif, *.ico, and *.jpg格式的圖片，必須小於256KiB。"
+
+msgid "setting.themes.meta.color.name"
+msgstr "標題欄主題顔色"
+
+msgid "setting.themes.meta.color.desc"
+msgstr "移動端瀏覽器標題欄和地址欄中顯示的顔色。"
+
+msgid "setting.themes.color.site.name"
+msgstr "網站主題顔色"
+
+msgid "setting.themes.color.site.desc"
+msgstr "全站的主題顔色，如用於側邊欄。"
+
+msgid "setting.themes.color.admin.name"
+msgstr "管理界面"
+
+msgid "setting.themes.color.admin.desc"
+msgstr "選擇管理界面的顔色主題。"
+
+msgid "setting.themes.color.admin.option.light"
+msgstr "亮色"
+
+msgid "setting.themes.color.admin.option.dark"
+msgstr "暗色"
+
+msgid "setting.themes.color.user_settings.theme.name"
+msgstr "用戶設置頁面默認值"
+
+msgid "setting.themes.color.user_settings.theme.desc"
+msgstr "選擇用戶設置頁面的默認顔色主題。"
+
+msgid "setting.themes.color.user_settings.theme.option.light"
+msgstr "亮色"
+
+msgid "setting.themes.color.user_settings.theme.option.dark"
+msgstr "暗色"
+
+msgid "setting.themes.color.user_settings.allow_personalization.name"
+msgstr "設置定制化"
+
+msgid "setting.themes.color.user_settings.allow_personalization.desc"
+msgstr "是否允許用戶使用他們自己的設置頁面顔色主題替代默認顔色主題。"
+
+msgid "setting.themes.color.user_settings.allow_personalization.label"
+msgstr "允許用戶選擇另一用戶設置頁面顔色主題。"
+
+msgid "setting.themes.color.map.theme.mapbox.name"
+msgstr "默認MapBox主題"
+
+msgid "setting.themes.color.map.theme.mapbox.desc"
+msgstr "選擇地圖默認顔色主題。"
+
+msgid "setting.themes.color.map.theme.mapbox.option.basic"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.streets"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.bright"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.light"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.dark"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.satellite"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.name"
+msgstr "默認Thunderforest主題"
+
+msgid "setting.themes.color.map.theme.thunderforest.desc"
+msgstr "選擇地圖默認顔色主題。"
+
+msgid "setting.themes.color.map.theme.thunderforest.option.cycle"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.transport"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.landscape"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.outdoors"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.transport_dark"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.spinal_map"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.pioneer"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.mobile_atlas"
+msgstr "移動端地圖"
+
+msgid "setting.themes.color.map.theme.thunderforest.option.neighbourhood"
+msgstr "周圍"
+
+msgid "setting.themes.color.map.allow_personalization.name"
+msgstr "定制化地圖"
+
+msgid "setting.themes.color.map.allow_personalization.desc"
+msgstr "是否允許用戶使用他們自己的地圖顔色主題替代默認顔色主題。"
+
+msgid "setting.themes.color.map.allow_personalization.label"
+msgstr "是否允許用戶選擇另一地圖顔色主題"
+
+msgid "setting.themes.icons.default.name"
+msgstr "默認地圖標識集"
+
+msgid "setting.themes.icons.default.desc"
+msgstr "選擇默認地圖標識的樣式。"
+
+msgid "setting.themes.species.default.name"
+msgstr "默認寶可夢圖標集"
+
+msgid "setting.themes.species.default.desc"
+msgstr "選擇默認寶可夢圖標的樣式。"
+
+msgid "setting.map.provider.source.name"
+msgstr "地圖來源"
+
+msgid "setting.map.provider.source.desc"
+msgstr "選擇使用哪一個地圖提供商。"
+
+msgid "setting.map.provider.source.option.mapbox"
+msgstr ""
+
+msgid "setting.map.provider.source.option.thunderforest"
+msgstr ""
+
+msgid "setting.map.provider.mapbox.access_token.name"
+msgstr ""
+
+msgid "setting.map.provider.mapbox.access_token.desc"
+msgstr "從Mapbox獲得的access token。"
+
+msgid "setting.map.provider.thunderforest.api_key.name"
+msgstr ""
+
+msgid "setting.map.provider.thunderforest.api_key.desc"
+msgstr "從Thunderforest獲得的API key。"
+
+msgid "setting.map.provider.directions.name"
+msgstr "默認導航提供商"
+
+msgid "setting.map.provider.directions.desc"
+msgstr "當用戶請求查找到某個寶可夢補給站的路綫導航時，選擇默認的導航提供商。"
+
+msgid "setting.map.provider.directions.option.baidu"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.bing"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.google"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.here"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.mapquest"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.waze"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.yandex"
+msgstr ""
+
+msgid "setting.map.default.center.latitude.name"
+msgstr "緯度"
+
+msgid "setting.map.default.center.latitude.desc"
+msgstr "默認坐標的緯度部分，用戶在加載地圖是將其居中。"
+
+msgid "setting.map.default.center.longitude.name"
+msgstr "經度"
+
+msgid "setting.map.default.center.longitude.desc"
+msgstr "默認坐標的經度部分，用戶在加載地圖是將其居中。"
+
+msgid "setting.map.default.zoom.name"
+msgstr "縮放大小"
+
+msgid "setting.map.default.zoom.desc"
+msgstr "地圖默認縮放大小"
+
+msgid "setting.map.default.marker_component.name"
+msgstr "任務標識顯示內容"
+
+msgid "setting.map.default.marker_component.desc"
+msgstr "地圖標識使用的默認調查任務組件。"
+
+msgid "setting.map.default.marker_component.option.objective"
+msgstr "任務"
+
+msgid "setting.map.default.marker_component.option.reward"
+msgstr "獎勵"
+
+msgid "setting.map.default.cluster_limit.name"
+msgstr "最大可見標識數"
+
+msgid "setting.map.default.cluster_limit.desc"
+msgstr "默認地圖上可顯示的最大寶可夢補給站數量。降低這個數量可以減少使用設備的壓力，提升縮放時的體驗。但如果補給站過於集中，部分任務可能無法顯示。請仔細閲讀文檔中的玩家FAQ部分獲取更多信息。"
+
+msgid "setting.map.updates.refresh_interval.name"
+msgstr "客戶端刷新間隔"
+
+msgid "setting.map.updates.refresh_interval.desc"
+msgstr ""
+
+msgid "setting.map.updates.tz.name"
+msgstr "時區"
+
+msgid "setting.map.updates.tz.desc"
+msgstr "時區用於確定午夜時間，即調查任務的重置時間。"
+
+msgid "setting.map.geofence.geofence.name"
+msgstr "寶可夢補給站地理圍欄"
+
+msgid "setting.map.geofence.geofence.desc"
+msgstr "在指定的地理範圍内限制新寶可夢補給站的提交。如不指定，將會禁用地理圍欄，並允許在全球範圍内提交新的寶可夢補給站以及在補給站中提交調查任務。"
+
+msgid "setting.map.geofence.hide_outside.name"
+msgstr "界外寶可夢補給站"
+
+msgid "setting.map.geofence.hide_outside.desc"
+msgstr "是否從地圖上隱藏在所選地理圍欄外的寶可夢補給站。"
+
+msgid "setting.map.geofence.hide_outside.label"
+msgstr "隱藏所有在所選地理圍欄外的寶可夢補給站"
+
+msgid "setting.hooks.hook_list.webhook_url.name"
+msgstr "鈎子URL"
+
+msgid "setting.hooks.hook_list.language.name"
+msgstr "語言"
+
+msgid "setting.hooks.hook_list.icons.name"
+msgstr "圖標集"
+
+msgid "setting.hooks.hook_list.icons.option.default"
+msgstr "默認地圖標識圖標"
+
+msgid "setting.hooks.hook_list.show_species.name"
+msgstr "顯示寶可夢的圖標"
+
+msgid "setting.hooks.hook_list.show_species.label"
+msgstr "當可用時，使用寶可夢作爲任務獎勵圖標"
+
+msgid "setting.hooks.hook_list.species.name"
+msgstr "寶可夢圖標"
+
+msgid "setting.hooks.hook_list.species.option.default"
+msgstr "默認寶可夢圖標集"
+
+msgid "setting.hooks.hook_list.geofence.name"
+msgstr "地理圍欄"
+
+msgid "setting.hooks.hook_list.filter_mode.name"
+msgstr "觸發鈎子僅當"
+
+msgid "setting.hooks.hook_list.filter_mode.objective.option.whitelist.name"
+msgstr "當以下的一種任務内容被提交時"
+
+msgid "setting.hooks.hook_list.filter_mode.objective.option.blacklist.name"
+msgstr "當以下所有的任務内容都沒有被提交時"
+
+msgid "setting.hooks.hook_list.filter_mode.reward.option.whitelist.name"
+msgstr "當以下的一種獎勵内容被提交時"
+
+msgid "setting.hooks.hook_list.filter_mode.reward.option.blacklist.name"
+msgstr "當以下所有的獎勵内容都沒有被提交時"
+
+msgid "setting.hooks.hook_list.actions.name"
+msgstr "快速行動"
+
+msgid "setting.hooks.hook_list.actions.option.none"
+msgstr "(不採取行動)"
+
+msgid "setting.hooks.hook_list.actions.option.enable"
+msgstr "啓用鈎子"
+
+msgid "setting.hooks.hook_list.actions.option.disable"
+msgstr "停用鈎子"
+
+msgid "setting.hooks.hook_list.actions.option.delete"
+msgstr "刪除鈎子"
+
+#  Telegram specific setting
+msgid "setting.hooks.tg.groups.select.name"
+msgstr "目標用戶組"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.webhook_url.option.current"
+msgstr "當前用戶組"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.webhook_url.option.other"
+msgstr "其他用戶組"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.webhook_url.option.select"
+msgstr "選擇用戶組..."
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.bot_token.name"
+msgstr "Bot token"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.name"
+msgstr "解析模式"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.option.txt"
+msgstr "純文本"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.option.md"
+msgstr "Markdown"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.option.html"
+msgstr "HTML"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_web_page_preview.name"
+msgstr "停用網絡預覽"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_web_page_preview.label"
+msgstr "停止為來自此鈎子的推送消息預覽鏈接"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_notification.name"
+msgstr "停用通知"
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_notification.label"
+msgstr "不爲來自此鈎子的推送消息發送通知"
+
+msgid "setting.hooks.add.type.name"
+msgstr "鈎子類型"
+
+msgid "setting.hooks.add.type.option.json"
+msgstr ""
+
+msgid "setting.hooks.add.type.option.telegram"
+msgstr "發送Telegram消息"
+
+msgid "setting.hooks.add.preset.name"
+msgstr "預設"
+
+msgid "setting.hooks.add.preset.option.none"
+msgstr "(無)"
+
+msgid "setting.updates.current.name"
+msgstr "目前版本"
+
+msgid "setting.updates.current.desc"
+msgstr "FreeField目前版本"
+
+msgid "setting.updates.last_check.name"
+msgstr "上次檢查更新"
+
+msgid "setting.updates.last_check.desc"
+msgstr "上次檢查FreeField更新時間"
+
+msgid "setting.updates.next_check.name"
+msgstr "下次檢查更新計劃"
+
+msgid "setting.updates.next_check.desc"
+msgstr "下次檢查FreeField更新時間"
+
+msgid "setting.updates.check_now.name"
+msgstr "手動檢查更新"
+
+msgid "setting.updates.check_now.desc"
+msgstr "即時檢查更新。"
+
+msgid "setting.updates.check_now.button"
+msgstr "即刻檢查更新"
+
+msgid "setting.updates.latest.name"
+msgstr "最新版本"
+
+msgid "setting.updates.latest.desc"
+msgstr "FreeField可用的最新版本。"
+
+msgid "setting.updates.type.name"
+msgstr "發佈類型"
 
