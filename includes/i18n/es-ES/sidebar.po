@@ -12,6 +12,87 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/sidebar.po\n"
-"PO-Revision-Date: 2019-06-05 18:19\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/sidebar.po\n"
+"PO-Revision-Date: 2019-06-05 22:25\n"
+
+msgid "sidebar.signed_in_as"
+msgstr ""
+
+msgid "sidebar.approval_pending"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.logout"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.login"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.show_motd"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.return"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.add_poi"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.filters"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.search"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.settings"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.manage_site"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.label"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.auto"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.device"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.language.select"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.reset"
+msgstr ""
+
+#  Please keep this string short - ensure that it does not exceeed the width of
+#  the sidebar!
+msgid "sidebar.cancel"
+msgstr ""
 
