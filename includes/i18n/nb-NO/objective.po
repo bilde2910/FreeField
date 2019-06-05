@@ -12,6 +12,312 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
-"X-Crowdin-File: /master/includes/i18n/nb-NO/objective.po\n"
-"PO-Revision-Date: 2019-06-05 18:36\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/objective.po\n"
+"PO-Revision-Date: 2019-06-05 22:25\n"
+
+msgid "objective.battle_gym.singular"
+msgstr ""
+
+#  %1 = Number of battles
+msgid "objective.battle_gym.plural"
+msgstr ""
+
+msgid "objective.win_gym.singular"
+msgstr ""
+
+#  %1 = Number of battles
+msgid "objective.win_gym.plural"
+msgstr ""
+
+msgid "objective.battle_raid.singular"
+msgstr ""
+
+#  %1 = Number of raids
+msgid "objective.battle_raid.plural"
+msgstr ""
+
+msgid "objective.win_raid.singular"
+msgstr ""
+
+#  %1 = Number of raids
+msgid "objective.win_raid.plural"
+msgstr ""
+
+#  %1 = Raid tier
+msgid "objective.level_raid.singular"
+msgstr ""
+
+#  %1 = Raid tier, %2 = Number of raids
+msgid "objective.level_raid.plural"
+msgstr ""
+
+msgid "objective.se_charge.singular"
+msgstr ""
+
+#  %1 = Number of battles
+msgid "objective.se_charge.plural"
+msgstr ""
+
+msgid "objective.catch.singular"
+msgstr ""
+
+#  %1 = Number of catches
+msgid "objective.catch.plural"
+msgstr ""
+
+msgid "objective.catch_weather.singular"
+msgstr ""
+
+#  %1 = Number of catches
+msgid "objective.catch_weather.plural"
+msgstr ""
+
+#  %1 = Type(s) of catch ("Ice-type", "Fire or Ground-type", etc.)
+msgid "objective.catch_type.singular"
+msgstr ""
+
+#  %1 = Type(s) of catch ("Ice-type", "Fire or Ground-type", etc.),
+#  %2 = Number of catches
+msgid "objective.catch_type.plural"
+msgstr ""
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.)
+msgid "objective.catch_specific.singular"
+msgstr ""
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.), %2 = Number of catches
+msgid "objective.catch_specific.plural"
+msgstr ""
+
+msgid "objective.catch_daily.singular"
+msgstr ""
+
+#  %1 = Number of days in a row
+msgid "objective.catch_daily.plural"
+msgstr ""
+
+msgid "objective.use_berry.singular"
+msgstr ""
+
+#  %1 = Number of berries
+msgid "objective.use_berry.plural"
+msgstr ""
+
+#  %1 = Item to use (e.g. "Pinap Berry")
+msgid "objective.use_item_encounter.singular"
+msgstr ""
+
+#  %1 = Item to use (e.g. "Pinap Berry")
+#  %2 = Number of items
+msgid "objective.use_item_encounter.plural"
+msgstr ""
+
+msgid "objective.buddy_candy.singular"
+msgstr ""
+
+#  %1 = Number of candies
+msgid "objective.buddy_candy.plural"
+msgstr ""
+
+msgid "objective.hatch.singular"
+msgstr ""
+
+#  %1 = Number of eggs
+msgid "objective.hatch.plural"
+msgstr ""
+
+msgid "objective.evolve.singular"
+msgstr ""
+
+#  %1 = Number of evolves
+msgid "objective.evolve.plural"
+msgstr ""
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+msgid "objective.evolve_type.singular"
+msgstr ""
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+#  %2 = Number of evolves
+msgid "objective.evolve_type.plural"
+msgstr ""
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+msgid "objective.evolve_evolution.singular"
+msgstr ""
+
+#  %1 = Type(s) of species ("Ice-type", "Fire or Ground-type", etc.)
+#  %2 = Number of evolves
+msgid "objective.evolve_evolution.plural"
+msgstr ""
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.)
+msgid "objective.evolve_specific.singular"
+msgstr ""
+
+#  %1 = The name of one or more species ("Pikachu", "Squirtle or Charmander",
+#  etc.), %2 = Number of evolves
+msgid "objective.evolve_specific.plural"
+msgstr ""
+
+msgid "objective.evolve_item.singular"
+msgstr ""
+
+#  %1 = Number of evolves
+msgid "objective.evolve_item.plural"
+msgstr ""
+
+msgid "objective.power_up.singular"
+msgstr ""
+
+#  %1 = Number of power-ups
+msgid "objective.power_up.plural"
+msgstr ""
+
+msgid "objective.transfer.singular"
+msgstr ""
+
+#  %1 = Number of transfers
+msgid "objective.transfer.plural"
+msgstr ""
+
+msgid "objective.throw_simple_nice.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_nice.plural"
+msgstr ""
+
+msgid "objective.throw_simple_nice_chain.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_nice_chain.plural"
+msgstr ""
+
+msgid "objective.throw_simple_great.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_great.plural"
+msgstr ""
+
+msgid "objective.throw_simple_great_chain.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_great_chain.plural"
+msgstr ""
+
+msgid "objective.throw_simple_excellent.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_excellent.plural"
+msgstr ""
+
+msgid "objective.throw_simple_excellent_chain.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_simple_excellent_chain.plural"
+msgstr ""
+
+msgid "objective.throw_curve.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_curve.plural"
+msgstr ""
+
+msgid "objective.throw_curve_chain.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_chain.plural"
+msgstr ""
+
+msgid "objective.throw_curve_nice.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_nice.plural"
+msgstr ""
+
+msgid "objective.throw_curve_nice_chain.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_nice_chain.plural"
+msgstr ""
+
+msgid "objective.throw_curve_great.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_great.plural"
+msgstr ""
+
+msgid "objective.throw_curve_great_chain.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_great_chain.plural"
+msgstr ""
+
+msgid "objective.throw_curve_excellent.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_excellent.plural"
+msgstr ""
+
+msgid "objective.throw_curve_excellent_chain.singular"
+msgstr ""
+
+#  %1 = Number of throws
+msgid "objective.throw_curve_excellent_chain.plural"
+msgstr ""
+
+msgid "objective.visit_poi.singular"
+msgstr ""
+
+#  %1 = Number of POIs
+msgid "objective.visit_poi.plural"
+msgstr ""
+
+msgid "objective.new_poi.singular"
+msgstr ""
+
+#  %1 = Number of POIs
+msgid "objective.new_poi.plural"
+msgstr ""
+
+msgid "objective.visit_daily.singular"
+msgstr ""
+
+#  %1 = Number of days in a row
+msgid "objective.visit_daily.plural"
+msgstr ""
+
+msgid "objective.send_gift.singular"
+msgstr ""
+
+#  %1 = Number of gifts to send
+msgid "objective.send_gift.plural"
+msgstr ""
+
+msgid "objective.trade.singular"
+msgstr ""
+
+#  %1 = Number of specimen to trade
+msgid "objective.trade.plural"
+msgstr ""
+
+#  Displayed when the research task objective of a Pokéstop is unknown.
+msgid "objective.unknown.singular"
+msgstr ""
 
