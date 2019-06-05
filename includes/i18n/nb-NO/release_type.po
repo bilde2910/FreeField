@@ -12,36 +12,36 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
-"X-Crowdin-File: /master/includes/i18n/zh-TW/release_type.po\n"
-"PO-Revision-Date: 2019-06-05 18:08\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/release_type.po\n"
+"PO-Revision-Date: 2019-06-05 22:25\n"
 
 msgid "release_type.stable.name"
-msgstr ""
+msgstr "Stabil versjon"
 
 msgid "release_type.stable.desc"
-msgstr ""
+msgstr "Denne versjonen anses som stabil nok til bruk utenfor testmiljø."
 
 msgid "release_type.rc.name"
-msgstr ""
+msgstr "Utgivelseskandidat"
 
 msgid "release_type.rc.desc"
-msgstr ""
+msgstr "Denne versjonen anses for det meste som stabil. Det vil ikke bli lagt til mer funksjonalitet før neste stabile versjon. Versjonen har ufullstendig dokumentasjon og kan inneha mindre feil."
 
 msgid "release_type.beta.name"
-msgstr ""
+msgstr "Betaversjon (ustabil)"
 
 msgid "release_type.beta.desc"
-msgstr ""
+msgstr "Denne versjonen anses som ustabil. Noe mindre funksjonalitet kan bli lagt til før den blir til en utgivelseskandidat. Denne versjonen inneholder sannsynligvis feil. Dokumentasjonen er svært mangelfull for nye funksjoner."
 
 msgid "release_type.alpha.name"
-msgstr ""
+msgstr "Alfaversjon (svært ustabil)"
 
 msgid "release_type.alpha.desc"
-msgstr ""
+msgstr "Denne versjonen anses som svært ustabil. Større funksjonalitet kan bli lagt til før en eventuell stabil utgivelse. Det er svært sannsynlig at denne versjonen har feil, og den kan i verste fall ødelegge FreeField-installsjonen din. Det finnes ingen dokumentasjon for nye funksjoner."
 
 msgid "release_type.dev.name"
-msgstr ""
+msgstr "Utviklerversjon (ekstremt ustabil)"
 
 msgid "release_type.dev.desc"
-msgstr ""
+msgstr "Denne versjonen anses som ekstremt ustabil og uferdig. Større funksjonalitet vil sannsynligvis bli lagt til før en eventuell stabil utgivelse. Denne versjonen har nesten garantert feil, og den kan i verste fall ødelegge FreeField-installasjonen i så stor grad at den blir fullstendig ubrukelig. Grunnen ustabiliteten assosiert med utviklerversjoner, publiseres disse sjeldent."
 
