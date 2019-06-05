@@ -12,6 +12,19 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/es-ES/login_failed.po\n"
-"PO-Revision-Date: 2019-06-05 18:08\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/login_failed.po\n"
+"PO-Revision-Date: 2019-06-05 22:25\n"
+
+msgid "login_failed.title"
+msgstr ""
+
+msgid "login_failed.default_auth_provider"
+msgstr ""
+
+#  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
+msgid "login_failed.desc"
+msgstr ""
+
+msgid "login_failed.info"
+msgstr ""
 
