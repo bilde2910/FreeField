@@ -12,157 +12,81 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-04-30 22:50\n"
-
-msgid "install.button.continue"
-msgstr ""
+"X-Crowdin-File: /master/includes/i18n/es-ES/install.po\n"
+"PO-Revision-Date: 2019-06-05 18:08\n"
 
 msgid "install.button.finish"
-msgstr "Finalizar configuración"
+msgstr ""
 
 msgid "install.button.retry"
-msgstr "Vuelve a intentarlo"
-
-msgid "install.operation.done"
-msgstr ""
-
-msgid "install.stage.1.title"
-msgstr ""
-
-msgid "install.stage.1.info"
 msgstr ""
 
 msgid "install.stage.1.assert.https"
-msgstr "Conexión cifrada (HTTPS) - necesaria para la geolocalización y la aplicación web progresiva"
+msgstr ""
 
 msgid "install.stage.1.assert.root_writable"
-msgstr "Directorio de instalación con permisos de escritura - requerido para instalar actualizaciones"
-
-msgid "install.stage.1.assert.userdata_writable"
 msgstr ""
 
 msgid "install.stage.1.assert.curl_available"
-msgstr "Extensión cURL cargada - requerida para autenticación y actualizaciones"
+msgstr ""
 
 msgid "install.stage.1.assert.gd_available"
-msgstr "Extensión gd cargada - requerida para la generación de código QR"
+msgstr ""
 
 msgid "install.stage.1.assert.openssl_available"
-msgstr "Extensión OpenSSL cargada - requerido para sesiones y almacenamiento seguro"
+msgstr ""
 
 msgid "install.stage.1.assert.phar_available"
-msgstr "PharData disponible - requerido para actualizaciones del software"
-
-msgid "install.stage.1.checks"
 msgstr ""
 
 msgid "install.stage.1.next"
-msgstr "Cuando haya aplicado los cambios deseados, haga clic en el botón de abajo para continuar al siguiente paso, y el sistema pueda generar el archivo de configuración."
-
-msgid "install.stage.2.title"
-msgstr "Paso 2: Generando archivo de configuración"
-
-msgid "install.stage.2.assert.copy_templates"
-msgstr "Copiadas las opciones de archivos desde las plantillas"
-
-msgid "install.stage.2.assert.authkeys_written"
-msgstr "Generadas las claves de encriptación de almacenamiento seguro"
-
-msgid "install.stage.2.assert.config_written"
-msgstr "Archivo de configuración generado"
-
-msgid "install.stage.2.next"
-msgstr "Por favor, haga clic en el botón de abajo para continuar con la configuración de la base de datos."
-
-msgid "install.stage.3.title"
-msgstr "Paso 3: Configuración de base de datos"
-
-msgid "install.stage.3.info"
 msgstr ""
 
-msgid "install.stage.3.assert.valid_data"
+msgid "install.stage.2.title"
+msgstr ""
+
+msgid "install.stage.2.assert.copy_templates"
+msgstr ""
+
+msgid "install.stage.2.assert.authkeys_written"
+msgstr ""
+
+msgid "install.stage.2.assert.config_written"
+msgstr ""
+
+msgid "install.stage.2.next"
+msgstr ""
+
+msgid "install.stage.3.title"
 msgstr ""
 
 msgid "install.stage.3.assert.config_written"
-msgstr "Archivo de configuración actualizado"
+msgstr ""
 
 msgid "install.stage.3.assert.db_connected"
-msgstr "Conectado a la base de datos"
+msgstr ""
 
 msgid "install.stage.3.assert.exec_sql"
-msgstr "Estructura de la base de datos creada"
+msgstr ""
 
 msgid "install.stage.3.assert.proceed_stage"
-msgstr "Finalizado el registro del Paso 3"
+msgstr ""
 
 msgid "install.stage.3.next"
-msgstr "Por favor, haga clic en el botón de abajo para continuar con la configuración de autenticación."
+msgstr ""
 
 msgid "install.stage.4.title"
-msgstr "Paso 4: Configuración de autenticación"
-
-msgid "install.stage.4.info"
 msgstr ""
 
 msgid "install.stage.4.assert.valid_data"
-msgstr "Los datos de autenticación proporcionados son válidos"
+msgstr ""
 
 msgid "install.stage.4.assert.config_written"
-msgstr "Archivo de configuración actualizado"
+msgstr ""
 
 msgid "install.stage.4.assert.any_enabled"
-msgstr "Al menos un proveedor de autenticación está habilitado"
-
-msgid "install.stage.4.assert.proceed_stage"
 msgstr ""
 
 msgid "install.stage.4.next"
-msgstr "Al continuar, se le pedirá que inicie sesión usando uno de los proveedores de autenticación que haya configurado."
-
-msgid "install.stage.5.title"
-msgstr ""
-
-msgid "install.stage.5.assert.auth_success"
-msgstr ""
-
-msgid "install.stage.5.assert.user_created"
-msgstr ""
-
-msgid "install.stage.5.assert.config_written"
-msgstr ""
-
-msgid "install.stage.5.next"
-msgstr ""
-
-msgid "install.stage.6.title"
-msgstr ""
-
-msgid "install.stage.6.provider_info"
-msgstr ""
-
-msgid "install.stage.6.disclaimer"
-msgstr ""
-
-msgid "install.stage.6.field_guide"
-msgstr ""
-
-msgid "install.stage.6.default_info"
-msgstr ""
-
-msgid "install.stage.6.assert.valid_data"
-msgstr ""
-
-msgid "install.stage.6.assert.config_written"
-msgstr ""
-
-msgid "install.stage.6.next"
-msgstr ""
-
-msgid "install.stage.6.post_install.head"
-msgstr ""
-
-#  %1 = <a href="">, %2 = </a>
-msgid "install.stage.6.post_install.body"
 msgstr ""
 
