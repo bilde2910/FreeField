@@ -12,87 +12,87 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/sidebar.po\n"
-"PO-Revision-Date: 2019-06-04 13:39\n"
+"X-Crowdin-File: /master/includes/i18n/zh-TW/sidebar.po\n"
+"PO-Revision-Date: 2019-06-05 18:07\n"
 
 msgid "sidebar.signed_in_as"
-msgstr "Logget inn som"
+msgstr ""
 
 msgid "sidebar.approval_pending"
-msgstr "Venter på godkjenning"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.logout"
-msgstr "Logg ut"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.login"
-msgstr "Logg inn"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.show_motd"
-msgstr "Vis melding"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.return"
-msgstr "Tilbake"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.add_poi"
-msgstr "Pokéstop"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.filters"
-msgstr "Filtre"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.search"
-msgstr "Søk"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.settings"
-msgstr "Innstillinger"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.manage_site"
-msgstr "Administrasjon"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.language.label"
-msgstr "Språk:"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.language.auto"
-msgstr "Automatisk språkvalg"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.language.device"
-msgstr "Foretrukket nettleserspråk"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.language.select"
-msgstr "Tilgjengelige språk"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.reset"
-msgstr "Tilbakestill alt"
+msgstr ""
 
 #  Please keep this string short - ensure that it does not exceeed the width of
 #  the sidebar!
 msgid "sidebar.cancel"
-msgstr "Avbryt"
+msgstr ""
 
