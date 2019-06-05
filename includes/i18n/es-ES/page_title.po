@@ -12,42 +12,6 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /master/includes/i18n/en-US/page_title.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
-
-msgid "page_title.setup"
-msgstr ""
-
-#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
-#  %2 = Administration domain (e.g. "Users", "Webhooks")
-msgid "page_title.admin"
-msgstr ""
-
-#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
-msgid "page_title.main"
-msgstr ""
-
-#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
-msgid "page_title.access_denied"
-msgstr ""
-
-#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
-msgid "page_title.login.main"
-msgstr ""
-
-#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
-msgid "page_title.login.failed"
-msgstr ""
-
-#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
-msgid "page_title.login.awaiting_approval"
-msgstr ""
-
-#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
-msgid "page_title.login.approve_user"
-msgstr ""
-
-#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
-msgid "page_title.login.telegram"
-msgstr ""
+"X-Crowdin-File: /master/includes/i18n/es-ES/page_title.po\n"
+"PO-Revision-Date: 2019-06-05 18:08\n"
 
