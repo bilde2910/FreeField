@@ -1,0 +1,47 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/release_type.po\n"
+"PO-Revision-Date: 2019-06-03 13:31\n"
+
+msgid "release_type.stable.name"
+msgstr "Stabil versjon"
+
+msgid "release_type.stable.desc"
+msgstr "Denne versjonen anses som stabil nok til bruk utenfor testmiljø."
+
+msgid "release_type.rc.name"
+msgstr "Utgivelseskandidat"
+
+msgid "release_type.rc.desc"
+msgstr "Denne versjonen anses for det meste som stabil. Det vil ikke bli lagt til mer funksjonalitet før neste stabile versjon. Versjonen har ufullstendig dokumentasjon og kan inneha mindre feil."
+
+msgid "release_type.beta.name"
+msgstr "Betaversjon (ustabil)"
+
+msgid "release_type.beta.desc"
+msgstr "Denne versjonen anses som ustabil. Noe mindre funksjonalitet kan bli lagt til før den blir til en utgivelseskandidat. Denne versjonen inneholder sannsynligvis feil. Dokumentasjonen er svært mangelfull for nye funksjoner."
+
+msgid "release_type.alpha.name"
+msgstr "Alfaversjon (svært ustabil)"
+
+msgid "release_type.alpha.desc"
+msgstr "Denne versjonen anses som svært ustabil. Større funksjonalitet kan bli lagt til før en eventuell stabil utgivelse. Det er svært sannsynlig at denne versjonen har feil, og den kan i verste fall ødelegge FreeField-installsjonen din. Det finnes ingen dokumentasjon for nye funksjoner."
+
+msgid "release_type.dev.name"
+msgstr "Utviklerversjon (ekstremt ustabil)"
+
+msgid "release_type.dev.desc"
+msgstr "Denne versjonen anses som ekstremt ustabil og uferdig. Større funksjonalitet vil sannsynligvis bli lagt til før en eventuell stabil utgivelse. Denne versjonen har nesten garantert feil, og den kan i verste fall ødelegge FreeField-installasjonen i så stor grad at den blir fullstendig ubrukelig. Grunnen ustabiliteten assosiert med utviklerversjoner, publiseres disse sjeldent."
+

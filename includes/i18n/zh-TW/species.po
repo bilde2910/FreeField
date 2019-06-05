@@ -1,0 +1,1501 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Chinese Traditional\n"
+"Language: zh_TW\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/species.po\n"
+"PO-Revision-Date: 2019-06-05 14:58\n"
+
+#  Note: These should only be translated if an official translation exists for
+#  these species in the language you are translating to. E.g. in German, the
+#  official translation of "Snorlax" is "Relaxo." ONLY TRANSLATE THESE IF SUCH
+#  AN OFFICIAL TRANSLATION EXISTS FOR YOUR LANGUAGE. LEAVE THIS FILE WITHOUT A
+#  TRANSLATION IF NO OFFICIAL TRANSLATION IS AVAILABLE FOR YOUR LANGUAGE.
+msgid "species.1.name"
+msgstr "妙蛙種子"
+
+msgid "species.2.name"
+msgstr "妙蛙草"
+
+msgid "species.3.name"
+msgstr "妙蛙花"
+
+msgid "species.4.name"
+msgstr "小火龍"
+
+msgid "species.5.name"
+msgstr "火恐龍"
+
+msgid "species.6.name"
+msgstr "噴火龍"
+
+msgid "species.7.name"
+msgstr "傑尼龜"
+
+msgid "species.8.name"
+msgstr "卡咪龜"
+
+msgid "species.9.name"
+msgstr "水箭龜"
+
+msgid "species.10.name"
+msgstr "綠毛蟲"
+
+msgid "species.11.name"
+msgstr "鐵甲蛹"
+
+msgid "species.12.name"
+msgstr "巴大蝶"
+
+msgid "species.13.name"
+msgstr "獨角蟲"
+
+msgid "species.14.name"
+msgstr "鐵殼蛹"
+
+msgid "species.15.name"
+msgstr "大針蜂"
+
+msgid "species.16.name"
+msgstr "波波"
+
+msgid "species.17.name"
+msgstr "比比鳥"
+
+msgid "species.18.name"
+msgstr "大比鳥"
+
+msgid "species.19.name"
+msgstr "小拉達"
+
+msgid "species.20.name"
+msgstr "拉達"
+
+msgid "species.21.name"
+msgstr "烈雀"
+
+msgid "species.22.name"
+msgstr "大嘴雀"
+
+msgid "species.23.name"
+msgstr "阿柏蛇"
+
+msgid "species.24.name"
+msgstr "阿柏怪"
+
+msgid "species.25.name"
+msgstr "皮卡丘"
+
+msgid "species.26.name"
+msgstr "雷丘"
+
+msgid "species.27.name"
+msgstr "穿山鼠"
+
+msgid "species.28.name"
+msgstr "穿山王"
+
+msgid "species.29.name"
+msgstr "尼多蘭"
+
+msgid "species.30.name"
+msgstr "尼多娜"
+
+msgid "species.31.name"
+msgstr "尼多后"
+
+msgid "species.32.name"
+msgstr "尼多朗"
+
+msgid "species.33.name"
+msgstr "尼多力諾"
+
+msgid "species.34.name"
+msgstr "尼多王"
+
+msgid "species.35.name"
+msgstr "皮皮"
+
+msgid "species.36.name"
+msgstr "皮可西"
+
+msgid "species.37.name"
+msgstr "六尾"
+
+msgid "species.38.name"
+msgstr "九尾"
+
+msgid "species.39.name"
+msgstr "胖丁"
+
+msgid "species.40.name"
+msgstr "胖可丁"
+
+msgid "species.41.name"
+msgstr "超音蝠"
+
+msgid "species.42.name"
+msgstr "大嘴蝠"
+
+msgid "species.43.name"
+msgstr "走路草"
+
+msgid "species.44.name"
+msgstr "臭臭花"
+
+msgid "species.45.name"
+msgstr "霸王花"
+
+msgid "species.46.name"
+msgstr "派拉斯"
+
+msgid "species.47.name"
+msgstr "派拉斯特"
+
+msgid "species.48.name"
+msgstr "毛球"
+
+msgid "species.49.name"
+msgstr "摩魯蛾"
+
+msgid "species.50.name"
+msgstr "地鼠"
+
+msgid "species.51.name"
+msgstr "三地鼠"
+
+msgid "species.52.name"
+msgstr "喵喵"
+
+msgid "species.53.name"
+msgstr "貓老大"
+
+msgid "species.54.name"
+msgstr "可達鴨"
+
+msgid "species.55.name"
+msgstr "哥達鴨"
+
+msgid "species.56.name"
+msgstr "猴怪"
+
+msgid "species.57.name"
+msgstr "火爆猴"
+
+msgid "species.58.name"
+msgstr "卡蒂狗"
+
+msgid "species.59.name"
+msgstr "風速狗"
+
+msgid "species.60.name"
+msgstr "蚊香蝌蚪"
+
+msgid "species.61.name"
+msgstr "蚊香君"
+
+msgid "species.62.name"
+msgstr "蚊香泳士"
+
+msgid "species.63.name"
+msgstr "凱西"
+
+msgid "species.64.name"
+msgstr "勇吉拉"
+
+msgid "species.65.name"
+msgstr "胡地"
+
+msgid "species.66.name"
+msgstr "腕力"
+
+msgid "species.67.name"
+msgstr "豪力"
+
+msgid "species.68.name"
+msgstr "怪力"
+
+msgid "species.69.name"
+msgstr "喇叭芽"
+
+msgid "species.70.name"
+msgstr "口呆花"
+
+msgid "species.71.name"
+msgstr "大食花"
+
+msgid "species.72.name"
+msgstr "瑪瑙水母"
+
+msgid "species.73.name"
+msgstr "毒刺水母"
+
+msgid "species.74.name"
+msgstr "小拳石"
+
+msgid "species.75.name"
+msgstr "隆隆石"
+
+msgid "species.76.name"
+msgstr "隆隆岩"
+
+msgid "species.77.name"
+msgstr "小火馬"
+
+msgid "species.78.name"
+msgstr "烈焰馬"
+
+msgid "species.79.name"
+msgstr "呆呆獸"
+
+msgid "species.80.name"
+msgstr "呆殼獸"
+
+msgid "species.81.name"
+msgstr "小磁怪"
+
+msgid "species.82.name"
+msgstr "三合一磁怪"
+
+msgid "species.83.name"
+msgstr "大蔥鴨"
+
+msgid "species.84.name"
+msgstr "嘟嘟"
+
+msgid "species.85.name"
+msgstr "嘟嘟利"
+
+msgid "species.86.name"
+msgstr "小海獅"
+
+msgid "species.87.name"
+msgstr "白海師"
+
+msgid "species.88.name"
+msgstr "臭泥"
+
+msgid "species.89.name"
+msgstr "臭臭泥"
+
+msgid "species.90.name"
+msgstr "大舌貝"
+
+msgid "species.91.name"
+msgstr "刺甲貝"
+
+msgid "species.92.name"
+msgstr "鬼斯"
+
+msgid "species.93.name"
+msgstr "鬼斯通"
+
+msgid "species.94.name"
+msgstr "耿鬼"
+
+msgid "species.95.name"
+msgstr "大岩蛇"
+
+msgid "species.96.name"
+msgstr "催眠貘"
+
+msgid "species.97.name"
+msgstr "引夢貘人"
+
+msgid "species.98.name"
+msgstr "大鉗蟹"
+
+msgid "species.99.name"
+msgstr "巨鉗蟹"
+
+msgid "species.100.name"
+msgstr "霹靂電球"
+
+msgid "species.101.name"
+msgstr "頑皮雷蛋"
+
+msgid "species.102.name"
+msgstr "蛋蛋"
+
+msgid "species.103.name"
+msgstr "椰蛋樹"
+
+msgid "species.104.name"
+msgstr "卡拉卡拉"
+
+msgid "species.105.name"
+msgstr "嘎啦嘎啦"
+
+msgid "species.106.name"
+msgstr "飛腿郎"
+
+msgid "species.107.name"
+msgstr "快拳郎"
+
+msgid "species.108.name"
+msgstr "大舌頭"
+
+msgid "species.109.name"
+msgstr "瓦斯彈"
+
+msgid "species.110.name"
+msgstr "雙彈瓦斯"
+
+msgid "species.111.name"
+msgstr "獨角犀牛"
+
+msgid "species.112.name"
+msgstr "鑽角犀獸"
+
+msgid "species.113.name"
+msgstr "吉利蛋"
+
+msgid "species.114.name"
+msgstr "蔓藤怪"
+
+msgid "species.115.name"
+msgstr "袋獸"
+
+msgid "species.116.name"
+msgstr "墨海馬"
+
+msgid "species.117.name"
+msgstr "海刺龍"
+
+msgid "species.118.name"
+msgstr "角金魚"
+
+msgid "species.119.name"
+msgstr "金魚王"
+
+msgid "species.120.name"
+msgstr "海星星"
+
+msgid "species.121.name"
+msgstr "寶石海星"
+
+msgid "species.122.name"
+msgstr "魔墻人偶"
+
+msgid "species.123.name"
+msgstr "飛天螳螂"
+
+msgid "species.124.name"
+msgstr "迷唇姐"
+
+msgid "species.125.name"
+msgstr "電擊獸"
+
+msgid "species.126.name"
+msgstr "鴨嘴火獸"
+
+msgid "species.127.name"
+msgstr "凱羅斯"
+
+msgid "species.128.name"
+msgstr "肯泰羅"
+
+msgid "species.129.name"
+msgstr "鯉魚王"
+
+msgid "species.130.name"
+msgstr "暴鯉龍"
+
+msgid "species.131.name"
+msgstr "拉普拉斯"
+
+msgid "species.132.name"
+msgstr "百變怪"
+
+msgid "species.133.name"
+msgstr "伊布"
+
+msgid "species.134.name"
+msgstr "水伊布"
+
+msgid "species.135.name"
+msgstr "雷伊布"
+
+msgid "species.136.name"
+msgstr "火伊布"
+
+msgid "species.137.name"
+msgstr "多邊獸"
+
+msgid "species.138.name"
+msgstr "菊石獸"
+
+msgid "species.139.name"
+msgstr "多刺菊石獸"
+
+msgid "species.140.name"
+msgstr "化石盔"
+
+msgid "species.141.name"
+msgstr "鐮刀盔"
+
+msgid "species.142.name"
+msgstr "化石翼龍"
+
+msgid "species.143.name"
+msgstr "卡比獸"
+
+msgid "species.144.name"
+msgstr "急凍鳥"
+
+msgid "species.145.name"
+msgstr "閃電鳥"
+
+msgid "species.146.name"
+msgstr "火焰鳥"
+
+msgid "species.147.name"
+msgstr "迷你龍"
+
+msgid "species.148.name"
+msgstr "哈克龍"
+
+msgid "species.149.name"
+msgstr "快龍"
+
+msgid "species.150.name"
+msgstr "超夢"
+
+msgid "species.151.name"
+msgstr "夢幻"
+
+msgid "species.152.name"
+msgstr "菊草葉"
+
+msgid "species.153.name"
+msgstr "月桂葉"
+
+msgid "species.154.name"
+msgstr "大竺葵"
+
+msgid "species.155.name"
+msgstr "火球鼠"
+
+msgid "species.156.name"
+msgstr "火岩鼠"
+
+msgid "species.157.name"
+msgstr "火爆獸"
+
+msgid "species.158.name"
+msgstr "小鋸鱷"
+
+msgid "species.159.name"
+msgstr "藍鱷"
+
+msgid "species.160.name"
+msgstr "大力鱷"
+
+msgid "species.161.name"
+msgstr "尾立"
+
+msgid "species.162.name"
+msgstr "大尾立"
+
+msgid "species.163.name"
+msgstr "咕咕"
+
+msgid "species.164.name"
+msgstr "貓頭夜鷹"
+
+msgid "species.165.name"
+msgstr "芭瓢蟲"
+
+msgid "species.166.name"
+msgstr "安瓢蟲"
+
+msgid "species.167.name"
+msgstr "圓絲蛛"
+
+msgid "species.168.name"
+msgstr "阿利多斯"
+
+msgid "species.169.name"
+msgstr "叉字蝠"
+
+msgid "species.170.name"
+msgstr "燈籠魚"
+
+msgid "species.171.name"
+msgstr "電燈怪"
+
+msgid "species.172.name"
+msgstr "皮丘"
+
+msgid "species.173.name"
+msgstr "皮寶寶"
+
+msgid "species.174.name"
+msgstr "寶寶丁"
+
+msgid "species.175.name"
+msgstr "波克比"
+
+msgid "species.176.name"
+msgstr "波克基古"
+
+msgid "species.177.name"
+msgstr "天然雀"
+
+msgid "species.178.name"
+msgstr "天然鳥"
+
+msgid "species.179.name"
+msgstr "咩利羊"
+
+msgid "species.180.name"
+msgstr "茸茸羊"
+
+msgid "species.181.name"
+msgstr "電龍"
+
+msgid "species.182.name"
+msgstr "美麗花"
+
+msgid "species.183.name"
+msgstr "瑪力露"
+
+msgid "species.184.name"
+msgstr "瑪力露麗"
+
+msgid "species.185.name"
+msgstr "樹才怪"
+
+msgid "species.186.name"
+msgstr "蚊香蛙皇"
+
+msgid "species.187.name"
+msgstr "毽子草"
+
+msgid "species.188.name"
+msgstr "毽子花"
+
+msgid "species.189.name"
+msgstr "毽子棉"
+
+msgid "species.190.name"
+msgstr "長尾怪手"
+
+msgid "species.191.name"
+msgstr "向日種子"
+
+msgid "species.192.name"
+msgstr "向日花怪"
+
+msgid "species.193.name"
+msgstr "蜻蜻蜓"
+
+msgid "species.194.name"
+msgstr "烏波"
+
+msgid "species.195.name"
+msgstr "沼王"
+
+msgid "species.196.name"
+msgstr "太陽伊布"
+
+msgid "species.197.name"
+msgstr "月亮伊布"
+
+msgid "species.198.name"
+msgstr "黑暗鴉"
+
+msgid "species.199.name"
+msgstr "呆呆王"
+
+msgid "species.200.name"
+msgstr "夢妖"
+
+msgid "species.201.name"
+msgstr "未知圖騰"
+
+msgid "species.202.name"
+msgstr "果然翁"
+
+msgid "species.203.name"
+msgstr "麒麟奇"
+
+msgid "species.204.name"
+msgstr "榛果球"
+
+msgid "species.205.name"
+msgstr "佛烈托斯"
+
+msgid "species.206.name"
+msgstr "土龍弟弟"
+
+msgid "species.207.name"
+msgstr "天蝎"
+
+msgid "species.208.name"
+msgstr "大鋼蛇"
+
+msgid "species.209.name"
+msgstr "布魯"
+
+msgid "species.210.name"
+msgstr "布魯皇"
+
+msgid "species.211.name"
+msgstr "千針魚"
+
+msgid "species.212.name"
+msgstr "巨鉗螳螂"
+
+msgid "species.213.name"
+msgstr "壺壺"
+
+msgid "species.214.name"
+msgstr "郝拉克羅斯"
+
+msgid "species.215.name"
+msgstr "狃拉"
+
+msgid "species.216.name"
+msgstr "熊寶寶"
+
+msgid "species.217.name"
+msgstr "圈圈熊"
+
+msgid "species.218.name"
+msgstr "熔岩蟲"
+
+msgid "species.219.name"
+msgstr "熔岩蝸牛"
+
+msgid "species.220.name"
+msgstr "小山豬"
+
+msgid "species.221.name"
+msgstr "長毛豬"
+
+msgid "species.222.name"
+msgstr "太陽珊瑚"
+
+msgid "species.223.name"
+msgstr "鐵炮魚"
+
+msgid "species.224.name"
+msgstr "章魚桶"
+
+msgid "species.225.name"
+msgstr "信使鳥"
+
+msgid "species.226.name"
+msgstr "巨翅飛魚"
+
+msgid "species.227.name"
+msgstr "盔甲鳥"
+
+msgid "species.228.name"
+msgstr "戴魯比"
+
+msgid "species.229.name"
+msgstr "黑魯加"
+
+msgid "species.230.name"
+msgstr "刺龍王"
+
+msgid "species.231.name"
+msgstr "小小象"
+
+msgid "species.232.name"
+msgstr "遁甲"
+
+msgid "species.233.name"
+msgstr "多邊獸II"
+
+msgid "species.234.name"
+msgstr "驚角鹿"
+
+msgid "species.235.name"
+msgstr "圖圖犬"
+
+msgid "species.236.name"
+msgstr "無畏小子"
+
+msgid "species.237.name"
+msgstr "戰舞郎"
+
+msgid "species.238.name"
+msgstr "迷唇娃"
+
+msgid "species.239.name"
+msgstr "電擊怪"
+
+msgid "species.240.name"
+msgstr "鴨嘴寶寶"
+
+msgid "species.241.name"
+msgstr "大奶罐"
+
+msgid "species.242.name"
+msgstr "幸福蛋"
+
+msgid "species.243.name"
+msgstr "雷公"
+
+msgid "species.244.name"
+msgstr "炎帝"
+
+msgid "species.245.name"
+msgstr "水君"
+
+msgid "species.246.name"
+msgstr "幼基拉斯"
+
+msgid "species.247.name"
+msgstr "沙基拉斯"
+
+msgid "species.248.name"
+msgstr "班基拉斯"
+
+msgid "species.249.name"
+msgstr "洛奇亞"
+
+msgid "species.250.name"
+msgstr "鳳王"
+
+msgid "species.251.name"
+msgstr "時拉比"
+
+msgid "species.252.name"
+msgstr "木守宮"
+
+msgid "species.253.name"
+msgstr "森林蜥蜴"
+
+msgid "species.254.name"
+msgstr "蜥蜴王"
+
+msgid "species.255.name"
+msgstr "火稚雞"
+
+msgid "species.256.name"
+msgstr "力壯雞"
+
+msgid "species.257.name"
+msgstr "火焰雞"
+
+msgid "species.258.name"
+msgstr "水躍魚"
+
+msgid "species.259.name"
+msgstr "沼躍魚"
+
+msgid "species.260.name"
+msgstr "巨沼怪"
+
+msgid "species.261.name"
+msgstr "土狼犬"
+
+msgid "species.262.name"
+msgstr "大狼犬"
+
+msgid "species.263.name"
+msgstr "蛇紋熊"
+
+msgid "species.264.name"
+msgstr "直衝熊"
+
+msgid "species.265.name"
+msgstr "刺尾蟲"
+
+msgid "species.266.name"
+msgstr "甲殼繭"
+
+msgid "species.267.name"
+msgstr "狩獵鳳蝶"
+
+msgid "species.268.name"
+msgstr "盾甲繭"
+
+msgid "species.269.name"
+msgstr "毒粉蛾"
+
+msgid "species.270.name"
+msgstr "蓮葉童子"
+
+msgid "species.271.name"
+msgstr "蓮帽小童"
+
+msgid "species.272.name"
+msgstr "樂天河童"
+
+msgid "species.273.name"
+msgstr "橡實果"
+
+msgid "species.274.name"
+msgstr "長鼻葉"
+
+msgid "species.275.name"
+msgstr "狡猾天狗"
+
+msgid "species.276.name"
+msgstr "傲骨燕"
+
+msgid "species.277.name"
+msgstr "大王燕"
+
+msgid "species.278.name"
+msgstr "長翅鷗"
+
+msgid "species.279.name"
+msgstr "大嘴鷗"
+
+msgid "species.280.name"
+msgstr "拉魯拉絲"
+
+msgid "species.281.name"
+msgstr "奇魯莉安"
+
+msgid "species.282.name"
+msgstr "沙奈朵"
+
+msgid "species.283.name"
+msgstr "溜溜糖球"
+
+msgid "species.284.name"
+msgstr "雨翅蛾"
+
+msgid "species.285.name"
+msgstr "蘑蘑菇"
+
+msgid "species.286.name"
+msgstr "斗笠菇"
+
+msgid "species.287.name"
+msgstr "懶人獺"
+
+msgid "species.288.name"
+msgstr "過動猿"
+
+msgid "species.289.name"
+msgstr "請假王"
+
+msgid "species.290.name"
+msgstr "土居忍士"
+
+msgid "species.291.name"
+msgstr "鐵面忍者"
+
+msgid "species.292.name"
+msgstr "脫殼忍者"
+
+msgid "species.293.name"
+msgstr "咕妞妞"
+
+msgid "species.294.name"
+msgstr "吼爆彈"
+
+msgid "species.295.name"
+msgstr "爆音怪"
+
+msgid "species.296.name"
+msgstr "幕下力士"
+
+msgid "species.297.name"
+msgstr "鐵掌力士"
+
+msgid "species.298.name"
+msgstr "露力麗"
+
+msgid "species.299.name"
+msgstr "朝北鼻"
+
+msgid "species.300.name"
+msgstr "向尾喵"
+
+msgid "species.301.name"
+msgstr "優雅貓"
+
+msgid "species.302.name"
+msgstr "勾魂眼"
+
+msgid "species.303.name"
+msgstr "大嘴蛙"
+
+msgid "species.304.name"
+msgstr "可可多拉"
+
+msgid "species.305.name"
+msgstr "可多拉"
+
+msgid "species.306.name"
+msgstr "波士可多拉"
+
+msgid "species.307.name"
+msgstr "瑪莎那"
+
+msgid "species.308.name"
+msgstr "恰雷姆"
+
+msgid "species.309.name"
+msgstr "落雷獸"
+
+msgid "species.310.name"
+msgstr "雷電獸"
+
+msgid "species.311.name"
+msgstr "正電拍拍"
+
+msgid "species.312.name"
+msgstr "負電拍拍"
+
+msgid "species.313.name"
+msgstr "電螢蟲"
+
+msgid "species.314.name"
+msgstr "甜甜螢"
+
+msgid "species.315.name"
+msgstr "毒薔薇"
+
+msgid "species.316.name"
+msgstr "溶食獸"
+
+msgid "species.317.name"
+msgstr "吞食獸"
+
+msgid "species.318.name"
+msgstr "利牙魚"
+
+msgid "species.319.name"
+msgstr "巨牙鯊"
+
+msgid "species.320.name"
+msgstr "吼吼鯨"
+
+msgid "species.321.name"
+msgstr "吼鯨王"
+
+msgid "species.322.name"
+msgstr "呆火駝"
+
+msgid "species.323.name"
+msgstr "噴火駝"
+
+msgid "species.324.name"
+msgstr "煤炭龜"
+
+msgid "species.325.name"
+msgstr "跳跳豬"
+
+msgid "species.326.name"
+msgstr "噗噗豬"
+
+msgid "species.327.name"
+msgstr "晃晃斑"
+
+msgid "species.328.name"
+msgstr "大顎蟻"
+
+msgid "species.329.name"
+msgstr "超音波幼蟲"
+
+msgid "species.330.name"
+msgstr "沙漠蜻蜓"
+
+msgid "species.331.name"
+msgstr "刺球仙人掌"
+
+msgid "species.332.name"
+msgstr "夢歌仙人掌"
+
+msgid "species.333.name"
+msgstr "青綿鳥"
+
+msgid "species.334.name"
+msgstr "七夕青鳥"
+
+msgid "species.335.name"
+msgstr "貓鼬斬"
+
+msgid "species.336.name"
+msgstr "飯匙蛇"
+
+msgid "species.337.name"
+msgstr "月石"
+
+msgid "species.338.name"
+msgstr "太陽岩"
+
+msgid "species.339.name"
+msgstr "泥泥鰍"
+
+msgid "species.340.name"
+msgstr "鯰魚王"
+
+msgid "species.341.name"
+msgstr "龍蝦小兵"
+
+msgid "species.342.name"
+msgstr "鐵螯龍蝦"
+
+msgid "species.343.name"
+msgstr "天秤偶"
+
+msgid "species.344.name"
+msgstr "念力土偶"
+
+msgid "species.345.name"
+msgstr "觸手百合"
+
+msgid "species.346.name"
+msgstr "搖籃百合"
+
+msgid "species.347.name"
+msgstr "太古羽蟲"
+
+msgid "species.348.name"
+msgstr "太古盔甲"
+
+msgid "species.349.name"
+msgstr "醜醜魚"
+
+msgid "species.350.name"
+msgstr "美納斯"
+
+msgid "species.351.name"
+msgstr "漂浮泡泡"
+
+msgid "species.352.name"
+msgstr "變隱龍"
+
+msgid "species.353.name"
+msgstr "怨影娃娃"
+
+msgid "species.354.name"
+msgstr "詛咒娃娃"
+
+msgid "species.355.name"
+msgstr "夜巡靈"
+
+msgid "species.356.name"
+msgstr "彷徨夜靈"
+
+msgid "species.357.name"
+msgstr "熱帶龍"
+
+msgid "species.358.name"
+msgstr "風鈴鈴"
+
+msgid "species.359.name"
+msgstr "阿勃梭魯"
+
+msgid "species.360.name"
+msgstr "小果然"
+
+msgid "species.361.name"
+msgstr "雪童子"
+
+msgid "species.362.name"
+msgstr "冰鬼護"
+
+msgid "species.363.name"
+msgstr "海豹球"
+
+msgid "species.364.name"
+msgstr "海魔獅"
+
+msgid "species.365.name"
+msgstr "帝牙海獅"
+
+msgid "species.366.name"
+msgstr "珍珠貝"
+
+msgid "species.367.name"
+msgstr "獵斑魚"
+
+msgid "species.368.name"
+msgstr "櫻花魚"
+
+msgid "species.369.name"
+msgstr "古空棘魚"
+
+msgid "species.370.name"
+msgstr "愛心魚"
+
+msgid "species.371.name"
+msgstr "寶貝龍"
+
+msgid "species.372.name"
+msgstr "甲殼龍"
+
+msgid "species.373.name"
+msgstr "暴飛龍"
+
+msgid "species.374.name"
+msgstr "鐵啞鈴"
+
+msgid "species.375.name"
+msgstr "金屬怪"
+
+msgid "species.376.name"
+msgstr "巨金怪"
+
+msgid "species.377.name"
+msgstr "雷吉洛克"
+
+msgid "species.378.name"
+msgstr "雷吉艾斯"
+
+msgid "species.379.name"
+msgstr "雷吉斯奇魯"
+
+msgid "species.380.name"
+msgstr "拉帝亞斯"
+
+msgid "species.381.name"
+msgstr "拉帝歐斯"
+
+msgid "species.382.name"
+msgstr "蓋歐卡"
+
+msgid "species.383.name"
+msgstr "固拉多"
+
+msgid "species.384.name"
+msgstr "烈空坐"
+
+msgid "species.385.name"
+msgstr "基拉祈"
+
+msgid "species.386.name"
+msgstr "代歐奇希斯"
+
+msgid "species.387.name"
+msgstr "草苗龜"
+
+msgid "species.388.name"
+msgstr "樹林龜"
+
+msgid "species.389.name"
+msgstr "土台龜"
+
+msgid "species.390.name"
+msgstr "小火焰猴"
+
+msgid "species.391.name"
+msgstr "猛火猴"
+
+msgid "species.392.name"
+msgstr "烈焰猴"
+
+msgid "species.393.name"
+msgstr "波加曼"
+
+msgid "species.394.name"
+msgstr "波皇子"
+
+msgid "species.395.name"
+msgstr "帝王拿波"
+
+msgid "species.396.name"
+msgstr "姆克兒"
+
+msgid "species.397.name"
+msgstr "姆克鳥"
+
+msgid "species.398.name"
+msgstr "姆克鷹"
+
+msgid "species.399.name"
+msgstr "大牙狸"
+
+msgid "species.400.name"
+msgstr "大尾狸"
+
+msgid "species.401.name"
+msgstr "圓法師"
+
+msgid "species.402.name"
+msgstr "音箱蟀"
+
+msgid "species.403.name"
+msgstr "小貓怪"
+
+msgid "species.404.name"
+msgstr "勒克貓"
+
+msgid "species.405.name"
+msgstr "倫琴貓"
+
+msgid "species.406.name"
+msgstr "含羞苞"
+
+msgid "species.407.name"
+msgstr "羅絲雷朵"
+
+msgid "species.408.name"
+msgstr "頭蓋龍"
+
+msgid "species.409.name"
+msgstr "戰槌龍"
+
+msgid "species.410.name"
+msgstr "盾甲龍"
+
+msgid "species.411.name"
+msgstr "護城龍"
+
+msgid "species.412.name"
+msgstr "結草兒"
+
+msgid "species.413.name"
+msgstr "結草貴婦"
+
+msgid "species.414.name"
+msgstr "紳士蛾"
+
+msgid "species.415.name"
+msgstr "三蜜蜂"
+
+msgid "species.416.name"
+msgstr "蜂女王"
+
+msgid "species.417.name"
+msgstr "帕奇利茲"
+
+msgid "species.418.name"
+msgstr "泳圈鼬"
+
+msgid "species.419.name"
+msgstr "浮潛鼬"
+
+msgid "species.420.name"
+msgstr "櫻花寶"
+
+msgid "species.421.name"
+msgstr "櫻花兒"
+
+msgid "species.422.name"
+msgstr "無殼海兔"
+
+msgid "species.423.name"
+msgstr "海兔獸"
+
+msgid "species.424.name"
+msgstr "雙尾怪手"
+
+msgid "species.425.name"
+msgstr "飄飄球"
+
+msgid "species.426.name"
+msgstr "隨風球"
+
+msgid "species.427.name"
+msgstr "捲捲耳"
+
+msgid "species.428.name"
+msgstr "長耳兔"
+
+msgid "species.429.name"
+msgstr "夢妖魔"
+
+msgid "species.430.name"
+msgstr "烏鴉頭頭"
+
+msgid "species.431.name"
+msgstr "魅力喵"
+
+msgid "species.432.name"
+msgstr "東施喵"
+
+msgid "species.433.name"
+msgstr "鈴鐺響"
+
+msgid "species.434.name"
+msgstr "臭鼬噗"
+
+msgid "species.435.name"
+msgstr "坦克臭鼬"
+
+msgid "species.436.name"
+msgstr "銅鏡怪"
+
+msgid "species.437.name"
+msgstr "青銅鐘"
+
+msgid "species.438.name"
+msgstr "盆才怪"
+
+msgid "species.439.name"
+msgstr "魔尼尼"
+
+msgid "species.440.name"
+msgstr "小福蛋"
+
+msgid "species.441.name"
+msgstr "聒噪鳥"
+
+msgid "species.442.name"
+msgstr "花岩怪"
+
+msgid "species.443.name"
+msgstr "圓陸鯊"
+
+msgid "species.444.name"
+msgstr "尖牙陸鯊"
+
+msgid "species.445.name"
+msgstr "烈咬陸鯊"
+
+msgid "species.446.name"
+msgstr "小卡比獸"
+
+msgid "species.447.name"
+msgstr "利歐路"
+
+msgid "species.448.name"
+msgstr "路卡利歐"
+
+msgid "species.449.name"
+msgstr "沙河馬"
+
+msgid "species.450.name"
+msgstr "河馬獸"
+
+msgid "species.451.name"
+msgstr "鉗尾蠍"
+
+msgid "species.452.name"
+msgstr "龍王蠍"
+
+msgid "species.453.name"
+msgstr "不良蛙"
+
+msgid "species.454.name"
+msgstr "毒骷蛙"
+
+msgid "species.455.name"
+msgstr "尖牙籠"
+
+msgid "species.456.name"
+msgstr "螢光魚"
+
+msgid "species.457.name"
+msgstr "霓虹魚"
+
+msgid "species.458.name"
+msgstr "小球飛魚"
+
+msgid "species.459.name"
+msgstr "雪笠怪"
+
+msgid "species.460.name"
+msgstr "暴雪王"
+
+msgid "species.461.name"
+msgstr "瑪狃拉"
+
+msgid "species.462.name"
+msgstr "自爆磁怪"
+
+msgid "species.463.name"
+msgstr "大舌舔"
+
+msgid "species.464.name"
+msgstr "超甲狂犀"
+
+msgid "species.465.name"
+msgstr "巨蔓藤"
+
+msgid "species.466.name"
+msgstr "電擊魔獸"
+
+msgid "species.467.name"
+msgstr "鴨嘴炎獸"
+
+msgid "species.468.name"
+msgstr "波克基斯"
+
+msgid "species.469.name"
+msgstr "遠古巨蜓"
+
+msgid "species.470.name"
+msgstr "葉伊布"
+
+msgid "species.471.name"
+msgstr "冰伊布"
+
+msgid "species.472.name"
+msgstr "天蠍王"
+
+msgid "species.473.name"
+msgstr "象牙豬"
+
+msgid "species.474.name"
+msgstr "多邊獸Ｚ"
+
+msgid "species.475.name"
+msgstr "艾路雷朵"
+
+msgid "species.476.name"
+msgstr "大朝北鼻"
+
+msgid "species.477.name"
+msgstr "黑夜魔靈"
+
+msgid "species.478.name"
+msgstr "雪妖女"
+
+msgid "species.479.name"
+msgstr "洛托姆"
+
+msgid "species.480.name"
+msgstr "由克希"
+
+msgid "species.481.name"
+msgstr "艾姆利多"
+
+msgid "species.482.name"
+msgstr "亞克諾姆"
+
+msgid "species.483.name"
+msgstr "帝牙盧卡"
+
+msgid "species.484.name"
+msgstr "帕路奇亞"
+
+msgid "species.485.name"
+msgstr "席多藍恩"
+
+msgid "species.486.name"
+msgstr "雷吉奇卡斯"
+
+msgid "species.487.name"
+msgstr "騎拉帝納"
+
+msgid "species.488.name"
+msgstr "克雷色利亞"
+
+msgid "species.489.name"
+msgstr "霏歐納"
+
+msgid "species.490.name"
+msgstr "瑪納霏"
+
+msgid "species.491.name"
+msgstr "達克萊伊"
+
+msgid "species.492.name"
+msgstr "謝米"
+
+msgid "species.493.name"
+msgstr "阿爾宙斯"
+

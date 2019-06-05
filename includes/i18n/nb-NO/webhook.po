@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/webhook.po\n"
+"PO-Revision-Date: 2019-06-03 13:30\n"
+
+msgid "webhook.report_title"
+msgstr "Oppgave rapportert!"
+
+msgid "webhook.poi"
+msgstr "Pokéstop"
+
+msgid "webhook.click_for_directions"
+msgstr "Klikk her for veibeskrivelse"
+
+msgid "webhook.objective"
+msgstr "Oppgave"
+
+msgid "webhook.reward"
+msgstr "Premie"
+
+#  %1 = Nickname of user who reported research
+msgid "webhook.reported_by"
+msgstr "Rapportert av {%1}"
+
+#  %1 = Research objective (e.g. "Make 3 Great Throws")
+#  %2 = Research reward (e.g. "1 Max Revive")
+msgid "webhook.x_for_y"
+msgstr "{%1} for {%2}"
+

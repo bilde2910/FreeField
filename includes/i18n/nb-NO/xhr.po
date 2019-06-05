@@ -1,0 +1,53 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb_NO\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/xhr.po\n"
+"PO-Revision-Date: 2019-06-03 13:30\n"
+
+msgid "xhr.failed.reason.unknown_reason"
+msgstr "Ukjent feil"
+
+msgid "xhr.failed.reason.access_denied"
+msgstr "Ingen tilgang"
+
+msgid "xhr.failed.reason.missing_fields"
+msgstr "Manglende data"
+
+msgid "xhr.failed.reason.invalid_data"
+msgstr "Ugyldig data"
+
+msgid "xhr.failed.reason.database_error"
+msgstr "Databasen kunne ikke nås"
+
+msgid "xhr.failed.reason.http_405"
+msgstr "Metode ikke tillatt"
+
+msgid "xhr.failed.reason.timeout"
+msgstr "Tidsavbrudd"
+
+msgid "xhr.failed.reason.upstream_failed"
+msgstr "Oppkobling til tredjepartsserver mislyktes"
+
+msgid "xhr.failed.reason.objective_null"
+msgstr "Ingen oppgave er valgt"
+
+msgid "xhr.failed.reason.reward_null"
+msgstr "Ingen premie er valgt"
+
+msgid "xhr.failed.reason.name_empty"
+msgstr "Navnet kan ikke være blankt"
+
+msgid "xhr.failed.reason.invalid_location"
+msgstr "Plasseringen er utenfor rekkevidde"
+

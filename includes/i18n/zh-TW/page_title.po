@@ -1,0 +1,53 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Chinese Traditional\n"
+"Language: zh_TW\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/page_title.po\n"
+"PO-Revision-Date: 2019-05-31 02:14\n"
+
+msgid "page_title.setup"
+msgstr "安裝FreeField"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+#  %2 = Administration domain (e.g. "Users", "Webhooks")
+msgid "page_title.admin"
+msgstr "管理員 » {%2} | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.main"
+msgstr "{%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.access_denied"
+msgstr "拒絕訪問 | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.main"
+msgstr "登入| {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.failed"
+msgstr "登入失敗 | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.awaiting_approval"
+msgstr "待審批賬戶 | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.approve_user"
+msgstr "用戶審批請求 | {%1}"
+
+#  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
+msgid "page_title.login.telegram"
+msgstr "登入» Telegram | {%1}"
+

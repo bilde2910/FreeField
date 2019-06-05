@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Chinese Traditional\n"
+"Language: zh_TW\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/login.po\n"
+"PO-Revision-Date: 2019-05-31 01:25\n"
+
+msgid "login.title"
+msgstr "登陸FreeField"
+
+msgid "login.desc"
+msgstr "請選擇以下的一種認證方式"
+
+#  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
+msgid "login.perform"
+msgstr "使用 {%1} 登陸"
+
+msgid "login.reconfigure"
+msgstr "重新配置"
+
+msgid "login.telegram.title"
+msgstr "Telegram認證"
+
+msgid "login.telegram.body"
+msgstr "使用Telegram登陸請點擊以下按鈕"
+

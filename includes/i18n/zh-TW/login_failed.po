@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Chinese Traditional\n"
+"Language: zh_TW\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/login_failed.po\n"
+"PO-Revision-Date: 2019-05-31 01:25\n"
+
+msgid "login_failed.title"
+msgstr "登錄失敗"
+
+msgid "login_failed.default_auth_provider"
+msgstr "你的認證方式提供商"
+
+#  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
+msgid "login_failed.desc"
+msgstr "無法通過 {%1} 驗證"
+
+msgid "login_failed.info"
+msgstr "你嘗試通過 {%1} 驗證身份，但失敗了。你想再嘗試一次嗎？"
+
