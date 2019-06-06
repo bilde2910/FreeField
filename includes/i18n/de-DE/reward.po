@@ -1,0 +1,278 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: de\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/reward.po\n"
+"PO-Revision-Date: 2019-06-06 11:26\n"
+
+msgid "reward.poke_ball.general"
+msgstr ""
+
+msgid "reward.poke_ball.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.poke_ball.plural"
+msgstr ""
+
+msgid "reward.great_ball.general"
+msgstr ""
+
+msgid "reward.great_ball.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.great_ball.plural"
+msgstr ""
+
+msgid "reward.ultra_ball.general"
+msgstr ""
+
+msgid "reward.ultra_ball.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.ultra_ball.plural"
+msgstr ""
+
+msgid "reward.razz_berry.general"
+msgstr ""
+
+msgid "reward.razz_berry.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.razz_berry.plural"
+msgstr ""
+
+msgid "reward.nanab_berry.general"
+msgstr ""
+
+msgid "reward.nanab_berry.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.nanab_berry.plural"
+msgstr ""
+
+msgid "reward.pinap_berry.general"
+msgstr ""
+
+msgid "reward.pinap_berry.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.pinap_berry.plural"
+msgstr ""
+
+msgid "reward.golden_razz_berry.general"
+msgstr ""
+
+msgid "reward.golden_razz_berry.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.golden_razz_berry.plural"
+msgstr ""
+
+msgid "reward.silver_pinap_berry.general"
+msgstr ""
+
+msgid "reward.silver_pinap_berry.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.silver_pinap_berry.plural"
+msgstr ""
+
+msgid "reward.potion.general"
+msgstr ""
+
+msgid "reward.potion.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.potion.plural"
+msgstr ""
+
+msgid "reward.super_potion.general"
+msgstr ""
+
+msgid "reward.super_potion.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.super_potion.plural"
+msgstr ""
+
+msgid "reward.hyper_potion.general"
+msgstr ""
+
+msgid "reward.hyper_potion.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.hyper_potion.plural"
+msgstr ""
+
+msgid "reward.max_potion.general"
+msgstr ""
+
+msgid "reward.max_potion.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.max_potion.plural"
+msgstr ""
+
+msgid "reward.revive.general"
+msgstr ""
+
+msgid "reward.revive.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.revive.plural"
+msgstr ""
+
+msgid "reward.max_revive.general"
+msgstr ""
+
+msgid "reward.max_revive.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.max_revive.plural"
+msgstr ""
+
+msgid "reward.sun_stone.general"
+msgstr ""
+
+msgid "reward.sun_stone.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.sun_stone.plural"
+msgstr ""
+
+msgid "reward.kings_rock.general"
+msgstr ""
+
+msgid "reward.kings_rock.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.kings_rock.plural"
+msgstr ""
+
+msgid "reward.metal_coat.general"
+msgstr ""
+
+msgid "reward.metal_coat.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.metal_coat.plural"
+msgstr ""
+
+msgid "reward.dragon_scale.general"
+msgstr ""
+
+msgid "reward.dragon_scale.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.dragon_scale.plural"
+msgstr ""
+
+msgid "reward.up_grade.general"
+msgstr ""
+
+msgid "reward.up_grade.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.up_grade.plural"
+msgstr ""
+
+msgid "reward.sinnoh_stone.general"
+msgstr ""
+
+msgid "reward.sinnoh_stone.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.sinnoh_stone.plural"
+msgstr ""
+
+msgid "reward.fast_tm.general"
+msgstr ""
+
+msgid "reward.fast_tm.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.fast_tm.plural"
+msgstr ""
+
+msgid "reward.charge_tm.general"
+msgstr ""
+
+msgid "reward.charge_tm.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.charge_tm.plural"
+msgstr ""
+
+msgid "reward.stardust.general"
+msgstr ""
+
+msgid "reward.stardust.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.stardust.plural"
+msgstr ""
+
+msgid "reward.rare_candy.general"
+msgstr ""
+
+msgid "reward.rare_candy.singular"
+msgstr ""
+
+#  %1 = Amount/quantity
+msgid "reward.rare_candy.plural"
+msgstr ""
+
+msgid "reward.encounter.general"
+msgstr ""
+
+msgid "reward.encounter.singular"
+msgstr ""
+
+msgid "reward.encounter.plural"
+msgstr ""
+
+#  %1 = Name of a species ("Pikachu", "Charizard", etc.)
+msgid "reward.encounter_specific.singular"
+msgstr ""
+
+#  %1 = Name of a species ("Pikachu", "Charizard", etc.)
+msgid "reward.encounter_specific.plural"
+msgstr ""
+
+#  Displayed when the research task reward from a Pokéstop is unknown.
+msgid "reward.unknown.singular"
+msgstr ""
+
