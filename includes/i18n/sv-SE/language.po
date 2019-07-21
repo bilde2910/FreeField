@@ -13,13 +13,13 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: sv-SE\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/language.po\n"
-"PO-Revision-Date: 2019-07-21 10:25\n"
+"PO-Revision-Date: 2019-07-21 20:14\n"
 
 #  The name of the language and country in English (e.g. "French (France)", "Spanish (Spain)")
 msgid "language.name_english"
-msgstr "English (United States)"
+msgstr "Swedish (Sweden)"
 
 #  The native name of the language and country (e.g. "Français (France)", "Español (España)")
 msgid "language.name_native"
-msgstr "English (United States)"
+msgstr "Svenska (Sverige)"
 
