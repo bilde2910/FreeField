@@ -1184,7 +1184,7 @@ function getPOIHaversineDistances(idList) {
             into a queue for separate weight calculation.
         */
         if (
-            markerMap[idList[i]].type != "poi" ||
+            markerMap[idList[i]].type == "poi" &&
             pois[markerMap[idList[i]].id].objective.type != "unknown"
         ) {
             reportedList.push(i);
