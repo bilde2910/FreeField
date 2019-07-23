@@ -50,6 +50,11 @@ body {
     background-color: #4d9d4d;
 }
 
+/* EX arena indicator on the arena details popup. */
+#poi-arena-flag-ex {
+    color: darkcyan;
+}
+
 /* Background color for tooltips on admin pages. */
 .tooltip span {
     background-color: black;

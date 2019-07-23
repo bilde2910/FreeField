@@ -447,6 +447,13 @@ $(".poi-actions, .arena-actions").on("change", function() {
             $(this).css("margin-right", "");
             break;
 
+        case "flag-ex":
+        case "unflag-ex":
+            $(this).css("border", "1px solid darkcyan");
+            $(this).css("color", "darkcyan");
+            $(this).css("margin-right", "");
+            break;
+
         default:
             $(this).css("border", "");
             $(this).css("color", "");

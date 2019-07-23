@@ -40,10 +40,11 @@ class Theme {
         }
 
         /*
-            Add the "arena" icon to the icons list. This icon is used to display
-            arenas on the map.
+            Add the "arena" icons to the icons list. These icons are used to
+            display arenas on the map.
         */
         $icons[] = "arena";
+        $icons[] = "arena_ex";
 
         /*
             Add the "default" icon to the end of the icons list. This icon is

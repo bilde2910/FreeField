@@ -645,6 +645,14 @@ Security::declareFrameOptionsHeader();
                                             <img id="poi-arena-icon" src="about:blank" class="bigmarker">
                                         </div>
                                     </div>
+                                    <p class="centered" id="poi-arena-flag-ex">
+                                        <?php
+                                            echo I18N::resolveArgsHTML(
+                                                "arena.flag.ex", false,
+                                                '<i class="fas fa-flag"></i>'
+                                            );
+                                        ?>
+                                    </p>
                                 </div>
                                 <p class="centered">
                                     <span id="poi-last-time"></span>
