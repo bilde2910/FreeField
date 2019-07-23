@@ -30,9 +30,20 @@ class I18N {
     private static $currentLanguage = null;
 
     /*
+        If languages are overridden via `changeLanguage()`, store the requested
+        language array here.
+    */
+    private static $overrideLanguages = null;
+
+    /*
         Cache of available languages in FreeField.
     */
     private static $langCache = null;
+
+    /*
+        Cache of loaded language files in FreeField.
+    */
+    private static $fileCache = null;
 
     /*
         List of .po files which have been read and merged into `$i18ndata`.
@@ -294,7 +305,17 @@ class I18N {
         self::setLanguages($languages, $domain);
     }
 
-    public static function setLanguages($requested, $domain = "language") {
+    /*
+        Change the language currently active in FreeField.
+    */
+    public static function changeLanguage($language) {
+        self::$i18ndata = null;
+        self::$appliedFiles = null;
+        self::$overrideLanguages = array(DEFAULT_LANG => "1");
+        self::$overrideLanguages[$language] = "2";
+    }
+
+    private static function setLanguages($requested, $domain = "language") {
         /*
             Fetch a list of all languages installed in FreeField.
         */
@@ -326,16 +347,24 @@ class I18N {
                 $poFile = "{$avail}/{$domain}.po";
                 if (!in_array($poFile, self::$appliedFiles)) {
                     self::$appliedFiles[] = $poFile;
-                    if (file_exists(__DIR__."/../i18n/{$poFile}")) {
-                        $data = self::parsePo(
+                    /*
+                        Read the language file into the file cache.
+                    */
+                    if (
+                        !array_key_exists($poFile, self::$fileCache) &&
+                        file_exists(__DIR__."/../i18n/{$poFile}")
+                    ) {
+                        self::$fileCache[$poFile] = self::parsePo(
                             __DIR__."/../i18n/{$poFile}"
                         );
+                    }
+                    if (isset(self::$fileCache[$poFile])) {
                         /*
                             Load the language file on top of the currently
                             loaded language, not replacing already defined
                             strings, if any.
                         */
-                        foreach ($data as $key => $value) {
+                        foreach (self::$fileCache[$poFile] as $key => $value) {
                             if (empty(self::$i18ndata[$key])) {
                                 self::$i18ndata[$key] = $value;
                             }
@@ -404,6 +433,10 @@ class I18N {
           - Spanish (Argentina)
     */
     public static function getAcceptedLanguages() {
+        if (self::$overrideLanguages !== null) {
+            return self::$overrideLanguages;
+        }
+
         if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) return array(
             self::DEFAULT_LANG => "1"
         );
