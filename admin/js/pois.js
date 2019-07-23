@@ -229,7 +229,7 @@ function drawTable(type) {
             var colLatitude = $(
                 '<td>' +
                     '<input type="number" ' +
-                           'step="0.000000000001" ' +
+                           'step="0.00000000000001" ' +
                            'class="import-' + type + '-data-field" ' +
                            'data-new-id="' + i + '" ' +
                            'data-new-key="latitude">' +
@@ -240,7 +240,7 @@ function drawTable(type) {
             var colLongitude = $(
                 '<td>' +
                     '<input type="number" ' +
-                           'step="0.000000000001" ' +
+                           'step="0.00000000000001" ' +
                            'class="import-' + type + '-data-field" ' +
                            'data-new-id="' + i + '" ' +
                            'data-new-key="longitude">' +
@@ -444,6 +444,13 @@ $(".poi-actions, .arena-actions").on("change", function() {
         case "clear":
             $(this).css("border", "1px solid darkorange");
             $(this).css("color", "darkorange");
+            $(this).css("margin-right", "");
+            break;
+
+        case "flag-ex":
+        case "unflag-ex":
+            $(this).css("border", "1px solid darkcyan");
+            $(this).css("color", "darkcyan");
             $(this).css("margin-right", "");
             break;
 

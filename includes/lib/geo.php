@@ -845,6 +845,13 @@ class Arena extends POIBase {
     function __construct($poidata) {
         parent::__construct($poidata);
     }
+
+    /*
+        Checks whether the arena is an EX arena.
+    */
+    public function isEX() {
+        return $this->data["ex"] == 1;
+    }
 }
 
 /*

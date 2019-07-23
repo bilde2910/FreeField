@@ -32,6 +32,7 @@ CREATE TABLE {%TablePrefix%}arena (
     created_by      varchar(64)     DEFAULT NULL,
     last_updated    timestamp       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_by      varchar(64)     DEFAULT NULL,
+    ex              tinyint(1)      NOT NULL DEFAULT '0',
     PRIMARY KEY (id)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

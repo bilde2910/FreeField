@@ -305,6 +305,17 @@ foreach ($_POST as $arena => $data) {
             $deletes[] = $pid;
             continue;
 
+        } elseif ($data["action"] == "flag-ex") {
+            /*
+                Flag this arena as an EX arena.
+            */
+            $updates[$pid]["ex"] = 1;
+
+        } elseif ($data["action"] == "unflag-ex") {
+            /*
+                Unflag this arena as an EX arena.
+            */
+            $updates[$pid]["ex"] = 0;
         }
     }
 

@@ -71,6 +71,36 @@
     color: darkorange !important;
 }
 
+/* The "about" box and language selection box at the bottom of the sidebar. */
+.menu-about-box {
+    position: fixed;
+    bottom: 0;
+    width: 130px;
+    padding: 10px;
+    font-size: 0.8em;
+    background-color: #191818;
+    color: #999;
+}
+
+.menu-about-box a {
+    padding: 0 !important;
+}
+
+.menu-about-box select {
+    background-color: #333;
+    border: none;
+}
+
+/* If the viewport is so small that the about box would render on top of the
+   rest of the menu, append the about box to the end of the menu instead. There
+   are probably better ways to solve this dynamically. */
+@media all and (max-height: 550px) {
+    .menu-about-box {
+        position: relative;
+        top: 0;
+    }
+}
+
 /* In the same case, there should also be a "filters active" icon underneath the
    menu button for mobile devices. */
 .filter-overlay-icon {
@@ -705,6 +735,11 @@ h1.head-small {
     margin: 10px;
 }
 
+/* EX arena indicator on the arena details popup. */
+#poi-arena-flag-ex {
+    font-weight: bold;
+}
+
 /* Spacer used to separate action buttons from the rest of the content in
    overlays/dialogs. */
 .cover-button-spacer {
@@ -742,13 +777,21 @@ h1.head-small {
     width: 50px;
     height: 50px;
     cursor: pointer;
-    z-index: 12;
+    z-index: 14;
 }
 
 /* Markers with unknown research should appear layered underneath the ones for
    which research is known, to better highlight POIs which have current research
    reports. */
 .marker.unknown {
+    z-index: 13;
+}
+
+/* Arena markers should display underneath everything else. */
+.marker.arena_ex {
+    z-index: 12;
+}
+.marker.arena {
     z-index: 11;
 }
 
@@ -758,9 +801,15 @@ h1.head-small {
    tasks defined. Override this behavior using data attributes on the Leaflet
    marker elements. */
 .leaflet-marker-icon {
-    z-index: 12 !important;
+    z-index: 14 !important;
 }
 .leaflet-marker-icon[data-ff-icon="unknown"] {
+    z-index: 13 !important;
+}
+.leaflet-marker-icon[data-ff-icon="arena_ex"] {
+    z-index: 12 !important;
+}
+.leaflet-marker-icon[data-ff-icon="arena"] {
     z-index: 11 !important;
 }
 

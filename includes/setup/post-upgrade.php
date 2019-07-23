@@ -193,6 +193,20 @@ CREATE TABLE {$prefix}arena (
 __END_STRING__;
                 $db->execute($sql);
                 if (!$silent) echo " ok\n";
+
+            case "1.2-alpha.1":
+            case "1.2-alpha.2":
+            case "1.2-alpha.3":
+                /*
+                    Update arena table adding EX column.
+                */
+                if (!$silent) echo "Adding EX flag to arena table...";
+                $sql = <<<__END_STRING__
+ALTER TABLE {$prefix}_arena ADD ex tinyint(1) NOT NULL DEFAULT '0' AFTER updated_by;
+__END_STRING__;
+                $db->execute($sql);
+                if (!$silent) echo " ok\n";
+
         }
         /*
             Recheck for updates.

@@ -134,16 +134,16 @@
         quantity: 1
     encounter_species:
       - 138 # Omanyte
--
-    # Win a raid
-    type: "win_raid"
-    params:
-        quantity: 1
--
-    # Win 3 raids
-    type: "win_raid"
-    params:
-        quantity: 3
+#-
+#    # Win a raid
+#    type: "win_raid"
+#    params:
+#        quantity: 1
+#-
+#    # Win 3 raids
+#    type: "win_raid"
+#    params:
+#        quantity: 3
 -
     # Win 5 raids
     type: "win_raid"

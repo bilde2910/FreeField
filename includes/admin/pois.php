@@ -331,7 +331,7 @@ __require("research");
                                 <td>
                                     <input type="text"
                                            name="a<?php echo $pid; ?>[name]"
-                                           class="arena-name"
+                                           class="arena-name<?php echo $arena->isEX() ? " arena-name-ex" : ""; ?>"
                                            value="<?php echo $arena->getNameHTML(); ?>">
                                 </td>
                                 <td><?php echo $arena->getTimeCreatedString(); ?></td>
@@ -369,6 +369,21 @@ __require("research");
                                     <option value="none" selected>
                                         <?php echo I18N::resolveHTML("admin.section.pois.arena_list.action.none"); ?>
                                     </option>
+                                    <?php
+                                        if ($arena->isEX()) {
+                                            ?>
+                                                <option value="unflag-ex">
+                                                    <?php echo I18N::resolveHTML("admin.section.pois.arena_list.action.unflag_ex"); ?>
+                                                </option>
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <option value="flag-ex">
+                                                    <?php echo I18N::resolveHTML("admin.section.pois.arena_list.action.flag_ex"); ?>
+                                                </option>
+                                            <?php
+                                        }
+                                    ?>
                                     <option value="delete">
                                         <?php echo I18N::resolveHTML("admin.section.pois.arena_list.action.delete"); ?>
                                     </option>

@@ -638,7 +638,10 @@ function addMarkers(markers, type) {
         } else if (type == "arena") {
             e.className =
                 // Basic map marker class for arenas
-                "marker arena "
+                "marker "
+
+                // Render EX icon if applicable
+                + (arenas[realId].ex ? "arena_ex " : "arena ")
 
                 // Set the color theme of the markers depending on the map style
                 + styleMap[settings.get("mapProvider")][settings.get("mapStyle-"+settings.get("mapProvider"))] + " "
@@ -660,7 +663,8 @@ function addMarkers(markers, type) {
             }, function(markerObj) {
                 closeMarker(markerObj);
             },
-            type == "poi" ? poiObj[settings.get("markerComponent")].type : "arena"
+            type == "poi" ? poiObj[settings.get("markerComponent")].type
+                          : (poiObj.ex ? "arena_ex" : "arena")
         );
 
         if (type == "poi") {
@@ -1184,7 +1188,7 @@ function getPOIHaversineDistances(idList) {
             into a queue for separate weight calculation.
         */
         if (
-            markerMap[idList[i]].type != "poi" ||
+            markerMap[idList[i]].type == "poi" &&
             pois[markerMap[idList[i]].id].objective.type != "unknown"
         ) {
             reportedList.push(i);
@@ -1466,7 +1470,13 @@ function openMarker(markerObj, id) {
         $(".only-for-arena").hide();
         $("#poi-action-buttons div.pure-u-1-3").removeClass("pure-u-1-3").addClass("pure-u-1-4");
     } else if (type == "arena") {
-        $("#poi-arena-icon").attr("src", resolveIconUrl("arena"));
+        if (poiObj.ex) {
+            $("#poi-arena-icon").attr("src", resolveIconUrl("arena_ex"));
+            $("#poi-arena-flag-ex").show();
+        } else {
+            $("#poi-arena-icon").attr("src", resolveIconUrl("arena"));
+            $("#poi-arena-flag-ex").hide();
+        }
 
         $(".only-for-poi").hide();
         $(".only-for-arena").show();

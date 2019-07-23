@@ -280,6 +280,12 @@ msgstr "Actions"
 msgid "admin.section.pois.arena_list.action.none"
 msgstr "(no action)"
 
+msgid "admin.section.pois.arena_list.action.flag_ex"
+msgstr "Flag as EX gym"
+
+msgid "admin.section.pois.arena_list.action.unflag_ex"
+msgstr "Unflag as EX gym"
+
 msgid "admin.section.pois.arena_list.action.delete"
 msgstr "Delete gym"
 

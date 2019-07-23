@@ -78,7 +78,8 @@ try {
         "name" => $poi["name"],
         "latitude" => floatval($poi["latitude"]),
         "longitude" => floatval($poi["longitude"]),
-        "updated" => $updatedArray
+        "updated" => $updatedArray,
+        "ex" => 0
     );
 
     XHR::exitWith(201, array("arena" => $poidata));

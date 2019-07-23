@@ -70,6 +70,11 @@ tr[data-search-match="0"] {
     min-width: 100px;
 }
 
+/* EX arenas should be cyan to indicate being EX. */
+.arena-name-ex {
+    color: darkcyan;
+}
+
 /* Clickable link for the "current research" column on the POI list. */
 .poi-table-marker-link {
     text-decoration: none;

@@ -65,7 +65,8 @@ try {
                 "name" => $arena->getName(),
                 "latitude" => $arena->getLatitude(),
                 "longitude" => $arena->getLongitude(),
-                "updated" => $updatedArray
+                "updated" => $updatedArray,
+                "ex" => $arena->isEX()
             );
         }
 
