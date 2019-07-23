@@ -202,7 +202,7 @@ __END_STRING__;
                 */
                 if (!$silent) echo "Adding EX flag to arena table...";
                 $sql = <<<__END_STRING__
-ALTER TABLE {$prefix}_arena ADD ex tinyint(1) NOT NULL DEFAULT '0' AFTER updated_by;
+ALTER TABLE {$prefix}arena ADD ex tinyint(1) NOT NULL DEFAULT '0' AFTER updated_by;
 __END_STRING__;
                 $db->execute($sql);
                 if (!$silent) echo " ok\n";
