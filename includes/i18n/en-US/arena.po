@@ -9,9 +9,8 @@ msgstr ""
 "Language: en_US\n"
 "X-Crowdin-SourceKey: msgstr\n"
 
-#  %1 = Flag icon
 msgid "arena.flag.ex"
-msgstr "{%1} EX Raid Gym {%1}"
+msgstr "EX Raid Gym"
 
 msgid "arena.add.title"
 msgstr "Add gym"

@@ -669,10 +669,7 @@ Security::declareFrameOptionsHeader();
                                     </div>
                                     <p class="centered poi-flag" id="poi-arena-flag-ex">
                                         <?php
-                                            echo I18N::resolveArgsHTML(
-                                                "arena.flag.ex", false,
-                                                '<i class="fas fa-flag"></i>'
-                                            );
+                                            echo I18N::resolveHTML("arena.flag.ex");
                                         ?>
                                     </p>
                                 </div>
