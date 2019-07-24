@@ -720,6 +720,9 @@ class POIBase {
 */
 class POI extends POIBase {
 
+    // Duration of POI evilness in seconds.
+    const EVIL_DURATION = 1800;
+
     function __construct($poidata) {
         parent::__construct($poidata);
     }
@@ -830,6 +833,16 @@ class POI extends POIBase {
     */
     public function isResearchUnknown() {
         return $this->isObjectiveUnknown() && $this->isRewardUnknown();
+    }
+
+    /*
+        Gets the remaining evilness time in seconds.
+    */
+    public function getEvilRemaining() {
+        if ($this->data["evil_reported"] == null) return 0;
+        $remain = strtotime($this->data["evil_reported"])
+                - time() + self::EVIL_DURATION;
+        return $remain < 0 ? 0 : $remain;
     }
 }
 

@@ -141,6 +141,7 @@ if (!Auth::getCurrentUser()->hasPermission("access")) {
 __require("config");
 __require("theme");
 __require("research");
+__require("geo");
 __require("vendor/parsedown");
 
 /*
@@ -638,6 +639,27 @@ Security::declareFrameOptionsHeader();
                                             '<strong id="poi-reward" class="strong-color"></strong>'
                                         ); ?>
                                     </p>
+                                    <p class="centered" id="poi-flag-evil">
+                                        <span class="poi-flag">
+                                            <?php
+                                                echo I18N::resolveHTML("poi.flag.evil.head");
+                                            ?>
+                                        </span>
+                                        <br />
+                                        <span id="poi-flag-evil-remain-normal">
+                                            <?php
+                                                echo I18N::resolveArgsHTML(
+                                                    "poi.flag.evil.body.normal", false,
+                                                    '<span id="poi-flag-evil-remain"></span>'
+                                                );
+                                            ?>
+                                        </span>
+                                        <span id="poi-flag-evil-remain-early">
+                                            <?php
+                                                echo I18N::resolveHTML("poi.flag.evil.body.early");
+                                            ?>
+                                        </span>
+                                    </p>
                                 </div>
                                 <div class="only-for-arena">
                                     <div class="pure-g">
@@ -645,7 +667,7 @@ Security::declareFrameOptionsHeader();
                                             <img id="poi-arena-icon" src="about:blank" class="bigmarker">
                                         </div>
                                     </div>
-                                    <p class="centered" id="poi-arena-flag-ex">
+                                    <p class="centered poi-flag" id="poi-arena-flag-ex">
                                         <?php
                                             echo I18N::resolveArgsHTML(
                                                 "arena.flag.ex", false,
@@ -664,10 +686,18 @@ Security::declareFrameOptionsHeader();
                                 <div class="cover-button-spacer"></div>
                                 <div class="only-for-poi">
                                     <div class="pure-g">
-                                        <div class="pure-u-1-1 right-align">
+                                        <div class="pure-u-3-4">
                                             <span id="poi-add-report"
-                                                  class="button-standard split-button">
+                                                  class="button-standard split-button button-spaced left">
                                                 <?php echo I18N::resolveHTML("poi.report_research"); ?>
+                                            </span>
+                                        </div>
+                                        <div class="pure-u-1-4">
+                                            <span id="poi-add-evil"
+                                                  class="button-standard split-button button-spaced right">
+                                                 <span class="poi-button-evil">
+                                                     (<span class="poi-evil-logo">R</span>)
+                                                 </span>
                                             </span>
                                         </div>
                                     </div>
@@ -2151,6 +2181,11 @@ Security::declareFrameOptionsHeader();
                         */
                         "overwrite-research",
                         /*
+                            Allows the user to report evilness on POIs. If this
+                            is not allowed, the button is hidden.
+                        */
+                        "report-evil",
+                        /*
                             Allows the user to manage POIs. If this is not
                             granted, the buttons that the user would click on to
                             move or delete POIs are hidden.
@@ -2220,6 +2255,11 @@ Security::declareFrameOptionsHeader();
                 Echo the current page language for usage in /js/main.js.
             */
             var currentLanguage = <?php echo json_encode(I18N::getLanguage()); ?>;
+
+            /*
+                Echo the default time that evilness lasts.
+            */
+            var defaultEvilDuration = <?php echo POI::EVIL_DURATION; ?>;
 
             /*
                 The language selection menu in the sidebar.

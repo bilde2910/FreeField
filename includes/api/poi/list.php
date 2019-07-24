@@ -67,6 +67,7 @@ try {
                 "name" => $poi->getName(),
                 "latitude" => $poi->getLatitude(),
                 "longitude" => $poi->getLongitude(),
+                "evil" => $poi->getEvilRemaining(),
                 "objective" => $poi->getCurrentObjective(),
                 "reward" => $poi->getCurrentReward(),
                 "updated" => $updatedArray

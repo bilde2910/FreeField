@@ -393,6 +393,15 @@ class ConfigDefinitions {
                     "option" => new PermissionOption()
                 ),
             /*
+                Allows users to report evilness presence on POIs.
+            */
+            "permissions/level/report-evil" => array(
+                "domain" => "perms",
+                "section" => "map-access",
+                "default" => PermissionOption::LEVEL_REGISTERED,
+                "option" => new PermissionOption()
+            ),
+            /*
                 Allows users to submit new POIs to the map.
             */
             "permissions/level/submit-poi" => array(

@@ -551,6 +551,9 @@ function addMarkers(markers, type) {
             marker["map"] = mapIdx;
         }
         marker["elementId"] = "dynamic-marker-" + marker.map;
+        if (!marker.hasOwnProperty("lastRefresh")) {
+            marker["lastRefresh"] = Math.floor(Date.now() / 1000);
+        }
         if (type == "poi") {
             pois[marker.id] = marker;
         } else if (type == "arena") {
@@ -654,6 +657,17 @@ function addMarkers(markers, type) {
         }
 
         /*
+            If the POI has texture layers, ensure these are added as well.
+            Layers can be things like the pulsing purple indicating POI
+            evilness. These are rendered on top of the marker.
+        */
+        if (poiObj.hasOwnProperty("layers")) {
+            for (var i = 0; i < poiObj.layers.length; i++) {
+                e.appendChild(createTextureLayer(poiObj.layers[i]).get(0));
+            }
+        }
+
+        /*
             Add the marker to the map itself. Get a reference to the marker
             object itself, in case it has to be updated later.
         */
@@ -670,11 +684,134 @@ function addMarkers(markers, type) {
         if (type == "poi") {
             pois[realId].visible = true;
             pois[realId]["implObject"] = implMarkerObj;
+            if (getRealEvilTime(pois[realId]) > 0) {
+                addTemporaryLayeredTexture(
+                    pois[realId], "evil", getRealEvilTime(pois[realId]) * 1000
+                );
+            }
         } else if (type == "arena") {
             arenas[realId].visible = true;
             arenas[realId]["implObject"] = implMarkerObj;
         }
     });
+}
+
+/*
+    Returns the real time of evilness remaining, taking into account the last
+    refresh time.
+*/
+function getRealEvilTime(poiObj) {
+    return poiObj.evil - Math.floor(Date.now() / 1000) + poiObj.lastRefresh;
+}
+
+/*
+    Adds a texture layer on top of the given POI object.
+*/
+function addLayeredTexture(poiObj, texture) {
+    /*
+        Check that the POI does not already have this texture.
+    */
+    if (poiObj.hasOwnProperty("layers")) {
+        for (var i = 0; i < poiObj.layers.length; i++) {
+            if (poiObj.layers[i] == texture) {
+                return false;
+            }
+        }
+    }
+
+    /*
+        Add the texture to the `poiObj` for usage in `addMarkers()`.
+    */
+    if (!poiObj.hasOwnProperty("layers")) {
+        poiObj["layers"] = [];
+    }
+    poiObj["layers"].push(texture);
+
+    /*
+        Attempt to create and apply the texture immediately.
+    */
+    $("#" + poiObj.elementId).append(createTextureLayer(texture));
+
+    return true;
+}
+
+/*
+    Adds a texture layer that disappears after a certain time.
+*/
+function addTemporaryLayeredTexture(poiObj, texture, millis) {
+    if (addLayeredTexture(poiObj, texture)) {
+        if (!poiObj.hasOwnProperty("layerTimer")) {
+            poiObj["layerTimer"] = {};
+        }
+        poiObj.layerTimer[texture] = setTimeout(function() {
+            removeTemporaryLayeredTexture(poiObj, texture);
+        }, millis);
+        console.log("Added a countdown of " + millis + " to evil POI");
+    }
+}
+
+/*
+    Removes a texture layer created via `addLayeredTexture()`.
+*/
+function removeLayeredTexture(poiObj, texture) {
+    /*
+        Check if the texture exists in the given POI object.
+    */
+    if (poiObj.hasOwnProperty("layers")) {
+        for (var i = 0; i < poiObj.layers.length; i++) {
+            if (poiObj.layers[i] == texture) {
+                poiObj.layers.splice(i, 1);
+                /*
+                    Attempt to remove the marker element immediately.
+                */
+                $("#" + poiObj.elementId + " > div." + getLayeredTextureClass(texture).join(".")).remove();
+                break;
+            }
+        }
+    }
+}
+
+/*
+    Removes a texture layer created via `addTemporaryLayeredTexture()`.
+*/
+function removeTemporaryLayeredTexture(poiObj, texture) {
+    removeLayeredTexture(poiObj, texture);
+    if (poiObj.hasOwnProperty("layerTimer")) {
+        if (poiObj.layerTimer.hasOwnProperty(texture)) {
+            clearTimeout(poiObj.layerTimer[texture]);
+            delete poiObj.layerTimer[texture];
+            console.log("Cleared a timed POI");
+        }
+    }
+}
+
+/*
+    Creates a texture layer that can be added as the child of a marker.
+*/
+function createTextureLayer(texture) {
+    var textureLayer = $("<div />");
+    var classes = getLayeredTextureClass(texture);
+    for (var i = 0; i < classes.length; i++) {
+        textureLayer.addClass(classes[i]);
+    }
+    return textureLayer;
+}
+
+/*
+    Returns the class names required to add layered textures to existing
+    markers in `addLayeredTexture()`.
+*/
+function getLayeredTextureClass(texture) {
+    // Basic layered map marker class
+    var classes = ["marker", "layered"];
+    // Set the color theme of the markers depending on the map style
+    classes.push(styleMap[settings.get("mapProvider")][settings.get("mapStyle-"+settings.get("mapProvider"))]);
+    // Set the icon set from which marker icons are fetched
+    classes.push(settings.get("iconSet"));
+    // Set the texture icon itself
+    classes.push(texture);
+
+    return classes;
 }
 
 /*
@@ -713,6 +850,7 @@ function refreshMarkers() {
                 marker icon on the marker to reflect the new objective/reward.
             */
             var oldMarker = pois[marker.id];
+            oldMarker["lastRefresh"] = curTime;
 
             var oldObjective = oldMarker.objective.type;
             var oldReward = oldMarker.reward.type;
@@ -761,6 +899,21 @@ function refreshMarkers() {
                     }
                     break;
             }
+
+            /*
+                Also make sure to update the evilness status of the POI if it
+                has changed since the last refresh.
+            */
+            console.log("Marker evil is " + marker.evil);
+            if (oldMarker.evil == 0 && marker.evil > 0) {
+                // The POI is now evil, it wasn't before
+                addTemporaryLayeredTexture(oldMarker, "evil", marker.evil * 1000);
+            } else if (oldMarker.evil > 0 && marker.evil == 0) {
+                // The POI is no longer evil
+                removeTemporaryLayeredTexture(oldMarker, "evil");
+            }
+
+            oldMarker.evil = marker.evil;
 
             /*
                 If the POI details screen is currently open for the given
@@ -881,6 +1034,7 @@ function refreshMarkers() {
             }
 
             var oldMarker = arenas[marker.id];
+            oldMarker["lastRefresh"] = curTime;
             var markerHtml = $("#" + oldMarker.elementId);
 
             /*
@@ -1466,6 +1620,30 @@ function openMarker(markerObj, id) {
         $("#poi-objective").text(resolveObjective(poiObj.objective));
         $("#poi-reward").text(resolveReward(poiObj.reward));
 
+        /*
+            Set evilness status.
+        */
+        var realEvilTime = getRealEvilTime(poiObj);
+        if (realEvilTime > 0) {
+            var timeAgo = defaultEvilDuration - realEvilTime;
+            /*
+                If the report was made less than a minute ago, show a label that
+                says "Reported less than a minute ago" instead of "Reported 0
+                minute(s) ago" for better UX.
+            */
+            if (timeAgo < 60) {
+                $("#poi-flag-evil-remain-normal").hide();
+                $("#poi-flag-evil-remain-early").show();
+            } else {
+                $("#poi-flag-evil-remain-normal").show();
+                $("#poi-flag-evil-remain-early").hide();
+            }
+            $("#poi-flag-evil-remain").text(Math.floor(timeAgo / 60));
+            $("#poi-flag-evil").show();
+        } else {
+            $("#poi-flag-evil").hide();
+        }
+
         $(".only-for-poi").show();
         $(".only-for-arena").hide();
         $("#poi-action-buttons div.pure-u-1-3").removeClass("pure-u-1-3").addClass("pure-u-1-4");
@@ -1527,6 +1705,11 @@ function openMarker(markerObj, id) {
         ) {
             canReportResearch = permissions["overwrite-research"];
         }
+        /*
+            Do the same for POI evilness.
+        */
+        var canReportEvil = permissions["report-evil"];
+
         if (canReportResearch) {
             $("#poi-add-report").on("click", function() {
                 /*
@@ -1634,6 +1817,127 @@ function openMarker(markerObj, id) {
             $("#poi-add-report").show();
         } else {
             $("#poi-add-report").hide();
+        }
+
+        if (canReportEvil) {
+            $("#poi-add-evil").on("click", function() {
+                /*
+                    Determine whether to flag or unflag evilness on this POI.
+                */
+                var evilTime = getRealEvilTime(poiObj);
+                var evilActive = evilTime > 0;
+                var evilPrompt = resolveI18N("poi.evil.prompt.flag");
+                if (evilActive) evilPrompt = resolveI18N(
+                    "poi.evil.prompt.unflag",
+                    Math.floor((defaultEvilDuration - evilTime) / 60)
+                );
+
+                /*
+                    Ask for user confirmation and perform the report.
+                */
+                if (confirm(evilPrompt)) {
+                    MapImpl.closeMarker(markerObj);
+                    /*
+                        Since we're initiating a request to the server, display
+                        a "working" spinner popup to visually indicate to the
+                        user that the POI is being cleared.
+                    */
+                    $("#poi-working-text").text(resolveI18N("poi.evil.processing"));
+                    $("#poi-working-spinner").fadeIn(150);
+                    $.ajax({
+                        url: "./api/poi.php",
+                        type: "PATCH",
+                        dataType: "json",
+                        data: JSON.stringify({
+                            id: poiObj.id,
+                            set_evil: !evilActive
+                        }),
+                        statusCode: {
+                            204: function(data) {
+                                /*
+                                    If the request was successful, update the
+                                    display of the marker on the map to show the
+                                    evilness status. Also update the instance of
+                                    the object in `pois` with the new evilness
+                                    status.
+                                */
+                                if (evilActive) {
+                                    // POI is no longer evil.
+                                    removeTemporaryLayeredTexture(poiObj, "evil");
+                                    poiObj.evil = 0;
+                                    poiObj.lastRefresh = Math.floor(Date.now() / 1000);
+                                } else {
+                                    // POI is now evil.
+                                    addTemporaryLayeredTexture(poiObj, "evil", defaultEvilDuration * 1000);
+                                    poiObj.evil = defaultEvilDuration;
+                                    poiObj.lastRefresh = Math.floor(Date.now() / 1000);
+                                }
+
+                                /*
+                                    Let the user know that the POI was
+                                    successfully moved, and then close the
+                                    waiting popup.
+                                */
+                                spawnBanner("success", resolveI18N("poi.evil.success"));
+                                $("#poi-working-spinner").fadeOut(150);
+                            }
+                        }
+                    }).fail(function(xhr) {
+                        /*
+                            If the update request failed, then the user should
+                            be informed of the reason with a red banner.
+                        */
+                        var data = xhr.responseJSON;
+                        var reason = resolveI18N("xhr.failed.reason.unknown_reason");
+
+                        if (data !== undefined && data.hasOwnProperty("reason")) {
+                            reason = resolveI18N("xhr.failed.reason." + data["reason"]);
+                        }
+                        spawnBanner("failed", resolveI18N("poi.evil.failed.message", reason));
+                        $("#poi-working-spinner").fadeOut(150);
+                    });
+                }
+            });
+            $("#poi-add-evil").show();
+        } else if (!isAuthenticated()) {
+            /*
+                If the user does not have permission to report evil, but the
+                reason is that they aren't logged in, then redirect the user to
+                the login page instead of hiding the button. This is better UX
+                than simply removing the button, leaving new users clueless
+                about how to report research since 1) the button isn't shown and
+                2) it isn't immediately obvious that users have to sign in.
+            */
+            $("#poi-add-evil").on("click", function() {
+                location.href = "./auth/login.php?continue="
+                              + encodeURIComponent("/" + location.hash);
+            });
+            $("#poi-add-evil").show();
+        } else {
+            $("#poi-add-evil").hide();
+        }
+
+        /*
+            Ensure both report buttons have proper widths.
+        */
+        if (isAuthenticated()) {
+            var baseClass = "button-standard split-button";
+            if (canReportResearch && canReportEvil) {
+                $("#poi-add-report").parent().attr("class", "pure-u-3-4");
+                $("#poi-add-report").attr("class", baseClass + " button-spaced left");
+                $("#poi-add-evil").parent().attr("class", "pure-u-1-4");
+                $("#poi-add-evil").attr("class", baseClass + " button-spaced right");
+            } else if (canReportResearch) {
+                $("#poi-add-report").parent().attr("class", "pure-u-5-5");
+                $("#poi-add-report").attr("class", baseClass);
+            } else if (canReportEvil) {
+                $("#poi-add-evil").parent().attr("class", "pure-u-5-5");
+                $("#poi-add-evil").attr("class", baseClass);
+            }
+            /*
+                No `else` is required because both buttons will be hidden in
+                this case.
+            */
         }
     }
     if (canManagePOIs) {
@@ -2172,6 +2476,7 @@ function closeMarker(markerObj) {
         $("#poi-directions").off();
         $("#poi-close").off();
         $("#poi-add-report").off();
+        $("#poi-add-evil").off();
         $("#update-poi-submit").off();
         $("#poi-details").fadeOut(150);
 

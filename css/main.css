@@ -735,8 +735,17 @@ h1.head-small {
     margin: 10px;
 }
 
-/* EX arena indicator on the arena details popup. */
-#poi-arena-flag-ex {
+/* EX arena and other flag indicators on the POI details popup. */
+.poi-flag {
+    font-weight: bold;
+}
+
+/* Button for reporting evilness on POIs. */
+.poi-button-evil {
+    font-size: 1.2em;
+}
+.poi-evil-logo {
+    color: orangered;
     font-weight: bold;
 }
 

@@ -16,6 +16,7 @@ CREATE TABLE {%TablePrefix%}poi (
     created_by      varchar(64)     DEFAULT NULL,
     last_updated    timestamp       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_by      varchar(64)     DEFAULT NULL,
+    evil_reported   timestamp       DEFAULT NULL,
     objective       varchar(32)     NOT NULL,
     obj_params      varchar(128)    NOT NULL,
     reward          varchar(32)     NOT NULL,

@@ -151,6 +151,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         include(__DIR__."/../includes/api/poi/rename.php");
     } elseif (isset($patchdata["reset_research"]) && $patchdata["reset_research"]) {
         include(__DIR__."/../includes/api/poi/clear.php");
+    } elseif (isset($patchdata["set_evil"])) {
+        include(__DIR__."/../includes/api/poi/evil.php");
     }
     // Unsupported method, or data is missing
     XHR::exitWith(400, array("reason" => "missing_fields"));

@@ -47,6 +47,12 @@ class Theme {
         $icons[] = "arena_ex";
 
         /*
+            Add the evilness icon layer to the icons list. This is shown on the
+            map when evilness is active on a POI.
+        */
+        $icons[] = "evil";
+
+        /*
             Add the "default" icon to the end of the icons list. This icon is
             displayed if no more specific icon is found for any particular
             research objective or reward.

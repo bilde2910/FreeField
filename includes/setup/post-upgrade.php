@@ -207,6 +207,16 @@ __END_STRING__;
                 $db->execute($sql);
                 if (!$silent) echo " ok\n";
 
+            case "1.2-alpha.4":
+                /*
+                    Update POI table adding evil column.
+                */
+                if (!$silent) echo "Adding evil support to POI table...";
+                $sql = <<<__END_STRING__
+ALTER TABLE {$prefix}poi ADD evil_reported timestamp NULL DEFAULT NULL AFTER updated_by;
+__END_STRING__;
+                $db->execute($sql);
+                if (!$silent) echo " ok\n";
         }
         /*
             Recheck for updates.

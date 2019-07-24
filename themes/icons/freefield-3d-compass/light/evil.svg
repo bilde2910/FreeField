@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100" height="100" width="100" data-name="Layer 1" id="Layer_1">
+    <metadata id="metadata897">
+        <rdf:RDF>
+            <cc:Work rdf:about="">
+                <dc:format>image/svg+xml</dc:format>
+                <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+                <dc:title>evil</dc:title>
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <defs id="defs886">
+        <style id="style884">
+            .cls-1 {
+                fill: #7f00ff;
+                fill-opacity: 0.2;
+                stroke: #7f00ff;
+                stroke-miterlimit: 10;
+                stroke-width: 2px;
+            }
+            .cls-2 {
+                fill: #7f00ff;
+                stroke: none;
+                stroke-width: 1.78773093;
+                stroke-opacity: 1;
+                filter: url(#filter1074);
+                clip-path: url(#clipPath870);
+            }
+        </style>
+        <filter id="filter1074" style="color-interpolation-filters:sRGB;">
+            <feGaussianBlur id="feGaussianBlur1072" result="blur" stdDeviation="3 3"/>
+        </filter>
+        <clipPath id="clipPath870" x="0" y="0" width="100" height="100">
+            <polygon id="polygon890" transform="matrix(1.0488044,0,0,1.0488044,-2.4402216,-2.4402216)" points="68.3 31.7 50 2.56 50 0 100 0 100 100 0 100 0 0 50 0 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7"/>
+        </clipPath>
+    </defs>
+    <title id="title888">evil</title>
+    <circle class="cls-2" transform="matrix(0.92952256,0,0,0.92952256,3.5238719,3.5238719)" r="50" cy="50" cx="50" id="path899">
+        <animate attributeName="r" begin="0s" dur="1.5s" repeatCount="indefinite" from="35" to="50"/>
+        <animate attributeName="fill-opacity" begin="0s" dur="1.5s" repeatCount="indefinite" from="1" to="0"/>
+    </circle>
+    <polygon class="cls-1" points="68.3 31.7 50 2.56 31.7 31.7 2.56 50 31.7 68.3 50 97.44 68.3 68.3 97.44 50 68.3 31.7" id="polygon890"/>
+</svg>

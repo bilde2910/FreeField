@@ -83,6 +83,7 @@ try {
         "name" => $poi["name"],
         "latitude" => floatval($poi["latitude"]),
         "longitude" => floatval($poi["longitude"]),
+        "evil" => 0,
         "objective" => array(
             "type" => $poi["objective"],
             "params" => json_decode($poi["obj_params"], true)

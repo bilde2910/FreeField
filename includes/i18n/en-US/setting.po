@@ -204,6 +204,12 @@ msgstr "Report field research"
 msgid "setting.permissions.level.report_research.desc"
 msgstr "Allows users to report field research on Pokéstops whose current field research objective is unknown."
 
+msgid "setting.permissions.level.report_evil.name"
+msgstr "Report Team Rocket"
+
+msgid "setting.permissions.level.report_evil.desc"
+msgstr "Allows users to report Team Rocket presence on Pokéstops."
+
 msgid "setting.permissions.level.overwrite_research.name"
 msgstr "Overwrite field research"
 

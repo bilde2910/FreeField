@@ -55,6 +55,11 @@ body {
     color: darkcyan;
 }
 
+/* Evilness indicator on the POI details popup. */
+#poi-flag-evil {
+    color: #7f00ff;
+}
+
 /* Background color for tooltips on admin pages. */
 .tooltip span {
     background-color: black;

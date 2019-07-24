@@ -17,6 +17,16 @@ msgstr "Updated {%1}"
 msgid "poi.last.user"
 msgstr "Updated by {%1}"
 
+msgid "poi.flag.evil.head"
+msgstr "Team Rocket invasion active!"
+
+#  %1 = Minutes since the last report
+msgid "poi.flag.evil.body.normal"
+msgstr "Reported {%1} minute(s) ago"
+
+msgid "poi.flag.evil.body.early"
+msgstr "Reported less than a minute ago"
+
 msgid "poi.add.title"
 msgstr "Add Pokéstop"
 
@@ -123,6 +133,22 @@ msgstr "Successfully reported field research!"
 #  %1 = Reason it failed
 msgid "poi.update.failed.message"
 msgstr "Failed to report field research: {%1}"
+
+msgid "poi.evil.prompt.flag"
+msgstr "You are about to report that Team Rocket is currently active on this Pokéstop. Is this correct?"
+
+msgid "poi.evil.prompt.unflag"
+msgstr "Team Rocket was reported active on this Pokéstop {%1} minute(s) ago. You are about to report that this presence has ended. Is this correct?"
+
+msgid "poi.evil.processing"
+msgstr "Updating Team Rocket presence..."
+
+msgid "poi.evil.success"
+msgstr "Successfully updated Team Rocket presence!"
+
+#  %1 = Reason it failed
+msgid "poi.evil.failed.message"
+msgstr "Failed to update Team Rocket presence: {%1}"
 
 msgid "poi.search.placeholder"
 msgstr "Search for Pokéstops..."
