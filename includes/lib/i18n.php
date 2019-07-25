@@ -43,7 +43,7 @@ class I18N {
     /*
         Cache of loaded language files in FreeField.
     */
-    private static $fileCache = null;
+    private static $fileCache = array();
 
     /*
         List of .po files which have been read and merged into `$i18ndata`.
@@ -310,8 +310,8 @@ class I18N {
     */
     public static function changeLanguage($language) {
         self::$i18ndata = null;
-        self::$appliedFiles = null;
-        self::$overrideLanguages = array(DEFAULT_LANG => "1");
+        self::$appliedFiles = array();
+        self::$overrideLanguages = array(self::DEFAULT_LANG => "1");
         self::$overrideLanguages[$language] = "2";
     }
 

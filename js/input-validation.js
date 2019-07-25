@@ -85,6 +85,12 @@ function validateInput(e) {
                 */
                 return value.match(new RegExp(e.attr("data-validate-regex")));
 
+            case "not-null":
+                /*
+                    Input fields and select boxes that cannot be null.
+                */
+                return value !== null;
+
             case "geofence":
                 /*
                     Valid geofences. This can be either an empty string to

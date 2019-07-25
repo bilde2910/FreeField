@@ -49,6 +49,7 @@ $("#select-tg-group-cancel").on("click", function() {
     Displays: on the "add new webhook" dialog box
 */
 $("#add-hook-submit").on("click", function() {
+    var hookEvent = null;
     /*
         Different webhook types have different options that can be set by the
         user. Hence, we need to find the type of webhook the user selected to
@@ -64,10 +65,11 @@ $("#add-hook-submit").on("click", function() {
                 Here, we check if the user selected such a preset, and if so,
                 we fetch the preset and put it into the JSON body field.
             */
-            var preset = $("#add-hook-json-preset").val();
+            var preset = $("#add-hook-json-preset").val().split("/");
             var body = "";
             if (preset != "none") {
-                body = presets["json"][preset];
+                body = presets["json"][preset[0]][preset[1]];
+                hookEvent = preset[0];
             }
 
             /*
@@ -93,6 +95,7 @@ $("#add-hook-submit").on("click", function() {
                 active.
             */
             var node = $(createHookNode("json", id));
+            node.find(".hook-event").val(hookEvent);
             node.find(".hook-payload").val(body);
             node.find("select.hook-actions > option[value=enable]").remove();
 
@@ -118,7 +121,12 @@ $("#add-hook-submit").on("click", function() {
                 trigger the event.
             */
             $("#active-hooks-list").append(node);
+
+            // For input-validation:
+            node.find(".hook-event").trigger("input");
             node.find(".hook-target").trigger("input");
+            // For event handler:
+            node.find(".hook-event").trigger("change");
 
             break;
         case "telegram":
@@ -129,10 +137,11 @@ $("#add-hook-submit").on("click", function() {
                 presets must indicate which of these the hook should use by the
                 file extension of the hook (txt, md and html respectively).
             */
-            var preset = $("#add-hook-telegram-preset").val();
+            var preset = $("#add-hook-telegram-preset").val().split("/");
             var body = "";
             if (preset != "none") {
-                body = presets["telegram"][preset];
+                body = presets["telegram"][preset[0]][preset[1]];
+                hookEvent = preset[0];
             }
 
             /*
@@ -158,6 +167,7 @@ $("#add-hook-submit").on("click", function() {
                 active.
             */
             var node = $(createHookNode("telegram", id));
+            node.find(".hook-event").val(hookEvent);
             node.find(".hook-payload").val(body);
             node.find("select.hook-actions > option[value=enable]").remove();
             if (preset != "none") {
@@ -171,18 +181,9 @@ $("#add-hook-submit").on("click", function() {
                     extension and put it directly into the selection box as a
                     value, and the correct format will be selected.
                 */
-                var ext = preset.substr(preset.lastIndexOf(".") + 1);
+                var ext = preset[1].substr(preset[1].lastIndexOf(".") + 1);
                 node.find(".hook-tg-parse-mode").val(ext);
             }
-
-            /*
-                Update the summary displayed in the header bar of the webhook,
-                to ensure that it displays the correct summary for the newly-
-                generated webhook. The summary is the string that lists the
-                objective and rewards filters to quickly identify when a
-                specific webhook is triggered.
-            */
-            updateSummary(node);
 
             /*
                 Similarly to JSON webhooks, we also have to update the target
@@ -202,8 +203,22 @@ $("#add-hook-submit").on("click", function() {
                 trigger the events.
             */
             $("#active-hooks-list").append(node);
+
+            // For input-validation:
+            node.find(".hook-event").trigger("input");
             node.find(".hook-target").trigger("input");
             node.find(".hook-tg-parse-mode").trigger("input");
+            // For event handler:
+            node.find(".hook-event").trigger("change");
+
+            /*
+                Update the summary displayed in the header bar of the webhook,
+                to ensure that it displays the correct summary for the newly-
+                generated webhook. The summary is the string that lists the
+                objective and rewards filters to quickly identify when a
+                specific webhook is triggered.
+            */
+            updateSummary(node);
 
             break;
     }
@@ -959,163 +974,187 @@ function encodeHTML(data) {
     quickly identify which filters apply to each hook.
 */
 function updateSummary(node) {
-    var objText = null;
-    node.closest(".hook-instance").find(".hook-filter-objectives .hook-filter").each(function() {
-        var filterMode = $(this).parent().find(".hook-mode-objective").val();
+    switch (node.closest(".hook-instance").find(".hook-event").val()) {
+        case "research":
+            var objText = null;
+            node.closest(".hook-instance").find(".hook-filter-objectives .hook-filter").each(function() {
+                var filterMode = $(this).parent().find(".hook-mode-objective").val();
 
-        /*
-            For each of the objective filters, find the objective type and
-            parameters from the hidden fields in each filter node, then
-            translate those into a human-readable representation using
-            `resolveObjective()` from /js/clientside-i18n.php.
-        */
-        var objective = resolveObjective({
-            type: $(this).find("input[type=hidden].hook-objective-type").val(),
-            params: JSON.parse($(this).find("input[type=hidden].hook-objective-params").val())
-        });
+                /*
+                    For each of the objective filters, find the objective type
+                    and parameters from the hidden fields in each filter node,
+                    then translate those into a human-readable representation
+                    using `resolveObjective()` from /js/clientside-i18n.php.
+                */
+                var objective = resolveObjective({
+                    type: $(this).find("input[type=hidden].hook-objective-type").val(),
+                    params: JSON.parse($(this).find("input[type=hidden].hook-objective-params").val())
+                });
 
-        /*
-            Create a HTML node with this string. This is done so that the span
-            element containing this string can be properly styled with CSS.
-        */
-        var objHTML = '<span class="hook-head-objective-text">' + encodeHTML(objective) + '</span>';
+                /*
+                    Create a HTML node with this string. This is done so that
+                    the span element containing this string can be properly
+                    styled with CSS.
+                */
+                var objHTML = '<span class="hook-head-objective-text">' + encodeHTML(objective) + '</span>';
 
-        if (objText === null) {
+                if (objText === null) {
+                    /*
+                        If this is the first filter that is being processed, we
+                        need to define the beginning of the string. Here, we
+                        need to take into account whether the filter mode is set
+                        to whitelisting or blacklisting behavior. If it's set to
+                        blacklist, the webhook should trigger on any given
+                        objective except those that are listed in the objective
+                        filters. Thus, we need to prepend "any objective except"
+                        to the string. If we're on whitelisting mode, we can
+                        just put the objective with without anything preceding
+                        it, as the implied meaning will be "any of the
+                        following" unless otherwise specified.
+                    */
+                    if (filterMode == "blacklist") {
+                        objText = resolveI18N("admin.clientside.hooks.any_objective_except", objHTML);
+                    } else {
+                        objText = objHTML;
+                    }
+                } else {
+                    /*
+                        If `objText` is already defined, that means that the
+                        filter we're currently processing is not the first in
+                        the list - hence we need to append to a string we
+                        already have. We combine the different objectives using
+                        "X or Y" e.g. "Battle in 2 raids or Win 3 Gym battles".
+                        If the filter mode is set to blacklisting behavior,
+                        we'll use "X or Y" instead, as it flows better with
+                        language.
+                    */
+                    if (filterMode == "blacklist") {
+                        objText = resolveI18N("admin.clientside.hooks.multi_and", objText, objHTML);
+                    } else {
+                        objText = resolveI18N("admin.clientside.hooks.multi_or", objText, objHTML);
+                    }
+                }
+            });
+
             /*
-                If this is the first filter that is being processed, we need to
-                define the beginning of the string. Here, we need to take into
-                account whether the filter mode is set to whitelisting or
-                blacklisting behavior. If it's set to blacklist, the webhook
-                should trigger on any given objective except those that are
-                listed in the objective filters. Thus, we need to prepend "any
-                objective except" to the string. If we're on whitelisting mode,
-                we can just put the objective with without anything preceding
-                it, as the implied meaning will be "any of the following" unless
-                otherwise specified.
+                If there are no defined objective filters, the webhook defaults
+                to being triggered by all research objectives, hence the
+                objective text should read "any objective". We know that if
+                `objText` is `null` at this point, there are no objective
+                filters in place, since the loop above that loops over objective
+                filters will set `objText` to some value if it can loop over any
+                filter instances.
             */
-            if (filterMode == "blacklist") {
-                objText = resolveI18N("admin.clientside.hooks.any_objective_except", objHTML);
-            } else {
-                objText = objHTML;
+            if (objText === null) {
+                objText = '<span class="hook-head-objective-text">'
+                        + encodeHTML(resolveI18N("admin.clientside.hooks.any_objective"))
+                        + '</span>';
             }
-        } else {
-            /*
-                If `objText` is already defined, that means that the filter
-                we're currently processing is not the first in the list - hence
-                we need to append to a string we already have. We combine the
-                different objectives using "X or Y" e.g. "Battle in 2 raids or
-                Win 3 Gym battles". If the filter mode is set to blacklisting
-                behavior, we'll use "X or Y" instead, as it flows better with
-                language.
-            */
-            if (filterMode == "blacklist") {
-                objText = resolveI18N("admin.clientside.hooks.multi_and", objText, objHTML);
-            } else {
-                objText = resolveI18N("admin.clientside.hooks.multi_or", objText, objHTML);
-            }
-        }
-    });
 
-    /*
-        If there are no defined objective filters, the webhook defaults to being
-        triggered by all research objectives, hence the objective text should
-        read "any objective". We know that if `objText` is `null` at this point,
-        there are no objective filters in place, since the loop above that loops
-        over objective filters will set `objText` to some value if it can loop
-        over any filter instances.
-    */
-    if (objText === null) {
-        objText = '<span class="hook-head-objective-text">'
-                + encodeHTML(resolveI18N("admin.clientside.hooks.any_objective"))
-                + '</span>';
+            /*
+                Now, do the same with reward filters!
+            */
+            var rewText = null;
+            node.closest(".hook-instance").find(".hook-filter-rewards .hook-filter").each(function() {
+                var filterMode = $(this).parent().find(".hook-mode-reward").val();
+
+                /*
+                    For each of the reward filters, find the reward type and
+                    parameters from the hidden fields in each filter node, then
+                    translate those into a human-readable representation using
+                    `resolveReward()` from /js/clientside-i18n.php.
+                */
+                var reward = resolveReward({
+                    type: $(this).find("input[type=hidden].hook-reward-type").val(),
+                    params: JSON.parse($(this).find("input[type=hidden].hook-reward-params").val())
+                });
+
+                /*
+                    Create a HTML node with this string. This is done so that
+                    the span element containing this string can be properly
+                    styled with CSS.
+                */
+                var rewHTML = '<span class="hook-head-reward-text">' + encodeHTML(reward) + '</span>';
+
+                if (rewText === null) {
+                    /*
+                        If this is the first filter that is being processed, we
+                        need to define the beginning of the string. Here, we
+                        need to take into account whether the filter mode is set
+                        to whitelisting or blacklisting behavior. If it's set to
+                        blacklist, the webhook should trigger on any given
+                        reward except those that are listed in the reward
+                        filters. Thus, we need to prepend "any reward except" to
+                        the string. If we're on whitelisting mode, we can just
+                        put the reward with without anything preceding it, as
+                        the implied meaning will be "any of the following"
+                        unless otherwise specified.
+                    */
+                    if (filterMode == "blacklist") {
+                        rewText = resolveI18N("admin.clientside.hooks.any_reward_except", rewHTML);
+                    } else {
+                        rewText = rewHTML;
+                    }
+                } else {
+                    /*
+                        If `rewText` is already defined, that means that the
+                        filter we're currently processing is not the first in
+                        the list - hence we need to append to a string we
+                        already have. We combine the different rewards using "X
+                        or Y" e.g. "3 Super Potions or 1 Max Revive". If the
+                        filter mode is set to blacklisting behavior, we'll use
+                        "X or Y" instead, as it flows better with language.
+                    */
+                    if (filterMode == "blacklist") {
+                        rewText = resolveI18N("admin.clientside.hooks.multi_and", rewText, rewHTML);
+                    } else {
+                        rewText = resolveI18N("admin.clientside.hooks.multi_or", rewText, rewHTML);
+                    }
+                }
+            });
+
+            /*
+                If there are no defined reward filters, the webhook defaults to
+                being triggered by all research rewards, hence the objective
+                text should read "any reward". We know that if `rewText` is
+                `null` at this point, there are no reward filters in place,
+                since the loop above that loops over rewards filters will set
+                `rewText` to some value if it can loop over any filter
+                instances.
+            */
+            if (rewText === null) {
+                rewText = '<span class="hook-head-reward-text">'
+                        + encodeHTML(resolveI18N("admin.clientside.hooks.any_reward"))
+                        + '</span>';
+            }
+
+            /*
+                Finally, the objective string and reward string will be
+                combined. The resulting string will be of the format
+                "<Objectives> for <rewards>". There may be some languages where
+                the order should be reversed for whatever reason, so we need to
+                do an I18N lookup that puts these two in the correct order. This
+                is handled by the order of {%1} and {%2} in the
+                `poi.objective_text` I18N string of the language that is used.
+
+                The resultant string is put in the header bar of the webhook
+                (the target element being the element wih the
+                `hook-summary-text` class).
+            */
+            var text = resolveI18N("poi.objective_text", objText, rewText);
+            node.closest(".hook-instance").find(".hook-summary-text").html(text);
+            break;
+
+        case "evil":
+            var text = resolveI18N("admin.clientside.hooks.summary.evil");
+            node.closest(".hook-instance").find(".hook-summary-text").html(text);
+            break;
+
+        default:
+            var text = resolveI18N("admin.clientside.hooks.summary.default");
+            node.closest(".hook-instance").find(".hook-summary-text").html(text);
+            break;
     }
-
-    /*
-        Now, do the same with reward filters!
-    */
-    var rewText = null;
-    node.closest(".hook-instance").find(".hook-filter-rewards .hook-filter").each(function() {
-        var filterMode = $(this).parent().find(".hook-mode-reward").val();
-
-        /*
-            For each of the reward filters, find the reward type and parameters
-            from the hidden fields in each filter node, then translate those
-            into a human-readable representation using `resolveReward()` from
-            /js/clientside-i18n.php.
-        */
-        var reward = resolveReward({
-            type: $(this).find("input[type=hidden].hook-reward-type").val(),
-            params: JSON.parse($(this).find("input[type=hidden].hook-reward-params").val())
-        });
-
-        /*
-            Create a HTML node with this string. This is done so that the span
-            element containing this string can be properly styled with CSS.
-        */
-        var rewHTML = '<span class="hook-head-reward-text">' + encodeHTML(reward) + '</span>';
-
-        if (rewText === null) {
-            /*
-                If this is the first filter that is being processed, we need to
-                define the beginning of the string. Here, we need to take into
-                account whether the filter mode is set to whitelisting or
-                blacklisting behavior. If it's set to blacklist, the webhook
-                should trigger on any given reward except those that are listed
-                in the reward filters. Thus, we need to prepend "any reward
-                except" to the string. If we're on whitelisting mode, we can
-                just put the reward with without anything preceding it, as the
-                implied meaning will be "any of the following" unless otherwise
-                specified.
-            */
-            if (filterMode == "blacklist") {
-                rewText = resolveI18N("admin.clientside.hooks.any_reward_except", rewHTML);
-            } else {
-                rewText = rewHTML;
-            }
-        } else {
-            /*
-                If `rewText` is already defined, that means that the filter
-                we're currently processing is not the first in the list - hence
-                we need to append to a string we already have. We combine the
-                different rewards using "X or Y" e.g. "3 Super Potions or 1 Max
-                Revive". If the filter mode is set to blacklisting behavior,
-                we'll use "X or Y" instead, as it flows better with language.
-            */
-            if (filterMode == "blacklist") {
-                rewText = resolveI18N("admin.clientside.hooks.multi_and", rewText, rewHTML);
-            } else {
-                rewText = resolveI18N("admin.clientside.hooks.multi_or", rewText, rewHTML);
-            }
-        }
-    });
-
-    /*
-        If there are no defined reward filters, the webhook defaults to being
-        triggered by all research rewards, hence the objective text should read
-        "any reward". We know that if `rewText` is `null` at this point, there
-        are no reward filters in place, since the loop above that loops over
-        rewards filters will set `rewText` to some value if it can loop over any
-        filter instances.
-    */
-    if (rewText === null) {
-        rewText = '<span class="hook-head-reward-text">'
-                + encodeHTML(resolveI18N("admin.clientside.hooks.any_reward"))
-                + '</span>';
-    }
-
-    /*
-        Finally, the objective string and reward string will be combined. The
-        resulting string will be of the format "<Objectives> for <rewards>".
-        There may be some languages where the order should be reversed for
-        whatever reason, so we need to do an I18N lookup that puts these two in
-        the correct order. This is handled by the order of {%1} and {%2} in the
-        `poi.objective_text` I18N string of the language that is used.
-
-        The resultant string is put in the header bar of the webhook (the target
-        element being the element wih the `hook-summary-text` class).
-    */
-    var text = resolveI18N("poi.objective_text", objText, rewText);
-    node.closest(".hook-instance").find(".hook-summary-text").html(text);
 }
 
 /*
@@ -1185,6 +1224,22 @@ $(".hook-list").on("input", ".hook-target", function() {
 
     $(this).closest(".hook-instance").find(".hook-domain").text(url);
     return true;
+});
+
+/*
+    Changing the hook event trigger should change the visible input boxes on the
+    webhook. Displays in the webhook common settings.
+*/
+$(".hook-list").on("change", '.hook-event', function() {
+    /*
+        The selection box item that should trigger the dialog prompt has the
+        value of the event inputs to be shown.
+    */
+    $(this).closest(".hook-instance").find(".hook-for").hide();
+    if ($(this).val() !== null) {
+        $(this).closest(".hook-instance").find(".hook-for.hook-for-" + $(this).val()).show();
+    }
+    updateSummary($(this).closest(".hook-instance"));
 });
 
 /*
@@ -1651,6 +1706,8 @@ for (var i = 0; i < hooks.length; i++) {
 
     // Target URL
     node.find(".hook-target").val(hook.target);
+    // Triggering event
+    node.find(".hook-event").val(hook.for);
     // Webhook language
     node.find(".hook-lang").val(hook.language);
     // Icon set to use for icon URLs passed to the webhook
@@ -1794,6 +1851,12 @@ for (var i = 0; i < hooks.length; i++) {
         the target domain in the webhook header bar is updated as well.
     */
     node.find(".hook-target").trigger("input");
+
+    /*
+        Also trigger a change for the event type so the proper input fields and
+        information is displayed.
+    */
+    node.find(".hook-event").trigger("change");
 
     /*
         For Telegram webhooks, we also have to trigger the `change` event of the

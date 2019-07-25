@@ -68,6 +68,7 @@ foreach ($hooklist as $hook) {
 */
 $filterModes = array("whitelist", "blacklist");
 $hookTypes = array("json", "telegram");
+$hookEvents = array("research", "evil");
 $tgBodyFormats = array("txt", "md", "html");
 
 foreach ($_POST as $postid => $data) {
@@ -87,6 +88,7 @@ foreach ($_POST as $postid => $data) {
         $hooks[$hookid] = array(
             "id" => $hookid,
             "type" => "",
+            "for" => "",
             "target" => "",
             "active" => true,
             "language" => "en-US",
@@ -122,6 +124,17 @@ foreach ($_POST as $postid => $data) {
         undergoes validation to make sure that the data that is set is valid
         before it is saved to the configuration file.
     */
+
+    // Triggering event, i.e. "research" or "evil"
+    if (!isset($data["for"])) continue;
+    $event = $data["for"];
+    if ($hook["for"] !== $event) {
+        if (in_array($event, $hookEvents)) {
+            $hook["for"] = $event;
+        } else {
+            continue;
+        }
+    }
 
     // Webhook type, i.e. JSON or Telegram
     if ($hook["type"] !== $data["type"]) {

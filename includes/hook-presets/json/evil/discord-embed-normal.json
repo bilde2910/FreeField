@@ -1,0 +1,7 @@
+{
+    "embeds": [{
+        "title": ":rocket: <%I18N(webhook.evil_title)%>",
+        "description": ":large_blue_diamond: [<%POI%>](<%NAVURL%>)\n<%I18N(webhook.reported_by,<%REPORTER%>)%> @ [<%I18N(webhook.link)%>](<%SITEURL%>)",
+        "timestamp": "<%TIME(c)%>"
+    }]
+}

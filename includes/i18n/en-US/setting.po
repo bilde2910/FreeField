@@ -1065,6 +1065,15 @@ msgstr "Webhook URL"
 msgid "setting.hooks.hook_list.language.name"
 msgstr "Language"
 
+msgid "setting.hooks.hook_list.event.name"
+msgstr "Triggering event"
+
+msgid "setting.hooks.hook_list.event.option.research"
+msgstr "Field research reported"
+
+msgid "setting.hooks.hook_list.event.option.evil"
+msgstr "Team Rocket spotted"
+
 msgid "setting.hooks.hook_list.icons.name"
 msgstr "Icon set"
 
@@ -1179,6 +1188,10 @@ msgstr "Send Telegram message"
 
 msgid "setting.hooks.add.preset.name"
 msgstr "Preset"
+
+#  %1 = Event that triggers the webhook (e.g. "Field research reported")
+msgid "setting.hooks.add.preset.event"
+msgstr "On event: {%1}"
 
 msgid "setting.hooks.add.preset.option.none"
 msgstr "(none)"

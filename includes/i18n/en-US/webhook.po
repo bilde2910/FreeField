@@ -12,6 +12,9 @@ msgstr ""
 msgid "webhook.report_title"
 msgstr "Field research reported!"
 
+msgid "webhook.evil_title"
+msgstr "Team Rocket spotted!"
+
 msgid "webhook.poi"
 msgstr "Pokéstop"
 
@@ -32,3 +35,13 @@ msgstr "Reported by {%1}"
 #  %2 = Research reward (e.g. "1 Max Revive")
 msgid "webhook.x_for_y"
 msgstr "{%1} for {%2}"
+
+#  %1 = Number of minutes Team Rocket stays active.
+msgid "webhook.evil_disclaimer"
+msgstr "Note: Team Rocket only stays on a Pokéstop for {%1} minutes after its spawn time, regardless of when it is reported here, and may thus disappear sooner than expected!"
+
+#  This means "link" as in "link to a website".
+#  Example context: "Reported by UserName @ link" where "link" is a hyperlink
+#  to the local FreeField website.
+msgid "webhook.link"
+msgstr "link"

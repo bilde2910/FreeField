@@ -217,6 +217,18 @@ ALTER TABLE {$prefix}poi ADD evil_reported timestamp NULL DEFAULT NULL AFTER upd
 __END_STRING__;
                 $db->execute($sql);
                 if (!$silent) echo " ok\n";
+
+                /*
+                    Update webhooks to include its type.
+                */
+                if (!$silent) echo "Declaring webhook event type for existing webhooks...";
+                $hooklist = Config::getRaw("webhooks");
+                if ($hooklist === null) $hooklist = array();
+                for ($i = 0; $i < count($hooklist); $i++) {
+                    $hooklist[$i]["for"] = "research";
+                }
+                Config::set(array("webhooks" => $hooklist));
+                if (!$silent) echo " ok\n";
         }
         /*
             Recheck for updates.

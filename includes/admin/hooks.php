@@ -633,19 +633,31 @@
                 );
                 foreach ($presetdirs as $type) {
                     if (is_dir("{$path}/{$type}")) {
-                        $typepresets = array_diff(
+                        $typeevents = array_diff(
                             scandir("{$path}/{$type}"),
                             array('..', '.')
                         );
-                        foreach ($typepresets as $preset) {
-                            /*
-                                Since the presets will be output and displayed
-                                client-side on this page anyway, we might as
-                                well grab the contents of all of the presets
-                                while we're at it, so we don't have to loop over
-                                all of the preset files again later.
-                            */
-                            $presets[$type][$preset] = file_get_contents("{$path}/{$type}/{$preset}");
+                        foreach ($typeevents as $event) {
+                            if (is_dir("{$path}/{$type}/{$event}")) {
+                                $eventpresets = array_diff(
+                                    scandir("{$path}/{$type}/{$event}"),
+                                    array('..', '.')
+                                );
+                                foreach ($eventpresets as $preset) {
+                                    if (!is_dir("{$path}/{$type}/{$event}/{$preset}")) {
+                                        /*
+                                            Since the presets will be output and
+                                            displayed client-side on this page
+                                            anyway, we might as well grab the
+                                            contents of all of the presets while
+                                            we're at it, so we don't have to
+                                            loop over all of the preset files
+                                            again later.
+                                        */
+                                        $presets[$type][$event][$preset] = file_get_contents("{$path}/{$type}/{$event}/{$preset}");
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -666,8 +678,15 @@
                             <?php echo I18N::resolveHTML("setting.hooks.add.preset.option.none"); ?>
                         </option>
                         <?php
-                            foreach ($presets["json"] as $name => $data) {
-                                echo '<option value="'.$name.'">'.$name.'</option>';
+                            foreach ($presets["json"] as $event => $evPresets) {
+                                echo '<optgroup label="'.I18N::resolveArgsHTML(
+                                         "setting.hooks.add.preset.event", true,
+                                         I18N::resolve("setting.hooks.hook_list.event.option.{$event}")
+                                     ).'">';
+                                foreach ($evPresets as $name => $data) {
+                                    echo '<option value="'.$event.'/'.$name.'">'.$name.'</option>';
+                                }
+                                echo '</optgroup>';
                             }
                         ?>
                     </select></p>
@@ -689,8 +708,14 @@
                             <?php echo I18N::resolveHTML("setting.hooks.add.preset.option.none"); ?>
                         </option>
                         <?php
-                            foreach ($presets["telegram"] as $name => $data) {
-                                echo '<option value="'.$name.'">'.$name.'</option>';
+                            foreach ($presets["telegram"] as $event => $evPresets) {
+                                echo '<optgroup label="'.I18N::resolveHTML(
+                                         "setting.hooks.hook_list.event.option.{$event}"
+                                     ).'">';
+                                foreach ($evPresets as $name => $data) {
+                                    echo '<option value="'.$event.'/'.$name.'">'.$name.'</option>';
+                                }
+                                echo '</optgroup>';
                             }
                         ?>
                     </select></p>
@@ -738,6 +763,19 @@
                 $langopts .= '<option value="'.$code.'">'.
                              htmlspecialchars($name, ENT_QUOTES).
                              '</option>';
+            }
+
+            /*
+                Webhooks can be made for several different types of events.
+                Make a selection box that allows users to change the event that
+                triggers the webhook.
+            */
+            $events = array("research", "evil");
+            $eventopts = "";
+            foreach ($events as $event) {
+                $eventopts .= '<option value="'.$event.'">'.
+                              I18N::resolveHTML("setting.hooks.hook_list.event.option.{$event}").
+                              '</option>';
             }
 
             /*
@@ -803,53 +841,63 @@
             $hookCommonSettings = '
             <div class="pure-g">
                 <div class="pure-u-1-3 full-on-mobile">
+                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.event.name").':</p>
+                </div>
+                <div class="pure-u-2-3 full-on-mobile">
+                    <p><select class="hook-event" name="hook_{%ID%}[for]" data-validate-as="not-null">'.$eventopts.'</select></p>
+                </div>
+            </div>
+            <div class="pure-g">
+                <div class="pure-u-1-3 full-on-mobile">
                     <p>'.I18N::resolveHTML("setting.hooks.hook_list.language.name").':</p>
                 </div>
                 <div class="pure-u-2-3 full-on-mobile">
                     <p><select class="hook-lang" name="hook_{%ID%}[lang]">'.$langopts.'</select></p>
                 </div>
             </div>
-            <div class="pure-g option-block-follows">
-                <div class="pure-u-1-3 full-on-mobile">
-                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.icons.name").':</p>
+            <div class="hook-for hook-for-research">
+                <div class="pure-g option-block-follows">
+                    <div class="pure-u-1-3 full-on-mobile">
+                        <p>'.I18N::resolveHTML("setting.hooks.hook_list.icons.name").':</p>
+                    </div>
+                    <div class="pure-u-2-3 full-on-mobile">
+                        <p>'.$optIcon->getControl(null, array(
+                                "name" => "hook_{%ID%}[iconSet]",
+                                "id" => "{%ID%}-icon-selector",
+                                "class" => "hook-icon-set"
+                        )).'</p>
+                    </div>
                 </div>
-                <div class="pure-u-2-3 full-on-mobile">
-                    <p>'.$optIcon->getControl(null, array(
-                            "name" => "hook_{%ID%}[iconSet]",
-                            "id" => "{%ID%}-icon-selector",
-                            "class" => "hook-icon-set"
-                    )).'</p>
+                '.$optIcon->getFollowingBlock().'
+                <div class="pure-g">
+                    <div class="pure-u-1-3 full-on-mobile">
+                        <p>'.I18N::resolveHTML("setting.hooks.hook_list.show_species.name").':</p>
+                    </div>
+                    <div class="pure-u-2-3 full-on-mobile">
+                        <p><label for="{%ID%}-show-species">
+                            <input type="checkbox"
+                                   id="{%ID%}-show-species"
+                                   name="hook_{%ID%}[showSpecies]"
+                                   class="hook-show-species"
+                                   checked>
+                            '.I18N::resolveHTML("setting.hooks.hook_list.show_species.label").'
+                        </label></p>
+                    </div>
                 </div>
+                <div class="pure-g option-block-follows">
+                    <div class="pure-u-1-3 full-on-mobile">
+                        <p>'.I18N::resolveHTML("setting.hooks.hook_list.species.name").':</p>
+                    </div>
+                    <div class="pure-u-2-3 full-on-mobile">
+                        <p>'.$optSpecies->getControl(null, array(
+                                "name" => "hook_{%ID%}[speciesSet]",
+                                "id" => "{%ID%}-species-selector",
+                                "class" => "hook-species-set"
+                        )).'</p>
+                    </div>
+                </div>
+                '.$optIcon->getFollowingBlock().'
             </div>
-            '.$optIcon->getFollowingBlock().'
-            <div class="pure-g">
-                <div class="pure-u-1-3 full-on-mobile">
-                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.show_species.name").':</p>
-                </div>
-                <div class="pure-u-2-3 full-on-mobile">
-                    <p><label for="{%ID%}-show-species">
-                        <input type="checkbox"
-                               id="{%ID%}-show-species"
-                               name="hook_{%ID%}[showSpecies]"
-                               class="hook-show-species"
-                               checked>
-                        '.I18N::resolveHTML("setting.hooks.hook_list.show_species.label").'
-                    </label></p>
-                </div>
-            </div>
-            <div class="pure-g option-block-follows">
-                <div class="pure-u-1-3 full-on-mobile">
-                    <p>'.I18N::resolveHTML("setting.hooks.hook_list.species.name").':</p>
-                </div>
-                <div class="pure-u-2-3 full-on-mobile">
-                    <p>'.$optSpecies->getControl(null, array(
-                            "name" => "hook_{%ID%}[speciesSet]",
-                            "id" => "{%ID%}-species-selector",
-                            "class" => "hook-species-set"
-                    )).'</p>
-                </div>
-            </div>
-            '.$optIcon->getFollowingBlock().'
             <div class="pure-g">
                 <div class="pure-u-1-3 full-on-mobile">
                     <p>'.I18N::resolveHTML("setting.hooks.hook_list.geofence.name").':</p>
@@ -878,27 +926,31 @@
                 I18N::resolveHTML("admin.clientside.hooks.syntax.show").
             '</a></p>
             <div class="hook-syntax-help">
-                <div class="hook-syntax-block full-on-mobile">
+                <div>
                     <h3>'.I18N::resolveHTML("admin.hooks.syntax.poi.title").'</h3>
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.poi", false, '<code>&lt;%POI%&gt;</code>').'<br />
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.lat", false, '<code>&lt;%LAT%&gt;</code>').'<br />
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.lng", false, '<code>&lt;%LNG%&gt;</code>').'<br />
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.poi.coords", false, '<code>&lt;%COORDS%&gt;</code>').'
                 </div>
-                <div class="hook-syntax-block full-on-mobile">
+                <div class="hook-for hook-for-research">
                     <h3>'.I18N::resolveHTML("admin.hooks.syntax.research.title").'</h3>
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.research.objective", false, '<code>&lt;%OBJECTIVE%&gt;</code>').'<br />
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.research.reward", false, '<code>&lt;%REWARD%&gt;</code>').'<br />
-                    '.I18N::resolveArgsHTML("admin.hooks.syntax.research.reporter", false, '<code>&lt;%REPORTER%&gt;</code>').'<br />
-                    '.I18N::resolveArgsHTML("admin.hooks.syntax.research.time", false, '<code>&lt;%TIME(format)%&gt;</code>').'
+                    '.I18N::resolveArgsHTML("admin.hooks.syntax.report.reporter", false, '<code>&lt;%REPORTER%&gt;</code>').'<br />
+                    '.I18N::resolveArgsHTML("admin.hooks.syntax.report.time", false, '<code>&lt;%TIME(format)%&gt;</code>').'
                 </div>
-                <div class="hook-syntax-clear"></div>
+                <div class="hook-for hook-for-evil">
+                    <h3>'.I18N::resolveHTML("admin.hooks.syntax.evil.title").'</h3>
+                    '.I18N::resolveArgsHTML("admin.hooks.syntax.report.reporter", false, '<code>&lt;%REPORTER%&gt;</code>').'<br />
+                    '.I18N::resolveArgsHTML("admin.hooks.syntax.report.time", false, '<code>&lt;%TIME(format)%&gt;</code>').'
+                </div>
                 <div>
                     <h3>'.I18N::resolveHTML("admin.hooks.syntax.navigation.title").'</h3>
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.navigation.navurl", false, '<code>&lt;%NAVURL%&gt;</code>').'<br />
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.navigation.navurl_arg", false, '<code>&lt;%NAVURL(provider)%&gt;</code>').'
                 </div>
-                <div>
+                <div class="hook-for hook-for-research">
                     <h3>'.I18N::resolveHTML("admin.hooks.syntax.icons.title").'</h3>
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.icons.objective_icon", false, '<code>&lt;%OBJECTIVE_ICON(format,variant)%&gt;</code>').'<br />
                     '.I18N::resolveArgsHTML("admin.hooks.syntax.icons.reward_icon", false, '<code>&lt;%REWARD_ICON(format,variant)%&gt;</code>').'
@@ -919,7 +971,7 @@
                 blacklisting and whitelisting filter objectives).
             */
             $hookFilters = '
-            <div class="pure-g">
+            <div class="pure-g hook-for hook-for-research">
                 <div class="pure-u-1-2 full-on-mobile hook-filter-objectives">
                     <h2>'.
                         I18N::resolveArgsHTML(

@@ -637,6 +637,12 @@ msgstr "Show help"
 msgid "admin.clientside.hooks.syntax.hide"
 msgstr "Hide help"
 
+msgid "admin.clientside.hooks.summary.evil"
+msgstr "When Team Rocket is spotted"
+
+msgid "admin.clientside.hooks.summary.default"
+msgstr "Incomplete or invalid webhook"
+
 msgid "admin.hooks.syntax.poi.title"
 msgstr "Pokéstop Information"
 
@@ -667,12 +673,15 @@ msgstr "{%1} = Research objective"
 msgid "admin.hooks.syntax.research.reward"
 msgstr "{%1} = Research reward"
 
+msgid "admin.hooks.syntax.evil.title"
+msgstr "Report Metadata"
+
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
-msgid "admin.hooks.syntax.research.reporter"
+msgid "admin.hooks.syntax.report.reporter"
 msgstr "{%1} = Reporting user"
 
 #  %1 = Placeholder for syntax block (e.g. "<%OBJECTIVE%>")
-msgid "admin.hooks.syntax.research.time"
+msgid "admin.hooks.syntax.report.time"
 msgstr "{%1} = Report time"
 
 msgid "admin.hooks.syntax.navigation.title"
