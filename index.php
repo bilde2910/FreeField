@@ -866,11 +866,20 @@ Security::declareFrameOptionsHeader();
                                             asort($commonObjectivesText);
 
                                             /*
+                                                Build a reverse lookup of categories to identify objectives that can be
+                                                filtered out using filter icons below the selection box.
+                                            */
+                                            $reverseCats = array();
+                                            foreach (Research::listObjectives() as $objective => $data) {
+                                                $reverseCats[$objective] = $data["categories"][0];
+                                            }
+
+                                            /*
                                                 Echo them to the page in a "Current objectives" optgroup.
                                             */
                                             echo '<optgroup label="'.I18N::resolveHTML("category.objective.current").'">';
                                             foreach ($commonObjectivesText as $index => $task) {
-                                                echo '<option value="_c_'.$index.'">'.$task.'</option>';
+                                                echo '<option data-cat="'.$reverseCats[$commonObjectives[$index]["type"]].'" value="_c_'.$index.'">'.$task.'</option>';
                                             }
                                             echo '</optgroup>';
 
@@ -917,7 +926,7 @@ Security::declareFrameOptionsHeader();
                                                     Create a group for each category of objectives, then output each of the
                                                     objectives within that category to the selection box.
                                                 */
-                                                echo '<optgroup label="'.I18N::resolveHTML("category.objective.{$category}").'">';
+                                                echo '<optgroup data-cat="'.$category.'" label="'.I18N::resolveHTML("category.objective.{$category}").'">';
                                                 foreach ($categorizedObjectives as $objective => $data) {
                                                     echo '<option value="'.$objective.'">'.$data["i18n"].'</option>';
                                                 }
@@ -939,7 +948,17 @@ Security::declareFrameOptionsHeader();
                                             }
                                             */
                                         ?>
-                                    </select></p></div>
+                                    </select></p><div>
+                                        <div id="update-poi-objective-icons">
+                                            <?php
+                                                foreach ($cats as $category => $categorizedObjectives) {
+                                                    echo '<img src="about:blank"
+                                                               data-cat="'.$category.'"
+                                                               class="update-poi-icon update-poi-objective-icon">';
+                                                }
+                                            ?>
+                                        </div>
+                                    </div></div>
                                 </div>
                                 <div class="research-params objective-params">
                                     <?php
@@ -1094,6 +1113,11 @@ Security::declareFrameOptionsHeader();
                                                     $("#update-poi-objective-param-" + show[i] + "-box").show();
                                                 }
                                             }
+
+                                            /*
+                                                Hide the filter icons.
+                                            */
+                                            $("#update-poi-objective-icons").hide();
                                         });
                                     </script>
                                 </div>
@@ -1146,7 +1170,7 @@ Security::declareFrameOptionsHeader();
                                                     Create a group for each category of rewards, then output each of the
                                                     rewards within that category to the selection box.
                                                 */
-                                                echo '<optgroup label="'.I18N::resolveHTML("category.reward.{$category}").'">';
+                                                echo '<optgroup data-cat="'.$category.'" label="'.I18N::resolveHTML("category.reward.{$category}").'">';
                                                 foreach ($categorizedRewards as $reward => $data) {
                                                     echo '<option value="'.$reward.'">'.$data["i18n"].'</option>';
                                                 }
@@ -1168,7 +1192,17 @@ Security::declareFrameOptionsHeader();
                                             }
                                             */
                                         ?>
-                                    </select></p></div>
+                                    </select></p><div>
+                                        <div id="update-poi-reward-icons">
+                                            <?php
+                                                foreach ($cats as $category => $categorizedRewards) {
+                                                    echo '<img src="about:blank"
+                                                               data-cat="'.$category.'"
+                                                               class="update-poi-icon update-poi-reward-icon">';
+                                                }
+                                            ?>
+                                        </div>
+                                    </div></div>
                                 </div>
                                 <div class="research-params reward-params">
                                     <?php
@@ -1300,6 +1334,11 @@ Security::declareFrameOptionsHeader();
                                             for (var i = 0; i < show.length; i++) {
                                                 $("#update-poi-reward-param-" + show[i] + "-box").show();
                                             }
+
+                                            /*
+                                                Hide the filter icons.
+                                            */
+                                            $("#update-poi-reward-icons").hide();
                                         });
                                     </script>
                                 </div>

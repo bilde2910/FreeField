@@ -1182,7 +1182,116 @@ $(document).ready(function() {
         });
     });
 
+    /*
+        The research objective and reward selectors have icons underneath them
+        to filter the icons visible in the respective selectors. Declare the
+        imagery for these icons.
+    */
+    $(".update-poi-icon").each(function(idx, e) {
+        var category = $(this).attr("data-cat");
+        $(this).attr("src", resolveIconUrl(category));
+    });
 });
+
+/*
+    Prevent ghost images on mouse drag by disabling drag for the aforementioned
+    icons.
+*/
+$(".update-poi-icon").on("mousedown", function(e) {
+    e.preventDefault();
+    return false;
+});
+
+/*
+    Add an on-click handler for the objective icons. These should hide all
+    options currently in the selection box and show only those which match the
+    selected icon. Maintain click state so an icon that is already active will
+    reset the filters when clicked.
+*/
+$(".update-poi-objective-icon").on("click", function(e) {
+    var currentState = $(this).attr("data-state");
+    var category = $(this).attr("data-cat");
+    switch (currentState) {
+        case "0":
+        case "1":
+            $(".update-poi-objective-icon").attr("data-state", "1");
+            $(this).attr("data-state", "2");
+            updateObjectiveIconSelection(category);
+            break;
+        case "2":
+            $(".update-poi-objective-icon").attr("data-state", "0");
+            updateObjectiveIconSelection(null);
+            break;
+    }
+});
+
+/*
+    Do the same as above, but for reward icons.
+*/
+$(".update-poi-reward-icon").on("click", function(e) {
+    var currentState = $(this).attr("data-state");
+    var category = $(this).attr("data-cat");
+    switch (currentState) {
+        case "0":
+        case "1":
+            $(".update-poi-reward-icon").attr("data-state", "1");
+            $(this).attr("data-state", "2");
+            updateRewardIconSelection(category);
+            break;
+        case "2":
+            $(".update-poi-reward-icon").attr("data-state", "0");
+            updateRewardIconSelection(null);
+            break;
+    }
+});
+
+/*
+    Function for removing and restoring entries in the objective selection input
+    box. The first <optgroup> is the group containing the objectives from
+    common-tasks.yaml, and must be treated separately for that reason.
+*/
+var objSelGroups = $("#update-poi-objective > optgroup:not(:first)").detach();
+var objSelCommons = $("#update-poi-objective > optgroup:first > option").detach();
+function updateObjectiveIconSelection(category) {
+    // Remove all categories first.
+    $("#update-poi-objective > optgroup:not(:first)").remove();
+    var commonGroup = $("#update-poi-objective > optgroup:first");
+    commonGroup.empty();
+
+    if (category == null) {
+        // Show all categories.
+        commonGroup.append(objSelCommons);
+        $("#update-poi-objective").append(objSelGroups);
+    } else {
+        // Show only the specified category.
+        commonGroup.append(objSelCommons.filter('[data-cat="' + category + '"]'));
+        $("#update-poi-objective").append(objSelGroups.filter('[data-cat="' + category + '"]'));
+    }
+
+    // Reset the value of the input box to prevent random values being chosen.
+    $("#update-poi-objective").val(null);
+}
+
+/*
+    Do the same for rewards. Note that there are no common rewards file, so we
+    do not need to treat the first <optgroup> specially.
+*/
+var rewSelGroups = $("#update-poi-reward > optgroup").detach();
+function updateRewardIconSelection(category) {
+    // Remove all categories first.
+    $("#update-poi-reward").empty();
+
+    if (category == null) {
+        // Show all categories.
+        $("#update-poi-reward").append(rewSelGroups);
+    } else {
+        // Show only the specified category.
+        $("#update-poi-reward").append(rewSelGroups.filter('[data-cat="' + category + '"]'));
+    }
+
+    // Reset the value of the input box to prevent random values being chosen.
+    $("#update-poi-reward").val(null);
+}
 
 function updateHiddenPOIsBanner(hidden, total) {
     if (hidden > 0) {
@@ -1720,6 +1829,10 @@ function openMarker(markerObj, id) {
                     is the first element of all <select>s will result in this
                     behavior.
                 */
+                $(".update-poi-icon").attr("data-state", "0");
+                updateObjectiveIconSelection(null);
+                updateRewardIconSelection(null);
+
                 $("input.parameter").val(null);
                 $("select.parameter").each(function() {
                     $(this)[0].selectedIndex = 0;
@@ -1760,6 +1873,7 @@ function openMarker(markerObj, id) {
                         parseObjectiveParameter(params[i], poiObj.objective.params[params[i]]);
                     }
                 } else {
+                    $("#update-poi-objective-icons").show();
                     $(".objective-parameter").hide();
                 }
                 $("#update-poi-reward").val(
@@ -1790,6 +1904,7 @@ function openMarker(markerObj, id) {
                         parseRewardParameter(params[i], poiObj.reward.params[params[i]]);
                     }
                 } else {
+                    $("#update-poi-reward-icons").show();
                     $(".reward-parameter").hide();
                 }
 

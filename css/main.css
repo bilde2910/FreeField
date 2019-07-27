@@ -146,6 +146,19 @@
     margin-right: 5px;
 }
 
+/* Icons displayed on the research report dialog, used to filter the objectives
+   and rewards visible in the selection boxes. */
+.update-poi-icon {
+    padding: 1%;
+    width: 18%;
+    cursor: pointer;
+}
+
+/* Fade out the icons which are not selected for the above. */
+.update-poi-icon[data-state="1"] {
+    opacity: 0.5;
+}
+
 /* Buttons displayed on the login page for signing in with various
    authentication providers. */
 .login-button {
