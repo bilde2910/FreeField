@@ -37,6 +37,21 @@ $data = array(
 );
 
 try {
+    /*
+        Fetch the existing POI from the database. If the research on this POI is
+        outdated, it will be renewed with old research when changing the POI
+        because we update the `last_updated` status in the database, which also
+        determines the age of the research. Clear the research first if
+        appropriate to prevent this issue.
+    */
+    $poi = Geo::getPOI($id);
+    if ($poi->isResearchUnknown()) {
+        $data["objective"] = "unknown";
+        $data["obj_params"] = json_encode(array());
+        $data["reward"] = "unknown";
+        $data["rew_params"] = json_encode(array());
+    }
+
     $db = Database::connect();
     $db
         ->from("poi")
