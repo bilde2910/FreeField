@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/user_setting.po\n"
-"PO-Revision-Date: 2019-10-08 20:55\n"
+"PO-Revision-Date: 2019-10-08 21:06\n"
 
 msgid "user_setting.nickname.name"
 msgstr "Nickname"
@@ -22,10 +22,10 @@ msgid "user_setting.sign_out_everywhere.name"
 msgstr "Cerrar todas las sesiones"
 
 msgid "user_setting.sign_out_everywhere.info"
-msgstr "If you believe your account has been compromised, it is possible to sign out from all devices currently signed in to your FreeField account. Please note that if you do this, you will be signed out on this device as well, and will have to re-authenticate."
+msgstr "Si cree que su cuenta ha sido comprometida, es posible cerrar sesión de todos los dispositivos que actualmente se han iniciado en su cuenta FreeField. Tenga en cuenta que si lo hace, también se cerrará sesión en este dispositivo y tendrá que autenticar de nuevo."
 
 msgid "user_setting.sign_out_everywhere.button"
-msgstr "Sign out from all devices"
+msgstr "Cerrar sesión de todos los dispositivos"
 
 msgid "user_setting.directions_provider.name"
 msgstr "Directions provider"
@@ -37,10 +37,10 @@ msgid "user_setting.map_theme.name"
 msgstr "Map theme"
 
 msgid "user_setting.icons.name"
-msgstr "Map markers"
+msgstr "Marcadores de mapa"
 
 msgid "user_setting.species.name"
-msgstr "Pokémon icons"
+msgstr "Iconos Pokémon"
 
 msgid "user_setting.marker_component.name"
 msgstr "Task component for markers"
