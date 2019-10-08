@@ -13,41 +13,41 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/xhr.po\n"
-"PO-Revision-Date: 2019-06-05 22:26\n"
+"PO-Revision-Date: 2019-10-08 21:17\n"
 
 msgid "xhr.failed.reason.unknown_reason"
-msgstr ""
+msgstr "Unknown reason"
 
 msgid "xhr.failed.reason.access_denied"
-msgstr ""
+msgstr "Acceso denegado"
 
 msgid "xhr.failed.reason.missing_fields"
-msgstr ""
+msgstr "Insufficient data"
 
 msgid "xhr.failed.reason.invalid_data"
-msgstr ""
+msgstr "Datos inválidos"
 
 msgid "xhr.failed.reason.database_error"
-msgstr ""
+msgstr "Error de conexión de la base de datos"
 
 msgid "xhr.failed.reason.http_405"
-msgstr ""
+msgstr "Method not allowed"
 
 msgid "xhr.failed.reason.timeout"
-msgstr ""
+msgstr "Tiempo de espera agotado"
 
 msgid "xhr.failed.reason.upstream_failed"
-msgstr ""
+msgstr "La solicitud del servidor principal no tuvo éxito"
 
 msgid "xhr.failed.reason.objective_null"
-msgstr ""
+msgstr "No se ha elegido ningún objetivo de investigación"
 
 msgid "xhr.failed.reason.reward_null"
-msgstr ""
+msgstr "No se ha seleccionado ninguna recompensa de investigación"
 
 msgid "xhr.failed.reason.name_empty"
-msgstr ""
+msgstr "El nombre no puede estar vacío"
 
 msgid "xhr.failed.reason.invalid_location"
-msgstr ""
+msgstr "La ubicación está fuera de límites"
 
