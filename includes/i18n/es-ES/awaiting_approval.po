@@ -13,32 +13,32 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/awaiting_approval.po\n"
-"PO-Revision-Date: 2019-06-05 22:24\n"
+"PO-Revision-Date: 2019-10-08 21:06\n"
 
 msgid "awaiting_approval.title"
-msgstr ""
+msgstr "Se requiere aprobación"
 
 msgid "awaiting_approval.desc"
-msgstr ""
+msgstr "Su cuenta está esperando aprobación manual"
 
 msgid "awaiting_approval.info.1"
-msgstr ""
+msgstr "Thank you for your registration! This site requires manual approval of new accounts. Until your account has been approved, you will not have access to features that require membership."
 
 msgid "awaiting_approval.info.2.qr_enabled"
-msgstr ""
+msgstr "Administrators can approve your account. Please show them this QR code, or send them the link below, to assist them in identifying and approving your account on FreeField. Administrators can also look up your account by your username."
 
 msgid "awaiting_approval.info.2.qr_disabled"
-msgstr ""
+msgstr "Administrators can approve your account. Please send them the link below to assist them in identifying and approving your account on FreeField. Administrators can also look up your account by your username."
 
 msgid "awaiting_approval.using.qr.head"
-msgstr ""
+msgstr "Approval QR code"
 
 msgid "awaiting_approval.using.link.head"
-msgstr ""
+msgstr "Enlace de aprobación"
 
 msgid "awaiting_approval.using.link.info"
-msgstr ""
+msgstr "Administrators can use this URL to approve your account."
 
 msgid "awaiting_approval.return_button"
-msgstr ""
+msgstr "Volver a la página principal"
 
