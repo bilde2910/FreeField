@@ -13,59 +13,59 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/type.po\n"
-"PO-Revision-Date: 2019-06-05 22:25\n"
+"PO-Revision-Date: 2019-10-08 21:17\n"
 
 msgid "type.normal"
-msgstr ""
+msgstr "Normal"
 
 msgid "type.fighting"
-msgstr ""
+msgstr "Lucha"
 
 msgid "type.flying"
-msgstr ""
+msgstr "Volador"
 
 msgid "type.poison"
-msgstr ""
+msgstr "Veneno"
 
 msgid "type.ground"
-msgstr ""
+msgstr "Tierra"
 
 msgid "type.rock"
-msgstr ""
+msgstr "Roca"
 
 msgid "type.bug"
-msgstr ""
+msgstr "Bicho"
 
 msgid "type.ghost"
-msgstr ""
+msgstr "Fantasma"
 
 msgid "type.steel"
-msgstr ""
+msgstr "Acero"
 
 msgid "type.fire"
-msgstr ""
+msgstr "Fuego"
 
 msgid "type.water"
-msgstr ""
+msgstr "Agua"
 
 msgid "type.grass"
-msgstr ""
+msgstr "Planta"
 
 msgid "type.electric"
-msgstr ""
+msgstr "Eléctrico"
 
 msgid "type.psychic"
-msgstr ""
+msgstr "Psíquico"
 
 msgid "type.ice"
-msgstr ""
+msgstr "Hielo"
 
 msgid "type.dragon"
-msgstr ""
+msgstr "Dragón"
 
 msgid "type.dark"
-msgstr ""
+msgstr "Siniestro"
 
 msgid "type.fairy"
-msgstr ""
+msgstr "Hada"
 
