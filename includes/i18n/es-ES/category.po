@@ -13,72 +13,72 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/category.po\n"
-"PO-Revision-Date: 2019-06-05 22:24\n"
+"PO-Revision-Date: 2019-10-08 20:55\n"
 
 #  Label for objectives which are currently in-game (e.g. monthly, event, etc.)
 msgid "category.objective.current"
-msgstr ""
+msgstr "Objetivos actuales"
 
 msgid "category.objective.battle"
-msgstr ""
+msgstr "Objetivos de batalla"
 
 msgid "category.objective.raid"
-msgstr ""
+msgstr "Objetivos de incursiones"
 
 msgid "category.objective.catch"
-msgstr ""
+msgstr "Objetivos de captura"
 
 msgid "category.objective.item"
-msgstr ""
+msgstr "Objetivos de objetos"
 
 msgid "category.objective.buddy"
-msgstr ""
+msgstr "Buddy objectives"
 
 msgid "category.objective.hatch"
-msgstr ""
+msgstr "Objetivos de Huevo"
 
 msgid "category.objective.evolve"
-msgstr ""
+msgstr "Objetivos de evolución"
 
 msgid "category.objective.power_up"
-msgstr ""
+msgstr "Objetivos de potenciación"
 
 msgid "category.objective.transfer"
-msgstr ""
+msgstr "Objetivos de transferencia"
 
 msgid "category.objective.throwing_skill"
-msgstr ""
+msgstr "Objetivos de habilidad de lanzamiento"
 
 msgid "category.objective.explore"
-msgstr ""
+msgstr "Objetivos de exploración"
 
 msgid "category.objective.social"
-msgstr ""
+msgstr "Objetivos sociales"
 
 msgid "category.reward.ball"
-msgstr ""
+msgstr "Ball rewards"
 
 msgid "category.reward.berry"
-msgstr ""
+msgstr "Recompensas de bayas"
 
 msgid "category.reward.potion"
-msgstr ""
+msgstr "Potion rewards"
 
 msgid "category.reward.revive"
-msgstr ""
+msgstr "Revive rewards"
 
 msgid "category.reward.evolution_item"
-msgstr ""
+msgstr "Recompensas de objetos de evolución"
 
 msgid "category.reward.tm"
-msgstr ""
+msgstr "Recompensas TM"
 
 msgid "category.reward.stardust"
-msgstr ""
+msgstr "Recompensas de polvo estelar"
 
 msgid "category.reward.candy"
-msgstr ""
+msgstr "Recompensas de caramelos"
 
 msgid "category.reward.encounter"
-msgstr ""
+msgstr "Encounter rewards"
 
