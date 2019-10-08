@@ -13,266 +13,266 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/reward.po\n"
-"PO-Revision-Date: 2019-06-05 22:25\n"
+"PO-Revision-Date: 2019-10-08 20:55\n"
 
 msgid "reward.poke_ball.general"
-msgstr ""
+msgstr "Pokeball"
 
 msgid "reward.poke_ball.singular"
-msgstr ""
+msgstr "1 Pokeball"
 
 #  %1 = Amount/quantity
 msgid "reward.poke_ball.plural"
-msgstr ""
+msgstr "{%1} Pokeballs"
 
 msgid "reward.great_ball.general"
-msgstr ""
+msgstr "SuperBall"
 
 msgid "reward.great_ball.singular"
-msgstr ""
+msgstr "1 SuperBall"
 
 #  %1 = Amount/quantity
 msgid "reward.great_ball.plural"
-msgstr ""
+msgstr "{%1} Superballs"
 
 msgid "reward.ultra_ball.general"
-msgstr ""
+msgstr "Ultraball"
 
 msgid "reward.ultra_ball.singular"
-msgstr ""
+msgstr "1 Ultraball"
 
 #  %1 = Amount/quantity
 msgid "reward.ultra_ball.plural"
-msgstr ""
+msgstr "{%1} Ultraballs"
 
 msgid "reward.razz_berry.general"
-msgstr ""
+msgstr "Baya Frambu"
 
 msgid "reward.razz_berry.singular"
-msgstr ""
+msgstr "1 Baya Frambu"
 
 #  %1 = Amount/quantity
 msgid "reward.razz_berry.plural"
-msgstr ""
+msgstr "{%1} Bayas Frambu"
 
 msgid "reward.nanab_berry.general"
-msgstr ""
+msgstr "Baya Látano"
 
 msgid "reward.nanab_berry.singular"
-msgstr ""
+msgstr "1 Baya Látano"
 
 #  %1 = Amount/quantity
 msgid "reward.nanab_berry.plural"
-msgstr ""
+msgstr "{%1} Bayas Látano"
 
 msgid "reward.pinap_berry.general"
-msgstr ""
+msgstr "Baya Pinia"
 
 msgid "reward.pinap_berry.singular"
-msgstr ""
+msgstr "1 Baya Pinia"
 
 #  %1 = Amount/quantity
 msgid "reward.pinap_berry.plural"
-msgstr ""
+msgstr "{%1} Bayas Pinia"
 
 msgid "reward.golden_razz_berry.general"
-msgstr ""
+msgstr "Baya Frambu dorada"
 
 msgid "reward.golden_razz_berry.singular"
-msgstr ""
+msgstr "1 Baya Frambu dorada"
 
 #  %1 = Amount/quantity
 msgid "reward.golden_razz_berry.plural"
-msgstr ""
+msgstr "{%1} Bayas Frambu dorada"
 
 msgid "reward.silver_pinap_berry.general"
-msgstr ""
+msgstr "Baya Pinia plateada"
 
 msgid "reward.silver_pinap_berry.singular"
-msgstr ""
+msgstr "1 Baya Pinia plateada"
 
 #  %1 = Amount/quantity
 msgid "reward.silver_pinap_berry.plural"
-msgstr ""
+msgstr "{%1} Baya Pinia plateada"
 
 msgid "reward.potion.general"
-msgstr ""
+msgstr "Poción"
 
 msgid "reward.potion.singular"
-msgstr ""
+msgstr "1 Poción"
 
 #  %1 = Amount/quantity
 msgid "reward.potion.plural"
-msgstr ""
+msgstr "{%1} Pociones"
 
 msgid "reward.super_potion.general"
-msgstr ""
+msgstr "Superpoción"
 
 msgid "reward.super_potion.singular"
-msgstr ""
+msgstr "1 Superpoción"
 
 #  %1 = Amount/quantity
 msgid "reward.super_potion.plural"
-msgstr ""
+msgstr "{%1} Superpociones"
 
 msgid "reward.hyper_potion.general"
-msgstr ""
+msgstr "Hiperpoción"
 
 msgid "reward.hyper_potion.singular"
-msgstr ""
+msgstr "1 Hiperpoción"
 
 #  %1 = Amount/quantity
 msgid "reward.hyper_potion.plural"
-msgstr ""
+msgstr "{%1} Hiperpoción"
 
 msgid "reward.max_potion.general"
-msgstr ""
+msgstr "Poción Máxima"
 
 msgid "reward.max_potion.singular"
-msgstr ""
+msgstr "1 Poción Máxima"
 
 #  %1 = Amount/quantity
 msgid "reward.max_potion.plural"
-msgstr ""
+msgstr "{%1} Pociones Máximas"
 
 msgid "reward.revive.general"
-msgstr ""
+msgstr "Revivir"
 
 msgid "reward.revive.singular"
-msgstr ""
+msgstr "1 Revivir"
 
 #  %1 = Amount/quantity
 msgid "reward.revive.plural"
-msgstr ""
+msgstr "{%1} Revivires"
 
 msgid "reward.max_revive.general"
-msgstr ""
+msgstr "Revivir Máximo"
 
 msgid "reward.max_revive.singular"
-msgstr ""
+msgstr "1 Revivir Máximo"
 
 #  %1 = Amount/quantity
 msgid "reward.max_revive.plural"
-msgstr ""
+msgstr "{%1} Revivires Máximos"
 
 msgid "reward.sun_stone.general"
-msgstr ""
+msgstr "Piedra Solar"
 
 msgid "reward.sun_stone.singular"
-msgstr ""
+msgstr "1 Piedra Solar"
 
 #  %1 = Amount/quantity
 msgid "reward.sun_stone.plural"
-msgstr ""
+msgstr "{%1} Piedras Solares"
 
 msgid "reward.kings_rock.general"
-msgstr ""
+msgstr "Roca del Rey"
 
 msgid "reward.kings_rock.singular"
-msgstr ""
+msgstr "1 Roca del Rey"
 
 #  %1 = Amount/quantity
 msgid "reward.kings_rock.plural"
-msgstr ""
+msgstr "{%1} Rocas del Rey"
 
 msgid "reward.metal_coat.general"
-msgstr ""
+msgstr "Revestimiento Metálico"
 
 msgid "reward.metal_coat.singular"
-msgstr ""
+msgstr "1 Revestimiento Metálico"
 
 #  %1 = Amount/quantity
 msgid "reward.metal_coat.plural"
-msgstr ""
+msgstr "{%1} Revestimientos Metálicos"
 
 msgid "reward.dragon_scale.general"
-msgstr ""
+msgstr "Escama Dragón"
 
 msgid "reward.dragon_scale.singular"
-msgstr ""
+msgstr "1 Escama Dragón"
 
 #  %1 = Amount/quantity
 msgid "reward.dragon_scale.plural"
-msgstr ""
+msgstr "{%1} Escamas Dragón"
 
 msgid "reward.up_grade.general"
-msgstr ""
+msgstr "Up-Grade"
 
 msgid "reward.up_grade.singular"
-msgstr ""
+msgstr "1 Up-Grade"
 
 #  %1 = Amount/quantity
 msgid "reward.up_grade.plural"
-msgstr ""
+msgstr "{%1} Up-Grades"
 
 msgid "reward.sinnoh_stone.general"
-msgstr ""
+msgstr "Piedra Sinnoh"
 
 msgid "reward.sinnoh_stone.singular"
-msgstr ""
+msgstr "1 Piedra Sinnoh"
 
 #  %1 = Amount/quantity
 msgid "reward.sinnoh_stone.plural"
-msgstr ""
+msgstr "{%1} Piedras Sinnoh"
 
 msgid "reward.fast_tm.general"
-msgstr ""
+msgstr "MT de ataque rápido"
 
 msgid "reward.fast_tm.singular"
-msgstr ""
+msgstr "1 MT de ataque rápido"
 
 #  %1 = Amount/quantity
 msgid "reward.fast_tm.plural"
-msgstr ""
+msgstr "{%1} MTs de ataque rápido"
 
 msgid "reward.charge_tm.general"
-msgstr ""
+msgstr "MT de ataque cargado"
 
 msgid "reward.charge_tm.singular"
-msgstr ""
+msgstr "1 MT de ataque cargado"
 
 #  %1 = Amount/quantity
 msgid "reward.charge_tm.plural"
-msgstr ""
+msgstr "{%1} MTs de ataque cargado"
 
 msgid "reward.stardust.general"
-msgstr ""
+msgstr "Polvo estelar"
 
 msgid "reward.stardust.singular"
-msgstr ""
+msgstr "1 Polvo estelar"
 
 #  %1 = Amount/quantity
 msgid "reward.stardust.plural"
-msgstr ""
+msgstr "{%1} Polvos estelares"
 
 msgid "reward.rare_candy.general"
-msgstr ""
+msgstr "Caramelo raro"
 
 msgid "reward.rare_candy.singular"
-msgstr ""
+msgstr "1 Caramelo raro"
 
 #  %1 = Amount/quantity
 msgid "reward.rare_candy.plural"
-msgstr ""
+msgstr "{%1} Caramelos raros"
 
 msgid "reward.encounter.general"
-msgstr ""
+msgstr "Aparece un Pokémon"
 
 msgid "reward.encounter.singular"
-msgstr ""
+msgstr "Aparece un Pokémon"
 
 msgid "reward.encounter.plural"
-msgstr ""
+msgstr "Aparecen Pokémons"
 
 #  %1 = Name of a species ("Pikachu", "Charizard", etc.)
 msgid "reward.encounter_specific.singular"
-msgstr ""
+msgstr "{%1} encuentro"
 
 #  %1 = Name of a species ("Pikachu", "Charizard", etc.)
 msgid "reward.encounter_specific.plural"
-msgstr ""
+msgstr "{%1} encuentros"
 
 #  Displayed when the research task reward from a Pokéstop is unknown.
 msgid "reward.unknown.singular"
-msgstr ""
+msgstr "recompensa desconocida"
 
