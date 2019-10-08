@@ -13,10 +13,10 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/install.po\n"
-"PO-Revision-Date: 2019-06-05 22:25\n"
+"PO-Revision-Date: 2019-10-08 21:06\n"
 
 msgid "install.button.continue"
-msgstr ""
+msgstr "Continuar configuración"
 
 msgid "install.button.finish"
 msgstr "Finalizar configuración"
@@ -25,13 +25,13 @@ msgid "install.button.retry"
 msgstr "Vuelve a intentarlo"
 
 msgid "install.operation.done"
-msgstr ""
+msgstr "Los resultados de la operación se enumeran a continuación."
 
 msgid "install.stage.1.title"
-msgstr ""
+msgstr "Paso 1: Verificación de entorno"
 
 msgid "install.stage.1.info"
-msgstr ""
+msgstr "¡Bienvenido a FreeField! Este asistente le guiará a través de la instalación de FreeField en su servidor. A continuación se muestran algunas comprobaciones preliminares del entorno del sistema."
 
 msgid "install.stage.1.assert.https"
 msgstr "Conexión cifrada (HTTPS) - necesaria para la geolocalización y la aplicación web progresiva"
@@ -40,7 +40,7 @@ msgid "install.stage.1.assert.root_writable"
 msgstr "Directorio de instalación con permisos de escritura - requerido para instalar actualizaciones"
 
 msgid "install.stage.1.assert.userdata_writable"
-msgstr ""
+msgstr "Userdata directory writable - required for core functionality"
 
 msgid "install.stage.1.assert.curl_available"
 msgstr "Extensión cURL cargada - requerida para autenticación y actualizaciones"
@@ -55,7 +55,7 @@ msgid "install.stage.1.assert.phar_available"
 msgstr "PharData disponible - requerido para actualizaciones del software"
 
 msgid "install.stage.1.checks"
-msgstr ""
+msgstr "Please ensure that all the above checks are passing (green checkmark). FreeField will work even if some entries fail with a yellow exclamation mark, though some features will be unavailable. FreeField will not work if any of the above checks fail with a red X. If you wish to fix any failing checks above, please do the relevant changes to your server configuration now, then refresh the page before proceeding."
 
 msgid "install.stage.1.next"
 msgstr "Cuando haya aplicado los cambios deseados, haga clic en el botón de abajo para continuar al siguiente paso, y el sistema pueda generar el archivo de configuración."
@@ -79,10 +79,10 @@ msgid "install.stage.3.title"
 msgstr "Paso 3: Configuración de base de datos"
 
 msgid "install.stage.3.info"
-msgstr ""
+msgstr "Please fill in the following database backend details."
 
 msgid "install.stage.3.assert.valid_data"
-msgstr ""
+msgstr "Database details are valid"
 
 msgid "install.stage.3.assert.config_written"
 msgstr "Archivo de configuración actualizado"
@@ -103,7 +103,7 @@ msgid "install.stage.4.title"
 msgstr "Paso 4: Configuración de autenticación"
 
 msgid "install.stage.4.info"
-msgstr ""
+msgstr "Please choose one or more authentiation providers from the list below, and configure it to enable signing in with the given authentication provider. Please refer to the documentation for more information on how to properly configure each authentication provider."
 
 msgid "install.stage.4.assert.valid_data"
 msgstr "Los datos de autenticación proporcionados son válidos"
@@ -115,54 +115,54 @@ msgid "install.stage.4.assert.any_enabled"
 msgstr "Al menos un proveedor de autenticación está habilitado"
 
 msgid "install.stage.4.assert.proceed_stage"
-msgstr ""
+msgstr "Prepared authentication challenge"
 
 msgid "install.stage.4.next"
 msgstr "Al continuar, se le pedirá que inicie sesión usando uno de los proveedores de autenticación que haya configurado."
 
 msgid "install.stage.5.title"
-msgstr ""
+msgstr "Paso 5: Configuración de autenticación"
 
 msgid "install.stage.5.assert.auth_success"
-msgstr ""
+msgstr "¡Autenticación correcta!"
 
 msgid "install.stage.5.assert.user_created"
-msgstr ""
+msgstr "Cuenta registrada como administrador del sitio en la base de datos"
 
 msgid "install.stage.5.assert.config_written"
-msgstr ""
+msgstr "Archivo de configuración actualizado"
 
 msgid "install.stage.5.next"
-msgstr ""
+msgstr "Please click the button below to continue to map setup."
 
 msgid "install.stage.6.title"
-msgstr ""
+msgstr "Paso 6: Configurar mapa"
 
 msgid "install.stage.6.provider_info"
-msgstr ""
+msgstr "Please choose an available map provider from the following list of map providers."
 
 msgid "install.stage.6.disclaimer"
-msgstr ""
+msgstr "Warning! Most map providers require you to agree to their Terms of Service and/or some other legal contract when you register for their services. You have the full responsibility to ensure that you meet the requirements set forth by your chosen map provider, and that your usage of their services through FreeField is in line with their policies and your license to use their services."
 
 msgid "install.stage.6.field_guide"
-msgstr ""
+msgstr "Please enter the access token and/or other required parameters for your selected map provider below. You only have to fill the fields relevant to the map provider you chose above - all others can be left blank."
 
 msgid "install.stage.6.default_info"
-msgstr ""
+msgstr "Please configure the default map center point for your FreeField installation. The map center point is the location the map is centered on by default, and should be central coordinate location in the city/area you are covering with FreeField. E.g. if you are setting your FreeField instance up for covering New York City, then enter a coordinate pair for a centrally located point in New York City."
 
 msgid "install.stage.6.assert.valid_data"
-msgstr ""
+msgstr "Provided map settings are valid"
 
 msgid "install.stage.6.assert.config_written"
-msgstr ""
+msgstr "Configuration file updated"
 
 msgid "install.stage.6.next"
-msgstr ""
+msgstr "Congratulations! You have finished setting up FreeField. You may now proceed to, and use, your FreeField instance. When you click the button below, you will be redirected to the administration interface. Please finish setting up FreeField there, and customize the software to your liking."
 
 msgid "install.stage.6.post_install.head"
-msgstr ""
+msgstr "¡Alerta!"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "install.stage.6.post_install.body"
-msgstr ""
+msgstr "There are still a few things you should configure before you grant others access to FreeField. Please carefully review the {%1}post-installation steps{%2} in the documentation before you proceed."
 
