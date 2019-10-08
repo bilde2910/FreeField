@@ -13,24 +13,24 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/login.po\n"
-"PO-Revision-Date: 2019-06-05 22:25\n"
+"PO-Revision-Date: 2019-10-08 21:06\n"
 
 msgid "login.title"
-msgstr ""
+msgstr "Iniciar sesión en FreeField"
 
 msgid "login.desc"
-msgstr ""
+msgstr "Por favor, seleccione un proveedor de autenticación a continuación"
 
 #  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
 msgid "login.perform"
-msgstr ""
+msgstr "Iniciar sesión usando {%1}"
 
 msgid "login.reconfigure"
-msgstr ""
+msgstr "Reconfigurar"
 
 msgid "login.telegram.title"
-msgstr ""
+msgstr "Autenticar con Telegram"
 
 msgid "login.telegram.body"
-msgstr ""
+msgstr "Por favor, haga clic en el botón de abajo para iniciar sesión usando Telegram"
 
