@@ -4,16 +4,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/poi.po\n"
-"PO-Revision-Date: 2019-10-08 21:17\n"
+"PO-Revision-Date: 2020-01-20 10:38\n"
 
 #  %1 = Last updated date/time
 msgid "poi.last.time"
@@ -24,10 +23,10 @@ msgid "poi.last.user"
 msgstr "Actualizado por {%1}"
 
 msgid "poi.add.title"
-msgstr "Añadir Pokeparada"
+msgstr "Añadir Poképarada"
 
 msgid "poi.add.name"
-msgstr "Nombre de la Pokeparada"
+msgstr "Nombre de la Poképarada"
 
 msgid "poi.add.latitude"
 msgstr "Latitud"
@@ -36,10 +35,10 @@ msgid "poi.add.longitude"
 msgstr "Longitud"
 
 msgid "poi.add.submit"
-msgstr "Añadir Pokeparada"
+msgstr "Añadir Poképarada"
 
 msgid "poi.add.processing"
-msgstr "Añadiendo Pokeparada..."
+msgstr "Añadiendo Poképarada..."
 
 #  %1 = Name of POI
 msgid "poi.add.success"
