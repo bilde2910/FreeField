@@ -12,7 +12,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/poi.po\n"
-"PO-Revision-Date: 2020-01-22 02:38\n"
+"PO-Revision-Date: 2020-01-22 02:49\n"
 
 #  %1 = Last updated date/time
 msgid "poi.last.time"
@@ -23,10 +23,10 @@ msgid "poi.last.user"
 msgstr "Actualizado por {%1}"
 
 msgid "poi.add.title"
-msgstr "Añadir Poképarada"
+msgstr "Añadir"
 
 msgid "poi.add.name"
-msgstr "Nombre de la Poképarada"
+msgstr "Nombre"
 
 msgid "poi.add.latitude"
 msgstr "Latitud"
@@ -42,24 +42,24 @@ msgstr "Añadiendo Poképarada..."
 
 #  %1 = Name of POI
 msgid "poi.add.success"
-msgstr "¡Nueva Pokeparada \"{%1}\" añadida correctamente!"
+msgstr "¡Poképarada \"{%1}\" añadida correctamente!"
 
 #  %1 = Name of POI, %2 = Reason it failed
 msgid "poi.add.failed.message"
-msgstr "Error al añadir nueva Pokeparada \"{%1}\": {%2}"
+msgstr "Error al añadir Poképarada \"{%1}\": {%2}"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "poi.add.instructions"
-msgstr "Por favor, haz clic en el mapa para añadir una nueva Pokeparada en esa ubicación ({%1}Cancelar{%2})"
+msgstr "Haz clic en el mapa para añadir una nueva Poképarada en esa ubicación ({%1}Cancelar{%2})"
 
 msgid "poi.move.instructions"
-msgstr "Por favor, haga clic en el mapa para seleccionar una nueva ubicación para esta Pokeparada ({%1}Cancelar{%2})"
+msgstr "Haz clic en el mapa para seleccionar una nueva ubicación para esta Poképarada ({%1}Cancelar{%2})"
 
 msgid "poi.move.processing"
-msgstr "Moviendo Pokeparada..."
+msgstr "Moviendo Poképarada..."
 
 msgid "poi.move.success"
-msgstr "¡Pokeparada movida con éxito!"
+msgstr "¡Se reubicó la Poképarada con éxito!"
 
 #  %1 = Reason it failed
 msgid "poi.move.failed.message"
@@ -85,7 +85,7 @@ msgid "poi.clear.processing"
 msgstr "Eliminando..."
 
 msgid "poi.clear.success"
-msgstr "Successfully cleared research data from Pokéstop!"
+msgstr "Se eliminó con éxito la misión en esta Poképarada!"
 
 #  %1 = Reason it failed
 msgid "poi.clear.failed.message"
