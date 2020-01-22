@@ -12,7 +12,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/poi.po\n"
-"PO-Revision-Date: 2020-01-22 02:49\n"
+"PO-Revision-Date: 2020-01-22 02:59\n"
 
 #  %1 = Last updated date/time
 msgid "poi.last.time"
@@ -42,7 +42,7 @@ msgstr "Añadiendo Poképarada..."
 
 #  %1 = Name of POI
 msgid "poi.add.success"
-msgstr "¡Poképarada \"{%1}\" añadida correctamente!"
+msgstr "¡La Poképarada \"{%1}\", fue añadida correctamente!"
 
 #  %1 = Name of POI, %2 = Reason it failed
 msgid "poi.add.failed.message"
@@ -59,17 +59,17 @@ msgid "poi.move.processing"
 msgstr "Moviendo Poképarada..."
 
 msgid "poi.move.success"
-msgstr "¡Se reubicó la Poképarada con éxito!"
+msgstr "¡Poképarada reubicada exitosamente!"
 
 #  %1 = Reason it failed
 msgid "poi.move.failed.message"
-msgstr "Error al mover Pokeparada: {%1}"
+msgstr "Error al mover Poképarada: {%1}"
 
 msgid "poi.rename.prompt"
-msgstr "Por favor, introduzca un nuevo nombre para la Pokeparada:"
+msgstr "Escribe un nuevo nombre para la Poképarada:"
 
 msgid "poi.rename.processing"
-msgstr "Renombrando Pokeparada..."
+msgstr "Renombrando Poképarada..."
 
 msgid "poi.rename.success"
 msgstr "¡Pokeparada renombrada con éxito!"
@@ -82,17 +82,17 @@ msgid "poi.clear.confirm"
 msgstr "¿Estás seguro que quieres borrar la misión actual de esta Poképarada?"
 
 msgid "poi.clear.processing"
-msgstr "Eliminando..."
+msgstr "Eliminando misión..."
 
 msgid "poi.clear.success"
 msgstr "Se eliminó con éxito la misión en esta Poképarada!"
 
 #  %1 = Reason it failed
 msgid "poi.clear.failed.message"
-msgstr "Failed to clear research data for Pokéstop: {%1}"
+msgstr "Error al borrar la misión: {%1}"
 
 msgid "poi.delete.confirm"
-msgstr "Are you sure that you want to remove this Pokéstop from the map?"
+msgstr "¿Estás seguro que deseas eliminar esta Poképarada del mapa?"
 
 msgid "poi.delete.processing"
 msgstr "Removing Pokéstop..."
