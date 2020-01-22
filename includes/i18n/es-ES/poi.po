@@ -12,7 +12,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/poi.po\n"
-"PO-Revision-Date: 2020-01-22 02:59\n"
+"PO-Revision-Date: 2020-01-22 03:04\n"
 
 #  %1 = Last updated date/time
 msgid "poi.last.time"
@@ -95,20 +95,20 @@ msgid "poi.delete.confirm"
 msgstr "¿Estás seguro que deseas eliminar esta Poképarada del mapa?"
 
 msgid "poi.delete.processing"
-msgstr "Removing Pokéstop..."
+msgstr "Eliminando Poképarada..."
 
 msgid "poi.delete.success"
-msgstr "Successfully removed Pokéstop!"
+msgstr "¡La Poképarada fue eliminada exitosamente!"
 
 #  %1 = Reason it failed
 msgid "poi.delete.failed.message"
-msgstr "Failed to remove Pokéstop: {%1}"
+msgstr "Error al eliminar Poképarada: {%1}"
 
 msgid "poi.update.title"
-msgstr "Reportar investigación"
+msgstr "Reportar misión"
 
 msgid "poi.update.name"
-msgstr "Nombre de la Pokeparada"
+msgstr "Nombre"
 
 msgid "poi.update.objective"
 msgstr "Objetivo"
