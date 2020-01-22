@@ -12,7 +12,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/poi.po\n"
-"PO-Revision-Date: 2020-01-20 10:38\n"
+"PO-Revision-Date: 2020-01-22 02:38\n"
 
 #  %1 = Last updated date/time
 msgid "poi.last.time"
@@ -76,13 +76,13 @@ msgstr "¡Pokeparada renombrada con éxito!"
 
 #  %1 = Reason it failed
 msgid "poi.rename.failed.message"
-msgstr "Failed to rename Pokéstop: {%1}"
+msgstr "Error al renombrar Poképarada: {%1}"
 
 msgid "poi.clear.confirm"
-msgstr "Are you sure that you want to erase the currently active research task from this Pokéstop?"
+msgstr "¿Estás seguro que quieres borrar la misión actual de esta Poképarada?"
 
 msgid "poi.clear.processing"
-msgstr "Clearing research..."
+msgstr "Eliminando..."
 
 msgid "poi.clear.success"
 msgstr "Successfully cleared research data from Pokéstop!"
