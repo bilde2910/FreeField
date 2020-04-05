@@ -1,0 +1,53 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: de\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/xhr.po\n"
+"PO-Revision-Date: 2019-06-06 11:26\n"
+
+msgid "xhr.failed.reason.unknown_reason"
+msgstr ""
+
+msgid "xhr.failed.reason.access_denied"
+msgstr ""
+
+msgid "xhr.failed.reason.missing_fields"
+msgstr ""
+
+msgid "xhr.failed.reason.invalid_data"
+msgstr ""
+
+msgid "xhr.failed.reason.database_error"
+msgstr ""
+
+msgid "xhr.failed.reason.http_405"
+msgstr ""
+
+msgid "xhr.failed.reason.timeout"
+msgstr ""
+
+msgid "xhr.failed.reason.upstream_failed"
+msgstr ""
+
+msgid "xhr.failed.reason.objective_null"
+msgstr ""
+
+msgid "xhr.failed.reason.reward_null"
+msgstr ""
+
+msgid "xhr.failed.reason.name_empty"
+msgstr ""
+
+msgid "xhr.failed.reason.invalid_location"
+msgstr ""
+

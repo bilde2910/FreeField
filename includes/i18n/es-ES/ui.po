@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/ui.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
+"PO-Revision-Date: 2019-10-08 20:55\n"
 
 msgid "ui.button.close"
 msgstr "Cerrar"
@@ -28,14 +28,14 @@ msgid "ui.button.save"
 msgstr "Guardar ajustes"
 
 msgid "ui.button.done"
-msgstr ""
+msgstr "Hecho"
 
 msgid "ui.button.retry"
 msgstr "Inténtalo de nuevo"
 
 msgid "ui.dropdown.none_selected"
-msgstr ""
+msgstr "<ninguno>"
 
 msgid "ui.paginate.go_to"
-msgstr ""
+msgstr "Ir a Página:"
 

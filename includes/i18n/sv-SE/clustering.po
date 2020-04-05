@@ -1,0 +1,23 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Swedish\n"
+"Language: sv_SE\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: sv-SE\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/clustering.po\n"
+"PO-Revision-Date: 2019-07-21 10:25\n"
+
+#  %1 = Number of POIs hidden from map
+#  %2 = Total number of POIs that are supposed to be visible in the map view
+#  %3 = "Hidden" icon graphic
+msgid "clustering.banner"
+msgstr "{%3} {%1}/{%2}"
+

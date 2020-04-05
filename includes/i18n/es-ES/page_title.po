@@ -13,41 +13,41 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/page_title.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
+"PO-Revision-Date: 2019-10-08 21:17\n"
 
 msgid "page_title.setup"
-msgstr ""
+msgstr "Configuración de FreeField"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 #  %2 = Administration domain (e.g. "Users", "Webhooks")
 msgid "page_title.admin"
-msgstr ""
+msgstr "Admin » {%2} | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.main"
-msgstr ""
+msgstr "{%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.access_denied"
-msgstr ""
+msgstr "Acceso denegado | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.login.main"
-msgstr ""
+msgstr "Inicio de sesión | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.login.failed"
-msgstr ""
+msgstr "Error al iniciar sesión | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.login.awaiting_approval"
-msgstr ""
+msgstr "Cuenta pendiente de aprobación | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.login.approve_user"
-msgstr ""
+msgstr "Solicitud de aprobación de usuario | {%1}"
 
 #  %1 = Name of the site installation (e.g. "FreeField" or "<City> FreeField")
 msgid "page_title.login.telegram"
-msgstr ""
+msgstr "Inicio de sesión » Telegram | {%1}"
 

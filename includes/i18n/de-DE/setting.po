@@ -1,0 +1,1218 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: de\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/setting.po\n"
+"PO-Revision-Date: 2019-06-06 11:26\n"
+
+msgid "setting.site.uri.name"
+msgstr ""
+
+msgid "setting.site.uri.desc"
+msgstr ""
+
+msgid "setting.site.name.name"
+msgstr ""
+
+msgid "setting.site.name.desc"
+msgstr ""
+
+msgid "setting.site.menu_header.name"
+msgstr ""
+
+msgid "setting.site.menu_header.desc"
+msgstr ""
+
+msgid "setting.site.menu_image.name"
+msgstr ""
+
+msgid "setting.site.menu_image.desc"
+msgstr ""
+
+msgid "setting.site.header_style.name"
+msgstr ""
+
+msgid "setting.site.header_style.desc"
+msgstr ""
+
+msgid "setting.site.header_style.option.text"
+msgstr ""
+
+msgid "setting.site.header_style.option.image"
+msgstr ""
+
+msgid "setting.site.header_style.option.image_plain"
+msgstr ""
+
+msgid "setting.motd.display_mode.name"
+msgstr ""
+
+msgid "setting.motd.display_mode.desc"
+msgstr ""
+
+msgid "setting.motd.display_mode.option.forced"
+msgstr ""
+
+msgid "setting.motd.display_mode.option.always"
+msgstr ""
+
+msgid "setting.motd.display_mode.option.on_change"
+msgstr ""
+
+msgid "setting.motd.display_mode.option.on_request"
+msgstr ""
+
+msgid "setting.motd.display_mode.option.never"
+msgstr ""
+
+msgid "setting.motd.title.name"
+msgstr ""
+
+msgid "setting.motd.title.desc"
+msgstr ""
+
+msgid "setting.motd.content.name"
+msgstr ""
+
+msgid "setting.motd.content.desc"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.name"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.desc"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.option.all"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.option.nofollow"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.option.noindex"
+msgstr ""
+
+msgid "setting.spiders.robots_policy.option.noindex_nofollow"
+msgstr ""
+
+msgid "setting.database.type.name"
+msgstr ""
+
+msgid "setting.database.type.desc"
+msgstr ""
+
+msgid "setting.database.type.option.mysql"
+msgstr ""
+
+msgid "setting.database.type.option.pgsql"
+msgstr ""
+
+msgid "setting.database.type.option.sqlite"
+msgstr ""
+
+msgid "setting.database.type.option.sqlite2"
+msgstr ""
+
+msgid "setting.database.type.option.sqlsrv"
+msgstr ""
+
+msgid "setting.database.type.option.4D"
+msgstr ""
+
+msgid "setting.database.type.option.oci"
+msgstr ""
+
+msgid "setting.database.type.option.cubrid"
+msgstr ""
+
+msgid "setting.database.type.option.sybase"
+msgstr ""
+
+msgid "setting.database.type.option.mssql"
+msgstr ""
+
+msgid "setting.database.type.option.dblib"
+msgstr ""
+
+msgid "setting.database.host.name"
+msgstr ""
+
+msgid "setting.database.host.desc"
+msgstr ""
+
+msgid "setting.database.port.name"
+msgstr ""
+
+msgid "setting.database.port.desc"
+msgstr ""
+
+msgid "setting.database.username.name"
+msgstr ""
+
+msgid "setting.database.username.desc"
+msgstr ""
+
+msgid "setting.database.password.name"
+msgstr ""
+
+msgid "setting.database.password.desc"
+msgstr ""
+
+msgid "setting.database.database.name"
+msgstr ""
+
+msgid "setting.database.database.desc"
+msgstr ""
+
+msgid "setting.database.table_prefix.name"
+msgstr ""
+
+msgid "setting.database.table_prefix.desc"
+msgstr ""
+
+msgid "setting.permissions.default_level.name"
+msgstr ""
+
+msgid "setting.permissions.default_level.desc"
+msgstr ""
+
+msgid "setting.permissions.level.self_manage.nickname.name"
+msgstr ""
+
+msgid "setting.permissions.level.self_manage.nickname.desc"
+msgstr ""
+
+msgid "setting.permissions.level.access.name"
+msgstr ""
+
+msgid "setting.permissions.level.access.desc"
+msgstr ""
+
+msgid "setting.permissions.level.find_reporter.name"
+msgstr ""
+
+msgid "setting.permissions.level.find_reporter.desc"
+msgstr ""
+
+msgid "setting.permissions.level.report_research.name"
+msgstr ""
+
+msgid "setting.permissions.level.report_research.desc"
+msgstr ""
+
+msgid "setting.permissions.level.overwrite_research.name"
+msgstr ""
+
+msgid "setting.permissions.level.overwrite_research.desc"
+msgstr ""
+
+msgid "setting.permissions.level.submit_poi.name"
+msgstr ""
+
+msgid "setting.permissions.level.submit_poi.desc"
+msgstr ""
+
+msgid "setting.permissions.level.personalization.icons.name"
+msgstr ""
+
+msgid "setting.permissions.level.personalization.icons.desc"
+msgstr ""
+
+msgid "setting.permissions.level.personalization.species.name"
+msgstr ""
+
+msgid "setting.permissions.level.personalization.species.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.access.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.access.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.instance.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.instance.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.motd.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.motd.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.spiders.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.spiders.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.database.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.main.section.database.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.users.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.users.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.groups.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.groups.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.users.groups.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.users.groups.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.groups.self_manage.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.groups.self_manage.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.pois.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.pois.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.pois.import.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.pois.import.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.default.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.default.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.self_manage.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.self_manage.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.map_access.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.map_access.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.personalization.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.personalization.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.admin.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.perms.section.admin.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.user_creation.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.user_creation.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.sessions.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.sessions.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.outbound.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.outbound.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.same_origin.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.security.section.same_origin.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.discord.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.discord.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.telegram.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.telegram.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.reddit.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.reddit.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.facebook.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.facebook.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.line.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.line.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.groupme.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.auth.section.groupme.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.mobile.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.mobile.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.mobile.section.pwa.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.mobile.section.pwa.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.meta.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.meta.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.color.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.color.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.icons.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.themes.section.icons.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.provider.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.provider.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.default.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.default.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.updates.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.updates.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.geofence.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.map.section.geofence.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.fences.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.fences.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.hooks.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.hooks.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.api.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.api.general.desc"
+msgstr ""
+
+msgid "setting.permissions.level.admin.updates.general.name"
+msgstr ""
+
+msgid "setting.permissions.level.admin.updates.general.desc"
+msgstr ""
+
+msgid "setting.security.approval.require.name"
+msgstr ""
+
+msgid "setting.security.approval.require.desc"
+msgstr ""
+
+msgid "setting.security.approval.require.label"
+msgstr ""
+
+msgid "setting.security.approval.by_qr.name"
+msgstr ""
+
+msgid "setting.security.approval.by_qr.desc"
+msgstr ""
+
+msgid "setting.security.approval.by_qr.label"
+msgstr ""
+
+msgid "setting.auth.session_length.name"
+msgstr ""
+
+msgid "setting.auth.session_length.desc"
+msgstr ""
+
+msgid "setting.auth.session_length.option.86400"
+msgstr ""
+
+msgid "setting.auth.session_length.option.604800"
+msgstr ""
+
+msgid "setting.auth.session_length.option.2592000"
+msgstr ""
+
+msgid "setting.auth.session_length.option.7776000"
+msgstr ""
+
+msgid "setting.auth.session_length.option.15811200"
+msgstr ""
+
+msgid "setting.auth.session_length.option.31536000"
+msgstr ""
+
+msgid "setting.auth.session_length.option.63072000"
+msgstr ""
+
+msgid "setting.auth.session_length.option.157766400"
+msgstr ""
+
+msgid "setting.auth.session_length.option.315619200"
+msgstr ""
+
+msgid "setting.security.validate_ua.name"
+msgstr ""
+
+msgid "setting.security.validate_ua.desc"
+msgstr ""
+
+msgid "setting.security.validate_ua.option.no"
+msgstr ""
+
+msgid "setting.security.validate_ua.option.lenient"
+msgstr ""
+
+msgid "setting.security.validate_ua.option.strict"
+msgstr ""
+
+msgid "setting.security.validate_lang.name"
+msgstr ""
+
+msgid "setting.security.validate_lang.desc"
+msgstr ""
+
+msgid "setting.security.validate_lang.label"
+msgstr ""
+
+msgid "setting.security.selector_canary.name"
+msgstr ""
+
+msgid "setting.security.selector_canary.desc"
+msgstr ""
+
+msgid "setting.security.selector_canary.label"
+msgstr ""
+
+msgid "setting.security.curl.verify_certificates.name"
+msgstr ""
+
+msgid "setting.security.curl.verify_certificates.desc"
+msgstr ""
+
+msgid "setting.security.curl.verify_certificates.label"
+msgstr ""
+
+msgid "setting.security.curl.cacert_path.name"
+msgstr ""
+
+msgid "setting.security.curl.cacert_path.desc"
+msgstr ""
+
+msgid "setting.security.frame_options.name"
+msgstr ""
+
+msgid "setting.security.frame_options.desc"
+msgstr ""
+
+msgid "setting.security.frame_options.option.allow"
+msgstr ""
+
+msgid "setting.security.frame_options.option.sameorigin"
+msgstr ""
+
+msgid "setting.security.frame_options.option.deny"
+msgstr ""
+
+msgid "setting.auth.provider.discord.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.discord.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.discord.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.discord.client_id.name"
+msgstr ""
+
+msgid "setting.auth.provider.discord.client_id.desc"
+msgstr ""
+
+msgid "setting.auth.provider.discord.client_secret.name"
+msgstr ""
+
+msgid "setting.auth.provider.discord.client_secret.desc"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.bot_username.name"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.bot_username.desc"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.bot_token.name"
+msgstr ""
+
+msgid "setting.auth.provider.telegram.bot_token.desc"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.client_id.name"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.client_id.desc"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.client_secret.name"
+msgstr ""
+
+msgid "setting.auth.provider.reddit.client_secret.desc"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.app_id.name"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.app_id.desc"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.app_secret.name"
+msgstr ""
+
+msgid "setting.auth.provider.facebook.app_secret.desc"
+msgstr ""
+
+msgid "setting.auth.provider.line.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.line.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.line.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.line.channel_id.name"
+msgstr ""
+
+msgid "setting.auth.provider.line.channel_id.desc"
+msgstr ""
+
+msgid "setting.auth.provider.line.channel_secret.name"
+msgstr ""
+
+msgid "setting.auth.provider.line.channel_secret.desc"
+msgstr ""
+
+msgid "setting.auth.provider.groupme.enabled.name"
+msgstr ""
+
+msgid "setting.auth.provider.groupme.enabled.desc"
+msgstr ""
+
+msgid "setting.auth.provider.groupme.enabled.label"
+msgstr ""
+
+msgid "setting.auth.provider.groupme.client_id.name"
+msgstr ""
+
+msgid "setting.auth.provider.groupme.client_id.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.enabled.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.enabled.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.enabled.label"
+msgstr ""
+
+msgid "setting.mobile.pwa.name.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.name.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.short_name.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.short_name.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.description.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.description.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.option.fullscreen"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.option.standalone"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.option.minimal_ui"
+msgstr ""
+
+msgid "setting.mobile.pwa.display.option.browser"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.192px.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.192px.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.512px.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.512px.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.launch.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.icon.launch.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.color.background.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.color.background.desc"
+msgstr ""
+
+msgid "setting.mobile.pwa.color.foreground.name"
+msgstr ""
+
+msgid "setting.mobile.pwa.color.foreground.desc"
+msgstr ""
+
+msgid "setting.themes.meta.favicon.name"
+msgstr ""
+
+msgid "setting.themes.meta.favicon.desc"
+msgstr ""
+
+msgid "setting.themes.meta.color.name"
+msgstr ""
+
+msgid "setting.themes.meta.color.desc"
+msgstr ""
+
+msgid "setting.themes.color.site.name"
+msgstr ""
+
+msgid "setting.themes.color.site.desc"
+msgstr ""
+
+msgid "setting.themes.color.admin.name"
+msgstr ""
+
+msgid "setting.themes.color.admin.desc"
+msgstr ""
+
+msgid "setting.themes.color.admin.option.light"
+msgstr ""
+
+msgid "setting.themes.color.admin.option.dark"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.theme.name"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.theme.desc"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.theme.option.light"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.theme.option.dark"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.allow_personalization.name"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.allow_personalization.desc"
+msgstr ""
+
+msgid "setting.themes.color.user_settings.allow_personalization.label"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.name"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.desc"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.basic"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.streets"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.bright"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.light"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.dark"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.mapbox.option.satellite"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.name"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.desc"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.cycle"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.transport"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.landscape"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.outdoors"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.transport_dark"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.spinal_map"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.pioneer"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.mobile_atlas"
+msgstr ""
+
+msgid "setting.themes.color.map.theme.thunderforest.option.neighbourhood"
+msgstr ""
+
+msgid "setting.themes.color.map.allow_personalization.name"
+msgstr ""
+
+msgid "setting.themes.color.map.allow_personalization.desc"
+msgstr ""
+
+msgid "setting.themes.color.map.allow_personalization.label"
+msgstr ""
+
+msgid "setting.themes.icons.default.name"
+msgstr ""
+
+msgid "setting.themes.icons.default.desc"
+msgstr ""
+
+msgid "setting.themes.species.default.name"
+msgstr ""
+
+msgid "setting.themes.species.default.desc"
+msgstr ""
+
+msgid "setting.map.provider.source.name"
+msgstr ""
+
+msgid "setting.map.provider.source.desc"
+msgstr ""
+
+msgid "setting.map.provider.source.option.mapbox"
+msgstr ""
+
+msgid "setting.map.provider.source.option.thunderforest"
+msgstr ""
+
+msgid "setting.map.provider.mapbox.access_token.name"
+msgstr ""
+
+msgid "setting.map.provider.mapbox.access_token.desc"
+msgstr ""
+
+msgid "setting.map.provider.thunderforest.api_key.name"
+msgstr ""
+
+msgid "setting.map.provider.thunderforest.api_key.desc"
+msgstr ""
+
+msgid "setting.map.provider.directions.name"
+msgstr ""
+
+msgid "setting.map.provider.directions.desc"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.baidu"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.bing"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.google"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.here"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.mapquest"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.waze"
+msgstr ""
+
+msgid "setting.map.provider.directions.option.yandex"
+msgstr ""
+
+msgid "setting.map.default.center.latitude.name"
+msgstr ""
+
+msgid "setting.map.default.center.latitude.desc"
+msgstr ""
+
+msgid "setting.map.default.center.longitude.name"
+msgstr ""
+
+msgid "setting.map.default.center.longitude.desc"
+msgstr ""
+
+msgid "setting.map.default.zoom.name"
+msgstr ""
+
+msgid "setting.map.default.zoom.desc"
+msgstr ""
+
+msgid "setting.map.default.marker_component.name"
+msgstr ""
+
+msgid "setting.map.default.marker_component.desc"
+msgstr ""
+
+msgid "setting.map.default.marker_component.option.objective"
+msgstr ""
+
+msgid "setting.map.default.marker_component.option.reward"
+msgstr ""
+
+msgid "setting.map.default.cluster_limit.name"
+msgstr ""
+
+msgid "setting.map.default.cluster_limit.desc"
+msgstr ""
+
+msgid "setting.map.updates.refresh_interval.name"
+msgstr ""
+
+msgid "setting.map.updates.refresh_interval.desc"
+msgstr ""
+
+msgid "setting.map.updates.tz.name"
+msgstr ""
+
+msgid "setting.map.updates.tz.desc"
+msgstr ""
+
+msgid "setting.map.geofence.geofence.name"
+msgstr ""
+
+msgid "setting.map.geofence.geofence.desc"
+msgstr ""
+
+msgid "setting.map.geofence.hide_outside.name"
+msgstr ""
+
+msgid "setting.map.geofence.hide_outside.desc"
+msgstr ""
+
+msgid "setting.map.geofence.hide_outside.label"
+msgstr ""
+
+msgid "setting.hooks.hook_list.webhook_url.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.language.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.icons.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.icons.option.default"
+msgstr ""
+
+msgid "setting.hooks.hook_list.show_species.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.show_species.label"
+msgstr ""
+
+msgid "setting.hooks.hook_list.species.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.species.option.default"
+msgstr ""
+
+msgid "setting.hooks.hook_list.geofence.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.filter_mode.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.filter_mode.objective.option.whitelist.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.filter_mode.objective.option.blacklist.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.filter_mode.reward.option.whitelist.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.filter_mode.reward.option.blacklist.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.actions.name"
+msgstr ""
+
+msgid "setting.hooks.hook_list.actions.option.none"
+msgstr ""
+
+msgid "setting.hooks.hook_list.actions.option.enable"
+msgstr ""
+
+msgid "setting.hooks.hook_list.actions.option.disable"
+msgstr ""
+
+msgid "setting.hooks.hook_list.actions.option.delete"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.tg.groups.select.name"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.webhook_url.option.current"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.webhook_url.option.other"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.webhook_url.option.select"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.bot_token.name"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.name"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.option.txt"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.option.md"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.parse_mode.option.html"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_web_page_preview.name"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_web_page_preview.label"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_notification.name"
+msgstr ""
+
+#  Telegram specific setting
+msgid "setting.hooks.hook_list.tg.disable_notification.label"
+msgstr ""
+
+msgid "setting.hooks.add.type.name"
+msgstr ""
+
+msgid "setting.hooks.add.type.option.json"
+msgstr ""
+
+msgid "setting.hooks.add.type.option.telegram"
+msgstr ""
+
+msgid "setting.hooks.add.preset.name"
+msgstr ""
+
+msgid "setting.hooks.add.preset.option.none"
+msgstr ""
+
+msgid "setting.updates.current.name"
+msgstr ""
+
+msgid "setting.updates.current.desc"
+msgstr ""
+
+msgid "setting.updates.last_check.name"
+msgstr ""
+
+msgid "setting.updates.last_check.desc"
+msgstr ""
+
+msgid "setting.updates.next_check.name"
+msgstr ""
+
+msgid "setting.updates.next_check.desc"
+msgstr ""
+
+msgid "setting.updates.check_now.name"
+msgstr ""
+
+msgid "setting.updates.check_now.desc"
+msgstr ""
+
+msgid "setting.updates.check_now.button"
+msgstr ""
+
+msgid "setting.updates.latest.name"
+msgstr ""
+
+msgid "setting.updates.latest.desc"
+msgstr ""
+
+msgid "setting.updates.type.name"
+msgstr ""
+

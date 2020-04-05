@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/ui.po\n"
-"PO-Revision-Date: 2019-06-03 05:34\n"
+"PO-Revision-Date: 2019-06-05 22:26\n"
 
 msgid "ui.button.close"
 msgstr "關閉"

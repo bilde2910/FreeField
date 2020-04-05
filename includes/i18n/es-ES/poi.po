@@ -4,196 +4,195 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: freefield\n"
-"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Last-Translator: bilde2910 <marius@varden.info>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
 "X-Crowdin-SourceKey: msgstr\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: crowdin.com\n"
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/poi.po\n"
-"PO-Revision-Date: 2019-05-31 01:48\n"
+"PO-Revision-Date: 2020-01-22 03:04\n"
 
 #  %1 = Last updated date/time
 msgid "poi.last.time"
-msgstr ""
+msgstr "Actualizado {%1}"
 
 #  %1 = Nickname of last user to update POI
 msgid "poi.last.user"
-msgstr ""
+msgstr "Actualizado por {%1}"
 
 msgid "poi.add.title"
-msgstr ""
+msgstr "Añadir"
 
 msgid "poi.add.name"
-msgstr ""
+msgstr "Nombre"
 
 msgid "poi.add.latitude"
-msgstr ""
+msgstr "Latitud"
 
 msgid "poi.add.longitude"
-msgstr ""
+msgstr "Longitud"
 
 msgid "poi.add.submit"
-msgstr ""
+msgstr "Añadir Poképarada"
 
 msgid "poi.add.processing"
-msgstr ""
+msgstr "Añadiendo Poképarada..."
 
 #  %1 = Name of POI
 msgid "poi.add.success"
-msgstr ""
+msgstr "¡La Poképarada \"{%1}\", fue añadida correctamente!"
 
 #  %1 = Name of POI, %2 = Reason it failed
 msgid "poi.add.failed.message"
-msgstr ""
+msgstr "Error al añadir Poképarada \"{%1}\": {%2}"
 
 #  %1 = <a href="">, %2 = </a>
 msgid "poi.add.instructions"
-msgstr ""
+msgstr "Haz clic en el mapa para añadir una nueva Poképarada en esa ubicación ({%1}Cancelar{%2})"
 
 msgid "poi.move.instructions"
-msgstr ""
+msgstr "Haz clic en el mapa para seleccionar una nueva ubicación para esta Poképarada ({%1}Cancelar{%2})"
 
 msgid "poi.move.processing"
-msgstr ""
+msgstr "Moviendo Poképarada..."
 
 msgid "poi.move.success"
-msgstr ""
+msgstr "¡Poképarada reubicada exitosamente!"
 
 #  %1 = Reason it failed
 msgid "poi.move.failed.message"
-msgstr ""
+msgstr "Error al mover Poképarada: {%1}"
 
 msgid "poi.rename.prompt"
-msgstr ""
+msgstr "Escribe un nuevo nombre para la Poképarada:"
 
 msgid "poi.rename.processing"
-msgstr ""
+msgstr "Renombrando Poképarada..."
 
 msgid "poi.rename.success"
-msgstr ""
+msgstr "¡Pokeparada renombrada con éxito!"
 
 #  %1 = Reason it failed
 msgid "poi.rename.failed.message"
-msgstr ""
+msgstr "Error al renombrar Poképarada: {%1}"
 
 msgid "poi.clear.confirm"
-msgstr ""
+msgstr "¿Estás seguro que quieres borrar la misión actual de esta Poképarada?"
 
 msgid "poi.clear.processing"
-msgstr ""
+msgstr "Eliminando misión..."
 
 msgid "poi.clear.success"
-msgstr ""
+msgstr "Se eliminó con éxito la misión en esta Poképarada!"
 
 #  %1 = Reason it failed
 msgid "poi.clear.failed.message"
-msgstr ""
+msgstr "Error al borrar la misión: {%1}"
 
 msgid "poi.delete.confirm"
-msgstr ""
+msgstr "¿Estás seguro que deseas eliminar esta Poképarada del mapa?"
 
 msgid "poi.delete.processing"
-msgstr ""
+msgstr "Eliminando Poképarada..."
 
 msgid "poi.delete.success"
-msgstr ""
+msgstr "¡La Poképarada fue eliminada exitosamente!"
 
 #  %1 = Reason it failed
 msgid "poi.delete.failed.message"
-msgstr ""
+msgstr "Error al eliminar Poképarada: {%1}"
 
 msgid "poi.update.title"
-msgstr ""
+msgstr "Reportar misión"
 
 msgid "poi.update.name"
-msgstr ""
+msgstr "Nombre"
 
 msgid "poi.update.objective"
-msgstr ""
+msgstr "Objetivo"
 
 msgid "poi.update.reward"
-msgstr ""
+msgstr "Recompensa"
 
 msgid "poi.update.submit"
-msgstr ""
+msgstr "Enviar"
 
 msgid "poi.update.processing"
-msgstr ""
+msgstr "Enviando investigación..."
 
 msgid "poi.update.success"
-msgstr ""
+msgstr "¡Investigación de campo enviada con éxito!"
 
 #  %1 = Reason it failed
 msgid "poi.update.failed.message"
-msgstr ""
+msgstr "Error al enviar investigación de campo: {%1}"
 
 msgid "poi.search.placeholder"
-msgstr ""
+msgstr "Buscar Pokeparadas..."
 
 #  %1 = Distance in kilometers
 msgid "poi.search.distance"
-msgstr ""
+msgstr "{%1} km"
 
 msgid "poi.filter.title"
-msgstr ""
+msgstr "Filtrar Pokeparadas"
 
 msgid "poi.filter.mode.title"
-msgstr ""
+msgstr "Tipo de filtro:"
 
 msgid "poi.filter.mode.only"
-msgstr ""
+msgstr "Mostrar sólo Pokeparadas que coincidan con el objetivo y recompensa especificados"
 
 msgid "poi.filter.mode.except"
-msgstr ""
+msgstr "Mostrar todas las Pokeparadas excepto cualquier objetivo y recompensa especificadas"
 
 msgid "poi.filter.mode.unknown"
-msgstr ""
+msgstr "Show Pokéstops without reported research only"
 
 msgid "poi.filter.objective.title"
-msgstr ""
+msgstr "Objetivo:"
 
 msgid "poi.filter.objective.any"
-msgstr ""
+msgstr "Cualquier objetivo"
 
 msgid "poi.filter.reward.title"
-msgstr ""
+msgstr "Recompensa:"
 
 msgid "poi.filter.reward.any"
-msgstr ""
+msgstr "Cualquier recompensa"
 
 msgid "poi.filter.submit"
-msgstr ""
+msgstr "Aplicar filtro"
 
 msgid "poi.filter.reset"
-msgstr ""
+msgstr "Restablecer filtros"
 
 #  %1 = Reason it failed
 msgid "poi.list.failed.message"
-msgstr ""
+msgstr "Error al listar Pokeparadas: {%1}"
 
 #  %1 = Research objective (e.g. "Make 3 Great Throws")
 #  %2 = Research reward (e.g. "1 Max Revive")
 msgid "poi.objective_text"
-msgstr ""
+msgstr "{%1} para {%2}"
 
 msgid "poi.report_research"
-msgstr ""
+msgstr "Enviar investigación de campo"
 
 msgid "poi.move"
-msgstr ""
+msgstr "Mover"
 
 msgid "poi.rename"
-msgstr ""
+msgstr "Renombrar"
 
 msgid "poi.clear"
-msgstr ""
+msgstr "Elmiminar investigación"
 
 msgid "poi.delete"
-msgstr ""
+msgstr "Eliminar"
 
 msgid "poi.directions"
-msgstr ""
+msgstr "Cómo llegar"
 

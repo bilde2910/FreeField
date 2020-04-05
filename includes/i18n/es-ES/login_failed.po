@@ -13,18 +13,18 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/login_failed.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
+"PO-Revision-Date: 2019-10-08 21:06\n"
 
 msgid "login_failed.title"
-msgstr ""
+msgstr "Error al iniciar sesión"
 
 msgid "login_failed.default_auth_provider"
-msgstr ""
+msgstr "su proveedor de autenticación"
 
 #  %1 = Authentication provider (e.g. "Discord", "Telegram", etc.)
 msgid "login_failed.desc"
-msgstr ""
+msgstr "No se pudo autenticar con {%1}"
 
 msgid "login_failed.info"
-msgstr ""
+msgstr "Error al intentar autenticación con {%1}. ¿Desea intentarlo de nuevo?"
 

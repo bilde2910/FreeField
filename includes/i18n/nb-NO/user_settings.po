@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: nb\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/user_settings.po\n"
-"PO-Revision-Date: 2019-06-03 13:30\n"
+"PO-Revision-Date: 2019-06-05 22:24\n"
 
 msgid "user_settings.no_local_storage"
 msgstr "ADVARSEL: Lokal lagring (local storage) støttes ikke i nettleseren din! Du vil ikke kunne endre på utseendet til FreeField, og kartet vil ikke huske hvor du var sist til neste besøk. Den mest sannsynlige årsaken til dette er at du bruker en svært utdatert nettleser. Det anbefales på det sterkeste at du oppgraderer til en moderne nettleser slik at du kan ta i bruk alle FreeFields funksjoner."

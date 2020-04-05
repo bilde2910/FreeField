@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/clustering.po\n"
-"PO-Revision-Date: 2019-06-03 06:05\n"
+"PO-Revision-Date: 2019-06-05 22:26\n"
 
 #  %1 = Number of POIs hidden from map
 #  %2 = Total number of POIs that are supposed to be visible in the map view

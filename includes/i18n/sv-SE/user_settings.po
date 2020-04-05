@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: freefield\n"
+"Last-Translator: Marius Lindvall (bilde2910)\n"
+"Language-Team: Swedish\n"
+"Language: sv_SE\n"
+"X-Crowdin-SourceKey: msgstr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: freefield\n"
+"X-Crowdin-Language: sv-SE\n"
+"X-Crowdin-File: /master/includes/i18n/en-US/user_settings.po\n"
+"PO-Revision-Date: 2019-07-21 10:24\n"
+
+msgid "user_settings.no_local_storage"
+msgstr "WARNING: Local storage is not supported in your browser! You will not be able to customize your FreeField appearance, and the map will not save your last viewed location for your next visit. The most likely cause of this error is using a severely out of date web browser. It is strongly recommended that you upgrade to a modern web browser in order to enjoy the full functionality of FreeField."
+
+msgid "user_settings.reset.confirm"
+msgstr "Are you sure you want to reset all custom settings?"
+
+msgid "user_settings.value.default"
+msgstr "Default"
+
+msgid "user_settings.page.title"
+msgstr "Settings"
+
+msgid "user_settings.page.subtitle"
+msgstr "Personalize your experience"
+
+msgid "user_settings.section.account"
+msgstr "Account"
+
+msgid "user_settings.section.map_providers"
+msgstr "Map providers"
+
+msgid "user_settings.section.appearance"
+msgstr "Appearance"
+
+msgid "user_settings.section.performance"
+msgstr "Performance"
+

@@ -13,17 +13,17 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/generation.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
+"PO-Revision-Date: 2019-10-08 21:17\n"
 
 msgid "generation.1.label"
-msgstr ""
+msgstr "Generación I"
 
 msgid "generation.2.label"
-msgstr ""
+msgstr "Generación II"
 
 msgid "generation.3.label"
-msgstr ""
+msgstr "Generación III"
 
 msgid "generation.4.label"
-msgstr ""
+msgstr "Generación IV"
 

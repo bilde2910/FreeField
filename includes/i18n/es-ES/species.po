@@ -13,7 +13,7 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/species.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
+"PO-Revision-Date: 2019-06-05 22:25\n"
 
 #  Note: These should only be translated if an official translation exists for
 #  these species in the language you are translating to. E.g. in German, the

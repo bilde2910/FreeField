@@ -13,12 +13,12 @@ msgstr ""
 "X-Crowdin-Project: freefield\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/includes/i18n/en-US/theme.po\n"
-"PO-Revision-Date: 2019-06-03 13:31\n"
+"PO-Revision-Date: 2019-10-08 21:06\n"
 
 #  This string is used to display the name and author of each installed icon set
 #  in the icon set drop-down selector. Example: "John's Amazing Map Markers (by
 #  John Doe)"
 #  %1 = Name of icon set, %2 = Author of icon set
 msgid "theme.name_label"
-msgstr ""
+msgstr "{%1} (por {%2})"
 
